@@ -1,6 +1,6 @@
 import { GetStaticPropsContext } from "next"
 import { deserialize } from "./deserialize"
-import { getEntities } from "./get-entities"
+import { getEntitiesFromContext } from "./get-entities-from-context"
 import { getEntity } from "./get-entity"
 
 export async function getEntityFromContext(
@@ -20,14 +20,17 @@ export async function getEntityFromContext(
   const { prefix = "", params } = options
 
   // TODO: Replace this and getEntity with a decoupled-router + subrequests call?
-  const entities = await getEntities(entity_type, bundle)
-  const data = deserialize(entities)
+  const entities = await getEntitiesFromContext(entity_type, bundle, context)
+
+  if (!entities) {
+    return null
+  }
 
   const alias = !slug
     ? process.env.DRUPAL_FRONT_PAGE
     : `${prefix}/${(slug as string[]).join("/")}`
 
-  const entity = data.find((entity) => entity.path.alias === alias)
+  const entity = entities.find((entity) => entity.path.alias === alias)
 
   if (!entity) return null
 

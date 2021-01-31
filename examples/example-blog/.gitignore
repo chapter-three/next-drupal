@@ -34,3 +34,5 @@ lerna-debug.log*
 
 # vercel
 .vercel
+
+/certificates/*

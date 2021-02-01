@@ -1,6 +1,6 @@
 export default function FAQ({ section, ...props }) {
   return (
-    <section py="6|12|20" bg={section.field_background_color} {...props}>
+    <section py="12|20" bg={section.field_background_color} {...props}>
       <div variant="container">
         <div textAlign="center">
           {section.field_heading && (
@@ -19,7 +19,13 @@ export default function FAQ({ section, ...props }) {
           )}
         </div>
         {section.field_items && (
-          <div display="grid" mt="20" gap="20" rowGap="10" col="2">
+          <div
+            display="grid"
+            mt="10|20"
+            gap="4|6|20"
+            rowGap="4|6|10"
+            col="1|1|2"
+          >
             {section.field_items.map((card) => (
               <div key={card.id}>
                 <h4 variant="heading.h4" fontFamily="sans">

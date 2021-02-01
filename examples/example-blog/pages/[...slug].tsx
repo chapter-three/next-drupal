@@ -3,6 +3,8 @@ import {
   getEntityFromContext,
   deserialize,
 } from "next-drupal"
+import { NextSeo } from "next-seo"
+
 import { Layout } from "@/components/layout"
 
 export default function BasicPage({ page }) {
@@ -10,6 +12,7 @@ export default function BasicPage({ page }) {
 
   return (
     <Layout>
+      <NextSeo title={page.title} />
       <div variant="container.sm" py="10|12">
         <h1 variant="heading.h1">{page.title}</h1>
         {page.body && (

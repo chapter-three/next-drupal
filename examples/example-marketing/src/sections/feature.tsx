@@ -4,7 +4,7 @@ import { Links } from "@/components/links"
 
 export default function Feature({ section, ...props }) {
   return (
-    <section py="6|12|32" bg={section.field_background_color} {...props}>
+    <section py="12|32" bg={section.field_background_color} {...props}>
       <div variant="container">
         <div
           display="grid"

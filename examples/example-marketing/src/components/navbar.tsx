@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { Flex } from "reflexjs"
 import { site } from "@/config"
 import { ModeToggle } from "./mode-toggle"
 import { NavbarLink } from "./navbar-link"
@@ -39,11 +38,18 @@ export function Navbar({ ...props }) {
             </a>
           </Link>
         </div>
-        <div display="flex" flex="1" justifyContent="center">
+        <div
+          display="flex"
+          alignItems="center"
+          flex="1"
+          justifyContent="center"
+          w="100%|auto"
+          mt="4|0"
+        >
           <div
             display="inline-grid"
             col={`repeat(${site.links.length}, minmax(0,auto))`}
-            gap="12"
+            gap="6|12"
           >
             {site.links.map((link) => (
               <NavbarLink key={link.url} href={link.url}>
@@ -52,7 +58,14 @@ export function Navbar({ ...props }) {
             ))}
           </div>
         </div>
-        <div w="40" display="flex" justifyContent="flex-end">
+        <div
+          w="40"
+          display="flex"
+          justifyContent="flex-end"
+          position="absolute|static"
+          top="6"
+          right="4"
+        >
           <ModeToggle ml="4" />
         </div>
       </div>

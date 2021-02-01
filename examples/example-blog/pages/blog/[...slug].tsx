@@ -5,16 +5,18 @@ import {
 } from "next-drupal"
 import Image from "next/image"
 import Link from "next/link"
+import { Icon } from "reflexjs"
+import { NextSeo } from "next-seo"
 
 import { Layout } from "@/components/layout"
 import { PostMeta } from "@/components/post-meta"
-import { Icon } from "reflexjs"
 
 export default function BlogPostPage({ post }) {
   if (!post) return null
 
   return (
     <Layout>
+      <NextSeo title={post.title} />
       <div variant="container.sm" py="4|10|12">
         <article>
           <h1 variant="heading.title">{post.title}</h1>

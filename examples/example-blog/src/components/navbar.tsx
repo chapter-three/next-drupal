@@ -38,6 +38,7 @@ export function Navbar({ ...props }) {
         </Link>
         <div
           display="flex"
+          alignItems="center"
           w="100%"
           justifyContent="space-between|flex-end"
           ml="0|auto"

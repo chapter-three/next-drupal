@@ -1,10 +1,13 @@
-import { deserialize, getEntitiesFromContext } from "next-drupal"
+import { getEntitiesFromContext } from "next-drupal"
+import { NextSeo } from "next-seo"
+
 import { Layout } from "@/components/layout"
 import { PostTeaser } from "@/components/post-teaser"
 
 export default function IndexPage({ articles }) {
   return (
     <Layout>
+      <NextSeo title="Blog" />
       <div variant="container.sm" py="10|12">
         <h1 variant="heading.h1">Latest Articles.</h1>
         {articles?.length ? (
@@ -23,6 +26,7 @@ export async function getStaticProps(context) {
   const articles = await getEntitiesFromContext("node", "article", context, {
     params: {
       include: "field_image, uid",
+      sort: "-created",
     },
   })
 

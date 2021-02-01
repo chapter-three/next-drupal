@@ -4,17 +4,17 @@ import {
   deserialize,
 } from "next-drupal"
 import Image from "next/image"
-import Link from "next/link"
+import { NextSeo } from "next-seo"
 
 import { Layout } from "@/components/layout"
 import { PostMeta } from "@/components/post-meta"
-import { Icon } from "reflexjs"
 
 export default function BlogPostPage({ post }) {
   if (!post) return null
 
   return (
     <Layout>
+      <NextSeo title={post.title} />
       <div variant="container" py="4">
         <article>
           <div display="flex" flexDirection="column">

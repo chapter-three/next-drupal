@@ -3,7 +3,7 @@ import Image from "next/image"
 
 export default function Hero({ section, ...props }) {
   return (
-    <section pt="6|12|20" borderBottomWidth="1" {...props}>
+    <section pt="12|20" borderBottomWidth="1" {...props}>
       <div variant="container">
         <div textAlign="center">
           {section.field_heading && (

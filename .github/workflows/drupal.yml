@@ -32,7 +32,9 @@ jobs:
           tools: composer:v1
       - name: Get composer cache directory
         id: composercache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: |
+          cd modules/next
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
       - uses: actions/cache@v2
         with:
           path: ${{ steps.composercache.outputs.dir }}

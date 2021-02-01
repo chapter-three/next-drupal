@@ -12,7 +12,8 @@
     "watch": "lerna run watch",
     "lint": "eslint --cache --ext .js,.jsx .",
     "phpcs": "./examples/drupal-site/vendor/bin/phpcs -s -n --colors --standard=modules/next/phpcs.xml.dist modules/next",
-    "sync:drupal": "./scripts/sync-drupal.sh \"modules/*\""
+    "sync:modules": "./scripts/sync-modules.sh \"modules/*\"",
+    "sync:examples":"./scripts/sync-examples.sh \"examples/example-*\""
   },
   "husky": {
     "hooks": {

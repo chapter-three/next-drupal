@@ -2,7 +2,11 @@
 
 namespace Drupal\next\Plugin\Next\SitePreviewer;
 
+use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityPublishedInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -37,6 +41,20 @@ class Iframe extends ConfigurableSitePreviewerBase implements ContainerFactoryPl
   protected $formBuilder;
 
   /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * The date formatter.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatterInterface
+   */
+  protected $dateFormatter;
+
+  /**
    * Iframe constructor.
    *
    * @param array $configuration
@@ -49,11 +67,17 @@ class Iframe extends ConfigurableSitePreviewerBase implements ContainerFactoryPl
    *   The current request.
    * @param \Drupal\Core\Form\FormBuilderInterface $form_builder
    *   The form builder.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   * @param \Drupal\Core\Datetime\DateFormatterInterface $date_formatter
+   *   The date formatter.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, Request $request, FormBuilderInterface $form_builder) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, Request $request, FormBuilderInterface $form_builder, EntityTypeManagerInterface $entity_type_manager, DateFormatterInterface $date_formatter) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->request = $request;
     $this->formBuilder = $form_builder;
+    $this->entityTypeManager = $entity_type_manager;
+    $this->dateFormatter = $date_formatter;
   }
 
   /**
@@ -65,7 +89,9 @@ class Iframe extends ConfigurableSitePreviewerBase implements ContainerFactoryPl
       $plugin_id,
       $plugin_definition,
       $container->get('request_stack')->getCurrentRequest(),
-      $container->get('form_builder')
+      $container->get('form_builder'),
+      $container->get('entity_type.manager'),
+      $container->get('date.formatter')
     );
   }
 
@@ -102,6 +128,67 @@ class Iframe extends ConfigurableSitePreviewerBase implements ContainerFactoryPl
 
     if (count($sites) > 1) {
       $build['form'] = $this->formBuilder->getForm(IframeSitePreviewerSwitcherForm::class, $entity, $sites, $site->id());
+    }
+
+    $build['toolbar'] = [
+      '#prefix' => '<div class="next-site-preview-toolbar">',
+      '#suffix' => '</div>',
+      'info' => [
+        '#type' => 'inline_template',
+        '#template' => '<p class="heading-f">{{title}} ({{ bundle }})</p>',
+        '#context' => [
+          'bundle' => $entity->bundle(),
+          'title' => $entity->label(),
+        ],
+      ],
+      'links' => [
+        '#theme' => 'links',
+        '#links' => [],
+        '#attributes' => [
+          'class' => ['operations', 'clearfix'],
+        ],
+      ],
+    ];
+
+    if ($entity instanceof EntityPublishedInterface) {
+      $build['toolbar']['links']['#links']['status'] = [
+        'title' => $entity->isPublished() ? $this->t('Published') : $this->t('Unpublished'),
+        'attributes' => [
+          'class' => [
+            $entity->isPublished() ? 'published' : '',
+          ],
+        ]
+      ];
+
+      if ($live_url = $site->getLiveUrlForEntity($entity)) {
+        $build['toolbar']['links']['#links']['live_link'] = [
+          'title' => $this->t('View on @label', [
+            '@label' => $site->label(),
+          ]),
+          'url' => $live_url,
+          'attributes' => [
+            'class' => [
+              'button'
+            ],
+            'target' => '_blank',
+            'rel' => 'nofollow',
+          ],
+        ];
+      }
+    }
+
+    // Handle revisions.
+    if ($entity instanceof RevisionableInterface && !$entity->isDefaultRevision()) {
+      /** @var \Drupal\Core\Entity\RevisionableInterface $revision */
+      $revision = $this->entityTypeManager->getStorage($entity->getEntityTypeId())->loadRevision($entity->getRevisionId());
+
+      $build['toolbar']['links']['#links']['status'] = [
+        'title' => $this->t('Revision: @date', [
+          '@date' => $this->dateFormatter->format($revision->revision_timestamp->value, 'short'),
+        ]),
+        'attributes' => [],
+      ];
+      unset($build['toolbar']['links']['#links']['live_link']);
     }
 
     $build['iframe'] = [

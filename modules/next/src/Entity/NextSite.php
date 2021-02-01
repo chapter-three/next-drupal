@@ -4,6 +4,8 @@ namespace Drupal\next\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityPublishedInterface;
+use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Url;
 
 /**
@@ -138,6 +140,18 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
     return Url::fromUri($this->preview_url, [
       'query' => $query,
     ]);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLiveUrlForEntity(EntityInterface $entity): ?Url {
+    // Check if entity is published.
+    if ($entity instanceof EntityPublishedInterface && !$entity->isPublished()) {
+      return NULL;
+    }
+
+    return Url::fromUri("{$this->base_url}{$entity->toUrl()->toString()}");
   }
 
 }

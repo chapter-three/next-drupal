@@ -1,3 +1,38 @@
+.next-site-preview-toolbar {
+  border: 1px solid #bfbfbf;
+  border-radius: 3px;
+  background-color: #fcfcfa;
+  padding: 0.5em 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+
+.next-site-preview-toolbar .operations {
+  display: flex;
+  align-items: center;
+  list-style: none outside none;
+}
+
+.next-site-preview-toolbar .operations li {
+  margin-left: 1em;
+}
+
+.next-site-preview-toolbar .operations .status span {
+  padding: 4px 1.5em;
+  border-radius: 20em;
+  border: 1px solid #f9c9bf;
+  background-color: #fcf4f2;
+  color: #a51b00;
+}
+
+.next-site-preview-toolbar .operations .status span.published {
+  border-color: #c9e1bd;
+  background-color: #f3faef;
+  color: #325e1c;
+}
+
 .next-site-preview-container {
   display: flex;
   height: 75vh;

@@ -10,7 +10,8 @@
     "start": "lerna run start --parallel",
     "prepare": "lerna run prepare",
     "watch": "lerna run watch",
-    "lint": "eslint --cache --ext .js,.jsx ."
+    "lint": "eslint --cache --ext .js,.jsx .",
+    "sync:drupal": "./scripts/sync-drupal.sh \"modules/*\""
   },
   "husky": {
     "hooks": {

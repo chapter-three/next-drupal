@@ -2,6 +2,8 @@
 
 Next.js + Drupal for Incremental Static Regeneration and Preview mode.
 
+![Drupal](https://github.com/arshad/next-drupal/workflows/Drupal/badge.svg)
+
 ## How to run the demo
 
 1. Copy the `.env.example` to `.env.local`:

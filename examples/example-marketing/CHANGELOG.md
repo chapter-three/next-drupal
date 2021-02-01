@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/arshad/next-drupal/compare/example-marketing@0.1.1...example-marketing@0.2.0) (2021-02-01)
+
+
+### Bug Fixes
+
+* make image domain configurable via env ([9b66159](https://github.com/arshad/next-drupal/commit/9b66159561a5e0bf17b4e73c4cde318e06fe938d))
+* update examples ([e70ed45](https://github.com/arshad/next-drupal/commit/e70ed459294cb8945f42d04cf7bd20a54ab9fe77))
+
+
+### Features
+
+* implement filter by entity reference ([eeade94](https://github.com/arshad/next-drupal/commit/eeade9485caaff587735d5d8211a86a88ca8847f))
+
+
+
+
+
 ## [0.1.1](https://github.com/arshad/next-drupal/compare/example-marketing@0.1.0...example-marketing@0.1.1) (2021-02-01)
 
 

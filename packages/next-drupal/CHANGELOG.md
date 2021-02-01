@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.1.1...next-drupal@0.2.0) (2021-02-01)
+
+
+### Features
+
+* implement filter by entity reference ([eeade94](https://github.com/arshad/next-drupal/commit/eeade9485caaff587735d5d8211a86a88ca8847f))
+
+
+
+
+
 ## [0.1.1](https://github.com/arshad/next-drupal/compare/next-drupal@0.1.0...next-drupal@0.1.1) (2021-02-01)
 
 

@@ -8,13 +8,9 @@ Next.js + Drupal for Incremental Static Regeneration and Preview mode.
 
 1. Install dependencies
 
-`yarn && composer install -d=./examples/drupal-site`
+`yarn && composer install -d ./examples/drupal-site`
 
-2. Copy configuration files:
-
-```
-cp examples/drupal-site/web/sites/default/example.settings.local.php examples/drupal-site/web/sites/default/settings.local.php
-```
+2. Copy `.env.example` to `.env.local`:
 
 ```
 cp examples/example-blog/.env.example examples/example-blog/.env.local

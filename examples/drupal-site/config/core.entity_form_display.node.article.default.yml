@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.article.body
     - field.field.node.article.comment
     - field.field.node.article.field_image
+    - field.field.node.article.field_site
     - field.field.node.article.field_tags
     - image.style.thumbnail
     - node.type.article
@@ -23,7 +24,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 1
+    weight: 2
     region: content
     settings:
       rows: 9
@@ -33,13 +34,13 @@ content:
     third_party_settings: {}
   comment:
     type: comment_default
-    weight: 20
+    weight: 9
     region: content
     settings: {}
     third_party_settings: {}
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: 6
     region: content
     settings: {}
     third_party_settings: {}
@@ -51,6 +52,12 @@ content:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {}
+  field_site:
+    weight: 1
+    settings: {}
+    third_party_settings: {}
+    type: options_buttons
+    region: content
   field_tags:
     type: entity_reference_autocomplete_tags
     weight: 3
@@ -63,7 +70,7 @@ content:
     third_party_settings: {}
   path:
     type: path
-    weight: 30
+    weight: 10
     region: content
     settings: {}
     third_party_settings: {}
@@ -71,21 +78,21 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 15
+    weight: 7
     region: content
     third_party_settings: {}
   status:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 120
+    weight: 11
     region: content
     third_party_settings: {}
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 16
+    weight: 8
     region: content
     third_party_settings: {}
   title:

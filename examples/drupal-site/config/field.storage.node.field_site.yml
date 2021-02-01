@@ -1,0 +1,20 @@
+uuid: debf1dae-22a8-4c31-bcb9-d99616336601
+langcode: en
+status: true
+dependencies:
+  module:
+    - next
+    - node
+id: node.field_site
+field_name: field_site
+entity_type: node
+type: entity_reference
+settings:
+  target_type: next_site
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {}
+persist_with_no_fields: false
+custom_storage: false

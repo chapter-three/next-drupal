@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.article.body
     - field.field.node.article.comment
     - field.field.node.article.field_image
+    - field.field.node.article.field_site
     - field.field.node.article.field_tags
     - node.type.article
   module:
@@ -25,4 +26,5 @@ hidden:
   body: true
   comment: true
   field_image: true
+  field_site: true
   field_tags: true

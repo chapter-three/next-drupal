@@ -1,0 +1,23 @@
+uuid: 77d6df0f-13dd-4997-84f4-03e47d0d971c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_site
+    - node.type.article
+id: node.article.field_site
+field_name: field_site
+entity_type: node
+bundle: article
+label: Site
+description: ""
+required: true
+translatable: false
+default_value: {}
+default_value_callback: ""
+settings:
+  handler: "default:next_site"
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: entity_reference

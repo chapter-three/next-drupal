@@ -9,8 +9,11 @@ export async function getEntityFromContext(
   context: GetStaticPropsContext,
   options: {
     prefix?: string
+    deserialize?: boolean
     params?: {}
-  } = {}
+  } = {
+    deserialize: false,
+  }
 ) {
   const {
     previewData = {},
@@ -20,9 +23,12 @@ export async function getEntityFromContext(
   const { prefix = "", params } = options
 
   // TODO: Replace this and getEntity with a decoupled-router + subrequests call?
-  const entities = await getEntitiesFromContext(entity_type, bundle, context)
+  const entities = await getEntitiesFromContext(entity_type, bundle, context, {
+    ...options,
+    deserialize: false,
+  })
 
-  if (!entities) {
+  if (!entities?.data?.length) {
     return null
   }
 
@@ -30,9 +36,19 @@ export async function getEntityFromContext(
     ? process.env.DRUPAL_FRONT_PAGE
     : `${prefix}/${(slug as string[]).join("/")}`
 
-  const entity = entities.find((entity) => entity.path.alias === alias)
+  // Find the entity based on the slug.
+  const _entity = entities.data.find(
+    (entity) => entity.attributes.path.alias === alias
+  )
+
+  if (!_entity) return null
+
+  const entity = await getEntity(entity_type, bundle, _entity.id, {
+    resourceVersion,
+    params,
+  })
 
   if (!entity) return null
 
-  return getEntity(entity_type, bundle, entity.id, { resourceVersion, params })
+  return options.deserialize ? deserialize(entity) : entity
 }

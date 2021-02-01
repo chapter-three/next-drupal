@@ -6,10 +6,19 @@ import { PostMeta } from "@/components/post-meta"
 
 export function PostTeaser({ post, ...props }) {
   return (
-    <article {...props}>
-      <hr my="12|16" />
-      <PostMeta post={post} fontSize="sm" />
-      <h2 variant="heading.h2" my="4">
+    <article mt="10" {...props}>
+      {post.field_image?.uri && (
+        <div my="4">
+          <Image
+            src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${post.field_image.uri.url}`}
+            width="800"
+            height="450"
+            layout="intrinsic"
+            objectFit="cover"
+          />
+        </div>
+      )}
+      <h2 variant="heading.h3" my="4">
         <Link href={post.path.alias} passHref>
           <a
             color="heading"
@@ -22,17 +31,7 @@ export function PostTeaser({ post, ...props }) {
           </a>
         </Link>
       </h2>
-      {post.field_image?.uri && (
-        <div>
-          <Image
-            src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${post.field_image.uri.url}`}
-            width="800"
-            height="450"
-            layout="intrinsic"
-            objectFit="cover"
-          />
-        </div>
-      )}
+      <PostMeta post={post} fontSize="sm" />
       {post.body?.summary ? (
         <p variant="text.paragraph" mt="4">
           {post.body.summary}

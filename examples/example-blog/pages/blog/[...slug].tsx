@@ -75,7 +75,10 @@ export default function BlogPostPage({ post }) {
 }
 
 export async function getStaticPaths() {
-  const paths = await getPathsForEntityType("node", "article")
+  const paths = await getPathsForEntityType("node", "article", {
+    filter: (entity) =>
+      entity.field_site?.some(({ id }) => id === process.env.DRUPAL_SITE_ID),
+  })
 
   return {
     paths,
@@ -89,9 +92,13 @@ export async function getStaticProps(context) {
     params: {
       include: "field_image, uid",
     },
+    deserialize: true,
   })
 
-  if (!entity) {
+  if (
+    !entity ||
+    !entity.field_site?.some(({ id }) => id === process.env.DRUPAL_SITE_ID)
+  ) {
     return {
       notFound: true,
     }
@@ -99,7 +106,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      post: deserialize(entity),
+      post: entity,
     },
     revalidate: 1,
   }

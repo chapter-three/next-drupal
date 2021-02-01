@@ -16,6 +16,7 @@ class NextSiteListBuilder extends ConfigEntityListBuilder {
    * {@inheritdoc}
    */
   public function buildHeader() {
+    $header['id'] = $this->t('ID');
     $header['label'] = $this->t('Label');
     $header['base_url'] = $this->t('Base URL');
     $header['preview_secret'] = $this->t('Preview secret');
@@ -27,6 +28,7 @@ class NextSiteListBuilder extends ConfigEntityListBuilder {
    */
   public function buildRow(EntityInterface $entity) {
     /** @var \Drupal\next\Entity\NextSiteInterface $entity */
+    $row['id'] = $entity->uuid();
     $row['label'] = $entity->label();
     $row['base_url'] = $entity->getBaseUrl();
     $row['preview_secret'] = $entity->getPreviewSecret();

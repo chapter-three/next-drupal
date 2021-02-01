@@ -1,7 +1,6 @@
 import { GetStaticPropsContext } from "next"
 import { deserialize } from "./deserialize"
 import { getEntities } from "./get-entities"
-import { getEntity } from "./get-entity"
 
 export async function getEntitiesFromContext(
   entity_type: string,
@@ -9,8 +8,11 @@ export async function getEntitiesFromContext(
   context: GetStaticPropsContext,
   options: {
     prefix?: string
+    deserialize?: boolean
     params?: {}
-  } = {}
+  } = {
+    deserialize: false,
+  }
 ) {
   // Filter out unpublished entities.
   if (!context.preview) {
@@ -22,7 +24,7 @@ export async function getEntitiesFromContext(
 
   const entities = await getEntities(entity_type, bundle, options)
 
-  if (!entities) return null
+  if (!entities?.data?.length) return null
 
-  return deserialize(entities)
+  return options.deserialize ? deserialize(entities) : entities
 }

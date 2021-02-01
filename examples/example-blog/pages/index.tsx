@@ -1,5 +1,5 @@
-import { getEntitiesFromContext } from "next-drupal"
 import { NextSeo } from "next-seo"
+import { getEntitiesFromContext } from "next-drupal"
 
 import { Layout } from "@/components/layout"
 import { PostTeaser } from "@/components/post-teaser"
@@ -23,12 +23,18 @@ export default function IndexPage({ articles }) {
 }
 
 export async function getStaticProps(context) {
-  const articles = await getEntitiesFromContext("node", "article", context, {
+  let articles = await getEntitiesFromContext("node", "article", context, {
     params: {
       include: "field_image, uid",
       sort: "-created",
     },
+    deserialize: true,
   })
+
+  // Filter articles for current site.
+  articles = articles.filter((article) =>
+    article.field_site.some(({ id }) => id === process.env.DRUPAL_SITE_ID)
+  )
 
   return {
     props: {

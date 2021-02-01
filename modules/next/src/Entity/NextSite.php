@@ -48,6 +48,7 @@ use Drupal\Core\Url;
  *     "preview_secret",
  *   },
  *   links = {
+ *     "canonical" = "/admin/config/services/next/sites/{next_site}",
  *     "add-form" = "/admin/config/services/next/sites/add",
  *     "edit-form" = "/admin/config/services/next/sites/{next_site}/edit",
  *     "delete-form" = "/admin/config/services/next/sites/{next_site}/delete",

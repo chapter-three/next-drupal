@@ -1,0 +1,48 @@
+uuid: 3f04aef9-402d-43a2-ac65-6d70c5fb6698
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.faq.field_heading
+    - field.field.paragraph.faq.field_items
+    - field.field.paragraph.faq.field_text
+    - paragraphs.paragraphs_type.faq
+  module:
+    - paragraphs
+    - text
+id: paragraph.faq.default
+targetEntityType: paragraph
+bundle: faq
+mode: default
+content:
+  field_heading:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ""
+    third_party_settings: {}
+    type: string_textfield
+    region: content
+  field_items:
+    weight: 2
+    settings:
+      title: Question
+      title_plural: Questions
+      edit_mode: closed
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings: {}
+    type: entity_reference_paragraphs
+    region: content
+  field_text:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ""
+    third_party_settings: {}
+    type: text_textarea
+    region: content
+hidden:
+  created: true
+  status: true

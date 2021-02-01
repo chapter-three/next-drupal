@@ -1,0 +1,18 @@
+uuid: 474550b3-aee0-4a2f-9e90-59d85c2b9007
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: "main:"
+name: "Landing page"
+type: landing_page
+description: "Use this content type to create a landing page with sections."
+help: ""
+new_revision: true
+preview_mode: 0
+display_submitted: false

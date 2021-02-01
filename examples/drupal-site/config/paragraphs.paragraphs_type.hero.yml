@@ -1,0 +1,15 @@
+uuid: e657a867-2162-4e94-a9e8-e5d016126bce
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs_library
+third_party_settings:
+  paragraphs_library:
+    allow_library_conversion: true
+id: hero
+label: Hero
+icon_uuid: null
+icon_default: null
+description: "Use this paragraph type to add a hero section."
+behavior_plugins: {}

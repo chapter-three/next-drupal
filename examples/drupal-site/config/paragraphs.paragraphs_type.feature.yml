@@ -1,0 +1,15 @@
+uuid: 4327327a-58bb-4d29-af86-91717bd9b9f3
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs_library
+third_party_settings:
+  paragraphs_library:
+    allow_library_conversion: true
+id: feature
+label: Feature
+icon_uuid: null
+icon_default: null
+description: "Use this section type to add a feature with image and text."
+behavior_plugins: {}

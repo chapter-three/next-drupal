@@ -1,0 +1,10 @@
+entity.next_site.add_form:
+  route_name: entity.next_site.add_form
+  title: "Add Next.js site"
+  appears_on:
+    - entity.next_site.collection
+entity.next_entity_type_config.add_form:
+  route_name: entity.next_entity_type_config.add_form
+  title: "Configure entity type"
+  appears_on:
+    - entity.next_entity_type_config.collection

@@ -1,0 +1,15 @@
+uuid: ac89aab1-9304-4766-a65e-bf972209188c
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs_library
+third_party_settings:
+  paragraphs_library:
+    allow_library_conversion: true
+id: faq
+label: FAQ
+icon_uuid: null
+icon_default: null
+description: ""
+behavior_plugins: {}

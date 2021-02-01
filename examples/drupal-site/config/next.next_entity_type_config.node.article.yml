@@ -1,0 +1,10 @@
+uuid: b68acafa-8572-44c4-ab72-6d53b86eaf2e
+langcode: en
+status: true
+dependencies: {}
+id: node.article
+site_resolver: site_selector
+configuration:
+  sites:
+    example_blog: example_blog
+    example_marketing: example_marketing

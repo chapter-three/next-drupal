@@ -1,0 +1,12 @@
+uuid: f64766d1-4bb5-4d96-93c9-6f8e66868450
+langcode: en
+status: true
+dependencies: {}
+id: next_site_previewer
+label: "Next site previewer"
+weight: -8
+is_admin: null
+permissions:
+  - "access user profiles"
+  - "bypass node access"
+  - "view all revisions"

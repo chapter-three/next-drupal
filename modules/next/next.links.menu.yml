@@ -1,0 +1,26 @@
+next.next_site.collection:
+  title: "Next.js"
+  description: "Configure Next.js sites and entity types preview."
+  parent: system.admin_config_services
+  route_name: entity.next_site.collection
+
+next.next_site.collection.sites:
+  title: "Sites"
+  description: "Administer Next.js sites"
+  parent: next.next_site.collection
+  route_name: entity.next_site.collection
+  weight: 0
+
+next.next_entity_type_config.collection:
+  title: "Entity Types"
+  description: "Configure entity types for Next.js sites"
+  parent: next.next_site.collection
+  route_name: entity.next_entity_type_config.collection
+  weight: 10
+
+next.settings:
+  title: "Settings"
+  description: "Configure Next.js"
+  parent: next.next_site.collection
+  route_name: next.settings
+  weight: 20

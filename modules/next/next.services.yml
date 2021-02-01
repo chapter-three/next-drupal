@@ -1,0 +1,28 @@
+services:
+  plugin.manager.next.site_resolver:
+    class: Drupal\next\Plugin\SiteResolverManager
+    parent: default_plugin_manager
+  plugin.manager.next.site_previewer:
+    class: Drupal\next\Plugin\SitePreviewerManager
+    parent: default_plugin_manager
+  next.entity_type.manager:
+    class: Drupal\next\NextEntityTypeManager
+    arguments: ["@entity_type.manager"]
+  main_content_renderer.html:
+    class: Drupal\next\Render\MainContent\HtmlRenderer
+    arguments:
+      [
+        "@title_resolver",
+        "@plugin.manager.display_variant",
+        "@event_dispatcher",
+        "@module_handler",
+        "@renderer",
+        "@render_cache",
+        "%renderer.config%",
+        "@config.factory",
+        "@next.entity_type.manager",
+        "@plugin.manager.next.site_previewer",
+        "@theme.manager",
+      ]
+    tags:
+      - { name: render.main_content_renderer, format: html }

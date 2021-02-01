@@ -1,0 +1,20 @@
+next.next_site.collection:
+  title: "Sites"
+  description: "Administer Next.js sites"
+  route_name: entity.next_site.collection
+  base_route: next.settings
+  weight: 0
+
+next.next_entity_type_config.collection:
+  title: "Entity Types"
+  description: "Configure entity types for Next.js sites"
+  route_name: entity.next_entity_type_config.collection
+  base_route: next.settings
+  weight: 10
+
+next.settings:
+  title: "Settings"
+  description: "Configure Next.js"
+  route_name: next.settings
+  base_route: next.settings
+  weight: 20

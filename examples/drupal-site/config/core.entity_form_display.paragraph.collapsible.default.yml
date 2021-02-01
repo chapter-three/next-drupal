@@ -1,0 +1,34 @@
+uuid: d77d819f-d1c4-46f2-b650-e78600e18022
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.collapsible.field_heading
+    - field.field.paragraph.collapsible.field_text
+    - paragraphs.paragraphs_type.collapsible
+  module:
+    - text
+id: paragraph.collapsible.default
+targetEntityType: paragraph
+bundle: collapsible
+mode: default
+content:
+  field_heading:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ""
+    third_party_settings: {}
+    type: string_textfield
+    region: content
+  field_text:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ""
+    third_party_settings: {}
+    type: text_textarea
+    region: content
+hidden:
+  created: true
+  status: true

@@ -1,0 +1,66 @@
+next.next_site.*:
+  type: config_entity
+  label: "Next.js site"
+  mapping:
+    id:
+      type: string
+      label: "ID"
+    label:
+      type: label
+      label: "Label"
+    base_url:
+      type: string
+      label: "Base URL"
+    preview_url:
+      type: string
+      label: "Preview URL"
+    preview_secret:
+      type: string
+      label: "Preview secret"
+
+next.next_entity_type_config.*:
+  type: config_entity
+  label: "Next.js entity type config"
+  mapping:
+    id:
+      type: string
+      label: "ID"
+    site_resolver:
+      type: string
+      label: "Site resolver"
+    configuration:
+      type: next.site_resolver.configuration.[%parent.site_resolver]
+
+next.site_resolver.configuration.site_selector:
+  type: mapping
+  mapping:
+    sites:
+      type: sequence
+      label: "Next.js sites"
+      sequence:
+        type: string
+        label: "Site"
+
+next.site_resolver.configuration.entity_reference_field:
+  type: mapping
+  mapping:
+    field_name:
+      type: string
+      label: "Field name"
+
+next.settings:
+  type: config_object
+  label: "Next settings"
+  mapping:
+    site_previewer:
+      type: string
+      label: "Site previewer"
+    site_previewer_configuration:
+      type: next.site_previewer.configuration.[%parent.site_previewer]
+
+next.site_previewer.configuration.iframe:
+  type: mapping
+  mapping:
+    width:
+      type: string
+      label: "Width"

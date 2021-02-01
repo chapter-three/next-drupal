@@ -1,0 +1,49 @@
+uuid: f4003b5d-ec8a-4e16-b510-957b96b55f79
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_items
+    - paragraphs.paragraphs_type.collapsible
+    - paragraphs.paragraphs_type.faq
+  module:
+    - entity_reference_revisions
+id: paragraph.faq.field_items
+field_name: field_items
+entity_type: paragraph
+bundle: faq
+label: Questions
+description: ""
+required: false
+translatable: true
+default_value: {}
+default_value_callback: ""
+settings:
+  handler: "default:paragraph"
+  handler_settings:
+    negate: 0
+    target_bundles:
+      collapsible: collapsible
+    target_bundles_drag_drop:
+      card:
+        weight: -14
+        enabled: false
+      cards:
+        weight: -13
+        enabled: false
+      collapsible:
+        enabled: true
+        weight: -15
+      faq:
+        weight: -12
+        enabled: false
+      feature:
+        weight: -11
+        enabled: false
+      from_library:
+        weight: -10
+        enabled: false
+      hero:
+        weight: -9
+        enabled: false
+field_type: entity_reference_revisions

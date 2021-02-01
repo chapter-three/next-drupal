@@ -1,0 +1,57 @@
+uuid: 4ab35761-7504-4458-8978-acebc4c6ec9e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_sections
+    - node.type.landing_page
+    - paragraphs.paragraphs_type.cards
+    - paragraphs.paragraphs_type.faq
+    - paragraphs.paragraphs_type.feature
+    - paragraphs.paragraphs_type.from_library
+    - paragraphs.paragraphs_type.hero
+  module:
+    - entity_reference_revisions
+id: node.landing_page.field_sections
+field_name: field_sections
+entity_type: node
+bundle: landing_page
+label: Sections
+description: ""
+required: false
+translatable: false
+default_value: {}
+default_value_callback: ""
+settings:
+  handler: "default:paragraph"
+  handler_settings:
+    negate: 0
+    target_bundles:
+      hero: hero
+      feature: feature
+      cards: cards
+      faq: faq
+      from_library: from_library
+    target_bundles_drag_drop:
+      card:
+        weight: -11
+        enabled: false
+      cards:
+        enabled: true
+        weight: -13
+      collapsible:
+        weight: -10
+        enabled: false
+      faq:
+        enabled: true
+        weight: -12
+      feature:
+        enabled: true
+        weight: -14
+      from_library:
+        enabled: true
+        weight: -9
+      hero:
+        enabled: true
+        weight: -15
+field_type: entity_reference_revisions

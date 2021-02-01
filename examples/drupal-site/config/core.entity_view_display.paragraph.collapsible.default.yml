@@ -1,0 +1,31 @@
+uuid: 4484f53e-cbd2-4a0a-8259-f62ffbb3c7fe
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.collapsible.field_heading
+    - field.field.paragraph.collapsible.field_text
+    - paragraphs.paragraphs_type.collapsible
+  module:
+    - text
+id: paragraph.collapsible.default
+targetEntityType: paragraph
+bundle: collapsible
+mode: default
+content:
+  field_heading:
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {}
+    type: string
+    region: content
+  field_text:
+    weight: 1
+    label: above
+    settings: {}
+    third_party_settings: {}
+    type: text_default
+    region: content
+hidden: {}

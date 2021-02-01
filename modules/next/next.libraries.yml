@@ -1,0 +1,5 @@
+site_preview.iframe:
+  version: VERSION
+  css:
+    theme:
+      css/next.site_preview.iframe.css: {}

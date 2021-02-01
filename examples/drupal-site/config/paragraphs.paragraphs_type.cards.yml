@@ -1,0 +1,15 @@
+uuid: 0e549a44-722f-44df-8009-c8d323f0cf86
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs_library
+third_party_settings:
+  paragraphs_library:
+    allow_library_conversion: true
+id: cards
+label: Cards
+icon_uuid: null
+icon_default: null
+description: ""
+behavior_plugins: {}

@@ -1,0 +1,22 @@
+uuid: ff52e67c-ef1b-41ad-b27a-27ea1c8a5138
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_media_position
+    - paragraphs.paragraphs_type.feature
+  module:
+    - options
+id: paragraph.feature.field_media_position
+field_name: field_media_position
+entity_type: paragraph
+bundle: feature
+label: "Media position"
+description: ""
+required: true
+translatable: false
+default_value:
+  - value: left
+default_value_callback: ""
+settings: {}
+field_type: list_string

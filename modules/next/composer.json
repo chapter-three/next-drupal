@@ -1,0 +1,16 @@
+{
+  "name": "drupal/next",
+  "description": "Next.js + Drupal for Incremental Static Regeneration and Preview mode.",
+  "type": "drupal-module",
+  "homepage": "http://drupal.org/project/next",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Arshad Chummun",
+      "homepage": "https://arshadcn.com"
+    }
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "^6.0 || ^7.0"
+  }
+}

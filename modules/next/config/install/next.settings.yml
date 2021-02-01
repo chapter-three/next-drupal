@@ -1,0 +1,4 @@
+langcode: en
+site_previewer: iframe
+site_previewer_configuration:
+  width: 100%

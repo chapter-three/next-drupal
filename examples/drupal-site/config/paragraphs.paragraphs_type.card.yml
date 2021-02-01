@@ -1,0 +1,15 @@
+uuid: ac294114-f22a-4f98-8a4e-ed7eaf580ec7
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs_library
+third_party_settings:
+  paragraphs_library:
+    allow_library_conversion: true
+id: card
+label: Card
+icon_uuid: null
+icon_default: null
+description: "Use this paragraph type to create a card with heading and text."
+behavior_plugins: {}

@@ -1,0 +1,9 @@
+{
+  "name": "drupal-site",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "dev": "drush rs 8080"
+  }
+}

@@ -7,12 +7,12 @@ export default function IndexPage({ articles }) {
     <Layout>
       <div variant="container.sm" py="10|12">
         <h1 variant="heading.h1">Latest Articles.</h1>
-        {articles.length ? (
+        {articles?.length ? (
           articles.map((article) => (
             <PostTeaser key={article.id} post={article} />
           ))
         ) : (
-          <p textAlign="center">No posts found</p>
+          <p mt="8">No articles found</p>
         )}
       </div>
     </Layout>
@@ -28,7 +28,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      articles: deserialize(articles),
+      articles: articles,
     },
     revalidate: 1,
   }

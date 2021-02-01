@@ -9,6 +9,10 @@ export async function getPathsForEntityType(
   }
 ) {
   const entities = await getEntities(entity_type, bundle, options)
+  if (!entities) {
+    return []
+  }
+
   return deserialize(entities).map((entity) => {
     const slug =
       entity.path.alias === process.env.DRUPAL_FRONT_PAGE

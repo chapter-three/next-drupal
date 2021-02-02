@@ -1,6 +1,6 @@
 # Next.js for Drupal
 
-Next.js + Drupal for Incremental Static Regeneration and Preview mode.
+Next.js + Drupal for **Incremental Static Regeneration** and **Preview mode**.
 
 ![Drupal](https://github.com/arshad/next-drupal/workflows/Drupal/badge.svg)
 
@@ -22,14 +22,14 @@ Next.js + Drupal for Incremental Static Regeneration and Preview mode.
 
 ## Demo
 
-The following demo sites are built from a single Drupal backend, Next.js for the front end, styled with [Reflexjs](https://github.com/reflexjs/reflexjs).
+The following demo sites are built from a single Drupal backend, Next.js for the frontend and styled with [Reflexjs](https://github.com/reflexjs/reflexjs).
 
 - Blog: http://next-example-blog.vercel.app/
 - Marketing (with paragaphs): http://next-example-marketing.vercel.app/
 
 ## How to run the demo
 
-To see the Drupal site and test the preview mode, you can clone this repository and run the demo site on your local machine.
+To access the Drupal site and test the preview mode, you can clone this repository and run the demo sites on your local machine.
 
 1. Clone this repository
 
@@ -61,17 +61,19 @@ yarn dev
 
 7. Visit http://localhost:8080/admin/content to add, edit and preview content.
 
+The blog site runs on https://localhost:3030 and the marketing site runs on https://localhost:3000.
+
 ## Next module
 
-The [Next](https://www.drupal.org/project/next) Drupal module is built to handle (Incremental Static Regeneration)[https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration] and (Preview Mode)[https://nextjs.org/docs/advanced-features/preview-mode] for your Next.js sites.
+The [Next](https://www.drupal.org/project/next) Drupal module is built to handle [Incremental Static Regeneration](https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration) and [Preview Mode](https://nextjs.org/docs/advanced-features/preview-mode) for your Next.js sites.
 
 ### Features
 
-- Supports Incremental Static Regeneration
-- Iframe preview
-- Multi-sites preview
-- Supports revision previews and draft content
-- Extensible via plugins
+- **Supports Incremental Static Regeneration:** Your content changes are live instantly.
+- **Iframe preview:** With site switcher and other preview modes.
+- **Multi-sites preview:** Great for *write once, publish everywhere*.
+- **Supports revision previews, draft content and content moderation**
+- **Extensible via plugins:** Create your own site previewer and resolvers.
 
 ### Installation
 
@@ -91,21 +93,21 @@ The Next Drupal module, paired with the `next-drupal` plugin, makes it easy to c
 
 To configure preview mode for an entity type, you must configure a **Next.js site**, a **site resolver** for the entity type and a **OAuth Consumer**.
 
-A site resolver tells Drupal how to resolve the preview URL for an entity. Site resolvers are flexible, can handle multiple sites and work with *entity reference* fields.
+A _site resolver_ tells Drupal how to resolve the preview URL for an entity. Site resolvers are flexible, can handle multiple sites and work with *entity reference* fields.
 
 #### 1. Configure a Next.js site
 
-- Visit */admin/config/services/next*.
-- Click **Add Next.js site**.
-- Fill in the required information and click **Save**.
+- Visit */admin/config/services/next*
+- Click **Add Next.js site**
+- Fill in the required information and click **Save**
 
 #### 2. Configure a site resolver
 
 - Visit */admin/config/services/next/entity-types*
 - Click **Configure entity type**
-- Select the entity type from the list.
-- Select a **Site resolver**.
-- Click **Save**.
+- Select the entity type from the list
+- Select a **Site resolver**
+- Click **Save**
 
 If you visit an entity page, you should be able to see the Next.js site preview. See the `next-drupal` plugin for more information on how to configure preview mode on the Next.js site.
 
@@ -115,7 +117,7 @@ To generate preview routes, the Next.js client uses the [Client credentials gran
 
 **Create a Drupal role**
 
-- Create a new Drupal role (example `Next site`) by visiting  */admin/people/roles/add*.
+- Create a new Drupal role (example `Next site`) by visiting  */admin/people/roles/add*
 - Give the role the following permission:
     - Bypass content access control
     - View all revisions
@@ -125,17 +127,17 @@ To generate preview routes, the Next.js client uses the [Client credentials gran
 
 Add a new user at */admin/people/create* and assign it the role created above.
 
-When the Next.js is authenticated, it will be authenticated as this user.
+_Note: When the Next.js is authenticated, it will be authenticated as this user._
 
 **Configure a consumer***
 
 - Visit */admin/config/people/simple_oauth*
-- Click **Generate keys** to generate encryption keys for tokens.
+- Click **Generate keys** to generate encryption keys for tokens
 - Visit */admin/config/services/consumer/add*
-- Fill in a **Label**, **User** (select the user created above), **Secret** and under **Scopes**, select the role create above.
-- Click **Save**.
+- Fill in a **Label**, **User** (select the user created above), **Secret** and under **Scopes**, select the role create above
+- Click **Save**
 
-*Important: note the client id (uuid) and the secret. This is going to be used as environment variables for the Next.js site.*
+_Important: note the client id (uuid) and the secret. This is going to be used as environment variables for the Next.js site._
 
 ## Next Plugin
 
@@ -244,11 +246,11 @@ export async function getStaticProps(context) {
 
 ### Preview mode
 
-To create preview route for an entity type on your Next.js site:
+To create preview routes for an entity type on your Next.js site:
 
 1. First, copy environment variables in your *.env.local* file:
 
-You can grab the environment variables for a site by visiting the **Environment variables** page. See */admin/config/services/next*.
+You can grab the environment variables for a site by visiting the **Environment variables** page in Drupal (see _/admin/config/services/next_).
 
 ```
 NEXT_PUBLIC_DRUPAL_BASE_URL=
@@ -259,7 +261,7 @@ DRUPAL_CLIENT_SECRET=
 DRUPAL_PREVIEW_SECRET=
 ```
 
-2. Next, create a page with a dynamic route: `pages/blog/[...slug].jsx`.
+2. Next, create a page with a dynamic route: `pages/blog/[...slug].jsx`
 
 ```js
 // pages/blog/[...slug].jsx
@@ -316,7 +318,7 @@ export async function getStaticProps(context) {
 }
 ```
 
-3. Create a `/api/preview` route: `pages/api/preview.js`.
+3. Create a `/api/preview` route: `pages/api/preview.js`
 
 ```js
 // pages/api/preview.js
@@ -358,3 +360,7 @@ export default async function exit(_, response: NextApiResponse) {
 ```
 
 That's it. You should now be able to preview entities from within your Drupal site.
+
+## Supporting organizations
+
+[Chapter Three](https://chapterthree.com): Development and support

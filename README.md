@@ -4,6 +4,22 @@ Next.js + Drupal for Incremental Static Regeneration and Preview mode.
 
 ![Drupal](https://github.com/arshad/next-drupal/workflows/Drupal/badge.svg)
 
+## Table of Contents
+
+- [Demo](#demo)
+- [How to run the demo](#how-to-run-the-demo)
+- [Next module](#next-module)
+  - [Features](#features)
+  - [Installation](#installation)
+  - [Preview mode](#preview-mode)
+- [Next plugin](#next-plugin)
+  - [Installation](#installation-1)
+  - [Reference](#reference)
+    - [getPathsForEntityType](#getpathsforentitytypeentity_type-bundle-options)
+    - [getEntitiesFromContext](#getentitiesfromcontextentity_type-bundle-context-options)
+    - [getEntityFromContext](#getentityfromcontextentity_type-bundle-context-options)
+  - [Preview mode](#preview-mode-1)
+
 ## Demo
 
 The following demo sites are built from a single Drupal backend, Next.js for the front end, styled with [Reflexjs](https://github.com/reflexjs/reflexjs).
@@ -77,47 +93,47 @@ To configure preview mode for an entity type, you must configure a **Next.js sit
 
 A site resolver tells Drupal how to resolve the preview URL for an entity. Site resolvers are flexible, can handle multiple sites and work with *entity reference* fields.
 
-#### Configure a Next.js site
+#### 1. Configure a Next.js site
 
-1. Visit */admin/config/services/next*.
-2. Click **Add Next.js site**.
-3. Fill in the required information and click **Save**.
+- Visit */admin/config/services/next*.
+- Click **Add Next.js site**.
+- Fill in the required information and click **Save**.
 
-#### Configure a site resolver
+#### 2. Configure a site resolver
 
-1. Visit */admin/config/services/next/entity-types*
-2. Click **Configure entity type**
-3. Select the entity type from the list.
-4. Select a **Site resolver**.
-5. Click **Save**.
+- Visit */admin/config/services/next/entity-types*
+- Click **Configure entity type**
+- Select the entity type from the list.
+- Select a **Site resolver**.
+- Click **Save**.
 
 If you visit an entity page, you should be able to see the Next.js site preview. See the `next-drupal` plugin for more information on how to configure preview mode on the Next.js site.
 
-#### Configure OAuth Client
+#### 3. Configure OAuth Client
 
 To generate preview routes, the Next.js client uses the [Client credentials grant](https://oauth2.thephpleague.com/authorization-server/client-credentials-grant/) for authentication. This is made possible using the (Simple OAuth)[https://www.drupal.org/project/simple_oauth] module.
 
-**1. Create a Drupal role**
+**Create a Drupal role**
 
-1. Create a new Drupal role by visiting  */admin/people/roles/add*.
-2. Give the role the following permission:
+- Create a new Drupal role (example `Next site`) by visiting  */admin/people/roles/add*.
+- Give the role the following permission:
     - Bypass content access control
     - View all revisions
     - View user information
 
-**2. Create a user**
+**Create a user**
 
-1. Add a new user at */admin/people/create* and assign it the role created above.
+Add a new user at */admin/people/create* and assign it the role created above.
 
 When the Next.js is authenticated, it will be authenticated as this user.
 
-**3. Configure a consumer***
+**Configure a consumer***
 
-1. Visit */admin/config/people/simple_oauth*
-2. Click **Generate keys** to generate encryption keys for tokens.
-3. Visit */admin/config/services/consumer/add*
-4. Fill in a **Label**, **User** (select the user created above), **Secret** and under **Scopes**, select the role create above.
-5. Click **Save**.
+- Visit */admin/config/people/simple_oauth*
+- Click **Generate keys** to generate encryption keys for tokens.
+- Visit */admin/config/services/consumer/add*
+- Fill in a **Label**, **User** (select the user created above), **Secret** and under **Scopes**, select the role create above.
+- Click **Save**.
 
 *Important: note the client id (uuid) and the secret. This is going to be used as environment variables for the Next.js site.*
 

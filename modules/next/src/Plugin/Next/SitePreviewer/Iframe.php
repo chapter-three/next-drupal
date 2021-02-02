@@ -123,8 +123,15 @@ class Iframe extends ConfigurableSitePreviewerBase implements ContainerFactoryPl
    */
   public function render(EntityInterface $entity, array $sites) {
     $build = [];
-    $site_id = $this->request->query->get('site');
-    $site = $site_id ? $sites[$site_id] : reset($sites);
+    $site = reset($sites);
+
+    // Get site from query.
+    if ($site_id = $this->request->query->get('site')) {
+      $_sites = array_filter($sites, function ($site) use ($site_id) {
+        return $site->id() === $site_id;
+      });
+      $site = reset($_sites);
+    }
 
     if (count($sites) > 1) {
       $build['form'] = $this->formBuilder->getForm(IframeSitePreviewerSwitcherForm::class, $entity, $sites, $site->id());

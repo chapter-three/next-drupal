@@ -129,7 +129,7 @@ Add a new user at */admin/people/create* and assign it the role created above.
 
 _Note: When the Next.js is authenticated, it will be authenticated as this user._
 
-**Configure a consumer***
+**Configure a consumer**
 
 - Visit */admin/config/people/simple_oauth*
 - Click **Generate keys** to generate encryption keys for tokens

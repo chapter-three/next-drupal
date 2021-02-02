@@ -61,17 +61,19 @@ openssl req -x509 -out examples/certificates/localhost.crt -keyout examples/cert
 
 Double-click on the certificate to add it to your keychain.
 
-5. Then run `yarn dev` from the root to start the _Drupal_ site and the _Next.js_ sites.
+5. Visit _/admin/config/people/simple_oauth_. Click **Generate keys** to generate encryption keys for tokens.
+
+6. Then run `yarn dev` from the root to start the _Drupal_ site and the _Next.js_ sites.
 
 ```
 yarn dev
 ```
 
-6. Login to the _Drupal_ site at http://localhost:8080 with **username: admin** and **password: admin**.
+7. Login to the _Drupal_ site at http://localhost:8080 with **username: admin** and **password: admin**.
 
-7. Visit http://localhost:8080/admin/config/people/simple_oauth to generate OAuth encryption keys. Enter `../oauth-keys` for the directory.
+8. Visit http://localhost:8080/admin/config/people/simple_oauth to generate OAuth encryption keys. Enter `../oauth-keys` for the directory.
 
-8. Visit http://localhost:8080/admin/content to add, edit and preview content.
+9. Visit http://localhost:8080/admin/content to add, edit and preview content.
 
 The blog site runs on https://localhost:3030 and the marketing site runs on https://localhost:3000.
 

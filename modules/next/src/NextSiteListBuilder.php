@@ -36,4 +36,18 @@ class NextSiteListBuilder extends ConfigEntityListBuilder {
     return $row + parent::buildRow($entity);
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getDefaultOperations(EntityInterface $entity) {
+    $operations = parent::getDefaultOperations($entity);
+
+    $operations['environment_variables'] = [
+      'title' => $this->t('Environment variables'),
+      'url' => $entity->toUrl('environment-variables'),
+    ];
+
+    return $operations;
+  }
+
 }

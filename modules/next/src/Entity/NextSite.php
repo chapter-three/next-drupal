@@ -29,7 +29,7 @@ use Drupal\Core\Url;
  *       "delete" = "Drupal\next\Form\NextSiteDeleteForm"
  *     },
  *     "route_provider" = {
- *       "html" = "Drupal\Core\Entity\Routing\AdminHtmlRouteProvider"
+ *       "html" = "Drupal\next\Routing\NextSiteHtmlRouteProvider"
  *     },
  *   },
  *   config_prefix = "next_site",
@@ -48,10 +48,10 @@ use Drupal\Core\Url;
  *     "preview_secret",
  *   },
  *   links = {
- *     "canonical" = "/admin/config/services/next/sites/{next_site}",
  *     "add-form" = "/admin/config/services/next/sites/add",
  *     "edit-form" = "/admin/config/services/next/sites/{next_site}/edit",
  *     "delete-form" = "/admin/config/services/next/sites/{next_site}/delete",
+ *     "environment-variables" = "/admin/config/services/next/sites/{next_site}/env",
  *     "collection" = "/admin/config/services/next"
  *   }
  * )

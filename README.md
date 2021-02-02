@@ -4,13 +4,26 @@ Next.js + Drupal for Incremental Static Regeneration and Preview mode.
 
 ![Drupal](https://github.com/arshad/next-drupal/workflows/Drupal/badge.svg)
 
+## Demo
+
+The following demo sites are built from a single Drupal backend, Next.js for the front end, styled with [Reflexjs](https://github.com/reflexjs/reflexjs).
+
+- Blog: http://next-example-blog.vercel.app/
+- Marketing (with paragaphs): http://next-example-marketing.vercel.app/
+
 ## How to run the demo
 
-1. Install dependencies
+To see the Drupal site and test the preview mode, you can clone this repository and run the demo site on your local machine.
+
+1. Clone this repository
+
+`git clone https://github.com/arshad/next-drupal.git`
+
+2. Install dependencies
 
 `yarn && composer install -d ./examples/drupal-site`
 
-2. Copy `.env.example` to `.env.local`:
+3. Copy `.env.example` to `.env.local`:
 
 ```
 cp examples/example-blog/.env.example examples/example-blog/.env.local
@@ -20,14 +33,312 @@ cp examples/example-blog/.env.example examples/example-blog/.env.local
 cp examples/example-marketing/.env.example examples/example-marketing/.env.local
 ```
 
-3. Then run `yarn dev` from the root to start the _Drupal_ site and the _Next.js_ sites.
+4. Then run `yarn dev` from the root to start the _Drupal_ site and the _Next.js_ sites.
 
 ```
 yarn dev
 ```
 
-4. Login to the _Drupal_ site at http://localhost:8080 with **username: admin** and **password: admin**.
+5. Login to the _Drupal_ site at http://localhost:8080 with **username: admin** and **password: admin**.
 
-5. Visit http://localhost:8080/admin/config/people/simple_oauth to generate OAuth encryption keys. Enter `../oauth-keys` for the directory.
+6. Visit http://localhost:8080/admin/config/people/simple_oauth to generate OAuth encryption keys. Enter `../oauth-keys` for the directory.
 
-6. Visit http://localhost:8080/admin/content to add, edit and preview content.
+7. Visit http://localhost:8080/admin/content to add, edit and preview content.
+
+## Next module
+
+The [Next](https://www.drupal.org/project/next) Drupal module is built to handle (Incremental Static Regeneration)[https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration] and (Preview Mode)[https://nextjs.org/docs/advanced-features/preview-mode] for your Next.js sites.
+
+### Features
+
+- Supports Incremental Static Regeneration
+- Iframe preview
+- Multi-sites preview
+- Supports revision previews and draft content
+- Extensible via plugins
+
+### Installation
+
+1. Use [Composer](https://getcomposer.org) to install the Next module. From the root of your Drupal site, run the following command:
+
+```bash
+composer require drupal/next
+```
+
+2. Visit **Extend** in the Drupal admin.
+
+3. Select the **Next** module and click **Install**.
+
+### Preview Mode
+
+The Next Drupal module, paired with the `next-drupal` plugin, makes it easy to create [Next.js preview routes](https://nextjs.org/docs/advanced-features/preview-mode).
+
+To configure preview mode for an entity type, you must configure a **Next.js site**, a **site resolver** for the entity type and a **OAuth Consumer**.
+
+A site resolver tells Drupal how to resolve the preview URL for an entity. Site resolvers are flexible, can handle multiple sites and work with *entity reference* fields.
+
+#### Configure a Next.js site
+
+1. Visit */admin/config/services/next*.
+2. Click **Add Next.js site**.
+3. Fill in the required information and click **Save**.
+
+#### Configure a site resolver
+
+1. Visit */admin/config/services/next/entity-types*
+2. Click **Configure entity type**
+3. Select the entity type from the list.
+4. Select a **Site resolver**.
+5. Click **Save**.
+
+If you visit an entity page, you should be able to see the Next.js site preview. See the `next-drupal` plugin for more information on how to configure preview mode on the Next.js site.
+
+#### Configure OAuth Client
+
+To generate preview routes, the Next.js client uses the [Client credentials grant](https://oauth2.thephpleague.com/authorization-server/client-credentials-grant/) for authentication. This is made possible using the (Simple OAuth)[https://www.drupal.org/project/simple_oauth] module.
+
+**1. Create a Drupal role**
+
+1. Create a new Drupal role by visiting  */admin/people/roles/add*.
+2. Give the role the following permission:
+    - Bypass content access control
+    - View all revisions
+    - View user information
+
+**2. Create a user**
+
+1. Add a new user at */admin/people/create* and assign it the role created above.
+
+When the Next.js is authenticated, it will be authenticated as this user.
+
+**3. Configure a consumer***
+
+1. Visit */admin/config/people/simple_oauth*
+2. Click **Generate keys** to generate encryption keys for tokens.
+3. Visit */admin/config/services/consumer/add*
+4. Fill in a **Label**, **User** (select the user created above), **Secret** and under **Scopes**, select the role create above.
+5. Click **Save**.
+
+*Important: note the client id (uuid) and the secret. This is going to be used as environment variables for the Next.js site.*
+
+## Next Plugin
+
+The `next-drupal` plugin provides helpers for consuming Drupal JSON API and for creating [preview routes](https://nextjs.org/docs/advanced-features/preview-mode).
+
+### Installation
+
+```bash
+npm install --save next-drupal
+```
+
+### Reference
+
+#### getPathsForEntityType(entity_type, bundle, options)
+
+- **entity_type**: the id of the entity_type
+- **bundle**: the bundle for the entity
+- **options**:
+    - **params**: JSON API params for filtering, includes, sorting..etc
+    - **filter**: a filter callback for filtering entities
+
+Example:
+
+```js
+export async function getStaticPaths() {
+  const paths = await getPathsForEntityType("node", "article", {
+    params: {
+      "filter[status]": 1,
+    },
+  })
+
+  return {
+    paths,
+    fallback: true,
+  }
+}
+```
+
+#### getEntitiesFromContext(entity_type, bundle, context, options)
+
+- **entity_type**: the id of the entity_type
+- **bundle**: the bundle for the entity
+- **context**: GetStaticPropsContext
+- **options**:
+    - **prefix**: path prefix
+    - **params**: JSON API params for filtering, includes, sorting..etc
+    - **deserialize**: set to `true` if the return data should be deserialize
+
+Example:
+
+```js
+export async function getStaticProps(context) {
+  let articles = await getEntitiesFromContext("node", "article", context, {
+    params: {
+      include: "field_image, uid",
+      sort: "-created",
+    },
+    deserialize: true,
+  })
+
+  return {
+    props: {
+      articles,
+    },
+    revalidate: 1,
+  }
+}
+```
+
+#### getEntityFromContext(entity_type, bundle, context, options)
+
+- **entity_type**: the id of the entity_type
+- **bundle**: the bundle for the entity
+- **context**: GetStaticPropsContext
+- **options**:
+    - **prefix**: path prefix
+    - **params**: JSON API params for filtering, includes, sorting..etc
+    - **deserialize**: set to `true` if the return data should be deserialize
+
+Example:
+
+```js
+export async function getStaticProps(context) {
+  const post = await getEntityFromContext("node", "article", context, {
+    prefix: "/blog",
+    params: {
+      include: "field_image, uid",
+    },
+    deserialize: true,
+  })
+
+  if (!post) {
+    return {
+      notFound: true,
+    }
+  }
+
+  return {
+    props: {
+      post,
+    },
+    revalidate: 1,
+  }
+}
+```
+
+### Preview mode
+
+To create preview route for an entity type on your Next.js site:
+
+1. First, copy environment variables in your *.env.local* file:
+
+You can grab the environment variables for a site by visiting the **Environment variables** page. See */admin/config/services/next*.
+
+```
+NEXT_PUBLIC_DRUPAL_BASE_URL=
+NEXT_IMAGE_DOMAIN=
+DRUPAL_SITE_ID=
+DRUPAL_CLIENT_ID=
+DRUPAL_CLIENT_SECRET=
+DRUPAL_PREVIEW_SECRET=
+```
+
+2. Next, create a page with a dynamic route: `pages/blog/[...slug].jsx`.
+
+```js
+// pages/blog/[...slug].jsx
+
+import { getPathsForEntityType, getEntityFromContext } from "next-drupal"
+
+export default function BlogPostPage({ post }) {
+  if (!post) return null
+
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      {post.body?.processed && (
+        <div dangerouslySetInnerHTML={{ __html: post.body?.processed }} />
+      )}
+    </article>
+  )
+}
+
+export async function getStaticPaths() {
+  const paths = await getPathsForEntityType("node", "article", {
+    params: {
+      "filter[status]": 1,
+    },
+  })
+
+  return {
+    paths,
+    fallback: true,
+  }
+}
+
+export async function getStaticProps(context) {
+  const post = await getEntityFromContext("node", "article", context, {
+    prefix: "/blog",
+    params: {
+      include: "field_image, uid",
+    },
+    deserialize: true,
+  })
+
+  if (!post) {
+    return {
+      notFound: true,
+    }
+  }
+
+  return {
+    props: {
+      post,
+    },
+    revalidate: 1,
+  }
+}
+```
+
+3. Create a `/api/preview` route: `pages/api/preview.js`.
+
+```js
+// pages/api/preview.js
+
+import { NextApiRequest, NextApiResponse } from "next"
+
+export default function (request: NextApiRequest, response: NextApiResponse) {
+  const { slug, resourceVersion, secret } = request.query
+
+  if (secret !== process.env.DRUPAL_PREVIEW_SECRET) {
+    return response.status(401).json({ message: "Invalid preview secret." })
+  }
+
+  if (!slug) {
+    return response.status(401).json({ message: "Invalid slug." })
+  }
+
+  response.setPreviewData({
+    resourceVersion,
+  })
+
+  response.redirect(slug as string)
+}
+```
+
+4. Create a `/api/exit-preview` route: `pages/api/exit-preview.js`.
+
+```js
+// pages/api/exit-preview.js
+
+import { NextApiResponse } from "next"
+
+export default async function exit(_, response: NextApiResponse) {
+  response.clearPreviewData()
+
+  response.writeHead(307, { Location: "/" })
+  response.end()
+}
+```
+
+That's it. You should now be able to preview entities from within your Drupal site.

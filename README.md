@@ -4,6 +4,8 @@ Next.js + Drupal for **Incremental Static Regeneration** and **Preview mode**.
 
 ![Drupal](https://github.com/arshad/next-drupal/workflows/Drupal/badge.svg)
 
+Drupal project page: https://drupal.org/project/next
+
 ## Table of Contents
 
 - [Demo](#demo)

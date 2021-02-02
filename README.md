@@ -49,17 +49,28 @@ cp examples/example-blog/.env.example examples/example-blog/.env.local
 cp examples/example-marketing/.env.example examples/example-marketing/.env.local
 ```
 
-4. Then run `yarn dev` from the root to start the _Drupal_ site and the _Next.js_ sites.
+4. Generate a certificate for localhost (this is required to run your local sites with HTTPS for preview mode)
+
+```
+openssl req -x509 -out examples/certificates/localhost.crt -keyout examples/certificates/localhost.key \
+  -newkey rsa:2048 -nodes -sha256 \
+  -subj '/CN=localhost' -extensions EXT -config <(\
+   printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+```
+
+Double-click on your certificate to add it to your keychain.
+
+5. Then run `yarn dev` from the root to start the _Drupal_ site and the _Next.js_ sites.
 
 ```
 yarn dev
 ```
 
-5. Login to the _Drupal_ site at http://localhost:8080 with **username: admin** and **password: admin**.
+6. Login to the _Drupal_ site at http://localhost:8080 with **username: admin** and **password: admin**.
 
-6. Visit http://localhost:8080/admin/config/people/simple_oauth to generate OAuth encryption keys. Enter `../oauth-keys` for the directory.
+7. Visit http://localhost:8080/admin/config/people/simple_oauth to generate OAuth encryption keys. Enter `../oauth-keys` for the directory.
 
-7. Visit http://localhost:8080/admin/content to add, edit and preview content.
+8. Visit http://localhost:8080/admin/content to add, edit and preview content.
 
 The blog site runs on https://localhost:3030 and the marketing site runs on https://localhost:3000.
 
@@ -71,7 +82,7 @@ The [Next](https://www.drupal.org/project/next) Drupal module is built to handle
 
 - **Supports Incremental Static Regeneration:** Your content changes are live instantly.
 - **Iframe preview:** With site switcher and other preview modes.
-- **Multi-sites preview:** Great for *write once, publish everywhere*.
+- **Multi-sites preview:** Great for _write once, publish everywhere_.
 - **Supports revision previews, draft content and content moderation**
 - **Extensible via plugins:** Create your own site previewer and resolvers.
 
@@ -93,17 +104,17 @@ The Next Drupal module, paired with the `next-drupal` plugin, makes it easy to c
 
 To configure preview mode for an entity type, you must configure a **Next.js site**, a **site resolver** for the entity type and a **OAuth Consumer**.
 
-A _site resolver_ tells Drupal how to resolve the preview URL for an entity. Site resolvers are flexible, can handle multiple sites and work with *entity reference* fields.
+A _site resolver_ tells Drupal how to resolve the preview URL for an entity. Site resolvers are flexible, can handle multiple sites and work with _entity reference_ fields.
 
 #### 1. Configure a Next.js site
 
-- Visit */admin/config/services/next*
+- Visit _/admin/config/services/next_
 - Click **Add Next.js site**
 - Fill in the required information and click **Save**
 
 #### 2. Configure a site resolver
 
-- Visit */admin/config/services/next/entity-types*
+- Visit _/admin/config/services/next/entity-types_
 - Click **Configure entity type**
 - Select the entity type from the list
 - Select a **Site resolver**
@@ -117,23 +128,23 @@ To generate preview routes, the Next.js client uses the [Client credentials gran
 
 **Create a Drupal role**
 
-- Create a new Drupal role (example `Next site`) by visiting  */admin/people/roles/add*
+- Create a new Drupal role (example `Next site`) by visiting _/admin/people/roles/add_
 - Give the role the following permission:
-    - Bypass content access control
-    - View all revisions
-    - View user information
+  - Bypass content access control
+  - View all revisions
+  - View user information
 
 **Create a user**
 
-Add a new user at */admin/people/create* and assign it the role created above.
+Add a new user at _/admin/people/create_ and assign it the role created above.
 
 _Note: When the Next.js is authenticated, it will be authenticated as this user._
 
 **Configure a consumer**
 
-- Visit */admin/config/people/simple_oauth*
+- Visit _/admin/config/people/simple_oauth_
 - Click **Generate keys** to generate encryption keys for tokens
-- Visit */admin/config/services/consumer/add*
+- Visit _/admin/config/services/consumer/add_
 - Fill in a **Label**, **User** (select the user created above), **Secret** and under **Scopes**, select the role create above
 - Click **Save**
 
@@ -156,8 +167,8 @@ npm install --save next-drupal
 - **entity_type**: the id of the entity_type
 - **bundle**: the bundle for the entity
 - **options**:
-    - **params**: JSON API params for filtering, includes, sorting..etc
-    - **filter**: a filter callback for filtering entities
+  - **params**: JSON API params for filtering, includes, sorting..etc
+  - **filter**: a filter callback for filtering entities
 
 Example:
 
@@ -182,9 +193,9 @@ export async function getStaticPaths() {
 - **bundle**: the bundle for the entity
 - **context**: GetStaticPropsContext
 - **options**:
-    - **prefix**: path prefix
-    - **params**: JSON API params for filtering, includes, sorting..etc
-    - **deserialize**: set to `true` if the return data should be deserialize
+  - **prefix**: path prefix
+  - **params**: JSON API params for filtering, includes, sorting..etc
+  - **deserialize**: set to `true` if the return data should be deserialize
 
 Example:
 
@@ -213,9 +224,9 @@ export async function getStaticProps(context) {
 - **bundle**: the bundle for the entity
 - **context**: GetStaticPropsContext
 - **options**:
-    - **prefix**: path prefix
-    - **params**: JSON API params for filtering, includes, sorting..etc
-    - **deserialize**: set to `true` if the return data should be deserialize
+  - **prefix**: path prefix
+  - **params**: JSON API params for filtering, includes, sorting..etc
+  - **deserialize**: set to `true` if the return data should be deserialize
 
 Example:
 
@@ -248,7 +259,7 @@ export async function getStaticProps(context) {
 
 To create preview routes for an entity type on your Next.js site:
 
-1. First, copy environment variables in your *.env.local* file:
+1. First, copy environment variables in your _.env.local_ file:
 
 You can grab the environment variables for a site by visiting the **Environment variables** page in Drupal (see _/admin/config/services/next_).
 

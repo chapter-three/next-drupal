@@ -4,3 +4,5 @@ type: module
 core_version_requirement: ^8.8 || ^9
 package: Web services
 configure: entity.next_site.collection
+dependencies:
+  - simple_oauth:simple_oauth

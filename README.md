@@ -8,6 +8,7 @@ Next.js + Drupal for **Incremental Static Regeneration** and **Preview mode**.
 
 - [Demo](#demo)
 - [How to run the demo](#how-to-run-the-demo)
+- [Screenshots](#screenshots)
 - [Next module](#next-module)
   - [Features](#features)
   - [Installation](#installation)
@@ -70,6 +71,14 @@ yarn dev
 8. Visit http://localhost:8080/admin/content to add, edit and preview content.
 
 The blog site runs on https://localhost:3030 and the marketing site runs on https://localhost:3000.
+
+## Screenshots
+
+![Publish to multiple sites](https://arshad.io/uploads/next-sites.jpg)
+
+![Entity types configuration](https://arshad.io/uploads/next-entity-types.jpg)
+
+![Preview](https://arshad.io/uploads/next-inline-preview.jpg)
 
 ## Next module
 

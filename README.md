@@ -8,10 +8,14 @@ Next.js + Drupal for **Incremental Static Regeneration** and **Preview mode**.
 
 - [Demo](#demo)
 - [How to run the demo](#how-to-run-the-demo)
+- [Screenshots](#screenshots)
 - [Next module](#next-module)
   - [Features](#features)
   - [Installation](#installation)
   - [Preview mode](#preview-mode)
+  - [Extend](#extend)
+    - [SiteResolver](#siteresolver)
+    - [SitePreviewer](#sitepreviewer)
 - [Next plugin](#next-plugin)
   - [Installation](#installation-1)
   - [Reference](#reference)
@@ -57,19 +61,29 @@ openssl req -x509 -out examples/certificates/localhost.crt -keyout examples/cert
 
 Double-click on the certificate to add it to your keychain.
 
-5. Then run `yarn dev` from the root to start the _Drupal_ site and the _Next.js_ sites.
+5. Visit _/admin/config/people/simple_oauth_. Click **Generate keys** to generate encryption keys for tokens.
+
+6. Then run `yarn dev` from the root to start the _Drupal_ site and the _Next.js_ sites.
 
 ```
 yarn dev
 ```
 
-6. Login to the _Drupal_ site at http://localhost:8080 with **username: admin** and **password: admin**.
+7. Login to the _Drupal_ site at http://localhost:8080 with **username: admin** and **password: admin**.
 
-7. Visit http://localhost:8080/admin/config/people/simple_oauth to generate OAuth encryption keys. Enter `../oauth-keys` for the directory.
+8. Visit http://localhost:8080/admin/config/people/simple_oauth to generate OAuth encryption keys. Enter `../oauth-keys` for the directory.
 
-8. Visit http://localhost:8080/admin/content to add, edit and preview content.
+9. Visit http://localhost:8080/admin/content to add, edit and preview content.
 
 The blog site runs on https://localhost:3030 and the marketing site runs on https://localhost:3000.
+
+## Screenshots
+
+![Publish to multiple sites](https://arshad.io/uploads/next-sites.jpg)
+
+![Entity types configuration](https://arshad.io/uploads/next-entity-types.jpg)
+
+![Preview](https://arshad.io/uploads/next-inline-preview.jpg)
 
 ## Next module
 
@@ -146,6 +160,63 @@ _Note: When the Next.js is authenticated, it will be authenticated as this user.
 - Click **Save**
 
 _Important: note the client id (uuid) and the secret. This is going to be used as environment variables for the Next.js site._
+
+### Extend
+
+The core of the Next module is built using plugins. This makes it easy to extend and customize how the preview works.
+
+### SitePreviewer
+
+**SitePreviewer** plugins are responsible for rendering the preview for an entity type. Implement a `@SitePreviewer` plugin to provide your own custom previewer.
+
+Example: A plugin that renders a link to preview.
+
+```
+<?php
+
+namespace Drupal\next\Plugin\Next\SitePreviewer;
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\next\Plugin\SitePreviewerBase;
+
+/**
+ * Provides a link to the preview page.
+ *
+ * @SitePreviewer(
+ *  id = "link",
+ *  label = "Link to preview",
+ *  description = "Displays a link to the preview page."
+ * )
+ */
+class Link extends SitePreviewerBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function render(EntityInterface $entity, array $sites) {
+    $build = [];
+
+    foreach ($sites as $site) {
+      $build[] = [
+        '#type' => 'link',
+        '#title' => $this->t('Open preview'),
+        '#url' => $site->getPreviewUrlForEntity($entity),
+      ];
+    }
+
+    return $build;
+  }
+
+}
+```
+
+**SitePreviewer** plugins can provide their own configuration. See `\Drupal\next\Plugin\ConfigurableSitePreviewerInterface`.
+
+### SiteResolver
+
+**SiteResolver** plugins are responsible for resolving `next_site` entities for an entity. This can be based on the entity type, the bundle, the publish status or a field value.
+
+Example: See `\Drupal\next\Plugin\Next\SiteResolver\EntityReferenceField`.
 
 ## Next Plugin
 

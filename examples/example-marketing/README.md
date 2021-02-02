@@ -1,8 +1,10 @@
-# example-blog
+# example-marketing
 
-An example blog built using Drupal + JSON API.
+An example marketing site built using Drupal + JSON API.
 
-Blog posts are built from the Article node type sourced from `../drupal-site`.
+Pages are built from the Landing page node type and paragraphs sourced from `../drupal-site`.
+
+See https://next-example-marketing.vercel.app
 
 ## License
 

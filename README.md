@@ -13,6 +13,9 @@ Next.js + Drupal for **Incremental Static Regeneration** and **Preview mode**.
   - [Features](#features)
   - [Installation](#installation)
   - [Preview mode](#preview-mode)
+  - [Extend](#extend)
+    - [SiteResolver](#siteresolver)
+    - [SitePreviewer](#sitepreviewer)
 - [Next plugin](#next-plugin)
   - [Installation](#installation-1)
   - [Reference](#reference)
@@ -155,6 +158,63 @@ _Note: When the Next.js is authenticated, it will be authenticated as this user.
 - Click **Save**
 
 _Important: note the client id (uuid) and the secret. This is going to be used as environment variables for the Next.js site._
+
+### Extend
+
+The core of the Next module is built using plugins. This makes it easy to extend and customize how the preview works.
+
+### SitePreviewer
+
+**SitePreviewer** plugins are responsible for rendering the preview for an entity type. Implement a `@SitePreviewer` plugin to provide your own custom previewer.
+
+Example: A plugin that renders a link to preview.
+
+```
+<?php
+
+namespace Drupal\next\Plugin\Next\SitePreviewer;
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\next\Plugin\SitePreviewerBase;
+
+/**
+ * Provides a link to the preview page.
+ *
+ * @SitePreviewer(
+ *  id = "link",
+ *  label = "Link to preview",
+ *  description = "Displays a link to the preview page."
+ * )
+ */
+class Link extends SitePreviewerBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function render(EntityInterface $entity, array $sites) {
+    $build = [];
+
+    foreach ($sites as $site) {
+      $build[] = [
+        '#type' => 'link',
+        '#title' => $this->t('Open preview'),
+        '#url' => $site->getPreviewUrlForEntity($entity),
+      ];
+    }
+
+    return $build;
+  }
+
+}
+```
+
+**SitePreviewer** plugins can provide their own configuration. See `\Drupal\next\Plugin\ConfigurableSitePreviewerInterface`.
+
+### SiteResolver
+
+**SiteResolver** plugins are responsible for resolving `next_site` entities for an entity. This can be based on the entity type, the bundle, the publish status or a field value.
+
+Example: See `\Drupal\next\Plugin\Next\SiteResolver\EntityReferenceField`.
 
 ## Next Plugin
 

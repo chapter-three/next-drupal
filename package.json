@@ -12,6 +12,7 @@
     "watch": "lerna run watch",
     "lint": "eslint --cache --ext .js,.jsx .",
     "phpcs": "./examples/drupal-site/vendor/bin/phpcs -s -n --colors --standard=modules/next/phpcs.xml.dist modules/next",
+    "test:next": "./examples/drupal-site/vendor/bin/phpunit -c ./examples/drupal-site/web/core modules/next",
     "sync:modules": "./scripts/sync-modules.sh \"modules/*\"",
     "sync:examples":"./scripts/sync-examples.sh \"examples/example-*\""
   },

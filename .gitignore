@@ -90,3 +90,4 @@ cypress/screenshots
 # Other
 *__clone*
 dist
+examples/certificates/*

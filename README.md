@@ -43,9 +43,6 @@ To access the Drupal site and test the preview mode, you can clone this reposito
 
 ```
 cp examples/example-blog/.env.example examples/example-blog/.env.local
-```
-
-```
 cp examples/example-marketing/.env.example examples/example-marketing/.env.local
 ```
 
@@ -58,7 +55,7 @@ openssl req -x509 -out examples/certificates/localhost.crt -keyout examples/cert
    printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
 ```
 
-Double-click on your certificate to add it to your keychain.
+Double-click on the certificate to add it to your keychain.
 
 5. Then run `yarn dev` from the root to start the _Drupal_ site and the _Next.js_ sites.
 

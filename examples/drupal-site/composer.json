@@ -24,6 +24,7 @@
     "drupal/core": "^8.8.0",
     "drupal/core-composer-scaffold": "^8.8.0",
     "drupal/entity_usage": "^2.0@beta",
+    "drupal/metatag": "^1.15",
     "drupal/next": "1.0.x-dev",
     "drupal/paragraphs": "^1.12",
     "drupal/pathauto": "^1.8",

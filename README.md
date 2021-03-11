@@ -1,10 +1,17 @@
-# Next.js for Drupal
+<div align="center">
+<img width="200" alt="next-drupal" src="https://user-images.githubusercontent.com/124599/110754283-0e66f880-8261-11eb-9352-f7b2c80c3d88.png">
+  <h1>Next.js for Drupal</h1>
+</div>
 
-Next.js + Drupal for **Incremental Static Regeneration** and **Preview mode**.
+<p align="center">
+  <a href="https://github.com/arshad/next-drupal/actions"><img src="https://github.com/arshad/next-drupal/workflows/Drupal/badge.svg" alt="Drupal"></a>
+  <a href="https://github.com/arshad/next-mdx/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome!" /></a>
+  <a href="https://twitter.com/arshadcn"><img src="https://img.shields.io/badge/Follow-%40arshadcn-1da1f2" alt="Follow @arshadcn" /></a>
+</p>
 
-![Drupal](https://github.com/arshad/next-drupal/workflows/Drupal/badge.svg)
-
-Drupal project page: https://drupal.org/project/next
+<p align="center">
+  Next.js + Drupal for <strong>Incremental Static Regeneration</strong> and <strong>Preview mode</strong>.
+</p>
 
 ## Table of Contents
 

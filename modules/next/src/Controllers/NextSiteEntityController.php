@@ -57,8 +57,8 @@ class NextSiteEntityController extends ControllerBase {
       'DRUPAL_SITE_ID' => $next_site->uuid(),
       'DRUPAL_PREVIEW_SECRET' => $next_site->getPreviewSecret(),
       'DRUPAL_FRONT_PAGE' => $this->config('system.site')->get('page.front'),
-      'DRUPAL_CLIENT_ID' => '',
-      'DRUPAL_CLIENT_SECRET' => '',
+      'DRUPAL_CLIENT_ID' => 'Retrieve this from /admin/config/services/consumer',
+      'DRUPAL_CLIENT_SECRET' => 'Retrieve this from /admin/config/services/consumer',
     ];
 
     $build['container'] = [
@@ -70,7 +70,7 @@ class NextSiteEntityController extends ControllerBase {
     foreach ($variables as $name => $value) {
       $build['container'][$name] = [
         '#type' => 'inline_template',
-        '#template' => '{{ name }}: {{ value }}<br/>',
+        '#template' => '{{ name }}={{ value }}<br/>',
         '#context' => [
           'name' => $name,
           'value' => $value,

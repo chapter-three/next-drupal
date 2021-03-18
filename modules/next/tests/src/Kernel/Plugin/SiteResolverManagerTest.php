@@ -38,9 +38,9 @@ class SiteResolverManagerTest extends KernelTestBase {
    */
   public function testDefinitions() {
     $definitions = $this->siteResolverManager->getDefinitions();
-    $this->assertSame([
+    $this->assertEqualsCanonicalizing([
+      'entity_reference_field',
       'site_selector',
-      'entity_reference_field'
     ], array_keys($definitions));
   }
 

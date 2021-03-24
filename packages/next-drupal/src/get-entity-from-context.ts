@@ -1,7 +1,6 @@
 import { GetStaticPropsContext } from "next"
 import { deserialize } from "./deserialize"
-import { getEntitiesFromContext } from "./get-entities-from-context"
-import { getEntity } from "./get-entity"
+import { getAccessToken } from "./get-access-token"
 
 export async function getEntityFromContext(
   entity_type: string,
@@ -22,28 +21,11 @@ export async function getEntityFromContext(
   const { resourceVersion } = previewData
   const { prefix = "", params } = options
 
-  // TODO: Replace this and getEntity with a decoupled-router + subrequests call?
-  const entities = await getEntitiesFromContext(entity_type, bundle, context, {
-    ...options,
-    deserialize: false,
-  })
-
-  if (!entities?.data?.length) {
-    return null
-  }
-
-  const alias = !slug
+  const path = !slug
     ? process.env.DRUPAL_FRONT_PAGE
     : `${prefix}/${(slug as string[]).join("/")}`
 
-  // Find the entity based on the slug.
-  const _entity = entities.data.find(
-    (entity) => entity.attributes.path.alias === alias
-  )
-
-  if (!_entity) return null
-
-  const entity = await getEntity(entity_type, bundle, _entity.id, {
+  const entity = await resolveEntityUsingPath(path, {
     resourceVersion,
     params,
   })
@@ -51,4 +33,60 @@ export async function getEntityFromContext(
   if (!entity) return null
 
   return options.deserialize ? deserialize(entity) : entity
+}
+
+async function resolveEntityUsingPath(
+  path: string,
+  options?: { resourceVersion?: any; params?: {} }
+) {
+  try {
+    const url = new URL(
+      `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/subrequests?_format=json`
+    )
+
+    const { resourceVersion = "rel:latest-version", params } = options
+    const resourceParams = new URLSearchParams({
+      resourceVersion,
+      ...params,
+    }).toString()
+
+    const payload = [
+      {
+        requestId: "router",
+        action: "view",
+        uri: `/router/translate-path?path=${path}&_format=json`,
+        headers: { Accept: "application/vnd.api+json" },
+      },
+      {
+        requestId: "resolvedResource",
+        action: "view",
+        uri: `{{router.body@$.jsonapi.individual}}?${resourceParams}`,
+        waitFor: ["router"],
+      },
+    ]
+
+    const { access_token } = await getAccessToken()
+    const result = await fetch(url.toString(), {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      body: JSON.stringify(payload),
+    })
+
+    const json = await result.json()
+
+    if (!json) {
+      console.error(result)
+
+      throw new Error(result.statusText)
+    }
+
+    return JSON.parse(json["resolvedResource#uri{0}"]?.body)
+  } catch (error) {
+    console.error(error)
+  }
 }

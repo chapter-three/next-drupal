@@ -15,5 +15,12 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^6.0 || ^7.0"
+  },
+  "extra": {
+    "patches": {
+      "drupal/subrequests": {
+        "Subrequest failed validation": "https://www.drupal.org/files/issues/2019-05-27/3029570-array-not-object.patch"
+      }
+    }
   }
 }

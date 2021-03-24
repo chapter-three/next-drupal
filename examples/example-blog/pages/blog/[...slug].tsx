@@ -1,8 +1,4 @@
-import {
-  getPathsForEntityType,
-  getEntityFromContext,
-  deserialize,
-} from "next-drupal"
+import { getPathsForEntityType, getEntityFromContext } from "next-drupal"
 import Image from "next/image"
 import Link from "next/link"
 import { Icon } from "reflexjs"
@@ -76,6 +72,9 @@ export default function BlogPostPage({ post }) {
 
 export async function getStaticPaths() {
   const paths = await getPathsForEntityType("node", "article", {
+    params: {
+      "fields[node--article]": "path,field_site",
+    },
     filter: (entity) =>
       entity.field_site?.some(({ id }) => id === process.env.DRUPAL_SITE_ID),
   })

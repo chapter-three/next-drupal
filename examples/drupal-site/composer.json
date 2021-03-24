@@ -23,12 +23,15 @@
     "drupal/console": "^1.0.2",
     "drupal/core": "^8.8.0",
     "drupal/core-composer-scaffold": "^8.8.0",
+    "drupal/decoupled_router": "^2.0",
+    "drupal/default_content": "^2.0@alpha",
     "drupal/entity_usage": "^2.0@beta",
     "drupal/metatag": "^1.15",
     "drupal/next": "1.0.x-dev",
     "drupal/paragraphs": "^1.12",
     "drupal/pathauto": "^1.8",
     "drupal/simple_oauth": "^5.0",
+    "drupal/subrequests": "^3.0",
     "drush/drush": "^10.3",
     "vlucas/phpdotenv": "^4.0",
     "webflo/drupal-finder": "^1.0.0",
@@ -96,6 +99,11 @@
       "drush/Commands/contrib/{$name}": [
         "type:drupal-drush"
       ]
+    },
+    "patches": {
+      "drupal/subrequests": {
+        "Subrequest failed validation": "https://www.drupal.org/files/issues/2019-05-27/3029570-array-not-object.patch"
+      }
     }
   }
 }

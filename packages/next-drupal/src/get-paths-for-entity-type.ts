@@ -11,6 +11,12 @@ export async function getPathsForEntityType(
     filter: (_) => true,
   }
 ) {
+  // Use sparse fieldset to expand max size.
+  options.params = {
+    [`fields[${entity_type}--${bundle}]`]: "path",
+    ...options.params,
+  }
+
   let entities = await getEntities(entity_type, bundle, options)
   if (!entities?.data?.length) {
     return []

@@ -1,5 +1,5 @@
 parameters:
-  next_jsonapi.size_max: 100
+  next_jsonapi.size_max: 1000
 
 services:
   jsonapi.entity_resource:

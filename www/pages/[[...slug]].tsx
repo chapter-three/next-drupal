@@ -90,7 +90,7 @@ export default function DocsPage({ doc, toc }: DocsPageProps) {
                   <Toc tree={toc} />
                 </>
               )}
-              <div mt="10" bg="lightyellow" p="4">
+              <div mt="10" bg="muted" p="4">
                 <p fontWeight="semibold">
                   <em>
                     Warning: this project is in early alpha. The API might

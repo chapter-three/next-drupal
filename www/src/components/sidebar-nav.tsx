@@ -33,7 +33,7 @@ export function SidebarNavItem({ items, onLinkClick }: SidebarNavProps) {
     cursor: "pointer",
     color: "text",
     _hover: {
-      color: "primary",
+      color: "link",
     },
   }
 
@@ -45,7 +45,7 @@ export function SidebarNavItem({ items, onLinkClick }: SidebarNavProps) {
             <Link href={item.url} passHref>
               <a
                 {...headingStyles}
-                color={asPath === item.url ? "primary" : "text"}
+                color={asPath === item.url ? "link" : "text"}
                 onClick={onLinkClick}
                 target={item.external && "_blank"}
               >
@@ -83,9 +83,9 @@ export function SidebarNavItem({ items, onLinkClick }: SidebarNavProps) {
                         display="flex"
                         fontSize="sm"
                         my="2"
-                        color={asPath === _item.url ? "primary" : "text"}
+                        color={asPath === _item.url ? "link" : "text"}
                         _hover={{
-                          color: "primary",
+                          color: "link",
                         }}
                         onClick={onLinkClick}
                       >

@@ -21,8 +21,8 @@ export default function Feature({ section, ...props }) {
             >
               <Image
                 src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${section.field_media.field_media_image.uri.url}`}
-                width="500"
-                height="400"
+                width={500}
+                height={400}
                 layout="intrinsic"
                 objectFit="cover"
                 sx={{

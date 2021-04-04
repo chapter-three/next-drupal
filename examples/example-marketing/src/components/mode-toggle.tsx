@@ -8,11 +8,11 @@ export function ModeToggle({ ...props }: ModeToggleProps) {
   return (
     <button
       variant="button.icon"
-      onClick={() => setColorMode(colorMode === "default" ? "dark" : "default")}
+      onClick={() => setColorMode(colorMode === "light" ? "dark" : "light")}
       color="text"
       {...props}
     >
-      <Icon name={colorMode === "default" ? "moon" : "sun"} size="5" />
+      <Icon name={colorMode === "light" ? "moon" : "sun"} size="5" />
     </button>
   )
 }

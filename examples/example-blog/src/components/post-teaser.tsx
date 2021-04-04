@@ -26,8 +26,8 @@ export function PostTeaser({ post, ...props }) {
         <div>
           <Image
             src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${post.field_image.uri.url}`}
-            width="800"
-            height="450"
+            width={800}
+            height={450}
             layout="intrinsic"
             objectFit="cover"
           />

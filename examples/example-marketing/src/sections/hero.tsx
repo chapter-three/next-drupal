@@ -31,8 +31,8 @@ export default function Hero({ section, ...props }) {
             >
               <Image
                 src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${section.field_media.field_media_image.uri.url}`}
-                width="1200"
-                height="600"
+                width={1200}
+                height={600}
                 layout="intrinsic"
                 objectFit="cover"
               />

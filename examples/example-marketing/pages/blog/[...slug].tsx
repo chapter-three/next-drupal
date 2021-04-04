@@ -22,8 +22,8 @@ export default function BlogPostPage({ post }) {
               <div rounded="sm" overflow="hidden">
                 <Image
                   src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${post.field_image.uri.url}`}
-                  width="1200"
-                  height="600"
+                  width={1200}
+                  height={600}
                   layout="intrinsic"
                   objectFit="cover"
                 />

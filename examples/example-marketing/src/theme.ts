@@ -1,5 +1,7 @@
 export default {
+  useRootStyles: true,
   breakpoints: ["640px", "768px", "1024px", "1280px"],
+  initialColorModeName: "light",
   colors: {
     text: "#111",
     heading: "#111",
@@ -222,27 +224,21 @@ export default {
   },
   styles: {
     global: {
+      fontFamily: "sans",
+      fontSize: ["14px", "16px"],
+      lineHeight: "normal",
+      fontFeatureSettings: "'kern'",
+      textRendering: "optimizeLegibility",
       "*": {
         m: 0,
         p: 0,
-      },
-      html: {
-        fontFamily: "sans",
-        fontSize: ["14px", "16px"],
-        lineHeight: "normal",
-        fontFeatureSettings: "'kern'",
-        textRendering: "optimizeLegibility",
+        listStyle: "none",
+        border: "0 solid",
+        borderColor: "border",
       },
       hr: {
         borderBottomWidth: 1,
         my: 6,
-      },
-    },
-    root: {
-      "*": {
-        listStyle: "none",
-        border: "0 solid",
-        borderColor: "border",
       },
     },
   },

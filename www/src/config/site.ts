@@ -5,6 +5,7 @@ export const site = {
     {
       title: "Documentation",
       url: "/",
+      activePathNames: ["/[[...slug]]"],
     },
     {
       title: "GitHub",

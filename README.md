@@ -13,6 +13,10 @@
   Next.js + Drupal for <strong>Incremental Static Regeneration</strong> and <strong>Preview mode</strong>.
 </p>
 
+<p align="center">
+  <em>Warning: this project is in early alpha. The API might change without notice.</em>
+</p>
+
 ## Table of Contents
 
 - [Demo](#demo)

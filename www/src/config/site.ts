@@ -13,4 +13,8 @@ export const site = {
       external: true,
     },
   ],
+  social: {
+    gitHub: "https://github.com/arshad/next-drupal",
+    twitter: "https://twitter.com/arshadcn",
+  },
 }

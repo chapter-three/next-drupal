@@ -36,7 +36,7 @@ export default function DocsPage({ doc, toc }: DocsPageProps) {
             <SidebarNav items={docs.manifest} />
           </aside>
           <div display="grid" col="1||||minmax(0, 1fr) 250px" gap="6|6|16">
-            <div py="10" className="DocSearch-content">
+            <div py="6|8|10" className="DocSearch-content">
               <h1 variant="heading.h1">{doc.frontMatter.title}</h1>
               {doc.frontMatter.excerpt ? (
                 <p variant="text.lead" mt="2">

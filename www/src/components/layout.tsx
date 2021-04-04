@@ -19,7 +19,7 @@ export function Layout({
   return (
     <>
       <NextSeo
-        title={title}
+        title={`${title} - Next.js for Drupal`}
         description={description}
         canonical={`https://reflexjs.org${path}`}
         openGraph={{

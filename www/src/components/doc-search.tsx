@@ -23,13 +23,14 @@ export function DocSearch({ ...props }) {
       </VisuallyHidden>
       <input
         type="search"
+        appearance="none"
         variant="input.sm"
         h="9"
         id="docsearch-input"
         placeholder="Type to search..."
         rounded="md"
         fontSize="sm"
-        w="180|275px"
+        w="100%|275px"
         bg="muted"
         flex="1"
       />

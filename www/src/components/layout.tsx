@@ -21,14 +21,14 @@ export function Layout({
       <NextSeo
         title={`${title} - Next.js for Drupal`}
         description={description}
-        canonical={`https://reflexjs.org${path}`}
+        canonical={`https://next-drupal.org${path}`}
         openGraph={{
           title,
           description,
-          url: `https://reflexjs.org${path}`,
+          url: `https://next-drupal.org${path}`,
           images: [
             {
-              url: "https://reflexjs.org/images/meta.jpg",
+              url: "https://next-drupal.org/images/meta.jpg",
               width: 800,
               height: 600,
             },

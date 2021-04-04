@@ -12,10 +12,10 @@ export default function App({ Component, pageProps }) {
           description:
             "Starter kits, themes and blocks to help you build Gatsby and Nextjs sites faster. Built using a styling library that has everything you care about. Speed and excellent developer experience.",
           type: "website",
-          url: "https://reflexjs.org",
+          url: "https://next-drupal.org",
           images: [
             {
-              url: "https://reflexjs.org/images/meta.jpg",
+              url: "https://next-drupal.org/images/meta.png",
               width: 800,
               height: 600,
             },

@@ -1,0 +1,30 @@
+{
+  "name": "www",
+  "description": "The next-drupal website.",
+  "private": "true",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "preview": "next build && next start"
+  },
+  "dependencies": {
+    "@reach/accordion": "^0.14.0",
+    "@reflexjs/mdx": "^1.0.0-alpha.5",
+    "framer-motion": "^4.1.2",
+    "next": "^10.1.3",
+    "next-seo": "^4.23.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "reflexjs": "^2.0.0-alpha.4"
+  },
+  "devDependencies": {
+    "next-mdx": "^0.6.0",
+    "next-mdx-toc": "^0.1.1",
+    "remark-autolink-headings": "^6.0.1",
+    "remark-slug": "^6.0.0",
+    "typescript": "^4.2.3"
+  }
+}

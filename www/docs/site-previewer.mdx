@@ -1,0 +1,55 @@
+---
+title: SitePreviewer
+excerpt: Learn how to build custom site previewer plugins.
+---
+
+**SitePreviewer** plugins are responsible for rendering the preview for an entity type.
+
+Implement a `@SitePreviewer` plugin to provide your own custom previewer.
+
+## Example
+
+A plugin that renders a link to preview.
+
+```php
+<?php
+
+namespace Drupal\next\Plugin\Next\SitePreviewer;
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\next\Plugin\SitePreviewerBase;
+
+/**
+ * Provides a link to the preview page.
+ *
+ * @SitePreviewer(
+ *  id = "link",
+ *  label = "Link to preview",
+ *  description = "Displays a link to the preview page."
+ * )
+ */
+class Link extends SitePreviewerBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function render(EntityInterface $entity, array $sites) {
+    $build = [];
+
+    foreach ($sites as $site) {
+      $build[] = [
+        '#type' => 'link',
+        '#title' => $this->t('Open preview'),
+        '#url' => $site->getPreviewUrlForEntity($entity),
+      ];
+    }
+
+    return $build;
+  }
+
+}
+```
+
+## Configuration
+
+**SitePreviewer** plugins can provide their own configuration. See `\Drupal\next\Plugin\ConfigurableSitePreviewerInterface`.

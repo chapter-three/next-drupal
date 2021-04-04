@@ -1,0 +1,10 @@
+{
+  "doc": {
+    "contentPath": "docs",
+    "basePath": "/docs"
+  },
+  "guide": {
+    "contentPath": "guides",
+    "basePath": "/guides"
+  }
+}

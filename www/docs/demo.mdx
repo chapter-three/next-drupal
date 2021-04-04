@@ -1,0 +1,61 @@
+---
+title: Demo
+excerpt: Demo for Next.js sites powered by Drupal on the backend.
+---
+
+## Examples
+
+The following demo sites are built from a single Drupal backend, Next.js for the frontend and styled with [Reflexjs](https://github.com/reflexjs/reflexjs).
+
+- Blog: http://next-example-blog.vercel.app/
+- Marketing (with paragaphs): http://next-example-marketing.vercel.app/
+
+## How to run the Demo
+
+To access the Drupal site and test the preview mode, you can clone this repository and run the demo sites on your local machine.
+
+1. Clone this repository
+
+```
+git clone https://github.com/arshad/next-drupal.git
+```
+
+2. Install dependencies
+
+```
+yarn && composer install -d ./examples/drupal-site
+```
+
+3. Copy `.env.example` to `.env.local`:
+
+```
+cp examples/example-blog/.env.example examples/example-blog/.env.local
+cp examples/example-marketing/.env.example examples/example-marketing/.env.local
+```
+
+4. Generate a certificate for localhost (this is required to run your local sites with HTTPS for preview mode)
+
+```
+openssl req -x509 -out examples/certificates/localhost.crt -keyout examples/certificates/localhost.key \
+ -newkey rsa:2048 -nodes -sha256 \
+ -subj '/CN=localhost' -extensions EXT -config <(\
+ printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+
+```
+
+Double-click on the certificate to add it to your keychain.
+
+5. Then run `yarn dev` from the root to start the _Drupal_ site and the _Next.js_ sites.
+
+```
+yarn dev
+
+```
+
+6. Login to the _Drupal_ site at http://localhost:8080 with **username: admin** and **password: admin**.
+
+7. Visit _/admin/config/people/simple_oauth_ to generate OAuth encryption keys. Enter `../oauth-keys` for the directory.
+
+8. Visit _/admin/content_ to add, edit and preview content.
+
+The blog site runs on [https://localhost:3030](https://localhost:3030) and the marketing site runs on [https://localhost:3000](https://localhost:3000).

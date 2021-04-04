@@ -19,7 +19,9 @@ export function Layout({
   return (
     <>
       <NextSeo
-        title={`${title} - Next.js for Drupal`}
+        title={
+          path === "/" ? `Next.js for Drupal` : `${title} - Next.js for Drupal`
+        }
         description={description}
         canonical={`https://next-drupal.org${path}`}
         openGraph={{

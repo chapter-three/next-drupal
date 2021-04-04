@@ -84,9 +84,9 @@ export default function DocsPage({ doc, toc }: DocsPageProps) {
             >
               {toc.items?.length && (
                 <>
-                  <h4 variant="heading.h6" mb="2">
+                  <h2 variant="heading.h6" mb="2">
                     On this page
-                  </h4>
+                  </h2>
                   <Toc tree={toc} />
                 </>
               )}

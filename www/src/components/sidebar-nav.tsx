@@ -48,6 +48,7 @@ export function SidebarNavItem({ items, onLinkClick }: SidebarNavProps) {
                 color={asPath === item.url ? "link" : "text"}
                 onClick={onLinkClick}
                 target={item.external && "_blank"}
+                rel={external ? "noreferrer" : ""}
               >
                 <Icon name="circle" size="2" ml="1" mr="3" opacity="0.5" />{" "}
                 {item.title}

@@ -28,7 +28,7 @@ export function Layout({
           url: `https://next-drupal.org${path}`,
           images: [
             {
-              url: "https://next-drupal.org/images/meta.jpg",
+              url: "https://next-drupal.org/images/meta.png",
               width: 800,
               height: 600,
             },

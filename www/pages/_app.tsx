@@ -8,9 +8,9 @@ export default function App({ Component, pageProps }) {
     <>
       <DefaultSeo
         openGraph={{
-          title: "Build something amazing.",
+          title: "Next.js for Drupal",
           description:
-            "Starter kits, themes and blocks to help you build Gatsby and Nextjs sites faster. Built using a styling library that has everything you care about. Speed and excellent developer experience.",
+            "Next.js + Drupal for Incremental Static Regeneration and Preview mode.",
           type: "website",
           url: "https://next-drupal.org",
           images: [

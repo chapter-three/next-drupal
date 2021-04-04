@@ -7,7 +7,7 @@ export default class extends Document {
       <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
-          <link rel="icon" type="image/png" href="/images/favicon.png" />
+          <link rel="icon" type="image/png" href="/images/favicon.ico" />
           <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"

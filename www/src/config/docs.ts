@@ -1,7 +1,7 @@
-import { Links } from "types"
+import { NavLinks } from "types"
 
 interface DocsConfig {
-  links: Links
+  links: NavLinks
 }
 
 export const docs: DocsConfig = {

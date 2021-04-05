@@ -159,7 +159,7 @@ export function Navbar() {
               </div>
               <div p="6" borderTopWidth="1">
                 <SidebarNav
-                  items={docs.manifest}
+                  items={docs.links}
                   onLinkClick={() => setShowMenu(false)}
                 />
               </div>

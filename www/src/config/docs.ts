@@ -1,5 +1,11 @@
-export const docs = {
-  manifest: [
+import { Links } from "types"
+
+interface DocsConfig {
+  links: Links
+}
+
+export const docs: DocsConfig = {
+  links: [
     {
       title: "Links",
       items: [
@@ -40,7 +46,6 @@ export const docs = {
         },
       ],
     },
-
     {
       title: "Next.js",
       items: [

@@ -29,3 +29,19 @@ export type Guide = MdxNode<{
   next?: DocNextPrev
   prev?: DocNextPrev
 }>
+
+export type NavLink = {
+  title: string
+  external?: boolean
+} & (
+  | {
+      url: string
+      items?: never
+    }
+  | {
+      url?: string
+      items: NavLink[]
+    }
+)
+
+export type NavLinks = NavLink[]

@@ -37,7 +37,7 @@ export function SidebarNavItem({ items, onLinkClick }: SidebarNavProps) {
     },
   }
 
-  return items.length ? (
+  return items?.length ? (
     <div>
       {items.map((item, index) => (
         <div key={index} mb="2">
@@ -67,7 +67,7 @@ export function SidebarNavItem({ items, onLinkClick }: SidebarNavProps) {
                     },
                   }}
                 >
-                  <Icon name="chevron" size="4" mr="2" opacity="0.5" />
+                  <Icon name="chevron-right" size="4" mr="2" opacity="0.5" />
                   {item.title}
                 </AccordionButton>
                 <AccordionPanel

@@ -14,7 +14,8 @@ export function Footer({ ...props }) {
         >
           {site.copyright && (
             <p variant="text.sm" w="full|auto" textAlign="center|left" my="0">
-              {site.copyright}
+              {site.copyright} - Built by{" "}
+              <a href="https://twitter.com/arshadcn">@arshadcn</a>.
             </p>
           )}
           {site.links?.length && (

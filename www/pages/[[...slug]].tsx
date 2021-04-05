@@ -1,7 +1,5 @@
-import Link from "next/link"
 import { getMdxNode, getMdxPaths } from "next-mdx/server"
 import { useHydrate } from "next-mdx/client"
-import { Icon } from "reflexjs"
 
 import { Doc } from "types"
 import { docs } from "@/config/docs"
@@ -10,6 +8,7 @@ import { Layout } from "@/components/layout"
 import { SidebarNav } from "@/components/sidebar-nav"
 import { getTableOfContents, TableOfContents } from "next-mdx-toc"
 import { Toc } from "@/components/toc"
+import { Pager } from "@/components/pager"
 
 export interface DocsPageProps {
   doc: Doc
@@ -20,6 +19,7 @@ export default function DocsPage({ doc, toc }: DocsPageProps) {
   const content = useHydrate(doc, {
     components: mdxComponents,
   })
+
   return (
     <Layout title={doc.frontMatter.title} description={doc.frontMatter.excerpt}>
       <div variant="container">
@@ -33,7 +33,7 @@ export default function DocsPage({ doc, toc }: DocsPageProps) {
             py="6|12"
             borderRightWidth="0|1"
           >
-            <SidebarNav items={docs.manifest} />
+            <SidebarNav items={docs.links} />
           </aside>
           <div display="grid" col="1||||minmax(0, 1fr) 250px" gap="6|6|16">
             <div py="6|8|10" className="DocSearch-content">
@@ -45,34 +45,7 @@ export default function DocsPage({ doc, toc }: DocsPageProps) {
               ) : null}
               <hr my="6" />
               {content}
-              <div
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-                py="10"
-              >
-                {doc.frontMatter.prev ? (
-                  <Link href={doc.frontMatter.prev.url} passHref>
-                    <a variant="button.link">
-                      <Icon
-                        name="chevron"
-                        size="5"
-                        mr="2"
-                        transform="rotate(180deg)"
-                      />
-                      {doc.frontMatter.prev.title}
-                    </a>
-                  </Link>
-                ) : null}
-                {doc.frontMatter.next ? (
-                  <Link href={doc.frontMatter.next.url} passHref>
-                    <a variant="button.link" ml="auto">
-                      {doc.frontMatter.next.title}{" "}
-                      <Icon name="chevron" size="5" ml="2" />
-                    </a>
-                  </Link>
-                ) : null}
-              </div>
+              <Pager links={docs.links} />
             </div>
             <aside
               display="none|none|none|block"

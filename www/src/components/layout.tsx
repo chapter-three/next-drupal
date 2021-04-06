@@ -3,6 +3,7 @@ import { useRouter } from "next/router"
 
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { site } from "@/config/site"
 
 interface LayoutProps {
   title: string
@@ -19,18 +20,16 @@ export function Layout({
   return (
     <>
       <NextSeo
-        title={
-          path === "/" ? `Next.js for Drupal` : `${title} - Next.js for Drupal`
-        }
+        title={path === "/" ? site.name : `${title} - ${site.name}`}
         description={description}
-        canonical={`https://next-drupal.org${path}`}
+        canonical={`${process.env.NEXT_PUBLIC_BASE_URL}${path}`}
         openGraph={{
           title,
           description,
-          url: `https://next-drupal.org${path}`,
+          url: `${process.env.NEXT_PUBLIC_BASE_URL}${path}`,
           images: [
             {
-              url: "https://next-drupal.org/images/meta.png",
+              url: `${process.env.NEXT_PUBLIC_BASE_URL}/images/meta.png`,
               width: 800,
               height: 600,
             },

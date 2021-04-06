@@ -82,7 +82,7 @@ export function Navbar() {
         <div display="flex" ml="0|auto" flex="1|none">
           <DocSearch ml="4" mr="4" flex="1" />
           <a
-            href={site.social.gitHub}
+            href={`https://github.com/${site.social.gitHub}`}
             target="_blank"
             rel="noreferrer"
             variant="button.navbar"

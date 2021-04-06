@@ -13,10 +13,13 @@ export function Footer({ ...props }) {
           pt="4"
         >
           {site.copyright && (
-            <p variant="text.sm" w="full|auto" textAlign="center|left" my="0">
-              {site.copyright} - Built by{" "}
-              <a href="https://twitter.com/arshadcn">@arshadcn</a>.
-            </p>
+            <p
+              variant="text.sm"
+              w="full|auto"
+              textAlign="center|left"
+              my="0"
+              dangerouslySetInnerHTML={{ __html: site.copyright }}
+            />
           )}
           {site.links?.length && (
             <div

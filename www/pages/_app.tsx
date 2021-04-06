@@ -1,3 +1,4 @@
+import { site } from "@/config/site"
 import { DefaultSeo } from "next-seo"
 import { ThemeProvider } from "reflexjs"
 
@@ -8,22 +9,21 @@ export default function App({ Component, pageProps }) {
     <>
       <DefaultSeo
         openGraph={{
-          title: "Next.js for Drupal",
-          description:
-            "Next.js + Drupal for Incremental Static Regeneration and Preview mode.",
+          title: site.name,
+          description: site.description,
           type: "website",
-          url: "https://next-drupal.org",
+          url: process.env.NEXT_PUBLIC_BASE_URL,
           images: [
             {
-              url: "https://next-drupal.org/images/meta.png",
+              url: `${process.env.NEXT_PUBLIC_BASE_URL}/images/meta.png`,
               width: 800,
               height: 600,
             },
           ],
         }}
         twitter={{
-          handle: "@arshadcn",
-          site: "@arshadcn",
+          handle: `@${site.social.twitter}`,
+          site: `@${site.social.twitter}`,
           cardType: "summary_large_image",
         }}
       />

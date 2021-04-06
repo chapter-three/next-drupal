@@ -1,8 +1,4 @@
-import { NavLinks } from "types"
-
-interface DocsConfig {
-  links: NavLinks
-}
+import { DocsConfig } from "@/core/types"
 
 export const docs: DocsConfig = {
   links: [

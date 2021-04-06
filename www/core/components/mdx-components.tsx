@@ -2,7 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { components } from "@reflexjs/mdx"
 
-import { Callout } from "@/components/callout"
+import { Callout } from "@/core/components/callout"
 
 export const mdxComponents = {
   ...components,

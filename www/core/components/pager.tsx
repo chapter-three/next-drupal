@@ -1,8 +1,8 @@
 import Link from "next/link"
 import { Icon } from "reflexjs"
-import { usePager } from "src/hooks/use-pager"
 
-import { NavLinks } from "types"
+import { usePager } from "@/core/hooks/use-pager"
+import { NavLinks } from "@/core/types"
 
 interface PagerProps {
   links: NavLinks

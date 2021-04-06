@@ -1,13 +1,14 @@
 import * as React from "react"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { Icon, useColorMode, VisuallyHidden } from "reflexjs"
 import { AnimatePresence, motion } from "framer-motion"
 
+import { DocSearch } from "@/core/components/doc-search"
+import { SidebarNav } from "@/core/components/sidebar-nav"
+
 import { docs } from "@/config/docs"
 import { site } from "@/config/site"
-import { NavbarLink } from "@/components/navbar-link"
-import { DocSearch } from "@/components/doc-search"
-import { SidebarNav } from "@/components/sidebar-nav"
 
 export function Navbar() {
   const [showMenu, setShowMenu] = React.useState(false)
@@ -83,7 +84,7 @@ export function Navbar() {
         <div display="flex" ml="0|auto" flex="1|none">
           <DocSearch ml="4" mr="4" flex="1" />
           <a
-            href={`https://github.com/${site.social.gitHub}`}
+            href={`https://github.com/${site.social.github}`}
             target="_blank"
             rel="noreferrer"
             variant="button.navbar"
@@ -169,5 +170,45 @@ export function Navbar() {
         ) : null}
       </AnimatePresence>
     </header>
+  )
+}
+
+export interface NavbarLinkProps
+  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  href: string
+  external?: boolean
+  activePathNames?: string[]
+  children: React.ReactNode
+}
+
+export function NavbarLink({
+  href,
+  external = false,
+  activePathNames,
+  children,
+  ...props
+}: NavbarLinkProps) {
+  const { pathname } = useRouter()
+  const isActive = pathname === href || activePathNames?.includes(pathname)
+  return (
+    <Link href={href} passHref>
+      <a
+        textDecoration="none"
+        color={isActive ? "link" : "text"}
+        fontSize="xl|md"
+        px="6|6|6|0"
+        py="2|2|2|0"
+        fontWeight={isActive ? "semibold" : "normal"}
+        _hover={{
+          color: "primary",
+          textDecoration: "underline",
+        }}
+        target={external ? "_blank" : "_self"}
+        rel={external ? "noreferrer" : ""}
+        {...props}
+      >
+        {children}
+      </a>
+    </Link>
   )
 }

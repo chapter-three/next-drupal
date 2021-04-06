@@ -7,16 +7,13 @@ declare global {
   }
 }
 
-interface DocNextPrev {
-  title: string
-  url: string
+export interface MdxComponents {
+  [name: string]: React.ReactNode
 }
 
 export type Doc = MdxNode<{
   title: string
   excerpt?: string
-  next?: DocNextPrev
-  prev?: DocNextPrev
 }>
 
 export type Guide = MdxNode<{
@@ -26,13 +23,12 @@ export type Guide = MdxNode<{
   author?: string
   image?: string
   caption?: string
-  next?: DocNextPrev
-  prev?: DocNextPrev
 }>
 
 export type NavLink = {
   title: string
   external?: boolean
+  activePathNames?: string[]
 } & (
   | {
       url: string
@@ -45,3 +41,22 @@ export type NavLink = {
 )
 
 export type NavLinks = NavLink[]
+
+export interface SiteConfig {
+  name: string
+  description?: string
+  copyright?: string
+  links: NavLinks
+  social: {
+    github?: string
+    twitter?: string
+  }
+}
+
+export interface DocsConfig {
+  links: NavLinks
+}
+
+export interface GuidesConfig {
+  links: NavLinks
+}

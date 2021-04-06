@@ -1,4 +1,6 @@
-export const site = {
+import { SiteConfig } from "@/core/types"
+
+export const site: SiteConfig = {
   name: "Next.js for Drupal",
   description:
     "Next.js + Drupal for Incremental Static Regeneration and Preview mode.",
@@ -20,7 +22,7 @@ export const site = {
     },
   ],
   social: {
-    gitHub: "arshad/next-drupal",
+    github: "arshad/next-drupal",
     twitter: "arshadcn",
   },
 }

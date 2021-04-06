@@ -14,7 +14,7 @@ export function Footer({ ...props }) {
         >
           {site.copyright && (
             <p
-              variant="text.sm"
+              variant="text"
               w="full|auto"
               textAlign="center|left"
               my="0"

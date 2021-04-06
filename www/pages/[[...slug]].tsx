@@ -1,14 +1,9 @@
 import { getMdxNode, getMdxPaths } from "next-mdx/server"
-import { useHydrate } from "next-mdx/client"
-
-import { Doc } from "types"
-import { docs } from "@/config/docs"
-import { mdxComponents } from "@/components/mdx-components"
-import { Layout } from "@/components/layout"
-import { SidebarNav } from "@/components/sidebar-nav"
 import { getTableOfContents, TableOfContents } from "next-mdx-toc"
-import { Toc } from "@/components/toc"
-import { Pager } from "@/components/pager"
+
+import { Doc } from "@/core/types"
+import { DocPage } from "@/core/components/doc-page"
+import { mdxComponents } from "@/core/components/mdx-components"
 
 export interface DocsPageProps {
   doc: Doc
@@ -16,67 +11,7 @@ export interface DocsPageProps {
 }
 
 export default function DocsPage({ doc, toc }: DocsPageProps) {
-  const content = useHydrate(doc, {
-    components: mdxComponents,
-  })
-
-  return (
-    <Layout title={doc.frontMatter.title} description={doc.frontMatter.excerpt}>
-      <div variant="container">
-        <div display="grid" col="1|||250px 1fr" gap="null|6|6|16">
-          <aside
-            display="none|none|none|block"
-            position="static|sticky"
-            top="14"
-            h={(theme) => `calc(100vh - ${theme.space[14]})`}
-            overflow="scroll"
-            py="6|12"
-            borderRightWidth="0|1"
-          >
-            <SidebarNav items={docs.links} />
-          </aside>
-          <div display="grid" col="1||||minmax(0, 1fr) 250px" gap="6|6|16">
-            <div py="6|8|10" className="DocSearch-content">
-              <h1 variant="heading.h1">{doc.frontMatter.title}</h1>
-              {doc.frontMatter.excerpt ? (
-                <p variant="text.lead" mt="2">
-                  {doc.frontMatter.excerpt}
-                </p>
-              ) : null}
-              <hr my="6" />
-              {content}
-              <Pager links={docs.links} />
-            </div>
-            <aside
-              display="none|none|none|block"
-              position="static|sticky"
-              top="14"
-              h={(theme) => `calc(100vh - ${theme.space[14]})`}
-              py="6|12"
-              overflow="scroll"
-            >
-              {toc.items?.length && (
-                <>
-                  <h2 variant="heading.h6" mb="2">
-                    On this page
-                  </h2>
-                  <Toc tree={toc} />
-                </>
-              )}
-              <div mt="10" bg="muted" p="4">
-                <p fontWeight="semibold">
-                  <em>
-                    Warning: this project is in early alpha. The API might
-                    change without notice.
-                  </em>
-                </p>
-              </div>
-            </aside>
-          </div>
-        </div>
-      </div>
-    </Layout>
-  )
+  return <DocPage doc={doc} toc={toc} components={mdxComponents} />
 }
 
 export async function getStaticPaths() {

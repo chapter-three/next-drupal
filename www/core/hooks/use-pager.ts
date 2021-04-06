@@ -1,6 +1,7 @@
 import * as React from "react"
 import { useRouter } from "next/router"
-import { NavLink, NavLinks } from "types"
+
+import { NavLink, NavLinks } from "@/core/types"
 
 export function usePager(
   links: NavLinks

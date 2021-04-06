@@ -11404,6 +11404,18 @@ reflexjs@^2.0.0-alpha.5:
     deepmerge "^4.2.2"
     theme-ui "^0.6.1"
 
+reflexjs@^2.0.0-alpha.6:
+  version "2.0.0-alpha.6"
+  resolved "https://registry.yarnpkg.com/reflexjs/-/reflexjs-2.0.0-alpha.6.tgz#d586d4dadd9b36729ddc1d5d132ed1bc9c6c7f13"
+  integrity sha512-D39go1fDlHt2A+egK/RBwp9Vba0Fn8eSP/pEf6dc05AohUL1Tcz2wXS7Fg+OgrU+Jn8JCpVQf3iAeFvWjC2s9Q==
+  dependencies:
+    "@emotion/react" "^11.1.5"
+    "@theme-ui/core" "^0.6.1"
+    "@theme-ui/parse-props" "^0.6.1"
+    csstype "^3.0.7"
+    deepmerge "^4.2.2"
+    theme-ui "^0.6.1"
+
 regenerate-unicode-properties@^8.2.0:
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/regenerate-unicode-properties/-/regenerate-unicode-properties-8.2.0.tgz#e5de7111d655e7ba60c057dbe9ff37c87e65cdec"

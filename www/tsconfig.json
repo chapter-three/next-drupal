@@ -15,9 +15,15 @@
     "jsx": "preserve",
     "baseUrl": "./",
     "paths": {
+      "@/core/config/*": ["core/config/*"],
+      "@/core/components/*": ["core/components/*"],
+      "@/core/hooks/*": ["core/hooks/*"],
+      "@/core/types": ["core/types"],
+      "@/core/utils/*": ["core/utils/*"],
       "@/components/*": ["src/components/*"],
       "@/utils/*": ["src/utils/*"],
-      "@/config/*": ["src/config/*"]
+      "@/config/*": ["src/config/*"],
+      "@/scenes/*": ["src/scenes/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

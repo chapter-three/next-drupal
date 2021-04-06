@@ -60,6 +60,7 @@ export function Navbar() {
             fontWeight="semibold"
             mr="0|0|0|10"
           >
+            <Icon name="logo" size="6" mr="2" />
             {site.name}
           </a>
         </Link>
@@ -68,9 +69,9 @@ export function Navbar() {
           col={`repeat(${site.links.length}, minmax(0,auto))`}
           gap="8"
         >
-          {site.links.map((link) => (
+          {site.links.map((link, index) => (
             <NavbarLink
-              key={link.url}
+              key={index}
               href={link.url}
               external={link.external}
               activePathNames={link.activePathNames}

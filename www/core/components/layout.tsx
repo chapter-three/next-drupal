@@ -30,7 +30,7 @@ export function Layout({
           url: `${process.env.NEXT_PUBLIC_BASE_URL}${path}`,
           images: [
             {
-              url: `${process.env.NEXT_PUBLIC_BASE_URL}/images/meta.png`,
+              url: `${process.env.NEXT_PUBLIC_BASE_URL}/images/meta.jpg`,
               width: 800,
               height: 600,
             },

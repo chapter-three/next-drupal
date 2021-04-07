@@ -276,6 +276,7 @@ const theme: Theme = {
       },
       a: {
         color: "link",
+        wordWrap: "break-word",
         textDecoration: "inherit",
         "&:hover": {
           textDecoration: "underline",

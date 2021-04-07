@@ -23,6 +23,7 @@
     "reflexjs": "^2.0.0-alpha.6"
   },
   "devDependencies": {
+    "@types/react": "^17.0.3",
     "remark-autolink-headings": "^6.0.1",
     "remark-slug": "^6.0.0",
     "typescript": "^4.2.3"

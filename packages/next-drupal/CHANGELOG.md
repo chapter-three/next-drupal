@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.2.1...next-drupal@0.3.0) (2021-04-29)
+
+
+### Features
+
+* add next_jsonapi module and switch to subrequests ([23b1367](https://github.com/arshad/next-drupal/commit/23b136775f7c0f5ee5f386e322affc7fc8adae4f))
+
+
+
+
+
 ## [0.2.1](https://github.com/arshad/next-drupal/compare/next-drupal@0.2.0...next-drupal@0.2.1) (2021-02-02)
 
 **Note:** Version bump only for package next-drupal

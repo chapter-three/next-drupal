@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/arshad/next-drupal/compare/drupal-site@0.2.1...drupal-site@0.3.0) (2021-04-29)
+
+
+### Bug Fixes
+
+* update drupal site ([b998b3f](https://github.com/arshad/next-drupal/commit/b998b3f3ff9078657640b952f1cdda155afbf978))
+* update seed db ([1944076](https://github.com/arshad/next-drupal/commit/1944076e4e74ba7a5fd3b17a8e2d99f2baf6b4c4))
+
+
+### Features
+
+* add metatag ([039018a](https://github.com/arshad/next-drupal/commit/039018afddafb3e15c53466ea5f099b0aad7308a))
+* add next_default_content module to seed demo data ([fa7905e](https://github.com/arshad/next-drupal/commit/fa7905e216809c5325db771fca72c5ee5fc76207))
+* add next_jsonapi module and switch to subrequests ([23b1367](https://github.com/arshad/next-drupal/commit/23b136775f7c0f5ee5f386e322affc7fc8adae4f))
+* add www ([955f994](https://github.com/arshad/next-drupal/commit/955f9947a84111c0e00b86bd3b9af5e255791de8))
+
+
+
+
+
 ## [0.2.1](https://github.com/arshad/next-drupal/compare/drupal-site@0.2.0...drupal-site@0.2.1) (2021-02-01)
 
 

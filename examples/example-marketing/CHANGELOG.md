@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/arshad/next-drupal/compare/example-marketing@0.2.1...example-marketing@0.3.0) (2021-04-29)
+
+
+### Bug Fixes
+
+* update .env.example ([467047b](https://github.com/arshad/next-drupal/commit/467047b010f54394c52760b9db960b06ee48db61))
+
+
+### Features
+
+* **www:** update to reflexjs 2.0.0-alpha-5 ([3b28c84](https://github.com/arshad/next-drupal/commit/3b28c84e9b7eefd4892aaf22dea0dd2512091b93))
+* update examples to reflexjs 2.0.0-alpha-4 ([49816ee](https://github.com/arshad/next-drupal/commit/49816ee6ba0f669d45cee6930b449547200ce1c7))
+
+
+
+
+
 ## [0.2.1](https://github.com/arshad/next-drupal/compare/example-marketing@0.2.0...example-marketing@0.2.1) (2021-02-02)
 
 **Note:** Version bump only for package example-marketing

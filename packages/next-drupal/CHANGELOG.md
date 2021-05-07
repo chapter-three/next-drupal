@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.3.0...next-drupal@0.4.0) (2021-05-07)
+
+
+### Features
+
+* allow sites with no access_token ([50cc84a](https://github.com/arshad/next-drupal/commit/50cc84a73ca694691ad93d020f40fe86ffdf8798))
+
+
+
+
+
 # [0.3.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.2.1...next-drupal@0.3.0) (2021-04-29)
 
 

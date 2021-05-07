@@ -88,7 +88,5 @@ async function resolveEntityUsingPath(
     }
 
     return JSON.parse(json["resolvedResource#uri{0}"]?.body)
-  } catch (error) {
-    console.error(error)
-  }
+  } catch (error) {}
 }

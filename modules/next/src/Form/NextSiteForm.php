@@ -55,7 +55,6 @@ class NextSiteForm extends EntityForm {
       '#title' => $this->t('Preview URL'),
       '#description' => $this->t('Enter the preview URL. Example: <em>https://example.com/api/preview</em>.'),
       '#default_value' => $entity->getPreviewUrl(),
-      '#required' => TRUE,
     ];
 
     $form['preview']['preview_secret'] = [
@@ -63,7 +62,6 @@ class NextSiteForm extends EntityForm {
       '#title' => $this->t('Preview secret'),
       '#description' => $this->t('Enter a secret for the site preview. This is the same value used for <em>DRUPAL_PREVIEW_SECRET</em>.'),
       '#default_value' => $entity->getPreviewSecret(),
-      '#required' => TRUE,
     ];
 
     return $form;

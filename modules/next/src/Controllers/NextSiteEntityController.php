@@ -55,11 +55,16 @@ class NextSiteEntityController extends ControllerBase {
       'NEXT_PUBLIC_DRUPAL_BASE_URL' => $this->request->getSchemeAndHttpHost(),
       'NEXT_IMAGE_DOMAIN' => $this->request->getHost(),
       'DRUPAL_SITE_ID' => $next_site->uuid(),
-      'DRUPAL_PREVIEW_SECRET' => $next_site->getPreviewSecret(),
       'DRUPAL_FRONT_PAGE' => $this->config('system.site')->get('page.front'),
-      'DRUPAL_CLIENT_ID' => 'Retrieve this from /admin/config/services/consumer',
-      'DRUPAL_CLIENT_SECRET' => 'Retrieve this from /admin/config/services/consumer',
     ];
+
+    if ($secret = $next_site->getPreviewSecret()) {
+      $variables += [
+        'DRUPAL_PREVIEW_SECRET' => $secret,
+        'DRUPAL_CLIENT_ID' => 'Retrieve this from /admin/config/services/consumer',
+        'DRUPAL_CLIENT_SECRET' => 'Retrieve this from /admin/config/services/consumer',
+      ];
+    }
 
     $build['container'] = [
       '#title' => $this->t('Environment variables'),

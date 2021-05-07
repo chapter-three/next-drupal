@@ -1,9 +1,8 @@
 <?php
 
-namespace Drupal\next\Controllers;
+namespace Drupal\next\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Url;
 use Drupal\next\Entity\NextSiteInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;

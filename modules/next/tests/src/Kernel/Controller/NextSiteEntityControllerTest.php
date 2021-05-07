@@ -3,13 +3,13 @@
 namespace Drupal\Tests\next\Kernel\Renderer\MainContent;
 
 use Drupal\KernelTests\KernelTestBase;
-use Drupal\next\Controllers\NextSiteEntityController;
+use Drupal\next\Controller\NextSiteEntityController;
 use Drupal\next\Entity\NextSite;
 
 /**
  * Tests the NextSiteEntityController.
  *
- * @coversDefaultClass \Drupal\next\Controllers\NextSiteEntityController
+ * @coversDefaultClass \Drupal\next\Controller\NextSiteEntityController
  *
  * @group next
  */

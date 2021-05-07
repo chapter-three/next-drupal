@@ -4,7 +4,7 @@ namespace Drupal\next\Routing;
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
-use Drupal\next\Controllers\NextSiteEntityController;
+use Drupal\next\Controller\NextSiteEntityController;
 use Symfony\Component\Routing\Route;
 
 /**

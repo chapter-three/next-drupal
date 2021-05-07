@@ -11,6 +11,7 @@
     }
   ],
   "require": {
+    "cweagans/composer-patches": "~1.0",
     "drupal/decoupled_router": "^2.0",
     "drupal/simple_oauth": "^5.0",
     "drupal/subrequests": "^3.0"
@@ -21,7 +22,8 @@
   "extra": {
     "patches": {
       "drupal/subrequests": {
-        "Subrequest failed validation": "https://www.drupal.org/files/issues/2019-05-27/3029570-array-not-object.patch"
+        "Subrequest failed validation": "https://www.drupal.org/files/issues/2019-05-27/3029570-array-not-object.patch",
+        "Get same results on different request": "https://www.drupal.org/files/issues/2019-07-18/change_request_type-63049395-09.patch"
       }
     }
   }

@@ -218,6 +218,10 @@ class Iframe extends ConfigurableSitePreviewerBase implements ContainerFactoryPl
       ],
     ];
 
+    $build['#cache']['contexts'] = $entity->getCacheContexts();
+    $build['#cache']['tags'] = $entity->getCacheTags();
+    $build['#cache']['max-age'] = $entity->getCacheMaxAge();
+
     return $build;
   }
 

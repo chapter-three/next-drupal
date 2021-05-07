@@ -6,12 +6,10 @@ export async function getEntityFromContext(
   entity_type: string,
   bundle: string,
   context: GetStaticPropsContext,
-  options: {
+  options?: {
     prefix?: string
     deserialize?: boolean
-    params?: {}
-  } = {
-    deserialize: false,
+    params?: Record<string, unknown>
   }
 ) {
   const {
@@ -32,12 +30,12 @@ export async function getEntityFromContext(
 
   if (!entity) return null
 
-  return options.deserialize ? deserialize(entity) : entity
+  return options?.deserialize ? deserialize(entity) : entity
 }
 
 async function resolveEntityUsingPath(
   path: string,
-  options?: { resourceVersion?: any; params?: {} }
+  options?: { resourceVersion?: string; params?: Record<string, unknown> }
 ) {
   try {
     const url = new URL(
@@ -66,13 +64,19 @@ async function resolveEntityUsingPath(
     ]
 
     const { access_token } = await getAccessToken()
+
+    const headers = {
+      "Content-Type": "application/json",
+    }
+
+    if (access_token) {
+      headers["Authorization"] = `Bearer ${access_token}`
+    }
+
     const result = await fetch(url.toString(), {
       method: "POST",
       credentials: "include",
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-        "Content-Type": "application/json",
-      },
+      headers,
       redirect: "follow",
       body: JSON.stringify(payload),
     })
@@ -80,8 +84,6 @@ async function resolveEntityUsingPath(
     const json = await result.json()
 
     if (!json) {
-      console.error(result)
-
       throw new Error(result.statusText)
     }
 

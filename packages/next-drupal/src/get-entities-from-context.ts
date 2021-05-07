@@ -9,22 +9,27 @@ export async function getEntitiesFromContext(
   options: {
     prefix?: string
     deserialize?: boolean
-    params?: {}
-  } = {
-    deserialize: false,
+    params?: Record<string, string>
+    filter?: (entity) => boolean
   }
 ) {
   // Filter out unpublished entities.
   if (!context.preview) {
     options.params = {
       ...options.params,
-      "filter[status]": 1,
+      "filter[status]": "1",
     }
   }
 
-  const entities = await getEntities(entity_type, bundle, options)
+  let entities = await getEntities(entity_type, bundle, options)
 
   if (!entities?.data?.length) return null
 
-  return options.deserialize ? deserialize(entities) : entities
+  entities = options.deserialize ? deserialize(entities) : entities
+
+  if (options?.filter) {
+    entities = entities.filter(options.filter)
+  }
+
+  return entities
 }

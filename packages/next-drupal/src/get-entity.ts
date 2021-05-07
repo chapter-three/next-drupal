@@ -6,7 +6,7 @@ export async function getEntity(
   uuid: string,
   options?: {
     resourceVersion?: string
-    params?: {}
+    params?: Record<string, string>
   }
 ) {
   try {

@@ -5,16 +5,14 @@ export async function getPathsForEntityType(
   entity_type: string,
   bundle: string,
   options: {
-    params?: {}
+    params?: Record<string, string>
     filter?: (entity) => boolean
-  } = {
-    filter: (_) => true,
-  }
+  } = {}
 ) {
   // Use sparse fieldset to expand max size.
   options.params = {
     [`fields[${entity_type}--${bundle}]`]: "path",
-    ...options.params,
+    ...options?.params,
   }
 
   let entities = await getEntities(entity_type, bundle, options)
@@ -24,7 +22,7 @@ export async function getPathsForEntityType(
 
   entities = deserialize(entities)
 
-  if (options.filter) {
+  if (options?.filter) {
     entities = entities.filter(options.filter)
   }
 

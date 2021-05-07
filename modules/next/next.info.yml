@@ -8,3 +8,4 @@ dependencies:
   - decoupled_router:decoupled_router
   - simple_oauth:simple_oauth
   - subrequests:subrequests
+  - pathauto:pathauto

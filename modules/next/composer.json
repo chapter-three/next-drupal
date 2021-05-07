@@ -13,6 +13,7 @@
   "require": {
     "cweagans/composer-patches": "~1.0",
     "drupal/decoupled_router": "^2.0",
+    "drupal/pathauto": "^1.8",
     "drupal/simple_oauth": "^5.0",
     "drupal/subrequests": "^3.0"
   },

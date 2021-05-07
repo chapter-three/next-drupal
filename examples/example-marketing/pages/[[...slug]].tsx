@@ -21,7 +21,7 @@ export default function BasicPage({ page }) {
               section = section.field_reusable_paragraph.paragraphs
             }
 
-            let section_type = section.type.replace("paragraph--", "")
+            const section_type = section.type.replace("paragraph--", "")
             const Section = dynamic<{ section: any }>(
               () => import(`../src/sections/${section_type}.tsx`)
             )

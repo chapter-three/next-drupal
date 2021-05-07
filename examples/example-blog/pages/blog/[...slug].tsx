@@ -89,7 +89,7 @@ export async function getStaticProps(context) {
   const entity = await getEntityFromContext("node", "article", context, {
     prefix: "/blog",
     params: {
-      include: "field_image, uid",
+      include: "field_image,uid",
     },
     deserialize: true,
   })

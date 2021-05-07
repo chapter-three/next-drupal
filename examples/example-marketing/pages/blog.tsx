@@ -25,18 +25,15 @@ export default function BlogPage({ articles }) {
 }
 
 export async function getStaticProps(context) {
-  let articles = await getEntitiesFromContext("node", "article", context, {
+  const articles = await getEntitiesFromContext("node", "article", context, {
     params: {
       include: "field_image, uid",
       sort: "-created",
     },
     deserialize: true,
+    filter: (entity) =>
+      entity.field_site.some(({ id }) => id === process.env.DRUPAL_SITE_ID),
   })
-
-  // Filter articles for current site.
-  articles = articles.filter((article) =>
-    article.field_site.some(({ id }) => id === process.env.DRUPAL_SITE_ID)
-  )
 
   return {
     props: {

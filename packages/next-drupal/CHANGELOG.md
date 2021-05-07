@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.1](https://github.com/arshad/next-drupal/compare/next-drupal@0.4.0...next-drupal@0.4.1) (2021-05-07)
+
+**Note:** Version bump only for package next-drupal
+
+
+
+
+
 # [0.4.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.3.0...next-drupal@0.4.0) (2021-05-07)
 
 

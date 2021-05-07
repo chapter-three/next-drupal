@@ -17,6 +17,7 @@
     "test:next": "./examples/drupal-site/vendor/bin/phpunit -c ./examples/drupal-site/web/core modules/next",
     "sync:modules": "./scripts/sync-modules.sh \"modules/*\"",
     "sync:examples": "./scripts/sync-examples.sh \"examples/example-*\"",
+    "sync:starters": "./scripts/sync-starters.sh \"starters/*\"",
     "seed": "NUM_NODES=200 node ./scripts/seed"
   },
   "husky": {

@@ -3,18 +3,22 @@ interface CalloutProps {
   children?: React.ReactNode
 }
 
-export function Callout({ type = "accent", children }: CalloutProps) {
+export function Callout({ type = "primary", children }: CalloutProps) {
   return (
     <div
-      borderTopWidth="4"
-      borderTopColor={type}
-      rounded="md"
+      borderLeftWidth="6"
+      borderLeftColor={type}
+      rounded="sm"
       bg="muted"
       p="4"
       sx={{
         "> p": {
-          m: 0,
+          mt: 0,
+          mb: 2,
           fontSize: "md",
+        },
+        "> p:last-child": {
+          mb: 0,
         },
       }}
     >

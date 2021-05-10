@@ -3,7 +3,7 @@ title: How to decouple Drupal with Next.js and JSON:API
 excerpt: A step by step guide to build a Next.js site with Drupal content and preview mode.
 ---
 
-Here's a list of tasks we will accomplish in this guide:
+Here is the list of tasks we will accomplish in this guide:
 
 1. Install and configure the Next.js module
 2. Configure preview mode
@@ -30,7 +30,7 @@ Run the following command to install the [Next.js](https://drupal.org/project/ne
 composer require drupal/next:1.0.x-dev
 ```
 
-Note: we are pulling the latest dev version since there are no stable releases for now.
+Note: we are pulling the latest dev version since there are no stable releases at this moment.
 
 <Callout>
 
@@ -40,7 +40,7 @@ Under the hood, the Next.js module uses [Subrequests](https://www.drupal.org/pro
 
 At the time of writing, there is a [bug](https://www.drupal.org/node/3029570) in the module that causes validation to fail. We need to patch the module to fix this.
 
-1. Open `composer.json` file and add the following lines (see highlighed) under `"extra"`.
+1. Open `composer.json` file and add the following lines (see highlighted) under `"extra"`.
 
 ```json
 "extra": {
@@ -66,7 +66,7 @@ This will install `cweagans/composer-patches` which will apply the patch.
 
 ### 3. Enable Next.js
 
-Visit `/admin/modules` and enable the **Next.js** and the **Next.js JSON API** modules.
+Visit `/admin/modules` and enable the **Next.js** and **Next.js JSON API** modules.
 
 ### 4. Create Site
 
@@ -94,10 +94,10 @@ Let's add a pattern for the **Article** content type.
 1. Visit _/admin/config/search/path/patterns/add_.
 2. Fill in the following values:
 
-- **Pattern type**: content
+- **Pattern type**: `Content`
 - **Path pattern**: `blog/[node:title]`
-- **Content type**: Article
-- **Label**: Article
+- **Content type**: `Article`
+- **Label**: `Article`
 
 3. Click **Save**
 
@@ -122,12 +122,20 @@ To configure preview mode for an entity type, you must configure:
 
 ##### Create Role
 
-1. Create a new Drupal role (example `Next site`) by visiting _/admin/people/roles/add_
+1. Create a new Drupal role (example `Next blog`) by visiting _/admin/people/roles/add_
 2. Give the role the following permissions:
 
-- _Bypass content access control_
+- Bypass content access control
 - Issue subrequests
 - View user information
+
+<Callout>
+
+We are assigning the _Bypass content access control_ permission to allow Next.js to access unpublished entites and their revisions.
+
+You can safely skip this permission if you do not need to preview unpublished content.
+
+</Callout>
 
 ##### Create User
 
@@ -203,7 +211,7 @@ If preview mode has been configured correctly, you should also see an iframe pre
 
 <Callout>
 
-**Hint:** Since we're not using the Drupal front end theme, set **Seven** as the default theme for a cleaner preview UI.
+👉 **Hint:** Since we're not using the Drupal front end theme, set **Seven** as the default theme for a cleaner preview UI.
 
 </Callout>
 

@@ -14,6 +14,10 @@ export const docs: DocsConfig = {
           url: "https://drupal.org/project/next",
           external: true,
         },
+        {
+          title: "Get Started",
+          url: "/guides/decoupled-drupal-nextjs",
+        },
       ],
     },
     {

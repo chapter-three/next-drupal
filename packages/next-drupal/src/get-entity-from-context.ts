@@ -17,7 +17,13 @@ export async function getEntityFromContext(
     params: { slug },
   } = context
   const { resourceVersion } = previewData
-  const { prefix = "", params } = options
+  // Default options.
+  options = {
+    prefix: "",
+    deserialize: true,
+    ...options,
+  }
+  const { prefix, params } = options
 
   const path = !slug
     ? process.env.DRUPAL_FRONT_PAGE
@@ -88,5 +94,7 @@ async function resolveEntityUsingPath(
     }
 
     return JSON.parse(json["resolvedResource#uri{0}"]?.body)
-  } catch (error) {}
+  } catch (error) {
+    //
+  }
 }

@@ -1,8 +1,4 @@
-import {
-  getPathsForEntityType,
-  getEntityFromContext,
-  deserialize,
-} from "next-drupal"
+import { getPathsForEntityType, getEntityFromContext } from "next-drupal"
 import { NextSeo } from "next-seo"
 
 import { Layout } from "@/components/layout"
@@ -40,9 +36,9 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  const entity = await getEntityFromContext("node", "page", context)
+  const page = await getEntityFromContext("node", "page", context)
 
-  if (!entity) {
+  if (!page) {
     return {
       notFound: true,
     }
@@ -50,7 +46,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      page: deserialize(entity),
+      page,
     },
     revalidate: 1,
   }

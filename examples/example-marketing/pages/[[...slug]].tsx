@@ -46,14 +46,14 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  const entity = await getEntityFromContext("node", "landing_page", context, {
+  const page = await getEntityFromContext("node", "landing_page", context, {
     params: {
       include:
         "field_sections,field_sections.field_media.field_media_image,field_sections.field_items,field_sections.field_reusable_paragraph.paragraphs.field_items",
     },
   })
 
-  if (!entity) {
+  if (!page) {
     return {
       notFound: true,
     }
@@ -61,7 +61,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      page: deserialize(entity),
+      page,
     },
     revalidate: 1,
   }

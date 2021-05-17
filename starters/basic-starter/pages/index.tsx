@@ -61,7 +61,6 @@ export async function getStaticProps(context) {
       include: "field_image,uid",
       sort: "-created",
     },
-    deserialize: true,
   })
 
   return {

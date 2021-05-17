@@ -51,12 +51,11 @@ export async function getStaticProps(context) {
       include: "field_image,uid",
       sort: "-created",
     },
-    deserialize: true,
   })
 
   return {
     props: {
-      articles: articles,
+      articles,
     },
   }
 }

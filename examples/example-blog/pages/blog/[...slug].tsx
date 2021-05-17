@@ -91,7 +91,6 @@ export async function getStaticProps(context) {
     params: {
       include: "field_image,uid",
     },
-    deserialize: true,
   })
 
   if (

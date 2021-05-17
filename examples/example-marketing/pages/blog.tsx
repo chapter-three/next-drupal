@@ -30,7 +30,6 @@ export async function getStaticProps(context) {
       include: "field_image, uid",
       sort: "-created",
     },
-    deserialize: true,
     filter: (entity) =>
       entity.field_site.some(({ id }) => id === process.env.DRUPAL_SITE_ID),
   })

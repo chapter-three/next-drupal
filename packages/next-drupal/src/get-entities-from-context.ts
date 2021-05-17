@@ -6,13 +6,19 @@ export async function getEntitiesFromContext(
   entity_type: string,
   bundle: string,
   context: GetStaticPropsContext,
-  options: {
+  options?: {
     prefix?: string
     deserialize?: boolean
     params?: Record<string, string>
     filter?: (entity) => boolean
   }
 ) {
+  // Default options.
+  options = {
+    deserialize: true,
+    ...options,
+  }
+
   // Filter out unpublished entities.
   if (!context.preview) {
     options.params = {

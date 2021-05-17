@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/arshad/next-drupal/compare/example-marketing@0.4.1...example-marketing@0.5.0) (2021-05-17)
+
+
+### Features
+
+* deserialize entities by default ([8b53ae2](https://github.com/arshad/next-drupal/commit/8b53ae222717b8983568194373be04903944a032))
+
+
+
+
+
 ## [0.4.1](https://github.com/arshad/next-drupal/compare/example-marketing@0.4.0...example-marketing@0.4.1) (2021-05-07)
 
 **Note:** Version bump only for package example-marketing

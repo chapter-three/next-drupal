@@ -39,9 +39,17 @@ export async function getEntityFromContext(
   return options?.deserialize ? deserialize(entity) : entity
 }
 
+export async function getEntityByPath(path: string) {
+  const entity = await resolveEntityUsingPath(path)
+
+  if (!entity) return null
+
+  return deserialize(entity)
+}
+
 async function resolveEntityUsingPath(
   path: string,
-  options?: { resourceVersion?: string; params?: Record<string, unknown> }
+  options: { resourceVersion?: string; params?: Record<string, unknown> } = {}
 ) {
   try {
     const url = new URL(
@@ -95,6 +103,6 @@ async function resolveEntityUsingPath(
 
     return JSON.parse(json["resolvedResource#uri{0}"]?.body)
   } catch (error) {
-    //
+    // console.error(error)
   }
 }

@@ -74,7 +74,6 @@ openssl req -x509 -out examples/certificates/localhost.crt -keyout examples/cert
 
 Double-click on the certificate to add it to your keychain.
 
-
 5. Then run `yarn dev` from the root to start the _Drupal_ site and the _Next.js_ sites.
 
 ```
@@ -286,7 +285,6 @@ export async function getStaticProps(context) {
       include: "field_image, uid",
       sort: "-created",
     },
-    deserialize: true,
   })
 
   return {
@@ -317,7 +315,6 @@ export async function getStaticProps(context) {
     params: {
       include: "field_image, uid",
     },
-    deserialize: true,
   })
 
   if (!post) {
@@ -391,7 +388,6 @@ export async function getStaticProps(context) {
     params: {
       include: "field_image, uid",
     },
-    deserialize: true,
   })
 
   if (!post) {

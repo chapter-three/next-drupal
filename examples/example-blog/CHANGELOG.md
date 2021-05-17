@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/arshad/next-drupal/compare/example-blog@0.5.0...example-blog@0.6.0) (2021-05-17)
+
+
+### Features
+
+* add getEntityByPath ([072ead7](https://github.com/arshad/next-drupal/commit/072ead7ecc3b7f158e4b81e03d17f0bf1a5b511c))
+
+
+
+
+
 # [0.5.0](https://github.com/arshad/next-drupal/compare/example-blog@0.4.1...example-blog@0.5.0) (2021-05-17)
 
 

@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "node server.js",
+    "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start",
     "preview": "next build && next start"

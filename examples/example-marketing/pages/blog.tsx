@@ -1,12 +1,11 @@
 import { getEntitiesFromContext } from "next-drupal"
 import { NextSeo } from "next-seo"
 
-import { Layout } from "@/components/layout"
 import { PostTeaser } from "@/components/post-teaser"
 
 export default function BlogPage({ articles }) {
   return (
-    <Layout>
+    <>
       <NextSeo title="Blog" />
       <div variant="container" py="10|12">
         <h1 variant="heading.h1">Latest Articles.</h1>
@@ -20,7 +19,7 @@ export default function BlogPage({ articles }) {
           <p mt="6">No posts found</p>
         )}
       </div>
-    </Layout>
+    </>
   )
 }
 

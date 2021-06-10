@@ -225,18 +225,20 @@ const theme: Theme = {
     6: "repeat(6, minmax(0, 1fr))",
   },
   styles: {
-    global: {
-      fontFamily: "sans",
-      fontSize: ["14px", "16px"],
-      lineHeight: "normal",
-      fontFeatureSettings: "'kern'",
-      textRendering: "optimizeLegibility",
+    root: {
       "*": {
         m: 0,
         p: 0,
         listStyle: "none",
         border: "0 solid",
         borderColor: "border",
+      },
+      body: {
+        fontFamily: "sans",
+        fontSize: ["14px", "16px"],
+        lineHeight: "normal",
+        fontFeatureSettings: "'kern'",
+        textRendering: "optimizeLegibility",
       },
       hr: {
         borderBottomWidth: 1,

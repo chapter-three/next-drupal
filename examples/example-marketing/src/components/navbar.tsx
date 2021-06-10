@@ -1,15 +1,20 @@
 import Link from "next/link"
 import { site } from "@/config"
 import { ModeToggle } from "./mode-toggle"
-import { NavbarLink } from "./navbar-link"
+import { DrupalMenuLinkContent } from "next-drupal"
+import React from "react"
+import { useRouter } from "next/dist/client/router"
 
-export function Navbar({ ...props }) {
+interface NavbarProps {
+  links: DrupalMenuLinkContent[]
+}
+
+export function Navbar({ links, ...props }: NavbarProps) {
   return (
     <header
       position="static|sticky"
       top="0"
       bg="background"
-      opacity="0.85"
       py="4"
       zIndex="1000"
       backdropFilter="saturate(100%) blur(10px)"
@@ -38,26 +43,7 @@ export function Navbar({ ...props }) {
             </a>
           </Link>
         </div>
-        <div
-          display="flex"
-          alignItems="center"
-          flex="1"
-          justifyContent="center"
-          w="100%|auto"
-          mt="4|0"
-        >
-          <div
-            display="inline-grid"
-            col={`repeat(${site.links.length}, minmax(0,auto))`}
-            gap="6|12"
-          >
-            {site.links.map((link) => (
-              <NavbarLink key={link.url} href={link.url}>
-                {link.title}
-              </NavbarLink>
-            ))}
-          </div>
-        </div>
+        {links ? <Menu items={links} /> : null}
         <div
           w="40"
           display="flex"
@@ -70,5 +56,79 @@ export function Navbar({ ...props }) {
         </div>
       </div>
     </header>
+  )
+}
+
+function Menu({ items }: { items: DrupalMenuLinkContent[] }) {
+  return (
+    <ul
+      display="inline-grid"
+      col={`repeat(${items.length}, minmax(0,auto))`}
+      gap="6|12"
+    >
+      {items.map((item) => (
+        <MenuLink link={item} key={item.id} />
+      ))}
+    </ul>
+  )
+}
+
+function MenuLink({ link }: { link: DrupalMenuLinkContent }) {
+  const { asPath } = useRouter()
+  const [showDropdown, setShowDropdown] = React.useState<boolean>(false)
+  return (
+    <li
+      key={link.id}
+      onMouseEnter={() => setShowDropdown(true)}
+      onMouseLeave={() => setShowDropdown(false)}
+    >
+      <Link href={link.url} passHref>
+        <a
+          textDecoration={showDropdown ? "underline" : "none"}
+          color="text"
+          fontWeight={link.url === asPath ? "semibold" : "normal"}
+          py="4"
+          _hover={{
+            textDecoration: "underline",
+          }}
+        >
+          {link.title}
+        </a>
+      </Link>
+      {showDropdown && link.expanded && link.items?.length ? (
+        <ul
+          position="absolute"
+          boxShadow="sm"
+          borderWidth="1"
+          bg="background"
+          borderRadius="md"
+          overflow="hidden"
+          zIndex="1000"
+          transform="translateY(10px)"
+        >
+          {link.items.map((item) => (
+            <li key={item.id}>
+              <Link href={item.url} passHref>
+                <a
+                  display="block"
+                  px="3"
+                  py="2"
+                  minWidth="150"
+                  textDecoration="none"
+                  bg={item.url === asPath ? "muted" : "background"}
+                  color="text"
+                  _hover={{
+                    bg: "text",
+                    color: "background",
+                  }}
+                >
+                  {item.title}
+                </a>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </li>
   )
 }

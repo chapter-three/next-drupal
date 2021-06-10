@@ -2,14 +2,13 @@ import { getPathsForEntityType, getEntityFromContext } from "next-drupal"
 import Image from "next/image"
 import { NextSeo } from "next-seo"
 
-import { Layout } from "@/components/layout"
 import { PostMeta } from "@/components/post-meta"
 
 export default function BlogPostPage({ post }) {
   if (!post) return null
 
   return (
-    <Layout>
+    <>
       <NextSeo title={post.title} />
       <div variant="container" py="4">
         <article>
@@ -60,7 +59,7 @@ export default function BlogPostPage({ post }) {
           </div>
         </article>
       </div>
-    </Layout>
+    </>
   )
 }
 

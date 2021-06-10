@@ -1,26 +1,22 @@
+import * as React from "react"
 import { Navbar } from "@/components/navbar"
 import { site } from "@/config"
+import { useMenu } from "next-drupal"
+import { Footer } from "./footer"
 
 interface LayoutProps {
   children?: React.ReactNode
 }
 
 export function Layout({ children }: LayoutProps) {
+  const { tree: mainLinks } = useMenu("main")
+  const { tree: footerLinks } = useMenu("footer")
+
   return (
     <>
-      <Navbar />
+      <Navbar links={mainLinks} />
       <main>{children}</main>
-      <footer py="12|18|20">
-        <div variant="container.sm">
-          <div borderTopWidth="1" display="flex" justifyContent="center" pt="6">
-            {site.copyright ? (
-              <p fontSize="sm" color="gray">
-                {site.copyright}
-              </p>
-            ) : null}
-          </div>
-        </div>
-      </footer>
+      <Footer copyright={site.copyright} links={footerLinks} />
     </>
   )
 }

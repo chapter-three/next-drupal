@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.6.0...next-drupal@0.7.0) (2021-06-10)
+
+
+### Features
+
+* **next-drupal:** add menu support ([95b4a84](https://github.com/arshad/next-drupal/commit/95b4a8422bc092ca60b75e8c85504d2919834df5))
+
+
+
+
+
 # [0.6.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.5.0...next-drupal@0.6.0) (2021-05-17)
 
 

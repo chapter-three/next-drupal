@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/arshad/next-drupal/compare/example-blog@0.6.0...example-blog@0.7.0) (2021-06-10)
+
+
+### Features
+
+* **examples:** update examples to use the new menu hook ([f9169e3](https://github.com/arshad/next-drupal/commit/f9169e34ab76584db855f1a69df027024156afff))
+
+
+
+
+
 # [0.6.0](https://github.com/arshad/next-drupal/compare/example-blog@0.5.0...example-blog@0.6.0) (2021-05-17)
 
 

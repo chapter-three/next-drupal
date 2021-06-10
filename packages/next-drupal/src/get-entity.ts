@@ -23,15 +23,12 @@ export async function getEntity(
     const { access_token } = await getAccessToken()
     const result = await fetch(url.toString(), {
       method: "GET",
-      credentials: "include",
       headers: {
         Authorization: `Bearer ${access_token}`,
       },
     })
 
     if (!result.ok) {
-      console.error(result)
-
       throw new Error(result.statusText)
     }
 

@@ -18,7 +18,6 @@ export async function getEntities(
     const { access_token } = await getAccessToken()
     const result = await fetch(url.toString(), {
       method: "GET",
-      credentials: "include",
       headers: access_token
         ? {
             Authorization: `Bearer ${access_token}`,

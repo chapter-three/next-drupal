@@ -1,12 +1,14 @@
+import Head from "next/head"
 import { getEntitiesFromContext } from "next-drupal"
-import { NextSeo } from "next-seo"
 
 import { PostTeaser } from "@/components/post-teaser"
 
 export default function BlogPage({ articles }) {
   return (
     <>
-      <NextSeo title="Blog" />
+      <Head>
+        <title>Blog</title>
+      </Head>
       <div variant="container" py="10|12">
         <h1 variant="heading.h1">Latest Articles.</h1>
         {articles.length ? (
@@ -24,19 +26,21 @@ export default function BlogPage({ articles }) {
 }
 
 export async function getStaticProps(context) {
-  const articles = await getEntitiesFromContext("node", "article", context, {
+  const entities = await getEntitiesFromContext("node", "article", context, {
     params: {
       include: "field_image, uid",
       sort: "-created",
     },
-    filter: (entity) =>
-      entity.field_site.some(({ id }) => id === process.env.DRUPAL_SITE_ID),
   })
+
+  const articles = entities.filter((entity) =>
+    entity.field_site.some(({ id }) => id === process.env.DRUPAL_SITE_ID)
+  )
 
   return {
     props: {
-      articles: articles,
+      articles,
     },
-    revalidate: 1,
+    revalidate: 60,
   }
 }

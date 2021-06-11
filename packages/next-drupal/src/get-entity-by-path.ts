@@ -13,6 +13,10 @@ export async function getEntityByPath(
     ...options,
   }
 
+  if (!path) {
+    return null
+  }
+
   const { resourceVersion, params } = options
   const resourceParams = new URLSearchParams({
     resourceVersion: resourceVersion || "rel:latest-version",

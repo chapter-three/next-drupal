@@ -14,7 +14,7 @@ export async function getEntityFromContext(
     params?: Record<string, unknown>
   }
 ) {
-  const path = getPathFromContext(context, options.prefix)
+  const path = getPathFromContext(context, options?.prefix)
 
   return await getEntityByPath(path, {
     resourceVersion: context.previewData?.resourceVersion,

@@ -1,5 +1,5 @@
+import Head from "next/head"
 import { getPathsForEntityType, getEntityFromContext } from "next-drupal"
-import { NextSeo } from "next-seo"
 
 import { Layout } from "@/components/layout"
 
@@ -8,7 +8,9 @@ export default function BasicPage({ page }) {
 
   return (
     <Layout>
-      <NextSeo title={page.title} />
+      <Head>
+        <title>{page.title}</title>
+      </Head>
       <div variant="container.sm" py="10|12">
         <h1 variant="heading.h1">{page.title}</h1>
         {page.body && (
@@ -27,10 +29,8 @@ export default function BasicPage({ page }) {
 }
 
 export async function getStaticPaths() {
-  const paths = await getPathsForEntityType("node", "page")
-
   return {
-    paths,
+    paths: await getPathsForEntityType("node", "page"),
     fallback: true,
   }
 }

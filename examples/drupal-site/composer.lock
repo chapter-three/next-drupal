@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "46d52e643bd43d4512b9f2213b588fa0",
+    "content-hash": "83dfdeddfb8057e0eaec5a2b5f06186f",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3152,17 +3152,17 @@
         },
         {
             "name": "drupal/entity_reference_revisions",
-            "version": "1.8.0",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/entity_reference_revisions.git",
-                "reference": "8.x-1.8"
+                "reference": "8.x-1.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/entity_reference_revisions-8.x-1.8.zip",
-                "reference": "8.x-1.8",
-                "shasum": "c1279e6c683edc2dbccedba8de1505340c8a62b6"
+                "url": "https://ftp.drupal.org/files/projects/entity_reference_revisions-8.x-1.9.zip",
+                "reference": "8.x-1.9",
+                "shasum": "e1c51bdea495eb3b458130d6f0a00c347f5637df"
             },
             "require": {
                 "drupal/core": "^8.7.7 || ^9"
@@ -3173,8 +3173,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.8",
-                    "datestamp": "1583961846",
+                    "version": "8.x-1.9",
+                    "datestamp": "1614805871",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3183,7 +3183,7 @@
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -3275,6 +3275,67 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/entity_usage",
                 "issues": "http://drupal.org/project/issues/entity_usage"
+            }
+        },
+        {
+            "name": "drupal/jsonapi_hypermedia",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/jsonapi_hypermedia.git",
+                "reference": "8.x-1.6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/jsonapi_hypermedia-8.x-1.6.zip",
+                "reference": "8.x-1.6",
+                "shasum": "10f9e9fdfe8ae465d277f13c1d98e9389b14dec1"
+            },
+            "require": {
+                "drupal/core": "^8.8 || ^9.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.6",
+                    "datestamp": "1582916946",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Gabriel SULLICE",
+                    "homepage": "https://www.drupal.org/user/3616626",
+                    "email": "gabriel@sullice.com"
+                },
+                {
+                    "name": "Wim Leers",
+                    "homepage": "https://www.drupal.org/user/99777"
+                },
+                {
+                    "name": "e0ipso",
+                    "homepage": "https://www.drupal.org/user/550110"
+                },
+                {
+                    "name": "gabesullice",
+                    "homepage": "https://www.drupal.org/user/2287430"
+                },
+                {
+                    "name": "zrpnr",
+                    "homepage": "https://www.drupal.org/user/1448368"
+                }
+            ],
+            "description": "Complements the JSON API module with Hypermedia as the Engine of Application State",
+            "homepage": "https://www.drupal.org/project/jsonapi_hypermedia",
+            "support": {
+                "source": "https://git.drupalcode.org/project/jsonapi_hypermedia"
             }
         },
         {
@@ -3398,66 +3459,63 @@
             }
         },
         {
-            "name": "drupal/metatag",
-            "version": "1.15.0",
+            "name": "drupal/jsonapi_schema",
+            "version": "1.0.0-beta1",
             "source": {
                 "type": "git",
-                "url": "https://git.drupalcode.org/project/metatag.git",
-                "reference": "8.x-1.15"
+                "url": "https://git.drupalcode.org/project/jsonapi_schema.git",
+                "reference": "8.x-1.0-beta1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/metatag-8.x-1.15.zip",
-                "reference": "8.x-1.15",
-                "shasum": "7658d7286fdc075ea72a6ec36aea737b1182b5d8"
+                "url": "https://ftp.drupal.org/files/projects/jsonapi_schema-8.x-1.0-beta1.zip",
+                "reference": "8.x-1.0-beta1",
+                "shasum": "31fd6599e9c844edfc599e67c3501669ac4716e2"
             },
             "require": {
-                "drupal/core": "^8 || ^9",
-                "drupal/token": "^1.0"
-            },
-            "require-dev": {
-                "drupal/metatag_dc": "*",
-                "drupal/metatag_open_graph": "*",
-                "drupal/page_manager": "4.x-dev",
-                "drupal/panelizer": "4.x-dev",
-                "drupal/redirect": "1.x-dev"
+                "drupal/core": "^8.8 || ^9"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.15",
-                    "datestamp": "1611210662",
+                    "version": "8.x-1.0-beta1",
+                    "datestamp": "1597997774",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
                     }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0-or-later"
+                "GPL-2.0+"
             ],
             "authors": [
                 {
-                    "name": "See contributors",
-                    "homepage": "https://www.drupal.org/node/640498/committers",
-                    "role": "Developer"
+                    "name": "Gabe Sullice (gabesullice)",
+                    "homepage": "https://www.drupal.org/u/gabesullice",
+                    "role": "Maintainer"
                 },
                 {
-                    "name": "Dave Reid",
-                    "homepage": "https://www.drupal.org/user/53892"
+                    "name": "Mateu Aguiló Bosch (e0ipso)",
+                    "homepage": "https://www.drupal.org/u/e0ipso",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "gabesullice",
+                    "homepage": "https://www.drupal.org/user/2287430"
                 }
             ],
-            "description": "Manage meta tags for all entities.",
-            "homepage": "https://www.drupal.org/project/metatag",
+            "description": "Provides schema for all JSON:API routes.",
+            "homepage": "http://drupal.org/project/jsonapi_schema",
             "keywords": [
                 "Drupal",
-                "seo"
+                "JSON Schema",
+                "JSON:API"
             ],
             "support": {
-                "source": "https://git.drupalcode.org/project/metatag",
-                "issues": "https://www.drupal.org/project/issues/metatag",
-                "docs": "https://www.drupal.org/docs/8/modules/metatag"
+                "source": "https://git.drupalcode.org/project/jsonapi_schema",
+                "issues": "https://www.drupal.org/project/issues/jsonapi_schema"
             }
         },
         {
@@ -3655,17 +3713,17 @@
         },
         {
             "name": "drupal/simple_oauth",
-            "version": "5.0.3",
+            "version": "5.0.4",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/simple_oauth.git",
-                "reference": "5.0.3"
+                "reference": "5.0.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/simple_oauth-5.0.3.zip",
-                "reference": "5.0.3",
-                "shasum": "9f620162fd06ddcf05c1da316555f988a60c7897"
+                "url": "https://ftp.drupal.org/files/projects/simple_oauth-5.0.4.zip",
+                "reference": "5.0.4",
+                "shasum": "9f8703f38409bccc1f2e7d5b7f5721185d4516ec"
             },
             "require": {
                 "drupal/consumers": "^1.2",
@@ -3678,8 +3736,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "5.0.3",
-                    "datestamp": "1607468179",
+                    "version": "5.0.4",
+                    "datestamp": "1619973973",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -11318,6 +11376,7 @@
     "stability-flags": {
         "drupal/default_content": 15,
         "drupal/entity_usage": 10,
+        "drupal/jsonapi_schema": 10,
         "drupal/next": 20
     },
     "prefer-stable": true,

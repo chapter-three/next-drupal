@@ -1,16 +1,19 @@
-import { getPathsForEntityType, getEntityFromContext } from "next-drupal"
 import Image from "next/image"
-import { NextSeo } from "next-seo"
+import Head from "next/head"
+import { getPathsForEntityType, getEntityFromContext } from "next-drupal"
 
 import { PostMeta } from "@/components/post-meta"
 
-export default function BlogPostPage({ post }) {
+export default function BlogPostPage({ post, preview }) {
   if (!post) return null
 
   return (
     <>
-      <NextSeo title={post.title} />
+      <Head>
+        <title>{post.title}</title>
+      </Head>
       <div variant="container" py="4">
+        {preview && <p>This is preview</p>}
         <article>
           <div display="flex" flexDirection="column">
             {post.field_image?.uri && (
@@ -51,7 +54,10 @@ export default function BlogPostPage({ post }) {
                 dangerouslySetInnerHTML={{ __html: post.body?.processed }}
                 sx={{
                   p: {
-                    variant: "text.paragraph",
+                    variant: "text",
+                    fontSize: "xl",
+                    my: 8,
+                    lineHeight: 8,
                   },
                 }}
               />
@@ -64,10 +70,11 @@ export default function BlogPostPage({ post }) {
 }
 
 export async function getStaticPaths() {
-  const paths = await getPathsForEntityType("node", "article", {
-    filter: (entity) =>
-      entity.field_site?.some(({ id }) => id === process.env.DRUPAL_SITE_ID),
-  })
+  let paths = await getPathsForEntityType("node", "article")
+
+  paths = paths.filter((entity) =>
+    entity.field_site?.some(({ id }) => id === process.env.DRUPAL_SITE_ID)
+  )
 
   return {
     paths,
@@ -76,17 +83,16 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  const entity = await getEntityFromContext("node", "article", context, {
+  const post = await getEntityFromContext("node", "article", context, {
     prefix: "/blog",
     params: {
       include: "field_image,uid",
     },
-    deserialize: true,
   })
 
   if (
-    !entity ||
-    !entity.field_site?.some(({ id }) => id === process.env.DRUPAL_SITE_ID)
+    !post ||
+    !post.field_site?.some(({ id }) => id === process.env.DRUPAL_SITE_ID)
   ) {
     return {
       notFound: true,
@@ -95,8 +101,8 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      post: entity,
+      post,
     },
-    revalidate: 1,
+    revalidate: 60,
   }
 }

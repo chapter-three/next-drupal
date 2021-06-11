@@ -1,8 +1,6 @@
-import { getPathsForEntityType, getEntityFromContext } from "next-drupal"
 import Image from "next/image"
-import Link from "next/link"
-import { Icon } from "reflexjs"
-import { NextSeo } from "next-seo"
+import Head from "next/head"
+import { getPathsForEntityType, getEntityFromContext } from "next-drupal"
 
 import { Layout } from "@/components/layout"
 import { PostMeta } from "@/components/post-meta"
@@ -12,10 +10,12 @@ export default function BlogPostPage({ post }) {
 
   return (
     <Layout>
-      <NextSeo title={post.title} />
+      <Head>
+        <title>{post.title}</title>
+      </Head>
       <div variant="container.sm" py="4|10|12">
         <article>
-          <h1 variant="heading.title">{post.title}</h1>
+          <h1 variant="heading.h1">{post.title}</h1>
           {post.body?.summary ? (
             <p variant="text.lead" mt="4">
               {post.body.summary}
@@ -44,26 +44,15 @@ export default function BlogPostPage({ post }) {
               dangerouslySetInnerHTML={{ __html: post.body?.processed }}
               sx={{
                 p: {
-                  variant: "text.paragraph",
+                  variant: "text",
+                  fontFamily: "serif",
+                  fontSize: "xl",
+                  my: 8,
+                  lineHeight: 8,
                 },
               }}
             />
           )}
-          <Link href="/" passHref>
-            <a
-              display="inline-flex"
-              mt="8"
-              alignItems="center"
-              color="primary"
-              textDecoration="none"
-              _hover={{
-                textDecoration: "underline",
-              }}
-            >
-              <Icon name="arrow" size="4" transform="rotate(180deg)" mr="2" />
-              Back to blog
-            </a>
-          </Link>
         </article>
       </div>
     </Layout>
@@ -71,13 +60,15 @@ export default function BlogPostPage({ post }) {
 }
 
 export async function getStaticPaths() {
-  const paths = await getPathsForEntityType("node", "article", {
+  let paths = await getPathsForEntityType("node", "article", {
     params: {
       "fields[node--article]": "path,field_site",
     },
-    filter: (entity) =>
-      entity.field_site?.some(({ id }) => id === process.env.DRUPAL_SITE_ID),
   })
+
+  paths = paths.filter((entity) =>
+    entity.field_site?.some(({ id }) => id === process.env.DRUPAL_SITE_ID)
+  )
 
   return {
     paths,

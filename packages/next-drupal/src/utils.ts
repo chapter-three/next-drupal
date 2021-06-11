@@ -9,8 +9,6 @@ const dataFormatter = new Jsona()
 export function deserialize(body, options?) {
   if (!body) return null
 
-  console.log(dataFormatter)
-
   return dataFormatter.deserialize(body, options)
 }
 

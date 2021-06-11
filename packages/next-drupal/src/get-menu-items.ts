@@ -1,5 +1,4 @@
-import { deserialize } from "./deserialize"
-import { getAccessToken } from "./get-access-token"
+import { buildUrl, deserialize } from "./utils"
 
 export async function getMenuItems(
   name: string,
@@ -12,25 +11,15 @@ export async function getMenuItems(
     ...options,
   }
 
-  const url = new URL(
-    `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/menu_items/${name}`
-  )
+  const url = buildUrl(`/jsonapi/menu_items/${name}`)
 
-  const { access_token } = await getAccessToken()
-  const result = await fetch(url.toString(), {
-    method: "GET",
-    headers: access_token
-      ? {
-          Authorization: `Bearer ${access_token}`,
-        }
-      : {},
-  })
+  const response = await fetch(url.toString())
 
-  if (!result.ok) {
-    throw new Error(result.statusText)
+  if (!response.ok) {
+    throw new Error(response.statusText)
   }
 
-  const data = await result.json()
+  const data = await response.json()
 
   return options.deserialize ? deserialize(data) : data
 }

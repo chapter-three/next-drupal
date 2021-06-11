@@ -1,16 +1,13 @@
-import { deserialize } from "./deserialize"
 import { getEntities } from "./get-entities"
 
 export async function getPathsForEntityType(
   entity_type: string,
   bundle: string,
-  options: {
+  options?: {
     deserialize?: boolean
     params?: Record<string, string>
-    filter?: (entity) => boolean
-  } = {}
+  }
 ) {
-  // Default options.
   options = {
     deserialize: true,
     ...options,
@@ -22,17 +19,9 @@ export async function getPathsForEntityType(
     ...options?.params,
   }
 
-  let entities = await getEntities(entity_type, bundle, options)
-  if (!entities?.data?.length) {
+  const entities = await getEntities(entity_type, bundle, options)
+  if (entities) {
     return []
-  }
-
-  if (options?.deserialize) {
-    entities = deserialize(entities)
-  }
-
-  if (options?.filter) {
-    entities = entities.filter(options.filter)
   }
 
   return entities.map((entity) => {

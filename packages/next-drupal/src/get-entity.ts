@@ -1,4 +1,4 @@
-import { getAccessToken } from "./get-access-token"
+import { buildHeaders, buildUrl, deserialize } from "./utils"
 
 export async function getEntity(
   entityType: string,
@@ -6,34 +6,30 @@ export async function getEntity(
   uuid: string,
   options?: {
     resourceVersion?: string
+    deserialize?: boolean
     params?: Record<string, string>
   }
 ) {
-  try {
-    const url = new URL(
-      `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/jsonapi/${entityType}/${bundle}/${uuid}`
-    )
-
-    const { resourceVersion = "rel:latest-version", params } = options
-    url.search = new URLSearchParams({
-      resourceVersion,
-      ...params,
-    }).toString()
-
-    const { access_token } = await getAccessToken()
-    const result = await fetch(url.toString(), {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-      },
-    })
-
-    if (!result.ok) {
-      throw new Error(result.statusText)
-    }
-
-    return result.json()
-  } catch (error) {
-    console.error(error)
+  options = {
+    deserialize: true,
+    ...options,
   }
+
+  const { resourceVersion, params } = options
+  const url = buildUrl(`/jsonapi/${entityType}/${bundle}/${uuid}`, {
+    resourceVersion: resourceVersion || "rel:latest-version",
+    ...params,
+  })
+
+  const response = await fetch(url.toString(), {
+    headers: await buildHeaders(),
+  })
+
+  if (!response.ok) {
+    throw new Error(response.statusText)
+  }
+
+  const json = await response.json()
+
+  return options.deserialize ? deserialize(json) : json
 }

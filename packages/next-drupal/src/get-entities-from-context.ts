@@ -1,5 +1,4 @@
 import { GetStaticPropsContext } from "next"
-import { deserialize } from "./deserialize"
 import { getEntities } from "./get-entities"
 
 export async function getEntitiesFromContext(
@@ -10,32 +9,15 @@ export async function getEntitiesFromContext(
     prefix?: string
     deserialize?: boolean
     params?: Record<string, string>
-    filter?: (entity) => boolean
   }
 ) {
-  // Default options.
-  options = {
-    deserialize: true,
-    ...options,
-  }
-
   // Filter out unpublished entities.
   if (!context.preview) {
     options.params = {
-      ...options.params,
       "filter[status]": "1",
+      ...options.params,
     }
   }
 
-  let entities = await getEntities(entity_type, bundle, options)
-
-  if (!entities?.data?.length) return null
-
-  entities = options.deserialize ? deserialize(entities) : entities
-
-  if (options?.filter) {
-    entities = entities.filter(options.filter)
-  }
-
-  return entities
+  return await getEntities(entity_type, bundle, options)
 }

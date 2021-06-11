@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.7.0...next-drupal@0.8.0) (2021-06-11)
+
+
+### Bug Fixes
+
+* remove console ([56a4c3e](https://github.com/arshad/next-drupal/commit/56a4c3eb5b95b90cb5a513653c05a09abbf3a213))
+
+
+### Features
+
+* update all sites ([ca9b2e9](https://github.com/arshad/next-drupal/commit/ca9b2e964c5a7fe591602465f2c2516eb4a54a1b))
+
+
+
+
+
 # [0.7.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.6.0...next-drupal@0.7.0) (2021-06-10)
 
 

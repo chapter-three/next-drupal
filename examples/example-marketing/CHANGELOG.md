@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/chapter-three/next-drupal/compare/example-marketing@0.7.0...example-marketing@0.8.0) (2021-06-11)
+
+
+### Features
+
+* update all sites ([ca9b2e9](https://github.com/chapter-three/next-drupal/commit/ca9b2e964c5a7fe591602465f2c2516eb4a54a1b))
+
+
+
+
+
 # [0.7.0](https://github.com/arshad/next-drupal/compare/example-marketing@0.6.0...example-marketing@0.7.0) (2021-06-10)
 
 

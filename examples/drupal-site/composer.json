@@ -28,7 +28,6 @@
     "drupal/default_content": "^2.0@alpha",
     "drupal/entity_reference_revisions": "^1.9",
     "drupal/entity_usage": "^2.0@beta",
-    "drupal/jsonapi_hypermedia": "^1.6",
     "drupal/jsonapi_menu_items": "^1.2",
     "drupal/jsonapi_schema": "^1.0@beta",
     "drupal/next": "1.0.x-dev",

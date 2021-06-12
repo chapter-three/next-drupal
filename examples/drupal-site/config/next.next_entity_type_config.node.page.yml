@@ -7,4 +7,5 @@ site_resolver: site_selector
 configuration:
   sites:
     example_blog: example_blog
-    example_marketing: '0'
+    example_marketing: example_marketing
+    no_preview_site: '0'

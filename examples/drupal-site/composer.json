@@ -24,10 +24,11 @@
     "drupal/core": "^8.8.0",
     "drupal/core-composer-scaffold": "^8.8.0",
     "drupal/ctools": "^3.6",
-    "drupal/decoupled_router": "^2.0",
+    "drupal/decoupled_router": "2.x-dev@dev",
     "drupal/default_content": "^2.0@alpha",
     "drupal/entity_reference_revisions": "^1.9",
     "drupal/entity_usage": "^2.0@beta",
+    "drupal/jsonapi_extras": "^3.17",
     "drupal/jsonapi_menu_items": "^1.2",
     "drupal/jsonapi_schema": "^1.0@beta",
     "drupal/next": "1.0.x-dev",
@@ -106,6 +107,9 @@
     "patches": {
       "drupal/subrequests": {
         "Subrequest failed validation": "https://www.drupal.org/files/issues/2019-05-27/3029570-array-not-object.patch"
+      },
+      "drupal/decoupled_router": {
+        "Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2021-05-05/3111456-34.patch"
       }
     }
   }

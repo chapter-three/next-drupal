@@ -1,5 +1,5 @@
 import Head from "next/head"
-import { getEntitiesFromContext } from "next-drupal"
+import { getResourceCollectionFromContext } from "next-drupal"
 
 import { Layout } from "@/components/layout"
 import { PostTeaser } from "@/components/post-teaser"
@@ -25,12 +25,16 @@ export default function IndexPage({ articles }) {
 }
 
 export async function getStaticProps(context) {
-  const entities = await getEntitiesFromContext("node", "article", context, {
-    params: {
-      include: "field_image, uid",
-      sort: "-created",
-    },
-  })
+  const entities = await getResourceCollectionFromContext(
+    "node--article",
+    context,
+    {
+      params: {
+        include: "field_image, uid",
+        sort: "-created",
+      },
+    }
+  )
 
   const articles = entities.filter((entity) =>
     entity.field_site.some(({ id }) => id === process.env.DRUPAL_SITE_ID)

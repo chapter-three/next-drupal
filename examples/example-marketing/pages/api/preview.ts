@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { getEntityByPath } from "next-drupal"
+import { getResourceByPath } from "next-drupal"
 
 export default async function (
   request: NextApiRequest,
@@ -15,7 +15,7 @@ export default async function (
     return response.status(401).json({ message: "Invalid slug." })
   }
 
-  const node = await getEntityByPath(slug as string)
+  const node = await getResourceByPath(slug as string)
 
   if (!node) {
     return response.status(404).json({ message: "Invalid slug" })
@@ -25,6 +25,10 @@ export default async function (
     resourceVersion,
   })
 
-  response.writeHead(307, { Location: node.path.alias })
+  const url = node.default_langcode
+    ? node.path.alias
+    : `/${node.path.langcode}${node.path.alias}`
+
+  response.writeHead(307, { Location: url })
   response.end()
 }

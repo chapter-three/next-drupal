@@ -4,10 +4,10 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "next dev -p 4444",
+    "dev": "next dev -p 3333",
     "build": "next build",
     "start": "next start",
-    "preview": "next build && next start"
+    "preview": "next build && next start -p 3333"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.4.0",

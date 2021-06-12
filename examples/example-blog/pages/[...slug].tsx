@@ -1,5 +1,5 @@
 import Head from "next/head"
-import { getPathsForEntityType, getEntityFromContext } from "next-drupal"
+import { getPathsFromContext, getResourceFromContext } from "next-drupal"
 
 import { Layout } from "@/components/layout"
 
@@ -28,15 +28,15 @@ export default function BasicPage({ page }) {
   )
 }
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context) {
   return {
-    paths: await getPathsForEntityType("node", "page"),
+    paths: await getPathsFromContext("node--page", context),
     fallback: true,
   }
 }
 
 export async function getStaticProps(context) {
-  const page = await getEntityFromContext("node", "page", context)
+  const page = await getResourceFromContext("node--page", context)
 
   if (!page) {
     return {

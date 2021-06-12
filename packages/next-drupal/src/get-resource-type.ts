@@ -1,14 +1,12 @@
 import { GetStaticPropsContext } from "next"
-
-import { DrupalTranslatedPath } from "./types"
 import { buildHeaders, buildUrl, getPathFromContext } from "./utils"
 
-export async function getEntityTypeFromContext(
+export async function getResourceTypeFromContext(
   context: GetStaticPropsContext,
   options?: {
     prefix?: string
   }
-): Promise<DrupalTranslatedPath> {
+): Promise<string> {
   options = {
     prefix: "",
     ...options,
@@ -21,9 +19,15 @@ export async function getEntityTypeFromContext(
     headers: await buildHeaders(),
   })
 
+  if (response.status === 404) {
+    return null
+  }
+
   if (!response.ok) {
     throw new Error(response.statusText)
   }
 
-  return await response.json()
+  const json = await response.json()
+
+  return json.jsonapi.resourceName
 }

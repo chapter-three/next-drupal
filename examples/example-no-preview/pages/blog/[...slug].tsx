@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { getPathsForEntityType, getEntityFromContext } from "next-drupal"
+import { getPathsFromContext, getResourceFromContext } from "next-drupal"
 import { Layout } from "../../src/layout"
 
 export default function BlogPostPage({ post }) {
@@ -39,8 +39,8 @@ export default function BlogPostPage({ post }) {
   )
 }
 
-export async function getStaticPaths() {
-  const paths = await getPathsForEntityType("node", "article", {
+export async function getStaticPaths(context) {
+  const paths = await getPathsFromContext("node--article", context, {
     params: {
       "fields[node--article]": "path,field_site",
     },
@@ -53,7 +53,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  const post = await getEntityFromContext("node", "article", context, {
+  const post = await getResourceFromContext("node--article", context, {
     prefix: "/blog",
     params: {
       include: "field_image,uid",

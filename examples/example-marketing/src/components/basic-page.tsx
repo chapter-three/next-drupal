@@ -5,7 +5,9 @@ interface BasicPageProps {
 export function BasicPage({ page }: BasicPageProps) {
   return (
     <div variant="container.sm" py="10|12">
-      <h1 variant="heading.h1">{page.title}</h1>
+      <h1 variant="heading.h1">
+        {page.title} - {page.status}
+      </h1>
       {page.body && (
         <div
           dangerouslySetInnerHTML={{ __html: page.body.processed }}

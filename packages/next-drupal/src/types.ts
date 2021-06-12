@@ -1,3 +1,22 @@
+export type Locale = string
+
+export type JsonApiWithLocaleOptions = {
+  params?: JsonApiParams
+} & (
+  | {
+      locale: Locale
+      defaultLocale: Locale
+    }
+  | {
+      locale?: undefined
+      defaultLocale?: never
+    }
+)
+
+// TODO: Properly type this.
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+export type JsonApiParams = Record<string, any>
+
 export interface DrupalTranslatedPath {
   resolved: string
   isHomePath: boolean

@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Head from "next/head"
-import { getPathsForEntityType, getEntityFromContext } from "next-drupal"
+import { getPathsFromContext, getResourceFromContext } from "next-drupal"
 
 import { Layout } from "@/components/layout"
 import { PostMeta } from "@/components/post-meta"
@@ -59,8 +59,8 @@ export default function BlogPostPage({ post }) {
   )
 }
 
-export async function getStaticPaths() {
-  let paths = await getPathsForEntityType("node", "article", {
+export async function getStaticPaths(context) {
+  let paths = await getPathsFromContext("node--article", context, {
     params: {
       "fields[node--article]": "path,field_site",
     },
@@ -77,7 +77,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  const entity = await getEntityFromContext("node", "article", context, {
+  const post = await getResourceFromContext("node--article", context, {
     prefix: "/blog",
     params: {
       include: "field_image,uid",
@@ -85,8 +85,8 @@ export async function getStaticProps(context) {
   })
 
   if (
-    !entity ||
-    !entity.field_site?.some(({ id }) => id === process.env.DRUPAL_SITE_ID)
+    !post ||
+    !post.field_site?.some(({ id }) => id === process.env.DRUPAL_SITE_ID)
   ) {
     return {
       notFound: true,
@@ -95,7 +95,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      post: entity,
+      post,
     },
     revalidate: 1,
   }

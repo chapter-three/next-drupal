@@ -1,6 +1,7 @@
-import { getEntitiesFromContext } from "next-drupal"
 import Link from "next/link"
 import Image from "next/image"
+import { getResourceCollectionFromContext } from "next-drupal"
+
 import { Layout } from "../src/layout"
 import { formatDate } from "../src/utils/format-date"
 
@@ -46,12 +47,16 @@ export default function IndexPage({ articles }) {
 }
 
 export async function getStaticProps(context) {
-  const articles = await getEntitiesFromContext("node", "article", context, {
-    params: {
-      include: "field_image,uid",
-      sort: "-created",
-    },
-  })
+  const articles = await getResourceCollectionFromContext(
+    "node--article",
+    context,
+    {
+      params: {
+        include: "field_image,uid",
+        sort: "-created",
+      },
+    }
+  )
 
   return {
     props: {

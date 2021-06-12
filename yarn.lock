@@ -6205,6 +6205,13 @@ dot-prop@^5.1.0, dot-prop@^5.2.0:
   dependencies:
     is-obj "^2.0.0"
 
+drupal-jsonapi-params@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/drupal-jsonapi-params/-/drupal-jsonapi-params-1.2.0.tgz#6ea27acc13e576a3d889b06456f508cfb883e248"
+  integrity sha512-PvlGT2Fu10wJOH8CB2mcDpxuVmIUgv0Ql3XpA85MwBboLs70VoRT+xMIjXToJxzty40GJSB71uynbYtB9XvcDw==
+  dependencies:
+    qs "^6.10.0"
+
 duplexer@0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/duplexer/-/duplexer-0.1.1.tgz#ace6ff808c1ce66b57d1ebf97977acb02334cfc1"
@@ -11821,6 +11828,13 @@ q@^1.1.2, q@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
+
+qs@^6.10.0:
+  version "6.10.1"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.10.1.tgz#4931482fa8d647a5aab799c5271d2133b981fb6a"
+  integrity sha512-M528Hph6wsSVOBiYUnGf+K/7w0hNshs/duGsNXPUCLH5XAqjEtiPGwNONLV0tBH8NoGb0mvD5JubnUTrujKDTg==
+  dependencies:
+    side-channel "^1.0.4"
 
 qs@^6.9.4:
   version "6.9.6"

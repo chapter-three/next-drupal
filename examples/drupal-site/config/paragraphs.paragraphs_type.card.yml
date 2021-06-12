@@ -11,5 +11,5 @@ id: card
 label: Card
 icon_uuid: null
 icon_default: null
-description: "Use this paragraph type to create a card with heading and text."
-behavior_plugins: {}
+description: 'Use this paragraph type to create a card with heading and text.'
+behavior_plugins: {  }

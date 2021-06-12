@@ -1,10 +1,10 @@
 uuid: 86c76a7e-d49f-40e5-8166-0ccbcc369830
 langcode: en
 status: true
-dependencies: {}
+dependencies: {  }
 id: collapsible
 label: Collapsible
 icon_uuid: null
 icon_default: null
-description: ""
-behavior_plugins: {}
+description: ''
+behavior_plugins: {  }

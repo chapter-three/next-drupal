@@ -11,7 +11,7 @@ dependencies:
     - image
     - user
 _core:
-  default_config_hash: "-cLsS3M3JycipXQt9rEb81_HxKneReoGuRh8ijcOPXs"
+  default_config_hash: '-cLsS3M3JycipXQt9rEb81_HxKneReoGuRh8ijcOPXs'
 id: user.user.compact
 targetEntityType: user
 bundle: user
@@ -24,7 +24,7 @@ content:
     settings:
       image_style: thumbnail
       image_link: content
-    third_party_settings: {}
+    third_party_settings: {  }
     label: hidden
 hidden:
   field_name: true

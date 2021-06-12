@@ -12,7 +12,7 @@ id: media.document.media_library
 targetEntityType: media
 bundle: document
 mode: media_library
-content: {}
+content: {  }
 hidden:
   created: true
   field_media_document: true

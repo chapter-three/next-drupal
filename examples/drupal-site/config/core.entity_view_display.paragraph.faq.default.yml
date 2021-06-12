@@ -20,7 +20,7 @@ content:
     label: above
     settings:
       link_to_entity: false
-    third_party_settings: {}
+    third_party_settings: {  }
     type: string
     region: content
   field_items:
@@ -28,15 +28,15 @@ content:
     label: above
     settings:
       view_mode: default
-      link: ""
-    third_party_settings: {}
+      link: ''
+    third_party_settings: {  }
     type: entity_reference_revisions_entity_view
     region: content
   field_text:
     weight: 1
     label: above
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
     type: text_default
     region: content
-hidden: {}
+hidden: {  }

@@ -1,10 +1,10 @@
 uuid: a1774ec6-3bf1-4b96-b206-803886970a8f
 langcode: en
 status: true
-dependencies: {}
+dependencies: {  }
 id: node.page
 site_resolver: site_selector
 configuration:
   sites:
     example_blog: example_blog
-    example_marketing: "0"
+    example_marketing: '0'

@@ -15,8 +15,8 @@ mode: teaser
 content:
   links:
     weight: 100
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
     region: content
 hidden:
   field_sections: true

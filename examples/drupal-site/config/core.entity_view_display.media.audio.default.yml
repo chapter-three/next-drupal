@@ -23,7 +23,7 @@ content:
       autoplay: false
       loop: false
       multiple_file_display_type: tags
-    third_party_settings: {}
+    third_party_settings: {  }
     region: content
 hidden:
   created: true

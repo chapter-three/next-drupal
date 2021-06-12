@@ -20,13 +20,13 @@ content:
     type: datetime_timestamp
     weight: 10
     region: content
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
   field_media_image:
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
-    third_party_settings: {}
+    third_party_settings: {  }
     type: image_image
     weight: 0
     region: content
@@ -34,15 +34,15 @@ content:
     type: path
     weight: 30
     region: content
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 100
     region: content
-    third_party_settings: {}
+    third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
     weight: 5
@@ -50,8 +50,8 @@ content:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ""
+      placeholder: ''
     region: content
-    third_party_settings: {}
+    third_party_settings: {  }
 hidden:
   name: true

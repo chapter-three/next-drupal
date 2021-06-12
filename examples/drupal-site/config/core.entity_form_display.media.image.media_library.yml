@@ -23,7 +23,7 @@ content:
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
-    third_party_settings: {}
+    third_party_settings: {  }
 hidden:
   created: true
   name: true

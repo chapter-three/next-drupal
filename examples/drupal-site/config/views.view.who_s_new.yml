@@ -7,9 +7,9 @@ dependencies:
 _core:
   default_config_hash: nCa1oy25w2fh-nk_iQ7IJFQwQIcKxrV_5EQW2y8dzPc
 id: who_s_new
-label: "Who's new"
+label: 'Who''s new'
 module: user
-description: "Shows a list of the newest user accounts on the site."
+description: 'Shows a list of the newest user accounts on the site.'
 tag: default
 base_table: users_field_data
 base_field: uid
@@ -23,25 +23,25 @@ display:
       access:
         type: perm
         options:
-          perm: "access content"
+          perm: 'access content'
       cache:
         type: tag
-        options: {}
+        options: {  }
       query:
         type: views_query
         options:
           disable_sql_rewrite: false
           distinct: false
           replica: false
-          query_comment: ""
-          query_tags: {}
+          query_comment: ''
+          query_tags: {  }
       exposed_form:
         type: basic
         options:
           submit_button: Apply
           reset_button: false
           reset_button_label: Reset
-          exposed_sorts_label: "Sort by"
+          exposed_sorts_label: 'Sort by'
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
@@ -59,7 +59,7 @@ display:
           id: name
           table: users_field_data
           field: name
-          label: ""
+          label: ''
           plugin_id: field
           type: user_name
           alter:
@@ -75,30 +75,30 @@ display:
           empty_zero: false
           relationship: none
           group_type: group
-          admin_label: ""
+          admin_label: ''
           exclude: false
-          element_type: ""
-          element_class: ""
-          element_label_type: ""
-          element_label_class: ""
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
           element_label_colon: true
-          element_wrapper_type: ""
-          element_wrapper_class: ""
+          element_wrapper_type: ''
+          element_wrapper_class: ''
           element_default_classes: true
-          empty: ""
+          empty: ''
           hide_alter_empty: true
           entity_type: user
           entity_field: name
       filters:
         status:
-          value: "1"
+          value: '1'
           table: users_field_data
           field: status
           id: status
           expose:
-            operator: "0"
+            operator: '0'
             operator_limit_selection: false
-            operator_list: {}
+            operator_list: {  }
           group: 1
           plugin_id: boolean
           entity_type: user
@@ -109,41 +109,41 @@ display:
           field: access
           relationship: none
           group_type: group
-          admin_label: ""
-          operator: ">"
+          admin_label: ''
+          operator: '>'
           value:
-            min: ""
-            max: ""
-            value: "1970-01-01"
+            min: ''
+            max: ''
+            value: '1970-01-01'
             type: date
           group: 1
           exposed: false
           expose:
-            operator_id: "0"
-            label: ""
-            description: ""
+            operator_id: '0'
+            label: ''
+            description: ''
             use_operator: false
-            operator: ""
-            identifier: ""
+            operator: ''
+            identifier: ''
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
             operator_limit_selection: false
-            operator_list: {}
+            operator_list: {  }
           is_grouped: false
           group_info:
-            label: ""
-            description: ""
-            identifier: ""
+            label: ''
+            description: ''
+            identifier: ''
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
-            default_group_multiple: {}
-            group_items: {}
+            default_group_multiple: {  }
+            group_items: {  }
           plugin_id: date
           entity_type: user
           entity_field: access
@@ -154,43 +154,43 @@ display:
           field: created
           relationship: none
           group_type: group
-          admin_label: ""
+          admin_label: ''
           order: DESC
           exposed: false
           expose:
-            label: ""
+            label: ''
           granularity: second
           plugin_id: date
           entity_type: user
           entity_field: created
-      title: "Who's new"
-      header: {}
-      footer: {}
-      empty: {}
-      relationships: {}
-      arguments: {}
-      display_extenders: {}
+      title: 'Who''s new'
+      header: {  }
+      footer: {  }
+      empty: {  }
+      relationships: {  }
+      arguments: {  }
+      display_extenders: {  }
     cache_metadata:
       contexts:
-        - "languages:language_content"
-        - "languages:language_interface"
+        - 'languages:language_content'
+        - 'languages:language_interface'
         - user.permissions
       max-age: -1
-      tags: {}
+      tags: {  }
   block_1:
     display_plugin: block
     id: block_1
-    display_title: "Who's new"
+    display_title: 'Who''s new'
     position: 1
     display_options:
-      display_description: "A list of new users"
-      block_description: "Who's new"
+      display_description: 'A list of new users'
+      block_description: 'Who''s new'
       block_category: User
-      display_extenders: {}
+      display_extenders: {  }
     cache_metadata:
       contexts:
-        - "languages:language_content"
-        - "languages:language_interface"
+        - 'languages:language_content'
+        - 'languages:language_interface'
         - user.permissions
       max-age: -1
-      tags: {}
+      tags: {  }

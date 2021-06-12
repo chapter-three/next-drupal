@@ -11,5 +11,5 @@ id: feature
 label: Feature
 icon_uuid: null
 icon_default: null
-description: "Use this section type to add a feature with image and text."
-behavior_plugins: {}
+description: 'Use this section type to add a feature with image and text.'
+behavior_plugins: {  }

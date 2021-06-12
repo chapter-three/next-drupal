@@ -1,10 +1,10 @@
 uuid: 0460a738-4b7e-4c21-bc1b-accb0831d642
 langcode: en
 status: true
-dependencies: {}
+dependencies: {  }
 _core:
   default_config_hash: oz6NyPDAB4HB6N9hgH2LwNVtCd-sXbMG1fbn5KsRIDI
-name: "Restricted HTML"
+name: 'Restricted HTML'
 format: restricted_html
 weight: 1
 filters:
@@ -14,7 +14,7 @@ filters:
     status: true
     weight: -10
     settings:
-      allowed_html: "<a href hreflang> <em> <strong> <cite> <blockquote cite> <code> <ul type> <ol start type> <li> <dl> <dt> <dd> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id>"
+      allowed_html: '<a href hreflang> <em> <strong> <cite> <blockquote cite> <code> <ul type> <ol start type> <li> <dl> <dt> <dd> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id>'
       filter_html_help: true
       filter_html_nofollow: false
   filter_autop:
@@ -22,7 +22,7 @@ filters:
     provider: filter
     status: true
     weight: 0
-    settings: {}
+    settings: {  }
   filter_url:
     id: filter_url
     provider: filter

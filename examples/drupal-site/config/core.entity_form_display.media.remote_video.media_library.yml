@@ -12,7 +12,7 @@ id: media.remote_video.media_library
 targetEntityType: media
 bundle: remote_video
 mode: media_library
-content: {}
+content: {  }
 hidden:
   created: true
   field_media_oembed_video: true

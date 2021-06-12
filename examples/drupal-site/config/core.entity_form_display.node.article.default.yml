@@ -29,21 +29,21 @@ content:
     settings:
       rows: 9
       summary_rows: 3
-      placeholder: ""
+      placeholder: ''
       show_summary: false
-    third_party_settings: {}
+    third_party_settings: {  }
   comment:
     type: comment_default
     weight: 9
     region: content
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
   created:
     type: datetime_timestamp
     weight: 6
     region: content
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
   field_image:
     type: image_image
     weight: 4
@@ -51,11 +51,11 @@ content:
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
-    third_party_settings: {}
+    third_party_settings: {  }
   field_site:
     weight: 1
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
     type: options_buttons
     region: content
   field_tags:
@@ -66,43 +66,43 @@ content:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ""
-    third_party_settings: {}
+      placeholder: ''
+    third_party_settings: {  }
   path:
     type: path
     weight: 10
     region: content
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 7
     region: content
-    third_party_settings: {}
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 11
     region: content
-    third_party_settings: {}
+    third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 8
     region: content
-    third_party_settings: {}
+    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
     region: content
     settings:
       size: 60
-      placeholder: ""
-    third_party_settings: {}
+      placeholder: ''
+    third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
     weight: 5
@@ -111,6 +111,6 @@ content:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ""
-    third_party_settings: {}
-hidden: {}
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

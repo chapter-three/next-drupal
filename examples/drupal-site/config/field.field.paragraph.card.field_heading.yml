@@ -10,10 +10,10 @@ field_name: field_heading
 entity_type: paragraph
 bundle: card
 label: Heading
-description: ""
+description: ''
 required: true
 translatable: true
-default_value: {}
-default_value_callback: ""
-settings: {}
+default_value: {  }
+default_value_callback: ''
+settings: {  }
 field_type: string

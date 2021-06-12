@@ -1,10 +1,10 @@
 uuid: cc9876fa-2202-4d82-8591-c5056ca2ffa6
 langcode: en
 status: true
-dependencies: {}
+dependencies: {  }
 _core:
   default_config_hash: 7yrlW5z9zdg2eBucB2GPqXKSMQfH9lSRSO4DbWF7AFc
 id: footer
 label: Footer
-description: "Site information links"
+description: 'Site information links'
 locked: true

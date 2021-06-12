@@ -21,12 +21,12 @@ content:
     region: content
     settings:
       link_to_entity: false
-    third_party_settings: {}
+    third_party_settings: {  }
   paragraphs:
     label: hidden
     type: paragraph_summary
     weight: 0
     region: content
-    settings: {}
-    third_party_settings: {}
-hidden: {}
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

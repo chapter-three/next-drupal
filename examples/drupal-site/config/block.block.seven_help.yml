@@ -18,5 +18,5 @@ settings:
   id: help_block
   label: Help
   provider: help
-  label_display: "0"
-visibility: {}
+  label_display: '0'
+visibility: {  }

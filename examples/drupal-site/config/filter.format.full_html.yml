@@ -6,7 +6,7 @@ dependencies:
     - editor
 _core:
   default_config_hash: WNeK5FbcY8pXgEpbD_KgRzlF1-5PL3BJXwqaBctPTqw
-name: "Full HTML"
+name: 'Full HTML'
 format: full_html
 weight: 2
 filters:
@@ -15,22 +15,22 @@ filters:
     provider: filter
     status: true
     weight: 8
-    settings: {}
+    settings: {  }
   filter_caption:
     id: filter_caption
     provider: filter
     status: true
     weight: 9
-    settings: {}
+    settings: {  }
   filter_htmlcorrector:
     id: filter_htmlcorrector
     provider: filter
     status: true
     weight: 10
-    settings: {}
+    settings: {  }
   editor_file_reference:
     id: editor_file_reference
     provider: editor
     status: true
     weight: 11
-    settings: {}
+    settings: {  }

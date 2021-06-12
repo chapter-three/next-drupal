@@ -14,11 +14,11 @@ field_name: body
 entity_type: block_content
 bundle: basic
 label: Body
-description: ""
+description: ''
 required: false
 translatable: true
-default_value: {}
-default_value_callback: ""
+default_value: {  }
+default_value_callback: ''
 settings:
   display_summary: false
   required_summary: false

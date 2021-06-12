@@ -7,7 +7,6 @@ module:
   block_content: 0
   breakpoint: 0
   ckeditor: 0
-  color: 0
   comment: 0
   config: 0
   consumers: 0
@@ -16,6 +15,8 @@ module:
   ctools: 0
   datetime: 0
   dblog: 0
+  decoupled_router: 0
+  default_content: 0
   dynamic_page_cache: 0
   editor: 0
   entity_reference_revisions: 0
@@ -24,16 +25,21 @@ module:
   field_ui: 0
   file: 0
   filter: 0
+  hal: 0
   help: 0
   history: 0
   image: 0
   jsonapi: 0
+  jsonapi_menu_items: 0
+  jsonapi_resources: 0
   link: 0
   media: 0
   media_library: 0
   menu_link_content: 0
   menu_ui: 0
   next: 0
+  next_default_content: 0
+  next_jsonapi: 0
   node: 0
   options: 0
   page_cache: 0
@@ -46,6 +52,7 @@ module:
   serialization: 0
   shortcut: 0
   simple_oauth: 0
+  subrequests: 0
   system: 0
   taxonomy: 0
   text: 0

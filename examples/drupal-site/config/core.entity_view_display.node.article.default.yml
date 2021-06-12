@@ -27,8 +27,8 @@ content:
     type: text_default
     weight: 0
     region: content
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
     label: hidden
   comment:
     type: comment_default
@@ -38,22 +38,22 @@ content:
     settings:
       view_mode: default
       pager_id: 0
-    third_party_settings: {}
+    third_party_settings: {  }
   field_image:
     type: image
     weight: -1
     region: content
     settings:
       image_style: large
-      image_link: ""
-    third_party_settings: {}
+      image_link: ''
+    third_party_settings: {  }
     label: hidden
   field_site:
     weight: 111
     label: above
     settings:
       link: true
-    third_party_settings: {}
+    third_party_settings: {  }
     type: entity_reference_label
     region: content
   field_tags:
@@ -63,10 +63,10 @@ content:
     label: above
     settings:
       link: true
-    third_party_settings: {}
+    third_party_settings: {  }
   links:
     weight: 100
     region: content
-    settings: {}
-    third_party_settings: {}
-hidden: {}
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

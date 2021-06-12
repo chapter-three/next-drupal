@@ -7,7 +7,7 @@ dependencies:
 _core:
   default_config_hash: lfyE_snmvfg_EQ3VDyhUtGAXgmqtEiqa46I3bTMg8DU
 id: comment_save_action
-label: "Save comment"
+label: 'Save comment'
 type: comment
-plugin: "entity:save_action:comment"
-configuration: {}
+plugin: 'entity:save_action:comment'
+configuration: {  }

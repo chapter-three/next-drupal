@@ -5,9 +5,9 @@ dependencies:
   module:
     - node
 id: landing_page
-label: "Landing page"
-type: "canonical_entities:node"
-pattern: "[node:title]"
+label: 'Landing page'
+type: 'canonical_entities:node'
+pattern: '[node:title]'
 selection_criteria:
   c4600c36-e7b5-445d-8c7c-3bf282e9bcac:
     id: node_type
@@ -19,4 +19,4 @@ selection_criteria:
     uuid: c4600c36-e7b5-445d-8c7c-3bf282e9bcac
 selection_logic: and
 weight: -5
-relationships: {}
+relationships: {  }

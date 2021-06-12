@@ -13,13 +13,13 @@ field_name: field_items
 entity_type: paragraph
 bundle: faq
 label: Questions
-description: ""
+description: ''
 required: false
 translatable: true
-default_value: {}
-default_value_callback: ""
+default_value: {  }
+default_value_callback: ''
 settings:
-  handler: "default:paragraph"
+  handler: 'default:paragraph'
   handler_settings:
     negate: 0
     target_bundles:

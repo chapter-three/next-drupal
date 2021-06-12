@@ -11,12 +11,13 @@ id: paragraph.feature.field_media_position
 field_name: field_media_position
 entity_type: paragraph
 bundle: feature
-label: "Media position"
-description: ""
+label: 'Media position'
+description: ''
 required: true
 translatable: false
 default_value:
-  - value: left
-default_value_callback: ""
-settings: {}
+  -
+    value: left
+default_value_callback: ''
+settings: {  }
 field_type: list_string

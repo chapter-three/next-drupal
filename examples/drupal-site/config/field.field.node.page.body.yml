@@ -14,11 +14,11 @@ field_name: body
 entity_type: node
 bundle: page
 label: Body
-description: ""
+description: ''
 required: false
 translatable: true
-default_value: {}
-default_value_callback: ""
+default_value: {  }
+default_value_callback: ''
 settings:
   display_summary: true
   required_summary: false

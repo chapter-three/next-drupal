@@ -12,7 +12,7 @@ id: media.video.media_library
 targetEntityType: media
 bundle: video
 mode: media_library
-content: {}
+content: {  }
 hidden:
   created: true
   field_media_video_file: true

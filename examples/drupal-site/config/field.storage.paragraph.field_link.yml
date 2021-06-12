@@ -9,11 +9,11 @@ id: paragraph.field_link
 field_name: field_link
 entity_type: paragraph
 type: link
-settings: {}
+settings: {  }
 module: link
 locked: false
 cardinality: 1
 translatable: true
-indexes: {}
+indexes: {  }
 persist_with_no_fields: false
 custom_storage: false

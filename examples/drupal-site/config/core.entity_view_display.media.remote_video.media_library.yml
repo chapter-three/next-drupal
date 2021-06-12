@@ -23,8 +23,8 @@ content:
     label: hidden
     settings:
       image_style: medium
-      image_link: ""
-    third_party_settings: {}
+      image_link: ''
+    third_party_settings: {  }
 hidden:
   created: true
   field_media_oembed_video: true

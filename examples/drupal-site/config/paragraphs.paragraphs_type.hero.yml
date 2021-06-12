@@ -11,5 +11,5 @@ id: hero
 label: Hero
 icon_uuid: null
 icon_default: null
-description: "Use this paragraph type to add a hero section."
-behavior_plugins: {}
+description: 'Use this paragraph type to add a hero section.'
+behavior_plugins: {  }

@@ -21,7 +21,7 @@ content:
     label: above
     settings:
       link_to_entity: false
-    third_party_settings: {}
+    third_party_settings: {  }
     type: string
     region: content
   member_for:
@@ -34,6 +34,6 @@ content:
     settings:
       image_style: thumbnail
       image_link: content
-    third_party_settings: {}
+    third_party_settings: {  }
     label: hidden
-hidden: {}
+hidden: {  }

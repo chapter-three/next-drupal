@@ -12,11 +12,11 @@ field_name: field_link
 entity_type: paragraph
 bundle: feature
 label: Link
-description: ""
+description: ''
 required: false
 translatable: true
-default_value: {}
-default_value_callback: ""
+default_value: {  }
+default_value_callback: ''
 settings:
   link_type: 17
   title: 1

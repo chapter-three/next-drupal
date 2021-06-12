@@ -11,4 +11,4 @@ label: Users
 path: user
 weight: 0
 plugin: user_search
-configuration: {}
+configuration: {  }

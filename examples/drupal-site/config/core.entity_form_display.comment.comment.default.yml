@@ -23,14 +23,14 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ""
-    third_party_settings: {}
+      placeholder: ''
+    third_party_settings: {  }
   subject:
     type: string_textfield
     weight: 10
     region: content
     settings:
       size: 60
-      placeholder: ""
-    third_party_settings: {}
-hidden: {}
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

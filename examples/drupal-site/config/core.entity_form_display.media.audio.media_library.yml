@@ -12,7 +12,7 @@ id: media.audio.media_library
 targetEntityType: media
 bundle: audio
 mode: media_library
-content: {}
+content: {  }
 hidden:
   created: true
   field_media_audio_file: true

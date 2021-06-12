@@ -7,7 +7,7 @@ dependencies:
   module:
     - user
 id: user_add_role_action.next_site_previewer
-label: "Add the Next site previewer role to the selected user(s)"
+label: 'Add the Next site previewer role to the selected user(s)'
 type: user
 plugin: user_add_role_action
 configuration:

@@ -11,11 +11,11 @@ id: comment.comment_body
 field_name: comment_body
 entity_type: comment
 type: text_long
-settings: {}
+settings: {  }
 module: text
 locked: false
 cardinality: 1
 translatable: true
-indexes: {}
+indexes: {  }
 persist_with_no_fields: true
 custom_storage: false

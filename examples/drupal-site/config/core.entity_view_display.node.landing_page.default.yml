@@ -19,12 +19,12 @@ content:
     label: above
     settings:
       view_mode: default
-      link: ""
-    third_party_settings: {}
+      link: ''
+    third_party_settings: {  }
     region: content
   links:
     weight: 100
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
     region: content
-hidden: {}
+hidden: {  }

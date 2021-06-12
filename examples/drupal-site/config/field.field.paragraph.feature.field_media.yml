@@ -11,18 +11,18 @@ field_name: field_media
 entity_type: paragraph
 bundle: feature
 label: Media
-description: ""
+description: ''
 required: true
 translatable: true
-default_value: {}
-default_value_callback: ""
+default_value: {  }
+default_value_callback: ''
 settings:
-  handler: "default:media"
+  handler: 'default:media'
   handler_settings:
     target_bundles:
       image: image
     sort:
       field: _none
     auto_create: false
-    auto_create_bundle: ""
+    auto_create_bundle: ''
 field_type: entity_reference

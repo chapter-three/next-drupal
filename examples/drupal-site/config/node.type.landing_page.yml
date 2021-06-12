@@ -8,11 +8,11 @@ third_party_settings:
   menu_ui:
     available_menus:
       - main
-    parent: "main:"
-name: "Landing page"
+    parent: 'main:'
+name: 'Landing page'
 type: landing_page
-description: "Use this content type to create a landing page with sections."
-help: ""
+description: 'Use this content type to create a landing page with sections.'
+help: ''
 new_revision: true
 preview_mode: 0
 display_submitted: false

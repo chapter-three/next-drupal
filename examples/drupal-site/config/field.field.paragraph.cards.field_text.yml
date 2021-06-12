@@ -12,10 +12,10 @@ field_name: field_text
 entity_type: paragraph
 bundle: cards
 label: Text
-description: ""
+description: ''
 required: false
 translatable: true
-default_value: {}
-default_value_callback: ""
-settings: {}
+default_value: {  }
+default_value_callback: ''
+settings: {  }
 field_type: text_long

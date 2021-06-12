@@ -11,14 +11,14 @@ id: paragraph.from_library.field_reusable_paragraph
 field_name: field_reusable_paragraph
 entity_type: paragraph
 bundle: from_library
-label: "Reusable paragraph"
-description: ""
+label: 'Reusable paragraph'
+description: ''
 required: true
 translatable: false
-default_value: {}
-default_value_callback: ""
+default_value: {  }
+default_value_callback: ''
 settings:
-  handler: "default:paragraphs_library_item"
+  handler: 'default:paragraphs_library_item'
   handler_settings:
     target_bundles: null
     sort:

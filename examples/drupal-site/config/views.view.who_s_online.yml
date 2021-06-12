@@ -7,9 +7,9 @@ dependencies:
 _core:
   default_config_hash: t9qu6R6PnnbZNOft0SpIMxwCg6VCfaX3aW2W-NjeFyc
 id: who_s_online
-label: "Who's online block"
+label: 'Who''s online block'
 module: user
-description: "Shows the user names of the most recently active users, and the total number of active users."
+description: 'Shows the user names of the most recently active users, and the total number of active users.'
 tag: default
 base_table: users_field_data
 base_field: uid
@@ -23,25 +23,25 @@ display:
       access:
         type: perm
         options:
-          perm: "access user profiles"
+          perm: 'access user profiles'
       cache:
         type: tag
-        options: {}
+        options: {  }
       query:
         type: views_query
         options:
           disable_sql_rewrite: false
           distinct: false
           replica: false
-          query_comment: ""
-          query_tags: {}
+          query_comment: ''
+          query_tags: {  }
       exposed_form:
         type: basic
         options:
           submit_button: Apply
           reset_button: false
           reset_button_label: Reset
-          exposed_sorts_label: "Sort by"
+          exposed_sorts_label: 'Sort by'
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
@@ -53,12 +53,12 @@ display:
       style:
         type: html_list
         options:
-          grouping: {}
-          row_class: ""
+          grouping: {  }
+          row_class: ''
           default_row_class: true
           type: ul
           wrapper_class: item-list
-          class: ""
+          class: ''
       row:
         type: fields
       fields:
@@ -66,7 +66,7 @@ display:
           id: name
           table: users_field_data
           field: name
-          label: ""
+          label: ''
           plugin_id: field
           type: user_name
           alter:
@@ -82,30 +82,30 @@ display:
           empty_zero: false
           relationship: none
           group_type: group
-          admin_label: ""
+          admin_label: ''
           exclude: false
-          element_type: ""
-          element_class: ""
-          element_label_type: ""
-          element_label_class: ""
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
           element_label_colon: true
-          element_wrapper_type: ""
-          element_wrapper_class: ""
+          element_wrapper_type: ''
+          element_wrapper_class: ''
           element_default_classes: true
-          empty: ""
+          empty: ''
           hide_alter_empty: true
           entity_type: user
           entity_field: name
       filters:
         status:
-          value: "1"
+          value: '1'
           table: users_field_data
           field: status
           id: status
           expose:
-            operator: "0"
+            operator: '0'
             operator_limit_selection: false
-            operator_list: {}
+            operator_list: {  }
           group: 1
           plugin_id: boolean
           entity_type: user
@@ -116,19 +116,19 @@ display:
           field: access
           relationship: none
           group_type: group
-          admin_label: ""
-          operator: ">="
+          admin_label: ''
+          operator: '>='
           value:
-            min: ""
-            max: ""
-            value: "-15 minutes"
+            min: ''
+            max: ''
+            value: '-15 minutes'
             type: offset
           group: 1
           exposed: false
           expose:
             operator_id: access_op
-            label: "Last access"
-            description: "A user is considered online for this long after they have last viewed a page."
+            label: 'Last access'
+            description: 'A user is considered online for this long after they have last viewed a page.'
             use_operator: false
             operator: access_op
             identifier: access
@@ -137,22 +137,22 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: "0"
-              administrator: "0"
+              anonymous: '0'
+              administrator: '0'
             operator_limit_selection: false
-            operator_list: {}
+            operator_list: {  }
           is_grouped: false
           group_info:
-            label: ""
-            description: ""
-            identifier: ""
+            label: ''
+            description: ''
+            identifier: ''
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
-            default_group_multiple: {}
-            group_items: {}
+            default_group_multiple: {  }
+            group_items: {  }
           plugin_id: date
           entity_type: user
           entity_field: access
@@ -164,15 +164,15 @@ display:
           order: DESC
           relationship: none
           group_type: group
-          admin_label: ""
+          admin_label: ''
           exposed: false
           expose:
-            label: ""
+            label: ''
           granularity: second
           plugin_id: date
           entity_type: user
           entity_field: access
-      title: "Who's online"
+      title: 'Who''s online'
       header:
         result:
           id: result
@@ -180,11 +180,11 @@ display:
           field: result
           relationship: none
           group_type: group
-          admin_label: ""
+          admin_label: ''
           empty: false
-          content: "There are currently @total users online."
+          content: 'There are currently @total users online.'
           plugin_id: result
-      footer: {}
+      footer: {  }
       empty:
         area_text_custom:
           id: area_text_custom
@@ -192,34 +192,34 @@ display:
           field: area_text_custom
           relationship: none
           group_type: group
-          admin_label: ""
+          admin_label: ''
           empty: true
           tokenize: false
-          content: "There are currently 0 users online."
+          content: 'There are currently 0 users online.'
           plugin_id: text_custom
-      relationships: {}
-      arguments: {}
-      display_extenders: {}
+      relationships: {  }
+      arguments: {  }
+      display_extenders: {  }
     cache_metadata:
       contexts:
-        - "languages:language_content"
-        - "languages:language_interface"
+        - 'languages:language_content'
+        - 'languages:language_interface'
         - user.permissions
       max-age: -1
-      tags: {}
+      tags: {  }
   who_s_online_block:
     display_plugin: block
     id: who_s_online_block
-    display_title: "Who's online"
+    display_title: 'Who''s online'
     position: 1
     display_options:
-      block_description: "Who's online"
-      display_description: "A list of users that are currently logged in."
-      display_extenders: {}
+      block_description: 'Who''s online'
+      display_description: 'A list of users that are currently logged in.'
+      display_extenders: {  }
     cache_metadata:
       contexts:
-        - "languages:language_content"
-        - "languages:language_interface"
+        - 'languages:language_content'
+        - 'languages:language_interface'
         - user.permissions
       max-age: -1
-      tags: {}
+      tags: {  }

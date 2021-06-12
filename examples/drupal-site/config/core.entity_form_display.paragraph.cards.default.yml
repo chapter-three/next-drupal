@@ -18,16 +18,16 @@ mode: default
 content:
   field_background_color:
     weight: 3
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
     type: options_select
     region: content
   field_heading:
     weight: 0
     settings:
       size: 60
-      placeholder: ""
-    third_party_settings: {}
+      placeholder: ''
+    third_party_settings: {  }
     type: string_textfield
     region: content
   field_items:
@@ -44,17 +44,17 @@ content:
       form_display_mode: default
       default_paragraph_type: _none
       features:
-        add_above: "0"
+        add_above: '0'
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
-    third_party_settings: {}
+    third_party_settings: {  }
     region: content
   field_text:
     weight: 1
     settings:
       rows: 5
-      placeholder: ""
-    third_party_settings: {}
+      placeholder: ''
+    third_party_settings: {  }
     type: text_textarea
     region: content
 hidden:

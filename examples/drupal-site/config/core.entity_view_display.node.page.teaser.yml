@@ -23,8 +23,8 @@ content:
     region: content
     settings:
       trim_length: 600
-    third_party_settings: {}
+    third_party_settings: {  }
   links:
     weight: 101
     region: content
-hidden: {}
+hidden: {  }

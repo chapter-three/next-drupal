@@ -1,9 +1,9 @@
 uuid: 1ccd4bc4-bbc6-4c19-a816-c7d100feff02
 langcode: en
 status: true
-dependencies: {}
+dependencies: {  }
 id: example_blog
-label: "Example blog"
-base_url: "https://localhost:3030"
-preview_url: "https://localhost:3030/api/preview"
+label: 'Example blog'
+base_url: 'http://localhost:3030'
+preview_url: 'http://localhost:3030/api/preview'
 preview_secret: secret

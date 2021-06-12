@@ -18,8 +18,8 @@ type: image
 settings:
   default_image:
     uuid: null
-    alt: ""
-    title: ""
+    alt: ''
+    title: ''
     width: null
     height: null
   target_type: file
@@ -30,6 +30,6 @@ module: image
 locked: false
 cardinality: 1
 translatable: true
-indexes: {}
+indexes: {  }
 persist_with_no_fields: false
 custom_storage: false

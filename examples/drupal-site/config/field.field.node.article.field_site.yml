@@ -10,13 +10,13 @@ field_name: field_site
 entity_type: node
 bundle: article
 label: Site
-description: ""
+description: ''
 required: true
 translatable: false
-default_value: {}
-default_value_callback: ""
+default_value: {  }
+default_value_callback: ''
 settings:
-  handler: "default:next_site"
+  handler: 'default:next_site'
   handler_settings:
     target_bundles: null
     auto_create: false

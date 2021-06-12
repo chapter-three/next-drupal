@@ -11,5 +11,5 @@ id: faq
 label: FAQ
 icon_uuid: null
 icon_default: null
-description: ""
-behavior_plugins: {}
+description: ''
+behavior_plugins: {  }

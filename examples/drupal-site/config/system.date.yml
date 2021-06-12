@@ -1,5 +1,5 @@
 country:
-  default: ""
+  default: ''
 first_day: 0
 timezone:
   default: UTC

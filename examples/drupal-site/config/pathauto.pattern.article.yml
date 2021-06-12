@@ -6,8 +6,8 @@ dependencies:
     - node
 id: article
 label: Article
-type: "canonical_entities:node"
-pattern: "blog/[node:title]"
+type: 'canonical_entities:node'
+pattern: 'blog/[node:title]'
 selection_criteria:
   9229c7a7-2b1f-4f8d-98a8-aeeb44545072:
     id: node_type
@@ -19,4 +19,4 @@ selection_criteria:
     uuid: 9229c7a7-2b1f-4f8d-98a8-aeeb44545072
 selection_logic: and
 weight: -5
-relationships: {}
+relationships: {  }

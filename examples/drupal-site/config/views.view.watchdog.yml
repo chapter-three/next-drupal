@@ -10,8 +10,8 @@ _core:
 id: watchdog
 label: Watchdog
 module: views
-description: "Recent log messages"
-tag: ""
+description: 'Recent log messages'
+tag: ''
 base_table: watchdog
 base_field: wid
 display:
@@ -24,25 +24,25 @@ display:
       access:
         type: perm
         options:
-          perm: "access site reports"
+          perm: 'access site reports'
       cache:
         type: none
-        options: {}
+        options: {  }
       query:
         type: views_query
         options:
           disable_sql_rewrite: false
           distinct: false
           replica: false
-          query_comment: ""
-          query_tags: {}
+          query_comment: ''
+          query_tags: {  }
       exposed_form:
         type: basic
         options:
           submit_button: Filter
           reset_button: true
           reset_button_label: Reset
-          exposed_sorts_label: "Sort by"
+          exposed_sorts_label: 'Sort by'
           expose_sort_order: false
           sort_asc_label: Asc
           sort_desc_label: Desc
@@ -55,10 +55,10 @@ display:
           total_pages: null
           expose:
             items_per_page: false
-            items_per_page_label: "Items per page"
-            items_per_page_options: "5, 10, 25, 50"
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
             items_per_page_options_all: false
-            items_per_page_options_all_label: "- All -"
+            items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
           tags:
@@ -67,14 +67,14 @@ display:
       style:
         type: table
         options:
-          grouping: {}
-          row_class: "{{ type }} {{ severity }}"
+          grouping: {  }
+          row_class: '{{ type }} {{ severity }}'
           default_row_class: true
           override: true
           sticky: false
-          caption: ""
-          summary: ""
-          description: ""
+          caption: ''
+          summary: ''
+          description: ''
           columns:
             nothing: nothing
             wid: wid
@@ -88,55 +88,55 @@ display:
             nothing:
               sortable: false
               default_sort_order: asc
-              align: ""
-              separator: ""
+              align: ''
+              separator: ''
               empty_column: false
               responsive: priority-medium
             wid:
               sortable: false
               default_sort_order: desc
-              align: ""
-              separator: ""
+              align: ''
+              separator: ''
               empty_column: false
               responsive: priority-low
             severity:
               sortable: false
               default_sort_order: asc
-              align: ""
-              separator: ""
+              align: ''
+              separator: ''
               empty_column: false
               responsive: priority-low
             type:
               sortable: true
               default_sort_order: asc
-              align: ""
-              separator: ""
+              align: ''
+              separator: ''
               empty_column: false
               responsive: priority-medium
             timestamp:
               sortable: true
               default_sort_order: desc
-              align: ""
-              separator: ""
+              align: ''
+              separator: ''
               empty_column: false
               responsive: priority-low
             message:
               sortable: false
               default_sort_order: asc
-              align: ""
-              separator: ""
+              align: ''
+              separator: ''
               empty_column: false
-              responsive: ""
+              responsive: ''
             name:
               sortable: true
               default_sort_order: asc
-              align: ""
-              separator: ""
+              align: ''
+              separator: ''
               empty_column: false
               responsive: priority-medium
             link:
-              align: ""
-              separator: ""
+              align: ''
+              separator: ''
               empty_column: false
               responsive: priority-low
           default: wid
@@ -151,44 +151,44 @@ display:
           relationship: none
           group_type: group
           admin_label: Icon
-          label: ""
+          label: ''
           exclude: false
           alter:
             alter_text: true
-            text: ""
+            text: ''
             make_link: false
-            path: ""
+            path: ''
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ""
-            rel: ""
-            link_class: ""
-            prefix: ""
-            suffix: ""
-            target: ""
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ""
-            more_link_path: ""
+            more_link_text: ''
+            more_link_path: ''
             strip_tags: false
             trim: false
-            preserve_tags: ""
+            preserve_tags: ''
             html: false
-          element_type: ""
+          element_type: ''
           element_class: icon
-          element_label_type: ""
-          element_label_class: ""
+          element_label_type: ''
+          element_label_class: ''
           element_label_colon: false
-          element_wrapper_type: ""
-          element_wrapper_class: ""
+          element_wrapper_type: ''
+          element_wrapper_class: ''
           element_default_classes: false
-          empty: ""
+          empty: ''
           hide_empty: false
           empty_zero: false
           hide_alter_empty: false
@@ -199,45 +199,45 @@ display:
           field: wid
           relationship: none
           group_type: group
-          admin_label: ""
+          admin_label: ''
           label: WID
           exclude: true
           alter:
             alter_text: false
-            text: ""
+            text: ''
             make_link: false
-            path: ""
+            path: ''
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ""
-            rel: ""
-            link_class: ""
-            prefix: ""
-            suffix: ""
-            target: ""
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ""
-            more_link_path: ""
+            more_link_text: ''
+            more_link_path: ''
             strip_tags: false
             trim: false
-            preserve_tags: ""
+            preserve_tags: ''
             html: false
-          element_type: ""
-          element_class: ""
-          element_label_type: ""
-          element_label_class: ""
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
           element_label_colon: true
-          element_wrapper_type: ""
-          element_wrapper_class: ""
+          element_wrapper_type: ''
+          element_wrapper_class: ''
           element_default_classes: true
-          empty: ""
+          empty: ''
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -248,45 +248,45 @@ display:
           field: severity
           relationship: none
           group_type: group
-          admin_label: ""
+          admin_label: ''
           label: Severity
           exclude: true
           alter:
             alter_text: false
-            text: ""
+            text: ''
             make_link: false
-            path: ""
+            path: ''
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ""
-            rel: ""
-            link_class: ""
-            prefix: ""
-            suffix: ""
-            target: ""
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ""
-            more_link_path: ""
+            more_link_text: ''
+            more_link_path: ''
             strip_tags: false
             trim: false
-            preserve_tags: ""
+            preserve_tags: ''
             html: false
-          element_type: ""
-          element_class: ""
-          element_label_type: ""
-          element_label_class: ""
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
           element_label_colon: true
-          element_wrapper_type: ""
-          element_wrapper_class: ""
+          element_wrapper_type: ''
+          element_wrapper_class: ''
           element_default_classes: true
-          empty: ""
+          empty: ''
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -298,45 +298,45 @@ display:
           field: type
           relationship: none
           group_type: group
-          admin_label: ""
+          admin_label: ''
           label: Type
           exclude: false
           alter:
             alter_text: false
-            text: ""
+            text: ''
             make_link: false
-            path: ""
+            path: ''
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ""
-            rel: ""
-            link_class: ""
-            prefix: ""
-            suffix: ""
-            target: ""
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ""
-            more_link_path: ""
+            more_link_text: ''
+            more_link_path: ''
             strip_tags: false
             trim: false
-            preserve_tags: ""
+            preserve_tags: ''
             html: false
-          element_type: ""
-          element_class: ""
-          element_label_type: ""
-          element_label_class: ""
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
           element_label_colon: true
-          element_wrapper_type: ""
-          element_wrapper_class: ""
+          element_wrapper_type: ''
+          element_wrapper_class: ''
           element_default_classes: true
-          empty: ""
+          empty: ''
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -347,51 +347,51 @@ display:
           field: timestamp
           relationship: none
           group_type: group
-          admin_label: ""
+          admin_label: ''
           label: Date
           exclude: false
           alter:
             alter_text: false
-            text: ""
+            text: ''
             make_link: false
-            path: ""
+            path: ''
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ""
-            rel: ""
-            link_class: ""
-            prefix: ""
-            suffix: ""
-            target: ""
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ""
-            more_link_path: ""
+            more_link_text: ''
+            more_link_path: ''
             strip_tags: false
             trim: false
-            preserve_tags: ""
+            preserve_tags: ''
             html: false
-          element_type: ""
-          element_class: ""
-          element_label_type: ""
-          element_label_class: ""
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
           element_label_colon: true
-          element_wrapper_type: ""
-          element_wrapper_class: ""
+          element_wrapper_type: ''
+          element_wrapper_class: ''
           element_default_classes: true
-          empty: ""
+          empty: ''
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
           date_format: short
-          custom_date_format: ""
-          timezone: ""
+          custom_date_format: ''
+          timezone: ''
           plugin_id: date
         message:
           id: message
@@ -399,45 +399,45 @@ display:
           field: message
           relationship: none
           group_type: group
-          admin_label: ""
+          admin_label: ''
           label: Message
           exclude: false
           alter:
             alter_text: false
-            text: ""
+            text: ''
             make_link: true
-            path: "admin/reports/dblog/event/{{ wid }}"
+            path: 'admin/reports/dblog/event/{{ wid }}'
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: "{{ message }}"
-            rel: ""
-            link_class: ""
-            prefix: ""
-            suffix: ""
-            target: ""
+            alt: '{{ message }}'
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
             nl2br: false
             max_length: 56
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ""
-            more_link_path: ""
+            more_link_text: ''
+            more_link_path: ''
             strip_tags: true
             trim: true
-            preserve_tags: ""
+            preserve_tags: ''
             html: true
-          element_type: ""
-          element_class: ""
-          element_label_type: ""
-          element_label_class: ""
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
           element_label_colon: true
-          element_wrapper_type: ""
-          element_wrapper_class: ""
+          element_wrapper_type: ''
+          element_wrapper_class: ''
           element_default_classes: true
-          empty: ""
+          empty: ''
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -449,45 +449,45 @@ display:
           field: name
           relationship: uid
           group_type: group
-          admin_label: ""
+          admin_label: ''
           label: User
           exclude: false
           alter:
             alter_text: false
-            text: ""
+            text: ''
             make_link: false
-            path: ""
+            path: ''
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ""
-            rel: ""
-            link_class: ""
-            prefix: ""
-            suffix: ""
-            target: ""
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ""
-            more_link_path: ""
+            more_link_text: ''
+            more_link_path: ''
             strip_tags: false
             trim: false
-            preserve_tags: ""
+            preserve_tags: ''
             html: false
-          element_type: ""
-          element_class: ""
-          element_label_type: ""
-          element_label_class: ""
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
           element_label_colon: true
-          element_wrapper_type: ""
-          element_wrapper_class: ""
+          element_wrapper_type: ''
+          element_wrapper_class: ''
           element_default_classes: true
-          empty: ""
+          empty: ''
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -496,14 +496,14 @@ display:
           settings:
             link_to_entity: true
           group_column: value
-          group_columns: {}
+          group_columns: {  }
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ", "
+          separator: ', '
           field_api_classes: false
           entity_type: user
           entity_field: name
@@ -514,45 +514,45 @@ display:
           field: link
           relationship: none
           group_type: group
-          admin_label: ""
+          admin_label: ''
           label: Operations
           exclude: false
           alter:
             alter_text: false
-            text: ""
+            text: ''
             make_link: false
-            path: ""
+            path: ''
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ""
-            rel: ""
-            link_class: ""
-            prefix: ""
-            suffix: ""
-            target: ""
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ""
-            more_link_path: ""
+            more_link_text: ''
+            more_link_path: ''
             strip_tags: false
             trim: false
-            preserve_tags: ""
+            preserve_tags: ''
             html: false
-          element_type: ""
-          element_class: ""
-          element_label_type: ""
-          element_label_class: ""
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
           element_label_colon: true
-          element_wrapper_type: ""
-          element_wrapper_class: ""
+          element_wrapper_type: ''
+          element_wrapper_class: ''
           element_default_classes: true
-          empty: ""
+          empty: ''
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -564,15 +564,15 @@ display:
           field: type
           relationship: none
           group_type: group
-          admin_label: ""
+          admin_label: ''
           operator: in
-          value: {}
+          value: {  }
           group: 1
           exposed: true
           expose:
             operator_id: type_op
             label: Type
-            description: ""
+            description: ''
             use_operator: false
             operator: type_op
             identifier: type
@@ -581,23 +581,23 @@ display:
             multiple: true
             remember_roles:
               authenticated: authenticated
-              anonymous: "0"
-              administrator: "0"
+              anonymous: '0'
+              administrator: '0'
             reduce: false
             operator_limit_selection: false
-            operator_list: {}
+            operator_list: {  }
           is_grouped: false
           group_info:
-            label: ""
-            description: ""
-            identifier: ""
+            label: ''
+            description: ''
+            identifier: ''
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
-            default_group_multiple: {}
-            group_items: {}
+            default_group_multiple: {  }
+            group_items: {  }
           plugin_id: dblog_types
         severity:
           id: severity
@@ -605,15 +605,15 @@ display:
           field: severity
           relationship: none
           group_type: group
-          admin_label: ""
+          admin_label: ''
           operator: in
-          value: {}
+          value: {  }
           group: 1
           exposed: true
           expose:
             operator_id: severity_op
             label: Severity
-            description: ""
+            description: ''
             use_operator: false
             operator: severity_op
             identifier: severity
@@ -622,23 +622,23 @@ display:
             multiple: true
             remember_roles:
               authenticated: authenticated
-              anonymous: "0"
-              administrator: "0"
+              anonymous: '0'
+              administrator: '0'
             reduce: false
             operator_limit_selection: false
-            operator_list: {}
+            operator_list: {  }
           is_grouped: false
           group_info:
-            label: ""
-            description: ""
-            identifier: ""
+            label: ''
+            description: ''
+            identifier: ''
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
-            default_group_multiple: {}
-            group_items: {}
+            default_group_multiple: {  }
+            group_items: {  }
           plugin_id: in_operator
       sorts:
         wid:
@@ -647,15 +647,15 @@ display:
           field: wid
           relationship: none
           group_type: group
-          admin_label: ""
+          admin_label: ''
           order: DESC
           exposed: false
           expose:
-            label: ""
+            label: ''
           plugin_id: standard
-      title: "Recent log messages"
-      header: {}
-      footer: {}
+      title: 'Recent log messages'
+      header: {  }
+      footer: {  }
       empty:
         area:
           id: area_text_custom
@@ -663,10 +663,10 @@ display:
           field: area_text_custom
           relationship: none
           group_type: group
-          admin_label: "No log messages available."
+          admin_label: 'No log messages available.'
           empty: true
           tokenize: false
-          content: "No log messages available."
+          content: 'No log messages available.'
           plugin_id: text_custom
       relationships:
         uid:
@@ -678,8 +678,8 @@ display:
           admin_label: User
           required: false
           plugin_id: standard
-      arguments: {}
-      display_extenders: {}
+      arguments: {  }
+      display_extenders: {  }
       filter_groups:
         operator: AND
         groups:
@@ -688,26 +688,26 @@ display:
     cache_metadata:
       max-age: -1
       contexts:
-        - "languages:language_content"
-        - "languages:language_interface"
+        - 'languages:language_content'
+        - 'languages:language_interface'
         - url
         - url.query_args
         - user.permissions
-      tags: {}
+      tags: {  }
   page:
     display_plugin: page
     id: page
     display_title: Page
     position: 1
     display_options:
-      display_extenders: {}
+      display_extenders: {  }
       path: admin/reports/dblog
     cache_metadata:
       max-age: -1
       contexts:
-        - "languages:language_content"
-        - "languages:language_interface"
+        - 'languages:language_content'
+        - 'languages:language_interface'
         - url
         - url.query_args
         - user.permissions
-      tags: {}
+      tags: {  }

@@ -17,13 +17,13 @@ field_name: field_sections
 entity_type: node
 bundle: landing_page
 label: Sections
-description: ""
+description: ''
 required: false
 translatable: false
-default_value: {}
-default_value_callback: ""
+default_value: {  }
+default_value_callback: ''
 settings:
-  handler: "default:paragraph"
+  handler: 'default:paragraph'
   handler_settings:
     negate: 0
     target_bundles:

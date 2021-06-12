@@ -14,10 +14,10 @@ field_name: comment_body
 entity_type: comment
 bundle: comment
 label: Comment
-description: ""
+description: ''
 required: true
 translatable: true
-default_value: {}
-default_value_callback: ""
-settings: {}
+default_value: {  }
+default_value_callback: ''
+settings: {  }
 field_type: text_long

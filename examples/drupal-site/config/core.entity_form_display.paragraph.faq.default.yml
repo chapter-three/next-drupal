@@ -19,8 +19,8 @@ content:
     weight: 0
     settings:
       size: 60
-      placeholder: ""
-    third_party_settings: {}
+      placeholder: ''
+    third_party_settings: {  }
     type: string_textfield
     region: content
   field_items:
@@ -32,15 +32,15 @@ content:
       add_mode: button
       form_display_mode: default
       default_paragraph_type: _none
-    third_party_settings: {}
+    third_party_settings: {  }
     type: entity_reference_paragraphs
     region: content
   field_text:
     weight: 1
     settings:
       rows: 5
-      placeholder: ""
-    third_party_settings: {}
+      placeholder: ''
+    third_party_settings: {  }
     type: text_textarea
     region: content
 hidden:

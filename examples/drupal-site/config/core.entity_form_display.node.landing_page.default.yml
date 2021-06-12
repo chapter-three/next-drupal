@@ -17,8 +17,8 @@ content:
     type: datetime_timestamp
     weight: 3
     region: content
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
   field_sections:
     type: paragraphs
     weight: 1
@@ -33,54 +33,54 @@ content:
       form_display_mode: default
       default_paragraph_type: _none
       features:
-        add_above: "0"
-        collapse_edit_all: "0"
-        duplicate: "0"
-    third_party_settings: {}
+        add_above: '0'
+        collapse_edit_all: '0'
+        duplicate: '0'
+    third_party_settings: {  }
     region: content
   path:
     type: path
     weight: 6
     region: content
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 4
     region: content
-    third_party_settings: {}
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 7
     region: content
-    third_party_settings: {}
+    third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 5
     region: content
-    third_party_settings: {}
+    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
     region: content
     settings:
       size: 60
-      placeholder: ""
-    third_party_settings: {}
+      placeholder: ''
+    third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
     weight: 2
     settings:
       match_operator: CONTAINS
       size: 60
-      placeholder: ""
+      placeholder: ''
       match_limit: 10
     region: content
-    third_party_settings: {}
-hidden: {}
+    third_party_settings: {  }
+hidden: {  }

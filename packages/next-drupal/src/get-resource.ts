@@ -25,12 +25,12 @@ export async function getResourceFromContext(
   const path = getPathFromContext(context, options?.prefix)
 
   // Filter out unpublished entities.
-  if (!context.preview) {
-    options.params = {
-      "filter[status]": "1",
-      ...options?.params,
-    }
-  }
+  // if (!context.preview) {
+  //   options.params = {
+  //     "filter[status]": "1",
+  //     ...options?.params,
+  //   }
+  // }
 
   const resource = await getResourceByPath(path, {
     deserialize: options.deserialize,
@@ -50,7 +50,7 @@ export async function getResourceFromContext(
     return null
   }
 
-  return !context.preview && !resource.status ? null : resource
+  return resource
 }
 
 export async function getResourceByPath(

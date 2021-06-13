@@ -52,13 +52,13 @@ export async function getResourceCollectionFromContext(
     ...options,
   }
 
-  // Filter out unpublished entities.
-  if (!context.preview) {
-    options.params = {
-      "filter[status]": "1",
-      ...options.params,
-    }
-  }
+  // // Filter out unpublished entities.
+  // if (!context.preview) {
+  //   options.params = {
+  //     "filter[status]": "1",
+  //     ...options.params,
+  //   }
+  // }
 
   return await getResourceCollection(type, {
     ...options,

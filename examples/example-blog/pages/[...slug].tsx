@@ -38,7 +38,7 @@ export async function getStaticPaths(context) {
 export async function getStaticProps(context) {
   const page = await getResourceFromContext("node--page", context)
 
-  if (!page) {
+  if (!page?.status) {
     return {
       notFound: true,
     }

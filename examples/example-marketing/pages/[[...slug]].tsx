@@ -70,7 +70,7 @@ export async function getStaticProps(
     params,
   })
 
-  if (!page) {
+  if (!page?.status) {
     return {
       notFound: true,
     }
@@ -80,6 +80,6 @@ export async function getStaticProps(
     props: {
       page,
     },
-    revalidate: 60,
+    revalidate: 1,
   }
 }

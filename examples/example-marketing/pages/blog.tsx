@@ -31,6 +31,7 @@ export async function getStaticProps(context) {
     context,
     {
       params: {
+        "filter[status]": "1",
         include: "field_image, uid",
         sort: "-created",
       },
@@ -45,6 +46,6 @@ export async function getStaticProps(context) {
     props: {
       articles,
     },
-    revalidate: 60,
+    revalidate: 1,
   }
 }

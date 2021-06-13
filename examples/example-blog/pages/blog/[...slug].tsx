@@ -62,6 +62,7 @@ export default function BlogPostPage({ post }) {
 export async function getStaticPaths(context) {
   let paths = await getPathsFromContext("node--article", context, {
     params: {
+      "filter[status]": "1",
       "fields[node--article]": "path,field_site",
     },
   })
@@ -86,6 +87,7 @@ export async function getStaticProps(context) {
 
   if (
     !post ||
+    !post.status ||
     !post.field_site?.some(({ id }) => id === process.env.DRUPAL_SITE_ID)
   ) {
     return {

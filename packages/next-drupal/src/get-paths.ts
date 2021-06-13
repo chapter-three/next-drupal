@@ -41,14 +41,15 @@ export async function getPathsFromContext(
 }
 
 function buildPathsFromResources(resources, locale?: Locale) {
-  return resources.flatMap((resource) => {
+  return resources?.flatMap((resource) => {
     const slug =
-      resource.path.alias === process.env.DRUPAL_FRONT_PAGE
+      resource?.path?.alias === process.env.DRUPAL_FRONT_PAGE
         ? "/"
-        : resource.path.alias
+        : resource?.path?.alias
+
     const path = {
       params: {
-        slug: `${slug.replace(/^\/|\/$/g, "")}`.split("/"),
+        slug: `${slug?.replace(/^\/|\/$/g, "")}`.split("/"),
       },
     }
 

@@ -34,6 +34,8 @@ export async function getResourceFromContext(
 
   const resource = await getResourceByPath(path, {
     deserialize: options.deserialize,
+    locale: context.locale,
+    defaultLocale: context.defaultLocale,
     params: {
       resourceVersion: context.previewData?.resourceVersion,
       ...options?.params,
@@ -69,7 +71,11 @@ export async function getResourceByPath(
     return null
   }
 
-  if (options.locale && options.defaultLocale) {
+  if (
+    options.locale &&
+    options.defaultLocale &&
+    path.indexOf(options.locale) !== 1
+  ) {
     path = path === "/" ? path : path.replace(/^\/+/, "")
     path = getPathFromContext({
       params: { slug: [path] },
@@ -99,7 +105,19 @@ export async function getResourceByPath(
     },
   ]
 
-  const url = buildUrl("/subrequests", {
+  // Localized subrequests.
+  // I was hoping we not need this but it seems like subrequests is not properly
+  // setting the jsonapi locale from a translated path.
+  let subrequestsPath = "/subrequests"
+  if (
+    options.locale &&
+    options.defaultLocale &&
+    options.locale !== options.defaultLocale
+  ) {
+    subrequestsPath = `/${options.locale}/subrequests`
+  }
+
+  const url = buildUrl(subrequestsPath, {
     _format: "json",
   })
 

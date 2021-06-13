@@ -1,5 +1,5 @@
 export * from "./get-access-token"
-export * from "./get-menu-items"
+export * from "./get-menu"
 export * from "./get-paths"
 export * from "./get-resource-collection"
 export * from "./preview"

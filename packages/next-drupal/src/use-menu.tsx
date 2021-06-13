@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { getMenuItems } from "./get-menu-items"
+import { getMenu } from "./get-menu"
 import { DrupalMenuLinkContent } from "./types"
 
 export function useMenu(
@@ -11,8 +11,10 @@ export function useMenu(
   error: unknown
   isLoading: boolean
 } {
-  const [items, setItems] = React.useState<DrupalMenuLinkContent[]>(null)
-  const [tree, setTree] = React.useState<DrupalMenuLinkContent[]>(null)
+  const [data, setData] = React.useState<{
+    items: DrupalMenuLinkContent[]
+    tree: DrupalMenuLinkContent[]
+  }>(null)
   const [error, setError] = React.useState(null)
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
@@ -20,12 +22,8 @@ export function useMenu(
     const fetchMenuItems = async () => {
       setIsLoading(true)
       try {
-        const data = await getMenuItems(name)
-        setItems(data)
-
-        const { items: tree } = buildMenuTree(data)
-        setTree(tree)
-
+        const data = await getMenu(name)
+        setData(data)
         setIsLoading(false)
       } catch (error) {
         console.log(error)
@@ -36,21 +34,5 @@ export function useMenu(
     fetchMenuItems()
   }, [])
 
-  return { items, tree, error, isLoading }
-}
-
-function buildMenuTree(
-  links: DrupalMenuLinkContent[],
-  parent: DrupalMenuLinkContent["id"] = ""
-) {
-  const children = links.filter((link) => link.parent === parent)
-
-  return children.length
-    ? {
-        items: children.map((link) => ({
-          ...link,
-          ...buildMenuTree(links, link.id),
-        })),
-      }
-    : {}
+  return { ...data, error, isLoading }
 }

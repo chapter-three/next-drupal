@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.2](https://github.com/arshad/next-drupal/compare/next-drupal@0.9.1...next-drupal@0.9.2) (2021-06-13)
+
+
+### Bug Fixes
+
+* update locale support for translated path ([4fad345](https://github.com/arshad/next-drupal/commit/4fad3457e8e8d6205122c29783c2aff67aa4fbe6))
+
+
+
+
+
 ## [0.9.1](https://github.com/arshad/next-drupal/compare/next-drupal@0.9.0...next-drupal@0.9.1) (2021-06-13)
 
 

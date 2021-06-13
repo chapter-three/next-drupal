@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.8.0...next-drupal@0.9.0) (2021-06-13)
+
+
+### Features
+
+* **next-drupal:** add getResource and preview handlers ([b32410f](https://github.com/arshad/next-drupal/commit/b32410fce47567a22210eca61987bb635cacaeb5))
+
+
+
+
+
 # [0.8.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.7.0...next-drupal@0.8.0) (2021-06-11)
 
 

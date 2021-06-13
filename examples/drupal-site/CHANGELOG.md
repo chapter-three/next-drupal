@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/chapter-three/next-drupal/compare/drupal-site@0.5.0...drupal-site@0.6.0) (2021-06-13)
+
+
+### Bug Fixes
+
+* remove unused dependencies ([efe17b4](https://github.com/chapter-three/next-drupal/commit/efe17b44eb865fd645864da634304a3016c0e082))
+
+
+### Features
+
+* add support for basic page to example-marketing ([f9c5d1b](https://github.com/chapter-three/next-drupal/commit/f9c5d1b81697c59bc15b0372700fa2e979de9a00))
+* update drupal config ([e5923ab](https://github.com/chapter-three/next-drupal/commit/e5923abba9cfa6a4acf29437b1743a604503e780))
+
+
+
+
+
 # [0.5.0](https://github.com/chapter-three/next-drupal/compare/drupal-site@0.4.1...drupal-site@0.5.0) (2021-06-11)
 
 

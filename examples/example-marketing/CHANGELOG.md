@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/chapter-three/next-drupal/compare/example-marketing@0.8.0...example-marketing@0.9.0) (2021-06-13)
+
+
+### Bug Fixes
+
+* update marketing site ([08863e6](https://github.com/chapter-three/next-drupal/commit/08863e6e8ab273799f1b1fcab793fdf51ad1d04b))
+* update preview ([f01ca6b](https://github.com/chapter-three/next-drupal/commit/f01ca6b9f68ac92c587b11c6e05f1145a57e8995))
+
+
+### Features
+
+* add support for basic page to example-marketing ([f9c5d1b](https://github.com/chapter-three/next-drupal/commit/f9c5d1b81697c59bc15b0372700fa2e979de9a00))
+
+
+
+
+
 # [0.8.0](https://github.com/chapter-three/next-drupal/compare/example-marketing@0.7.0...example-marketing@0.8.0) (2021-06-11)
 
 

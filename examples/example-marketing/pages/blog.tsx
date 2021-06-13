@@ -12,7 +12,7 @@ export default function BlogPage({ articles }) {
       <div variant="container" py="10|12">
         <h1 variant="heading.h1">Latest Articles.</h1>
         {articles.length ? (
-          <div display="grid" col="1|1|2|3" gap="20">
+          <div display="grid" col="1|1|2" gap="20">
             {articles.map((article) => (
               <PostTeaser key={article.id} post={article} />
             ))}

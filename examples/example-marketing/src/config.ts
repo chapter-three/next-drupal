@@ -1,5 +1,5 @@
 export const site = {
-  name: "Marketing.",
+  name: "Brand.",
   copyright: `© ${new Date().getFullYear()} Next.js + Drupal`,
   links: [
     {

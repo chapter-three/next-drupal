@@ -1,9 +1,10 @@
 import { GetStaticPropsContext } from "next"
-import { JsonApiParams } from "./types"
+import { JsonApiParams, JsonApiWithLocaleOptions } from "./types"
 import {
   buildHeaders,
   buildUrl,
   deserialize,
+  getJsonApiPathForResourceType,
   getPathFromContext,
 } from "./utils"
 
@@ -56,8 +57,7 @@ export async function getResourceByPath(
   path: string,
   options?: {
     deserialize?: boolean
-    params?: JsonApiParams
-  }
+  } & JsonApiWithLocaleOptions
 ) {
   options = {
     deserialize: true,
@@ -67,6 +67,15 @@ export async function getResourceByPath(
 
   if (!path) {
     return null
+  }
+
+  if (options.locale && options.defaultLocale) {
+    path = path === "/" ? path : path.replace(/^\/+/, "")
+    path = getPathFromContext({
+      params: { slug: [path] },
+      locale: options.locale,
+      defaultLocale: options.defaultLocale,
+    })
   }
 
   const { resourceVersion = "rel:latest-version", ...params } = options?.params
@@ -114,5 +123,48 @@ export async function getResourceByPath(
 
   const data = JSON.parse(json["resolvedResource#uri{0}"]?.body)
 
+  if (data.errors) {
+    throw new Error(data.errors[0].detail)
+  }
+
   return options.deserialize ? deserialize(data) : data
+}
+
+export async function getResource(
+  type: string,
+  uuid: string,
+  options?: {
+    deserialize?: boolean
+  } & JsonApiWithLocaleOptions
+) {
+  options = {
+    deserialize: true,
+    params: {},
+    ...options,
+  }
+
+  const apiPath = await getJsonApiPathForResourceType(
+    type,
+    options?.locale !== options?.defaultLocale ? options.locale : undefined
+  )
+
+  if (!apiPath) {
+    throw new Error(`Error: resource of type ${type} not found.`)
+  }
+
+  const url = buildUrl(`${apiPath}/${uuid}`, {
+    ...options?.params,
+  })
+
+  const response = await fetch(url.toString(), {
+    headers: await buildHeaders(),
+  })
+
+  if (!response.ok) {
+    throw new Error(response.statusText)
+  }
+
+  const json = await response.json()
+
+  return options.deserialize ? deserialize(json) : json
 }

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.1](https://github.com/chapter-three/next-drupal/compare/example-marketing@0.9.0...example-marketing@0.9.1) (2021-06-13)
+
+
+### Bug Fixes
+
+* update sites to handle unpublished entities ([93dd678](https://github.com/chapter-three/next-drupal/commit/93dd6786caff73398dd291c84b41d45c5bc50645))
+
+
+
+
+
 # [0.9.0](https://github.com/chapter-three/next-drupal/compare/example-marketing@0.8.0...example-marketing@0.9.0) (2021-06-13)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.1](https://github.com/arshad/next-drupal/compare/next-drupal@0.9.0...next-drupal@0.9.1) (2021-06-13)
+
+
+### Bug Fixes
+
+* **next-drupal:** let site handle published status ([c1fc90a](https://github.com/arshad/next-drupal/commit/c1fc90a5c3e7fea7e3b1e2d06504f67669dbc57e))
+
+
+
+
+
 # [0.9.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.8.0...next-drupal@0.9.0) (2021-06-13)
 
 

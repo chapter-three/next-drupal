@@ -1,10 +1,6 @@
 import dynamic from "next/dynamic"
 
-interface LandingPageProps {
-  page: Record<string, any>
-}
-
-export function LandingPage({ page }: LandingPageProps) {
+export function LandingPage({ page }) {
   return page.field_sections?.length ? (
     <>
       {page.field_sections.map((section) => {

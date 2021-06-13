@@ -1,34 +1,3 @@
-import { NextApiRequest, NextApiResponse } from "next"
-import { getResourceByPath } from "next-drupal"
+import { DrupalPreview } from "next-drupal"
 
-export default async function (
-  request: NextApiRequest,
-  response: NextApiResponse
-) {
-  const { slug, resourceVersion, secret } = request.query
-
-  if (secret !== process.env.DRUPAL_PREVIEW_SECRET) {
-    return response.status(401).json({ message: "Invalid preview secret." })
-  }
-
-  if (!slug) {
-    return response.status(401).json({ message: "Invalid slug." })
-  }
-
-  const node = await getResourceByPath(slug as string)
-
-  if (!node) {
-    return response.status(404).json({ message: "Invalid slug" })
-  }
-
-  response.setPreviewData({
-    resourceVersion,
-  })
-
-  const url = node.default_langcode
-    ? node.path.alias
-    : `/${node.path.langcode}${node.path.alias}`
-
-  response.writeHead(307, { Location: url })
-  response.end()
-}
+export default DrupalPreview()

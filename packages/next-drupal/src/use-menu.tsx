@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useRouter } from "next/router"
 
 import { getMenu } from "./get-menu"
 import { DrupalMenuLinkContent } from "./types"
@@ -11,6 +12,7 @@ export function useMenu(
   error: unknown
   isLoading: boolean
 } {
+  const router = useRouter()
   const [data, setData] = React.useState<{
     items: DrupalMenuLinkContent[]
     tree: DrupalMenuLinkContent[]
@@ -22,7 +24,10 @@ export function useMenu(
     const fetchMenuItems = async () => {
       setIsLoading(true)
       try {
-        const data = await getMenu(name)
+        const data = await getMenu(name, {
+          locale: router.locale,
+          defaultLocale: router.defaultLocale,
+        })
         setData(data)
         setIsLoading(false)
       } catch (error) {
@@ -31,7 +36,7 @@ export function useMenu(
       }
     }
     fetchMenuItems()
-  }, [])
+  }, [router.locale])
 
   return { ...data, error, isLoading }
 }

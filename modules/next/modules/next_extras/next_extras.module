@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Module implementation file.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function next_extras_entity_base_field_info(EntityTypeInterface $entity_type) {
+  if (\Drupal::moduleHandler()->moduleExists('content_translation')) {
+    if (in_array($entity_type->id(), ['node'])) {
+      $fields['content_translations'] = BaseFieldDefinition::create('content_translations')
+        ->setLabel(t('Content Translations'))
+        ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
+        ->setComputed(TRUE);
+
+      return $fields;
+    }
+  }
+}

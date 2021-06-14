@@ -1,20 +1,23 @@
 import Head from "next/head"
 import { getResourceCollectionFromContext } from "next-drupal"
 
-import { PostTeaser } from "@/components/post-teaser"
+import { NodeArticleTeaser } from "@/components/node-article"
+import { useRouter } from "next/router"
 
 export default function BlogPage({ articles }) {
+  const { locale } = useRouter()
+  const title = locale === "en" ? "Latest Articles." : "Últimas Publicaciones."
   return (
     <>
       <Head>
-        <title>Blog</title>
+        <title>{title}</title>
       </Head>
       <div variant="container" py="10|12">
-        <h1 variant="heading.h1">Latest Articles.</h1>
+        <h1 variant="heading.h1">{title}</h1>
         {articles.length ? (
           <div display="grid" col="1|1|2" gap="20">
             {articles.map((article) => (
-              <PostTeaser key={article.id} post={article} />
+              <NodeArticleTeaser key={article.id} node={article} />
             ))}
           </div>
         ) : (

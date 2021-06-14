@@ -1,15 +1,18 @@
-import Link from "next/link"
-import { site } from "@/config"
-import { ModeToggle } from "./mode-toggle"
-import { DrupalMenuLinkContent } from "next-drupal"
 import React from "react"
-import { useRouter } from "next/dist/client/router"
+import Link from "next/link"
+import { useRouter } from "next/router"
+import { DrupalMenuLinkContent } from "next-drupal"
+
+import { site } from "@/config"
+import { ModeToggle } from "@/components/mode-toggle"
+import { LocaleSwitcher } from "./locale-switcher"
 
 interface NavbarProps {
   links: DrupalMenuLinkContent[]
 }
 
 export function Navbar({ links, ...props }: NavbarProps) {
+  const { locale } = useRouter()
   return (
     <header
       position="static|sticky"
@@ -28,7 +31,7 @@ export function Navbar({ links, ...props }: NavbarProps) {
         justifyContent="space-between"
       >
         <div w="40">
-          <Link href="/" passHref>
+          <Link href="/" locale={locale} passHref>
             <a
               display="flex"
               textDecoration="none"
@@ -52,6 +55,7 @@ export function Navbar({ links, ...props }: NavbarProps) {
           top="6"
           right="4"
         >
+          <LocaleSwitcher />
           <ModeToggle ml="4" />
         </div>
       </div>
@@ -65,6 +69,7 @@ function Menu({ items }: { items: DrupalMenuLinkContent[] }) {
       display="inline-grid"
       col={`repeat(${items.length}, minmax(0,auto))`}
       gap="6|12"
+      mx="auto"
     >
       {items.map((item) => (
         <MenuLink link={item} key={item.id} />

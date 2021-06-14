@@ -26,7 +26,9 @@ export function Footer({ copyright, links }: FooterProps) {
               {links.map((link) => (
                 <li key={link.id} ml="8">
                   <Link href={link.url} passHref>
-                    <a>{link.title}</a>
+                    <a color="text" textDecoration="none">
+                      {link.title}
+                    </a>
                   </Link>
                 </li>
               ))}

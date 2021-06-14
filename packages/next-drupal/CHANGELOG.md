@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.9.2...next-drupal@0.10.0) (2021-06-14)
+
+
+### Bug Fixes
+
+* **next-drupal:** update handling of locale ([56364ce](https://github.com/arshad/next-drupal/commit/56364ce6f3f2aaef2d0d48a8fe544c1c03fba418))
+* **next-drupal:** update useMenu ([9463bd1](https://github.com/arshad/next-drupal/commit/9463bd174b71172eebaa98c91475b64245f16934))
+
+
+### Features
+
+* **next-drupal:** add locale dependency to useMenu ([d9bb031](https://github.com/arshad/next-drupal/commit/d9bb03136884b5a2ac109ccbef77a3984fc21247))
+
+
+
+
+
 ## [0.9.2](https://github.com/arshad/next-drupal/compare/next-drupal@0.9.1...next-drupal@0.9.2) (2021-06-13)
 
 

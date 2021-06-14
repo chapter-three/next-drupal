@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.2](https://github.com/chapter-three/next-drupal/compare/www@0.1.1...www@0.1.2) (2021-06-14)
+
+
+### Bug Fixes
+
+* update drupal site ([35a8c7e](https://github.com/chapter-three/next-drupal/commit/35a8c7e8c7a7378bb001eda8eef66315d5769589))
+
+
+
+
+
 ## [0.1.1](https://github.com/arshad/next-drupal/compare/www@0.1.0...www@0.1.1) (2021-05-17)
 
 **Note:** Version bump only for package www

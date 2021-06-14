@@ -4,25 +4,24 @@ export const site: SiteConfig = {
   name: "Next.js for Drupal",
   description:
     "Next.js + Drupal for Incremental Static Regeneration and Preview mode.",
-  copyright: `© ${new Date().getFullYear()} Next.js for Drupal - Project maintained by <a href="https://twitter.com/arshadcn">@arshadcn</a>.`,
+  copyright: `© ${new Date().getFullYear()} Next.js for Drupal - Project maintained by <a href="https://chapterthree.com" target="_blank">Chapter Three</a>.`,
   links: [
-    {
-      title: "Home",
-      url: "/",
-    },
     {
       title: "Documentation",
       url: "/",
-      activePathNames: ["/[[...slug]]"],
+    },
+    {
+      title: "Demo",
+      url: "/demo",
     },
     {
       title: "GitHub",
-      url: "https://github.com/arshad/next-drupal",
+      url: "https://github.com/chapter-three/next-drupal",
       external: true,
     },
   ],
   social: {
-    github: "arshad/next-drupal",
+    github: "chapter-three/next-drupal",
     twitter: "arshadcn",
   },
 }

@@ -19,7 +19,7 @@ bundle: document
 label: Document
 description: ''
 required: true
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:

@@ -1,0 +1,18 @@
+uuid: a2fefbb5-a2d5-4e40-b06f-205ee09dfed4
+langcode: es
+status: true
+dependencies:
+  config:
+    - node.type.landing_page
+id: node.landing_page.created
+field_name: created
+entity_type: node
+bundle: landing_page
+label: 'Authored on'
+description: 'The time that the node was created.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

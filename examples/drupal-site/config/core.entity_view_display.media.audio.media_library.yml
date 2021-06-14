@@ -28,5 +28,6 @@ content:
 hidden:
   created: true
   field_media_audio_file: true
+  langcode: true
   name: true
   uid: true

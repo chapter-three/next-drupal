@@ -87,3 +87,4 @@ cypress/screenshots
 *__clone*
 dist
 examples/certificates/*
+examples/drupal-site/web/sites/default/settings.local.php

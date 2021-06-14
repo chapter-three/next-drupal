@@ -1,0 +1,18 @@
+uuid: d48a461b-8e34-4949-a226-d999921d4e39
+langcode: es
+status: true
+dependencies:
+  config:
+    - node.type.landing_page
+id: node.landing_page.changed
+field_name: changed
+entity_type: node
+bundle: landing_page
+label: Changed
+description: 'The time that the node was last edited.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

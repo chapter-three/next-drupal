@@ -27,3 +27,4 @@
 /.gitattributes
 
 /oauth-keys/*.key
+/web/sites/default/settings.local.php

@@ -1,0 +1,18 @@
+uuid: 234ab17f-3f16-4fc0-90c0-9ccdddbab103
+langcode: es
+status: true
+dependencies:
+  module:
+    - consumers
+id: consumer.consumer.description
+field_name: description
+entity_type: consumer
+bundle: consumer
+label: Description
+description: 'A description of the consumer. This text will be shown to the users to authorize sharing their data to create an access token.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

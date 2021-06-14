@@ -1,0 +1,22 @@
+uuid: b1a03c29-a351-4cd4-a305-f8c9e131c64c
+langcode: es
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.collapsible
+id: paragraph.collapsible.status
+field_name: status
+entity_type: paragraph
+bundle: collapsible
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

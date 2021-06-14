@@ -1,0 +1,22 @@
+uuid: 9f4ab3b0-8544-4ad3-8735-2ec380f48d66
+langcode: es
+status: true
+dependencies:
+  module:
+    - consumers
+id: consumer.consumer.is_default
+field_name: is_default
+entity_type: consumer
+bundle: consumer
+label: 'Is this the default consumer?'
+description: 'There can only be one default consumer. Mark this to use this consumer when none other applies.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

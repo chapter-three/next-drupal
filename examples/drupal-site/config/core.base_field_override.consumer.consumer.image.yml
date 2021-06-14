@@ -1,0 +1,36 @@
+uuid: 2946b88f-74cd-4821-bede-91170146264b
+langcode: es
+status: true
+dependencies:
+  module:
+    - consumers
+    - image
+id: consumer.consumer.image
+field_name: image
+entity_type: consumer
+bundle: consumer
+label: Logo
+description: 'Logo of the consumer.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_extensions: 'png gif jpg jpeg'
+  alt_field: true
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  max_resolution: ''
+  min_resolution: ''
+  default_image:
+    uuid: null
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  max_filesize: ''
+  handler: default
+  handler_settings: {  }
+field_type: image

@@ -9,14 +9,14 @@ label: 'Landing page'
 type: 'canonical_entities:node'
 pattern: '[node:title]'
 selection_criteria:
-  c4600c36-e7b5-445d-8c7c-3bf282e9bcac:
+  071bfcd2-7621-41e3-840e-dcd3485b0bfa:
     id: node_type
     bundles:
       landing_page: landing_page
     negate: false
     context_mapping:
       node: node
-    uuid: c4600c36-e7b5-445d-8c7c-3bf282e9bcac
+    uuid: 071bfcd2-7621-41e3-840e-dcd3485b0bfa
 selection_logic: and
 weight: -5
 relationships: {  }

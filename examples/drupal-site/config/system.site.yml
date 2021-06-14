@@ -1,11 +1,11 @@
-uuid: ba6bc909-eed8-4f3c-8036-89dcaa5142ee
+uuid: 1a7d2047-f4dc-4686-a2df-c4ef2172df43
 name: 'Next.js + Drupal'
 mail: admin@example.com
 slogan: ''
 page:
   403: ''
   404: ''
-  front: /admin/content
+  front: /node/6
 admin_compact_mode: false
 weight_select_max: 100
 langcode: en

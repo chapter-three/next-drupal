@@ -1,5 +1,4 @@
 and_or_limit: 7
-default_page: node_search
 index:
   cron_limit: 100
   overlap_cjk: true

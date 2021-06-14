@@ -28,4 +28,5 @@ content:
     label: hidden
 hidden:
   field_name: true
+  langcode: true
   member_for: true

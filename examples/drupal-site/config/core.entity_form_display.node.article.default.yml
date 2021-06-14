@@ -4,14 +4,12 @@ status: true
 dependencies:
   config:
     - field.field.node.article.body
-    - field.field.node.article.comment
     - field.field.node.article.field_image
     - field.field.node.article.field_site
     - field.field.node.article.field_tags
     - image.style.thumbnail
     - node.type.article
   module:
-    - comment
     - image
     - path
     - text
@@ -31,12 +29,6 @@ content:
       summary_rows: 3
       placeholder: ''
       show_summary: false
-    third_party_settings: {  }
-  comment:
-    type: comment_default
-    weight: 9
-    region: content
-    settings: {  }
     third_party_settings: {  }
   created:
     type: datetime_timestamp
@@ -67,6 +59,13 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
     third_party_settings: {  }
   path:
     type: path

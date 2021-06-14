@@ -3,41 +3,76 @@ import { getResourceCollection } from "./get-resource-collection"
 import { JsonApiParams, Locale } from "./types"
 
 export async function getPathsFromContext(
-  type: string,
+  types: string | string[],
   context: GetStaticPathsContext,
   options: {
     params?: JsonApiParams
   } = {}
 ) {
-  // Use sparse fieldset to expand max size.
-  options.params = {
-    [`fields[${type}]`]: "path",
-    ...options?.params,
-  }
-
-  if (!context.locales?.length) {
-    const resources = await getResourceCollection(type, {
-      deserialize: true,
-      ...options,
-    })
-
-    return buildPathsFromResources(resources)
+  if (typeof types === "string") {
+    types = [types]
   }
 
   const paths = await Promise.all(
-    context.locales.flatMap(async (locale) => {
-      const resources = await getResourceCollection(type, {
-        deserialize: true,
-        locale,
-        defaultLocale: context.defaultLocale,
-        ...options,
-      })
+    types.map(async (type) => {
+      // Use sparse fieldset to expand max size.
+      options.params = {
+        [`fields[${type}]`]: "path",
+        ...options?.params,
+      }
 
-      return buildPathsFromResources(resources, locale)
+      const paths = await Promise.all(
+        context.locales.map(async (locale) => {
+          const resources = await getResourceCollection(type, {
+            deserialize: true,
+            locale,
+            defaultLocale: context.defaultLocale,
+            ...options,
+          })
+
+          return buildPathsFromResources(resources, locale)
+        })
+      )
+
+      return paths.flat()
+
+      // const resources = await getResourceCollection(type, {
+      //   deserialize: true,
+      //   ...options,
+      // })
+
+      // return buildPathsFromResources(resources)
+
+      // Handle localized path aliases
+      // if (!context.locales?.length) {
+      //   const resources = await getResourceCollection(type, {
+      //     deserialize: true,
+      //     ...options,
+      //   })
+
+      //   return buildPathsFromResources(resources)
+      // }
+
+      // const paths = await Promise.all(
+      //   context.locales.map(async (locale) => {
+      //     const resources = await getResourceCollection(type, {
+      //       deserialize: true,
+      //       locale,
+      //       defaultLocale: context.defaultLocale,
+      //       ...options,
+      //     })
+
+      //     return buildPathsFromResources(resources, locale)
+      //   })
+      // )
+
+      // paths.flat().map((path) => console.log(path))
+
+      // return paths.flat()
     })
   )
 
-  return [].concat(...paths)
+  return paths.flat()
 }
 
 function buildPathsFromResources(resources, locale?: Locale) {
@@ -54,7 +89,7 @@ function buildPathsFromResources(resources, locale?: Locale) {
     }
 
     if (locale) {
-      path.params["locale"] = locale
+      path["locale"] = locale
     }
 
     return path

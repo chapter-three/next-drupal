@@ -14,7 +14,6 @@ import {
 import { NodeArticle } from "@/components/node-article"
 import { NodeLandingPage } from "@/components/node-landing-page"
 import { NodeBasicPage } from "@/components/node-basic-page"
-import { useLocale } from "@/components/locale-provider"
 
 // Allow any here until JSON API resources are properly typed.
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -23,17 +22,6 @@ interface PageProps {
 }
 
 export default function NodePage({ node }: PageProps) {
-  const { setPaths } = useLocale()
-
-  React.useEffect(() => {
-    setPaths(
-      node?.content_translations.map((translation) => ({
-        path: translation.path,
-        locale: translation.langcode,
-      }))
-    )
-  }, [node])
-
   if (!node) return null
 
   return (

@@ -16,7 +16,9 @@
     "baseUrl": "./",
     "paths": {
       "@/components/*": ["src/components/*"],
-      "@/sections/*": ["src/sections/*"],
+      "@/nodes/*": ["src/nodes/*"],
+      "@/paragraphs/*": ["src/paragraphs/*"],
+      "@/views/*": ["src/views/*"],
       "@utils/*": ["src/utils/*"],
       "@/config": ["src/config"]
     }

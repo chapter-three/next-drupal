@@ -1,24 +1,24 @@
-export default function FAQ({ section, ...props }) {
+export default function ParagraphFAQ({ paragraph, ...props }) {
   return (
-    <section py="12|20" bg={section.field_background_color} {...props}>
+    <section py="12|20" bg={paragraph.field_background_color} {...props}>
       <div variant="container">
         <div textAlign="center">
-          {section.field_heading && (
-            <h2 variant="heading.h1">{section.field_heading}</h2>
+          {paragraph.field_heading && (
+            <h2 variant="heading.h1">{paragraph.field_heading}</h2>
           )}
-          {section.field_text?.processed && (
+          {paragraph.field_text?.processed && (
             <div
               variant="text.lead"
               maxW="680"
               mx="auto"
               mt="2"
               dangerouslySetInnerHTML={{
-                __html: section.field_text?.processed,
+                __html: paragraph.field_text?.processed,
               }}
             />
           )}
         </div>
-        {section.field_items && (
+        {paragraph.field_items && (
           <div
             display="grid"
             mt="10|20"
@@ -26,7 +26,7 @@ export default function FAQ({ section, ...props }) {
             rowGap="4|6|10"
             col="1|1|2"
           >
-            {section.field_items.map((card) => (
+            {paragraph.field_items.map((card) => (
               <div key={card.id}>
                 <h4 variant="heading.h4" fontFamily="sans">
                   {card.field_heading}

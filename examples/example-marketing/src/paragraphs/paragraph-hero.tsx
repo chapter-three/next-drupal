@@ -1,27 +1,34 @@
 import { Links } from "@/components/links"
 import Image from "next/image"
 
-export default function Hero({ section, ...props }) {
+export default function ParagraphHero({ paragraph, ...props }) {
+  const heroImage = paragraph.field_media?.field_media_image
+
   return (
-    <section pt="12|20" borderBottomWidth="1" {...props}>
+    <section
+      pt="12|20"
+      pb={heroImage ? 0 : "12|20"}
+      borderBottomWidth={heroImage ? 1 : 0}
+      {...props}
+    >
       <div variant="container">
         <div textAlign="center">
-          {section.field_heading && (
-            <h1 variant="heading.h1">{section.field_heading}</h1>
+          {paragraph.field_heading && (
+            <h1 variant="heading.h1">{paragraph.field_heading}</h1>
           )}
-          {section.field_text?.processed && (
+          {paragraph.field_text?.processed && (
             <div
               variant="text.lead"
               mt="2"
               maxW="700"
               mx="auto"
               dangerouslySetInnerHTML={{
-                __html: section.field_text?.processed,
+                __html: paragraph.field_text?.processed,
               }}
             />
           )}
-          {section.field_links && <Links links={section.field_links} />}
-          {section.field_media?.field_media_image && (
+          {paragraph.field_links && <Links links={paragraph.field_links} />}
+          {heroImage && (
             <div
               w="full"
               h="40|56|80"
@@ -30,7 +37,7 @@ export default function Hero({ section, ...props }) {
               overflow="hidden"
             >
               <Image
-                src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${section.field_media.field_media_image.uri.url}`}
+                src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${heroImage.uri.url}`}
                 width={1200}
                 height={600}
                 layout="intrinsic"

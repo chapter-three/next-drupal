@@ -5,7 +5,7 @@ import { DrupalMenuLinkContent } from "next-drupal"
 
 import { site } from "@/config"
 import { ModeToggle } from "@/components/mode-toggle"
-import { LocaleSwitcher } from "./locale-switcher"
+import { LocaleSwitcher } from "@/components/locale-switcher"
 
 interface NavbarProps {
   links: DrupalMenuLinkContent[]

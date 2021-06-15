@@ -1,27 +1,18 @@
 import * as React from "react"
-import {
-  GetStaticPathsContext,
-  GetStaticPathsResult,
-  GetStaticPropsResult,
-} from "next"
+import { GetStaticPathsContext, GetStaticPathsResult } from "next"
 import Head from "next/head"
 import {
   getPathsFromContext,
   getResourceFromContext,
   getResourceTypeFromContext,
+  getView,
 } from "next-drupal"
 
-import { NodeArticle } from "@/components/node-article"
-import { NodeLandingPage } from "@/components/node-landing-page"
-import { NodeBasicPage } from "@/components/node-basic-page"
+import { NodeArticle } from "@/nodes/node-article"
+import { NodeLandingPage } from "@/nodes/node-landing-page"
+import { NodeBasicPage } from "@/nodes/node-basic-page"
 
-// Allow any here until JSON API resources are properly typed.
-/* eslint-disable  @typescript-eslint/no-explicit-any */
-interface PageProps {
-  node: Record<string, any>
-}
-
-export default function NodePage({ node }: PageProps) {
+export default function NodePage({ node }) {
   if (!node) return null
 
   return (
@@ -41,17 +32,13 @@ export async function getStaticPaths(
 ): Promise<GetStaticPathsResult> {
   const resourceTypes = ["node--page", "node--landing_page", "node--article"]
 
-  const paths = await getPathsFromContext(resourceTypes, context)
-
   return {
-    paths,
+    paths: await getPathsFromContext(resourceTypes, context),
     fallback: true,
   }
 }
 
-export async function getStaticProps(
-  context
-): Promise<GetStaticPropsResult<PageProps>> {
+export async function getStaticProps(context) {
   const type = await getResourceTypeFromContext(context)
 
   if (!type) {
@@ -61,6 +48,7 @@ export async function getStaticProps(
   }
 
   let params = {}
+
   if (type === "node--landing_page") {
     params = {
       include:
@@ -79,13 +67,30 @@ export async function getStaticProps(
   })
 
   if (
-    !node ||
-    !node.status ||
+    !node?.status ||
     (node.field_site &&
       !node.field_site?.some(({ id }) => id === process.env.DRUPAL_SITE_ID))
   ) {
     return {
       notFound: true,
+    }
+  }
+
+  // Load initial view data.
+  if (type === "node--landing_page") {
+    for (const section of node.field_sections) {
+      if (section.type === "paragraph--view" && section.field_view) {
+        const view = await getView(section.field_view, {
+          params: {
+            include: "field_location,field_images.field_media_image",
+          },
+        })
+
+        section.field_view = {
+          name: section.field_view,
+          ...view,
+        }
+      }
     }
   }
 

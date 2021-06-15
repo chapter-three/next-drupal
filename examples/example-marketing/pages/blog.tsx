@@ -1,12 +1,13 @@
 import Head from "next/head"
 import { getResourceCollectionFromContext } from "next-drupal"
 
-import { NodeArticleTeaser } from "@/components/node-article"
+import { NodeArticleTeaser } from "@/nodes/node-article"
 import { useRouter } from "next/router"
 
-export default function BlogPage({ articles }) {
+export default function BlogPage({ nodes }) {
   const { locale } = useRouter()
   const title = locale === "en" ? "Latest Articles." : "Últimas Publicaciones."
+
   return (
     <>
       <Head>
@@ -14,9 +15,9 @@ export default function BlogPage({ articles }) {
       </Head>
       <div variant="container" py="10|12">
         <h1 variant="heading.h1">{title}</h1>
-        {articles.length ? (
+        {nodes.length ? (
           <div display="grid" col="1|1|2" gap="20">
-            {articles.map((article) => (
+            {nodes.map((article) => (
               <NodeArticleTeaser key={article.id} node={article} />
             ))}
           </div>
@@ -41,13 +42,16 @@ export async function getStaticProps(context) {
     }
   )
 
-  const articles = entities.filter((entity) =>
+  // The article content type uses a "field_site" entity_reference field
+  // to set which site to publish to.
+  // Here we filter out nodes that are not published for this site.
+  const nodes = entities.filter((entity) =>
     entity.field_site.some(({ id }) => id === process.env.DRUPAL_SITE_ID)
   )
 
   return {
     props: {
-      articles,
+      nodes,
     },
     revalidate: 1,
   }

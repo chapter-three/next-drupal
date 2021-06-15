@@ -1,5 +1,4 @@
 import { GetStaticPropsContext } from "next"
-import { URLSearchParams } from "url"
 import Jsona from "jsona"
 
 const JSONAPI_PREFIX = process.env.DRUPAL_JSONAPI_PREFIX || "/jsonapi"

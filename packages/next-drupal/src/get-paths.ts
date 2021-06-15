@@ -21,6 +21,31 @@ export async function getPathsFromContext(
         ...options?.params,
       }
 
+      // const paths = await Promise.all(
+      //   context.locales.map(async (locale) => {
+      //     const resources = await getResourceCollection(type, {
+      //       deserialize: true,
+      //       locale,
+      //       defaultLocale: context.defaultLocale,
+      //       ...options,
+      //     })
+
+      //     return buildPathsFromResources(resources, locale)
+      //   })
+      // )
+
+      // return paths.flat()
+
+      // Handle localized path aliases
+      if (!context.locales?.length) {
+        const resources = await getResourceCollection(type, {
+          deserialize: true,
+          ...options,
+        })
+
+        return buildPathsFromResources(resources)
+      }
+
       const paths = await Promise.all(
         context.locales.map(async (locale) => {
           const resources = await getResourceCollection(type, {
@@ -35,40 +60,6 @@ export async function getPathsFromContext(
       )
 
       return paths.flat()
-
-      // const resources = await getResourceCollection(type, {
-      //   deserialize: true,
-      //   ...options,
-      // })
-
-      // return buildPathsFromResources(resources)
-
-      // Handle localized path aliases
-      // if (!context.locales?.length) {
-      //   const resources = await getResourceCollection(type, {
-      //     deserialize: true,
-      //     ...options,
-      //   })
-
-      //   return buildPathsFromResources(resources)
-      // }
-
-      // const paths = await Promise.all(
-      //   context.locales.map(async (locale) => {
-      //     const resources = await getResourceCollection(type, {
-      //       deserialize: true,
-      //       locale,
-      //       defaultLocale: context.defaultLocale,
-      //       ...options,
-      //     })
-
-      //     return buildPathsFromResources(resources, locale)
-      //   })
-      // )
-
-      // paths.flat().map((path) => console.log(path))
-
-      // return paths.flat()
     })
   )
 

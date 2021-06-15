@@ -17,8 +17,10 @@ class NextServiceProvider implements ServiceModifierInterface {
    */
   public function alter(ContainerBuilder $container) {
     $cors_config = $container->getParameter('cors.config');
-    $cors_config['enabled'] = TRUE;
-    $container->setParameter('cors.config', $cors_config);
+    if (!$cors_config['enabled']) {
+      $cors_config['enabled'] = TRUE;
+      $container->setParameter('cors.config', $cors_config);
+    }
   }
 
 }

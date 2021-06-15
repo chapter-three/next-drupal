@@ -16,7 +16,7 @@ class ContentTranslationsFieldItemList extends FieldItemList {
     /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
     $entity = $this->getEntity();
 
-    if (!$entity->isTranslatable()) {
+    if (!$entity->isTranslatable() || !$entity->id()) {
       return NULL;
     }
 

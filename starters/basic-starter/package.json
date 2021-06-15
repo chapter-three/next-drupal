@@ -1,6 +1,6 @@
 {
   "name": "basic-starter",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "private": "true",
   "license": "MIT",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "next": "^10.2.0",
-    "next-drupal": "^0.10.0",
+    "next-drupal": "^0.11.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "reflexjs": "^2.0.0"

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/chapter-three/next-drupal/compare/example-marketing@0.10.0...example-marketing@0.11.0) (2021-06-15)
+
+
+### Bug Fixes
+
+* **example-marketing:** remove unused locale ([412e39d](https://github.com/chapter-three/next-drupal/commit/412e39d7ce9103f845fafaff8172c1e07bddb442))
+
+
+### Features
+
+* **example-marketing:** add properties view ([2b2804f](https://github.com/chapter-three/next-drupal/commit/2b2804f835a375bdc5076cbd4148604c964dbd06))
+
+
+
+
+
 # [0.10.0](https://github.com/chapter-three/next-drupal/compare/example-marketing@0.9.2...example-marketing@0.10.0) (2021-06-14)
 
 

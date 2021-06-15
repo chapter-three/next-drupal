@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.2](https://github.com/chapter-three/next-drupal/compare/drupal-site@0.6.1...drupal-site@0.6.2) (2021-06-15)
+
+
+### Bug Fixes
+
+* **drupal-site:** add jsonapi_views and field_group modules ([aebc161](https://github.com/chapter-three/next-drupal/commit/aebc161fe342211504c94948c4484661c0137d67))
+
+
+
+
+
 ## [0.6.1](https://github.com/chapter-three/next-drupal/compare/drupal-site@0.6.0...drupal-site@0.6.1) (2021-06-14)
 
 

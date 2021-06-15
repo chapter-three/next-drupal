@@ -1,7 +1,7 @@
 {
   "name": "next-drupal",
   "description": "Helpers for Next.js + Drupal.",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "sideEffects": false,
   "source": "src/index.ts",
   "main": "dist/index.js",

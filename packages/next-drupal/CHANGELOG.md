@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.10.0...next-drupal@0.11.0) (2021-06-15)
+
+
+### Features
+
+* **next-drupal:** add support for jsonapi_views ([4195ee7](https://github.com/arshad/next-drupal/commit/4195ee7687b41f8a88de19d7aa5ccd200d11abb7))
+
+
+
+
+
 # [0.10.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.9.2...next-drupal@0.10.0) (2021-06-14)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/chapter-three/next-drupal/compare/example-blog@0.8.6...example-blog@0.9.0) (2021-06-16)
+
+
+### Features
+
+* update to nextjs 11 ([1e46e44](https://github.com/chapter-three/next-drupal/commit/1e46e44ab5eb9d961e95dcc87d51282178f02bb2))
+
+
+
+
+
 ## [0.8.6](https://github.com/chapter-three/next-drupal/compare/example-blog@0.8.5...example-blog@0.8.6) (2021-06-16)
 
 **Note:** Version bump only for package example-blog

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.11.1...next-drupal@0.12.0) (2021-06-16)
+
+
+### Features
+
+* update to nextjs 11 ([1e46e44](https://github.com/arshad/next-drupal/commit/1e46e44ab5eb9d961e95dcc87d51282178f02bb2))
+
+
+
+
+
 ## [0.11.1](https://github.com/arshad/next-drupal/compare/next-drupal@0.11.0...next-drupal@0.11.1) (2021-06-16)
 
 

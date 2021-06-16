@@ -5,6 +5,8 @@ import { ThemeProvider } from "reflexjs"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { Hydrate } from "react-query/hydration"
 import NProgress from "nprogress"
+
+import "@fontsource/playfair-display/900.css"
 import "nprogress/nprogress.css"
 
 Router.events.on("routeChangeStart", () => NProgress.start())

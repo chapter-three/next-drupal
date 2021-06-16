@@ -16,6 +16,7 @@ export function Navbar({ links, ...props }: NavbarProps) {
   return (
     <header
       position="static|sticky"
+      flexShrink="0"
       top="0"
       bg="background"
       py="4"

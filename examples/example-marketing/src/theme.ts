@@ -234,6 +234,7 @@ const theme: Theme = {
         borderColor: "border",
       },
       body: {
+        fontDisplay: "optional",
         fontFamily: "sans",
         fontSize: ["14px", "16px"],
         lineHeight: "normal",

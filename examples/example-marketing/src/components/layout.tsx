@@ -13,10 +13,10 @@ export function Layout({ children }: LayoutProps) {
   const { tree: footerLinks } = useMenu("footer")
 
   return (
-    <>
+    <div display="flex" flexDirection="column" minH="100vh">
       <Navbar links={mainLinks} />
-      <main>{children}</main>
+      <main flex="1 0 auto">{children}</main>
       <Footer copyright={site.copyright} links={footerLinks} />
-    </>
+    </div>
   )
 }

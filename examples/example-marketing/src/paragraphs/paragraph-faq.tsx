@@ -28,9 +28,9 @@ export default function ParagraphFAQ({ paragraph, ...props }) {
           >
             {paragraph.field_items.map((card) => (
               <div key={card.id}>
-                <h4 variant="heading.h4" fontFamily="sans">
+                <h3 variant="heading.h4" fontFamily="sans">
                   {card.field_heading}
-                </h4>
+                </h3>
                 {card.field_text?.processed && (
                   <div
                     variant="text.paragraph"

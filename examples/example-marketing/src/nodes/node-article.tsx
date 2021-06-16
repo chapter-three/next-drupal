@@ -22,10 +22,11 @@ export function NodeArticle({ node, ...props }) {
           )}
           <div
             flex="1"
-            boxShadow="xl"
-            p="10"
-            mt="-20"
-            mx="10"
+            boxShadow="none|xl"
+            p="0|10"
+            pt="4|10"
+            mt="0|-20"
+            mx="0|10"
             position="relative"
             zIndex="100"
             bg="background"
@@ -49,7 +50,7 @@ export function NodeArticle({ node, ...props }) {
           </div>
         </div>
 
-        <div variant="container.md" pt="12">
+        <div pt="0|12" maxWidth="700" mx="auto">
           {node.body?.summary ? (
             <p variant="text.lead" mt="4">
               {node.body.summary}

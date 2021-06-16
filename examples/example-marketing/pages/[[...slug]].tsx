@@ -11,14 +11,30 @@ import {
 import { NodeArticle } from "@/nodes/node-article"
 import { NodeLandingPage } from "@/nodes/node-landing-page"
 import { NodeBasicPage } from "@/nodes/node-basic-page"
+import { useRouter } from "next/router"
 
 export default function NodePage({ node }) {
+  const router = useRouter()
   if (!node) return null
 
   return (
     <>
       <Head>
         <title>{node.title}</title>
+        <meta
+          name="description"
+          content="A Next.js site powered by a Drupal backend. Built with paragraphs, views, menus and translations."
+        />
+        {node.content_translations.map((translation, index) =>
+          translation.langcode !== router.locale ? (
+            <link
+              key={index}
+              rel="alternate"
+              hrefLang={translation.langcode}
+              href={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${translation.path}`}
+            />
+          ) : null
+        )}
       </Head>
       {node.type === "node--landing_page" && <NodeLandingPage node={node} />}
       {node.type === "node--page" && <NodeBasicPage node={node} />}

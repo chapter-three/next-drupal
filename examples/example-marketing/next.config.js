@@ -14,7 +14,7 @@ module.exports = {
         locale: false,
       },
       {
-        source: "/principal",
+        source: "/en/principal",
         destination: "/",
         locale: false,
       },

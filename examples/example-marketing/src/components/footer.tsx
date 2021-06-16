@@ -8,12 +8,14 @@ interface FooterProps {
 
 export function Footer({ copyright, links }: FooterProps) {
   return (
-    <footer py="12|18|20">
+    <footer height="100px" flexShrink="0">
       <div variant="container">
         <div
           borderTopWidth="1"
           display="flex"
-          justifyContent="space-between"
+          flexDirection="column-reverse|row"
+          justifyContent="center|space-between"
+          alignItems="center"
           pt="6"
         >
           {copyright ? (
@@ -22,11 +24,18 @@ export function Footer({ copyright, links }: FooterProps) {
             </p>
           ) : null}
           {links?.length ? (
-            <ul display="flex" alignItems="center">
+            <ul
+              display="inline-grid"
+              col={`repeat(${links.length}, auto)`}
+              justifyContent="center"
+              gap="4"
+              alignItems="center"
+              mb="4|0"
+            >
               {links.map((link) => (
-                <li key={link.id} ml="8">
+                <li key={link.id}>
                   <Link href={link.url} passHref>
-                    <a color="text" textDecoration="none">
+                    <a color="text" textDecoration="none" fontSize="sm">
                       {link.title}
                     </a>
                   </Link>

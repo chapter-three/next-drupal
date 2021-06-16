@@ -21,12 +21,15 @@ export default function ParagraphFeature({ paragraph, ...props }) {
             >
               <Image
                 src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${paragraph.field_media.field_media_image.uri.url}`}
+                alt={
+                  paragraph.field_media.field_media_image.resourceIdObjMeta.alt
+                }
                 width={500}
                 height={400}
-                layout="intrinsic"
+                layout="responsive"
                 objectFit="cover"
                 sx={{
-                  rounded: "lg",
+                  borderRadius: "lg",
                 }}
               />
             </div>

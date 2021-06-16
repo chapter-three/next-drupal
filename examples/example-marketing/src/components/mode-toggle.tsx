@@ -1,7 +1,6 @@
-import { Icon, useColorMode } from "reflexjs"
+import { Icon, useColorMode, VisuallyHidden } from "reflexjs"
 
-export interface ModeToggleProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+export type ModeToggleProps = React.ButtonHTMLAttributes<HTMLButtonElement>
 
 export function ModeToggle({ ...props }: ModeToggleProps) {
   const [colorMode, setColorMode] = useColorMode()
@@ -12,6 +11,7 @@ export function ModeToggle({ ...props }: ModeToggleProps) {
       color="text"
       {...props}
     >
+      <VisuallyHidden>Toggle Mode</VisuallyHidden>
       <Icon name={colorMode === "light" ? "moon" : "sun"} size="5" />
     </button>
   )

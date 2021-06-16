@@ -14,7 +14,9 @@ export default function ParagraphHero({ paragraph, ...props }) {
       <div variant="container">
         <div textAlign="center">
           {paragraph.field_heading && (
-            <h1 variant="heading.h1">{paragraph.field_heading}</h1>
+            <h1 variant="heading.h1" minHeight="80px">
+              {paragraph.field_heading}
+            </h1>
           )}
           {paragraph.field_text?.processed && (
             <div
@@ -38,9 +40,10 @@ export default function ParagraphHero({ paragraph, ...props }) {
             >
               <Image
                 src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${heroImage.uri.url}`}
-                width={1200}
-                height={600}
-                layout="intrinsic"
+                alt={heroImage.resourceIdObjMeta.alt}
+                width={1168}
+                height={320}
+                layout="responsive"
                 objectFit="cover"
               />
             </div>

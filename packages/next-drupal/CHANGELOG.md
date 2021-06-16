@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.1](https://github.com/arshad/next-drupal/compare/next-drupal@0.11.0...next-drupal@0.11.1) (2021-06-16)
+
+
+### Bug Fixes
+
+* **next-drupal:** return view page links and count ([4236043](https://github.com/arshad/next-drupal/commit/42360434ac29ef857580ebfb423269c9705ebf04))
+
+
+
+
+
 # [0.11.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.10.0...next-drupal@0.11.0) (2021-06-15)
 
 

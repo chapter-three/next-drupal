@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://github.com/chapter-three/next-drupal/compare/example-marketing@0.11.0...example-marketing@0.12.0) (2021-06-16)
+
+
+### Features
+
+* **example-marketing:** add pagination to view ([feb6543](https://github.com/chapter-three/next-drupal/commit/feb6543be9a201f02b7afee38a3fed5c170de85b))
+
+
+
+
+
 # [0.11.0](https://github.com/chapter-three/next-drupal/compare/example-marketing@0.10.0...example-marketing@0.11.0) (2021-06-15)
 
 

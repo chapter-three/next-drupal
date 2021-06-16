@@ -10,7 +10,6 @@
     "preview": "next build && next start -p 3030"
   },
   "dependencies": {
-    "@fontsource/playfair-display": "^4.4.5",
     "next": "^11.0.0",
     "next-drupal": "^0.12.0",
     "react": "^17.0.2",

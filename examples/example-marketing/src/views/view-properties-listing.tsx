@@ -7,53 +7,55 @@ import { Icon } from "reflexjs"
 import { FormItem } from "@/components/form-item"
 import { NodePropertyGrid, NodePropertyList } from "@/nodes/node-property"
 
-const filters = ["location", "status", "beds", "baths"]
+const filters = { location: "All", status: "All", beds: "1", baths: "1" }
 
-export function ViewPropertiesListing({ view: initialData, ...props }) {
+async function fetchView(url, params) {
+  const _url = new URL(url)
+  _url.search = new URLSearchParams(params).toString()
+
+  const result = await fetch(_url.toString())
+
+  if (!result.ok) {
+    throw new Error(result.statusText)
+  }
+
+  const data = await result.json()
+
+  return {
+    results: deserialize(data),
+    meta: data.meta,
+    links: data.links,
+  }
+}
+
+export function ViewPropertiesListing({ view: initialView, ...props }) {
+  const [page, setPage] = React.useState(0)
   const queryClient = useQueryClient()
   const [display, setDisplay] = React.useState<"grid" | "list">("grid")
   const { register, handleSubmit, getValues, formState, reset } = useForm({
-    defaultValues: {
-      location: "All",
-      status: "All",
-      beds: "1",
-      baths: "1",
-    },
+    defaultValues: filters,
   })
   const [locations, setLocations] = React.useState([])
-  const { data: view, isLoading } = useQuery(
-    [initialData.name],
+  const { data: view, isLoading, isPreviousData } = useQuery(
+    [initialView.name, page],
     async () => {
       // Build params from form values.
       const values = getValues()
       const params = {
+        page: page + "",
         include: "field_location,field_images.field_media_image",
       }
-      for (const filter of filters) {
+      for (const filter of Object.keys(filters)) {
         if (values[filter]) {
           params[`views-filter[${filter}]`] = values[filter]
         }
       }
 
-      const url = new URL(initialData.jsonApiUrl)
-      url.search = new URLSearchParams(params).toString()
-
-      const result = await fetch(url.toString())
-
-      if (!result.ok) {
-        throw new Error(result.statusText)
-      }
-
-      const data = await result.json()
-
-      return {
-        ...initialData,
-        results: deserialize(data),
-        count: data.meta.count,
-      }
+      return fetchView(initialView.links.self.href.split("?")[0], params)
     },
     {
-      initialData,
+      initialData: initialView,
+      keepPreviousData: true,
     }
   )
 
@@ -73,6 +75,7 @@ export function ViewPropertiesListing({ view: initialData, ...props }) {
   }, [])
 
   async function submitForm() {
+    setPage(0)
     await queryClient.invalidateQueries(view.name)
   }
 
@@ -100,14 +103,6 @@ export function ViewPropertiesListing({ view: initialData, ...props }) {
             <h4 variant="heading.h4" fontFamily="sans">
               Find your place
             </h4>
-            <button
-              type="button"
-              variant="button.link.sm"
-              onClick={() => resetForm()}
-              visibility={formState.isSubmitted ? "visible" : "hidden"}
-            >
-              Reset
-            </button>
           </div>
           <hr />
           <form onSubmit={handleSubmit(submitForm)}>
@@ -171,9 +166,26 @@ export function ViewPropertiesListing({ view: initialData, ...props }) {
               </div>
             </div>
             <hr />
-            <button variant="button.primary" width="full">
-              Search Properties
-            </button>
+            <div
+              display="grid"
+              col="2"
+              gap="4"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <button variant="button.primary" width="full">
+                Search
+              </button>
+              <button
+                type="button"
+                variant="button.outline"
+                ml="auto"
+                onClick={() => resetForm()}
+                visibility={formState.isSubmitted ? "visible" : "hidden"}
+              >
+                Reset
+              </button>
+            </div>
           </form>
         </div>
         <div>
@@ -186,7 +198,9 @@ export function ViewPropertiesListing({ view: initialData, ...props }) {
                 alignItems="center"
                 justifyContent="space-between"
               >
-                <h3 fontWeight="normal">Found {view.count} properties.</h3>
+                <h3 fontWeight="normal">
+                  Found {view.meta?.count} properties.
+                </h3>
                 <div display="grid" col="2" gap="2">
                   <button
                     type="button"
@@ -213,18 +227,45 @@ export function ViewPropertiesListing({ view: initialData, ...props }) {
                 opacity={isLoading ? 0.5 : 1}
               >
                 {view.results.map((node) => (
-                  <>
+                  <div key={node.id}>
                     {display === "grid" ? (
-                      <NodePropertyGrid key={node.id} node={node} />
+                      <NodePropertyGrid node={node} />
                     ) : (
-                      <NodePropertyList key={node.id} node={node} />
+                      <NodePropertyList node={node} />
                     )}
-                  </>
+                  </div>
                 ))}
+              </div>
+              <hr />
+              <div
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <button
+                  variant="button"
+                  onClick={() => setPage((old) => Math.max(old - 1, 0))}
+                  disabled={page === 0}
+                >
+                  Previous
+                </button>
+                <button
+                  variant="button"
+                  onClick={() => {
+                    if (!isPreviousData && view.links.next) {
+                      setPage((old) => old + 1)
+                    }
+                  }}
+                  disabled={isPreviousData || !view?.links.next}
+                >
+                  Next
+                </button>
               </div>
             </>
           ) : (
-            <p>No properties found.</p>
+            <p textAlign="center" py="20">
+              No properties found.
+            </p>
           )}
         </div>
       </div>

@@ -378,8 +378,12 @@ const theme: Theme = {
     cursor: "pointer",
     transition: "all .15s ease-in",
 
+    ":disabled": {
+      opacity: 0.5,
+      cursor: "not-allowed",
+    },
+
     ":hover, :focus": {
-      transform: "translateY(-2px)",
       boxShadow: "lg",
     },
 
@@ -403,9 +407,6 @@ const theme: Theme = {
       "&:hover, &:focus": {
         bg: "primaryHover",
         color: "white",
-        borderColor: "primaryHover",
-        transform: "translateY(-2px)",
-        boxShadow: "lg",
       },
     },
 
@@ -418,8 +419,6 @@ const theme: Theme = {
         bg: "secondaryHover",
         color: "white",
         borderColor: "secondaryHover",
-        transform: "translateY(-2px)",
-        boxShadow: "lg",
       },
     },
 
@@ -432,8 +431,6 @@ const theme: Theme = {
         bg: "accentHover",
         color: "white",
         borderColor: "accentHover",
-        transform: "translateY(-2px)",
-        boxShadow: "lg",
       },
     },
 
@@ -445,9 +442,21 @@ const theme: Theme = {
       "&:hover, &:focus": {
         bg: "transparent",
         borderColor: "transparent",
-        transform: "translateY(-2px)",
         boxShadow: "none",
         color: "primary",
+      },
+    },
+
+    outline: {
+      bg: "transparent",
+      color: "text",
+      borderColor: "text",
+
+      "&:hover, &:focus": {
+        bg: "text",
+        borderColor: "text",
+        boxShadow: "none",
+        color: "background",
       },
     },
 

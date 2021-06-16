@@ -27,7 +27,7 @@ class ContentTranslationsItem extends FieldItemBase {
     $properties['label'] = DataDefinition::create('string')
       ->setLabel(t('Label'));
 
-    $properties['alias'] = DataDefinition::create('string')
+    $properties['path'] = DataDefinition::create('string')
       ->setLabel(t('Path alias'));
 
     $properties['langcode'] = DataDefinition::create('string')
@@ -47,7 +47,7 @@ class ContentTranslationsItem extends FieldItemBase {
    * {@inheritdoc}
    */
   public function isEmpty() {
-    return $this->label === NULL && $this->alias === '' && $this->langcode === NULL;
+    return $this->label === NULL && $this->path === '' && $this->langcode === NULL;
   }
 
 }

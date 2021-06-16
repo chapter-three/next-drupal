@@ -8,8 +8,13 @@ export async function getView<T>(
   } & JsonApiWithLocaleOptions
 ): Promise<{
   results: T
-  count: number
-  jsonApiUrl: string
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  meta: Record<string, any>
+  links: {
+    [key in "next" | "prev" | "self"]?: {
+      href: "string"
+    }
+  }
 }> {
   options = {
     deserialize: true,
@@ -40,7 +45,7 @@ export async function getView<T>(
 
   return {
     results,
-    count: data.meta.count,
-    jsonApiUrl: `${url.origin}${url.pathname}`,
+    meta: data.meta,
+    links: data.links,
   }
 }

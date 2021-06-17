@@ -1,12 +1,11 @@
-import * as React from "react"
 import { AppProps } from "next/app"
-import { ThemeProvider } from "reflexjs"
-import theme from "../src/theme"
+import "tailwindcss/tailwind.css"
+import { Layout } from "@/components/layout"
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={theme}>
+    <Layout>
       <Component {...pageProps} />
-    </ThemeProvider>
+    </Layout>
   )
 }

@@ -64,7 +64,7 @@ export function NodeArticleTeaser({ node, ...props }) {
 
 function NodeMeta({ node, ...props }) {
   return (
-    <div className="mb-4 text-gray-600">
+    <div className="mb-4 text-gray-600" {...props}>
       {node.uid?.display_name ? (
         <span>
           Posted by{" "}

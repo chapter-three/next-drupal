@@ -106,7 +106,7 @@ export async function getResourceByPath(
   ]
 
   // Localized subrequests.
-  // I was hoping we not need this but it seems like subrequests is not properly
+  // I was hoping we would not need this but it seems like subrequests is not properly
   // setting the jsonapi locale from a translated path.
   let subrequestsPath = "/subrequests"
   if (

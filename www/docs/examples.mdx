@@ -1,0 +1,77 @@
+---
+title: Examples
+excerpt: Example pages built from Drupal JSON:API data.
+---
+
+## List of nodes
+
+A page that list all published articles sorted by created date.
+
+```tsx title=pages/index.tsx
+import {
+  getPathsFromContext,
+  getResourceCollectionFromContext,
+} from "next-drupal"
+
+export default function BlogPage({ nodes }) {
+  return nodes?.length ? (
+    <div key={node.id}>
+      <h2>{node.title}</h2>
+    </div>
+  ) : null
+}
+
+export async function getStaticProps(context) {
+  const nodes = await getResourceCollectionFromContext(
+    "node--article",
+    context,
+    {
+      params: {
+        "filter[status]": 1,
+        sort: "-created",
+      },
+    }
+  )
+
+  return {
+    props: {
+      nodes,
+    },
+    revalidate: 60,
+  }
+}
+```
+
+## Node page
+
+A page for every article nodes.
+
+```tsx title=pages/[...slug].tsx
+import { getPathsFromContext, getResourceFromContext } from "next-drupal"
+
+export default function ArticleNodePage({ node }) {
+  return node ? (
+    <div>
+      <h1>{node.title}</h1>
+    </div>
+  ) : null
+}
+
+export async function getStaticPaths(context) {
+  return {
+    paths: await getPathsFromContext("node--article", context),
+    fallback: true,
+  }
+}
+
+export async function getStaticProps(context) {
+  const node = await getResourceFromContext("node--article", context)
+
+  return {
+    props: {
+      node,
+    },
+    revalidate: 60,
+  }
+}
+```

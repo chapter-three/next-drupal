@@ -23,7 +23,7 @@ export function DocPage({ doc, toc, components }: DocPageProps) {
   return (
     <Layout title={doc.frontMatter.title} description={doc.frontMatter.excerpt}>
       <div variant="container">
-        <div display="grid" col="1|||250px 1fr" gap="null|6|6|16">
+        <div display="grid" col="1|||270px 1fr" gap="null|6|6|16">
           <aside
             display="none|none|none|block"
             position="static|sticky"
@@ -35,7 +35,7 @@ export function DocPage({ doc, toc, components }: DocPageProps) {
           >
             <SidebarNav items={docs.links} />
           </aside>
-          <div display="grid" col="1||||minmax(0, 1fr) 250px" gap="6|6|16">
+          <div display="grid" col="1||||minmax(0, 1fr) 240px" gap="6|6|16">
             <div py="6|8|10" className="DocSearch-content">
               <h1 variant="heading.h1">{doc.frontMatter.title}</h1>
               {doc.frontMatter.excerpt ? (

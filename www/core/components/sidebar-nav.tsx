@@ -51,7 +51,7 @@ export function SidebarNavItem({ items, onLinkClick }: SidebarNavProps) {
                 rel={item.external ? "noreferrer" : ""}
               >
                 <Icon name="circle" size="2" ml="1" mr="3" opacity="0.5" />{" "}
-                {item.title}
+                <span fontSize="sm">{item.title}</span>
                 {item.external && <Icon name="external" ml="2" size="3" />}
               </a>
             </Link>

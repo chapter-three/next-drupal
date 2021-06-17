@@ -5,7 +5,7 @@ excerpt: A step by step guide to build a Next.js site with Drupal content and pr
 
 Here is the list of tasks we will accomplish in this guide:
 
-1. Install and configure the Next.js module
+1. Install and configure the Next.js module for Drupal
 2. Configure preview mode
 3. Create a Next.js site using `create-next-app`
 4. Connect the Next.js site to Drupal for content
@@ -22,7 +22,7 @@ composer create-project drupal/recommended-project drupal-site
 
 Once this is done, you can open the site and proceed with installation.
 
-### 2. Add Next.js
+### 2. Add Next.js module
 
 Run the following command to install the [Next.js](https://drupal.org/project/next) module and dependencies.
 
@@ -36,7 +36,7 @@ Note: we are pulling the latest dev version since there are no stable releases a
 
 #### Apply patch
 
-Under the hood, the Next.js module uses [Subrequests](https://www.drupal.org/project/subrequests) to resolve entities in [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation).
+Under the hood, the Next.js module uses [Subrequests](https://www.drupal.org/project/subrequests) to resolve resources in [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation).
 
 At the time of writing, there is a [bug](https://www.drupal.org/node/3029570) in the module that causes validation to fail. We need to patch the module to fix this.
 
@@ -74,20 +74,28 @@ Once the modules are enabled, we can now create our first Next.js site.
 
 1. Visit _/admin/config/services/next_
 2. Click **Add Next.js site**
-3. Fill in the following fields: **Label**, **Base URL**, **Preview URL**, **Preview Secret**.
+3. Fill in the following values:
+
+- **Label**: `Blog`
+- **Base URL**: `http://localhost:300`
+- **Preview URL**: `http://localhost:3000/api/preview`
+- **Preview Secret**: `preview-secret-here`
+
 4. Click **Save**
 
 <Img
   src="/images/next-drupal-add-site.jpg"
-  width="960"
-  height="625"
+  width="600"
+  height="390"
   layout="responsive"
   mb="10"
 />
 
+You have created your first Next.js site.
+
 ### 5. Configure Path Aliases
 
-The `next-drupal` plugin uses paths to resolve entities for `getStaticProps`. To make this work, we need to configure path aliases for our content types.
+The `next-drupal` plugin uses paths to resolve resources for `getStaticProps`. To make this work, we need to configure path aliases for our content types.
 
 Let's add a pattern for the **Article** content type.
 
@@ -103,8 +111,8 @@ Let's add a pattern for the **Article** content type.
 
 <Img
   src="/images/next-drupal-pathauto.jpg"
-  width="960"
-  height="625"
+  width="600"
+  height="390"
   layout="responsive"
   mb="10"
 />
@@ -139,7 +147,7 @@ You can safely skip this permission if you do not need to preview unpublished co
 
 ##### Create User
 
-Add a new user at _/admin/people/create_ and assign it the role created above.
+Add a new user at `/admin/people/create` and assign it the role we created above.
 
 ##### Create Consumer
 
@@ -166,8 +174,8 @@ For our site, we are going to configure a resolver for the **Article** content t
 
 <Img
   src="/images/next-drupal-entity-type.jpg"
-  width="960"
-  height="625"
+  width="600"
+  height="390"
   layout="responsive"
   mb="10"
 />
@@ -176,7 +184,7 @@ For our site, we are going to configure a resolver for the **Article** content t
 
 Now that we have completed the Drupal configuration, we can create our Next.js site.
 
-We are going to use the [basic starter](https://github.com/arshad/next-drupal/tree/master/starters/basic-starter).
+We are going to use the [basic starter](https://github.com/chapter-three/next-drupal/tree/master/starters/basic-starter).
 
 ### 1. Create Site
 

@@ -1,0 +1,34 @@
+---
+title: Hooks
+excerpt: Client API Reference for next-drupal
+---
+
+<Callout>
+
+The following functions are meant to be called on the client.
+
+</Callout>
+
+## useMenu
+
+Returns menu items for a menu by name.
+
+```ts
+function useMenu(
+  name: string
+): {
+  items: DrupalMenuLinkContent[]
+  tree: DrupalMenuLinkContent[]
+  error: unknown
+  isLoading: boolean
+}
+```
+
+- `items` is an array of menu items sorted by weight.
+- `tree` is the hierarchical menu tree with parent and children.
+
+#### Examples
+
+```ts
+const { tree, items } = useMenu("main")
+```

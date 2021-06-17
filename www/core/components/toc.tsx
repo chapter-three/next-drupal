@@ -6,7 +6,7 @@ interface TocProps {
 }
 
 export function Toc({ tree, level = 1 }: TocProps) {
-  return tree?.items?.length ? (
+  return tree?.items?.length && level < 3 ? (
     <ul pl={level === 1 ? 0 : 3} fontSize="sm">
       {tree.items.map((item) => {
         return (

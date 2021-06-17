@@ -3,20 +3,75 @@ import { DocsConfig } from "@/core/types"
 export const docs: DocsConfig = {
   links: [
     {
-      title: "Links",
+      title: "Getting Started",
       items: [
         {
-          title: "Demo",
-          url: "/demo",
+          title: "Introduction",
+          url: "/docs",
         },
         {
-          title: "Drupal module",
-          url: "https://drupal.org/project/next",
-          external: true,
+          title: "Quick Start",
+          url: "/docs/quick-start",
+        },
+      ],
+    },
+    {
+      title: "Examples",
+      items: [
+        {
+          title: "List of nodes",
+          url: "/docs/examples#list-of-nodes",
         },
         {
-          title: "Get Started",
-          url: "/guides/decoupled-drupal-nextjs",
+          title: "Node page",
+          url: "/docs/examples#node-page",
+        },
+      ],
+    },
+    {
+      title: "Reference",
+      items: [
+        {
+          title: "getPathsFromContext",
+          url: "/docs/reference#getpathsfromcontext",
+        },
+
+        {
+          title: "getResourceTypeFromContext",
+          url: "/docs/reference#getresourcetypefromcontext",
+        },
+        {
+          title: "getResource",
+          url: "/docs/reference#getresource",
+        },
+        {
+          title: "getResourceFromContext",
+          url: "/docs/reference#getresourcefromcontext",
+        },
+        {
+          title: "getResourceByPath",
+          url: "/docs/reference#getresourcebypath",
+        },
+        {
+          title: "getResourceCollection",
+          url: "/docs/reference#getresourcecollection",
+        },
+        {
+          title: "getResourceCollectionFromContext",
+          url: "/docs/reference#getresourcecollectionfromContext",
+        },
+        {
+          title: "getMenu",
+          url: "/docs/reference#getmenu",
+        },
+      ],
+    },
+    {
+      title: "Hooks",
+      items: [
+        {
+          title: "useMenu",
+          url: "/docs/hooks#useMenu",
         },
       ],
     },
@@ -24,42 +79,12 @@ export const docs: DocsConfig = {
       title: "Drupal",
       items: [
         {
-          title: "Installation",
-          url: "/installation",
+          title: "SitePreviewer",
+          url: "/docs/site-previewer",
         },
         {
-          title: "Preview Mode",
-          url: "/preview-mode",
-        },
-        {
-          title: "Plugins",
-          items: [
-            {
-              title: "SitePreviewer",
-              url: "/site-previewer",
-            },
-            {
-              title: "SiteResolver",
-              url: "/site-resolver",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      title: "Next.js",
-      items: [
-        {
-          title: "Installation",
-          url: "/nextjs-installation",
-        },
-        {
-          title: "Preview Mode",
-          url: "/nextjs-preview-mode",
-        },
-        {
-          title: "Reference",
-          url: "/nextjs-reference",
+          title: "SiteResolver",
+          url: "/docs/site-resolver",
         },
       ],
     },

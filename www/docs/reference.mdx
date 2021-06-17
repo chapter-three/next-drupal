@@ -1,0 +1,288 @@
+---
+title: Reference
+excerpt: Server API Reference for next-drupal
+---
+
+<Callout>
+
+The following functions are meant to be called on the server (`getStaticPaths`, `getStaticProps` and `getServerSideProps`).
+
+</Callout>
+
+## getPathsFromContext
+
+Returns a list of paths for [dynamic routes](https://nextjs.org/docs/routing/dynamic-routes) in `getStaticPaths` or `getServerSideProps`.
+
+`getPathsFromContext` accepts a resource type or an array of resource types.
+
+If you have [locales configured](https://nextjs.org/docs/advanced-features/i18n-routing) in your `next.config.js` file, it will automatically create localized routes.
+
+```ts
+function getPathsFromContext(
+  types: string | string[],
+  context: GetStaticPathsContext,
+  options?: {
+    params?: JsonApiParams
+  }
+): Promise<any[]>
+```
+
+#### Examples
+
+Get paths for all article nodes.
+
+```ts title=pages/[[...slug]].tsx
+import { getPathsFromContext } from "next-drupal"
+
+export async function getStaticPaths(context) {
+  return {
+    paths: await getPathsFromContext("node--article", context),
+    fallback: true,
+  }
+}
+```
+
+Get paths for all published article and page nodes.
+
+```ts title=pages/[[...slug]].tsx
+import { getPathsFromContext } from "next-drupal"
+
+export async function getStaticPaths(context) {
+  return {
+    paths: await getPathsFromContext(["node--article", "node--page"], context, {
+      params: {
+        "filter[status]": "1",
+      },
+    }),
+    fallback: true,
+  }
+}
+```
+
+---
+
+## getResourceTypeFromContext
+
+Returns a resource type in `getStaticProps` or `getServerSideProps`.
+
+```ts
+function getResourceTypeFromContext(
+  context: GetStaticPropsContext,
+  options?: {
+    prefix?: string
+  }
+): Promise<string>
+```
+
+#### Examples
+
+```ts title=pages/[[...slug]].tsx
+import { getResourceTypeFromContext } from "next-drupal"
+
+export async function getStaticProps(context) {
+  const type = await getResourceFromContext(context)
+
+  if (type === "node--article") {
+    // Do something.
+  }
+}
+```
+
+---
+
+## getResource
+
+Loads a resource by ID (uuid) in `getStaticProps` or `getServerSideProps`.
+
+```ts
+function getResource(
+  type: string,
+  uuid: string,
+  options?: {
+    deserialize?: boolean
+  } & JsonApiWithLocaleOptions
+): Promise<any>
+```
+
+#### Examples
+
+Get a page by uuid.
+
+```ts
+const node = await getResource(
+  "node--page",
+  "07464e9f-9221-4a4f-b7f2-01389408e6c8"
+)
+```
+
+Get the `es` translation for a page by uuid.
+
+```ts
+const node = await getResource(
+  "node--page",
+  "07464e9f-9221-4a4f-b7f2-01389408e6c8",
+  {
+    locale: "es",
+    defaultLocale: "en",
+  }
+)
+```
+
+---
+
+## getResourceFromContext
+
+Returns a single resource in `getStaticProps` or `getServerSideProps`.
+
+```ts
+function getResourceFromContext(
+  type: string,
+  context: GetStaticPropsContext,
+  options?: {
+    prefix?: string
+    deserialize?: boolean
+    params?: JsonApiParams
+  }
+): Promise<any>
+```
+
+#### Examples
+
+Get a page node.
+
+```ts title=pages/[[...slug]].tsx
+import { getResourceFromContext } from "next-drupal"
+
+export async function getStaticProps(context) {
+  const node = await getResourceFromContext("node--page", context)
+
+  return {
+    props: {
+      node,
+    },
+    revalidate: 60,
+  }
+}
+```
+
+---
+
+## getResourceByPath
+
+Get a resource by path in `getStaticProps` or `getServerSideProps`.
+
+```ts
+function getResourceByPath(
+  path: string,
+  options?: {
+    deserialize?: boolean
+  } & JsonApiWithLocaleOptions
+): Promise<any>
+```
+
+#### Examples
+
+Get an article by path.
+
+```ts
+const node = await getResourceByPath("node--article", "/blog/hello-world")
+```
+
+Get the `es` translation for a article by path.
+
+```ts
+const node = await getResourceByPath("node--article", "/blog/hello-world", {
+  locale: "es",
+  defaultLocale: "en",
+})
+```
+
+---
+
+## getResourceCollection
+
+Returns a collection of resources in `getStaticProps` or `getServerSideProps`.
+
+```ts
+function getResourceCollection(
+  type: string,
+  options?: {
+    deserialize?: boolean
+  } & JsonApiWithLocaleOptions
+): Promise<any>
+```
+
+#### Examples
+
+Get a collection of articles.
+
+```ts
+const articles = await getResourceCollection("node--article")
+```
+
+Get a collection of published articles.
+
+```ts
+const articles = await getResourceCollection("node--article", {
+  params: {
+    "filter[status]": "1",
+  },
+})
+```
+
+---
+
+## getResourceCollectionFromContext
+
+Returns a collection of resources from context in `getStaticProps` or `getServerSideProps`.
+
+```ts
+function getResourceCollectionFromContext(
+  type: string,
+  context: GetStaticPropsContext,
+  options?: {
+    deserialize?: boolean
+    params?: JsonApiParams
+  }
+): Promise<any>
+```
+
+#### Examples
+
+Get a collection of articles
+
+```ts
+export async function getStaticProps(context) {
+  const articles = await getResourceCollectionFromContext(
+    "node--article",
+    context
+  )
+}
+```
+
+---
+
+## getMenu
+
+Returns menu items for a menu by name in `getStaticProps` or `getServerSideProps`.
+
+```ts
+function getMenu(
+  name: string,
+  options?: {
+    deserialize?: boolean
+  } & JsonApiWithLocaleOptions
+): Promise<{
+  items: DrupalMenuLinkContent[]
+  tree: DrupalMenuLinkContent[]
+}>
+```
+
+- `items` is an array of menu items sorted by weight.
+- `tree` is the hierarchical menu tree with parent and children.
+
+#### Examples
+
+```ts
+const { tree, items } = await getMenu("main")
+```

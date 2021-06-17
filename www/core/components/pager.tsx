@@ -20,7 +20,7 @@ export function Pager({ links }: PagerProps) {
     >
       {prev ? (
         <Link href={prev.url} passHref>
-          <a variant="button.link">
+          <a variant="button.link" ml="0" p="0">
             <Icon name="chevron-left" size="5" mr="2" />
             {prev.title}
           </a>
@@ -28,7 +28,7 @@ export function Pager({ links }: PagerProps) {
       ) : null}
       {next ? (
         <Link href={next.url} passHref>
-          <a variant="button.link" ml="auto">
+          <a variant="button.link" ml="auto" p="0">
             {next.title} <Icon name="chevron-right" size="5" ml="2" />
           </a>
         </Link>

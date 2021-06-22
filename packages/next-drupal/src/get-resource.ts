@@ -32,12 +32,14 @@ export async function getResourceFromContext(
   //   }
   // }
 
+  const previewData = context.previewData as { resourceVersion?: string }
+
   const resource = await getResourceByPath(path, {
     deserialize: options.deserialize,
     locale: context.locale,
     defaultLocale: context.defaultLocale,
     params: {
-      resourceVersion: context.previewData?.resourceVersion,
+      resourceVersion: previewData?.resourceVersion,
       ...options?.params,
     },
   })

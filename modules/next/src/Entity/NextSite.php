@@ -5,7 +5,7 @@ namespace Drupal\next\Entity;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
-use Drupal\Core\Entity\RevisionableInterface;
+use Drupal\Core\TypedData\TranslatableInterface;
 use Drupal\Core\Url;
 
 /**
@@ -132,6 +132,12 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
       'secret' => $this->preview_secret,
       'slug' => $entity->toUrl()->toString(),
     ];
+
+    // Add the locale to the query.
+    if ($entity instanceof TranslatableInterface) {
+      $query['locale'] = $entity->language()->getId();
+      $query['defaultLocale'] = \Drupal::languageManager()->getDefaultLanguage()->getId();
+    }
 
     // Handle revisionable entity types.
     if ($entity->getEntityType()->isRevisionable()) {

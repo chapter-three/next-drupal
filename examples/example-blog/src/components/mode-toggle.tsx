@@ -1,7 +1,6 @@
 import { Icon, useColorMode } from "reflexjs"
 
-export interface ModeToggleProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+export type ModeToggleProps = React.ButtonHTMLAttributes<HTMLButtonElement>
 
 export function ModeToggle({ ...props }: ModeToggleProps) {
   const [colorMode, setColorMode] = useColorMode()

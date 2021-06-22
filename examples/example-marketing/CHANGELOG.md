@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.1](https://github.com/chapter-three/next-drupal/compare/example-marketing@0.13.0...example-marketing@0.13.1) (2021-06-22)
+
+
+### Bug Fixes
+
+* **example-marketing:** add missing dependency ([7a182f6](https://github.com/chapter-three/next-drupal/commit/7a182f68f0cf86b03977009c07660e886c9635eb))
+* **example-marketing:** use fallback blocking ([be5a2d3](https://github.com/chapter-three/next-drupal/commit/be5a2d32764d1c510ffb335cb5076cc927c65e0e))
+
+
+
+
+
 # [0.13.0](https://github.com/chapter-three/next-drupal/compare/example-marketing@0.12.0...example-marketing@0.13.0) (2021-06-16)
 
 

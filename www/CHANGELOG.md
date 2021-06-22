@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/chapter-three/next-drupal/compare/www@0.1.2...www@0.2.0) (2021-06-22)
+
+
+### Features
+
+* **www:** update docs ([9c50d62](https://github.com/chapter-three/next-drupal/commit/9c50d62f455702431d131de7641c6c0fdcf0da67))
+
+
+
+
+
 ## [0.1.2](https://github.com/chapter-three/next-drupal/compare/www@0.1.1...www@0.1.2) (2021-06-14)
 
 

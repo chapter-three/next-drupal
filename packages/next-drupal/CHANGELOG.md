@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.13.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.12.0...next-drupal@0.13.0) (2021-06-22)
+
+
+### Bug Fixes
+
+* **next-drupal:** handle cases where previewData is not properly set ([cf2d4d1](https://github.com/arshad/next-drupal/commit/cf2d4d106b8a170e150e040a7496bb1f08caa64f))
+* **next-drupal:** typo ([abcd28e](https://github.com/arshad/next-drupal/commit/abcd28ece952335d4d72352ef3b05b5207b6ca55))
+
+
+### Features
+
+* **next-drupal:** handle locale info in preview ([ed00703](https://github.com/arshad/next-drupal/commit/ed00703a8ccf382b073993eab1a4f2c0f741effa))
+
+
+
+
+
 # [0.12.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.11.1...next-drupal@0.12.0) (2021-06-16)
 
 

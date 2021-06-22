@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/chapter-three/next-drupal/compare/basic-starter@0.3.9...basic-starter@0.4.0) (2021-06-22)
+
+
+### Bug Fixes
+
+* **basic-starter:** add props to NodeMeta ([613a2e1](https://github.com/chapter-three/next-drupal/commit/613a2e1c732b2fe94538ffdd66e42d3af60d0088))
+
+
+### Features
+
+* **basic-starter:** update the basic starter ([db2f99c](https://github.com/chapter-three/next-drupal/commit/db2f99c3872a7e46cedcad66650b6f03fd645dbb))
+
+
+
+
+
 ## [0.3.9](https://github.com/chapter-three/next-drupal/compare/basic-starter@0.3.8...basic-starter@0.3.9) (2021-06-16)
 
 **Note:** Version bump only for package basic-starter

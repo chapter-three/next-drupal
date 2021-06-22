@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.1](https://github.com/chapter-three/next-drupal/compare/example-blog@0.9.0...example-blog@0.9.1) (2021-06-22)
+
+
+### Bug Fixes
+
+* **example-blog:** update blog mode toggle ([287f184](https://github.com/chapter-three/next-drupal/commit/287f1840281aa7685236b2a8dc4ca49741db984f))
+* **example-marketing:** add missing dependency ([7a182f6](https://github.com/chapter-three/next-drupal/commit/7a182f68f0cf86b03977009c07660e886c9635eb))
+
+
+
+
+
 # [0.9.0](https://github.com/chapter-three/next-drupal/compare/example-blog@0.8.6...example-blog@0.9.0) (2021-06-16)
 
 

@@ -15,6 +15,7 @@ import { useRouter } from "next/router"
 
 export default function NodePage({ node }) {
   const router = useRouter()
+
   if (!node) return null
 
   return (
@@ -50,7 +51,7 @@ export async function getStaticPaths(
 
   return {
     paths: await getPathsFromContext(resourceTypes, context),
-    fallback: true,
+    fallback: "blocking",
   }
 }
 
@@ -114,6 +115,6 @@ export async function getStaticProps(context) {
     props: {
       node,
     },
-    revalidate: 1,
+    revalidate: 60,
   }
 }

@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { getResourceByPath } from "./get-resource"
+import { JsonApiWithLocaleOptions } from "./types"
 
 interface PreviewOptions {
   errorMessages?: {
@@ -17,7 +18,7 @@ export async function PreviewHandler(
   response?: NextApiResponse,
   options?: PreviewOptions
 ) {
-  const { slug, resourceVersion, secret } = request.query
+  const { slug, resourceVersion, secret, locale, defaultLocale } = request.query
 
   if (secret !== process.env.DRUPAL_PREVIEW_SECRET) {
     return response.status(401).json({
@@ -31,7 +32,15 @@ export async function PreviewHandler(
       .end({ message: options?.errorMessages.slug || "Invalid slug." })
   }
 
-  const url = await getResourcePreviewUrl(slug as string)
+  let _options = {}
+  if (locale && defaultLocale) {
+    _options = {
+      locale,
+      defaultLocale,
+    }
+  }
+
+  const url = await getResourcePreviewUrl(slug as string, _options)
 
   if (!url) {
     response
@@ -48,8 +57,11 @@ export async function PreviewHandler(
   return response.end()
 }
 
-export async function getResourcePreviewUrl(slug: string) {
-  const node = await getResourceByPath(slug)
+export async function getResourcePreviewUrl(
+  slug: string,
+  options?: JsonApiWithLocaleOptions
+) {
+  const node = await getResourceByPath(slug, options)
 
   if (!node) {
     return null

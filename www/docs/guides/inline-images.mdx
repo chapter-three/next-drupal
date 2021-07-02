@@ -1,0 +1,72 @@
+---
+title: Inline Images
+excerpt: Using Next.js Image component for inline images and media entities in body fields.
+---
+
+To replace inline images and media entities added via a WYSIWYG editor, we can use an html parser
+to replace the `img` tags with the Next.js `Image` component.
+
+## Dependencies
+
+Install [html-react-parser](https://github.com/remarkablemark/html-react-parser).
+
+```sh
+yarn add html-react-parser
+```
+
+## Component
+
+Let's create a component to render a `text_long` (example: `node.body.processed`) field type.
+
+```tsx title=components/body.tsx
+import { HTMLReactParserOptions } from "html-react-parser"
+import { Element } from "domhandler/lib/node"
+import parse from "html-react-parser"
+import Image from "next/image"
+
+const options: HTMLReactParserOptions = {
+  replace: (domNode) => {
+    if (domNode instanceof Element && domNode.name === "img") {
+      const { src, alt, width, height } = domNode.attribs
+
+      return (
+        <Image
+          src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/${src}`}
+          width={`${width}px`}
+          height={`${height}px`}
+          alt={alt}
+          layout="intrinsic"
+          objectFit="cover"
+        />
+      )
+    }
+  },
+}
+
+export function Body({ value }: { value: string }) {
+  return <>{parse(value, options)}</>
+}
+```
+
+<Callout>
+
+We use `intrinsic` layout so that images scale down for smaller viewports but maintain the original dimensions for larger viewports.
+
+</Callout>
+
+## Usage
+
+```tsx title=pages/index.tsx
+import { Body } from "components/body"
+
+export default function Page({ node }) {
+  return (
+    <div variant="container">
+      <h1>{node.title}</h1>
+      <Body value={node.body.processed} /> // highlight-line
+    </div>
+  )
+}
+```
+
+Learn more about [next/image](https://nextjs.org/docs/api-reference/next/image).

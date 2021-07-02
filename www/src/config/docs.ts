@@ -76,6 +76,15 @@ export const docs: DocsConfig = {
       ],
     },
     {
+      title: "Guides",
+      items: [
+        {
+          title: "Inline Images",
+          url: "/docs/guides/inline-images",
+        },
+      ],
+    },
+    {
       title: "Drupal",
       items: [
         {

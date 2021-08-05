@@ -1,10 +1,15 @@
-import { DrupalMenuLinkContent, JsonApiWithLocaleOptions } from "./types"
-import { buildUrl, deserialize } from "./utils"
+import {
+  AccessToken,
+  DrupalMenuLinkContent,
+  JsonApiWithLocaleOptions,
+} from "./types"
+import { buildHeaders, buildUrl, deserialize } from "./utils"
 
 export async function getMenu(
   name: string,
   options?: {
     deserialize?: boolean
+    accessToken?: AccessToken
   } & JsonApiWithLocaleOptions
 ): Promise<{
   items: DrupalMenuLinkContent[]
@@ -22,7 +27,9 @@ export async function getMenu(
 
   const url = buildUrl(`${localePrefix}/jsonapi/menu_items/${name}`)
 
-  const response = await fetch(url.toString())
+  const response = await fetch(url.toString(), {
+    headers: await buildHeaders(options),
+  })
 
   if (!response.ok) {
     throw new Error(response.statusText)

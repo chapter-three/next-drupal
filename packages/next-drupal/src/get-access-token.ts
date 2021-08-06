@@ -1,8 +1,6 @@
-export async function getAccessToken(): Promise<{
-  token_type: string
-  expires_in: number
-  access_token: string
-}> {
+import { AccessToken } from "./types"
+
+export async function getAccessToken(): Promise<AccessToken> {
   if (!process.env.DRUPAL_CLIENT_ID || !process.env.DRUPAL_CLIENT_SECRET) {
     return null
   }

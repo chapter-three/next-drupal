@@ -1,5 +1,5 @@
 import { GetStaticPropsContext } from "next"
-import { JsonApiParams, JsonApiWithLocaleOptions } from "./types"
+import { AccessToken, JsonApiParams, JsonApiWithLocaleOptions } from "./types"
 import {
   buildHeaders,
   buildUrl,
@@ -15,6 +15,7 @@ export async function getResourceFromContext(
     prefix?: string
     deserialize?: boolean
     params?: JsonApiParams
+    accessToken?: AccessToken
   }
 ) {
   options = {
@@ -60,6 +61,7 @@ export async function getResourceFromContext(
 export async function getResourceByPath(
   path: string,
   options?: {
+    accessToken?: AccessToken
     deserialize?: boolean
   } & JsonApiWithLocaleOptions
 ) {
@@ -126,7 +128,7 @@ export async function getResourceByPath(
   const response = await fetch(url.toString(), {
     method: "POST",
     credentials: "include",
-    headers: await buildHeaders(),
+    headers: await buildHeaders(options),
     redirect: "follow",
     body: JSON.stringify(payload),
   })
@@ -154,6 +156,7 @@ export async function getResource(
   type: string,
   uuid: string,
   options?: {
+    accessToken?: AccessToken
     deserialize?: boolean
   } & JsonApiWithLocaleOptions
 ) {
@@ -177,7 +180,7 @@ export async function getResource(
   })
 
   const response = await fetch(url.toString(), {
-    headers: await buildHeaders(),
+    headers: await buildHeaders(options),
   })
 
   if (!response.ok) {

@@ -1,9 +1,11 @@
 import { GetStaticPropsContext } from "next"
+import { AccessToken } from "./types"
 import { buildHeaders, buildUrl, getPathFromContext } from "./utils"
 
 export async function getResourceTypeFromContext(
   context: GetStaticPropsContext,
   options?: {
+    accessToken?: AccessToken
     prefix?: string
   }
 ): Promise<string> {
@@ -16,7 +18,7 @@ export async function getResourceTypeFromContext(
   })
 
   const response = await fetch(url.toString(), {
-    headers: await buildHeaders(),
+    headers: await buildHeaders(options),
   })
 
   if (response.status === 404) {

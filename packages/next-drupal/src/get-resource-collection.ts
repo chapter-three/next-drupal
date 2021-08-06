@@ -1,5 +1,5 @@
 import { GetStaticPropsContext } from "next"
-import { JsonApiParams, JsonApiWithLocaleOptions } from "./types"
+import { AccessToken, JsonApiParams, JsonApiWithLocaleOptions } from "./types"
 import {
   buildHeaders,
   buildUrl,
@@ -11,6 +11,7 @@ export async function getResourceCollection(
   type: string,
   options?: {
     deserialize?: boolean
+    accessToken?: AccessToken
   } & JsonApiWithLocaleOptions
 ) {
   const apiPath = await getJsonApiPathForResourceType(
@@ -27,7 +28,7 @@ export async function getResourceCollection(
   })
 
   const response = await fetch(url.toString(), {
-    headers: await buildHeaders(),
+    headers: await buildHeaders(options),
   })
 
   if (!response.ok) {

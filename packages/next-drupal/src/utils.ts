@@ -1,10 +1,9 @@
-import { GetStaticPropsContext } from "next"
 import Jsona from "jsona"
+import { GetStaticPropsContext } from "next"
+import { getAccessToken } from "./get-access-token"
+import { AccessToken, Locale } from "./types"
 
 const JSONAPI_PREFIX = process.env.DRUPAL_JSONAPI_PREFIX || "/jsonapi"
-
-import { getAccessToken } from "./get-access-token"
-import { Locale } from "./types"
 
 const dataFormatter = new Jsona()
 
@@ -24,7 +23,10 @@ export async function getJsonApiPathForResourceType(
 }
 
 export async function getJsonApiIndex(
-  locale?: Locale
+  locale?: Locale,
+  options?: {
+    accessToken?: AccessToken
+  }
 ): Promise<{
   links: {
     [type: string]: {
@@ -37,7 +39,7 @@ export async function getJsonApiIndex(
   )
 
   const response = await fetch(url.toString(), {
-    headers: await buildHeaders(),
+    headers: await buildHeaders(options),
   })
 
   if (!response.ok) {
@@ -64,12 +66,16 @@ export function buildUrl(
   return url
 }
 
-export async function buildHeaders(
-  headers: RequestInit["headers"] = {
+export async function buildHeaders({
+  accessToken,
+  headers = {
     "Content-Type": "application/json",
-  }
-): Promise<RequestInit["headers"]> {
-  const token = await getAccessToken()
+  },
+}: {
+  accessToken?: AccessToken
+  headers?: RequestInit["headers"]
+} = {}): Promise<RequestInit["headers"]> {
+  const token = accessToken || (await getAccessToken())
   if (token) {
     headers["Authorization"] = `Bearer ${token.access_token}`
   }

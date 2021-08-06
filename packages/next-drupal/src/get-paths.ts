@@ -1,12 +1,13 @@
 import { GetStaticPathsContext } from "next"
 import { getResourceCollection } from "./get-resource-collection"
-import { JsonApiParams, Locale } from "./types"
+import { AccessToken, JsonApiParams, Locale } from "./types"
 
 export async function getPathsFromContext(
   types: string | string[],
   context: GetStaticPathsContext,
   options: {
     params?: JsonApiParams
+    accessToken?: AccessToken
   } = {}
 ) {
   if (typeof types === "string") {

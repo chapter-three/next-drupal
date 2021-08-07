@@ -1,6 +1,6 @@
 {
   "name": "example-marketing",
-  "version": "0.13.1",
+  "version": "0.13.2",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -12,7 +12,7 @@
   "dependencies": {
     "@fontsource/playfair-display": "^4.4.5",
     "next": "^11.0.0",
-    "next-drupal": "^0.13.0",
+    "next-drupal": "^0.14.0",
     "nprogress": "^0.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

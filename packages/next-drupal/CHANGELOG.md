@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.13.0...next-drupal@0.14.0) (2021-08-07)
+
+
+### Features
+
+* **next-drupal:** make access token configurable ([e732578](https://github.com/arshad/next-drupal/commit/e732578940e6da14da069dc67794a935cd9daa19))
+
+
+
+
+
 # [0.13.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.12.0...next-drupal@0.13.0) (2021-06-22)
 
 

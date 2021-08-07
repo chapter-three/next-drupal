@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.1](https://github.com/chapter-three/next-drupal/compare/basic-starter@0.4.0...basic-starter@0.4.1) (2021-08-07)
+
+**Note:** Version bump only for package basic-starter
+
+
+
+
+
 # [0.4.0](https://github.com/chapter-three/next-drupal/compare/basic-starter@0.3.9...basic-starter@0.4.0) (2021-06-22)
 
 

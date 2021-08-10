@@ -64,3 +64,9 @@ next.site_previewer.configuration.iframe:
     width:
       type: string
       label: "Width"
+    sync_route:
+      type: boolean
+      label: "Sync route"
+    sync_route_skip_routes:
+      type: string
+      label: "Sync route skip pages"

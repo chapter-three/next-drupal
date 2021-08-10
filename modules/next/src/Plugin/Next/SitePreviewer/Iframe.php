@@ -108,6 +108,22 @@ class Iframe extends ConfigurableSitePreviewerBase implements ContainerFactoryPl
       '#default_value' => $this->configuration['width'],
     ];
 
+    $form['sync_route'] = [
+      '#title' => $this->t('Sync routes (Experimental)'),
+      '#type' => 'checkbox',
+      '#description' => $this->t('If checked, route changes inside the iframe preview will be captured and synced with the Drupal site.'),
+      '#default_value' => $this->configuration['sync_route'] ?: FALSE,
+    ];
+
+    $form['sync_route_skip_routes'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Skip routes'),
+      '#default_value' => $this->configuration['sync_route_skip_routes'] ?: NULL,
+      '#description' => $this->t("Specify routes to ignore syncing by using their paths. Enter one path per line. Example %example.", [
+        '%example' => '/blog',
+      ]),
+    ];
+
     return $form;
   }
 
@@ -116,6 +132,7 @@ class Iframe extends ConfigurableSitePreviewerBase implements ContainerFactoryPl
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
     $this->configuration['width'] = $form_state->getValue('width');
+    $this->configuration['sync_route'] = $form_state->getValue('sync_route');
   }
 
   /**
@@ -212,6 +229,14 @@ class Iframe extends ConfigurableSitePreviewerBase implements ContainerFactoryPl
         'class' => ['next-site-preview-iframe'],
       ],
       '#attached' => [
+        'drupalSettings' => [
+          'next' => [
+            'iframe_preview' => [
+              'sync_route' => $this->configuration['sync_route'],
+              'skip_routes' => array_map('trim', explode("\n", mb_strtolower($this->configuration['sync_route_skip_routes']))),
+            ]
+          ]
+        ],
         'library' => [
           'next/site_preview.iframe',
         ],

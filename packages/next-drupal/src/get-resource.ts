@@ -51,7 +51,7 @@ export async function getResourceFromContext(
   // TODO: Figure out if we want this behavior.
   // For now this causes a bug where a non-i18n sites builds (ISR) pages for
   // localized pages.
-  if (!context.locale && !resource.default_langcode) {
+  if (!context.locale && !resource?.default_langcode) {
     return null
   }
 

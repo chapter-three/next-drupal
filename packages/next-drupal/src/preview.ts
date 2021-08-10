@@ -67,7 +67,7 @@ export async function getResourcePreviewUrl(
     return null
   }
 
-  return node.default_langcode
+  return node?.default_langcode
     ? node.path.alias
     : `/${node.path.langcode}${node.path.alias}`
 }

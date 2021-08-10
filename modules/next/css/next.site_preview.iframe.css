@@ -44,6 +44,10 @@
   border: 2px solid #e0e0d8;
 }
 
+.iframe-site-previewer .claro-details__wrapper.details-wrapper {
+  margin: 0 1.6rem;
+}
+
 .next-site-preview-iframe {
   margin: 0;
   padding: 0;

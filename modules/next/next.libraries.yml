@@ -5,7 +5,7 @@ site_preview.iframe:
       css/next.site_preview.iframe.css: {}
   js:
     js/next.site_preview.iframe.js: {}
-    dependencies:
-      - core/jquery
-      - core/drupal
-      - core/drupalSettings
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings

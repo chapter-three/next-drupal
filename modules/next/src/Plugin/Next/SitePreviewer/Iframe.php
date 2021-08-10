@@ -122,6 +122,11 @@ class Iframe extends ConfigurableSitePreviewerBase implements ContainerFactoryPl
       '#description' => $this->t("Specify routes to ignore syncing by using their paths. Enter one path per line. Example %example.", [
         '%example' => '/blog',
       ]),
+      '#states' => [
+        'visible' => [
+          ':input[name="site_previewer_configuration[sync_route]"]' => ['checked' => TRUE],
+        ],
+      ],
     ];
 
     return $form;

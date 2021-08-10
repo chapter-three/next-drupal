@@ -5,6 +5,16 @@
 
 (function($, window, Drupal, drupalSettings) {
 
+  Drupal.behaviors.iframePreviewLoader = {
+    attach(context) {
+      const $iframe = $('iframe.next-site-preview-iframe', context)
+
+      $iframe.on('load', () => {
+        $iframe.addClass('ready');
+      })
+    }
+  }
+
   Drupal.behaviors.iframePreviewSyncRoute = {
     attach() {
       const { sync_route = false, skip_routes } = drupalSettings.next.iframe_preview

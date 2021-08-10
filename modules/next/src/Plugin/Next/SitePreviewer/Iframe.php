@@ -197,7 +197,9 @@ class Iframe extends ConfigurableSitePreviewerBase implements ContainerFactoryPl
           'url' => $live_url,
           'attributes' => [
             'class' => [
-              'button'
+              'button',
+              'button--small',
+              'button--primary',
             ],
             'target' => '_blank',
             'rel' => 'nofollow',

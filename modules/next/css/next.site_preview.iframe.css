@@ -33,6 +33,11 @@
   color: #325e1c;
 }
 
+.next-site-preview-toolbar .operations .live-link .button {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 .next-site-preview-container {
   display: flex;
   height: 75vh;
@@ -44,4 +49,10 @@
   padding: 0;
   height: 100%;
   border: 0;
+  background: white no-repeat center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10' height='40' width='80'%3E%3Cstyle type='text/css'%3E @keyframes s%7B0%25%7Btransform:rotate(0deg) translate(-50%25,-50%25)%7D50%25%7Btransform:rotate(-430deg) translate(-50%25,-50%25);stroke-dashoffset:20%7D100%25%7Btransform:rotate(-720deg) translate(-50%25,-50%25)%7D%7Dellipse%7Banimation:s 1s linear infinite%7D%3C/style%3E%3Cg transform='translate(5 5)'%3E%3Cellipse fill='none' ry='4' rx='4' cy='5' cx='5' stroke='%23004adc' stroke-width='1' stroke-dashoffset='6.125' stroke-dasharray='25' transform='translate(-5 -5)' /%3E%3C/g%3E%3C/svg%3E");
+}
+
+.next-site-preview-iframe.ready {
+  background-image: none;
 }

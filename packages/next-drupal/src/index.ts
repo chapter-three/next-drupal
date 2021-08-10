@@ -8,4 +8,10 @@ export * from "./get-resource"
 export * from "./get-view"
 export * from "./types"
 export * from "./use-menu"
-export { deserialize } from "./utils"
+export {
+  deserialize,
+  buildUrl,
+  getJsonApiIndex,
+  getJsonApiPathForResourceType,
+  syncDrupalPreviewRoutes,
+} from "./utils"

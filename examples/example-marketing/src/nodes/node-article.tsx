@@ -3,6 +3,7 @@ import { Icon } from "reflexjs"
 import Image from "next/image"
 
 import { formatDate } from "@utils/format-date"
+import { Body } from "@/components/body"
 
 export function NodeArticle({ node, ...props }) {
   return (
@@ -57,19 +58,7 @@ export function NodeArticle({ node, ...props }) {
             </p>
           ) : null}
 
-          {node.body?.processed && (
-            <div
-              dangerouslySetInnerHTML={{ __html: node.body?.processed }}
-              sx={{
-                p: {
-                  variant: "text",
-                  fontSize: "xl",
-                  my: 8,
-                  lineHeight: 8,
-                },
-              }}
-            />
-          )}
+          {node.body?.processed && <Body value={node.body.processed} />}
         </div>
       </div>
     </article>

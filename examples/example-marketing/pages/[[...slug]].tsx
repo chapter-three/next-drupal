@@ -1,5 +1,9 @@
 import * as React from "react"
-import { GetStaticPathsContext, GetStaticPathsResult } from "next"
+import {
+  GetStaticPathsContext,
+  GetStaticPathsResult,
+  GetStaticPropsContext,
+} from "next"
 import Head from "next/head"
 import {
   getPathsFromContext,
@@ -13,10 +17,21 @@ import { NodeLandingPage } from "@/nodes/node-landing-page"
 import { NodeBasicPage } from "@/nodes/node-basic-page"
 import { useRouter } from "next/router"
 
-export default function NodePage({ node }) {
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+interface PageProps {
+  preview: GetStaticPropsContext["preview"]
+  node: Record<string, any>
+}
+
+export default function NodePage({ node, preview }: PageProps) {
   const router = useRouter()
+  const [showPreviewAlert, setShowPreviewAlert] = React.useState<boolean>(false)
 
   if (!node) return null
+
+  React.useEffect(() => {
+    setShowPreviewAlert(preview && window.top === window.self)
+  }, [])
 
   return (
     <>
@@ -37,6 +52,38 @@ export default function NodePage({ node }) {
           ) : null
         )}
       </Head>
+      {showPreviewAlert && (
+        <div
+          sx={{
+            position: "fixed",
+            bottom: 4,
+            right: 4,
+            width: "auto",
+            bg: "black",
+            borderRadius: "xl",
+            height: "40px",
+            px: 2,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            zIndex: 1000,
+          }}
+        >
+          <a
+            href="/api/exit-preview"
+            sx={{
+              display: "inline-flex",
+              color: "white",
+              px: 3,
+              py: 2,
+              borderRadius: "md",
+              ml: "auto",
+            }}
+          >
+            Exit preview
+          </a>
+        </div>
+      )}
       {node.type === "node--landing_page" && <NodeLandingPage node={node} />}
       {node.type === "node--page" && <NodeBasicPage node={node} />}
       {node.type === "node--article" && <NodeArticle node={node} />}
@@ -113,6 +160,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
+      preview: context.preview || false,
       node,
     },
     revalidate: 60,

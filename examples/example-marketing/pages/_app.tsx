@@ -5,11 +5,15 @@ import { ThemeProvider } from "reflexjs"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { Hydrate } from "react-query/hydration"
 import NProgress from "nprogress"
+import { syncDrupalPreviewRoutes } from "next-drupal"
 
 import "@fontsource/playfair-display/900.css"
 import "nprogress/nprogress.css"
 
-Router.events.on("routeChangeStart", () => NProgress.start())
+Router.events.on("routeChangeStart", function (path) {
+  syncDrupalPreviewRoutes(path)
+  NProgress.start()
+})
 Router.events.on("routeChangeComplete", () => NProgress.done())
 Router.events.on("routeChangeError", () => NProgress.done())
 

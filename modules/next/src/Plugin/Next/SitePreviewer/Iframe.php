@@ -111,7 +111,9 @@ class Iframe extends ConfigurableSitePreviewerBase implements ContainerFactoryPl
     $form['sync_route'] = [
       '#title' => $this->t('Sync routes (Experimental)'),
       '#type' => 'checkbox',
-      '#description' => $this->t('If checked, route changes inside the iframe preview will be captured and synced with the Drupal site.'),
+      '#description' => $this->t('If checked, route changes inside the iframe preview will be captured and synced with the Drupal site. <a href=":doc_link" target="_blank">Learn more</a>.', [
+        ':doc_link' => 'https://next-drupal.org/docs/guides/route-syncing',
+      ]),
       '#default_value' => $this->configuration['sync_route'] ?: FALSE,
     ];
 
@@ -119,7 +121,7 @@ class Iframe extends ConfigurableSitePreviewerBase implements ContainerFactoryPl
       '#type' => 'textarea',
       '#title' => $this->t('Skip routes'),
       '#default_value' => $this->configuration['sync_route_skip_routes'] ?: NULL,
-      '#description' => $this->t("Specify routes to ignore syncing by using their paths. Enter one path per line. Example %example.", [
+      '#description' => $this->t('Specify routes to ignore syncing by using their paths. Enter one path per line. Example %example.', [
         '%example' => '/blog',
       ]),
       '#states' => [

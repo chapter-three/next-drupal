@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://github.com/chapter-three/next-drupal/compare/example-marketing@0.13.2...example-marketing@0.14.0) (2021-08-11)
+
+
+### Features
+
+* **example-marketing:** implement route sync ([b49e531](https://github.com/chapter-three/next-drupal/commit/b49e5314692a037b6e420167609dfec216551b77))
+
+
+
+
+
 ## [0.13.2](https://github.com/chapter-three/next-drupal/compare/example-marketing@0.13.1...example-marketing@0.13.2) (2021-08-07)
 
 **Note:** Version bump only for package example-marketing

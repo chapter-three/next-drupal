@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.3](https://github.com/chapter-three/next-drupal/compare/drupal-site@0.6.2...drupal-site@0.6.3) (2021-08-11)
+
+
+### Bug Fixes
+
+* update dependencies ([f652a72](https://github.com/chapter-three/next-drupal/commit/f652a72939078357abec530da316f9ed2d17ba9e))
+
+
+
+
+
 ## [0.6.2](https://github.com/chapter-three/next-drupal/compare/drupal-site@0.6.1...drupal-site@0.6.2) (2021-06-15)
 
 

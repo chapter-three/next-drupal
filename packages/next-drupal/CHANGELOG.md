@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.15.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.14.0...next-drupal@0.15.0) (2021-08-11)
+
+
+### Bug Fixes
+
+* **next-drupal:** add check for undefined vars ([a9c7d17](https://github.com/arshad/next-drupal/commit/a9c7d170ab72f4c9b2b187c7236bcd1d317da24d))
+
+
+### Features
+
+* **next-drupal:** implement syncDrupalPreviewRoutes util ([b7faf40](https://github.com/arshad/next-drupal/commit/b7faf405e2f28bc279d1110afcddb44074689746))
+
+
+
+
+
 # [0.14.0](https://github.com/arshad/next-drupal/compare/next-drupal@0.13.0...next-drupal@0.14.0) (2021-08-07)
 
 

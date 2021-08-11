@@ -11,6 +11,14 @@ This is handy as it maintains editing context.
 
 Route syncing supports translations and revisions.
 
+<Callout>
+
+Route syncing uses the [Window.postMessage()](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) API to safely communicate the route change to the Drupal site.
+
+The `targetOrigin` is pulled from the configured `NEXT_PUBLIC_DRUPAL_BASE_URL` inside `.env`.
+
+</Callout>
+
 ## Demo
 
 <Video src="/videos/next-drupal-route-syncing.mp4" />
@@ -55,7 +63,7 @@ If you visit a node on your Drupal site and click on any link inside the iframe 
 
 ### Skipping Routes
 
-If you want to disabled syncing for some routes, say routes present in your Next.js site and not in Drupal, you can do so by specifying the route paths under **Skip routes**.
+If you want to disable syncing for some routes, say routes defined in your Next.js site and not in Drupal, you can do so by specifying the route paths under **Skip routes**.
 
 <Img
   src="/images/route-syncing-skip.png"

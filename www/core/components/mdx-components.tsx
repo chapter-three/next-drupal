@@ -22,4 +22,11 @@ export const mdxComponents = {
       <figcaption variant="text.caption">{children}</figcaption>
     </figure>
   ),
+  Video: ({ src, ...props }) => (
+    <div borderWidth="1" p="2" borderRadius="lg">
+      <video controls muted {...props}>
+        <source src={src} type="video/mp4" />
+      </video>
+    </div>
+  ),
 }

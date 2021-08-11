@@ -82,6 +82,10 @@ export const docs: DocsConfig = {
           title: "Inline Images",
           url: "/docs/guides/inline-images",
         },
+        {
+          title: "Route Syncing",
+          url: "/docs/guides/route-syncing",
+        },
       ],
     },
     {

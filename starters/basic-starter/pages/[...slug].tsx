@@ -1,14 +1,28 @@
+import * as React from "react"
 import Head from "next/head"
 import {
   getPathsFromContext,
   getResourceFromContext,
   getResourceTypeFromContext,
 } from "next-drupal"
+import { GetStaticPropsContext } from "next"
 import { NodeArticle } from "@/nodes/node-article"
 import { NodeBasicPage } from "@/components/nodes/node-basic-page"
 
-export default function NodePage({ node }) {
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+interface NodePageProps {
+  preview: GetStaticPropsContext["preview"]
+  node: Record<string, any>
+}
+
+export default function NodePage({ node, preview }: NodePageProps) {
+  const [showPreviewAlert, setShowPreviewAlert] = React.useState<boolean>(false)
+
   if (!node) return null
+
+  React.useEffect(() => {
+    setShowPreviewAlert(preview && window.top === window.self)
+  }, [])
 
   return (
     <>
@@ -16,9 +30,19 @@ export default function NodePage({ node }) {
         <title>{node.title}</title>
         <meta
           name="description"
-          content="A Next.js site powered by a Drupal backend. Built with paragraphs, views, menus and translations."
+          content="A Next.js site powered by a Drupal backend."
         />
       </Head>
+      {showPreviewAlert && (
+        <div className="fixed top-4 right-4">
+          <a
+            href="/api/exit-preview"
+            className="bg-black text-white rounded-md px-4 py-2 text-sm"
+          >
+            Exit preview
+          </a>
+        </div>
+      )}
       {node.type === "node--page" && <NodeBasicPage node={node} />}
       {node.type === "node--article" && <NodeArticle node={node} />}
     </>
@@ -60,8 +84,9 @@ export async function getStaticProps(context) {
 
   return {
     props: {
+      preview: context.preview || false,
       node,
-      revalidate: 60,
     },
+    revalidate: 60,
   }
 }

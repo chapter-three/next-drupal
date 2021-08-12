@@ -1,22 +1,32 @@
+import Head from "next/head"
 import { getResourceCollectionFromContext } from "next-drupal"
 import { NodeArticleTeaser } from "@/components/nodes/node-article"
 
 export default function IndexPage({ articles }) {
   return (
-    <div>
-      <h1 className="text-6xl font-black mb-10">Latest Articles.</h1>
+    <>
+      <Head>
+        <title>Next.js for Drupal</title>
+        <meta
+          name="description"
+          content="A Next.js site powered by a Drupal backend."
+        />
+      </Head>
+      <div>
+        <h1 className="text-6xl font-black mb-10">Latest Articles.</h1>
 
-      {articles?.length ? (
-        articles.map((node) => (
-          <div key={node.id}>
-            <NodeArticleTeaser node={node} />
-            <hr className="my-20" />
-          </div>
-        ))
-      ) : (
-        <p className="py-4">No articles found</p>
-      )}
-    </div>
+        {articles?.length ? (
+          articles.map((node) => (
+            <div key={node.id}>
+              <NodeArticleTeaser node={node} />
+              <hr className="my-20" />
+            </div>
+          ))
+        ) : (
+          <p className="py-4">No articles found</p>
+        )}
+      </div>
+    </>
   )
 }
 
@@ -35,7 +45,7 @@ export async function getStaticProps(context) {
   return {
     props: {
       articles,
-      revalidate: 60,
     },
+    revalidate: 60,
   }
 }

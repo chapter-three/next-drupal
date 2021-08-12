@@ -5,8 +5,9 @@ import { useRouter } from "next/dist/client/router"
 export function Layout({ children }) {
   const { asPath } = useRouter()
   const { tree } = useMenu("main")
+
   return (
-    <div className="max-w-screen-md mx-auto">
+    <div className="max-w-screen-md mx-auto px-6">
       <header>
         <div className="container mx-auto flex items-center justify-between py-6">
           <Link href="/" passHref>

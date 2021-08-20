@@ -14,6 +14,7 @@ export async function getResourceFromContext(
   options?: {
     prefix?: string
     deserialize?: boolean
+    checkRedirect?: boolean
     params?: JsonApiParams
   }
 ) {
@@ -61,10 +62,12 @@ export async function getResourceByPath(
   path: string,
   options?: {
     deserialize?: boolean
+    checkRedirect?: boolean
   } & JsonApiWithLocaleOptions
 ) {
   options = {
     deserialize: true,
+    checkRedirect: false,
     params: {},
     ...options,
   }
@@ -136,6 +139,19 @@ export async function getResourceByPath(
   }
 
   const json = await response.json()
+
+  if (options.checkRedirect) {
+    const router = JSON.parse(json.router?.body)
+    if (router?.redirect && router?.redirect.length > 0) {
+      const redirect = router.redirect.slice(-1)[0]
+      return {
+        redirect: {
+          destination: redirect.to,
+          statusCode: parseInt(redirect.status),
+        },
+      }
+    }
+  }
 
   if (!json["resolvedResource#uri{0}"]) {
     return null

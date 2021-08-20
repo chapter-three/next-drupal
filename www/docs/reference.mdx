@@ -141,6 +141,7 @@ function getResourceFromContext(
   options?: {
     prefix?: string
     deserialize?: boolean
+    checkRedirect?: boolean
     params?: JsonApiParams
   }
 ): Promise<any>
@@ -176,6 +177,7 @@ function getResourceByPath(
   path: string,
   options?: {
     deserialize?: boolean
+    checkRedirect?: boolean
   } & JsonApiWithLocaleOptions
 ): Promise<any>
 ```

@@ -5,13 +5,6 @@
 </div>
 
 <p align="center">
-  <a href="https://github.com/arshad/next-drupal/actions"><img src="https://github.com/arshad/next-drupal/workflows/Drupal/badge.svg" alt="Drupal"></a>
-  <a href="https://github.com/arshad/next-mdx/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome!" /></a>
-  <a href="https://twitter.com/arshadcn"><img src="https://img.shields.io/badge/Follow-%40arshadcn-1da1f2" alt="Follow @arshadcn" /></a>
-</p>
-
-
-<p align="center">
   <em>Warning: this project is in early beta.</em>
 </p>
 

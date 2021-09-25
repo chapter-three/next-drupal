@@ -99,7 +99,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.3.1](https://github.com/arshad/next-drupal/compare/basic-starter@0.3.0...basic-starter@0.3.1) (2021-06-10)
+## [0.3.1](https://github.com/chapter-three/next-drupal/compare/basic-starter@0.3.0...basic-starter@0.3.1) (2021-06-10)
 
 **Note:** Version bump only for package basic-starter
 
@@ -107,23 +107,23 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-# [0.3.0](https://github.com/arshad/next-drupal/compare/basic-starter@0.2.0...basic-starter@0.3.0) (2021-05-17)
+# [0.3.0](https://github.com/chapter-three/next-drupal/compare/basic-starter@0.2.0...basic-starter@0.3.0) (2021-05-17)
 
 
 ### Features
 
-* add getEntityByPath ([072ead7](https://github.com/arshad/next-drupal/commit/072ead7ecc3b7f158e4b81e03d17f0bf1a5b511c))
+* add getEntityByPath ([072ead7](https://github.com/chapter-three/next-drupal/commit/072ead7ecc3b7f158e4b81e03d17f0bf1a5b511c))
 
 
 
 
 
-# [0.2.0](https://github.com/arshad/next-drupal/compare/basic-starter@0.1.0...basic-starter@0.2.0) (2021-05-17)
+# [0.2.0](https://github.com/chapter-three/next-drupal/compare/basic-starter@0.1.0...basic-starter@0.2.0) (2021-05-17)
 
 
 ### Features
 
-* deserialize entities by default ([8b53ae2](https://github.com/arshad/next-drupal/commit/8b53ae222717b8983568194373be04903944a032))
+* deserialize entities by default ([8b53ae2](https://github.com/chapter-three/next-drupal/commit/8b53ae222717b8983568194373be04903944a032))
 
 
 
@@ -134,4 +134,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* add basic-starter ([92b746a](https://github.com/arshad/next-drupal/commit/92b746aef6b59d893cb3c2f49d35d7dcc733c7c8))
+* add basic-starter ([92b746a](https://github.com/chapter-three/next-drupal/commit/92b746aef6b59d893cb3c2f49d35d7dcc733c7c8))

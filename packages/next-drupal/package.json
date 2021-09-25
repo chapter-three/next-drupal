@@ -23,12 +23,12 @@
     "preview"
   ],
   "bugs": {
-    "url": "https://github.com/arshad/next-drupal/issues"
+    "url": "https://github.com/chapter-three/next-drupal/issues"
   },
-  "homepage": "https://github.com/arshad/next-drupal",
+  "homepage": "https://github.com/chapter-three/next-drupal",
   "repository": {
     "type": "git",
-    "url": "https://github.com/arshad/next-drupal.git",
+    "url": "https://github.com/chapter-three/next-drupal.git",
     "directory": "packages/next-drupal"
   },
   "peerDependencies": {

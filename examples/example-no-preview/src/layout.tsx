@@ -16,7 +16,7 @@ export function Layout({ children }) {
                 </Link>
               </li>
               <li>
-                <Link href="https://github.com/arshad/next-drupal">
+                <Link href="https://github.com/chapter-three/next-drupal">
                   <a target="_blank">GitHub</a>
                 </Link>
               </li>

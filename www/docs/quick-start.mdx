@@ -32,38 +32,6 @@ composer require drupal/next:1.0.x-dev
 
 Note: we are pulling the latest dev version since there are no stable releases at this moment.
 
-<Callout>
-
-#### Apply patch
-
-Under the hood, the Next.js module uses [Subrequests](https://www.drupal.org/project/subrequests) to resolve resources in [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation).
-
-At the time of writing, there is a [bug](https://www.drupal.org/node/3029570) in the module that causes validation to fail. We need to patch the module to fix this.
-
-1. Open `composer.json` file and add the following lines (see highlighted) under `"extra"`.
-
-```json
-"extra": {
-  // highlight-start
-  "patches": {
-      "drupal/subrequests": {
-          "Subrequest failed validation": "https://www.drupal.org/files/issues/2019-05-27/3029570-array-not-object.patch"
-      }
-  },
-  // highlight-end
-}
-```
-
-2. Run the following to apply the patch.
-
-```sh
-composer require cweagans/composer-patches
-```
-
-This will install `cweagans/composer-patches` which will apply the patch.
-
-</Callout>
-
 ### 3. Enable Next.js
 
 Visit `/admin/modules` and enable the **Next.js** and **Next.js JSON API** modules.

@@ -6,7 +6,7 @@
   "license": "GPL-2.0-or-later",
   "authors": [
     {
-      "name": "Arshad Chummun",
+      "name": "shadcn",
       "homepage": "https://shadcn.com"
     }
   ],
@@ -19,12 +19,5 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^6.0 || ^7.0"
-  },
-  "extra": {
-    "patches": {
-      "drupal/subrequests": {
-        "Get same results on different request": "https://www.drupal.org/files/issues/2019-07-18/change_request_type-63049395-09.patch"
-      }
-    }
   }
 }

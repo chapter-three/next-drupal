@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@fontsource/playfair-display": "^4.4.5",
+    "drupal-jsonapi-params": "^1.2.2",
     "html-react-parser": "^1.2.7",
     "next": "^11.0.0",
     "next-drupal": "^0.15.0",

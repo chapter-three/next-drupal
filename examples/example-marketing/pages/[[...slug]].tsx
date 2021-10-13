@@ -5,17 +5,18 @@ import {
   GetStaticPropsContext,
 } from "next"
 import Head from "next/head"
+import { useRouter } from "next/router"
 import {
   getPathsFromContext,
   getResourceFromContext,
   getResourceTypeFromContext,
   getView,
 } from "next-drupal"
+import { DrupalJsonApiParams } from "drupal-jsonapi-params"
 
 import { NodeArticle } from "@/nodes/node-article"
 import { NodeLandingPage } from "@/nodes/node-landing-page"
 import { NodeBasicPage } from "@/nodes/node-basic-page"
-import { useRouter } from "next/router"
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 interface PageProps {
@@ -41,7 +42,7 @@ export default function NodePage({ node, preview }: PageProps) {
           name="description"
           content="A Next.js site powered by a Drupal backend. Built with paragraphs, views, menus and translations."
         />
-        {node.content_translations.map((translation, index) =>
+        {node.content_translations?.map((translation, index) =>
           translation.langcode !== router.locale ? (
             <link
               key={index}
@@ -111,27 +112,27 @@ export async function getStaticProps(context) {
     }
   }
 
-  let params = {}
+  const apiParams = new DrupalJsonApiParams()
 
   if (type === "node--landing_page") {
-    params = {
-      include:
-        "field_sections,field_sections.field_media.field_media_image,field_sections.field_items,field_sections.field_reusable_paragraph.paragraphs.field_items",
-    }
+    apiParams.addInclude([
+      "field_sections",
+      "field_sections.field_media.field_media_image",
+      "field_sections.field_items",
+      "field_sections.field_reusable_paragraph.paragraphs.field_items",
+    ])
   }
 
   if (type === "node--article") {
-    params = {
-      include: "field_image,uid",
-    }
+    apiParams.addInclude(["field_image", "uid"])
   }
 
   const node = await getResourceFromContext(type, context, {
-    params,
+    params: apiParams.getQueryObject(),
   })
 
   if (
-    !node?.status ||
+    ("status" in node && !node?.status) ||
     (node.field_site &&
       !node.field_site?.some(({ id }) => id === process.env.DRUPAL_SITE_ID))
   ) {

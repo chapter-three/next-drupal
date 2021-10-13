@@ -1,5 +1,5 @@
 import Head from "next/head"
-import { getResourceCollectionFromContext } from "next-drupal"
+import { getResourceCollectionFromContext, DrupalNode } from "next-drupal"
 
 import { NodeArticleTeaser } from "@/nodes/node-article"
 import { useRouter } from "next/router"
@@ -30,7 +30,7 @@ export default function BlogPage({ nodes }) {
 }
 
 export async function getStaticProps(context) {
-  const entities = await getResourceCollectionFromContext(
+  const entities = await getResourceCollectionFromContext<DrupalNode[]>(
     "node--article",
     context,
     {

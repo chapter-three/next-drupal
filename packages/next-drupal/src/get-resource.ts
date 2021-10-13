@@ -21,10 +21,12 @@ export async function getResourceFromContext<T extends JsonApiResource>(
     deserialize?: boolean
     params?: JsonApiParams
     accessToken?: AccessToken
+    isRevisionable?: boolean
   }
 ): Promise<T> {
   options = {
     deserialize: true,
+    isRevisionable: true,
     ...options,
   }
 
@@ -42,6 +44,7 @@ export async function getResourceFromContext<T extends JsonApiResource>(
 
   const resource = await getResourceByPath<T>(path, {
     deserialize: options.deserialize,
+    isRevisionable: options.isRevisionable,
     locale: context.locale,
     defaultLocale: context.defaultLocale,
     params: {
@@ -68,10 +71,12 @@ export async function getResourceByPath<T extends JsonApiResource>(
   options?: {
     accessToken?: AccessToken
     deserialize?: boolean
+    isRevisionable?: boolean
   } & JsonApiWithLocaleOptions
 ): Promise<T> {
   options = {
     deserialize: true,
+    isRevisionable: true,
     params: {},
     ...options,
   }
@@ -95,9 +100,12 @@ export async function getResourceByPath<T extends JsonApiResource>(
 
   const { resourceVersion = "rel:latest-version", ...params } = options?.params
   const resourceParams = new URLSearchParams({
-    resourceVersion,
     ...params,
-  }).toString()
+  })
+
+  if (options.isRevisionable) {
+    resourceParams.set("resourceVersion", resourceVersion)
+  }
 
   const payload = [
     {
@@ -109,7 +117,7 @@ export async function getResourceByPath<T extends JsonApiResource>(
     {
       requestId: "resolvedResource",
       action: "view",
-      uri: `{{router.body@$.jsonapi.individual}}?${resourceParams}`,
+      uri: `{{router.body@$.jsonapi.individual}}?${resourceParams.toString()}`,
       waitFor: ["router"],
     },
   ]

@@ -32,11 +32,14 @@ export async function PreviewHandler(
       .end({ message: options?.errorMessages.slug || "Invalid slug." })
   }
 
-  let _options = {}
+  let _options: GetResourcePreviewUrlOptions = {
+    isRevisionable: typeof resourceVersion !== "undefined",
+  }
   if (locale && defaultLocale) {
     _options = {
-      locale,
-      defaultLocale,
+      ..._options,
+      locale: locale as string,
+      defaultLocale: defaultLocale as string,
     }
   }
 
@@ -57,17 +60,27 @@ export async function PreviewHandler(
   return response.end()
 }
 
+type GetResourcePreviewUrlOptions = JsonApiWithLocaleOptions & {
+  isRevisionable?: boolean
+}
+
 export async function getResourcePreviewUrl(
   slug: string,
-  options?: JsonApiWithLocaleOptions
+  options?: GetResourcePreviewUrlOptions
 ) {
-  const node = await getResourceByPath(slug, options)
+  const entity = await getResourceByPath(slug, options)
 
-  if (!node) {
+  if (!entity) {
     return null
   }
 
-  return node?.default_langcode
-    ? node.path.alias
-    : `/${node.path.langcode}${node.path.alias}`
+  if (!entity?.path) {
+    throw new Error(
+      `Error: the path attribute is missing for entity type ${entity.type}`
+    )
+  }
+
+  return entity?.default_langcode
+    ? entity.path.alias
+    : `/${entity.path.langcode}${entity.path.alias}`
 }

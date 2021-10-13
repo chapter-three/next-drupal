@@ -19,6 +19,11 @@ export async function getResourceCollection<T extends JsonApiResource[]>(
     accessToken?: AccessToken
   } & JsonApiWithLocaleOptions
 ): Promise<T> {
+  options = {
+    deserialize: true,
+    ...options,
+  }
+
   const apiPath = await getJsonApiPathForResourceType(
     type,
     options?.locale !== options?.defaultLocale ? options.locale : undefined

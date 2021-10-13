@@ -65,6 +65,12 @@ export type AccessToken = {
   access_token: string
 }
 
+export type PathAlias = {
+  alias: string
+  pid: number
+  langcode: string
+}
+
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export interface JsonApiResource extends Record<string, any> {
   id: string
@@ -74,17 +80,13 @@ export interface JsonApiResource extends Record<string, any> {
 }
 
 export interface DrupalNode extends JsonApiResource {
-  title: string
-  changed: string
-  created: string
   drupal_internal__nid: number
   drupal_internal__vid: number
+  changed: string
+  created: string
+  title: string
   default_langcode: boolean
-  path: {
-    alias: string
-    pid: number
-    langcode: string
-  }
+  path: PathAlias
   sticky: boolean
 }
 
@@ -98,9 +100,28 @@ export interface DrupalBlock extends JsonApiResource {
 }
 
 export interface DrupalMedia extends JsonApiResource {
-  name: string
-  changed: string
-  created: string
   drupal_internal__mid: string
   drupal_internal__vid: string
+  changed: string
+  created: string
+  name: string
+}
+
+export interface DrupalTaxonomyTerm extends JsonApiResource {
+  drupal_internal__tid: string
+  changed: string
+  default_langcode: boolean
+  path: PathAlias
+  name: string
+  description: string
+  weight: number
+}
+
+export interface DrupalUser extends JsonApiResource {
+  drupal_internal__uid: string
+  changed: string
+  created: string
+  default_langcode: boolean
+  name: string
+  path: PathAlias
 }

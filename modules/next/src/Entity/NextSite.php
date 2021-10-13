@@ -7,6 +7,8 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
 use Drupal\Core\TypedData\TranslatableInterface;
 use Drupal\Core\Url;
+use Drupal\jsonapi\JsonApiResource\ResourceObject;
+use Drupal\jsonapi\ResourceType\ResourceType;
 
 /**
  * Defines the next_site config entity.
@@ -139,8 +141,11 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
       $query['defaultLocale'] = \Drupal::languageManager()->getDefaultLanguage()->getId();
     }
 
-    // Handle revisionable entity types.
-    if ($entity->getEntityType()->isRevisionable()) {
+    // Handle revisionable entity types
+    /* @var \Drupal\jsonapi\ResourceType\ResourceTypeRepositoryInterface $resource_type_repository */
+    $resource_type_repository = \Drupal::service('jsonapi.resource_type.repository');
+    $resource = $resource_type_repository->get($entity->getEntityTypeId(), $entity->bundle());
+    if ($resource->isVersionable() && $entity->getEntityType()->isRevisionable()) {
       $query['resourceVersion'] = $entity->isLatestRevision() ? "rel:latest-version" : "id:{$entity->getRevisionId()}";
     }
 

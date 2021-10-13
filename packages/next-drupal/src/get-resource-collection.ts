@@ -3,7 +3,7 @@ import {
   AccessToken,
   JsonApiParams,
   JsonApiWithLocaleOptions,
-  JsonApiObject,
+  JsonApiResource,
 } from "./types"
 import {
   buildHeaders,
@@ -12,7 +12,7 @@ import {
   getJsonApiPathForResourceType,
 } from "./utils"
 
-export async function getResourceCollection<T extends JsonApiObject[]>(
+export async function getResourceCollection<T extends JsonApiResource[]>(
   type: string,
   options?: {
     deserialize?: boolean
@@ -46,7 +46,7 @@ export async function getResourceCollection<T extends JsonApiObject[]>(
 }
 
 export async function getResourceCollectionFromContext<
-  T extends JsonApiObject[]
+  T extends JsonApiResource[]
 >(
   type: string,
   context: GetStaticPropsContext,

@@ -1,6 +1,6 @@
 {
   "name": "example-marketing",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -14,7 +14,7 @@
     "drupal-jsonapi-params": "^1.2.2",
     "html-react-parser": "^1.2.7",
     "next": "^11.0.0",
-    "next-drupal": "^0.15.0",
+    "next-drupal": "^0.16.0",
     "nprogress": "^0.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

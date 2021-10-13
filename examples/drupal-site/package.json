@@ -1,6 +1,6 @@
 {
   "name": "drupal-site",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "private": true,
   "license": "MIT",
   "scripts": {

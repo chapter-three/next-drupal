@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@0.15.0...next-drupal@0.16.0) (2021-10-13)
+
+
+### Bug Fixes
+
+* **next-drupal:** update types for resource collection ([242688d](https://github.com/chapter-three/next-drupal/commit/242688db74de09066ea76be28428f9716631463a))
+* rename repo links ([48d52dd](https://github.com/chapter-three/next-drupal/commit/48d52dde79f69396ef706d152c03670117b6a480))
+
+
+### Features
+
+* add support for non-revisionable entity types ([b221694](https://github.com/chapter-three/next-drupal/commit/b2216944172f031dd779d8bb4e848a98853be006))
+* **next-drupal:** improve types ([9cb8076](https://github.com/chapter-three/next-drupal/commit/9cb8076472f3309cee6aa73d179df70ee60e2693))
+* remove drupal-jsonapi-params dependency ([8e7a13f](https://github.com/chapter-three/next-drupal/commit/8e7a13f24a6ada0a5aec81706a1627829a77b39d))
+
+
+
+
+
 # [0.15.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@0.14.0...next-drupal@0.15.0) (2021-08-11)
 
 

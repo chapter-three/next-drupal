@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.4](https://github.com/chapter-three/next-drupal/compare/example-blog@0.9.3...example-blog@0.9.4) (2021-10-13)
+
+
+### Bug Fixes
+
+* rename repo links ([48d52dd](https://github.com/chapter-three/next-drupal/commit/48d52dde79f69396ef706d152c03670117b6a480))
+
+
+
+
+
 ## [0.9.3](https://github.com/chapter-three/next-drupal/compare/example-blog@0.9.2...example-blog@0.9.3) (2021-08-11)
 
 **Note:** Version bump only for package example-blog

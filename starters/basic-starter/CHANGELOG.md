@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/chapter-three/next-drupal/compare/basic-starter@0.4.2...basic-starter@0.5.0) (2021-10-13)
+
+
+### Bug Fixes
+
+* rename repo links ([48d52dd](https://github.com/chapter-three/next-drupal/commit/48d52dde79f69396ef706d152c03670117b6a480))
+* **basic-starter:** update next ([ea46504](https://github.com/chapter-three/next-drupal/commit/ea465044bec1865bab850f588e856be2fcaaf34c))
+
+
+### Features
+
+* **basic-starter:** update the basic starter ([a7efdcd](https://github.com/chapter-three/next-drupal/commit/a7efdcdf2fb38057027aad12e11e63ba21318b32))
+
+
+
+
+
 ## [0.4.2](https://github.com/chapter-three/next-drupal/compare/basic-starter@0.4.1...basic-starter@0.4.2) (2021-08-11)
 
 **Note:** Version bump only for package basic-starter

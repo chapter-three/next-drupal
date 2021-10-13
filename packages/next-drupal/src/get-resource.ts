@@ -1,5 +1,10 @@
 import { GetStaticPropsContext } from "next"
-import { AccessToken, JsonApiParams, JsonApiWithLocaleOptions } from "./types"
+import {
+  AccessToken,
+  JsonApiParams,
+  JsonApiWithLocaleOptions,
+  JsonApiResource,
+} from "./types"
 import {
   buildHeaders,
   buildUrl,
@@ -8,7 +13,7 @@ import {
   getPathFromContext,
 } from "./utils"
 
-export async function getResourceFromContext(
+export async function getResourceFromContext<T extends JsonApiResource>(
   type: string,
   context: GetStaticPropsContext,
   options?: {
@@ -17,7 +22,7 @@ export async function getResourceFromContext(
     params?: JsonApiParams
     accessToken?: AccessToken
   }
-) {
+): Promise<T> {
   options = {
     deserialize: true,
     ...options,
@@ -35,7 +40,7 @@ export async function getResourceFromContext(
 
   const previewData = context.previewData as { resourceVersion?: string }
 
-  const resource = await getResourceByPath(path, {
+  const resource = await getResourceByPath<T>(path, {
     deserialize: options.deserialize,
     locale: context.locale,
     defaultLocale: context.defaultLocale,
@@ -58,13 +63,13 @@ export async function getResourceFromContext(
   return resource
 }
 
-export async function getResourceByPath(
+export async function getResourceByPath<T extends JsonApiResource>(
   path: string,
   options?: {
     accessToken?: AccessToken
     deserialize?: boolean
   } & JsonApiWithLocaleOptions
-) {
+): Promise<T> {
   options = {
     deserialize: true,
     params: {},
@@ -152,14 +157,14 @@ export async function getResourceByPath(
   return options.deserialize ? deserialize(data) : data
 }
 
-export async function getResource(
+export async function getResource<T extends JsonApiResource>(
   type: string,
   uuid: string,
   options?: {
     accessToken?: AccessToken
     deserialize?: boolean
   } & JsonApiWithLocaleOptions
-) {
+): Promise<T> {
   options = {
     deserialize: true,
     params: {},

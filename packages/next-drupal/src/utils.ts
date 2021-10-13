@@ -1,5 +1,5 @@
-import Jsona from "jsona"
 import { GetStaticPropsContext } from "next"
+import Jsona from "jsona"
 import { getAccessToken } from "./get-access-token"
 import { AccessToken, Locale } from "./types"
 

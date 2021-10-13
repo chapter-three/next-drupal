@@ -1,5 +1,10 @@
 import { GetStaticPropsContext } from "next"
-import { AccessToken, JsonApiParams, JsonApiWithLocaleOptions } from "./types"
+import {
+  AccessToken,
+  JsonApiParams,
+  JsonApiWithLocaleOptions,
+  JsonApiObject,
+} from "./types"
 import {
   buildHeaders,
   buildUrl,
@@ -7,13 +12,13 @@ import {
   getJsonApiPathForResourceType,
 } from "./utils"
 
-export async function getResourceCollection(
+export async function getResourceCollection<T extends JsonApiObject[]>(
   type: string,
   options?: {
     deserialize?: boolean
     accessToken?: AccessToken
   } & JsonApiWithLocaleOptions
-) {
+): Promise<T> {
   const apiPath = await getJsonApiPathForResourceType(
     type,
     options?.locale !== options?.defaultLocale ? options.locale : undefined
@@ -40,14 +45,16 @@ export async function getResourceCollection(
   return options.deserialize ? deserialize(json) : json
 }
 
-export async function getResourceCollectionFromContext(
+export async function getResourceCollectionFromContext<
+  T extends JsonApiObject[]
+>(
   type: string,
   context: GetStaticPropsContext,
   options?: {
     deserialize?: boolean
     params?: JsonApiParams
   }
-) {
+): Promise<T> {
   options = {
     deserialize: true,
     ...options,
@@ -61,7 +68,7 @@ export async function getResourceCollectionFromContext(
   //   }
   // }
 
-  return await getResourceCollection(type, {
+  return await getResourceCollection<T>(type, {
     ...options,
     locale: context.locale,
     defaultLocale: context.defaultLocale,

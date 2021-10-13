@@ -64,3 +64,43 @@ export type AccessToken = {
   expires_in: number
   access_token: string
 }
+
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+export interface JsonApiResource extends Record<string, any> {
+  id: string
+  type: string
+  langcode: string
+  status: boolean
+}
+
+export interface DrupalNode extends JsonApiResource {
+  title: string
+  changed: string
+  created: string
+  drupal_internal__nid: number
+  drupal_internal__vid: number
+  default_langcode: boolean
+  path: {
+    alias: string
+    pid: number
+    langcode: string
+  }
+  sticky: boolean
+}
+
+export interface DrupalParagraph extends JsonApiResource {
+  drupal_internal__id: number
+  drupal_internal__revision_id: number
+}
+
+export interface DrupalBlock extends JsonApiResource {
+  info: string
+}
+
+export interface DrupalMedia extends JsonApiResource {
+  name: string
+  changed: string
+  created: string
+  drupal_internal__mid: string
+  drupal_internal__vid: string
+}

@@ -3,6 +3,7 @@
 namespace Drupal\next;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\next\Entity\NextEntityTypeConfigInterface;
@@ -76,5 +77,20 @@ class NextEntityTypeManager implements NextEntityTypeManagerInterface {
 
     return NULL;
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isEntityRevisionable(EntityInterface $entity): bool {
+    if (\Drupal::hasService('jsonapi.resource_type.repository')) {
+      /* @var \Drupal\jsonapi\ResourceType\ResourceTypeRepositoryInterface $resource_type_repository */
+      $resource_type_repository = \Drupal::service('jsonapi.resource_type.repository');
+      $resource = $resource_type_repository->get($entity->getEntityTypeId(), $entity->bundle());
+      return $resource->isVersionable() && $entity->getEntityType()->isRevisionable();
+    }
+
+    return $entity->getEntityType()->isRevisionable();
+  }
+
 
 }

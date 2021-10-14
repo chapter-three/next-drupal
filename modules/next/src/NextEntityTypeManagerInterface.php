@@ -3,6 +3,7 @@
 namespace Drupal\next;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\next\Entity\NextEntityTypeConfigInterface;
 
@@ -42,5 +43,15 @@ interface NextEntityTypeManagerInterface {
    *   An array of configured entity type ids.
    */
   public function getConfigEntityTypeIds();
+
+  /**
+   * Returns true if given entity is revisionable.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity.
+   * @return bool
+   *   TRUE is revisionable. FALSE otherwise.
+   */
+  public function isEntityRevisionable(EntityInterface $entity): bool;
 
 }

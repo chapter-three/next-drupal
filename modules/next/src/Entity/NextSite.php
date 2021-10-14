@@ -142,10 +142,9 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
     }
 
     // Handle revisionable entity types
-    /* @var \Drupal\jsonapi\ResourceType\ResourceTypeRepositoryInterface $resource_type_repository */
-    $resource_type_repository = \Drupal::service('jsonapi.resource_type.repository');
-    $resource = $resource_type_repository->get($entity->getEntityTypeId(), $entity->bundle());
-    if ($resource->isVersionable() && $entity->getEntityType()->isRevisionable()) {
+    /** @var \Drupal\next\NextEntityTypeManagerInterface $next_entity_type_manager */
+    $next_entity_type_manager = \Drupal::service('next.entity_type.manager');
+    if ($next_entity_type_manager->isEntityRevisionable($entity)) {
       $query['resourceVersion'] = $entity->isLatestRevision() ? "rel:latest-version" : "id:{$entity->getRevisionId()}";
     }
 

@@ -1,6 +1,6 @@
 {
   "name": "basic-starter",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "private": "true",
   "license": "MIT",
   "scripts": {
@@ -10,7 +10,7 @@
   "dependencies": {
     "@tailwindcss/typography": "^0.4.1",
     "next": "^11.1.2",
-    "next-drupal": "^0.16.1",
+    "next-drupal": "^0.16.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

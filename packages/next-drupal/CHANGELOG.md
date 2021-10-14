@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.2](https://github.com/chapter-three/next-drupal/compare/next-drupal@0.16.1...next-drupal@0.16.2) (2021-10-14)
+
+
+### Bug Fixes
+
+* **next-drupal:** handle nested params ([651d697](https://github.com/chapter-three/next-drupal/commit/651d6976f88d3f4097df1c41648412837262df4a))
+
+
+
+
+
 ## [0.16.1](https://github.com/chapter-three/next-drupal/compare/next-drupal@0.16.0...next-drupal@0.16.1) (2021-10-14)
 
 

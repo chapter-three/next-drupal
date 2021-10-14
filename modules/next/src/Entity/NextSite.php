@@ -141,7 +141,7 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
       $query['defaultLocale'] = \Drupal::languageManager()->getDefaultLanguage()->getId();
     }
 
-    // Handle revisionable entity types
+    // Handle revisionable entity types.
     /** @var \Drupal\next\NextEntityTypeManagerInterface $next_entity_type_manager */
     $next_entity_type_manager = \Drupal::service('next.entity_type.manager');
     if ($next_entity_type_manager->isEntityRevisionable($entity)) {

@@ -49,6 +49,7 @@ interface NextEntityTypeManagerInterface {
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity.
+   *
    * @return bool
    *   TRUE is revisionable. FALSE otherwise.
    */

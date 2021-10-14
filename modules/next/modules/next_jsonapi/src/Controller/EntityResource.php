@@ -18,6 +18,9 @@ use Drupal\jsonapi\ResourceType\ResourceTypeRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
 
+/**
+ * Process all entity requests.
+ */
 class EntityResource extends JsonApiEntityResource {
 
   /**

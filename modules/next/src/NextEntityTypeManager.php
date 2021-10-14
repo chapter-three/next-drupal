@@ -92,5 +92,4 @@ class NextEntityTypeManager implements NextEntityTypeManagerInterface {
     return $entity->getEntityType()->isRevisionable();
   }
 
-
 }

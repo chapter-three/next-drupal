@@ -5,6 +5,9 @@ namespace Drupal\next_extras\Plugin\Field\FieldType;
 use Drupal\Core\Field\FieldItemList;
 use Drupal\Core\TypedData\ComputedItemListTrait;
 
+/**
+ * Class ContentTranslationsFieldItemList
+ */
 class ContentTranslationsFieldItemList extends FieldItemList {
 
   use ComputedItemListTrait;

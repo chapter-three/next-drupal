@@ -33,7 +33,7 @@ export async function PreviewHandler(
   }
 
   let _options: GetResourcePreviewUrlOptions = {
-    isRevisionable: typeof resourceVersion !== "undefined",
+    isVersionable: typeof resourceVersion !== "undefined",
   }
   if (locale && defaultLocale) {
     _options = {
@@ -61,7 +61,7 @@ export async function PreviewHandler(
 }
 
 type GetResourcePreviewUrlOptions = JsonApiWithLocaleOptions & {
-  isRevisionable?: boolean
+  isVersionable?: boolean
 }
 
 export async function getResourcePreviewUrl(

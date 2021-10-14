@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.1](https://github.com/chapter-three/next-drupal/compare/next-drupal@0.16.0...next-drupal@0.16.1) (2021-10-14)
+
+
+### Bug Fixes
+
+* **next-drupal:** add types for collection ([d88d61c](https://github.com/chapter-three/next-drupal/commit/d88d61c6fec731971c8ba6f130f6283aae6aec2a))
+
+
+
+
+
 # [0.16.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@0.15.0...next-drupal@0.16.0) (2021-10-13)
 
 

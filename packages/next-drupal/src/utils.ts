@@ -2,6 +2,7 @@ import { GetStaticPropsContext } from "next"
 import Jsona from "jsona"
 import { getAccessToken } from "./get-access-token"
 import { AccessToken, Locale } from "./types"
+import { stringify } from "qs"
 
 const JSONAPI_PREFIX = process.env.DRUPAL_JSONAPI_PREFIX || "/jsonapi"
 
@@ -60,7 +61,8 @@ export function buildUrl(
   )
 
   if (params) {
-    url.search = new URLSearchParams(params).toString()
+    // Use instead URLSearchParams for nested params.
+    url.search = stringify(params)
   }
 
   return url

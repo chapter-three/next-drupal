@@ -12,7 +12,7 @@ import {
   getJsonApiPathForResourceType,
 } from "./utils"
 
-export async function getResourceCollection<T extends JsonApiResource[]>(
+export async function getResourceCollection<T = JsonApiResource[]>(
   type: string,
   options?: {
     deserialize?: boolean
@@ -50,9 +50,7 @@ export async function getResourceCollection<T extends JsonApiResource[]>(
   return options.deserialize ? deserialize(json) : json
 }
 
-export async function getResourceCollectionFromContext<
-  T extends JsonApiResource[]
->(
+export async function getResourceCollectionFromContext<T = JsonApiResource[]>(
   type: string,
   context: GetStaticPropsContext,
   options?: {

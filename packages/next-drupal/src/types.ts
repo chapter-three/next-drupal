@@ -17,6 +17,22 @@ export type JsonApiWithLocaleOptions = {
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export type JsonApiParams = Record<string, any>
 
+// TODO: any...ugh.
+export interface JsonApiResponse extends Record<string, any> {
+  jsonapi?: {
+    version: string
+    meta: Record<string, any>[]
+  }
+  data: Record<string, any>[]
+  errors: Record<string, any>[]
+  meta: {
+    count: number
+    [key: string]: any
+  }
+  links?: Record<string, any>[]
+  included?: Record<string, any>[]
+}
+
 export interface DrupalTranslatedPath {
   resolved: string
   isHomePath: boolean

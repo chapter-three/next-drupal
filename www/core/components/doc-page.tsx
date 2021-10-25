@@ -66,7 +66,7 @@ export function DocPage({ doc, toc, components }: DocPageProps) {
               <h2 variant="heading.h6" mb="2">
                 Sponsors
               </h2>
-              <div bg="#2ebdbf" p="4" textAlign="center" borderRadius="md">
+              <div bg="muted" p="4" textAlign="center" borderRadius="md">
                 Development sponsored by{" "}
                 <a
                   href="https://chapterthree.com"

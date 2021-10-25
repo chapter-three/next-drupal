@@ -4,7 +4,7 @@ export const site: SiteConfig = {
   name: "Next.js for Drupal",
   description:
     "Next.js + Drupal for Incremental Static Regeneration and Preview mode.",
-  copyright: `© ${new Date().getFullYear()} Next.js for Drupal - Development sponsored by <a href="https://chapterthree.com" target="_blank">Chapter Three</a>.`,
+  copyright: `© ${new Date().getFullYear()} Next.js for Drupal`,
   links: [
     {
       title: "Docs",
@@ -22,6 +22,11 @@ export const site: SiteConfig = {
     {
       title: "Drupal",
       url: "https://drupal.org/project/next",
+      external: true,
+    },
+    {
+      title: "Slack",
+      url: "https://drupal.slack.com/archives/C01E36BMU72",
       external: true,
     },
   ],

@@ -56,13 +56,29 @@ export function DocPage({ doc, toc, components }: DocPageProps) {
               overflow="scroll"
             >
               {toc.items?.length && (
-                <>
+                <div mb="10">
                   <h2 variant="heading.h6" mb="2">
                     On this page
                   </h2>
                   <Toc tree={toc} />
-                </>
+                </div>
               )}
+              <h2 variant="heading.h6" mb="2">
+                Sponsors
+              </h2>
+              <div bg="#2ebdbf" p="4" textAlign="center" borderRadius="md">
+                Development sponsored by{" "}
+                <a
+                  href="https://chapterthree.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  textTransform="uppercase"
+                  color="#111"
+                  fontWeight="bold"
+                >
+                  Chapter Three
+                </a>
+              </div>
             </aside>
           </div>
         </div>

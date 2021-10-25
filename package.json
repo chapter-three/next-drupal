@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "test": "jest",
-    "dev": "lerna run dev --parallel",
+    "dev": "lerna run --parallel --ignore www --ignore basic-starter dev",
     "prepare": "lerna run prepare",
     "watch": "lerna run watch",
     "lint": "eslint --cache --ext .js,.jsx .",

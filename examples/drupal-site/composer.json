@@ -17,12 +17,13 @@
   ],
   "require": {
     "php": ">=7.0.8",
-    "composer/installers": "^1.2",
+    "composer/installers": "^1.7",
     "cweagans/composer-patches": "^1.6.5",
     "drupal/admin_toolbar": "^3.0",
     "drupal/console": "^1.0.2",
-    "drupal/core": "^8.8.0",
-    "drupal/core-composer-scaffold": "^8.8.0",
+    "drupal/core-composer-scaffold": "^9",
+    "drupal/core-project-message": "^9",
+    "drupal/core-recommended": "^9",
     "drupal/ctools": "^3.6",
     "drupal/decoupled_router": "2.x-dev@dev",
     "drupal/default_content": "^2.0@alpha",
@@ -32,7 +33,7 @@
     "drupal/jsonapi_extras": "^3.17",
     "drupal/jsonapi_menu_items": "^1.2",
     "drupal/jsonapi_schema": "^1.0@beta",
-    "drupal/jsonapi_views": "^1.0@beta",
+    "drupal/jsonapi_views": "^1.0",
     "drupal/next": "1.0.x-dev",
     "drupal/paragraphs": "^1.12",
     "drupal/pathauto": "^1.8",
@@ -44,7 +45,7 @@
     "zaporylie/composer-drupal-optimizations": "^1.0"
   },
   "require-dev": {
-    "drupal/core-dev": "^8.8.0"
+    "drupal/core-dev": "^9"
   },
   "conflict": {
     "drupal/drupal": "*"
@@ -107,9 +108,6 @@
       ]
     },
     "patches": {
-      "drupal/subrequests": {
-        "Subrequest failed validation": "https://www.drupal.org/files/issues/2019-05-27/3029570-array-not-object.patch"
-      },
       "drupal/decoupled_router": {
         "Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2021-05-05/3111456-34.patch"
       }

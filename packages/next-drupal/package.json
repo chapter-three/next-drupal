@@ -13,7 +13,7 @@
   },
   "scripts": {
     "prepare": "microbundle --no-compress --jsx React.createElement",
-    "watch": "microbundle watch --no-compress --jsx React.createElement",
+    "dev": "microbundle watch --no-compress --jsx React.createElement",
     "test": "jest"
   },
   "keywords": [

@@ -10,7 +10,7 @@
 
 ## Demo
 
-- https://next-example-marketing.vercel.app
+- https://demo.next-drupal.org
 - http://cms-drupal.vercel.app
 
 ## Documentation
@@ -22,13 +22,17 @@ https://next-drupal.org/docs
 A page with all "Article" nodes.
 
 ```tsx
-import { getResourceCollectionFromContext } from "next-drupal"
+import { getResourceCollectionFromContext, DrupalNode } from "next-drupal"
 
-export default function IndexPage({ articles }) {
+interface BlogPageProps {
+  nodes: DrupalNode[]
+}
+
+export default function BlogPage({ nodes }: BlogPageProps) {
   return (
     <div>
-      {articles?.length ? (
-        articles.map((node) => (
+      {nodes?.length ? (
+        nodes.map((node) => (
           <div key={node.id}>
             <h1>{node.title}</h1>
           </div>
@@ -38,10 +42,13 @@ export default function IndexPage({ articles }) {
   )
 }
 
-export async function getStaticProps(context) {
+export async function getStaticProps(
+  context
+): Promise<GetStaticPropsResult<BlogPageProps>> {
+  const type = await getResourceTypeFromContext(context)
   return {
     props: {
-      articles: await getResourceCollectionFromContext("node--article", context)
+      nodes: await getResourceCollectionFromContext("node--article", context)
       revalidate: 60,
     },
   }

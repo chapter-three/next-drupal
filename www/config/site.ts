@@ -1,4 +1,4 @@
-import { SiteConfig } from "@/core/types"
+import { SiteConfig } from "types"
 
 export const site: SiteConfig = {
   name: "Next.js for Drupal",

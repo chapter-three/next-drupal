@@ -11,9 +11,14 @@ A page that list all published articles sorted by created date.
 import {
   getPathsFromContext,
   getResourceCollectionFromContext,
+  DrupalNode,
 } from "next-drupal"
 
-export default function BlogPage({ nodes }) {
+interface BlogPageProps {
+  nodes: DrupalNode[]
+}
+
+export default function BlogPage({ nodes }: BlogPageProps) {
   return nodes?.length ? (
     <div key={node.id}>
       <h2>{node.title}</h2>
@@ -21,8 +26,10 @@ export default function BlogPage({ nodes }) {
   ) : null
 }
 
-export async function getStaticProps(context) {
-  const nodes = await getResourceCollectionFromContext(
+export async function getStaticProps(
+  context
+): Promise<GetStaticPropsResult<BlogPageProps>> {
+  const nodes = await getResourceCollectionFromContext<DrupalNode[]>(
     "node--article",
     context,
     {
@@ -47,9 +54,17 @@ export async function getStaticProps(context) {
 A page for every article nodes.
 
 ```tsx title=pages/[...slug].tsx
-import { getPathsFromContext, getResourceFromContext } from "next-drupal"
+import {
+  getPathsFromContext,
+  getResourceFromContext,
+  DrupalNode,
+} from "next-drupal"
 
-export default function ArticleNodePage({ node }) {
+interface ArticleNodePageProps {
+  node: DrupalNode
+}
+
+export default function ArticleNodePage({ node }: ArticleNodePageProps) {
   return node ? (
     <div>
       <h1>{node.title}</h1>
@@ -57,15 +72,15 @@ export default function ArticleNodePage({ node }) {
   ) : null
 }
 
-export async function getStaticPaths(context) {
+export async function getStaticPaths(context): Promise<GetStaticPathsResult>  {
   return {
     paths: await getPathsFromContext("node--article", context),
     fallback: true,
   }
 }
 
-export async function getStaticProps(context) {
-  const node = await getResourceFromContext("node--article", context)
+export async function getStaticProps(context): Promise<GetStaticPropsResult<ArticleNodePageProps>> { {
+  const node = await getResourceFromContext<DrupalNode>("node--article", context)
 
   return {
     props: {

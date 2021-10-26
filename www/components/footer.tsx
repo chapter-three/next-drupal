@@ -1,4 +1,4 @@
-import { site } from "@/config/site"
+import { site } from "config/site"
 
 export function Footer({ ...props }) {
   return (

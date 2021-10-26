@@ -106,15 +106,15 @@ export function SidebarNavItem({ items, onLinkClick }: SidebarNavProps) {
 
 export function SidebarNav({ items, onLinkClick }: SidebarNavProps) {
   return items.length ? (
-    <div>
+    <div pb="100">
       {items.map((item, index) => (
         <div key={index}>
           <h4
-            fontSize="lg"
+            fontSize="sm"
+            textTransform="uppercase"
             fontWeight="semibold"
             mb="4"
             mt={index !== 0 && 6}
-            borderTopWidth={index !== 0 && 1}
             pt={index !== 0 && 4}
           >
             {item.title}

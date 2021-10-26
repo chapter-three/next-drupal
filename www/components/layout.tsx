@@ -1,10 +1,9 @@
 import { NextSeo } from "next-seo"
 import { useRouter } from "next/router"
 
-import { Navbar } from "@/core/components/navbar"
-import { Footer } from "@/core/components/footer"
-
-import { site } from "@/config/site"
+import { Navbar } from "components/navbar"
+import { Footer } from "components/footer"
+import { site } from "config/site"
 
 interface LayoutProps {
   title: string

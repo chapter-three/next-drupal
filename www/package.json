@@ -6,14 +6,15 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 4444",
     "build": "next build",
-    "preview": "next build && next start"
+    "preview": "next build && next start -p 4444"
   },
   "dependencies": {
     "@reach/accordion": "^0.14.0",
     "@reflexjs/mdx": "^1.0.0-alpha.5",
     "framer-motion": "^4.1.2",
+    "mdx-embed": "^0.0.22",
     "next": "^11.0.0",
     "next-mdx": "^0.6.0",
     "next-mdx-toc": "^0.1.1",

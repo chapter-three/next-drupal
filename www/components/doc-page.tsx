@@ -1,13 +1,12 @@
 import { TableOfContents } from "next-mdx-toc"
 import { useHydrate } from "next-mdx/client"
 
-import { Doc, MdxComponents } from "@/core/types"
-import { Layout } from "@/core/components/layout"
-import { SidebarNav } from "@/core/components/sidebar-nav"
-import { Pager } from "@/core/components/pager"
-import { Toc } from "@/core/components/toc"
-
-import { docs } from "@/config/docs"
+import { Doc, MdxComponents } from "types"
+import { Layout } from "components/layout"
+import { SidebarNav } from "components/sidebar-nav"
+import { Pager } from "components/pager"
+import { Toc } from "components/toc"
+import { docs } from "config/docs"
 
 export interface DocPageProps {
   doc: Doc
@@ -23,7 +22,7 @@ export function DocPage({ doc, toc, components }: DocPageProps) {
   return (
     <Layout title={doc.frontMatter.title} description={doc.frontMatter.excerpt}>
       <div variant="container">
-        <div display="grid" col="1|||270px 1fr" gap="null|6|6|16">
+        <div display="grid" col="1|||300px 1fr" gap="null|6|6|16">
           <aside
             display="none|none|none|block"
             position="static|sticky"
@@ -31,7 +30,6 @@ export function DocPage({ doc, toc, components }: DocPageProps) {
             h={(theme) => `calc(100vh - ${theme.space[14]})`}
             overflow="scroll"
             py="6|12"
-            borderRightWidth="0|1"
           >
             <SidebarNav items={docs.links} />
           </aside>

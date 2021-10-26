@@ -4,11 +4,11 @@ import { useRouter } from "next/router"
 import { Icon, useColorMode, VisuallyHidden } from "reflexjs"
 import { AnimatePresence, motion } from "framer-motion"
 
-import { DocSearch } from "@/core/components/doc-search"
-import { SidebarNav } from "@/core/components/sidebar-nav"
+import { DocSearch } from "components/doc-search"
+import { SidebarNav } from "components/sidebar-nav"
 
-import { docs } from "@/config/docs"
-import { site } from "@/config/site"
+import { docs } from "config/docs"
+import { site } from "config/site"
 
 export function Navbar() {
   const [showMenu, setShowMenu] = React.useState(false)

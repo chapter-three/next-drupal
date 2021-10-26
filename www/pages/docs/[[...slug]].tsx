@@ -1,9 +1,9 @@
 import { getMdxNode, getMdxPaths } from "next-mdx/server"
 import { getTableOfContents, TableOfContents } from "next-mdx-toc"
 
-import { Doc } from "@/core/types"
-import { DocPage } from "@/core/components/doc-page"
-import { mdxComponents } from "@/core/components/mdx-components"
+import { Doc } from "types"
+import { DocPage } from "components/doc-page"
+import { mdxComponents } from "components/mdx-components"
 
 export interface DocsPageProps {
   doc: Doc

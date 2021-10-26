@@ -1,12 +1,14 @@
 import Link from "next/link"
 import Image from "next/image"
 import { components } from "@reflexjs/mdx"
+import { Tweet } from "mdx-embed"
 
-import { Callout } from "@/core/components/callout"
+import { Callout } from "components/callout"
 
 export const mdxComponents = {
   ...components,
   Callout,
+  Tweet,
   Link,
   Img: ({ src, width, height, layout, alt, children, ...props }) => (
     <figure {...props}>

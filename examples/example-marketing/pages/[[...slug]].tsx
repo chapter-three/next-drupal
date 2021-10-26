@@ -3,10 +3,12 @@ import {
   GetStaticPathsContext,
   GetStaticPathsResult,
   GetStaticPropsContext,
+  GetStaticPropsResult,
 } from "next"
 import Head from "next/head"
 import { useRouter } from "next/router"
 import {
+  DrupalNode,
   getPathsFromContext,
   getResourceFromContext,
   getResourceTypeFromContext,
@@ -18,13 +20,12 @@ import { NodeArticle } from "@/nodes/node-article"
 import { NodeLandingPage } from "@/nodes/node-landing-page"
 import { NodeBasicPage } from "@/nodes/node-basic-page"
 
-/* eslint-disable  @typescript-eslint/no-explicit-any */
-interface PageProps {
+interface NodePageProps {
   preview: GetStaticPropsContext["preview"]
-  node: Record<string, any>
+  node: DrupalNode
 }
 
-export default function NodePage({ node, preview }: PageProps) {
+export default function NodePage({ node, preview }: NodePageProps) {
   const router = useRouter()
   const [showPreviewAlert, setShowPreviewAlert] = React.useState<boolean>(false)
 
@@ -103,7 +104,9 @@ export async function getStaticPaths(
   }
 }
 
-export async function getStaticProps(context) {
+export async function getStaticProps(
+  context
+): Promise<GetStaticPropsResult<NodePageProps>> {
   const type = await getResourceTypeFromContext(context)
 
   if (!type) {
@@ -127,7 +130,7 @@ export async function getStaticProps(context) {
     apiParams.addInclude(["field_image", "uid"])
   }
 
-  const node = await getResourceFromContext(type, context, {
+  const node = await getResourceFromContext<DrupalNode>(type, context, {
     params: apiParams.getQueryObject(),
   })
 

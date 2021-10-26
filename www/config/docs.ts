@@ -1,4 +1,4 @@
-import { DocsConfig } from "@/core/types"
+import { DocsConfig } from "types"
 
 export const docs: DocsConfig = {
   links: [
@@ -25,6 +25,27 @@ export const docs: DocsConfig = {
         {
           title: "Node page",
           url: "/docs/examples#node-page",
+        },
+      ],
+    },
+    {
+      title: "Guides",
+      items: [
+        {
+          title: "TypeScript",
+          url: "/docs/guides/typescript",
+        },
+        {
+          title: "Inline Images",
+          url: "/docs/guides/inline-images",
+        },
+        {
+          title: "Route Syncing",
+          url: "/docs/guides/route-syncing",
+        },
+        {
+          title: "Tips",
+          url: "/docs/guides/tips",
         },
       ],
     },
@@ -72,19 +93,6 @@ export const docs: DocsConfig = {
         {
           title: "useMenu",
           url: "/docs/hooks#useMenu",
-        },
-      ],
-    },
-    {
-      title: "Guides",
-      items: [
-        {
-          title: "Inline Images",
-          url: "/docs/guides/inline-images",
-        },
-        {
-          title: "Route Syncing",
-          url: "/docs/guides/route-syncing",
         },
       ],
     },

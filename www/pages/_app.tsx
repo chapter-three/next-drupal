@@ -1,8 +1,8 @@
-import { site } from "@/config/site"
+import { site } from "config/site"
 import { DefaultSeo } from "next-seo"
 import { ThemeProvider } from "reflexjs"
 
-import theme from "@/config/theme"
+import theme from "config/theme"
 
 export default function App({ Component, pageProps }) {
   return (

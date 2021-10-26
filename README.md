@@ -31,13 +31,13 @@ interface BlogPageProps {
 export default function BlogPage({ nodes }: BlogPageProps) {
   return (
     <div>
-      {nodes?.length ? (
-        nodes.map((node) => (
-          <div key={node.id}>
-            <h1>{node.title}</h1>
-          </div>
-        ))
-      ) : null}
+      {nodes?.length
+        ? nodes.map((node) => (
+            <div key={node.id}>
+              <h1>{node.title}</h1>
+            </div>
+          ))
+        : null}
     </div>
   )
 }
@@ -45,10 +45,14 @@ export default function BlogPage({ nodes }: BlogPageProps) {
 export async function getStaticProps(
   context
 ): Promise<GetStaticPropsResult<BlogPageProps>> {
-  const type = await getResourceTypeFromContext(context)
+  const nodes = await getResourceCollectionFromContext<DrupalNode[]>(
+    "node--article",
+    context
+  )
+
   return {
     props: {
-      nodes: await getResourceCollectionFromContext("node--article", context)
+      nodes,
       revalidate: 60,
     },
   }

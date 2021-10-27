@@ -72,7 +72,9 @@ class EntityResource extends JsonApiEntityResource {
       return $params;
     }
 
-    // Increase the max size if only path is requested.
+    // Increase the max size if path is requested as the first field.
+    // We do this to overcome the max size limit when building paths for
+    // getStaticPaths.
     // SPEC: https://jsonapi.org/format/#fetching-sparse-fieldsets
     $sparse_fieldset = array_map(function ($item) {
       return explode(',', $item);
@@ -82,7 +84,7 @@ class EntityResource extends JsonApiEntityResource {
       return $params;
     }
 
-    if (in_array("path", $sparse_fieldset[$resource_type->getTypeName()])) {
+    if ($sparse_fieldset[$resource_type->getTypeName()][0] === 'path') {
       $params[OffsetPage::KEY_NAME] = new OffsetPage(OffsetPage::DEFAULT_OFFSET, $this->maxSize);
     }
     return $params;

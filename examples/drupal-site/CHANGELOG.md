@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/chapter-three/next-drupal/compare/drupal-site@0.7.0-alpha.0...drupal-site@0.7.0) (2021-11-01)
+
+**Note:** Version bump only for package drupal-site
+
+
+
+
+
 # [0.7.0-alpha.0](https://github.com/chapter-three/next-drupal/compare/drupal-site@0.6.4...drupal-site@0.7.0-alpha.0) (2021-11-01)
 
 

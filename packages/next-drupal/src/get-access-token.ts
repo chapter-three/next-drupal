@@ -1,8 +1,16 @@
+import { cache } from "./get-cache"
 import { AccessToken } from "./types"
+
+const CACHE_KEY = "NEXT_DRUPAL_ACCESS_TOKEN"
 
 export async function getAccessToken(): Promise<AccessToken> {
   if (!process.env.DRUPAL_CLIENT_ID || !process.env.DRUPAL_CLIENT_SECRET) {
     return null
+  }
+
+  const cached = cache.get<AccessToken>(CACHE_KEY)
+  if (cached?.access_token) {
+    return cached
   }
 
   const basic = Buffer.from(
@@ -25,5 +33,9 @@ export async function getAccessToken(): Promise<AccessToken> {
     throw new Error(response.statusText)
   }
 
-  return await response.json()
+  const result: AccessToken = await response.json()
+
+  cache.set(CACHE_KEY, result, result.expires_in)
+
+  return result
 }

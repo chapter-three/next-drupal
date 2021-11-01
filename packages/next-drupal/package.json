@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "jsona": "^1.8.0",
+    "node-cache": "^5.1.2",
     "qs": "^6.10.1"
   }
 }

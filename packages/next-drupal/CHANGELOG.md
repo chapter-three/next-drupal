@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.17.0-alpha.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@0.16.2...next-drupal@0.17.0-alpha.0) (2021-11-01)
+
+
+### Bug Fixes
+
+* **drupal-site:** upgrade to Drupal 9 ([bc59377](https://github.com/chapter-three/next-drupal/commit/bc593771779d59947ad764d56e35c5fcb82af616))
+
+
+### Features
+
+* **next-drupal:** cache access_token ([395f53d](https://github.com/chapter-three/next-drupal/commit/395f53dea4ef401bffe872038ee43457d2862385))
+
+
+
+
+
 ## [0.16.2](https://github.com/chapter-three/next-drupal/compare/next-drupal@0.16.1...next-drupal@0.16.2) (2021-10-14)
 
 

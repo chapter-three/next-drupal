@@ -2,7 +2,7 @@
   "name": "www",
   "description": "The next-drupal website.",
   "private": "true",
-  "version": "0.2.3",
+  "version": "0.3.0-alpha.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {

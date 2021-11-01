@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0-alpha.0](https://github.com/chapter-three/next-drupal/compare/www@0.2.3...www@0.3.0-alpha.0) (2021-11-01)
+
+**Note:** Version bump only for package www
+
+
+
+
+
 ## [0.2.3](https://github.com/chapter-three/next-drupal/compare/www@0.2.2...www@0.2.3) (2021-10-13)
 
 

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0-alpha.0](https://github.com/chapter-three/next-drupal/compare/example-no-preview@0.2.16...example-no-preview@0.3.0-alpha.0) (2021-11-01)
+
+**Note:** Version bump only for package example-no-preview
+
+
+
+
+
 ## [0.2.16](https://github.com/chapter-three/next-drupal/compare/example-no-preview@0.2.15...example-no-preview@0.2.16) (2021-10-14)
 
 **Note:** Version bump only for package example-no-preview

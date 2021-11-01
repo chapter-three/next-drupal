@@ -1,0 +1,39 @@
+---
+title: JSON:API Params
+excerpt: How to use Drupal JSON-API Params to query and filter resources.
+---
+
+next-drupal has support for [Drupal JSON:API Params](https://github.com/d34dman/drupal-jsonapi-params), a helper for building query params. You use query params for filtering, sorting and paginating resources returned by JSON:API.
+
+## Installation
+
+`yarn add drupal-jsonapi-params`
+
+## Usage
+
+```tsx
+import { DrupalNode, getResourceCollectionFromContext } from "next-drupal"
+import { DrupalJsonApiParams } from "drupal-jsonapi-params"
+
+export async function getStaticProps(context) {
+  // highlight-start
+  const params = new DrupalJsonApiParams()
+
+  params
+    .addFields("node--blog_post", ["title", "path", "body", "uid"])
+    .addFilter("status", "1")
+    .addInclude(["uid.user_picture"])
+    .addSort("created", "DESC")
+  // highlight-end
+
+  const articles = await getResourceCollectionFromContext<DrupalNode[]>(
+    "node--blog_post",
+    context,
+    {
+      params: params.getQueryObject(), // highlight-line
+    }
+  )
+}
+```
+
+You can read more about Drupal JSON:API Params [here](https://github.com/d34dman/drupal-jsonapi-params).

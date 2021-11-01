@@ -32,6 +32,10 @@ export const docs: DocsConfig = {
       title: "Guides",
       items: [
         {
+          title: "Query Params",
+          url: "/docs/guides/jsonapi-params",
+        },
+        {
           title: "TypeScript",
           url: "/docs/guides/typescript",
         },

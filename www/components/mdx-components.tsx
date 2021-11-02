@@ -7,6 +7,7 @@ import { Callout } from "components/callout"
 
 export const mdxComponents = {
   ...components,
+  hr: (props) => <hr my="14" {...props} />,
   Callout,
   Tweet,
   Link,

@@ -16,15 +16,27 @@ export const docs: DocsConfig = {
       ],
     },
     {
-      title: "Examples",
+      title: "Data Fetching",
       items: [
         {
-          title: "List of nodes",
-          url: "/docs/examples#list-of-nodes",
+          title: "Basic Example",
+          url: "/docs/data-fetching",
         },
         {
-          title: "Node page",
-          url: "/docs/examples#node-page",
+          title: "Dynamic Pages",
+          url: "/docs/data-fetching#dynamic-pages",
+        },
+        {
+          title: "Advanced Example",
+          url: "/docs/data-fetching#advanced-example",
+        },
+        {
+          title: "Menus",
+          url: "/docs/data-fetching/menus",
+        },
+        {
+          title: "Blocks",
+          url: "/docs/data-fetching/blocks",
         },
       ],
     },
@@ -44,12 +56,25 @@ export const docs: DocsConfig = {
           url: "/docs/guides/inline-images",
         },
         {
+          title: "Links",
+          url: "/docs/guides/links",
+        },
+        {
           title: "Route Syncing",
           url: "/docs/guides/route-syncing",
         },
+      ],
+    },
+    {
+      title: "Examples",
+      items: [
         {
-          title: "Tips",
-          url: "/docs/guides/tips",
+          title: "List of nodes",
+          url: "/docs/examples#list-of-nodes",
+        },
+        {
+          title: "Node page",
+          url: "/docs/examples#node-page",
         },
       ],
     },

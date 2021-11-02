@@ -72,15 +72,20 @@ export default function ArticleNodePage({ node }: ArticleNodePageProps) {
   ) : null
 }
 
-export async function getStaticPaths(context): Promise<GetStaticPathsResult>  {
+export async function getStaticPaths(context): Promise<GetStaticPathsResult> {
   return {
     paths: await getPathsFromContext("node--article", context),
     fallback: true,
   }
 }
 
-export async function getStaticProps(context): Promise<GetStaticPropsResult<ArticleNodePageProps>> { {
-  const node = await getResourceFromContext<DrupalNode>("node--article", context)
+export async function getStaticProps(
+  context
+): Promise<GetStaticPropsResult<ArticleNodePageProps>> {
+  const node = await getResourceFromContext<DrupalNode>(
+    "node--article",
+    context
+  )
 
   return {
     props: {

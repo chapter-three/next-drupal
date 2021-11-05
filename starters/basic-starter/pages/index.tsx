@@ -1,8 +1,13 @@
 import Head from "next/head"
-import { getResourceCollectionFromContext } from "next-drupal"
-import { NodeArticleTeaser } from "@/components/nodes/node-article"
+import { DrupalNode, getResourceCollectionFromContext } from "next-drupal"
+import { NodeArticleTeaser } from "@/components/node-article"
+import { GetStaticPropsResult } from "next"
 
-export default function IndexPage({ articles }) {
+interface IndexPageProps {
+  nodes: DrupalNode[]
+}
+
+export default function IndexPage({ nodes }: IndexPageProps) {
   return (
     <>
       <Head>
@@ -15,23 +20,25 @@ export default function IndexPage({ articles }) {
       <div>
         <h1 className="text-6xl font-black mb-10">Latest Articles.</h1>
 
-        {articles?.length ? (
-          articles.map((node) => (
+        {nodes?.length ? (
+          nodes.map((node) => (
             <div key={node.id}>
               <NodeArticleTeaser node={node} />
               <hr className="my-20" />
             </div>
           ))
         ) : (
-          <p className="py-4">No articles found</p>
+          <p className="py-4">No nodes found</p>
         )}
       </div>
     </>
   )
 }
 
-export async function getStaticProps(context) {
-  const articles = await getResourceCollectionFromContext(
+export async function getStaticProps(
+  context
+): Promise<GetStaticPropsResult<IndexPageProps>> {
+  const nodes = await getResourceCollectionFromContext<DrupalNode[]>(
     "node--article",
     context,
     {
@@ -44,8 +51,8 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      articles,
+      nodes,
     },
-    revalidate: 60,
+    revalidate: 10,
   }
 }

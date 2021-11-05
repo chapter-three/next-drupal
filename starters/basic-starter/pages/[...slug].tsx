@@ -1,18 +1,22 @@
 import * as React from "react"
 import Head from "next/head"
 import {
+  DrupalNode,
   getPathsFromContext,
   getResourceFromContext,
   getResourceTypeFromContext,
 } from "next-drupal"
-import { GetStaticPropsContext } from "next"
-import { NodeArticle } from "@/nodes/node-article"
-import { NodeBasicPage } from "@/components/nodes/node-basic-page"
+import {
+  GetStaticPathsResult,
+  GetStaticPropsContext,
+  GetStaticPropsResult,
+} from "next"
+import { NodeArticle } from "@/components/node-article"
+import { NodeBasicPage } from "@/components/node-basic-page"
 
-/* eslint-disable  @typescript-eslint/no-explicit-any */
 interface NodePageProps {
   preview: GetStaticPropsContext["preview"]
-  node: Record<string, any>
+  node: DrupalNode
 }
 
 export default function NodePage({ node, preview }: NodePageProps) {
@@ -49,14 +53,16 @@ export default function NodePage({ node, preview }: NodePageProps) {
   )
 }
 
-export async function getStaticPaths(context) {
+export async function getStaticPaths(context): Promise<GetStaticPathsResult> {
   return {
     paths: await getPathsFromContext(["node--article", "node--page"], context),
-    fallback: true,
+    fallback: "blocking",
   }
 }
 
-export async function getStaticProps(context) {
+export async function getStaticProps(
+  context
+): Promise<GetStaticPropsResult<NodePageProps>> {
   const type = await getResourceTypeFromContext(context)
 
   if (!type) {
@@ -72,7 +78,7 @@ export async function getStaticProps(context) {
     }
   }
 
-  const node = await getResourceFromContext(type, context, {
+  const node = await getResourceFromContext<DrupalNode>(type, context, {
     params,
   })
 
@@ -87,6 +93,6 @@ export async function getStaticProps(context) {
       preview: context.preview || false,
       node,
     },
-    revalidate: 60,
+    revalidate: 10,
   }
 }

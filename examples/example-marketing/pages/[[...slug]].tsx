@@ -135,7 +135,7 @@ export async function getStaticProps(
   })
 
   if (
-    ("status" in node && !node?.status) ||
+    !node?.status ||
     (node.field_site &&
       !node.field_site?.some(({ id }) => id === process.env.DRUPAL_SITE_ID))
   ) {

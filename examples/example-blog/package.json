@@ -10,6 +10,7 @@
     "preview": "next build && next start -p 3030"
   },
   "dependencies": {
+    "drupal-jsonapi-params": "^1.2.2",
     "next": "^11.0.0",
     "next-drupal": "^0.17.0",
     "react": "^17.0.2",

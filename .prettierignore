@@ -11,4 +11,4 @@ packages/codemod/**/*.js
 packages/codemod/**/*.d.ts
 dist
 .next
-examples/drupal-site
+drupal

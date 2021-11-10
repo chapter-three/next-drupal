@@ -9601,9 +9601,9 @@ json5@^2.1.2:
     minimist "^1.2.5"
 
 jsona@^1.8.0:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/jsona/-/jsona-1.8.0.tgz#3e4cdd7da5d5de7c329bd17d8f0616729486a6e2"
-  integrity sha512-/FFPxLf6b9D3eVr/gAbYaIHKEwsyTUxElYqJ0+3/Q+Sc7t+ObHQ6NvD7sP4ecQlvEBbbS7W19ibMmxBSdldXnw==
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/jsona/-/jsona-1.9.3.tgz#c1bbfed12a43e737a12d9671a91a1d3eeda873a0"
+  integrity sha512-JZLP0BZzOfEdNrOfgMxN0TxPpH8U7f7qU9LwGKooWDEOP+d8OA+ZbL89vY4qy2ixxtCjk4hM3p0IndIZkxN0sw==
 
 jsonfile@^4.0.0:
   version "4.0.0"

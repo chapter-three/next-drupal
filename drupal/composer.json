@@ -13,10 +13,14 @@
     {
       "type": "composer",
       "url": "https://packages.drupal.org/8"
+    },
+    {
+      "type": "path",
+      "url": "upstream-configuration"
     }
   ],
   "require": {
-    "php": ">=7.0.8",
+    "pantheon-upstreams/upstream-configuration": "*",
     "composer/installers": "^1.7",
     "cweagans/composer-patches": "^1.6.5",
     "drupal/admin_toolbar": "^3.0",
@@ -53,7 +57,11 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "config": {
-    "sort-packages": true
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "platform": {
+        "php": "7.4"
+    }
   },
   "autoload": {
     "classmap": [
@@ -83,8 +91,16 @@
       "drupal/core": "-p2"
     },
     "drupal-scaffold": {
+      "allowed-packages": [
+        "pantheon-systems/drupal-integrations"
+      ],
       "locations": {
-        "web-root": "web/"
+          "web-root": "./web"
+      },
+      "file-mapping": {
+          "[project-root]/.editorconfig": false,
+          "[project-root]/pantheon.upstream.yml": false,
+          "[project-root]/.gitattributes": false
       }
     },
     "installer-paths": {
@@ -108,8 +124,11 @@
       ]
     },
     "patches": {
+      "drupal/subrequests": {
+        "Get same results on different request": "https://www.drupal.org/files/issues/2019-07-18/change_request_type-63049395-09.patch"
+      },
       "drupal/decoupled_router": {
-        "Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2021-05-05/3111456-34.patch"
+          "Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2021-05-05/3111456-34.patch"
       }
     }
   }

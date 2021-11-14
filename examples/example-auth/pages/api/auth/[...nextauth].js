@@ -69,11 +69,21 @@ export default NextAuth({
   },
   callbacks: {
     async jwt({ token, user }) {
-      // Forward the access token from user.
+      // Forward the access token, refresh token and expiration date from user.
+      // We'll use to handle token refresh.
       if (user) {
         token.accessToken = user.access_token
+        token.accessTokenExpires = Date.now() + user.expires_in * 1000
+        token.refreshToken = user.refresh_token
       }
-      return token
+
+      // If token has not expired, return it,
+      if (Date.now() < token.accessTokenExpires) {
+        return token
+      }
+
+      // Otherwise, refresh the token.
+      return refreshAccessToken(token)
     },
     async session({ session, token }) {
       if (token?.accessToken) {
@@ -86,8 +96,50 @@ export default NextAuth({
         session.user.email = decoded.email
         session.user.username = decoded.username
         session.user.name = decoded.field_name
+        session.error = token.error
       }
       return session
     },
   },
 })
+
+// Helper to obtain a new access_token from a refresh token.
+async function refreshAccessToken(token) {
+  try {
+    const formData = new URLSearchParams()
+
+    formData.append("grant_type", "refresh_token")
+    formData.append("client_id", process.env.DRUPAL_CLIENT_ID)
+    formData.append("client_secret", process.env.DRUPAL_CLIENT_SECRET)
+    formData.append("refresh_token", token.refreshToken)
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/oauth/token`,
+      {
+        method: "POST",
+        body: formData,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
+    )
+
+    const data = await response.json()
+
+    if (!response.ok) {
+      throw new Error()
+    }
+
+    return {
+      ...token,
+      accessToken: data.access_token,
+      accessTokenExpires: Date.now() + data.expires_in * 1000,
+      refreshToken: data.refresh_token ?? token.refreshToken,
+    }
+  } catch (error) {
+    return {
+      ...token,
+      error: "RefreshAccessTokenError",
+    }
+  }
+}

@@ -88,3 +88,4 @@ cypress/screenshots
 dist
 examples/certificates/*
 drupal/web/sites/default/settings.local.php
+.next

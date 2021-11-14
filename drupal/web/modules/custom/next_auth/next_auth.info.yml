@@ -1,0 +1,6 @@
+name: Next.js Auth
+description: Example for Next.js + Drupal authentication
+type: module
+core_version_requirement: ^8 || ^9
+dependencies:
+  - simple_oauth:simple_oauth

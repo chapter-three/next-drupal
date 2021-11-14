@@ -1,6 +1,6 @@
 # example-blog
 
-An example blog built using Drupal + JSON API.
+An example blog built using Drupal + JSON:API.
 
 Blog posts are built from the Article node type sourced from `/drupal`.
 

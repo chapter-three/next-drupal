@@ -1,5 +1,5 @@
-name: 'Next.js Default Content'
-description: "Provides default/demo content for Next.js"
+name: 'Example Default Content'
+description: "Provides default/demo content for Next.js for Drupal"
 type: module
 core_version_requirement: ^8 || ^9
 dependencies:

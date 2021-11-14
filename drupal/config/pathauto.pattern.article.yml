@@ -7,16 +7,16 @@ dependencies:
 id: article
 label: Article
 type: 'canonical_entities:node'
-pattern: 'blog/[node:title]'
+pattern: 'blog/[node:source:title]'
 selection_criteria:
-  9229c7a7-2b1f-4f8d-98a8-aeeb44545072:
+  50ef3322-bc36-4544-92cb-8b84ce6a16a8:
     id: node_type
     bundles:
       article: article
     negate: false
     context_mapping:
       node: node
-    uuid: 9229c7a7-2b1f-4f8d-98a8-aeeb44545072
+    uuid: 50ef3322-bc36-4544-92cb-8b84ce6a16a8
 selection_logic: and
 weight: -5
 relationships: {  }

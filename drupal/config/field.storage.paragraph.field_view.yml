@@ -1,0 +1,24 @@
+uuid: 0feae99b-4147-4ef9-bb80-0f9f743398a6
+langcode: es
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_view
+field_name: field_view
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: properties--listing
+      label: Properties
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,21 @@
+uuid: f7c0b739-53e4-4f91-8587-253531a4f3d3
+langcode: es
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_teaser
+field_name: field_teaser
+entity_type: node
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

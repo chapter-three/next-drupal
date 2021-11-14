@@ -9,17 +9,19 @@ module:
   ckeditor: 0
   config: 0
   consumers: 0
-  contact: 0
   contextual: 0
   ctools: 0
   datetime: 0
   dblog: 0
   decoupled_router: 0
+  default_content: 0
   dynamic_page_cache: 0
   editor: 0
   entity_reference_revisions: 0
   entity_usage: 0
+  example_auth: 0
   field: 0
+  field_group: 0
   field_ui: 0
   file: 0
   filter: 0
@@ -28,8 +30,10 @@ module:
   history: 0
   image: 0
   jsonapi: 0
+  jsonapi_extras: 0
   jsonapi_menu_items: 0
   jsonapi_resources: 0
+  jsonapi_views: 0
   language: 0
   link: 0
   media: 0
@@ -45,7 +49,6 @@ module:
   paragraphs_library: 0
   path: 0
   path_alias: 0
-  quickedit: 0
   rdf: 0
   search: 0
   serialization: 0
@@ -67,9 +70,8 @@ module:
   paragraphs: 11
   standard: 1000
 theme:
-  stable: 0
-  classy: 0
   seven: 0
+  claro: 0
 profile: standard
 _core:
   default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc

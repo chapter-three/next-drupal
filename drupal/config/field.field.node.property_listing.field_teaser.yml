@@ -1,0 +1,19 @@
+uuid: 86a8595a-c0cc-45b1-8b0e-724219b67b38
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_teaser
+    - node.type.property_listing
+id: node.property_listing.field_teaser
+field_name: field_teaser
+entity_type: node
+bundle: property_listing
+label: Teaser
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

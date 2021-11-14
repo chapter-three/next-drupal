@@ -1,0 +1,104 @@
+uuid: 829014b0-000a-4457-b497-a9971f4b7443
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.property_listing.body
+    - field.field.node.property_listing.field_baths
+    - field.field.node.property_listing.field_beds
+    - field.field.node.property_listing.field_images
+    - field.field.node.property_listing.field_location
+    - field.field.node.property_listing.field_price
+    - field.field.node.property_listing.field_size
+    - field.field.node.property_listing.field_status
+    - field.field.node.property_listing.field_teaser
+    - node.type.property_listing
+  module:
+    - options
+    - text
+    - user
+id: node.property_listing.default
+targetEntityType: node
+bundle: property_listing
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_baths:
+    weight: 106
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+  field_beds:
+    weight: 105
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+  field_images:
+    type: entity_reference_entity_view
+    weight: 108
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+  field_location:
+    weight: 107
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_price:
+    weight: 103
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_size:
+    weight: 104
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_status:
+    weight: 102
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_teaser:
+    weight: 109
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  langcode: true

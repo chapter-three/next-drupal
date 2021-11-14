@@ -1,0 +1,23 @@
+uuid: cd95c4b9-403b-4dc7-a8f5-45c4ef4169a9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_baths
+    - node.type.property_listing
+id: node.property_listing.field_baths
+field_name: field_baths
+entity_type: node
+bundle: property_listing
+label: Baths
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -1,0 +1,18 @@
+uuid: b85b2bbe-89d5-49d0-ab71-766775f6c7fa
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: 'Property Listing'
+type: property_listing
+description: 'Use this content type to create a property for the listing page.'
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: false

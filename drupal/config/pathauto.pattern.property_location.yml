@@ -1,0 +1,23 @@
+uuid: 97c4bbf3-d285-4107-8cec-9e7c95198ba4
+langcode: en
+status: true
+dependencies:
+  module:
+    - ctools
+    - taxonomy
+id: property_location
+label: 'Property Location'
+type: 'canonical_entities:taxonomy_term'
+pattern: 'properties/locations/[term:name]'
+selection_criteria:
+  2602dcde-b2f8-4032-82de-76b7b74869fa:
+    id: 'entity_bundle:taxonomy_term'
+    bundles:
+      property_location: property_location
+    negate: false
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    uuid: 2602dcde-b2f8-4032-82de-76b7b74869fa
+selection_logic: and
+weight: -5
+relationships: {  }

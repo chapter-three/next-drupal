@@ -1,0 +1,29 @@
+uuid: 7504c64c-59fb-41f4-bc02-062ddbacf58c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_location
+    - node.type.property_listing
+    - taxonomy.vocabulary.property_location
+id: node.property_listing.field_location
+field_name: field_location
+entity_type: node
+bundle: property_listing
+label: Location
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      property_location: property_location
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

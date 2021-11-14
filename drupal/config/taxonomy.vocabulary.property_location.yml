@@ -1,0 +1,8 @@
+uuid: 62abb271-5bf7-42b0-9687-dba111b91079
+langcode: zxx
+status: true
+dependencies: {  }
+name: 'Property Location'
+vid: property_location
+description: ''
+weight: 0

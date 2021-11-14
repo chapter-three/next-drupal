@@ -1,0 +1,19 @@
+uuid: 8c7fff62-446d-497b-8e40-c4b2c3a10d4b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_size
+    - node.type.property_listing
+id: node.property_listing.field_size
+field_name: field_size
+entity_type: node
+bundle: property_listing
+label: Size
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

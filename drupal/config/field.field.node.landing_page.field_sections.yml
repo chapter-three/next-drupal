@@ -10,6 +10,7 @@ dependencies:
     - paragraphs.paragraphs_type.feature
     - paragraphs.paragraphs_type.from_library
     - paragraphs.paragraphs_type.hero
+    - paragraphs.paragraphs_type.view
   module:
     - entity_reference_revisions
 id: node.landing_page.field_sections
@@ -31,27 +32,31 @@ settings:
       feature: feature
       cards: cards
       faq: faq
+      view: view
       from_library: from_library
     target_bundles_drag_drop:
       card:
-        weight: -11
+        weight: -12
         enabled: false
       cards:
         enabled: true
-        weight: -13
+        weight: -15
       collapsible:
-        weight: -10
+        weight: -11
         enabled: false
       faq:
         enabled: true
-        weight: -12
+        weight: -14
       feature:
         enabled: true
-        weight: -14
+        weight: -16
       from_library:
         enabled: true
-        weight: -9
+        weight: -10
       hero:
         enabled: true
-        weight: -15
+        weight: -17
+      view:
+        enabled: true
+        weight: -13
 field_type: entity_reference_revisions

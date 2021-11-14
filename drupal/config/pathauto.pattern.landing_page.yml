@@ -7,16 +7,16 @@ dependencies:
 id: landing_page
 label: 'Landing page'
 type: 'canonical_entities:node'
-pattern: '[node:title]'
+pattern: '[node:source:title]'
 selection_criteria:
-  071bfcd2-7621-41e3-840e-dcd3485b0bfa:
+  90be8d8f-c388-47e8-8e81-d9b9a7f2a16e:
     id: node_type
     bundles:
       landing_page: landing_page
     negate: false
     context_mapping:
       node: node
-    uuid: 071bfcd2-7621-41e3-840e-dcd3485b0bfa
+    uuid: 90be8d8f-c388-47e8-8e81-d9b9a7f2a16e
 selection_logic: and
 weight: -5
 relationships: {  }

@@ -1,0 +1,22 @@
+uuid: cc7dc5a8-9977-4a7b-966e-e87331e04d85
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: property_listing
+label: 'Property Listing'
+type: 'canonical_entities:node'
+pattern: 'properties/[node:source:title]'
+selection_criteria:
+  380495cd-67e8-4a54-8bed-88f658b8d289:
+    id: node_type
+    bundles:
+      property_listing: property_listing
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 380495cd-67e8-4a54-8bed-88f658b8d289
+selection_logic: and
+weight: -5
+relationships: {  }

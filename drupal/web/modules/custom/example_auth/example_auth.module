@@ -4,9 +4,9 @@ use Drupal\simple_oauth\Entities\AccessTokenEntity;
 use Drupal\user\Entity\User;
 
 /**
- * Alter the private claims to prepare convert to JWT token.
+ * Implements hook_simple_oauth_private_claims_alter().
  */
-function next_auth_simple_oauth_private_claims_alter(&$private_claims, AccessTokenEntity $access_token_entity) {
+function example_auth_simple_oauth_private_claims_alter(&$private_claims, AccessTokenEntity $access_token_entity) {
   $user_id = $access_token_entity->getUserIdentifier();
   /** @var \Drupal\user\UserInterface $user */
   $user = User::load($user_id);
@@ -22,7 +22,7 @@ function next_auth_simple_oauth_private_claims_alter(&$private_claims, AccessTok
 /**
  * Implements hook_simple_oauth_oidc_claims_alter().
  */
-function next_auth_simple_oauth_oidc_claims_alter(array &$claim_values, array &$context) {
+function example_auth_simple_oauth_oidc_claims_alter(array &$claim_values, array &$context) {
   $account = $context['account'];
   $claim_values['field_name'] = $account->get('field_name')->value;
 }

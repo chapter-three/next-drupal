@@ -1,0 +1,7 @@
+uuid: 5fa2f27a-8193-41f2-863e-1f7a2693a8b5
+langcode: en
+status: true
+dependencies: {  }
+id: node.property_listing
+site_resolver: null
+configuration: {  }

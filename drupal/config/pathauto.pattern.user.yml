@@ -1,0 +1,14 @@
+uuid: b32fbf7e-331d-44b0-aff5-00a0f797576e
+langcode: es
+status: true
+dependencies:
+  module:
+    - user
+id: user
+label: User
+type: 'canonical_entities:user'
+pattern: 'profiles/[user:name]'
+selection_criteria: {  }
+selection_logic: and
+weight: 0
+relationships: {  }

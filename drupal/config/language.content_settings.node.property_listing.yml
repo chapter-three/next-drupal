@@ -1,0 +1,16 @@
+uuid: fbad2536-82f6-4583-a587-a91d44cd4f6f
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.property_listing
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: node.property_listing
+target_entity_type_id: node
+target_bundle: property_listing
+default_langcode: site_default
+language_alterable: true

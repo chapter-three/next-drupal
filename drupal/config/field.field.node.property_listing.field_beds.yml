@@ -1,0 +1,23 @@
+uuid: 3b2b136d-af5d-4a29-aabb-034baac2005b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_beds
+    - node.type.property_listing
+id: node.property_listing.field_beds
+field_name: field_beds
+entity_type: node
+bundle: property_listing
+label: Beds
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

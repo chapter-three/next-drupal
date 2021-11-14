@@ -25,7 +25,7 @@ for folder in $GLOB; do
   if [ -n "$(git status --porcelain)" ]; then
     git add .
     git commit -m "$COMMIT_MESSAGE"
-    git push origin master
+    git push origin main
   fi
 
   cd $BASE

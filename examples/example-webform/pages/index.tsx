@@ -53,8 +53,8 @@ export default function IndexPage() {
           </p>
           <h2>Documentation</h2>
           See{" "}
-          <a href="https://next-drupal.org/docs/webform">
-            https://next-drupal.org/docs/webform
+          <a href="https://next-drupal.org/docs/guides/webform">
+            https://next-drupal.org/docs/guides/webform
           </a>
         </article>
       </div>

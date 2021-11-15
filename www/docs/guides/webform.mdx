@@ -1,0 +1,169 @@
+---
+title: Webform
+excerpt: Using webforms with Next.js and Drupal
+---
+
+There are two ways to handle [Webform](http://drupal.org/project/webform) in Next.js for Drupal.
+
+1. [Client Side](/docs/guides/webform#client-side)
+2. [Server Side](/docs/guides/webform#server-side) (API Route)
+
+Both implementations use the [Webform REST](http://drupal.org/project/webform_rest) module.
+
+## Demo
+
+See [https://example-webform.next-drupal.org](https://example-webform.next-drupal.org).
+
+## Installation
+
+1. Install the Webform REST module: `composer require drupal/webform_rest`
+2. Visit _/admin/config/services/rest_ and enable the **Webform Submit** resource.
+3. Select _POST_ for the **Methods**, _json_ for **Accepted request formats** and _cookie_ for **Authentication providers**
+4. **Save configuration**
+5. Next, visit _/admin/people/permissions_ and give anonymous users the **Access POST on Webform Submit resource** permission.
+
+## Client Side
+
+We use the Webform REST module to submit the form values directly to Drupal.
+
+<Callout>
+
+Note: when submitting webform values client-side, the `webform_id` and the Drupal base URL is exposed.
+
+</Callout>
+
+```tsx
+export default function ContactPage() {
+  async function handleSubmit(event) {
+    event.preventDefault()
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/webform_rest/submit`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          webform_id: "contact",
+          name: event.target.name.value,
+          email: event.target.email.value,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+
+    if (response.ok) {
+      // Show success.
+    }
+
+    // Handle error.
+  }
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <p>Implement your form here</p>
+        <div>
+          <label htmlFor="name">Name</label>
+          <input type="text" id="name" name="name" />
+        </div>
+        <div>
+          <label htmlFor="email">Email</label>
+          <input type="email" id="email" name="email" />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  )
+}
+```
+
+## Server side
+
+We submit the form values to a custom API route first. The API route then submits the form to Drupal using the Webform REST module.
+
+This is useful if we need to hide client IDs and secrets or our Drupal implementation.
+
+1. Create a `/pages/api/contact` API route to handle our POST request.
+
+```ts title=pages/api/contact.ts
+import { NextApiRequest, NextApiResponse } from "next"
+
+export default async function handler(
+  request: NextApiRequest,
+  response: NextApiResponse
+) {
+  try {
+    if (request.method === "POST") {
+      // Submit to Drupal.
+      const result = await fetch(
+        `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/webform_rest/submit`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            webform_id: "contact",
+            name: request.body.name,
+            email: request.body.email,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+
+      if (!result.ok) {
+        throw new Error()
+      }
+
+      response.status(200).end()
+    }
+  } catch (error) {
+    return response.status(400).json(error.message)
+  }
+}
+```
+
+2. Next, update our contact form to submit to this API route.
+
+```tsx
+export default function ContactPage() {
+  async function handleSubmit(event) {
+    event.preventDefault()
+
+    const response = await fetch(`/api/contact`, {
+      method: "POST",
+      body: JSON.stringify({
+        name: event.target.name.value,
+        email: event.target.email.value,
+      }),
+    })
+
+    if (response.ok) {
+      // Show success.
+    }
+
+    // Handle error.
+  }
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <p>Implement your form here</p>
+        <div>
+          <label htmlFor="name">Name</label>
+          <input type="text" id="name" name="name" />
+        </div>
+        <div>
+          <label htmlFor="email">Email</label>
+          <input type="email" id="email" name="email" />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  )
+}
+```
+
+## Example
+
+See [example-webform](https://github.com/chapter-three/next-drupal/tree/main/examples/example-webform) for a real-life example of building webform with **react-hook-form** and handling validation using **yup**.

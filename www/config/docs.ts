@@ -84,6 +84,10 @@ export const docs: DocsConfig = {
           title: "Route Syncing",
           url: "/docs/guides/route-syncing",
         },
+        {
+          title: "Webform",
+          url: "/docs/guides/webform",
+        },
       ],
     },
     {

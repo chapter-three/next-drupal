@@ -55,6 +55,10 @@ export const docs: DocsConfig = {
           title: "Authorization Code Grant",
           url: "/docs/authentication/authorization-code-grant",
         },
+        {
+          title: "Refresh Token Rotation",
+          url: "/docs/authentication/refresh-token",
+        },
       ],
     },
     {

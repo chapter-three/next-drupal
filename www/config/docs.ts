@@ -41,6 +41,23 @@ export const docs: DocsConfig = {
       ],
     },
     {
+      title: "Authentication",
+      items: [
+        {
+          title: "Introduction",
+          url: "/docs/authentication",
+        },
+        {
+          title: "Password Grant",
+          url: "/docs/authentication/password-grant",
+        },
+        {
+          title: "Authorization Code Grant",
+          url: "/docs/authentication/authorization-code-grant",
+        },
+      ],
+    },
+    {
       title: "Guides",
       items: [
         {

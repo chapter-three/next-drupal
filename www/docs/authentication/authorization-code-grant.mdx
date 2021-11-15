@@ -1,0 +1,248 @@
+---
+title: Authorization Code Grant
+excerpt: Authenticate users using an authorization server.
+---
+
+The Authorization Code Grant redirects the user to the authorization server, in this case Drupal, for authentication.
+
+The user will then be asked to login to the authorization server and approve the client.
+
+## Demo
+
+See [https://example-auth.next-drupal.org/](https://example-auth.next-drupal.org/).
+
+## Flow
+
+1. User is redirected to the Drupal site for authentication.
+2. User provides their username and password on the Drupal site.
+3. User approves client.
+4. User is redirected back to the Next.js site (authenticated) with the authorization code.
+
+## Dependencies
+
+Add `next-auth` and `jwt_decode` to your Next.js site.
+
+```sh
+yarn add next-auth@beta jwt_decode
+```
+
+<Callout>
+
+We are using NextAuth.js 4 beta in the examples but the stable 3.x release works as well (with a few tweaks).
+
+</Callout>
+
+## Installation
+
+### Drupal
+
+Create a new OAuth consumer:
+
+1. Visit _/admin/config/services/consumer/add_
+2. Fill in **Label** and **Secret**.
+3. Use `http://localhost:3000/api/auth/callback/drupal` for the **Redirect URI**.
+4. Click **Save**
+
+Give Authenticated users permission to **Grant OAuth2 codes**.
+
+1. Visit _/admin/people/permissions_
+2. Check **Grant OAuth2 codes** for **Authenticated user**.
+3. Click **Save permissions**.
+
+### Next.js
+
+1. Fill in the following in your `.env`:
+
+```
+OAUTH_CLIENT_ID= // The Consumer UUID created above.
+OAUTH_CLIENT_SECRET= // The Client secret you added above.
+NEXTAUTH_URL=http://localhost:3000 // The base url for your Next.js site
+JWT_SIGNING_PRIVATE_KEY= // Generate one using `jose newkey -s 512 -t oct -a HS512`
+```
+
+2. Update your `_app.tsx` and wrap `Component` in a `SessionProvider.
+
+```tsx title=pages/_app.tsx
+import { AppProps } from "next/app"
+import { SessionProvider } from "next-auth/react" // highlight-line
+
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
+  return (
+    // highlight-start
+    <SessionProvider session={session}>
+      <Component {...pageProps} />
+    </SessionProvider>
+    // highlight-end
+  )
+}
+```
+
+3. Create the following API route `/pages/api/auth/[...nextauth].js`.
+
+```tsx title=pages/api/auth/[...nextauth].js
+import NextAuth from "next-auth"
+import CredentialsProvider from "next-auth/providers/credentials"
+import jwt_decode from "jwt-decode"
+
+export default NextAuth({
+  providers: [
+    {
+      id: "drupal",
+      name: "Next.js for Drupal",
+      type: "oauth",
+      version: "2.0",
+      token: `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/oauth/token`,
+      authorization: `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/oauth/authorize?response_type=code`,
+      userinfo: `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/oauth/userinfo`,
+      async profile(profile) {
+        return {
+          id: profile.sub,
+          username: profile.preferred_username,
+          email: profile.email,
+        }
+      },
+      clientId: process.env.OAUTH_CLIENT_ID,
+      clientSecret: process.env.OAUTH_CLIENT_SECRET,
+    },
+  ],
+  jwt: {
+    signingKey: process.env.JWT_SIGNING_PRIVATE_KEY,
+    encryption: true,
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      // Forward the access token.
+      if (user) {
+        token.accessToken = user.access_token
+      }
+
+      return token
+    },
+    async session({ session, token }) {
+      if (token?.accessToken) {
+        session.accessToken = token.accessToken
+      }
+      return session
+    },
+  },
+})
+```
+
+4. If you visit `/api/auth/signin` you should now see the credentials authentication form.
+
+<Img
+  src="/images/next-auth-authorization.jpg"
+  width="800"
+  height="650"
+  layout="responsive"
+  alt="NextAuth.js Authorization Sign In"
+  mb="10"
+>
+  <>NextAuth.js Authorization Sign In</>
+</Img>
+
+You can use this form to sign in.
+
+<Callout>
+
+The `/api/auth/signin` pages is a pre-built page that comes with NextAuth.js. If you would like to provide your own custom login page, [see the documentation](https://next-auth.js.org/configuration/pages).
+
+</Callout>
+
+## useSession
+
+To handle authentication in your Next.js components, you can use the [`useSession`](https://next-auth.js.org/getting-started/client#usesession) hook.
+
+```tsx
+import { useSession } from "next-auth/react"
+
+export default function Page() {
+  const { data, status } = useSession()
+
+  if (status === "authenticated") {
+    return <p>Signed in as {data.user.email}</p>
+  }
+
+  return <a href="/api/auth/signin">Sign in</a>
+}
+```
+
+## Additional information
+
+### Drupal
+
+When using the Authorization Code Grant, you can implement the `hook_simple_oauth_oidc_claims_alter` hook to pass additional information to the session.
+
+```php
+<?php
+
+/**
+ * Implements hook_simple_oauth_oidc_claims_alter().
+ */
+function example_auth_simple_oauth_oidc_claims_alter(array &$claim_values, array &$context) {
+  $account = $context['account'];
+  $claim_values['field_name'] = $account->get('field_name')->value; // highlight-line
+}
+```
+
+Next, edit your `services.yml` (under `sites/default`) file with the following:
+
+```txt title=sites/default/services.yml
+parameters:
+  simple_oauth.openid.claims:
+    - sub
+    - name
+    - preferred_username
+    - email
+    - email_verified
+    - locale
+    - profile
+    - updated_at
+    - zoneinfo
+    - field_name // highlight-line
+```
+
+### Next.js
+
+Then update your `profile` callback as follows:
+
+```ts
+{
+	id: "drupal",
+	name: "Next.js for Drupal",
+	type: "oauth",
+	version: "2.0",
+	token: `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/oauth/token`,
+	authorization: `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/oauth/authorize?response_type=code`,
+	userinfo: `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/oauth/userinfo`,
+	async profile(profile) {
+		return {
+			id: profile.sub,
+			username: profile.preferred_username,
+			email: profile.email,
+			field_name: profile.field_name, // highlight-line
+		}
+	},
+	clientId: process.env.OAUTH_CLIENT_ID,
+	clientSecret: process.env.OAUTH_CLIENT_SECRET,
+},
+```
+
+### TypeScript
+
+If you're using TypeScript, you can augment the `User` type with the additional information.
+
+```ts title=types/next-auth.d.ts
+import { DefaultSession, Session } from "next-auth"
+
+declare module "next-auth" {
+  interface Session {
+    user?: DefaultSession["user"] & {
+      field_name?: string
+    }
+  }
+}
+```

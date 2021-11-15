@@ -1,0 +1,33 @@
+---
+title: Authentication
+excerpt: How to authenticate users in Next.js for Drupal.
+---
+
+To authenticate Drupal users in our Next.js type we can implement one of two grants.
+
+A grant is a method of acquiring an access token.
+
+The two grants we can use are:
+
+1. [Password Grant](/docs/authentication/password-grant)
+2. [Authorization Code Grant](/docs/authentication/authorization-code-grant)
+
+## Which Grant?
+
+Deciding which grants to implement depends on the type of client the end user will be using, and the experience you want for your users.
+
+The Password Credentials Grant allows users to authenticate with a username and password while the Authorization Code Grant takes the user off-site to the authorization server (the Drupal site) for authentication.
+
+<Callout>
+
+Use the Password Grant for the first party clients only i.e. you own the Next.js clients.
+
+</Callout>
+
+## Dependencies
+
+To implement authentication we are going to use [NextAuth.js](https://next-auth.js.org) on the Next.js side and [Simple OAuth](http://drupal.org/project/simple_oauth) module on the Drupal side.
+
+## Demo
+
+See [https://example-auth.next-drupal.org/](https://example-auth.next-drupal.org/).

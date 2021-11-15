@@ -20,7 +20,6 @@
     }
   ],
   "require": {
-    "pantheon-upstreams/upstream-configuration": "*",
     "composer/installers": "^1.7",
     "cweagans/composer-patches": "^1.6.5",
     "drupal/admin_toolbar": "^3.0",
@@ -43,7 +42,10 @@
     "drupal/pathauto": "^1.8",
     "drupal/simple_oauth": "^5.0",
     "drupal/subrequests": "^3.0",
+    "drupal/webform": "^6.1",
+    "drupal/webform_rest": "^4.0",
     "drush/drush": "^10.3",
+    "pantheon-upstreams/upstream-configuration": "*",
     "vlucas/phpdotenv": "^4.0",
     "webflo/drupal-finder": "^1.0.0",
     "zaporylie/composer-drupal-optimizations": "^1.0"

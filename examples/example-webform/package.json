@@ -1,0 +1,33 @@
+{
+  "name": "example-webform",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev -p 3636",
+    "build": "next build",
+    "start": "next start",
+    "preview": "next build && next start -p 3636"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^2.8.3",
+    "@tailwindcss/forms": "^0.3.4",
+    "@tailwindcss/typography": "^0.4.1",
+    "next": "^12.0.3",
+    "next-drupal": "^0.17.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.19.5",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@types/node": "^14.14.12",
+    "@types/react": "^17.0.0",
+    "autoprefixer": "^10.4.0",
+    "eslint-config-next": "^11.0.0",
+    "postcss": "^8.3.11",
+    "tailwindcss": "^2.2.19",
+    "typescript": "^4.3.2"
+  }
+}

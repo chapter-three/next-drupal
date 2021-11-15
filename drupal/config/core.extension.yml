@@ -50,6 +50,8 @@ module:
   path: 0
   path_alias: 0
   rdf: 0
+  rest: 0
+  restui: 0
   search: 0
   serialization: 0
   shortcut: 0
@@ -64,6 +66,9 @@ module:
   update: 0
   user: 0
   views_ui: 0
+  webform: 0
+  webform_rest: 0
+  webform_ui: 0
   pathauto: 1
   content_translation: 10
   views: 10

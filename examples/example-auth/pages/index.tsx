@@ -10,9 +10,10 @@ export default function IndexPage() {
       <Head>
         <title>Next.js for Drupal | Authentication Example</title>
       </Head>
-      <div className="container mx-auto py-10 max-w-2xl">
+      <div className="container mx-auto py-10 px-6 max-w-2xl">
         <article className="prose lg:prose-xl">
           <h1>Next.js for Drupal</h1>
+          <h2>Authentication Example</h2>
           <p>
             This is an example on how to implement authentication in Next.js for
             Drupal.
@@ -22,12 +23,12 @@ export default function IndexPage() {
             <strong>Password Grant</strong> and the{" "}
             <strong>Authorization Code Grant</strong>.
           </p>
-          <h2>Password Grant</h2>
+          <h3>Password Grant</h3>
           <p>
             The Password grant allows users to login with their credentials i.e
             a username and a password.
           </p>
-          <h2>Authorization Code Grant</h2>
+          <h3>Authorization Code Grant</h3>
           <p>
             The Authorization Code Grant redirects the user to the authorization
             server, in this case Drupal, for authentication.

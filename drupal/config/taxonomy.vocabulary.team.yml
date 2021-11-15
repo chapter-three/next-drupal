@@ -1,0 +1,8 @@
+uuid: ac6e19e4-3f92-4f4e-aa03-001d68c6f2a9
+langcode: en
+status: true
+dependencies: {  }
+name: Team
+vid: team
+description: ''
+weight: 0

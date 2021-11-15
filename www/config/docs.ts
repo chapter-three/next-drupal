@@ -129,7 +129,7 @@ export const docs: DocsConfig = {
         },
         {
           title: "getResourceCollectionFromContext",
-          url: "/docs/reference#getresourcecollectionfromContext",
+          url: "/docs/reference#getresourcecollectionfromcontext",
         },
         {
           title: "getMenu",

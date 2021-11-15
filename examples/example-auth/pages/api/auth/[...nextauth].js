@@ -16,8 +16,8 @@ export default NextAuth({
         const formData = new URLSearchParams()
 
         formData.append("grant_type", "password")
-        formData.append("client_id", process.env.DRUPAL_CLIENT_ID)
-        formData.append("client_secret", process.env.DRUPAL_CLIENT_SECRET)
+        formData.append("client_id", process.env.OAUTH_CLIENT_ID)
+        formData.append("client_secret", process.env.OAUTH_CLIENT_SECRET)
         formData.append("username", credentials.username)
         formData.append("password", credentials.password)
 
@@ -59,8 +59,8 @@ export default NextAuth({
           email: profile.email,
         }
       },
-      clientId: process.env.DRUPAL_CLIENT_ID,
-      clientSecret: process.env.DRUPAL_CLIENT_SECRET,
+      clientId: process.env.OAUTH_CLIENT_ID,
+      clientSecret: process.env.OAUTH_CLIENT_SECRET,
     },
   ],
   jwt: {

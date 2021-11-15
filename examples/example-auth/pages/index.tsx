@@ -71,6 +71,11 @@ export default function IndexPage() {
             </a>{" "}
             on the Drupal side.
           </p>
+          <h2>Documentation</h2>
+          See{" "}
+          <a href="https://next-drupal.org/docs/authentication">
+            https://next-drupal.org/docs/authentication
+          </a>
         </article>
       </div>
     </>

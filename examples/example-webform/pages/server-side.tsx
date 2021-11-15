@@ -21,13 +21,13 @@ export default function WebformPage({ teams }: WebformPageProps) {
     resolver: yupResolver(contactFormSchema),
   })
 
+  // This makes a POST to a custom API route.
+  // The Drupal base URL and the webform_id are NOT exposed.
   async function onSubmit(data: FormData) {
     const response = await fetch(`/api/contact`, {
       method: "POST",
       body: JSON.stringify(data),
     })
-
-    console.log(response)
 
     if (response.ok) {
       reset()

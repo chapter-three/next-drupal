@@ -20,6 +20,8 @@ export default function WebformPage({ teams }: WebformPageProps) {
     resolver: yupResolver(contactFormSchema),
   })
 
+  // This makes a client side POST to our Drupal site.
+  // The Drupal base URL and the webform_id are exposed.
   async function onSubmit(data: FormData) {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/webform_rest/submit`,

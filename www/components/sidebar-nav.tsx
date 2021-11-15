@@ -50,8 +50,7 @@ export function SidebarNavItem({ items, onLinkClick }: SidebarNavProps) {
                 target={item.external && "_blank"}
                 rel={item.external ? "noreferrer" : ""}
               >
-                <Icon name="circle" size="2" ml="1" mr="3" opacity="0.5" />{" "}
-                <span fontSize="sm">{item.title}</span>
+                <span fontSize="15px">{item.title}</span>
                 {item.external && <Icon name="external" ml="2" size="3" />}
               </a>
             </Link>
@@ -113,7 +112,7 @@ export function SidebarNav({ items, onLinkClick }: SidebarNavProps) {
             fontSize="sm"
             textTransform="uppercase"
             fontWeight="semibold"
-            mb="4"
+            mb="2"
             mt={index !== 0 && 6}
             pt={index !== 0 && 4}
           >

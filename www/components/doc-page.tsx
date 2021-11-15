@@ -71,7 +71,7 @@ export function DocPage({ doc, toc, components }: DocPageProps) {
                   target="_blank"
                   rel="noreferrer"
                   textTransform="uppercase"
-                  color="#111"
+                  color="text"
                   fontWeight="bold"
                 >
                   Chapter Three

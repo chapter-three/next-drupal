@@ -55,7 +55,7 @@ export function Navbar() {
           <a
             display="none|flex"
             textDecoration="none"
-            color="link"
+            color="text"
             alignItems="center"
             fontSize="md|||xl"
             fontWeight="semibold"

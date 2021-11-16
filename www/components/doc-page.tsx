@@ -22,20 +22,25 @@ export function DocPage({ doc, toc, components }: DocPageProps) {
   return (
     <Layout title={doc.frontMatter.title} description={doc.frontMatter.excerpt}>
       <div variant="container">
-        <div display="grid" col="1|||300px 1fr" gap="null|6|6|16">
+        <div display="grid" col="1|||280px 1fr" gap="null|6|6|16">
           <aside
+            className="sidebar-nav"
             display="none|none|none|block"
             position="static|sticky"
             top="14"
             h={(theme) => `calc(100vh - ${theme.space[14]})`}
             overflow="scroll"
             py="6|12"
+            pl="2"
+            borderRightWidth="0|1px"
           >
             <SidebarNav items={docs.links} />
           </aside>
           <div display="grid" col="1||||minmax(0, 1fr) 240px" gap="6|6|16">
             <div py="6|8|10" className="DocSearch-content">
-              <h1 variant="heading.h1">{doc.frontMatter.title}</h1>
+              <h1 variant="heading.h1" fontSize="5xl">
+                {doc.frontMatter.title}
+              </h1>
               {doc.frontMatter.excerpt ? (
                 <p variant="text.lead" mt="2">
                   {doc.frontMatter.excerpt}
@@ -51,7 +56,7 @@ export function DocPage({ doc, toc, components }: DocPageProps) {
               top="14"
               h={(theme) => `calc(100vh - ${theme.space[14]})`}
               py="6|12"
-              overflow="scroll"
+              overflow="auto"
             >
               {toc.items?.length && (
                 <div mb="10">
@@ -61,9 +66,6 @@ export function DocPage({ doc, toc, components }: DocPageProps) {
                   <Toc tree={toc} />
                 </div>
               )}
-              <h2 variant="heading.h6" mb="2">
-                Sponsors
-              </h2>
               <div bg="muted" p="4" textAlign="center" borderRadius="md">
                 Development sponsored by{" "}
                 <a

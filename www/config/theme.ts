@@ -65,8 +65,7 @@ const theme: Theme = {
   },
   breakpoints: ["640px", "768px", "1024px", "1280px"],
   fonts: {
-    body:
-      "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji",
+    body: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji",
     heading: "inherit",
     monospace:
       "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace",
@@ -214,8 +213,7 @@ const theme: Theme = {
     sm: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
     md: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
     lg: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-    xl:
-      "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+    xl: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
     "2xl":
       "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
     "3xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
@@ -299,6 +297,18 @@ const theme: Theme = {
       },
       code: {
         variant: "text.code",
+      },
+      ".sidebar-nav": {
+        WebkitOverflowScrolling: "touch",
+        "&::-webkit-scrollbar": {
+          width: "5px",
+          position: "fixed",
+          right: 0,
+        },
+        "&::-webkit-scrollbar-thumb": {
+          background: "transparent",
+          transition: "background-color 2s",
+        },
       },
     },
   },

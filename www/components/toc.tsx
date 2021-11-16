@@ -10,10 +10,17 @@ export function Toc({ tree, level = 1 }: TocProps) {
     <ul pl={level === 1 ? 0 : 3} fontSize="sm">
       {tree.items.map((item) => {
         return (
-          <li key={item.title} mt="1">
+          <li
+            key={item.title}
+            borderTopWidth={level === 1 ? 1 : 0}
+            borderTopStyle="dotted"
+            pt={level === 1 ? 2 : 0}
+            pb={level === 1 ? 2 : 0}
+          >
             <a
               href={item.url}
-              color="text"
+              color={level === 1 ? "text" : "textLighter"}
+              fontSize={level === 1 ? "sm" : "12px"}
               _hover={{
                 color: "link",
               }}

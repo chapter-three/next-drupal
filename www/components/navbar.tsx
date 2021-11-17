@@ -85,10 +85,10 @@ export function Navbar() {
         <div display="flex" ml="0|auto" flex="1|none">
           <Link href="/learn/quick-start" passHref>
             <a
-              bg="primary"
-              color="white"
-              borderRadius="lg"
-              px="3"
+              bg="text"
+              color="background"
+              borderRadius="md"
+              px="4"
               py="1"
               fontSize="sm"
               display="flex"

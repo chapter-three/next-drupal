@@ -8,10 +8,19 @@ video: /videos/quick-start/05-create-consumer.mp4
 
 ## Generate keys
 
+Generate a pair of keys to encrypt the tokens. And store them outside of your document root (`web` directory) for security.
+
 1. Visit _/admin/config/people/simple_oauth_
 2. Click **Generate keys** to generate encryption keys for tokens
 3. Fill in **Directory for the keys**.
 4. Click **Generate**.
+
+You can also use `openssl` to generate keys:
+
+```
+openssl genrsa -out private.key 2048
+openssl rsa -in private.key -pubout > public.key
+```
 
 ## Create Consumer
 
@@ -25,4 +34,4 @@ video: /videos/quick-start/05-create-consumer.mp4
 
 3. Click **Save**
 
-_Important: note the client id (uuid) and the secret. This is going to be used as environment variables for the Next.js site._
+_Important: note the client id (uuid) and the secret. These area going to be used as environment variables for the Next.js site._

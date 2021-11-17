@@ -28,7 +28,21 @@ export function Callout({ type = "primary", icon, children }: CalloutProps) {
       }}
     >
       {icon ? <Icon name={icon} width="6" height="6" mr="4" /> : null}
-      <div>{children}</div>
+      <div
+        sx={{
+          p: {
+            fontSize: "md",
+            lineHeight: "normal",
+            mt: 0,
+            mb: 2,
+          },
+          "> p:last-child": {
+            mb: 0,
+          },
+        }}
+      >
+        {children}
+      </div>
     </div>
   )
 }

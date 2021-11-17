@@ -11,7 +11,7 @@ export const site: SiteConfig = {
       url: "/docs",
     },
     {
-      title: "Demo",
+      title: "Examples",
       url: "/docs/demo",
     },
     {

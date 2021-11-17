@@ -56,7 +56,7 @@ export function DocSearch({ ...props }) {
         w="100%|275px"
         bg="muted"
         flex="1"
-        borderWidth="0"
+        borderWidth="1px"
         ref={input}
       />
       <span

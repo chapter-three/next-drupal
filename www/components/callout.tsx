@@ -1,11 +1,16 @@
+import { Icon } from "reflexjs"
+
 interface CalloutProps {
   type?: "primary" | "accent"
+  icon?: string
   children?: React.ReactNode
 }
 
-export function Callout({ type = "primary", children }: CalloutProps) {
+export function Callout({ type = "primary", icon, children }: CalloutProps) {
   return (
     <div
+      display="flex"
+      alignItems="center"
       borderLeftWidth="6"
       borderLeftColor={type}
       rounded="sm"
@@ -22,7 +27,8 @@ export function Callout({ type = "primary", children }: CalloutProps) {
         },
       }}
     >
-      {children}
+      {icon ? <Icon name={icon} width="6" height="6" mr="4" /> : null}
+      <div>{children}</div>
     </div>
   )
 }

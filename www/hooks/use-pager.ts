@@ -3,14 +3,19 @@ import { useRouter } from "next/router"
 
 import { NavLink, NavLinks } from "types"
 
-export function usePager(
-  links: NavLinks
-): { prev?: NavLink; current: NavLink; next?: NavLink } {
+export function usePager(links: NavLinks): {
+  prev?: NavLink
+  current: NavLink
+  next?: NavLink
+} {
   const { asPath } = useRouter()
 
   const flattenedLinks = React.useMemo(() => flatten(links), [links])
   const activeIndex = React.useMemo(
-    () => flattenedLinks.findIndex((link) => link.url === asPath),
+    () =>
+      flattenedLinks.findIndex(
+        (link) => link.url.replace(/\/$/, "") === asPath
+      ),
     [links, asPath]
   )
 

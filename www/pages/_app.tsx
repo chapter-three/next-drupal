@@ -1,7 +1,7 @@
 import { site } from "config/site"
 import { DefaultSeo } from "next-seo"
 import { ThemeProvider } from "reflexjs"
-
+import "@fontsource/inter/latin.css"
 import theme from "config/theme"
 
 export default function App({ Component, pageProps }) {

@@ -1,0 +1,31 @@
+---
+title: Install Drupal
+excerpt: Install Drupal and Next.js module
+weight: 1
+group: Quick Start
+video: /videos/quick-start/01-install-drupal.mp4
+---
+
+## Install Drupal
+
+Start by creating a new Drupal site using composer. If you have an existing Drupal site, you can skip to the next part.
+
+```sh
+composer create-project drupal/recommended-project drupal-site
+```
+
+Once this is done, you can open the site and proceed with installation.
+
+## Add Next.js module
+
+Run the following command to install the [Next.js](https://drupal.org/project/next) module and dependencies.
+
+```sh
+composer require drupal/next:1.0.x-dev
+```
+
+<Callout>
+
+Note: we are pulling the latest dev version since there are no stable releases at this moment.
+
+</Callout>

@@ -1,0 +1,36 @@
+---
+title: Create Next.js project
+excerpt: Create a new Next.js project using the starter
+weight: 8
+group: Quick Start
+video: /videos/quick-start/08-create-nextjs-project.mp4
+---
+
+Now that we have completed the Drupal configuration, we can create our Next.js project.
+
+We are going to use the [basic starter](https://github.com/chapter-three/next-drupal/tree/master/starters/basic-starter).
+
+## Create Project
+
+Run the following command to create a new Next.js project:
+
+```sh
+npx create-next-app -e https://github.com/chapter-three/next-drupal-basic-starter
+```
+
+## Connect Drupal
+
+To connect the Next.js project to Drupal, we use [environment variables](https://nextjs.org/docs/basic-features/environment-variables).
+
+1. Copy `.env.example` to `.env.local`.
+2. On the **Drupal site**, visit _/admin/config/services/next_.
+3. Click **Environment variables**.
+4. Copy and paste the values into the `.env.local` file created above.
+
+_Remember to fill in the `DRUPAL_CLIENT_ID` and the `DRUPAL_CLIENT_SECRET`._
+
+## Start Development Server
+
+To start the Next.js development server, run `npm run dev` or `yarn dev`. This starts the development server on `http://localhost:3000`.
+
+Visit [http://localhost:3000](http://localhost:3000) to view the site.

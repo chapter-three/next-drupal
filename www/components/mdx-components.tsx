@@ -4,6 +4,7 @@ import { components } from "@reflexjs/mdx"
 import { Tweet } from "mdx-embed"
 
 import { Callout } from "components/callout"
+import { Video } from "components/video"
 
 const headingStyles = {
   display: "inline-flex",
@@ -66,11 +67,5 @@ export const mdxComponents = {
       <figcaption variant="text.caption">{children}</figcaption>
     </figure>
   ),
-  Video: ({ src, ...props }) => (
-    <div borderWidth="1" p="2" borderRadius="lg">
-      <video controls muted {...props}>
-        <source src={src} type="video/mp4" />
-      </video>
-    </div>
-  ),
+  Video,
 }

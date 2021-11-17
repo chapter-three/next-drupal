@@ -25,10 +25,19 @@ export type Guide = MdxNode<{
   caption?: string
 }>
 
+export type Tutorial = MdxNode<{
+  title: string
+  excerpt?: string
+  weight?: number
+  group?: string
+  video?: string
+}>
+
 export type NavLink = {
   title: string
   external?: boolean
   activePathNames?: string[]
+  type?: "button"
 } & (
   | {
       url: string

@@ -1,0 +1,38 @@
+---
+title: Apply Patches
+excerpt: Apply patches for Subrequests and Decoupled Router modules
+weight: 2
+group: Quick Start
+video: /videos/quick-start/02-apply-patches.mp4
+---
+
+At the time of this writing, there are two patches we need to wire everything together.
+
+1. Open your `composer.json` file.
+2. Add the following patches under `"extra"`.
+
+```json title=composer.json
+"extra": {
+		// highlight-start
+    "patches": {
+        "drupal/subrequests": {
+            "Get same results on different request": "https://www.drupal.org/files/issues/2019-07-18/change_request_type-63049395-09.patch"
+        },
+        "drupal/decoupled_router": {
+            "Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2021-05-05/3111456-34.patch"
+        }
+    },
+		// highlight-end
+}
+```
+
+3. Run the following command:
+
+```sh
+composer require cweagans/composer-patches
+```
+
+You can read more about the patches here:
+
+1. https://www.drupal.org/project/subrequests/issues/3049395
+2. https://www.drupal.org/project/decoupled_router/issues/3111456

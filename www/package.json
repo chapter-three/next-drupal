@@ -11,6 +11,7 @@
     "preview": "next build && next start -p 4444"
   },
   "dependencies": {
+    "@fontsource/inter": "^4.5.1",
     "@reach/accordion": "^0.14.0",
     "@reflexjs/mdx": "^1.0.0-alpha.5",
     "framer-motion": "^4.1.2",

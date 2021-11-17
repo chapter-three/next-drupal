@@ -76,12 +76,27 @@ export function Navbar() {
               href={link.url}
               external={link.external}
               activePathNames={link.activePathNames}
+              type={link.type}
             >
               {link.title}
             </NavbarLink>
           ))}
         </div>
         <div display="flex" ml="0|auto" flex="1|none">
+          <Link href="/learn" passHref>
+            <a
+              bg="primary"
+              color="white"
+              borderRadius="lg"
+              px="3"
+              py="1"
+              fontSize="sm"
+              display="flex"
+              alignItems="center"
+            >
+              Start Here
+            </a>
+          </Link>
           <DocSearch ml="4" mr="4" flex="1" />
           <a
             href={`https://github.com/${site.social.github}`}
@@ -178,6 +193,7 @@ export interface NavbarLinkProps
   href: string
   external?: boolean
   activePathNames?: string[]
+  type?: "button"
   children: React.ReactNode
 }
 
@@ -185,6 +201,7 @@ export function NavbarLink({
   href,
   external = false,
   activePathNames,
+  type,
   children,
   ...props
 }: NavbarLinkProps) {

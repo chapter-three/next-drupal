@@ -11,6 +11,11 @@ module.exports = {
         destination: "/docs/quick-start",
         permanent: true,
       },
+      {
+        source: "/learn",
+        destination: "/learn/quick-start",
+        permanent: false,
+      },
     ]
   },
 }

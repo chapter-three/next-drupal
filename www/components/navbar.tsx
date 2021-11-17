@@ -83,7 +83,7 @@ export function Navbar() {
           ))}
         </div>
         <div display="flex" ml="0|auto" flex="1|none">
-          <Link href="/learn" passHref>
+          <Link href="/learn/quick-start" passHref>
             <a
               bg="primary"
               color="white"
@@ -201,7 +201,6 @@ export function NavbarLink({
   href,
   external = false,
   activePathNames,
-  type,
   children,
   ...props
 }: NavbarLinkProps) {

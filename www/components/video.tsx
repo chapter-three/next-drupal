@@ -10,6 +10,10 @@ export function Video({ src, heading, ...props }: VideoProps) {
   const [isPlaying, setIsPlaying] = React.useState<boolean>(false)
   const videoRef = React.useRef<HTMLVideoElement>(null)
 
+  React.useEffect(() => {
+    setIsPlaying(false)
+  }, [src])
+
   return (
     <div
       borderWidth="2px"
@@ -75,8 +79,10 @@ export function Video({ src, heading, ...props }: VideoProps) {
         left="0"
         width="100%"
         height="100%"
+        zIndex="10"
         controls
         muted
+        key={src}
         ref={videoRef}
         {...props}
       >

@@ -1,5 +1,5 @@
 import { GetStaticPropsContext } from "next"
-import { AccessToken } from "./types"
+import { AccessToken, FetchAPI } from "./types"
 import { buildHeaders, buildUrl, getPathFromContext } from "./utils"
 
 export async function getResourceTypeFromContext(
@@ -7,17 +7,19 @@ export async function getResourceTypeFromContext(
   options?: {
     accessToken?: AccessToken
     prefix?: string
+    fetch?: FetchAPI
   }
 ): Promise<string> {
   options = {
     prefix: "",
+    fetch,
     ...options,
   }
   const url = buildUrl("/router/translate-path", {
     path: getPathFromContext(context, options.prefix),
   })
 
-  const response = await fetch(url.toString(), {
+  const response = await options.fetch(url.toString(), {
     headers: await buildHeaders(options),
   })
 

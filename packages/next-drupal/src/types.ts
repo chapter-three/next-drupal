@@ -162,3 +162,5 @@ export interface DrupalUser extends JsonApiResource {
   name: string
   path: PathAlias
 }
+
+export type FetchAPI = WindowOrWorkerGlobalScope["fetch"]

@@ -4,6 +4,7 @@ import {
   JsonApiParams,
   JsonApiWithLocaleOptions,
   JsonApiResource,
+  FetchAPI,
 } from "./types"
 import {
   buildHeaders,
@@ -17,10 +18,12 @@ export async function getResourceCollection<T = JsonApiResource[]>(
   options?: {
     deserialize?: boolean
     accessToken?: AccessToken
+    fetch?: FetchAPI
   } & JsonApiWithLocaleOptions
 ): Promise<T> {
   options = {
     deserialize: true,
+    fetch,
     ...options,
   }
 
@@ -37,7 +40,7 @@ export async function getResourceCollection<T = JsonApiResource[]>(
     ...options?.params,
   })
 
-  const response = await fetch(url.toString(), {
+  const response = await options.fetch(url.toString(), {
     headers: await buildHeaders(options),
   })
 
@@ -56,10 +59,12 @@ export async function getResourceCollectionFromContext<T = JsonApiResource[]>(
   options?: {
     deserialize?: boolean
     params?: JsonApiParams
+    fetch?: FetchAPI
   }
 ): Promise<T> {
   options = {
     deserialize: true,
+    fetch,
     ...options,
   }
 

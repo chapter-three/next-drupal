@@ -2,10 +2,13 @@ import * as React from "react"
 import { useRouter } from "next/router"
 
 import { getMenu } from "./get-menu"
-import { DrupalMenuLinkContent } from "./types"
+import { DrupalMenuLinkContent, FetchAPI } from "./types"
 
 export function useMenu(
-  name: string
+  name: string,
+  options: {
+    fetch?: FetchAPI
+  }
 ): {
   items: DrupalMenuLinkContent[]
   tree: DrupalMenuLinkContent[]
@@ -25,6 +28,7 @@ export function useMenu(
       setIsLoading(true)
       try {
         const data = await getMenu(name, {
+          ...options,
           locale: router.locale,
           defaultLocale: router.defaultLocale,
         })

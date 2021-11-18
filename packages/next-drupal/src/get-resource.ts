@@ -5,6 +5,7 @@ import {
   JsonApiParams,
   JsonApiWithLocaleOptions,
   JsonApiResource,
+  FetchAPI,
 } from "./types"
 import {
   buildHeaders,
@@ -23,6 +24,7 @@ export async function getResourceFromContext<T extends JsonApiResource>(
     params?: JsonApiParams
     accessToken?: AccessToken
     isVersionable?: boolean
+    fetch?: FetchAPI
   }
 ): Promise<T> {
   options = {
@@ -30,10 +32,11 @@ export async function getResourceFromContext<T extends JsonApiResource>(
     // Add support for revisions for node by default.
     // TODO: Make this required before stable?
     isVersionable: /^node--/.test(type),
+    fetch,
     ...options,
   }
 
-  const path = getPathFromContext(context, options?.prefix)
+  const path = getPathFromContext(context, options.prefix)
 
   // Filter out unpublished entities.
   // if (!context.preview) {
@@ -54,6 +57,7 @@ export async function getResourceFromContext<T extends JsonApiResource>(
       resourceVersion: previewData?.resourceVersion,
       ...options?.params,
     },
+    fetch: options.fetch,
   })
 
   // If no locale is passed, skip entity if not default_langcode.
@@ -75,12 +79,14 @@ export async function getResourceByPath<T extends JsonApiResource>(
     accessToken?: AccessToken
     deserialize?: boolean
     isVersionable?: boolean
+    fetch?: FetchAPI
   } & JsonApiWithLocaleOptions
 ): Promise<T> {
   options = {
     deserialize: true,
     isVersionable: false,
     params: {},
+    fetch,
     ...options,
   }
 
@@ -140,7 +146,7 @@ export async function getResourceByPath<T extends JsonApiResource>(
     _format: "json",
   })
 
-  const response = await fetch(url.toString(), {
+  const response = await options.fetch(url.toString(), {
     method: "POST",
     credentials: "include",
     headers: await buildHeaders(options),
@@ -173,17 +179,20 @@ export async function getResource<T extends JsonApiResource>(
   options?: {
     accessToken?: AccessToken
     deserialize?: boolean
+    fetch?: FetchAPI
   } & JsonApiWithLocaleOptions
 ): Promise<T> {
   options = {
     deserialize: true,
     params: {},
+    fetch,
     ...options,
   }
 
   const apiPath = await getJsonApiPathForResourceType(
     type,
-    options?.locale !== options?.defaultLocale ? options.locale : undefined
+    options?.locale !== options?.defaultLocale ? options.locale : undefined,
+    options
   )
 
   if (!apiPath) {
@@ -194,7 +203,7 @@ export async function getResource<T extends JsonApiResource>(
     ...options?.params,
   })
 
-  const response = await fetch(url.toString(), {
+  const response = await options.fetch(url.toString(), {
     headers: await buildHeaders(options),
   })
 

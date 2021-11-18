@@ -1,12 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { getResourceByPath } from "./get-resource"
-import { JsonApiWithLocaleOptions } from "./types"
+import { JsonApiWithLocaleOptions, FetchAPI } from "./types"
 
 interface PreviewOptions {
   errorMessages?: {
     secret?: string
     slug?: string
   }
+  fetch?: FetchAPI
 }
 
 export function DrupalPreview(options?: PreviewOptions) {
@@ -34,6 +35,7 @@ export async function PreviewHandler(
 
   let _options: GetResourcePreviewUrlOptions = {
     isVersionable: typeof resourceVersion !== "undefined",
+    fetch: options.fetch ?? fetch,
   }
   if (locale && defaultLocale) {
     _options = {
@@ -62,6 +64,7 @@ export async function PreviewHandler(
 
 type GetResourcePreviewUrlOptions = JsonApiWithLocaleOptions & {
   isVersionable?: boolean
+  fetch?: FetchAPI
 }
 
 export async function getResourcePreviewUrl(

@@ -1,9 +1,11 @@
 import { cache } from "./get-cache"
-import { AccessToken } from "./types"
+import { AccessToken, FetchAPI } from "./types"
 
 const CACHE_KEY = "NEXT_DRUPAL_ACCESS_TOKEN"
 
-export async function getAccessToken(): Promise<AccessToken> {
+export async function getAccessToken(options?: {
+  fetch?: FetchAPI
+}): Promise<AccessToken> {
   if (!process.env.DRUPAL_CLIENT_ID || !process.env.DRUPAL_CLIENT_SECRET) {
     return null
   }
@@ -13,11 +15,13 @@ export async function getAccessToken(): Promise<AccessToken> {
     return cached
   }
 
+  options = { fetch, ...options }
+
   const basic = Buffer.from(
     `${process.env.DRUPAL_CLIENT_ID}:${process.env.DRUPAL_CLIENT_SECRET}`
   ).toString("base64")
 
-  const response = await fetch(
+  const response = await options.fetch(
     `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/oauth/token`,
     {
       method: "POST",

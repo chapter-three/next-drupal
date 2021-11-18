@@ -1,15 +1,18 @@
 import { GetStaticPathsContext, GetStaticPathsResult } from "next"
 import { getResourceCollection } from "./get-resource-collection"
-import { AccessToken, JsonApiParams, Locale } from "./types"
+import { AccessToken, FetchAPI, JsonApiParams, Locale } from "./types"
 
 export async function getPathsFromContext(
   types: string | string[],
   context: GetStaticPathsContext,
-  options: {
+  options?: {
     params?: JsonApiParams
     accessToken?: AccessToken
-  } = {}
+    fetch?: FetchAPI
+  }
 ): Promise<GetStaticPathsResult["paths"]> {
+  options = { fetch, ...options }
+
   if (typeof types === "string") {
     types = [types]
   }

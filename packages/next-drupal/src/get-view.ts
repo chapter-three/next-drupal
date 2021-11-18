@@ -1,4 +1,4 @@
-import { AccessToken, JsonApiWithLocaleOptions } from "./types"
+import { AccessToken, FetchAPI, JsonApiWithLocaleOptions } from "./types"
 import { buildHeaders, buildUrl, deserialize } from "./utils"
 
 export async function getView<T>(
@@ -6,6 +6,7 @@ export async function getView<T>(
   options?: {
     deserialize?: boolean
     accessToken?: AccessToken
+    fetch?: FetchAPI
   } & JsonApiWithLocaleOptions
 ): Promise<{
   results: T
@@ -19,6 +20,7 @@ export async function getView<T>(
 }> {
   options = {
     deserialize: true,
+    fetch,
     ...options,
   }
 
@@ -34,7 +36,7 @@ export async function getView<T>(
     options.params
   )
 
-  const response = await fetch(url.toString(), {
+  const response = await options.fetch(url.toString(), {
     headers: await buildHeaders(options),
   })
 

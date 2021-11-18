@@ -1,4 +1,5 @@
 import { GetStaticPropsContext } from "next"
+import { FetchAPI } from "."
 import { AccessToken, JsonApiResource, JsonApiWithLocaleOptions } from "./types"
 import { buildHeaders, buildUrl, deserialize } from "./utils"
 
@@ -7,10 +8,12 @@ export async function getSearchIndex<T = JsonApiResource[]>(
   options?: {
     deserialize?: boolean
     accessToken?: AccessToken
+    fetch?: FetchAPI
   } & JsonApiWithLocaleOptions
 ): Promise<T> {
   options = {
     deserialize: true,
+    fetch,
     ...options,
   }
 
@@ -21,7 +24,7 @@ export async function getSearchIndex<T = JsonApiResource[]>(
 
   const url = buildUrl(`${localePrefix}/jsonapi/index/${name}`, options.params)
 
-  const response = await fetch(url.toString(), {
+  const response = await options.fetch(url.toString(), {
     headers: await buildHeaders(options),
   })
 
@@ -40,6 +43,7 @@ export async function getSearchIndexFromContext<T = JsonApiResource[]>(
   options?: {
     deserialize?: boolean
     accessToken?: AccessToken
+    fetch?: FetchAPI
   } & JsonApiWithLocaleOptions
 ): Promise<T> {
   options = {

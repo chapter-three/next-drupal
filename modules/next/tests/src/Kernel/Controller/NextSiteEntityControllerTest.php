@@ -50,11 +50,11 @@ class NextSiteEntityControllerTest extends KernelTestBase {
     $controller = NextSiteEntityController::create($this->container);
     $build = $controller->environmentVariables($this->nextSite);
 
-    $this->assertEqual(\Drupal::requestStack()->getCurrentRequest()->getSchemeAndHttpHost(), $build['container']['NEXT_PUBLIC_DRUPAL_BASE_URL']['#context']['value']);
-    $this->assertEqual(\Drupal::requestStack()->getCurrentRequest()->getHost(), $build['container']['NEXT_IMAGE_DOMAIN']['#context']['value']);
-    $this->assertEqual($this->nextSite->uuid(), $build['container']['DRUPAL_SITE_ID']['#context']['value']);
-    $this->assertEqual($this->nextSite->getPreviewSecret(), $build['container']['DRUPAL_PREVIEW_SECRET']['#context']['value']);
-    $this->assertEqual(\Drupal::configFactory()->get('system.site')->get('page.front'), $build['container']['DRUPAL_FRONT_PAGE']['#context']['value']);
+    $this->assertEquals(\Drupal::requestStack()->getCurrentRequest()->getSchemeAndHttpHost(), $build['container']['NEXT_PUBLIC_DRUPAL_BASE_URL']['#context']['value']);
+    $this->assertEquals(\Drupal::requestStack()->getCurrentRequest()->getHost(), $build['container']['NEXT_IMAGE_DOMAIN']['#context']['value']);
+    $this->assertEquals($this->nextSite->id(), $build['container']['DRUPAL_SITE_ID']['#context']['value']);
+    $this->assertEquals($this->nextSite->getPreviewSecret(), $build['container']['DRUPAL_PREVIEW_SECRET']['#context']['value']);
+    $this->assertEquals(\Drupal::configFactory()->get('system.site')->get('page.front'), $build['container']['DRUPAL_FRONT_PAGE']['#context']['value']);
   }
 
 }

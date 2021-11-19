@@ -53,7 +53,7 @@ class NextSiteEntityController extends ControllerBase {
     $variables = [
       'NEXT_PUBLIC_DRUPAL_BASE_URL' => $this->request->getSchemeAndHttpHost(),
       'NEXT_IMAGE_DOMAIN' => $this->request->getHost(),
-      'DRUPAL_SITE_ID' => $next_site->uuid(),
+      'DRUPAL_SITE_ID' => $next_site->id(),
       'DRUPAL_FRONT_PAGE' => $this->config('system.site')->get('page.front'),
     ];
 
@@ -85,7 +85,7 @@ class NextSiteEntityController extends ControllerBase {
     $build['description'] = [
       '#type' => 'html_tag',
       '#tag' => 'p',
-      '#value' => $this->t('Copy and paste these values in your <em>.env</em> files.'),
+      '#value' => $this->t('Copy and paste these values in your <em>.env</em> or <em>.env.local</em> files.'),
     ];
 
     $build['actions'] = [

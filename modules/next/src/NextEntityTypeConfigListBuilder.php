@@ -111,20 +111,23 @@ class NextEntityTypeConfigListBuilder extends ConfigEntityListBuilder {
     $entity_type = $this->entityTypeManager->getDefinition($entity_type_id);
     $bundle_info = $this->entityTypeBundleInfo->getBundleInfo($entity_type_id);
 
-    /** @var \Drupal\next\Plugin\SiteResolverInterface $site_resolver */
-    $site_resolver = $entity->getSiteResolver();
-
     $row['entity_type'] = $entity_type->getLabel();
     $row['bundle'] = $bundle_info[$bundle]['label'];
-    $row['site_resolver'] = $site_resolver->getLabel();
+    $row['site_resolver'] = "";
     $row['summary'] = [];
 
-    if ($summary = $site_resolver->configurationSummary()) {
-      $row['summary']['data'] = [
-        '#type' => 'inline_template',
-        '#template' => '<div class="summary">{{ summary|safe_join("<br />") }}</div>',
-        '#context' => ['summary' => $summary],
-      ];
+    /** @var \Drupal\next\Plugin\SiteResolverInterface $site_resolver */
+    if ($site_resolver = $entity->getSiteResolver()) {
+      $row['site_resolver'] = $site_resolver->getLabel();
+      $row['summary'] = [];
+
+      if ($summary = $site_resolver->configurationSummary()) {
+        $row['summary']['data'] = [
+          '#type' => 'inline_template',
+          '#template' => '<div class="summary">{{ summary|safe_join("<br />") }}</div>',
+          '#context' => ['summary' => $summary],
+        ];
+      }
     }
 
     return $row + parent::buildRow($entity);

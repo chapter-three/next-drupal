@@ -16,7 +16,7 @@
     "watch": "lerna run watch",
     "lint": "eslint --cache --ext .js,.jsx .",
     "phpcs": "./drupal/vendor/bin/phpcs -s -n --colors --standard=modules/next/phpcs.xml.dist modules/next",
-    "test:next": "./drupal/vendor/bin/phpunit -c ./drupal/web/core modules/next",
+    "test:next": "./drupal/vendor/bin/phpunit -c ./drupal/web modules/next",
     "sync:modules": "./scripts/sync-modules.sh \"modules/*\"",
     "sync:examples": "./scripts/sync-examples.sh \"examples/example-*\"",
     "sync:starters": "./scripts/sync-starters.sh \"starters/*\"",

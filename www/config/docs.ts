@@ -62,6 +62,10 @@ export const docs: DocsConfig = {
           title: "Blocks",
           url: "/docs/data-fetching/blocks",
         },
+        {
+          title: "Filter by Site",
+          url: "/docs/data-fetching/filter-by-site",
+        },
       ],
     },
     {

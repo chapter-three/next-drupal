@@ -9,7 +9,6 @@ module:
   ckeditor: 0
   config: 0
   consumers: 0
-  contextual: 0
   ctools: 0
   datetime: 0
   dblog: 0
@@ -20,19 +19,20 @@ module:
   entity_reference_revisions: 0
   entity_usage: 0
   example_auth: 0
+  facets: 0
   field: 0
   field_group: 0
   field_ui: 0
   file: 0
   filter: 0
   hal: 0
-  help: 0
-  history: 0
   image: 0
   jsonapi: 0
   jsonapi_extras: 0
   jsonapi_menu_items: 0
   jsonapi_resources: 0
+  jsonapi_search_api: 0
+  jsonapi_search_api_facets: 0
   jsonapi_views: 0
   language: 0
   link: 0
@@ -49,10 +49,10 @@ module:
   paragraphs_library: 0
   path: 0
   path_alias: 0
-  rdf: 0
   rest: 0
   restui: 0
-  search: 0
+  search_api: 0
+  search_api_db: 0
   serialization: 0
   shortcut: 0
   simple_oauth: 0
@@ -62,7 +62,6 @@ module:
   text: 0
   token: 0
   toolbar: 0
-  tour: 0
   update: 0
   user: 0
   views_ui: 0

@@ -1,0 +1,28 @@
+default_cron_limit: 50
+cron_worker_runtime: 15
+default_tracker: default
+tracking_page_size: 100
+boost_factors:
+  - !!float 0
+  - 0.1
+  - 0.2
+  - 0.3
+  - 0.5
+  - 0.6
+  - 0.7
+  - 0.8
+  - 0.9
+  - !!float 1
+  - 1.1
+  - 1.2
+  - 1.3
+  - 1.4
+  - 1.5
+  - !!float 2
+  - !!float 3
+  - !!float 5
+  - !!float 8
+  - !!float 13
+  - !!float 21
+_core:
+  default_config_hash: b2zIRm9Jv3SB60NYdZkZHxH8-KdEa-Xa48-4NsIi4lg

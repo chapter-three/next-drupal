@@ -1,0 +1,59 @@
+uuid: 53ba59b7-b235-455d-a2f5-d437059e0ba7
+langcode: en
+status: true
+dependencies:
+  module:
+    - jsonapi_search_api_facets
+id: status
+name: Status
+url_alias: field_status
+weight: 0
+min_count: 1
+show_only_one_result: false
+field_identifier: field_status
+facet_source_id: 'jsonapi_search_api_facets:property'
+widget:
+  type: jsonapi_search_api
+  config:
+    show_numbers: true
+query_operator: or
+use_hierarchy: false
+keep_hierarchy_parents_active: false
+expand_hierarchy: false
+enable_parent_when_child_gets_disabled: true
+hard_limit: 0
+exclude: false
+only_visible_when_facet_source_is_visible: true
+processor_configs:
+  active_widget_order:
+    processor_id: active_widget_order
+    weights:
+      sort: -9
+    settings:
+      sort: DESC
+  count_widget_order:
+    processor_id: count_widget_order
+    weights:
+      sort: -8
+    settings:
+      sort: DESC
+  display_value_widget_order:
+    processor_id: display_value_widget_order
+    weights:
+      sort: -10
+    settings:
+      sort: ASC
+  list_item:
+    processor_id: list_item
+    weights:
+      build: 5
+    settings: {  }
+  url_processor_handler:
+    processor_id: url_processor_handler
+    weights:
+      pre_query: 50
+      build: 15
+    settings: {  }
+empty_behavior:
+  behavior: none
+show_title: false

@@ -1,0 +1,12 @@
+uuid: 942900b3-d7df-42e0-b209-3dbf1c9d82fe
+langcode: en
+status: true
+dependencies: {  }
+id: jsonapi_search_api_facets__article
+name: 'jsonapi_search_api_facets:article'
+filter_key: filter
+url_processor: json_api
+breadcrumb:
+  active: false
+  before: true
+  group: false

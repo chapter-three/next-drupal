@@ -1,0 +1,9 @@
+uuid: f1ebd1f5-782e-47c7-b512-3c40ea578c7c
+langcode: en
+status: true
+dependencies: {  }
+id: jsonapi_search_api_facets__property
+name: 'jsonapi_search_api_facets:property'
+filter_key: filter
+url_processor: json_api
+breadcrumb: {  }

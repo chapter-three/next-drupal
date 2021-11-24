@@ -1,0 +1,165 @@
+uuid: 6c35f62c-f75b-4f32-a96b-c2c987efebd8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_baths
+    - field.storage.node.field_beds
+    - field.storage.node.field_location
+    - field.storage.node.field_size
+    - field.storage.node.field_status
+    - search_api.server.database
+  module:
+    - taxonomy
+    - node
+    - search_api
+id: property
+name: Property
+description: ''
+read_only: false
+field_settings:
+  field_baths:
+    label: Baths
+    datasource_id: 'entity:node'
+    property_path: field_baths
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_baths
+  field_beds:
+    label: Beds
+    datasource_id: 'entity:node'
+    property_path: field_beds
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_beds
+  field_location:
+    label: Location
+    datasource_id: 'entity:node'
+    property_path: field_location
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_location
+  field_size:
+    label: Size
+    datasource_id: 'entity:node'
+    property_path: field_size
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_size
+  field_status:
+    label: Status
+    datasource_id: 'entity:node'
+    property_path: field_status
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_status
+  name:
+    label: 'Location » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_location:entity:name'
+    type: text
+    boost: !!float 2
+    dependencies:
+      config:
+        - field.storage.node.field_location
+      module:
+        - taxonomy
+  node_grants:
+    label: 'Node access information'
+    property_path: search_api_node_grants
+    type: string
+    indexed_locked: true
+    type_locked: true
+    hidden: true
+  status:
+    label: status
+    datasource_id: 'entity:node'
+    property_path: status
+    type: boolean
+    indexed_locked: true
+    type_locked: true
+    dependencies:
+      module:
+        - node
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: text
+    dependencies:
+      module:
+        - node
+  uid:
+    label: uid
+    datasource_id: 'entity:node'
+    property_path: uid
+    type: integer
+    indexed_locked: true
+    type_locked: true
+    dependencies:
+      module:
+        - node
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - property_listing
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  content_access:
+    weights:
+      preprocess_query: -30
+  entity_status: {  }
+  ignorecase:
+    all_fields: true
+    fields:
+      - field_size
+      - field_status
+      - name
+      - title
+    weights:
+      preprocess_index: -20
+      preprocess_query: -20
+  language_with_fallback: {  }
+  rendered_item: {  }
+  stemmer:
+    all_fields: true
+    fields:
+      - name
+      - title
+    exceptions:
+      mexican: mexic
+      texan: texa
+    weights:
+      preprocess_index: 0
+      preprocess_query: 0
+  tokenizer:
+    all_fields: true
+    fields:
+      - name
+      - title
+    ignored: ._-
+    spaces: ''
+    overlap_cjk: 1
+    minimum_word_size: '3'
+    weights:
+      preprocess_index: -6
+      preprocess_query: -6
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  index_directly: true
+  track_changes_in_references: true
+  cron_limit: 50
+server: database

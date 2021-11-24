@@ -10,6 +10,7 @@ import {
   DrupalSearchApiFacet,
 } from "next-drupal"
 import { GetStaticPropsResult } from "next"
+import { useRouter } from "next/router"
 
 const params = {
   fields: {
@@ -29,6 +30,7 @@ export default function AdvancedPage({
   nodes,
   facets: initialFacets,
 }: AdvancedPageProps) {
+  const router = useRouter()
   const [status, setStatus] = React.useState<"error" | "success" | "loading">()
   const [results, setResults] = React.useState<DrupalNode[]>(nodes)
   const [facets, setFacets] =
@@ -132,12 +134,23 @@ export default function AdvancedPage({
                 </div>
               ))}
             </div>
-            <button
-              type="submit"
-              className="flex w-full justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-black hover:bg-black"
-            >
-              {status === "loading" ? "Please wait..." : "Search"}
-            </button>
+            <div className="flex">
+              <button
+                type="button"
+                className="flex w-24 justify-center py-2 px-4 border border-gray-500 shadow-sm text-sm font-medium rounded-md text-gray-500 bg-white hover:bg-gray-200 mr-4"
+                onClick={() => {
+                  router.reload()
+                }}
+              >
+                Reset
+              </button>
+              <button
+                type="submit"
+                className="flex w-48 justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-black hover:bg-black"
+              >
+                {status === "loading" ? "Please wait..." : "Search"}
+              </button>
+            </div>
           </form>
           {status === "error" ? (
             <div className="border-red-200 bg-red-100 text-red-600 px-4 py-2 rounded-md text-sm">

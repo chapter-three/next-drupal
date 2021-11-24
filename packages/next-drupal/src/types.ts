@@ -33,6 +33,27 @@ export interface JsonApiResponse extends Record<string, any> {
   included?: Record<string, any>[]
 }
 
+export interface JsonApiSearchApiResponse extends JsonApiResponse {
+  meta: JsonApiResponse["meta"] & {
+    facets?: DrupalSearchApiFacet[]
+  }
+}
+
+export interface DrupalSearchApiFacet {
+  id: string
+  label?: string
+  path?: string
+  terms?: {
+    url: string
+    values: {
+      value: string
+      label: string
+      active?: boolean
+      count?: number
+    }
+  }[]
+}
+
 export interface DrupalTranslatedPath {
   resolved: string
   isHomePath: boolean

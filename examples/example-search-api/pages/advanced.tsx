@@ -29,7 +29,7 @@ export default function AdvancedPage({
   nodes,
   facets: initialFacets,
 }: AdvancedPageProps) {
-  const [status, setStatus] = React.useState<"error" | "success">()
+  const [status, setStatus] = React.useState<"error" | "success" | "loading">()
   const [results, setResults] = React.useState<DrupalNode[]>(nodes)
   const [facets, setFacets] =
     React.useState<DrupalSearchApiFacet[]>(initialFacets)
@@ -43,6 +43,7 @@ export default function AdvancedPage({
       }
     }
 
+    setStatus("loading")
     const response = await fetch("/api/search/property", {
       method: "POST",
       body: JSON.stringify({
@@ -52,7 +53,7 @@ export default function AdvancedPage({
     })
 
     if (!response.ok) {
-      setStatus("error")
+      return setStatus("error")
     }
 
     setStatus("success")
@@ -82,21 +83,13 @@ export default function AdvancedPage({
           </p>
           <p>Use the form below to search for property listing.</p>
           <form onSubmit={handleSubmit} className="mb-4">
-            <div className="grid grid-cols-6 items-center gap-4">
-              <input
-                type="search"
-                placeholder="Search properties (min 4 characters)..."
-                name="fulltext"
-                className="col-span-5 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
-              />
-              <button
-                type="submit"
-                className="flex w-full justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-black hover:bg-black"
-              >
-                Search
-              </button>
-            </div>
-            <div className="grid grid-cols-2 gap-4 py-4">
+            <input
+              type="search"
+              placeholder="Search properties (min 4 characters)..."
+              name="fulltext"
+              className="col-span-5 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
+            />
+            <div className="grid md:grid-cols-2 gap-4 py-4">
               {facets.map((facet) => (
                 <div key={facet.id} className="border p-4 rounded-md">
                   <h3 className="text-base mt-0 mb-2">{facet.label}</h3>
@@ -119,7 +112,7 @@ export default function AdvancedPage({
                       <label
                         key={term.url}
                         htmlFor={`${facet.id}--${term.values.value}`}
-                        className="flex items-center text-base"
+                        className="flex items-center text-sm"
                       >
                         <input
                           type="radio"
@@ -139,6 +132,12 @@ export default function AdvancedPage({
                 </div>
               ))}
             </div>
+            <button
+              type="submit"
+              className="flex w-full justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-black hover:bg-black"
+            >
+              {status === "loading" ? "Please wait..." : "Search"}
+            </button>
           </form>
           {status === "error" ? (
             <div className="border-red-200 bg-red-100 text-red-600 px-4 py-2 rounded-md text-sm">
@@ -149,7 +148,7 @@ export default function AdvancedPage({
             <p className="text-sm">No results found.</p>
           ) : (
             <div className="pt-4">
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-6">
                 {results.map((node) => (
                   <div key={node.id}>
                     <article className="grid grid-cols-3 gap-4">

@@ -14,11 +14,13 @@ function formatDate(input: string): string {
 }
 
 export default function SimplePage() {
-  const [status, setStatus] = React.useState<"error" | "success">()
+  const [status, setStatus] = React.useState<"error" | "success" | "loading">()
   const [results, setResults] = React.useState<DrupalNode[]>([])
 
   async function handleSubmit(event) {
     event.preventDefault()
+
+    setStatus("loading")
 
     const response = await fetch("/api/search/article", {
       method: "POST",
@@ -36,7 +38,7 @@ export default function SimplePage() {
     })
 
     if (!response.ok) {
-      setStatus("error")
+      return setStatus("error")
     }
 
     setStatus("success")
@@ -61,7 +63,7 @@ export default function SimplePage() {
           </p>
           <p>Use the form below to search for article nodes.</p>
           <form onSubmit={handleSubmit} className="mb-4">
-            <div className="grid grid-cols-6 items-center gap-4">
+            <div className="sm:grid sm:grid-cols-7 items-center gap-4">
               <input
                 type="search"
                 placeholder="Search articles..."
@@ -71,9 +73,9 @@ export default function SimplePage() {
               />
               <button
                 type="submit"
-                className="flex w-full justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-black hover:bg-black"
+                className="sm:col-span-2 mt-4 sm:mt-0 flex w-full justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-black hover:bg-black"
               >
-                Search
+                {status === "loading" ? "Please wait..." : "Search"}
               </button>
             </div>
           </form>
@@ -92,9 +94,9 @@ export default function SimplePage() {
               <h3 className="mt-0">Found {results.length} result(s).</h3>
               {results.map((node) => (
                 <div key={node.id} className="border-b pb-4 mb-4">
-                  <article className="grid grid-cols-3 gap-4">
+                  <article className="sm:grid grid-cols-3 gap-4">
                     {node.field_image?.uri && (
-                      <div className="col-span-1">
+                      <div className="col-span-1 mb-4 sm:mb-0">
                         <Image
                           src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${node.field_image.uri.url}`}
                           width={200}

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@0.17.0...next-drupal@0.18.0) (2021-11-24)
+
+
+### Features
+
+* **next-drupal:** add support for jsonapi search api ([efb3526](https://github.com/chapter-three/next-drupal/commit/efb3526c1ee20fa98a9f05c0893a6be7dfdfa921))
+
+
+
+
+
 # [0.17.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@0.17.0-alpha.0...next-drupal@0.17.0) (2021-11-01)
 
 

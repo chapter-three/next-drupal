@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/chapter-three/next-drupal/compare/example-no-preview@0.3.0...example-no-preview@0.4.0) (2021-11-24)
+
+
+### Bug Fixes
+
+* **example-no-preview:** update .env ([6e97c68](https://github.com/chapter-three/next-drupal/commit/6e97c68cb26106585b6caca168deb08355f27bd4))
+* update .env files ([8c3207b](https://github.com/chapter-three/next-drupal/commit/8c3207b79bc641b605c11cec3fd556d0f71f1e72))
+
+
+### Features
+
+* **drupal:** update example modules ([3f2b578](https://github.com/chapter-three/next-drupal/commit/3f2b57822226e587e590fdcc5f760cae0b11d97f))
+
+
+
+
+
 # [0.3.0](https://github.com/chapter-three/next-drupal/compare/example-no-preview@0.3.0-alpha.0...example-no-preview@0.3.0) (2021-11-01)
 
 

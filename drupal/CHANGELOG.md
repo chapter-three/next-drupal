@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/chapter-three/next-drupal/compare/drupal-site@0.7.0...drupal-site@0.8.0) (2021-11-24)
+
+
+### Features
+
+* **drupal:** implement search api ([bd4151f](https://github.com/chapter-three/next-drupal/commit/bd4151f2176b21f1b25d89533ceab0eff0080d34))
+* **drupal:** update ([8862a2f](https://github.com/chapter-three/next-drupal/commit/8862a2fde38be51bd8a17cb1a516ed85fef87e38))
+* **drupal:** update example modules ([3f2b578](https://github.com/chapter-three/next-drupal/commit/3f2b57822226e587e590fdcc5f760cae0b11d97f))
+* **example-auth:** add example auth ([74515fe](https://github.com/chapter-three/next-drupal/commit/74515fee86f47ea42bc931d43b32e4ba40706eaf))
+* **example-webform:** add example webform ([ca8f477](https://github.com/chapter-three/next-drupal/commit/ca8f477b899a83a19b0823105863d40298e60418))
+
+
+
+
+
 # [0.7.0](https://github.com/chapter-three/next-drupal/compare/drupal-site@0.7.0-alpha.0...drupal-site@0.7.0) (2021-11-01)
 
 **Note:** Version bump only for package drupal-site

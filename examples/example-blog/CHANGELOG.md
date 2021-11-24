@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/chapter-three/next-drupal/compare/example-blog@0.10.0...example-blog@0.11.0) (2021-11-24)
+
+
+### Bug Fixes
+
+* **example-blog:** update pages ([65e9c6b](https://github.com/chapter-three/next-drupal/commit/65e9c6bd36cf01bd77169f558472b2964e38890c))
+* update .env files ([8c3207b](https://github.com/chapter-three/next-drupal/commit/8c3207b79bc641b605c11cec3fd556d0f71f1e72))
+
+
+### Features
+
+* **drupal:** update example modules ([3f2b578](https://github.com/chapter-three/next-drupal/commit/3f2b57822226e587e590fdcc5f760cae0b11d97f))
+
+
+
+
+
 # [0.10.0](https://github.com/chapter-three/next-drupal/compare/example-blog@0.10.0-alpha.0...example-blog@0.10.0) (2021-11-01)
 
 **Note:** Version bump only for package example-blog

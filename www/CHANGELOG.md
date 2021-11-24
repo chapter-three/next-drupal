@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/chapter-three/next-drupal/compare/www@0.3.0...www@0.4.0) (2021-11-24)
+
+
+### Bug Fixes
+
+* **www:** update sidebar and table of contents ([71e6aed](https://github.com/chapter-three/next-drupal/commit/71e6aed6289bef12455d22ccf10509347d5bc83a))
+* **www:** update sidebar links ([03aac36](https://github.com/chapter-three/next-drupal/commit/03aac36cccecedd845183a0dda1a14f261196d48))
+* **www:** update video key ([22c82e2](https://github.com/chapter-three/next-drupal/commit/22c82e2546ecf8050b03e98133f11000c98da2d8))
+
+
+### Features
+
+* **drupal:** update example modules ([3f2b578](https://github.com/chapter-three/next-drupal/commit/3f2b57822226e587e590fdcc5f760cae0b11d97f))
+* **example-webform:** add example webform ([ca8f477](https://github.com/chapter-three/next-drupal/commit/ca8f477b899a83a19b0823105863d40298e60418))
+* **www:** add learn section ([988dfc2](https://github.com/chapter-three/next-drupal/commit/988dfc21951e0e548c9330e39a4c8e87361c4024))
+
+
+
+
+
 # [0.3.0](https://github.com/chapter-three/next-drupal/compare/www@0.3.0-alpha.0...www@0.3.0) (2021-11-01)
 
 **Note:** Version bump only for package www

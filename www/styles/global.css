@@ -23,6 +23,10 @@
   @apply mb-0;
 }
 
+.algolia-autocomplete {
+  display: block !important;
+}
+
 /**
  * MIT License
  * Copyright (c) 2018 Sarah Drasner

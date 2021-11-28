@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -15,17 +19,42 @@
     "jsx": "preserve",
     "baseUrl": "./",
     "paths": {
-      "@/core/config/*": ["core/config/*"],
-      "@/core/components/*": ["components/*"],
-      "@/core/hooks/*": ["hooks/*"],
-      "@/core/types": ["types"],
-      "@/core/utils/*": ["core/utils/*"],
-      "@/components/*": ["src/components/*"],
-      "@/utils/*": ["src/utils/*"],
-      "@/config/*": ["config/*"],
-      "@/scenes/*": ["src/scenes/*"]
-    }
+      "@/core/config/*": [
+        "core/config/*"
+      ],
+      "@/core/components/*": [
+        "components/*"
+      ],
+      "@/core/hooks/*": [
+        "hooks/*"
+      ],
+      "@/core/types": [
+        "types"
+      ],
+      "@/core/utils/*": [
+        "core/utils/*"
+      ],
+      "@/components/*": [
+        "src/components/*"
+      ],
+      "@/utils/*": [
+        "src/utils/*"
+      ],
+      "@/config/*": [
+        "config/*"
+      ],
+      "@/scenes/*": [
+        "src/scenes/*"
+      ]
+    },
+    "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

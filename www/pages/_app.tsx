@@ -1,8 +1,8 @@
 import { site } from "config/site"
 import { DefaultSeo } from "next-seo"
-import { ThemeProvider } from "reflexjs"
 import "@fontsource/inter/latin.css"
-import theme from "config/theme"
+
+import "../styles/global.css"
 
 export default function App({ Component, pageProps }) {
   return (
@@ -27,9 +27,7 @@ export default function App({ Component, pageProps }) {
           cardType: "summary_large_image",
         }}
       />
-      <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <Component {...pageProps} />
     </>
   )
 }

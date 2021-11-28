@@ -1,11 +1,6 @@
-export default function IndexPage() {
-  return null
-}
+import { site } from "@/config/site"
+import { Layout } from "../components/layout"
 
-export async function getServerSideProps() {
-  return {
-    redirect: {
-      destination: "/docs",
-    },
-  }
+export default function IndexPage() {
+  return <Layout title={site.name}>index</Layout>
 }

@@ -1,12 +1,12 @@
 import Link from "next/link"
 import { getMdxNode, getMdxPaths, getAllMdxNodes } from "next-mdx/server"
 import { useHydrate } from "next-mdx/client"
-import { Icon } from "reflexjs"
+import classNames from "classnames"
 
 import { Tutorial } from "types"
 import { Layout } from "components/layout"
 import { Pager } from "components/pager"
-import { mdxComponents } from "components/mdx-components"
+import { mdxComponents } from "components/mdx"
 import { Video } from "components/video"
 
 export interface TutorialPageProps {
@@ -28,7 +28,7 @@ export default function TutorialPage({
 
   const links = tutorials.map((tutorial) => ({
     title: tutorial.frontMatter.title,
-    url: tutorial.url,
+    href: tutorial.url,
   }))
 
   return (
@@ -36,139 +36,128 @@ export default function TutorialPage({
       title={tutorial.frontMatter.title}
       description={tutorial.frontMatter.excerpt}
     >
-      <div variant="container" mx="auto">
-        <div display="grid" col="1|||280px minmax(0, 1fr)" gap="null|6|6|16">
-          <div
-            className="sidebar-nav"
-            display="none|none|none|block"
-            position="static|sticky"
-            top="14"
-            h={(theme) => `calc(100vh - ${theme.space[14]})`}
-            overflow="scroll"
-            py="6|12"
-            pl="2"
-            borderRightWidth="0|1px"
-          >
-            {Object.keys(groups).map((group, index) => (
-              <div key={index}>
-                <h4
-                  fontSize="sm"
-                  textTransform="uppercase"
-                  fontWeight="semibold"
-                  pl="6"
-                  mb="4"
-                >
-                  {group}
-                </h4>
-              </div>
-            ))}
-            <ul display="grid" row={`repeat(${tutorials.length}, 1fr)`} gap="2">
-              {tutorials.map((wiz) => (
-                <li
-                  key={wiz.hash}
-                  display="flex"
-                  alignItems="center"
-                  fontSize="sm"
-                  textDecoration={
-                    tutorial.frontMatter.weight > wiz.frontMatter.weight
-                      ? "line-through"
-                      : "none"
-                  }
-                  opacity={
-                    tutorial.frontMatter.weight > wiz.frontMatter.weight
-                      ? 0.5
-                      : 1
-                  }
-                >
-                  <div
-                    mr="2"
-                    width="4"
-                    height="4"
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                  >
-                    <Icon
-                      name={wiz.hash === tutorial.hash ? "circle" : "check"}
-                      width={wiz.hash === tutorial.hash ? 2 : 4}
-                      height={wiz.hash === tutorial.hash ? 2 : 4}
-                      visibility={
+      <div className="container px-6 mx-auto md:gap-10 xl:gap-10 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-4 lg:grid xl:px-4">
+        <aside className="hidden col-span-2 py-10 pr-4 border-r xl:col-span-1 lg:block">
+          {Object.keys(groups).map((group, index) => (
+            <div key={index}>
+              <h4 className="pl-6 mb-2 text-sm font-medium">{group}</h4>
+            </div>
+          ))}
+          <ul className="grid grid-flow-row gap-2 auto-rows-max">
+            {tutorials.map((wiz) => (
+              <li
+                key={wiz.hash}
+                className={classNames(
+                  "flex items-center",
+                  tutorial.frontMatter.weight > wiz.frontMatter.weight
+                    ? "line-through opacity-50"
+                    : "opacity-100"
+                )}
+              >
+                <div className="flex items-center justify-center w-4 h-4 mr-2">
+                  {wiz.hash === tutorial.hash ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-2 h-2"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                    </svg>
+                  ) : (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className={classNames(
+                        "w-4 h-4",
                         tutorial.frontMatter.weight >= wiz.frontMatter.weight
                           ? "visible"
-                          : "hidden"
-                      }
-                    />
-                  </div>
-                  <Link href={wiz.url} passHref>
-                    <a
-                      fontWeight={
-                        wiz.hash === tutorial.hash ? "bold" : "normal"
-                      }
-                      color={
-                        wiz.hash === tutorial.hash ? "text" : "textLighter"
-                      }
+                          : "invisible"
+                      )}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     >
-                      {wiz.frontMatter.title}
-                    </a>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <div my="10" borderWidth="1px" borderRadius="md" p="4" mr="6">
-              <h4>Need help?</h4>
-              <p fontSize="sm">
-                We are on <a href="https://twitter.com/shadcn">Twitter</a>,{" "}
-                <a href="https://github.com/chapter-three/next-drupal">
-                  GitHub
-                </a>{" "}
-                and{" "}
-                <a href="https://drupal.slack.com/archives/C01E36BMU72">
-                  Slack
-                </a>
-                .
-              </p>
-            </div>
-            <Link href="/docs" passHref>
-              <a variant="button.link" color="text">
-                <Icon name="chevron-left" mr="2" />
-                Read the docs
-              </a>
-            </Link>
-          </div>
-          <div>
-            <div py="6|8|10" className="DocSearch-content">
-              <div
-                display="flex"
-                flexDirection="column|column|row-reverse"
-                justifyContent="space-between"
-              >
-                {tutorial.frontMatter.weight !== 0 ? (
-                  <p color="textLighter" mt="4">
-                    Step {tutorial.frontMatter.weight} of {tutorials.length - 1}
-                  </p>
-                ) : (
-                  <span />
-                )}
-                <div>
-                  <h1 variant="heading.h1" fontSize="5xl">
-                    {tutorial.frontMatter.title}
-                  </h1>
-                  {tutorial.frontMatter.excerpt ? (
-                    <p variant="text.lead" mt="2">
-                      {tutorial.frontMatter.excerpt}
-                    </p>
-                  ) : null}
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                  )}
                 </div>
-              </div>
-              <hr my="6" />
-              {tutorial.frontMatter.video ? (
-                <Video src={tutorial.frontMatter.video} heading="Play Video" />
+                <Link href={wiz.url} passHref>
+                  <a
+                    className={classNames(
+                      "text-sm hover:text-black",
+                      wiz.hash === tutorial.hash
+                        ? "text-black font-semibold"
+                        : "text-gray-700"
+                    )}
+                  >
+                    {wiz.frontMatter.title}
+                  </a>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="p-4 my-6 mt-10 border rounded-md border-blue-50 bg-blue-50 callout">
+            <h4 className="mb-2 text-sm font-medium">Need help?</h4>
+            <p className="text-sm text-gray-600">
+              We are on{" "}
+              <a
+                href="https://twitter.com/shadcn"
+                className="text-blue-600 hover:underline"
+              >
+                Twitter
+              </a>
+              ,{" "}
+              <a
+                href="https://github.com/chapter-three/next-drupal"
+                className="text-blue-600 hover:underline"
+              >
+                GitHub
+              </a>{" "}
+              and{" "}
+              <a
+                href="https://drupal.slack.com/archives/C01E36BMU72"
+                className="text-blue-600 hover:underline"
+              >
+                Slack
+              </a>
+              .
+            </p>
+          </div>
+        </aside>
+        <div className="col-span-4 pt-4 pb-10 xl:col-span-3 sm:pt-6 md:pt-10 DocSearch-content">
+          <div>
+            {tutorial.frontMatter.weight !== 0 ? (
+              <p className="text-sm text-gray-600">
+                Step {tutorial.frontMatter.weight} of {tutorials.length - 1}
+              </p>
+            ) : (
+              <span />
+            )}
+            <div>
+              <h1 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
+                {tutorial.frontMatter.title}
+              </h1>
+              {tutorial.frontMatter.excerpt ? (
+                <p className="text-lg font-light text-gray-700 md:mt-2 md:text-2xl">
+                  {tutorial.frontMatter.excerpt}
+                </p>
               ) : null}
-              <div maxWidth="700px">
-                {content}
-                <Pager links={links} />
-              </div>
             </div>
+          </div>
+          <hr className="my-6" />
+          {tutorial.frontMatter.video ? (
+            <Video src={tutorial.frontMatter.video} heading="Play Video" />
+          ) : null}
+          <div className="max-w-xl">
+            {content}
+            <Pager links={links} />
           </div>
         </div>
       </div>

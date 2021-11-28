@@ -37,14 +37,13 @@ export type NavLink = {
   title: string
   external?: boolean
   activePathNames?: string[]
-  type?: "button"
 } & (
   | {
-      url: string
+      href: string
       items?: never
     }
   | {
-      url?: string
+      href?: string
       items: NavLink[]
     }
 )
@@ -63,9 +62,5 @@ export interface SiteConfig {
 }
 
 export interface DocsConfig {
-  links: NavLinks
-}
-
-export interface GuidesConfig {
   links: NavLinks
 }

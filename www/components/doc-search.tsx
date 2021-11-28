@@ -1,5 +1,4 @@
 import * as React from "react"
-import { VisuallyHidden } from "reflexjs"
 
 const KEYBOARD_SHORTCUT_KEY = "/"
 
@@ -40,39 +39,21 @@ export function DocSearch({ ...props }) {
   }, [])
 
   return (
-    <div position="relative" {...props}>
-      <VisuallyHidden>
-        <label htmlFor="docsearch-input">Search</label>
-      </VisuallyHidden>
+    <div
+      className="relative flex-1 md:min-w-[300px] lg:min-w-[400px]"
+      {...props}
+    >
+      <label htmlFor="docsearch-input" className="sr-only">
+        Search
+      </label>
       <input
         type="search"
-        appearance="none"
-        variant="input.sm"
-        h="9"
         id="docsearch-input"
         placeholder="Search the docs..."
-        rounded="md"
-        fontSize="sm"
-        w="100%|275px"
-        bg="muted"
-        flex="1"
-        borderWidth="1px"
         ref={input}
+        className="w-full text-sm border-0 border-gray-200 rounded-md h-9 bg-blue-50"
       />
-      <span
-        position="absolute"
-        top="6px"
-        right="6px"
-        bg="background"
-        borderWidth="1"
-        width="6"
-        height="6"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        borderRadius="lg"
-        fontSize="sm"
-      >
+      <span className="absolute flex items-center justify-center w-5 h-5 text-xs bg-blue-200 rounded-md top-2 right-2">
         {KEYBOARD_SHORTCUT_KEY}
       </span>
     </div>

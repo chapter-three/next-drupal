@@ -1,10 +1,9 @@
 import Document, { Html, Main, NextScript, Head } from "next/document"
-import { InitializeColorMode } from "reflexjs"
 
 export default class extends Document {
   render() {
     return (
-      <Html lang="en">
+      <Html lang="en" className="font-sans antialiased bg-white">
         <Head>
           <meta charSet="utf-8" />
           <link rel="icon" type="image/png" href="/images/favicon.ico" />
@@ -18,7 +17,6 @@ export default class extends Document {
           ></script>
         </Head>
         <body>
-          <InitializeColorMode />
           <Main />
           <NextScript />
         </body>

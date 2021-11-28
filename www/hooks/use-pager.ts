@@ -14,7 +14,7 @@ export function usePager(links: NavLinks): {
   const activeIndex = React.useMemo(
     () =>
       flattenedLinks.findIndex(
-        (link) => link.url.replace(/\/$/, "") === asPath
+        (link) => link.href.replace(/\/$/, "") === asPath
       ),
     [links, asPath]
   )

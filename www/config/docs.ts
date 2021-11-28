@@ -7,17 +7,17 @@ export const docs: DocsConfig = {
       items: [
         {
           title: "GitHub",
-          url: "https://github.com/chapter-three/next-drupal",
+          href: "https://github.com/chapter-three/next-drupal",
           external: true,
         },
         {
           title: "Drupal",
-          url: "https://drupal.org/project/next",
+          href: "https://drupal.org/project/next",
           external: true,
         },
         {
           title: "Slack",
-          url: "https://drupal.slack.com/archives/C01E36BMU72",
+          href: "https://drupal.slack.com/archives/C01E36BMU72",
           external: true,
         },
       ],
@@ -27,15 +27,15 @@ export const docs: DocsConfig = {
       items: [
         {
           title: "Introduction",
-          url: "/docs",
+          href: "/docs",
         },
         {
           title: "Examples",
-          url: "/docs/demo",
+          href: "/docs/demo",
         },
         {
           title: "Quick Start",
-          url: "/docs/quick-start",
+          href: "/docs/quick-start",
         },
       ],
     },
@@ -44,27 +44,27 @@ export const docs: DocsConfig = {
       items: [
         {
           title: "Basic Example",
-          url: "/docs/data-fetching",
+          href: "/docs/data-fetching",
         },
         {
           title: "Dynamic Pages",
-          url: "/docs/data-fetching#dynamic-pages",
+          href: "/docs/data-fetching#dynamic-pages",
         },
         {
           title: "Advanced Example",
-          url: "/docs/data-fetching#advanced-example",
+          href: "/docs/data-fetching#advanced-example",
         },
         {
           title: "Menus",
-          url: "/docs/data-fetching/menus",
+          href: "/docs/data-fetching/menus",
         },
         {
           title: "Blocks",
-          url: "/docs/data-fetching/blocks",
+          href: "/docs/data-fetching/blocks",
         },
         {
           title: "Filter by Site",
-          url: "/docs/data-fetching/filter-by-site",
+          href: "/docs/data-fetching/filter-by-site",
         },
       ],
     },
@@ -73,19 +73,19 @@ export const docs: DocsConfig = {
       items: [
         {
           title: "Introduction",
-          url: "/docs/authentication",
+          href: "/docs/authentication",
         },
         {
           title: "Password Grant",
-          url: "/docs/authentication/password-grant",
+          href: "/docs/authentication/password-grant",
         },
         {
           title: "Authorization Code Grant",
-          url: "/docs/authentication/authorization-code-grant",
+          href: "/docs/authentication/authorization-code-grant",
         },
         {
           title: "Refresh Token Rotation",
-          url: "/docs/authentication/refresh-token",
+          href: "/docs/authentication/refresh-token",
         },
       ],
     },
@@ -94,27 +94,27 @@ export const docs: DocsConfig = {
       items: [
         {
           title: "Query Params",
-          url: "/docs/guides/jsonapi-params",
+          href: "/docs/guides/jsonapi-params",
         },
         {
           title: "TypeScript",
-          url: "/docs/guides/typescript",
+          href: "/docs/guides/typescript",
         },
         {
           title: "Inline Images",
-          url: "/docs/guides/inline-images",
+          href: "/docs/guides/inline-images",
         },
         {
           title: "Links",
-          url: "/docs/guides/links",
+          href: "/docs/guides/links",
         },
         {
           title: "Route Syncing",
-          url: "/docs/guides/route-syncing",
+          href: "/docs/guides/route-syncing",
         },
         {
           title: "Webform",
-          url: "/docs/guides/webform",
+          href: "/docs/guides/webform",
         },
       ],
     },
@@ -123,11 +123,11 @@ export const docs: DocsConfig = {
       items: [
         {
           title: "List of nodes",
-          url: "/docs/examples#list-of-nodes",
+          href: "/docs/examples#list-of-nodes",
         },
         {
           title: "Node page",
-          url: "/docs/examples#node-page",
+          href: "/docs/examples#node-page",
         },
       ],
     },
@@ -136,36 +136,36 @@ export const docs: DocsConfig = {
       items: [
         {
           title: "getPathsFromContext",
-          url: "/docs/reference#getpathsfromcontext",
+          href: "/docs/reference#getpathsfromcontext",
         },
 
         {
           title: "getResourceTypeFromContext",
-          url: "/docs/reference#getresourcetypefromcontext",
+          href: "/docs/reference#getresourcetypefromcontext",
         },
         {
           title: "getResource",
-          url: "/docs/reference#getresource",
+          href: "/docs/reference#getresource",
         },
         {
           title: "getResourceFromContext",
-          url: "/docs/reference#getresourcefromcontext",
+          href: "/docs/reference#getresourcefromcontext",
         },
         {
           title: "getResourceByPath",
-          url: "/docs/reference#getresourcebypath",
+          href: "/docs/reference#getresourcebypath",
         },
         {
           title: "getResourceCollection",
-          url: "/docs/reference#getresourcecollection",
+          href: "/docs/reference#getresourcecollection",
         },
         {
           title: "getResourceCollectionFromContext",
-          url: "/docs/reference#getresourcecollectionfromcontext",
+          href: "/docs/reference#getresourcecollectionfromcontext",
         },
         {
           title: "getMenu",
-          url: "/docs/reference#getmenu",
+          href: "/docs/reference#getmenu",
         },
       ],
     },
@@ -174,7 +174,7 @@ export const docs: DocsConfig = {
       items: [
         {
           title: "useMenu",
-          url: "/docs/hooks#useMenu",
+          href: "/docs/hooks#useMenu",
         },
       ],
     },
@@ -183,11 +183,11 @@ export const docs: DocsConfig = {
       items: [
         {
           title: "SitePreviewer",
-          url: "/docs/site-previewer",
+          href: "/docs/site-previewer",
         },
         {
           title: "SiteResolver",
-          url: "/docs/site-resolver",
+          href: "/docs/site-resolver",
         },
       ],
     },

@@ -1,48 +1,14 @@
-import { Icon } from "reflexjs"
-
 interface CalloutProps {
-  type?: "primary" | "accent"
-  icon?: string
   children?: React.ReactNode
 }
 
-export function Callout({ type = "primary", icon, children }: CalloutProps) {
+export function Callout({ children, ...props }: CalloutProps) {
   return (
     <div
-      display="flex"
-      alignItems="center"
-      borderLeftWidth="6"
-      borderLeftColor={type}
-      rounded="sm"
-      bg="muted"
-      p="4"
-      sx={{
-        "> p": {
-          mt: 0,
-          mb: 2,
-          fontSize: "md",
-        },
-        "> p:last-child": {
-          mb: 0,
-        },
-      }}
+      className="flex items-center p-4 my-6 border border-l-4 rounded-md border-blue-50 bg-blue-50 callout"
+      {...props}
     >
-      {icon ? <Icon name={icon} width="6" height="6" mr="4" /> : null}
-      <div
-        sx={{
-          p: {
-            fontSize: "md",
-            lineHeight: "normal",
-            mt: 0,
-            mb: 2,
-          },
-          "> p:last-child": {
-            mb: 0,
-          },
-        }}
-      >
-        {children}
-      </div>
+      {children}
     </div>
   )
 }

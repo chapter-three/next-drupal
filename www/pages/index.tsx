@@ -60,14 +60,14 @@ export default function IndexPage({ features }: IndexPageProps) {
             Next.js for Drupal has everything you need to build a
             high-performant and fast front-end for your Drupal site.
           </p>
-          <div className="flex flex-col items-center justify-center py-4 md:flex-row md:py-8 lg:py-10">
+          <div className="flex flex-col items-center justify-center py-4 sm:flex-row md:py-8 lg:py-10">
             <Link href="/learn/quick-start" passHref>
-              <a className="w-2/3 px-8 py-2 font-semibold text-white transition-all bg-blue-800 border-2 border-blue-800 rounded-md md:w-auto hover:bg-white hover:text-black">
+              <a className="w-2/3 px-8 py-2 font-semibold text-center text-white transition-all bg-blue-800 border-2 border-blue-800 rounded-md sm:w-auto hover:bg-white hover:text-black">
                 Get Started
               </a>
             </Link>
             <Link href="/docs" passHref>
-              <a className="w-2/3 px-8 py-2 mt-4 font-semibold text-black transition-all bg-white border-2 border-black rounded-md md:w-auto md:mt-0 md:ml-4 hover:bg-gray-100 hover:text-black">
+              <a className="w-2/3 px-8 py-2 mt-4 font-semibold text-center text-black transition-all bg-white border-2 border-black rounded-md sm:w-auto sm:mt-0 sm:ml-4 hover:bg-gray-100 hover:text-black">
                 Read the docs
               </a>
             </Link>
@@ -82,7 +82,7 @@ export default function IndexPage({ features }: IndexPageProps) {
           <p className="mx-auto mt-4 text-lg text-center text-gray-500 leading-1 md:px-10 lg:leading-normal lg:text-2xl">
             Going headless does not mean you have to compromise on features.
           </p>
-          <div className="grid gap-6 pt-6 text-left md:grid-cols-2 lg:pt-10 lg:grid-cols-3">
+          <div className="grid gap-6 pt-6 text-left sm:grid-cols-2 lg:pt-10 lg:grid-cols-3">
             <div className="p-6 bg-white border rounded-md">
               <h4 className="mb-2 font-bold">Seamless Editing</h4>
               <p className="text-sm leading-normal text-gray-600">

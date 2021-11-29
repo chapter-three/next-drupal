@@ -49,6 +49,18 @@ export function Layout({
         )}
       >
         <ul className="grid grid-flow-row gap-2 mb-8 auto-rows-max">
+          <li>
+            <Link href="/" passHref>
+              <a
+                className={classNames(
+                  "text-sm font-medium hover:underline",
+                  pathname === "/" ? "text-blue-600" : "text-gray-700"
+                )}
+              >
+                Home
+              </a>
+            </Link>
+          </li>
           {site.links.map((link, index) => {
             const isActive =
               pathname === link.href || link.activePathNames?.includes(pathname)
@@ -57,7 +69,7 @@ export function Layout({
                 <Link href={link.href} passHref>
                   <a
                     className={classNames(
-                      "hover:underline",
+                      "text-sm font-medium hover:underline",
                       isActive ? "text-blue-600" : "text-gray-700"
                     )}
                     target={link.external ? "_blank" : "_self"}

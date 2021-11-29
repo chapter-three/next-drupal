@@ -19,7 +19,7 @@ export function Video({ src, heading, ...props }: VideoProps) {
       {heading ? (
         <button
           className={classNames(
-            "absolute inset-0 bg-white z-10 flex-col items-center justify-center group",
+            "appearance-none absolute inset-0 bg-white z-10 flex-col items-center justify-center group",
             isPlaying ? "hidden" : "flex"
           )}
           onClick={() => {

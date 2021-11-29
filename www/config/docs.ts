@@ -31,7 +31,7 @@ export const docs: DocsConfig = {
         },
         {
           title: "Examples",
-          href: "/docs/demo",
+          href: "/docs/examples",
         },
         {
           title: "Quick Start",

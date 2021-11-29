@@ -19,7 +19,9 @@
   @apply text-sm;
 }
 
-.callout p:last-child {
+.callout p:last-child,
+.callout ul:last-child,
+.callout ol:last-child {
   @apply mb-0;
 }
 

@@ -15,7 +15,7 @@ export function Video({ src, heading, ...props }: VideoProps) {
   }, [src])
 
   return (
-    <div className="relative overflow-hidden border-2 border-black rounded-lg aspect-w-16 aspect-h-9">
+    <div className="relative mb-6 overflow-hidden border-2 border-black rounded-lg aspect-w-16 aspect-h-9">
       {heading ? (
         <button
           className={classNames(

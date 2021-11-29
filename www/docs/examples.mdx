@@ -1,97 +1,40 @@
 ---
 title: Examples
-excerpt: Example pages built from Drupal JSON:API data.
+excerpt: Next.js sites powered by Drupal.
 ---
 
-## List of nodes
+## Examples
 
-A page that list all published articles sorted by created date.
+### Site
 
-```tsx title=pages/index.tsx
-import {
-  getPathsFromContext,
-  getResourceCollectionFromContext,
-  DrupalNode,
-} from "next-drupal"
+A site with complex content structure using paragaphs with translation, menus and views.
 
-interface BlogPageProps {
-  nodes: DrupalNode[]
-}
+- Demo: https://demo.next-drupal.org
+- Source: https://github.com/chapter-three/next-drupal/tree/main/examples/example-marketing
 
-export default function BlogPage({ nodes }: BlogPageProps) {
-  return nodes?.length ? (
-    <div key={node.id}>
-      <h2>{node.title}</h2>
-    </div>
-  ) : null
-}
+### Blogs
 
-export async function getStaticProps(
-  context
-): Promise<GetStaticPropsResult<BlogPageProps>> {
-  const nodes = await getResourceCollectionFromContext<DrupalNode[]>(
-    "node--article",
-    context,
-    {
-      params: {
-        "filter[status]": 1,
-        sort: "-created",
-      },
-    }
-  )
+The official Next.js example:
 
-  return {
-    props: {
-      nodes,
-    },
-    revalidate: 60,
-  }
-}
-```
+- Demo: https://cms-drupal.vercel.app
+- Source: https://github.com/vercel/next.js/tree/canary/examples/cms-drupal
 
-## Node page
+- Demo: https://example-blog.next-drupal.org
+- Source: https://github.com/chapter-three/next-drupal/tree/main/examples/example-blog
 
-A page for every article nodes.
+### Authentication
 
-```tsx title=pages/[...slug].tsx
-import {
-  getPathsFromContext,
-  getResourceFromContext,
-  DrupalNode,
-} from "next-drupal"
+Authentication example for Next.js for Drupal:
 
-interface ArticleNodePageProps {
-  node: DrupalNode
-}
+- Demo: https://example-auth.next-drupal.org
+- Source: https://github.com/chapter-three/next-drupal/tree/main/examples/example-auth
 
-export default function ArticleNodePage({ node }: ArticleNodePageProps) {
-  return node ? (
-    <div>
-      <h1>{node.title}</h1>
-    </div>
-  ) : null
-}
+### Webform
 
-export async function getStaticPaths(context): Promise<GetStaticPathsResult> {
-  return {
-    paths: await getPathsFromContext("node--article", context),
-    fallback: true,
-  }
-}
+- Demo: https://example-webform.next-drupal.org
+- Source: https://github.com/chapter-three/next-drupal/tree/main/examples/example-webform
 
-export async function getStaticProps(
-  context
-): Promise<GetStaticPropsResult<ArticleNodePageProps>> {
-  const node = await getResourceFromContext<DrupalNode>(
-    "node--article",
-    context
-  )
+### Search
 
-  return {
-    props: {
-      node,
-    },
-    revalidate: 60,
-  }
-}
-```
+- Demo: https://example-search-api.next-drupal.org
+- Source: https://github.com/chapter-three/next-drupal/tree/main/examples/example-search-api

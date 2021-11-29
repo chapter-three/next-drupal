@@ -17,7 +17,7 @@ export const site: SiteConfig = {
     },
     {
       title: "Examples",
-      href: "/docs/demo",
+      href: "/docs/examples",
     },
   ],
   social: {

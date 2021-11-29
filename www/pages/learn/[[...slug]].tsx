@@ -103,7 +103,7 @@ export default function TutorialPage({
               </li>
             ))}
           </ul>
-          <div className="p-4 my-6 mt-10 border rounded-md border-blue-50 bg-blue-50 callout">
+          <div className="p-4 my-6 mt-10 mr-4 border rounded-md border-blue-50 bg-blue-50 callout">
             <h4 className="mb-2 text-sm font-medium">Need help?</h4>
             <p className="text-sm text-gray-600">
               We are on{" "}

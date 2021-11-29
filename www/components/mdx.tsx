@@ -40,7 +40,7 @@ export const mdxComponents = {
     </code>
   ),
   pre: (props) => {
-    return <div className="my-10" {...props} />
+    return <div className="flex-1 my-10" {...props} />
   },
   code: CodeBlock,
   Callout,

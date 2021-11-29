@@ -27,6 +27,10 @@
   display: block !important;
 }
 
+#features .flex-1.my-10 {
+  @apply m-0 mb-8;
+}
+
 /**
  * MIT License
  * Copyright (c) 2018 Sarah Drasner

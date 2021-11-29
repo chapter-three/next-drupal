@@ -1,0 +1,39 @@
+---
+title: Menus
+excerpt: Support for server-side and client-side menus.
+weight: 2
+---
+
+```tsx title=Server side
+import { getMenu } from "next-drupal"
+
+export async function getStaticProps() {
+  // Fetch the main menu.
+  return {
+    props: {
+      menu: await getMenu("main"), // highlight-line,
+    },
+  }
+}
+```
+
+```tsx title=Client side
+import Link from "next/link"
+import { useMenu } from "next-drupal"
+
+export default function Page({ node }) {
+  const { tree } = useMenu("main") // highlight-line
+
+  return (
+    <ul>
+      {tree?.map((item) => (
+        <li key={item.id}>
+          <Link href={item.url} passHref>
+            <a>{item.title}</a>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  )
+}
+```

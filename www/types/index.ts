@@ -33,6 +33,12 @@ export type Tutorial = MdxNode<{
   video?: string
 }>
 
+export type Feature = MdxNode<{
+  title: string
+  excerpt?: string
+  weight?: number
+}>
+
 export type NavLink = {
   title: string
   external?: boolean

@@ -7,5 +7,10 @@
     "contentPath": "tutorials",
     "basePath": "/learn",
     "sortBy": "weight"
+  },
+  "feature": {
+    "contentPath": "features",
+    "basePath": "/features",
+    "sortBy": "weight"
   }
 }

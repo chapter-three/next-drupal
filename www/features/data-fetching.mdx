@@ -1,0 +1,34 @@
+---
+title: Data Fetching
+excerpt: Fetch JSON:API data to build SSG, ISR and SSR pages.
+weight: 0
+---
+
+```tsx title=pages/[...slug].tsx
+import { getPathsFromContext, getResourceFromContext } from "next-drupal"
+
+export default function ArticleNodePage({ node }) {
+  return node ? (
+    <div>
+      <h1>{node.title}</h1>
+    </div>
+  ) : null
+}
+
+export async function getStaticPaths(context) {
+  return {
+    paths: await getPathsFromContext("node--article", context),
+    fallback: false,
+  }
+}
+
+export async function getStaticProps(context) {
+  const node = await getResourceFromContext("node--article", context)
+
+  return {
+    props: {
+      node,
+    },
+  }
+}
+```

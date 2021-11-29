@@ -32,7 +32,7 @@ export function CodeBlock({ ...preProps }) {
     const { codeString, title, className } = props
 
     return (
-      <div className="relative text-sm">
+      <div className="relative flex flex-col h-full text-sm">
         <div
           className={classNames(
             "flex items-center justify-between px-6 text-gray-600 text-mono",
@@ -64,7 +64,7 @@ export function CodeBlock({ ...preProps }) {
             )}
           />
         </div>
-        <div className="relative overflow-hidden rounded-md">
+        <div className="relative flex-1 overflow-hidden rounded-md">
           <Prism className={className}>{codeString}</Prism>
         </div>
       </div>

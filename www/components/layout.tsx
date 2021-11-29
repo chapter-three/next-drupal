@@ -152,7 +152,7 @@ export function Layout({
                     <Link key={link.href} href={link.href} passHref>
                       <a
                         className={classNames(
-                          "hover:underline",
+                          "text-black text-sm font-medium hover:underline",
                           isActive ? "text-blue-600" : "text-gray-700"
                         )}
                         target={link.external ? "_blank" : "_self"}

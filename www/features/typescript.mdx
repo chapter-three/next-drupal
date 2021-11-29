@@ -1,0 +1,36 @@
+---
+title: TypeScript
+excerpt: Built-in types for JSON:API resources
+weight: 8
+---
+
+```tsx title=pages/blog.tsx
+import {
+  getPathsFromContext,
+  getResourceCollectionFromContext,
+  DrupalNode,
+} from "next-drupal"
+
+interface BlogPageProps {
+  nodes: DrupalNode[]
+}
+
+export default function BlogPage({ nodes }: BlogPageProps) {
+  return ...
+}
+
+export async function getStaticProps(
+  context
+): Promise<GetStaticPropsResult<BlogPageProps>> {
+  const nodes = await getResourceCollectionFromContext<DrupalNode[]>(
+    "node--article",
+    context
+  )
+
+  return {
+    props: {
+      nodes,
+    },
+  }
+}
+```

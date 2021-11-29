@@ -1,0 +1,44 @@
+---
+title: Authentication
+excerpt: Password and Authorization Code Grant.
+weight: 4
+---
+
+```ts title=pages/api/auth/[...nextauth].ts
+import NextAuth from "next-auth"
+import CredentialsProvider from "next-auth/providers/credentials"
+
+export default NextAuth({
+  providers: [
+    CredentialsProvider({
+      name: "Credentials",
+      async authorize(credentials) {
+        const formData = new URLSearchParams()
+        formData.append("grant_type", "password")
+        formData.append("username", credentials.username)
+        formData.append("password", credentials.password)
+
+        // Get access token from Drupal.
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/oauth/token`,
+          {
+            method: "POST",
+            body: formData,
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        )
+
+        const data = await response.json()
+
+        if (response.ok && data?.access_token) {
+          return data
+        }
+
+        return null
+      },
+    }),
+  ],
+})
+```

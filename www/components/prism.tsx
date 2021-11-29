@@ -103,9 +103,14 @@ export function Prism({
 
         return (
           <pre
-            className={classNames(outerClassName, className, "scrollbar-none", {
-              "is-highlighted": hasHighlightedLines,
-            })}
+            className={classNames(
+              outerClassName,
+              className,
+              "scrollbar-none h-full",
+              {
+                "is-highlighted": hasHighlightedLines,
+              }
+            )}
           >
             <code className="block p-6 font-mono leading-relaxed text-gray-50">
               {tokensWithoutHighlightComments.map((line, i) => {

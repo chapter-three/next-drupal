@@ -1,0 +1,34 @@
+---
+title: Internationalization
+excerpt: Built-in support for translation and language detection.
+weight: 3
+---
+
+```tsx title=Resource
+import { getResource } from "next-drupal"
+
+// Get the `es` translation for a page by uuid.
+const node = await getResource(
+  "node--page",
+  "07464e9f-9221-4a4f-b7f2-01389408e6c8",
+  {
+    locale: "es",
+    defaultLocale: "en",
+  }
+)
+```
+
+```tsx title=Menu
+import { getMenu } from "next-drupal"
+
+export async function getStaticProps(context) {
+  // Get translated menu from context.
+  const menu = await getMenu("main", context)
+
+  return {
+    props: {
+      menu,
+    },
+  }
+}
+```

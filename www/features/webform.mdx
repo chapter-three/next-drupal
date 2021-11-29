@@ -1,0 +1,47 @@
+---
+title: Webform
+excerpt: Decoupled React forms powered by Webform module.
+weight: 5
+---
+
+```ts title=pages/api/forms/[form].ts
+export default async function handler(request, response) {
+  try {
+    await fetch(
+      `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/webform_rest/submit`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          webform_id: request.query.form,
+          name: request.body.name,
+        }),
+      }
+    )
+
+    response.status(200).end()
+  } catch (error) {
+    return response.status(400).json(error.message)
+  }
+}
+```
+
+```tsx title=pages/contact.tsx
+export default function ContactPage() {
+  async function handleSubmit() {
+    await fetch(`/api/forms/contact`, {
+      method: "POST",
+      body: JSON.stringify({
+        name: event.target.name.value,
+      }),
+    })
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="name">Name</label>
+      <input type="text" id="name" name="name" />
+      <button type="submit">Submit</button>
+    </form>
+  )
+}
+```

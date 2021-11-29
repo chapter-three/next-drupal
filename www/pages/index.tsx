@@ -75,9 +75,11 @@ export default function IndexPage({ features }: IndexPageProps) {
         </div>
       </section>
       <section className="px-6 py-6 md:py-12 lg:py-20">
-        <div className="container max-w-4xl mx-auto">
+        <div className="container max-w-5xl mx-auto">
           <h2 className="text-3xl font-black tracking-tight text-center md:text-5xl lg:tracking-tighter lg:text-6xl">
-            Everything you expect from Drupal. On a Modern Stack.
+            Everything you expect from Drupal.
+            <br />
+            On a modern stack.
           </h2>
           <p className="mx-auto mt-4 text-lg text-center text-gray-500 leading-1 md:px-10 lg:leading-normal lg:text-2xl">
             Going headless does not mean you have to compromise on features.

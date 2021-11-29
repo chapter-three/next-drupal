@@ -56,9 +56,9 @@ export default function IndexPage({ features }: IndexPageProps) {
           <h1 className="text-4xl font-black tracking-tight text-center md:text-6xl lg:tracking-tighter lg:text-8xl">
             The future of Drupal is headless
           </h1>
-          <p className="mx-auto mt-4 text-lg text-center text-gray-500 leading-1 md:px-10 lg:leading-normal lg:text-2xl">
+          <p className="mx-auto mt-4 text-lg text-center text-gray-500 leading-1 md:px-16 lg:leading-normal lg:text-2xl">
             Next.js for Drupal has everything you need to build a
-            high-performant and fast front-end for your Drupal site.
+            next-generation front-end for your Drupal site.
           </p>
           <div className="flex flex-col items-center justify-center py-4 sm:flex-row md:py-8 lg:py-10">
             <Link href="/learn/quick-start" passHref>

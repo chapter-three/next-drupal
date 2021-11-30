@@ -24,7 +24,8 @@
       "@/utils/*": ["src/utils/*"],
       "@/config/*": ["config/*"],
       "@/scenes/*": ["src/scenes/*"]
-    }
+    },
+    "incremental": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

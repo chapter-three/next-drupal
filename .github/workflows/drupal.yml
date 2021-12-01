@@ -55,7 +55,7 @@ jobs:
           COMPOSER_MEMORY_LIMIT=-1 composer require drupal/core-dev:${{ matrix.drupal }} --no-suggest
       - name: Add phpspec/prophecy-phpunit
         run: COMPOSER_MEMORY_LIMIT=-1 composer require --dev phpspec/prophecy-phpunit:^2 -W
-        if: ${{ startsWith(matrix.drupal, '8') }}
+        if: ${{ startsWith(matrix.drupal, '9') }}
       - name: Copy module
         run: cp -R ../next-drupal/modules/next ~/drupal/web/modules/next
       - name: Run php built-in server

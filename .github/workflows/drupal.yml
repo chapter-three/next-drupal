@@ -54,7 +54,9 @@ jobs:
           composer config repositories.1 composer https://packages.drupal.org/8
           COMPOSER_MEMORY_LIMIT=-1 composer require drupal/core-dev:${{ matrix.drupal }} --no-suggest
       - name: Add phpspec/prophecy-phpunit
-        run: COMPOSER_MEMORY_LIMIT=-1 composer require --dev phpspec/prophecy-phpunit:^2 -W
+        run: |
+          cd ~/drupal
+          COMPOSER_MEMORY_LIMIT=-1 composer require --dev phpspec/prophecy-phpunit:^2 -W
         if: ${{ startsWith(matrix.drupal, '9') }}
       - name: Copy module
         run: cp -R ../next-drupal/modules/next ~/drupal/web/modules/next

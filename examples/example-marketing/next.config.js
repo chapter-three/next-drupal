@@ -10,7 +10,7 @@ module.exports = {
     return [
       {
         source: "/es",
-        destination: "/es/principal",
+        destination: "/es/home",
         locale: false,
       },
       {

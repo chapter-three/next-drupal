@@ -10,6 +10,7 @@ export function NodePropertyGrid({ node }) {
       overflow="hidden"
       position="relative"
       bg="background"
+      data-cy="node--property"
     >
       {node.field_status ? (
         <p

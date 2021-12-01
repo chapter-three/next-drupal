@@ -36,7 +36,11 @@ export function ViewPropertiesListing({ view: initialView, ...props }) {
     defaultValues: filters,
   })
   const [locations, setLocations] = React.useState([])
-  const { data: view, isLoading, isPreviousData } = useQuery(
+  const {
+    data: view,
+    isLoading,
+    isPreviousData,
+  } = useQuery(
     [initialView.name, page],
     async () => {
       // Build params from form values.
@@ -173,7 +177,7 @@ export function ViewPropertiesListing({ view: initialView, ...props }) {
               alignItems="center"
               justifyContent="space-between"
             >
-              <button variant="button.primary" width="full">
+              <button variant="button.primary" width="full" data-cy="submit">
                 Search
               </button>
               <button
@@ -198,7 +202,7 @@ export function ViewPropertiesListing({ view: initialView, ...props }) {
                 alignItems="center"
                 justifyContent="space-between"
               >
-                <h3 fontWeight="normal">
+                <h3 fontWeight="normal" data-cy="view--results">
                   Found {view.meta?.count} properties.
                 </h3>
                 <div display="grid" col="2" gap="2">
@@ -244,6 +248,7 @@ export function ViewPropertiesListing({ view: initialView, ...props }) {
               >
                 <button
                   variant="button"
+                  data-cy="pager-previous"
                   onClick={() => setPage((old) => Math.max(old - 1, 0))}
                   disabled={page === 0}
                 >
@@ -251,6 +256,7 @@ export function ViewPropertiesListing({ view: initialView, ...props }) {
                 </button>
                 <button
                   variant="button"
+                  data-cy="pager-next"
                   onClick={() => {
                     if (!isPreviousData && view.links.next) {
                       setPage((old) => old + 1)

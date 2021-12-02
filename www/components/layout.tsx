@@ -185,6 +185,7 @@ export function Layout({
                 rel="noreferrer"
                 className="flex ml-4"
               >
+                <span className="sr-only">GitHub</span>
                 <svg
                   className="w-6 h-6"
                   viewBox="0 0 24 24"

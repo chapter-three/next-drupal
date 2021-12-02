@@ -48,6 +48,7 @@ export function Video({
                 layout="responsive"
                 width="1600px"
                 height="900px"
+                alt="Thumbnail"
               />
             </div>
           )}

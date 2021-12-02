@@ -53,7 +53,7 @@ export default function SimplePage() {
       <Head>
         <title>Next.js for Drupal | Search API Example</title>
       </Head>
-      <div className="container mx-auto py-10 px-6 max-w-2xl">
+      <div className="container max-w-2xl px-6 py-10 mx-auto">
         <article className="prose lg:prose-xl">
           <h1>Next.js for Drupal</h1>
           <h2>Search API Example - Simple</h2>
@@ -63,38 +63,44 @@ export default function SimplePage() {
           </p>
           <p>Use the form below to search for article nodes.</p>
           <form onSubmit={handleSubmit} className="mb-4">
-            <div className="sm:grid sm:grid-cols-7 items-center gap-4">
+            <div className="items-center gap-4 sm:grid sm:grid-cols-7">
               <input
                 type="search"
                 placeholder="Search articles..."
                 name="keywords"
                 required
-                className="col-span-5 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
+                className="relative block w-full col-span-5 px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
               />
               <button
                 type="submit"
-                className="sm:col-span-2 mt-4 sm:mt-0 flex w-full justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-black hover:bg-black"
+                data-cy="btn-submit"
+                className="flex justify-center w-full px-4 py-2 mt-4 text-sm font-medium text-white bg-black border border-transparent rounded-md shadow-sm sm:col-span-2 sm:mt-0 hover:bg-black"
               >
                 {status === "loading" ? "Please wait..." : "Search"}
               </button>
             </div>
           </form>
           {status === "error" ? (
-            <div className="border-red-200 bg-red-100 text-red-600 px-4 py-2 rounded-md text-sm">
+            <div className="px-4 py-2 text-sm text-red-600 bg-red-100 border-red-200 rounded-md">
               An error occured. Please try again.
             </div>
           ) : null}
           {!results.length ? (
-            <p className="text-sm">
+            <p className="text-sm" data-cy="search-no-results">
               No results found. Try searching for <strong>static</strong> or{" "}
               <strong>preview</strong>.
             </p>
           ) : (
             <div className="pt-4">
-              <h3 className="mt-0">Found {results.length} result(s).</h3>
+              <h3 className="mt-0" data-cy="search-results">
+                Found {results.length} result(s).
+              </h3>
               {results.map((node) => (
-                <div key={node.id} className="border-b pb-4 mb-4">
-                  <article className="sm:grid grid-cols-3 gap-4">
+                <div key={node.id} className="pb-4 mb-4 border-b">
+                  <article
+                    className="grid-cols-3 gap-4 sm:grid"
+                    data-cy="search-result"
+                  >
                     {node.field_image?.uri && (
                       <div className="col-span-1 mb-4 sm:mb-0">
                         <Image

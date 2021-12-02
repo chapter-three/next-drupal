@@ -75,7 +75,7 @@ export default function AdvancedPage({
       <Head>
         <title>Next.js for Drupal | Search API Example</title>
       </Head>
-      <div className="container mx-auto py-10 px-6 max-w-2xl">
+      <div className="container max-w-2xl px-6 py-10 mx-auto">
         <article className="prose lg:prose-xl">
           <h1>Next.js for Drupal</h1>
           <h2>Search API Example - Advanced</h2>
@@ -89,12 +89,12 @@ export default function AdvancedPage({
               type="search"
               placeholder="Search properties (min 4 characters)..."
               name="fulltext"
-              className="col-span-5 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
+              className="relative block w-full col-span-5 px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
             />
-            <div className="grid md:grid-cols-2 gap-4 py-4">
+            <div className="grid gap-4 py-4 md:grid-cols-2">
               {facets.map((facet) => (
-                <div key={facet.id} className="border p-4 rounded-md">
-                  <h3 className="text-base mt-0 mb-2">{facet.label}</h3>
+                <div key={facet.id} className="p-4 border rounded-md">
+                  <h3 className="mt-0 mb-2 text-base">{facet.label}</h3>
                   <div className="grid grid-flow-row gap-2">
                     <label
                       htmlFor={`${facet.id}--any`}
@@ -125,7 +125,7 @@ export default function AdvancedPage({
                           defaultChecked={term.values.active}
                         />
                         {term.values.label}{" "}
-                        <span className="flex ml-2 text-xs bg-gray-200 w-5 h-5 items-center justify-center rounded-full">
+                        <span className="flex items-center justify-center w-5 h-5 ml-2 text-xs bg-gray-200 rounded-full">
                           {term.values.count}
                         </span>
                       </label>
@@ -137,7 +137,7 @@ export default function AdvancedPage({
             <div className="flex">
               <button
                 type="button"
-                className="flex w-24 justify-center py-2 px-4 border border-gray-500 shadow-sm text-sm font-medium rounded-md text-gray-500 bg-white hover:bg-gray-200 mr-4"
+                className="flex justify-center w-24 px-4 py-2 mr-4 text-sm font-medium text-gray-500 bg-white border border-gray-500 rounded-md shadow-sm hover:bg-gray-200"
                 onClick={() => {
                   router.reload()
                 }}
@@ -146,27 +146,33 @@ export default function AdvancedPage({
               </button>
               <button
                 type="submit"
-                className="flex w-48 justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-black hover:bg-black"
+                data-cy="btn-submit"
+                className="flex justify-center w-48 px-4 py-2 text-sm font-medium text-white bg-black border border-transparent rounded-md shadow-sm hover:bg-black"
               >
                 {status === "loading" ? "Please wait..." : "Search"}
               </button>
             </div>
           </form>
           {status === "error" ? (
-            <div className="border-red-200 bg-red-100 text-red-600 px-4 py-2 rounded-md text-sm">
+            <div className="px-4 py-2 text-sm text-red-600 bg-red-100 border-red-200 rounded-md">
               An error occured. Please try again.
             </div>
           ) : null}
           {!results.length ? (
-            <p className="text-sm">No results found.</p>
+            <p className="text-sm" data-cy="search-no-results">
+              No results found.
+            </p>
           ) : (
             <div className="pt-4">
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid gap-6 md:grid-cols-2">
                 {results.map((node) => (
                   <div key={node.id}>
-                    <article className="grid grid-cols-3 gap-4">
+                    <article
+                      className="grid grid-cols-3 gap-4"
+                      data-cy="search-result"
+                    >
                       {node.field_images?.[0]?.field_media_image.uri && (
-                        <div className="col-span-1 rounded-md overflow-hidden">
+                        <div className="col-span-1 overflow-hidden rounded-md">
                           <Image
                             src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${node.field_images?.[0]?.field_media_image.uri.url}`}
                             width={200}

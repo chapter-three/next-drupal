@@ -10,6 +10,7 @@ export function LocaleSwitcher() {
         <Link href={asPath} key={locale} locale={locale} passHref>
           <a
             display="block"
+            data-cy={`local-switcher-${locale}`}
             p="2"
             textTransform="uppercase"
             textDecoration="none"

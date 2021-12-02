@@ -42,7 +42,7 @@ export default function WebformPage({ teams }: WebformPageProps) {
       <Head>
         <title>Next.js for Drupal | Webform Example</title>
       </Head>
-      <div className="container mx-auto py-10 px-6 max-w-2xl">
+      <div className="container max-w-2xl px-6 py-10 mx-auto">
         <article className="prose lg:prose-xl">
           <h1>Next.js for Drupal</h1>
           <h2>Webform Example - Server Side</h2>
@@ -58,19 +58,19 @@ export default function WebformPage({ teams }: WebformPageProps) {
             This is useful if we need to hide client IDs and secrets or our
             Drupal implementation.
           </p>
-          <div className="w-full space-y-4 max-w-md rounded-md border shadow p-6">
+          <div className="w-full max-w-md p-6 space-y-4 border rounded-md shadow">
             {status === "error" ? (
-              <div className="border-red-200 bg-red-100 text-red-600 px-4 py-2 rounded-md text-sm">
+              <div className="px-4 py-2 text-sm text-red-600 bg-red-100 border-red-200 rounded-md">
                 An error occured. Please try again.
               </div>
             ) : null}
             {status === "success" ? (
-              <div className="border-green-200 bg-green-100 text-green-600 px-4 py-2 rounded-md text-sm">
+              <div className="px-4 py-2 text-sm text-green-600 bg-green-100 border-green-200 rounded-md">
                 Your message has been sent. Thank you.
               </div>
             ) : null}
             {Object.values(formState.errors)?.length ? (
-              <div className="border-red-200 bg-red-100 text-red-600 px-4 py-2 rounded-md text-sm">
+              <div className="px-4 py-2 text-sm text-red-600 bg-red-100 border-red-200 rounded-md">
                 {Object.values(formState.errors).map((error, index) => (
                   <p key={index}>{error.message}</p>
                 ))}
@@ -88,7 +88,7 @@ export default function WebformPage({ teams }: WebformPageProps) {
                   id="name"
                   name="name"
                   type="text"
-                  className="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
+                  className="relative block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
                   {...register("name")}
                 />
               </div>
@@ -103,7 +103,7 @@ export default function WebformPage({ teams }: WebformPageProps) {
                   id="email"
                   name="email"
                   type="email"
-                  className="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
+                  className="relative block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
                   {...register("email")}
                 />
               </div>
@@ -117,7 +117,7 @@ export default function WebformPage({ teams }: WebformPageProps) {
                 <select
                   id="team"
                   name="team"
-                  className="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
+                  className="relative block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
                   {...register("team")}
                 >
                   <option value="">-- Select --</option>
@@ -138,7 +138,7 @@ export default function WebformPage({ teams }: WebformPageProps) {
                 <input
                   id="subject"
                   name="subject"
-                  className="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
+                  className="relative block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
                   {...register("subject")}
                 />
               </div>
@@ -152,13 +152,14 @@ export default function WebformPage({ teams }: WebformPageProps) {
                 <textarea
                   id="message"
                   name="message"
-                  className="mt-1 appearance-none h-32 rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
+                  className="relative block w-full h-32 px-3 py-2 mt-1 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
                   {...register("message")}
                 ></textarea>
               </div>
               <button
                 type="submit"
-                className="flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-black hover:bg-black"
+                data-cy="btn-submit"
+                className="flex justify-center px-4 py-2 text-sm font-medium text-white bg-black border border-transparent rounded-md shadow-sm hover:bg-black"
               >
                 Submit
               </button>

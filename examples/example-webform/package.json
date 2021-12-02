@@ -7,7 +7,11 @@
     "dev": "next dev -p 3636",
     "build": "next build",
     "start": "next start",
-    "preview": "next build && next start -p 3636"
+    "preview": "next build && next start -p 3636",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "test:e2e": "start-server-and-test 'yarn preview' http://localhost:3636 cy:open",
+    "test:e2e:ci": "start-server-and-test 'yarn preview' http://localhost:3636 cy:run"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.8.3",

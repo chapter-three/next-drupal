@@ -3,7 +3,7 @@ destination_path: ''
 deny_message: ''
 excluded_403: true
 excluded_404: true
-excluded_paths: ''
+excluded_paths: "/oauth/token\r\n/jsonapi*"
 excluded_routes: "simplesamlphp_auth.saml_login\r\nsamlauth.saml_controller_login\r\nsamlauth.saml_controller_logout\r\nsamlauth.saml_controller_metadata\r\nsamlauth.saml_controller_acs\r\nsamlauth.saml_controller_sls\r\nsamlauth.saml_controller_changepw\r\n"
 _core:
   default_config_hash: TlUwZ6b5Ycd717ekKmg-WXuL8Lf4bBI8e9hEWuvZWug

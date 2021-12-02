@@ -2,7 +2,7 @@
 
 context("Home", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:3000")
+    cy.visit("")
   })
 
   it("should switch locale when clicking on the locale switcher", () => {

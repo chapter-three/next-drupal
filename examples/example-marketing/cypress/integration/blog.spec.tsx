@@ -2,7 +2,7 @@
 
 context("Blog", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:3000/blog")
+    cy.visit("/blog")
   })
 
   it("should render articles", () => {
@@ -23,7 +23,7 @@ context("Blog", () => {
 
 context("Translation", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:3000/es/blog")
+    cy.visit("/es/blog")
   })
 
   it("should render articles", () => {

@@ -2,7 +2,7 @@
 
 context("About", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:3000/about")
+    cy.visit("/about")
   })
 
   it("should convert inline images to Next.js images", () => {

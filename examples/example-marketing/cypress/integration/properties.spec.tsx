@@ -2,7 +2,7 @@
 
 context("Properties", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:3000/properties")
+    cy.visit("/properties")
   })
 
   it("should render view with meta and pager", () => {

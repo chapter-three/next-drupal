@@ -2,7 +2,7 @@
 
 context("Home", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:3000")
+    cy.visit("")
   })
 
   it("should render paragraphs", () => {
@@ -32,7 +32,7 @@ context("Home", () => {
 
 context("Translation", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:3000/es")
+    cy.visit("/es")
   })
 
   it("should render paragraphs", () => {

@@ -119,19 +119,6 @@ export const docs: DocsConfig = {
       ],
     },
     {
-      title: "Examples",
-      items: [
-        {
-          title: "List of nodes",
-          href: "/docs/examples#list-of-nodes",
-        },
-        {
-          title: "Node page",
-          href: "/docs/examples#node-page",
-        },
-      ],
-    },
-    {
       title: "Reference",
       items: [
         {

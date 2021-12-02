@@ -11,7 +11,7 @@ The following functions are meant to be called on the client.
 
 ## useMenu
 
-<Callout type="accent">
+<Callout icon="⚠️">
 
 You need to install the [JSON:API Menu Items](https://www.drupal.org/project/jsonapi_menu_items) module to use `useMenu` and `getMenu`.
 
@@ -20,9 +20,7 @@ You need to install the [JSON:API Menu Items](https://www.drupal.org/project/jso
 Returns menu items for a menu by name.
 
 ```ts
-function useMenu(
-  name: string
-): {
+function useMenu(name: string): {
   items: DrupalMenuLinkContent[]
   tree: DrupalMenuLinkContent[]
   error: unknown

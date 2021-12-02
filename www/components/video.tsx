@@ -1,12 +1,21 @@
-import classNames from "classnames"
 import * as React from "react"
+import classNames from "classnames"
+import Image from "next/image"
 
 interface VideoProps {
   src: string
   heading?: string
+  image?: string
+  className?: string
 }
 
-export function Video({ src, heading, ...props }: VideoProps) {
+export function Video({
+  src,
+  heading,
+  image,
+  className,
+  ...props
+}: VideoProps) {
   const [isPlaying, setIsPlaying] = React.useState<boolean>(false)
   const videoRef = React.useRef<HTMLVideoElement>(null)
 
@@ -15,7 +24,12 @@ export function Video({ src, heading, ...props }: VideoProps) {
   }, [src])
 
   return (
-    <div className="relative mb-6 overflow-hidden border-2 border-black rounded-lg aspect-w-16 aspect-h-9">
+    <div
+      className={classNames(
+        "relative mb-6 overflow-hidden border-2 border-black rounded-lg aspect-w-16 aspect-h-9",
+        className
+      )}
+    >
       {heading ? (
         <button
           className={classNames(
@@ -27,7 +41,17 @@ export function Video({ src, heading, ...props }: VideoProps) {
             videoRef.current?.play()
           }}
         >
-          <div className="flex items-center justify-center w-8 h-8 mb-4 transition-all scale-100 rounded-full group-hover:scale-125">
+          {image && (
+            <div className="absolute inset-0 z-20">
+              <Image
+                src={image}
+                layout="responsive"
+                width="1600px"
+                height="900px"
+              />
+            </div>
+          )}
+          <div className="z-30 flex items-center justify-center w-8 h-8 mb-4 transition-all scale-100 rounded-full group-hover:scale-125">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-8 h-8"
@@ -52,7 +76,16 @@ export function Video({ src, heading, ...props }: VideoProps) {
           <span className="text-sm font-medium uppercase">{heading}</span>
         </button>
       ) : null}
-      <video controls muted key={src} ref={videoRef} {...props}>
+      <video
+        controls
+        muted
+        key={src}
+        ref={videoRef}
+        onEnded={() => {
+          setIsPlaying(false)
+        }}
+        {...props}
+      >
         <source src={src} type="video/mp4" />
       </video>
     </div>

@@ -9,32 +9,18 @@ import { Layout } from "components/layout"
 import classNames from "classnames"
 import { useHydrate } from "next-mdx/client"
 import { mdxComponents } from "components/mdx"
+import { Video } from "../components/video"
 
-interface FeatureBoxProps {
+interface FeatureCodeProps extends React.HTMLAttributes<HTMLDivElement> {
   feature: Feature
 }
 
-export function FeatureBox({ feature, ...props }: FeatureBoxProps) {
+export function FeatureCode({ feature, ...props }: FeatureCodeProps) {
   const content = useHydrate(feature, {
     components: mdxComponents,
   })
 
-  return (
-    <div className="lg:hidden">
-      <button
-        className={classNames(
-          "p-4 bg-white rounded-md text-left transition-all group w-full shadow-lg"
-        )}
-        {...props}
-      >
-        <h4 className="font-bold transition-all group-hover:text-blue-700">
-          {feature.frontMatter.title}
-        </h4>
-        <p className="text-sm text-gray-700">{feature.frontMatter.excerpt}</p>
-      </button>
-      <div className="mt-6 ">{content}</div>
-    </div>
-  )
+  return <div {...props}>{content}</div>
 }
 
 interface IndexPageProps {
@@ -45,13 +31,10 @@ export default function IndexPage({ features }: IndexPageProps) {
   const [selectedFeature, setSelectedFeature] = React.useState<Feature>(
     features[0]
   )
-  const content = useHydrate(selectedFeature, {
-    components: mdxComponents,
-  })
 
   return (
     <Layout title={site.name} description={site.description}>
-      <section className="px-6 py-6 md:py-12 lg:py-20">
+      <section className="px-6 py-6 md:py-12 md:pb-8 lg:pt-20 lg:pb-10">
         <div className="container max-w-4xl mx-auto">
           <h1 className="text-4xl font-black tracking-tight text-center md:text-6xl lg:tracking-tighter lg:text-8xl">
             The future of Drupal is headless
@@ -72,6 +55,14 @@ export default function IndexPage({ features }: IndexPageProps) {
               </a>
             </Link>
           </div>
+        </div>
+        <div className="container pt-10 mx-auto">
+          <Video
+            src="/videos/next-drupal-demo.mp4"
+            image="/images/home-page-video.jpg"
+            heading="Watch a demo"
+            className="shadow-lg"
+          />
         </div>
       </section>
       <section className="px-6 py-6 md:py-12 lg:py-20">
@@ -118,7 +109,7 @@ export default function IndexPage({ features }: IndexPageProps) {
             <div className="p-6 bg-white border rounded-md">
               <h4 className="mb-2 font-bold">Search API</h4>
               <p className="text-sm leading-normal text-gray-600">
-                Support for decoupled faceted search.
+                Support for decoupled faceted search powered by Search API.
               </p>
             </div>
           </div>
@@ -137,7 +128,21 @@ export default function IndexPage({ features }: IndexPageProps) {
           <div className="grid-flow-row gap-4 mt-10 lg:max-w-md lg:grid auto-rows-max">
             {features.map((feature) => (
               <div key={feature.hash}>
-                <FeatureBox feature={feature} />
+                <div className="lg:hidden">
+                  <button
+                    className={classNames(
+                      "p-4 bg-white rounded-md text-left transition-all group w-full shadow-lg"
+                    )}
+                  >
+                    <h4 className="font-bold transition-all group-hover:text-blue-700">
+                      {feature.frontMatter.title}
+                    </h4>
+                    <p className="text-sm text-gray-700">
+                      {feature.frontMatter.excerpt}
+                    </p>
+                  </button>
+                  <FeatureCode className="mt-6" feature={feature} />
+                </div>
                 <button
                   className={classNames(
                     "p-4 bg-white rounded-md w-full text-left hidden lg:block transition-all group",
@@ -158,7 +163,10 @@ export default function IndexPage({ features }: IndexPageProps) {
               </div>
             ))}
           </div>
-          <div className="flex-col hidden lg:flex">{content}</div>
+          <FeatureCode
+            className="flex-col hidden lg:flex"
+            feature={selectedFeature}
+          />
         </div>
       </section>
     </Layout>

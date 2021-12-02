@@ -7,7 +7,11 @@
     "dev": "next dev -p 3838",
     "build": "next build",
     "start": "next start",
-    "preview": "next build && next start -p 3838"
+    "preview": "next build && next start -p 3838",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "test:e2e": "start-server-and-test 'yarn preview' http://localhost:3838 cy:open",
+    "test:e2e:ci": "start-server-and-test 'yarn preview' http://localhost:3838 cy:run"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.3.4",

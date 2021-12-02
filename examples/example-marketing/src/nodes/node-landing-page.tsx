@@ -17,7 +17,11 @@ export function NodeLandingPage({ node, ...props }) {
         )
 
         return paragraph ? (
-          <Paragraph key={paragraph.id} paragraph={paragraph} />
+          <Paragraph
+            key={paragraph.id}
+            paragraph={paragraph}
+            data-cy={`paragraph-${paragraph_type}`}
+          />
         ) : null
       })}
     </div>

@@ -1,9 +1,11 @@
 {
-  "name": "drupal-site",
+  "name": "drupal",
   "version": "0.8.0",
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "drush rs 8080"
+    "dev": "drush rs 8080",
+    "test:e2e": "yarn dev",
+    "test:e2e:ci": "yarn dev"
   }
 }

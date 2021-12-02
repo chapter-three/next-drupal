@@ -87,7 +87,8 @@ class HtmlRendererTest extends KernelTestBase {
     $this->setRawContent($response->getContent());
 
     $preview_url = 'https://blog.com/api/preview?secret=one&slug=/node/1&locale=en&defaultLocale=en&resourceVersion=rel%3Alatest-version';
-    $this->assertFieldByXPath('//iframe[@src="' . $preview_url . '"]');
+    $fields = $this->xpath('//iframe[@src="' . $preview_url . '"]');
+    $this->assertCount(1, $fields);
 
     $article = $this->createNode(['type' => 'article']);
     $request = Request::create($article->toUrl()->toString(), 'GET');
@@ -95,7 +96,8 @@ class HtmlRendererTest extends KernelTestBase {
     $this->setRawContent($response->getContent());
 
     $preview_url = 'https://blog.com/api/preview?secret=one&slug=/node/2&locale=en&defaultLocale=en&resourceVersion=rel%3Alatest-version';
-    $this->assertNoFieldByXPath('//iframe[@src="' . $preview_url . '"]');
+    $fields = $this->xpath('//iframe[@src="' . $preview_url . '"]');
+    $this->assertEmpty($fields);
   }
 
 }

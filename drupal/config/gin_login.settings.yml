@@ -1,7 +1,7 @@
 logo:
   use_default: true
 brand_image:
-  use_default: false
+  use_default: true
   path: 'public://74fec6ec-ab34-4840-af52-fd253fe1d282_cover5.jpg'
 _core:
   default_config_hash: OhypfKr4_Eo8XwXg3Sios05lN-LjxOhSdSOSkEN9Ndo

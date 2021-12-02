@@ -173,6 +173,7 @@ Get a resource by path in `getStaticProps` or `getServerSideProps`.
 
 ```ts
 function getResourceByPath(
+  type: string,
   path: string,
   options?: {
     deserialize?: boolean

@@ -7,7 +7,7 @@ import { Body } from "@/components/body"
 
 export function NodeArticle({ node, ...props }) {
   return (
-    <article {...props}>
+    <article data-cy="node--article" {...props}>
       <div variant="container" py="4">
         <div display="flex" flexDirection="column">
           {node.field_image?.uri && (
@@ -39,6 +39,7 @@ export function NodeArticle({ node, ...props }) {
               fontFamily="sans"
               color="gray"
               mt="4"
+              data-cy="meta"
             >
               {node.uid?.field_name ? (
                 <span display="inline-block" mr="4">
@@ -67,7 +68,7 @@ export function NodeArticle({ node, ...props }) {
 
 export function NodeArticleTeaser({ node, ...props }) {
   return (
-    <article mt="10" {...props}>
+    <article mt="10" data-cy="node--article" {...props}>
       {node.field_image?.uri && (
         <div my="4">
           <Image
@@ -99,6 +100,7 @@ export function NodeArticleTeaser({ node, ...props }) {
         color="gray"
         mt="4"
         fontSize="sm"
+        data-cy="node--meta"
       >
         {node.uid?.field_name ? (
           <span display="inline-block" mr="4">

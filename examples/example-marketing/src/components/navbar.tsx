@@ -71,6 +71,7 @@ function Menu({ items }: { items: DrupalMenuLinkContent[] }) {
       col={`repeat(${items.length}, minmax(0,auto))`}
       gap="6|12"
       mx="auto"
+      data-cy="navbar-menu"
     >
       {items.map((item) => (
         <MenuLink link={item} key={item.id} />

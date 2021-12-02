@@ -26,9 +26,9 @@ export function LoginForm() {
 
   return (
     <>
-      <div className="max-w-sm w-full space-y-4 border p-8 rounded-md shadow">
+      <div className="w-full max-w-sm p-8 space-y-4 border rounded-md shadow">
         {hasError ? (
-          <div className="border-red-200 bg-red-100 text-red-600 px-4 py-2 rounded-md text-sm">
+          <div className="px-4 py-2 text-sm text-red-600 bg-red-100 border-red-200 rounded-md">
             Unrecognized username or password.
           </div>
         ) : null}
@@ -45,7 +45,7 @@ export function LoginForm() {
               name="username"
               type="text"
               required
-              className="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
+              className="relative block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
             />
           </div>
           <div>
@@ -60,22 +60,24 @@ export function LoginForm() {
               name="password"
               type="password"
               required
-              className="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
+              className="relative block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
             />
           </div>
           <button
             type="submit"
-            className="flex w-full justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-black hover:bg-black"
+            data-cy="btn-submit"
+            className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-black border border-transparent rounded-md shadow-sm hover:bg-black"
           >
             Login
           </button>
         </form>
-        <div className="text-center m-0 text-gray-400 text-md font-light">
+        <div className="m-0 font-light text-center text-gray-400 text-md">
           or
         </div>
         <button
           onClick={() => signIn("drupal")}
-          className="flex w-full justify-center items-center py-2 px-4 border border-blue-500 shadow-sm text-sm font-medium rounded-md text-blue-500 bg-white hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black"
+          data-cy="btn-auth"
+          className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-blue-500 bg-white border border-blue-500 rounded-md shadow-sm hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black"
         >
           <svg viewBox="0 0 24 24" className="w-5 h-5 mr-2">
             <path

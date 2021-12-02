@@ -10,7 +10,7 @@ export default function IndexPage() {
       <Head>
         <title>Next.js for Drupal | Authentication Example</title>
       </Head>
-      <div className="container mx-auto py-10 px-6 max-w-2xl">
+      <div className="container max-w-2xl px-6 py-10 mx-auto">
         <article className="prose lg:prose-xl">
           <h1>Next.js for Drupal</h1>
           <h2>Authentication Example</h2>
@@ -47,7 +47,7 @@ export default function IndexPage() {
               {status === "unauthenticated" ? (
                 <LoginForm />
               ) : (
-                <div className="flex flex-col items-center justify-center px-4 py-4 rounded-lg shadow-sm bg-yellow-100">
+                <div className="flex flex-col items-center justify-center px-4 py-4 bg-yellow-100 rounded-lg shadow-sm">
                   <div className="mb-2">
                     You are now logged in as{" "}
                     <strong>
@@ -56,7 +56,8 @@ export default function IndexPage() {
                   </div>
                   <button
                     onClick={() => signOut({ redirect: false })}
-                    className="inine-flex max-w-xs w-full justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-black hover:bg-black"
+                    data-cy="btn-logout"
+                    className="justify-center w-full max-w-xs px-4 py-2 text-sm font-medium text-white bg-black border border-transparent rounded-md shadow-sm inine-flex hover:bg-black"
                   >
                     Logout
                   </button>

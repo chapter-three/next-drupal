@@ -7,7 +7,7 @@ context("Blog", () => {
 
   it("should render articles", () => {
     cy.get("h1").contains("Latest Articles.")
-    cy.get("[data-cy=node--article]").should("have.length", 5)
+    cy.get("[data-cy=node--article]").should("have.length.gt", 1)
 
     cy.get("[data-cy=node--article] h2").contains(
       "Dynamic Routing and Static Generation"
@@ -28,7 +28,7 @@ context("Translation", () => {
 
   it("should render articles", () => {
     cy.get("h1").contains("Últimas Publicaciones.")
-    cy.get("[data-cy=node--article]").should("have.length", 5)
+    cy.get("[data-cy=node--article]").should("have.length.gt", 1)
 
     cy.get("[data-cy=node--article] h2").contains(
       "Enrutamiento dinámico y Generación Estática"

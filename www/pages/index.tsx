@@ -77,37 +77,37 @@ export default function IndexPage({ features }: IndexPageProps) {
           </p>
           <div className="grid gap-6 pt-6 text-left sm:grid-cols-2 lg:pt-10 lg:grid-cols-3">
             <div className="p-6 bg-white border rounded-md">
-              <h4 className="mb-2 font-bold">Seamless Editing</h4>
+              <h3 className="mb-2 font-bold">Seamless Editing</h3>
               <p className="text-sm leading-normal text-gray-600">
                 Inline preview built-in. With support for content revision.
               </p>
             </div>
             <div className="p-6 bg-white border rounded-md">
-              <h4 className="mb-2 font-bold">Instant Publishing</h4>
+              <h3 className="mb-2 font-bold">Instant Publishing</h3>
               <p className="text-sm leading-normal text-gray-600">
                 New content and updates are live instantly.
               </p>
             </div>
             <div className="p-6 bg-white border rounded-md">
-              <h4 className="mb-2 font-bold">Multi-site</h4>
+              <h3 className="mb-2 font-bold">Multi-site</h3>
               <p className="text-sm leading-normal text-gray-600">
                 Power multiple Next.js sites from one Drupal site.
               </p>
             </div>
             <div className="p-6 bg-white border rounded-md">
-              <h4 className="mb-2 font-bold">Authentication</h4>
+              <h3 className="mb-2 font-bold">Authentication</h3>
               <p className="text-sm leading-normal text-gray-600">
                 Authentication with support for roles and permissions.
               </p>
             </div>
             <div className="p-6 bg-white border rounded-md">
-              <h4 className="mb-2 font-bold">Webforms</h4>
+              <h3 className="mb-2 font-bold">Webforms</h3>
               <p className="text-sm leading-normal text-gray-600">
                 Built React forms backed by the Webform module.
               </p>
             </div>
             <div className="p-6 bg-white border rounded-md">
-              <h4 className="mb-2 font-bold">Search API</h4>
+              <h3 className="mb-2 font-bold">Search API</h3>
               <p className="text-sm leading-normal text-gray-600">
                 Support for decoupled faceted search powered by Search API.
               </p>
@@ -129,18 +129,18 @@ export default function IndexPage({ features }: IndexPageProps) {
             {features.map((feature) => (
               <div key={feature.hash}>
                 <div className="lg:hidden">
-                  <button
+                  <div
                     className={classNames(
                       "p-4 bg-white rounded-md text-left transition-all group w-full shadow-lg"
                     )}
                   >
-                    <h4 className="font-bold transition-all group-hover:text-blue-700">
+                    <h3 className="font-bold transition-all group-hover:text-blue-700">
                       {feature.frontMatter.title}
-                    </h4>
+                    </h3>
                     <p className="text-sm text-gray-700">
                       {feature.frontMatter.excerpt}
                     </p>
-                  </button>
+                  </div>
                   <FeatureCode className="mt-6" feature={feature} />
                 </div>
                 <button
@@ -153,9 +153,9 @@ export default function IndexPage({ features }: IndexPageProps) {
                   )}
                   onClick={() => setSelectedFeature(feature)}
                 >
-                  <h4 className="font-bold transition-all group-hover:text-blue-700">
+                  <h3 className="font-bold transition-all group-hover:text-blue-700">
                     {feature.frontMatter.title}
-                  </h4>
+                  </h3>
                   <p className="text-sm text-gray-700">
                     {feature.frontMatter.excerpt}
                   </p>

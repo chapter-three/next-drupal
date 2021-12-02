@@ -9,7 +9,6 @@ import { Layout } from "components/layout"
 import classNames from "classnames"
 import { useHydrate } from "next-mdx/client"
 import { mdxComponents } from "components/mdx"
-import { Video } from "../components/video"
 
 interface FeatureCodeProps extends React.HTMLAttributes<HTMLDivElement> {
   feature: Feature
@@ -55,14 +54,6 @@ export default function IndexPage({ features }: IndexPageProps) {
               </a>
             </Link>
           </div>
-        </div>
-        <div className="container pt-10 mx-auto">
-          <Video
-            src="/videos/next-drupal-demo.mp4"
-            image="/images/home-page-video.jpg"
-            heading="Watch a demo"
-            className="shadow-lg"
-          />
         </div>
       </section>
       <section className="px-6 py-6 md:py-12 lg:py-20">

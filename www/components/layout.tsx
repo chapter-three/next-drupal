@@ -13,12 +13,14 @@ interface LayoutProps {
   title: string
   description?: string
   children?: React.ReactNode
+  mode?: "light" | "dark"
 }
 
 export function Layout({
   title = "",
   description = "",
   children,
+  mode = "light",
 }: LayoutProps) {
   const [showMenu, setShowMenu] = React.useState<boolean>(false)
 
@@ -88,6 +90,7 @@ export function Layout({
         <header
           className={classNames("sticky lg:static top-0 bg-white z-10", {
             "border-b": pathname !== "/",
+            "bg-black text-white": mode === "dark",
           })}
         >
           <div className="container flex items-center justify-between px-6 mx-auto h-14 xl:h-20 xl:px-4">
@@ -148,7 +151,7 @@ export function Layout({
                     </g>
                     <defs>
                       <clipPath id="clip0">
-                        <path fill="#fff" d="M0 0h186.525v243.713H0z" />
+                        <path fill="currentColor" d="M0 0h186.525v243.713H0z" />
                       </clipPath>
                     </defs>
                   </svg>
@@ -164,8 +167,11 @@ export function Layout({
                     <Link key={link.href} href={link.href} passHref>
                       <a
                         className={classNames(
-                          "text-black text-sm font-medium hover:underline",
-                          isActive ? "text-blue-600" : "text-gray-700"
+                          "text-sm font-medium hover:underline",
+                          mode === "dark" ? "text-white" : "text-black",
+                          {
+                            underline: isActive,
+                          }
                         )}
                         target={link.external ? "_blank" : "_self"}
                         rel={link.external ? "noreferrer" : ""}

@@ -3,7 +3,7 @@ import { SiteConfig } from "types"
 export const site: SiteConfig = {
   name: "Next.js for Drupal",
   description:
-    "Next.js + Drupal for Incremental Static Regeneration and Preview mode.",
+    "Everything you expect from Drupal. On a modern stack. Go headless without compromising features.",
   copyright: `© ${new Date().getFullYear()} Next.js for Drupal`,
   links: [
     {

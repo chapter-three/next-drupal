@@ -44,7 +44,7 @@ export default function IndexPage({ features }: IndexPageProps) {
           </p>
           <div className="flex flex-col items-center justify-center py-4 sm:flex-row md:py-8 lg:py-10">
             <Link href="/learn/quick-start" passHref>
-              <a className="w-2/3 px-8 py-2 font-semibold text-center text-white transition-all bg-blue-800 border-2 border-blue-800 rounded-md sm:w-auto hover:bg-white hover:text-black">
+              <a className="w-2/3 px-8 py-2 font-semibold text-center text-white transition-all bg-blue-800 border-2 border-blue-800 rounded-md sm:w-auto hover:bg-blue-500 hover:border-blue-500">
                 Get Started
               </a>
             </Link>

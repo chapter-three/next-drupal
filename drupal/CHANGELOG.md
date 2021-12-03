@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.0.0 (2021-12-03)
+
+
+### Bug Fixes
+
+* **drupal:** update config ([696b55a](https://github.com/chapter-three/next-drupal/commit/696b55a817d1010ee1f0185bbf89b38414520bfa))
+
+
+### Features
+
+* **drupal:** add gin and gin_login ([6e09e6f](https://github.com/chapter-three/next-drupal/commit/6e09e6fe19f9f7062299f94e316808ff33e96ecd))
+* **drupal:** implement search api ([bd4151f](https://github.com/chapter-three/next-drupal/commit/bd4151f2176b21f1b25d89533ceab0eff0080d34))
+* **drupal:** update ([8862a2f](https://github.com/chapter-three/next-drupal/commit/8862a2fde38be51bd8a17cb1a516ed85fef87e38))
+* **drupal:** update example modules ([3f2b578](https://github.com/chapter-three/next-drupal/commit/3f2b57822226e587e590fdcc5f760cae0b11d97f))
+* **example-auth:** add example auth ([74515fe](https://github.com/chapter-three/next-drupal/commit/74515fee86f47ea42bc931d43b32e4ba40706eaf))
+* **example-webform:** add example webform ([ca8f477](https://github.com/chapter-three/next-drupal/commit/ca8f477b899a83a19b0823105863d40298e60418))
+
+
+
+
+
 # [0.8.0](https://github.com/chapter-three/next-drupal/compare/drupal-site@0.7.0...drupal-site@0.8.0) (2021-11-24)
 
 

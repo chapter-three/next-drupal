@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/chapter-three/next-drupal/compare/www@0.4.0...www@1.0.0) (2021-12-03)
+
+
+### Bug Fixes
+
+* **www:** a11y warnings ([e888bbb](https://github.com/chapter-three/next-drupal/commit/e888bbb2cd8366d54a83ca5a34ed5ae86037fdd1))
+* **www:** hover button color ([bda6a46](https://github.com/chapter-three/next-drupal/commit/bda6a460e64383f716e7cfdef39ce778200d3c30))
+* **www:** remove unused code ([568e9b0](https://github.com/chapter-three/next-drupal/commit/568e9b06e92d311c8bb0b10d6a54712dd31a3a75))
+* **www:** remove video ([d04df96](https://github.com/chapter-three/next-drupal/commit/d04df963d439c7dcad16c226d0b5152d8cb111cf))
+* **www:** spacing ([b28630a](https://github.com/chapter-three/next-drupal/commit/b28630a9d60bfafcd949787f72721a61db65f01f))
+* **www:** style fixes ([089f8f1](https://github.com/chapter-three/next-drupal/commit/089f8f1fee60d6e4aab3599e6e46f2bf69c51c4a))
+* **www:** update copy ([144e574](https://github.com/chapter-three/next-drupal/commit/144e574d4597de0da2b20f9df2c2f4cd02e46540))
+* **www:** update headings ([b677df3](https://github.com/chapter-three/next-drupal/commit/b677df3f62a6924532e825a6a9478a7a9b681837))
+* update tsconfig ([76efd38](https://github.com/chapter-three/next-drupal/commit/76efd38d1b1cccac59abb78fce23305dbc89f9f4))
+* **www:** rename demo to examples ([65368f6](https://github.com/chapter-three/next-drupal/commit/65368f67ac458bbf6ef1ac38ec85445c043c68f4))
+* **www:** update algolia style ([f99410c](https://github.com/chapter-three/next-drupal/commit/f99410c96a49e141b8a5b5aae86e975b71fa510e))
+
+
+### Features
+
+* **www:** add home page video ([4ac7925](https://github.com/chapter-three/next-drupal/commit/4ac7925066d2447bde337f856a0f536b461bf58c))
+* **www:** implement landing page ([67e045c](https://github.com/chapter-three/next-drupal/commit/67e045c4bbc870f49762456070e25828139ba919))
+* **www:** redesign ([5b2fe3f](https://github.com/chapter-three/next-drupal/commit/5b2fe3f19b384fbcce4faa0ef771127e75895157))
+* **www:** update copy and front page ([d402f89](https://github.com/chapter-three/next-drupal/commit/d402f89290847637a36287be98ae16b6442561ac))
+
+
+
+
+
 # [0.4.0](https://github.com/chapter-three/next-drupal/compare/www@0.3.0...www@0.4.0) (2021-11-24)
 
 

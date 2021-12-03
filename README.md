@@ -4,10 +4,6 @@
   <h3 align="center">Next-generation front end for your Drupal site.</h3>
 </div>
 
-<p align="center">
-  <em>Warning: this project is in early beta.</em>
-</p>
-
 ## Demo
 
 - https://demo.next-drupal.org

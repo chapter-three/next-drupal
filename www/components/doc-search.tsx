@@ -51,7 +51,7 @@ export function DocSearch({ ...props }) {
         id="docsearch-input"
         placeholder="Search the docs..."
         ref={input}
-        className="w-full text-sm border-0 border-gray-200 rounded-md h-9 bg-gray-50"
+        className="w-full text-sm text-black border-0 border-gray-200 rounded-md h-9 bg-gray-50"
       />
       <span className="absolute flex items-center justify-center w-5 h-5 text-xs text-gray-600 bg-gray-200 rounded-md top-2 right-2">
         {KEYBOARD_SHORTCUT_KEY}

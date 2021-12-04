@@ -11,7 +11,6 @@
     "preview": "next build && next start -p 4444"
   },
   "dependencies": {
-    "@fontsource/inter": "^4.5.1",
     "classnames": "^2.3.1",
     "copy-to-clipboard": "^3.3.1",
     "next": "^12.0.4",
@@ -30,7 +29,7 @@
     "@types/react": "^17.0.3",
     "autoprefixer": "^10.4.0",
     "eslint": "^7.28.0",
-    "eslint-config-next": "^11.0.0",
+    "eslint-config-next": "^12.0.6",
     "postcss": "^8.4.1",
     "remark-autolink-headings": "^6.0.1",
     "remark-slug": "^6.0.0",

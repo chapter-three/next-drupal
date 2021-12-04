@@ -64,7 +64,7 @@ export function CodeBlock({ ...preProps }) {
             )}
           />
         </div>
-        <div className="relative flex-1 overflow-hidden rounded-md">
+        <div className="relative flex-1 overflow-hidden md:rounded-md">
           <Prism className={className}>{codeString}</Prism>
         </div>
       </div>

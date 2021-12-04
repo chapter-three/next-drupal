@@ -56,7 +56,7 @@ export default function IndexPage({ features }: IndexPageProps) {
           </div>
         </div>
       </section>
-      <div className="w-full h-8 md:h-20 divider" />
+      <div className="w-full h-14 md:h-20 divider" />
       <section className="px-6 py-6 md:py-12 lg:py-20">
         <div className="container max-w-5xl mx-auto">
           <h2 className="text-3xl font-black tracking-tight text-center md:text-5xl lg:tracking-tighter lg:text-6xl">
@@ -127,7 +127,7 @@ export default function IndexPage({ features }: IndexPageProps) {
           </div>
         </div>
       </section>
-      <section id="features" className="px-6 py-6 md:py-12 lg:py-20">
+      <section id="features" className="py-6 md:px-6 md:py-12 lg:py-20">
         <div className="container max-w-4xl mx-auto">
           <h2 className="text-3xl font-black tracking-tight text-center md:text-5xl lg:tracking-tighter lg:text-6xl">
             Out-of-the-box tooling for the best developer experience
@@ -136,30 +136,18 @@ export default function IndexPage({ features }: IndexPageProps) {
             Build all the features you need. Faster.
           </p>
         </div>
-        <div className="container max-w-5xl grid-cols-2 gap-6 mx-auto mt-10 lg:grid">
-          <div className="grid-flow-row gap-4 mt-10 lg:max-w-md lg:grid auto-rows-max">
+        <div className="container max-w-5xl grid-cols-2 gap-6 mx-auto mt-10 md:grid">
+          <div className="grid grid-flow-row gap-4 mt-10 md:max-w-md auto-rows-max">
             {features.map((feature) => (
-              <div key={feature.hash}>
-                <div className="lg:hidden">
-                  <div
-                    className={classNames(
-                      "p-4 bg-white rounded-md text-left transition-all group w-full shadow-lg"
-                    )}
-                  >
-                    <h3 className="font-bold transition-all group-hover:text-blue-700">
-                      {feature.frontMatter.title}
-                    </h3>
-                    <p className="text-sm text-gray-700">
-                      {feature.frontMatter.excerpt}
-                    </p>
-                  </div>
-                  <FeatureCode className="mt-6" feature={feature} />
-                </div>
+              <div
+                className="overflow-hidden md:overflow-visible"
+                key={feature.hash}
+              >
                 <button
                   className={classNames(
-                    "p-4 bg-white rounded-md w-full text-left hidden lg:block transition-all group",
+                    "px-6 md:px-4 py-4 bg-white rounded-md w-full text-left block transition-all group",
                     {
-                      "shadow-lg text-blue-700":
+                      "md:shadow-lg text-blue-700":
                         selectedFeature.hash === feature.hash,
                     }
                   )}
@@ -172,11 +160,12 @@ export default function IndexPage({ features }: IndexPageProps) {
                     {feature.frontMatter.excerpt}
                   </p>
                 </button>
+                <FeatureCode feature={feature} className="md:hidden" />
               </div>
             ))}
           </div>
           <FeatureCode
-            className="flex-col hidden lg:flex"
+            className="flex-col hidden md:flex"
             feature={selectedFeature}
           />
         </div>

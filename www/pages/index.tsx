@@ -56,7 +56,7 @@ export default function IndexPage({ features }: IndexPageProps) {
           </div>
         </div>
       </section>
-      <div className="w-full h-14 md:h-20 divider" />
+      <div className="hidden w-full lg:block h-14 md:h-20 divider" />
       <section className="px-6 py-6 md:py-12 lg:py-20">
         <div className="container max-w-5xl mx-auto">
           <h2 className="text-3xl font-black tracking-tight text-center md:text-5xl lg:tracking-tighter lg:text-6xl">

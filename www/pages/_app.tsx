@@ -1,6 +1,5 @@
 import { site } from "config/site"
 import { DefaultSeo } from "next-seo"
-import "@fontsource/inter/latin.css"
 
 import "../styles/global.css"
 

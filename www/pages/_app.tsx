@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }) {
           url: process.env.NEXT_PUBLIC_BASE_URL,
           images: [
             {
-              url: `${process.env.NEXT_PUBLIC_BASE_URL}/images/meta.jpg`,
+              url: `${process.env.NEXT_PUBLIC_BASE_URL}/images/og.jpg`,
               width: 800,
               height: 600,
             },

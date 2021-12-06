@@ -22,5 +22,6 @@ export const site: SiteConfig = {
   ],
   social: {
     github: "chapter-three/next-drupal",
+    twitter: "shadcn",
   },
 }

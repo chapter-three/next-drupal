@@ -33,7 +33,7 @@ export default function BlogPage({ nodes }: BlogPageProps) {
               <h1>{node.title}</h1>
             </div>
           ))
-        : null}
+    null}
     </div>
   )
 }

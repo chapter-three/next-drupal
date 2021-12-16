@@ -4,6 +4,7 @@ import { useHydrate } from "next-mdx/client"
 import classNames from "classnames"
 
 import { Tutorial } from "types"
+import { site } from "config/site"
 import { Layout } from "components/layout"
 import { Pager } from "components/pager"
 import { mdxComponents } from "components/mdx"
@@ -127,7 +128,17 @@ export default function TutorialPage({
               >
                 Slack
               </a>
-              .
+              .{" "}
+              {site.contact && (
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: site.contact.text.replace(
+                      "%link",
+                      `<a class="text-purple-800 hover:underline" href="${site.contact.link.href}">${site.contact.link.title}</a>`
+                    ),
+                  }}
+                />
+              )}
             </p>
           </div>
         </aside>

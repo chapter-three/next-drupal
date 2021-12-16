@@ -3,6 +3,7 @@ import { useHydrate } from "next-mdx/client"
 import { getTableOfContents, TableOfContents } from "next-mdx-toc"
 
 import { Doc } from "types"
+import { site } from "config/site"
 import { docs } from "config/docs"
 import { Layout } from "components/layout"
 import { SidebarNav } from "components/sidebar-nav"
@@ -54,13 +55,23 @@ export default function DocsPage({ doc, toc }: DocsPageProps) {
                 Development sponsored by
               </h2>
               <a
-                href="https://chapterthree.com"
-                target="_blank"
+                href="https://www.chapterthree.com"
                 rel="noreferrer"
                 className="text-sm text-gray-700 uppercase"
               >
                 Chapter Three
               </a>
+            </div>
+            <div className="pt-4">
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: site.contact.text.replace(
+                    "%link",
+                    `<a class="underline hover:no-underline" href="${site.contact.link.href}">${site.contact.link.title}</a>`
+                  ),
+                }}
+                className="text-sm text-gray-700"
+              />
             </div>
           </aside>
         </div>

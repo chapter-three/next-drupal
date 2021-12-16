@@ -61,7 +61,7 @@ export function Layout({
               <a
                 className={classNames(
                   "text-sm font-medium hover:underline",
-                  pathname === "/" ? "text-blue-600" : "text-gray-700"
+                  pathname === "/" ? "text-purple-700" : "text-gray-700"
                 )}
               >
                 Home
@@ -77,7 +77,7 @@ export function Layout({
                   <a
                     className={classNames(
                       "text-sm font-medium hover:underline",
-                      isActive ? "text-blue-600" : "text-gray-700"
+                      isActive ? "text-purple-700" : "text-gray-700"
                     )}
                     target={link.external ? "_blank" : "_self"}
                     rel={link.external ? "noreferrer" : ""}

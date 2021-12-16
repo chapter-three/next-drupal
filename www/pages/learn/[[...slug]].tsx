@@ -103,27 +103,27 @@ export default function TutorialPage({
               </li>
             ))}
           </ul>
-          <div className="p-4 my-6 mt-10 mr-4 border rounded-md border-blue-50 bg-blue-50 callout">
+          <div className="p-4 my-6 mt-10 mr-4 border rounded-md border-purple-50 bg-purple-50 callout">
             <h4 className="mb-2 text-sm font-medium">Need help?</h4>
             <p className="text-sm text-gray-600">
               We are on{" "}
               <a
                 href="https://twitter.com/shadcn"
-                className="text-blue-600 hover:underline"
+                className="text-purple-800 hover:underline"
               >
                 Twitter
               </a>
               ,{" "}
               <a
                 href="https://github.com/chapter-three/next-drupal"
-                className="text-blue-600 hover:underline"
+                className="text-purple-800 hover:underline"
               >
                 GitHub
               </a>{" "}
               and{" "}
               <a
                 href="https://drupal.slack.com/archives/C01E36BMU72"
-                className="text-blue-600 hover:underline"
+                className="text-purple-800 hover:underline"
               >
                 Slack
               </a>

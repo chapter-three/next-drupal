@@ -23,7 +23,7 @@ export function ExampleCard({
         {links?.map((link) => (
           <li key={link.href} className="mb-1">
             <Link href={link.href}>
-              <a className="text-sm text-blue-600 hover:underline">
+              <a className="text-sm text-purple-700 hover:underline">
                 {link.title}
               </a>
             </Link>

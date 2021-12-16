@@ -40,7 +40,7 @@ export function DocSearch({ ...props }) {
 
   return (
     <div
-      className="relative flex-1 md:min-w-[300px] lg:min-w-[400px]"
+      className="relative flex-1 md:min-w-[300px] xl:min-w-[400px]"
       {...props}
     >
       <label htmlFor="docsearch-input" className="sr-only">

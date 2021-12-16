@@ -4,7 +4,20 @@ export const site: SiteConfig = {
   name: "Next.js for Drupal",
   description:
     "Everything you expect from Drupal. On a modern stack. Go headless without compromising features.",
-  copyright: `© ${new Date().getFullYear()} Next.js for Drupal`,
+  copyright: {
+    text: `© ${new Date().getFullYear()} Next.js for Drupal by %link`,
+    link: {
+      title: "Chapter Three",
+      href: "https://www.chapterthree.com",
+    },
+  },
+  contact: {
+    text: `Contact %link for your Next Project`,
+    link: {
+      href: "https://www.chapterthree.com/contact",
+      title: "Chapter Three",
+    },
+  },
   links: [
     {
       title: "Get Started",
@@ -18,6 +31,10 @@ export const site: SiteConfig = {
     {
       title: "Examples",
       href: "/docs/examples",
+    },
+    {
+      title: "Contact",
+      href: "https://www.chapterthree.com/contact",
     },
   ],
   social: {

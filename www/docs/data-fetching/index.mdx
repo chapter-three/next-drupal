@@ -107,7 +107,7 @@ To do that, we're going to use `getResourceTypeFromContext` which returns the re
 
 ```tsx
 export async function getStaticProps(context) {
-  const type = await getResourceFromContext(context)
+  const type = await getResourceTypeFromContext(context)
 
   if (type === "node--article") {
     // Build custom JSON:API query for article.
@@ -151,7 +151,7 @@ export async function getStaticPaths(context) {
 
 export async function getStaticProps(context) {
   const params = new DrupalJsonApiParams()
-  const type = await getResourceFromContext(context) // highlight-line
+  const type = await getResourceTypeFromContext(context) // highlight-line
 
   // Fetch the title, path and body field for pages.
   if (type === "node--page") {

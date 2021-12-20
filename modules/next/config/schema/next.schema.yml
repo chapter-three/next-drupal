@@ -48,6 +48,19 @@ next.site_resolver.configuration.entity_reference_field:
       type: string
       label: "Field name"
 
+next.site_resolver.configuration.entity_owner:
+  type: mapping
+  mapping:
+    sites:
+      type: sequence
+      label: "Next.js sites"
+      sequence:
+        type: sequence
+        label: "User UUIDs"
+        sequence:
+          type: string
+          label: "User UUID"
+
 next.settings:
   type: config_object
   label: "Next settings"

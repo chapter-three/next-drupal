@@ -7,6 +7,7 @@ use Drupal\next\Entity\NextEntityTypeConfig;
 use Drupal\next\Entity\NextSite;
 use Drupal\node\Entity\NodeType;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
+use Drupal\Tests\user\Traits\UserCreationTrait;
 
 /**
  * Tests the site_resolver plugin.
@@ -18,6 +19,7 @@ use Drupal\Tests\node\Traits\NodeCreationTrait;
 class SiteResolverTest extends KernelTestBase {
 
   use NodeCreationTrait;
+  use UserCreationTrait;
 
   /**
    * {@inheritdoc}
@@ -103,6 +105,37 @@ class SiteResolverTest extends KernelTestBase {
     $article = $this->createNode(['type' => 'article']);
     $next_entity_type_config = $next_entity_type_manager->getConfigForEntityType($article->getEntityTypeId(), $article->bundle());
     $this->assertNull($next_entity_type_config);
+
+    $account1 = $this->createUser();
+    $account2 = $this->createUser();
+    $page->setOwner($account1)->save();
+    $article->setOwner($account2)->save();
+    $next_entity_type_config = $next_entity_type_manager->getConfigForEntityType($page->getEntityTypeId(), $page->bundle())
+      ->setSiteResolver('entity_owner')
+      ->set('configuration', [
+        'sites' => [
+          'blog' => [$account1->uuid()],
+        ],
+      ]);
+    $next_entity_type_config->save();
+    $site_resolver = $next_entity_type_config->getSiteResolver();
+    $sites = array_keys($site_resolver->getSitesForEntity($page));
+    $this->assertSame(['blog'], $sites);
+
+    $next_entity_type_config = NextEntityTypeConfig::create([
+      'id' => 'node.article',
+      'site_resolver' => 'entity_owner',
+      'configuration' => [
+        'sites' => [
+          'blog' => [$account2->uuid()],
+          'marketing' => [$account1->uuid(), $account2->uuid()],
+        ],
+      ],
+    ]);
+    $next_entity_type_config->save();
+    $site_resolver = $next_entity_type_config->getSiteResolver();
+    $sites = array_keys($site_resolver->getSitesForEntity($article));
+    $this->assertEquals(['blog', 'marketing'], $sites);
   }
 
 }

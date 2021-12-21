@@ -50,7 +50,7 @@ export function Layout({
             href={`${site.social.contact}?utm_source=next-drupal&utm_medium=banner`}
             rel="noopener noreferrer"
             target="_blank"
-            className="mt-2 text-sm font-semibold text-black sm:text-base sm:mt-0 hover:underline"
+            className="mt-2 text-sm font-semibold text-white sm:text-base sm:mt-0 hover:underline"
           >
             <span className="sr-only">Chapter Three</span>
             <svg
@@ -69,7 +69,7 @@ export function Layout({
             href={`${site.social.contact}?utm_source=next-drupal&utm_medium=banner`}
             rel="noopener noreferrer"
             target="_blank"
-            className="mt-2 text-sm font-semibold text-black sm:text-base sm:mt-0 hover:underline"
+            className="mt-2 text-sm font-semibold text-white sm:text-base sm:mt-0 hover:underline"
           >
             Contact Chapter Three for your Next project
           </a>
@@ -168,7 +168,6 @@ export function Layout({
               </button>
               <Link href="/" passHref>
                 <a className="items-center flex-shrink hidden text-lg font-semibold sm:flex">
-                  <Logo classes="hidden mr-2 sm:block w-10 h-10" />
                   {site.name}
                 </a>
               </Link>
@@ -266,31 +265,5 @@ export function Layout({
         </footer>
       </div>
     </>
-  )
-}
-
-function Logo({ classes }) {
-  return (
-    <svg
-      className={classNames("text-blue-700", classes)}
-      viewBox="0 0 252 252"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <circle cx="126.2" cy="124.5" r="103" fill="currentColor" />
-      <g transform="translate(42 71)">
-        <path
-          d="m83.7 101.7v-93.2h34.9c10.4 0 19.4 1.9 26.9 5.6s13.2 9 17.2 15.9 6 15.2 6 24.9c0 9.9-2 18.3-6.1 25.2s-10 12.3-17.7 15.9c-7.7 3.7-17.1 5.5-28.1 5.5h-33.1zm33.1-80.5h-17.9v67.9h17.8c24 0 36-11.3 36-33.9s-12-34-35.9-34z"
-          fill="#FFFFFF"
-        />
-        <path
-          d="M15.5,101.7V8.5h14l53.7,71v-71h14v93.1h-14L29.6,30.8v70.8H15.5z"
-          fill="#FFFFFF"
-        />
-        <path
-          d="M80.3,75.3l9.9,13.7h9.9V71.8L80.3,49.1V75.3z"
-          fill="currentColor"
-        />
-      </g>
-    </svg>
   )
 }

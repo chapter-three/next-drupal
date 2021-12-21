@@ -19,6 +19,10 @@ export const site: SiteConfig = {
       title: "Examples",
       href: "/docs/examples",
     },
+    {
+      title: "Contact",
+      href: "https://www.chapterthree.com/contact?utm_source=next-drupal&utm_medium=banner",
+    },
   ],
   social: {
     github: "chapter-three/next-drupal",

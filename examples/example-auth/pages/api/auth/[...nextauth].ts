@@ -1,6 +1,7 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import jwt_decode from "jwt-decode"
+import { DecodedUserInfo } from "../../../types/next-auth"
 
 export default NextAuth({
   providers: [
@@ -63,17 +64,15 @@ export default NextAuth({
       clientSecret: process.env.OAUTH_CLIENT_SECRET,
     },
   ],
-  jwt: {
-    signingKey: process.env.JWT_SIGNING_PRIVATE_KEY,
-    encryption: true,
-  },
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, user }) {
       // Forward the access token, refresh token and expiration date from user.
       // We'll use to handle token refresh.
       if (user) {
         token.accessToken = user.access_token
-        token.accessTokenExpires = Date.now() + user.expires_in * 1000
+        token.accessTokenExpires =
+          Date.now() + (user.expires_in as number) * 1000
         token.refreshToken = user.refresh_token
       }
 
@@ -91,7 +90,7 @@ export default NextAuth({
 
         // Decode token and pass info to session.
         // This is used for the Password Grant.
-        const decoded = jwt_decode(token.accessToken)
+        const decoded = jwt_decode<DecodedUserInfo>(token.accessToken as string)
         session.user.id = decoded.id
         session.user.email = decoded.email
         session.user.username = decoded.username

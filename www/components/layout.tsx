@@ -50,11 +50,6 @@ export function Layout({
           showMenu ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        <Link href="/" passHref>
-          <a className="block mb-6 sm:hidden">
-            <Logo classes={"h-11"} />
-          </a>
-        </Link>
         <ul className="grid grid-flow-row gap-2 mb-8 auto-rows-max">
           <li>
             <Link href="/" passHref>
@@ -141,11 +136,12 @@ export function Layout({
                 <span className="sr-only">Toggle Menu</span>
               </button>
               <Link href="/" passHref>
-                <a className="items-center hidden text-lg font-semibold sm:block flex-shrink">
-                  <Logo classes={"hidden mr-2 sm:block h-12"} />
+                <a className="items-center flex-shrink hidden text-lg font-semibold sm:flex">
+                  <Logo classes="hidden mr-2 sm:block w-10 h-10" />
+                  {site.name}
                 </a>
               </Link>
-              <div className="hidden flex-grow grid-flow-col gap-6 ml-4 lg:grid lg:ml-8 lg:gap-8 auto-cols-max">
+              <div className="flex-grow hidden grid-flow-col gap-6 ml-4 lg:grid lg:ml-8 lg:gap-8 auto-cols-max">
                 {site.links.map((link) => {
                   const isActive =
                     pathname === link.href ||
@@ -230,25 +226,11 @@ export function Layout({
 function Logo({ classes }) {
   return (
     <svg
-      className={classes}
-      viewBox="0 0 1052 252"
+      className={classNames("text-purple-700", classes)}
+      viewBox="0 0 252 252"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect x="-299" y="-250" width="3" height="3" />
-      <g transform="translate(305 63)" fill="currentColor">
-        <path d="M-22,107.1V15.9h7.3L47,96.5V15.9h7v91.2h-7.3L-15,26.3v80.8H-22z" />
-        <path d="M83.3,107.1V15.9h52.8v6.5H90.7v34.6h40.6v6.4H90.7v37.3h47.2v6.5L83.3,107.1z" />
-        <path d="m151 107.1 35.2-47.8-31.8-43.4h8.9l27.3 38.1 27.6-38.2h8.3l-31.8 43.4 34.9 47.8h-9l-30.5-42.5-30.7 42.5h-8.4z" />
-        <path d="M270,107.1V22.4h-31.2v-6.5h69.8v6.5h-31.2v84.7H270z" />
-        <path d="m325 107.1v-91.2h34.9c10.6 0 19.6 1.8 27.1 5.4s13.2 8.8 17.1 15.5 5.9 14.9 5.9 24.5-2 17.8-6.1 24.7-9.9 12.1-17.5 15.7-16.9 5.4-27.8 5.4h-33.6zm33.2-76.5h-15.1v61.7h15.1c21.8 0 32.8-10.3 32.8-30.8s-11-30.9-32.8-30.9z" />
-        <path d="m424.7 107.1v-61.1h16l0.1 12.1c1.4-4.2 3.6-7.5 6.5-9.8s6.3-3.4 10.3-3.4c1.3 0 2.6 0.1 3.9 0.4s2.4 0.6 3.2 1l-1.5 15.7c-1-0.4-2.3-0.8-3.7-1.1s-2.8-0.5-4-0.5c-4.6 0-8.1 1.6-10.6 4.9-2.5 3.2-3.7 7.9-3.7 14v27.8h-16.5z" />
-        <path d="m504.4 109c-9 0-16-2.4-20.8-7.1s-7.3-11.4-7.3-20.2v-35.7h16.7v35.4c0 8.6 3.8 12.8 11.5 12.8 7.6 0 11.4-4.3 11.4-12.8v-35.4h16.7v35.8c0 8.7-2.4 15.4-7.3 20.2s-11.9 7-20.9 7z" />
-        <path d="m549.7 136.5v-90.5h15.6l0.2 9.6c2.2-3.7 5-6.5 8.6-8.5s7.7-3 12.3-3c5.4 0 10.3 1.4 14.5 4.1s7.6 6.6 10 11.4 3.6 10.4 3.6 16.7c0 6.2-1.3 11.7-3.8 16.6s-6 8.8-10.4 11.7-9.3 4.3-14.7 4.3c-8.5 0-14.9-3.4-19.3-10.2v37.7h-16.6zm31.9-42.4c4.7 0 8.6-1.6 11.6-4.9s4.6-7.5 4.6-12.6c0-5.2-1.5-9.4-4.6-12.7-3-3.3-6.9-4.9-11.6-4.9-4.8 0-8.7 1.6-11.8 4.9s-4.6 7.5-4.6 12.7c0 5.1 1.5 9.3 4.6 12.6s7 4.9 11.8 4.9z" />
-        <path d="m653.3 109c-5.4 0-10.3-1.4-14.5-4.1s-7.5-6.6-9.9-11.5-3.6-10.4-3.6-16.7c0-6.2 1.3-11.7 3.8-16.6s6-8.8 10.4-11.7 9.3-4.3 14.7-4.3c4.2 0 8.1 1 11.6 2.9s6.2 4.7 8.2 8.3l0.2-9.4h15.8v61.1h-15.8l-0.2-9.4c-4.2 7.6-11.1 11.4-20.7 11.4zm4.9-14.9c4.7 0 8.6-1.6 11.6-4.9s4.6-7.5 4.6-12.6c0-5.2-1.5-9.4-4.6-12.7-3-3.3-6.9-4.9-11.6-4.9s-8.6 1.6-11.6 4.9-4.6 7.5-4.6 12.7c0 5.1 1.5 9.3 4.6 12.6s6.9 4.9 11.6 4.9z" />
-        <path d="M707.9,107.1V9.9h16.6v97.2H707.9z" />
-      </g>
-
-      <circle cx="126.2" cy="124.5" r="103" fill="#6D28D9" />
+      <circle cx="126.2" cy="124.5" r="103" fill="currentColor" />
       <g transform="translate(42 71)">
         <path
           d="m83.7 101.7v-93.2h34.9c10.4 0 19.4 1.9 26.9 5.6s13.2 9 17.2 15.9 6 15.2 6 24.9c0 9.9-2 18.3-6.1 25.2s-10 12.3-17.7 15.9c-7.7 3.7-17.1 5.5-28.1 5.5h-33.1zm33.1-80.5h-17.9v67.9h17.8c24 0 36-11.3 36-33.9s-12-34-35.9-34z"
@@ -258,7 +240,10 @@ function Logo({ classes }) {
           d="M15.5,101.7V8.5h14l53.7,71v-71h14v93.1h-14L29.6,30.8v70.8H15.5z"
           fill="#FFFFFF"
         />
-        <path d="M80.3,75.3l9.9,13.7h9.9V71.8L80.3,49.1V75.3z" fill="#6D28D9" />
+        <path
+          d="M80.3,75.3l9.9,13.7h9.9V71.8L80.3,49.1V75.3z"
+          fill="currentColor"
+        />
       </g>
     </svg>
   )

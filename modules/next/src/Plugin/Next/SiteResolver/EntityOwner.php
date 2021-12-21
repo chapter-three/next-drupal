@@ -21,14 +21,24 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * collection using:
  * @code
  * import { getResourceCollection } from "next-drupal"
- * // Fetch all Article nodes where the entity reference field `field_sites` has value blog.
+ * // Fetch all Article nodes where the node authors are in a given list.
  * const nodes = await getResourceCollection<DrupalNode[]>("node--article", {
  *   params: {
  *     filter: {
- *       // Use the user's UUID to filter.
- *       "uid.id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
- *     },
- *   },
+ *       entity_owner: {
+ *         condition: {
+ *           path: "uid.id",
+ *           operator: "IN",
+ *           value: [
+ *             // Use the users entity UUIDs to filter.
+ *             "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+ *             "yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy",
+ *             ...
+ *           ]
+ *         }
+ *       }
+ *     }
+ *   }
  * })
  * @endcode
  * The same filter can be used in `getStaticProps` and `getStaticPaths`.

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.0.0...next-drupal@1.0.1) (2021-12-21)
+
+
+### Bug Fixes
+
+* **next-drupal:** handle nested params in getResourceByPath ([36e756b](https://github.com/chapter-three/next-drupal/commit/36e756b069c654b9197fb1b818f2ef61f937bff1))
+* **www:** meta tags ([f68ed91](https://github.com/chapter-three/next-drupal/commit/f68ed912100c5a2aedf8c0a2df894c6f58afcd5c))
+
+
+
+
+
 # [1.0.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@0.18.0...next-drupal@1.0.0) (2021-12-03)
 
 **Note:** Version bump only for package next-drupal

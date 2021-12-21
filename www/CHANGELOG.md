@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/chapter-three/next-drupal/compare/www@1.0.0...www@1.1.0) (2021-12-21)
+
+
+### Bug Fixes
+
+* **www:** add contact link in header nav ([8dd9a79](https://github.com/chapter-three/next-drupal/commit/8dd9a79744b8a481e92fa1cc363c2f1a47bb7b72))
+* **www:** change blue to purple ([65e1c99](https://github.com/chapter-three/next-drupal/commit/65e1c996194071e9dfb897b492e832215ad3879e))
+* **www:** code blocks on front page ([23485c1](https://github.com/chapter-three/next-drupal/commit/23485c1951dad2b259960befdd67318e1c0e9c83))
+* **www:** meta tags ([f68ed91](https://github.com/chapter-three/next-drupal/commit/f68ed912100c5a2aedf8c0a2df894c6f58afcd5c))
+* **www:** update meta tags ([a74b318](https://github.com/chapter-three/next-drupal/commit/a74b3181aa5edd83a011f4b01fc93ce3f091facd))
+* **www:** update name ([498c9d6](https://github.com/chapter-three/next-drupal/commit/498c9d648a48da93fff6252eb5b00973bcff6ef9))
+* **www:** update styles and open graph image ([8ad54c5](https://github.com/chapter-three/next-drupal/commit/8ad54c564d63b80eae98ebad24d61b36c8586107))
+* **www:** update text color for search box ([92321b7](https://github.com/chapter-three/next-drupal/commit/92321b741ed92e6870f7961166c08ae0599d88fe))
+* **www:** use variable fonts ([57bde69](https://github.com/chapter-three/next-drupal/commit/57bde695e3185e87ddb17d7a01e26d6efdb74a0e))
+
+
+### Features
+
+* **www:** add contact links ([b0d78fe](https://github.com/chapter-three/next-drupal/commit/b0d78feebfc9665389608fcb1ea524ad5f3f9b54))
+* **www:** add logo and copyright link ([18927f1](https://github.com/chapter-three/next-drupal/commit/18927f173d708ad69f61e4f4661fd134445928de))
+* **www:** add site banner ([97b1d52](https://github.com/chapter-three/next-drupal/commit/97b1d5284e889878af21cfb89bf83c23c6d6148d))
+* **www:** new favicon ([c069d90](https://github.com/chapter-three/next-drupal/commit/c069d9010d0cb06fd770b874f9ec6be23f14decb))
+
+
+
+
+
 # [1.0.0](https://github.com/chapter-three/next-drupal/compare/www@0.4.0...www@1.0.0) (2021-12-03)
 
 

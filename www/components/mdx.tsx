@@ -29,12 +29,12 @@ export const mdxComponents = {
     <ol className="pl-8 mb-8 list-decimal list-outside" {...props} />
   ),
   li: (props) => <li className="mb-2 leading-relaxed break-words" {...props} />,
-  a: (props) => <a className="text-purple-700 hover:underline" {...props} />,
+  a: (props) => <a className="text-blue-700 hover:underline" {...props} />,
   figure: (props) => <figure className="my-6" {...props} />,
   figcaption: (props) => <figcaption className="text-center" {...props} />,
   inlineCode: ({ children, ...props }) => (
     <code
-      className="font-mono text-sm font-medium text-purple-700 break-words"
+      className="font-mono text-sm font-medium text-blue-700 break-words"
       {...props}
     >
       `{children}`

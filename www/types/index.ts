@@ -59,24 +59,12 @@ export type NavLinks = NavLink[]
 export interface SiteConfig {
   name: string
   description?: string
-  copyright?: {
-    text: string
-    link: {
-      title: string
-      href: string
-    }
-  }
-  contact?: {
-    text: string
-    link: {
-      title: string
-      href: string
-    }
-  }
+  copyright?: string
   links: NavLinks
   social: {
     github?: string
     twitter?: string
+    contact?: string
   }
 }
 

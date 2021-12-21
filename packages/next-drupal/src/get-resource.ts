@@ -1,4 +1,5 @@
 import { GetStaticPropsContext } from "next"
+import { stringify } from "qs"
 import {
   AccessToken,
   JsonApiParams,
@@ -101,13 +102,12 @@ export async function getResourceByPath<T extends JsonApiResource>(
   }
 
   const { resourceVersion = "rel:latest-version", ...params } = options?.params
-  const resourceParams = new URLSearchParams({
-    ...params,
-  })
 
   if (options.isVersionable) {
-    resourceParams.set("resourceVersion", resourceVersion)
+    params.resourceVersion = resourceVersion
   }
+
+  const resourceParams = stringify(params)
 
   const payload = [
     {

@@ -42,4 +42,25 @@ context("Translation", () => {
   })
 })
 
+context("Blog node", () => {
+  beforeEach(() => {
+    cy.visit("/blog/learn-how-pre-render-pages-using-static-generation-nextjs")
+  })
+
+  it("should render article node", () => {
+    cy.get("h1").contains(
+      "Learn How to Pre-render Pages Using Static Generation with Next.js"
+    )
+    cy.get("[data-cy=node--article] [data-cy=node--body]").should(
+      "not.be.empty"
+    )
+    cy.get("[data-cy=node--article] [data-cy=node--meta]").contains(
+      "Posted by Arshad"
+    )
+    cy.get("[data-cy=node--article] [data-cy=node--meta]").contains(
+      "June 13, 2021"
+    )
+  })
+})
+
 export {}

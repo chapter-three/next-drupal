@@ -39,7 +39,7 @@ export function NodeArticle({ node, ...props }) {
               fontFamily="sans"
               color="gray"
               mt="4"
-              data-cy="meta"
+              data-cy="node--meta"
             >
               {node.uid?.field_name ? (
                 <span display="inline-block" mr="4">

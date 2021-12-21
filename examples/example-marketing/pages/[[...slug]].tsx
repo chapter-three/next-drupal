@@ -128,6 +128,14 @@ export async function getStaticProps(
 
   if (type === "node--article") {
     apiParams.addInclude(["field_image", "uid"])
+    apiParams.addFields(type, [
+      "title",
+      "body",
+      "uid",
+      "created",
+      "field_image",
+      "status",
+    ])
   }
 
   const node = await getResourceFromContext<DrupalNode>(type, context, {
@@ -167,6 +175,6 @@ export async function getStaticProps(
       preview: context.preview || false,
       node,
     },
-    revalidate: 60,
+    revalidate: 7200,
   }
 }

@@ -21,4 +21,4 @@ To run the tests:
 
 1. Setup the Drupal site with the database and files.
 2. Run `yarn` from the root of the monorepo to install dependencies.
-3. Then run `yarn e2e:test:ci` to run the tests.
+3. Then run `yarn test:e2e:ci` to run the tests.

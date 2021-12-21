@@ -25,6 +25,7 @@ const options: HTMLReactParserOptions = {
 export function Body({ value }: { value: string }) {
   return (
     <div
+      data-cy="node--body"
       sx={{
         p: {
           variant: "text",

@@ -36,7 +36,7 @@
     "drupal/field_group": "^3.1",
     "drupal/gin": "^3.0@alpha",
     "drupal/gin_login": "^1.0",
-    "drupal/jsonapi_extras": "^3.17",
+    "drupal/jsonapi_extras": "^3.20",
     "drupal/jsonapi_menu_items": "^1.2",
     "drupal/jsonapi_schema": "^1.0@beta",
     "drupal/jsonapi_search_api": "^1.0@RC",

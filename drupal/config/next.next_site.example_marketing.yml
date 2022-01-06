@@ -4,6 +4,6 @@ status: true
 dependencies: {  }
 id: example_marketing
 label: 'Example marketing'
-base_url: 'https://demo.next-drupal.org'
-preview_url: 'https://demo.next-drupal.org/api/preview'
+base_url: 'http://localhost:3000'
+preview_url: 'http://localhost:3000/api/preview'
 preview_secret: secret

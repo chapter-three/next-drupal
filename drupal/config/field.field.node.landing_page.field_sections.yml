@@ -26,7 +26,6 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       hero: hero
       feature: feature
@@ -34,29 +33,30 @@ settings:
       faq: faq
       view: view
       from_library: from_library
+    negate: 0
     target_bundles_drag_drop:
       card:
         weight: -12
         enabled: false
       cards:
-        enabled: true
         weight: -15
+        enabled: true
       collapsible:
         weight: -11
         enabled: false
       faq:
-        enabled: true
         weight: -14
+        enabled: true
       feature:
-        enabled: true
         weight: -16
+        enabled: true
       from_library:
-        enabled: true
         weight: -10
+        enabled: true
       hero:
-        enabled: true
         weight: -17
-      view:
         enabled: true
+      view:
         weight: -13
+        enabled: true
 field_type: entity_reference_revisions

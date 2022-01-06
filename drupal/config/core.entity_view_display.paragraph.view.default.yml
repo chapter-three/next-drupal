@@ -13,10 +13,10 @@ bundle: view
 mode: default
 content:
   field_view:
-    weight: 0
+    type: list_default
     label: inline
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 0
     region: content
 hidden: {  }

@@ -21,9 +21,9 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       collapsible: collapsible
+    negate: 0
     target_bundles_drag_drop:
       card:
         weight: -14
@@ -32,8 +32,8 @@ settings:
         weight: -13
         enabled: false
       collapsible:
-        enabled: true
         weight: -15
+        enabled: true
       faq:
         weight: -12
         enabled: false

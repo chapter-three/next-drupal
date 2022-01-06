@@ -28,13 +28,13 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_name:
+    type: string_textfield
     weight: 0
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   language:
     weight: 3
     region: content
@@ -53,11 +53,11 @@ content:
     third_party_settings: {  }
   user_picture:
     type: image_image
+    weight: 2
+    region: content
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
-    weight: 2
-    region: content
 hidden:
   langcode: true

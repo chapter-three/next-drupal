@@ -1,7 +1,17 @@
 uuid: d5f77445-2c1d-4067-af84-7744f8b28c30
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - filter.format.restricted_html
+    - rest.resource.webform_rest_submit
+  module:
+    - filter
+    - media
+    - rest
+    - simple_oauth
+    - subrequests
+    - system
 _core:
   default_config_hash: pq_mEIu_B4widZN7Ap81iCJSjShFFdcL0jEiCi8VrDk
 id: anonymous
@@ -9,12 +19,9 @@ label: 'Anonymous user'
 weight: -10
 is_admin: false
 permissions:
-  - 'access comments'
   - 'access content'
-  - 'access site-wide contact form'
   - 'debug simple_oauth tokens'
   - 'issue subrequests'
   - 'restful post webform_rest_submit'
-  - 'search content'
   - 'use text format restricted_html'
   - 'view media'

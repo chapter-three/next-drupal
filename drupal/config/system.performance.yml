@@ -1,3 +1,5 @@
+_core:
+  default_config_hash: b2cssrj-lOmATIbdehfCqfCFgVR0qCdxxWhwqa2KBVQ
 cache:
   page:
     max_age: 0
@@ -13,5 +15,3 @@ js:
   preprocess: true
   gzip: true
 stale_file_threshold: 2592000
-_core:
-  default_config_hash: b2cssrj-lOmATIbdehfCqfCFgVR0qCdxxWhwqa2KBVQ

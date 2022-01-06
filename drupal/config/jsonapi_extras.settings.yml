@@ -1,4 +1,5 @@
-path_prefix: jsonapi
-include_count: true
 _core:
   default_config_hash: eZ7KZ6nM56SRhfriFWCo1372Z9UiKufhSLRbkdhVmUg
+path_prefix: jsonapi
+include_count: true
+default_disabled: false

@@ -6,24 +6,27 @@ dependencies:
     - jsonapi_search_api_facets
 id: location
 name: Location
-url_alias: field_location
 weight: 0
 min_count: 1
-show_only_one_result: false
-field_identifier: field_location
+url_alias: field_location
 facet_source_id: 'jsonapi_search_api_facets:property'
-widget:
-  type: jsonapi_search_api
-  config:
-    show_numbers: true
+field_identifier: field_location
 query_operator: or
+hard_limit: 0
+exclude: false
 use_hierarchy: false
 keep_hierarchy_parents_active: false
 expand_hierarchy: false
 enable_parent_when_child_gets_disabled: true
-hard_limit: 0
-exclude: false
+widget:
+  type: jsonapi_search_api
+  config:
+    show_numbers: true
+empty_behavior:
+  behavior: none
 only_visible_when_facet_source_is_visible: false
+show_only_one_result: false
+show_title: false
 processor_configs:
   active_widget_order:
     processor_id: active_widget_order
@@ -70,6 +73,3 @@ processor_configs:
       pre_query: 50
       build: 15
     settings: {  }
-empty_behavior:
-  behavior: none
-show_title: false

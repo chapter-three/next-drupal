@@ -16,18 +16,18 @@ mode: summary
 content:
   label:
     type: string
-    weight: 0
     label: hidden
-    region: content
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  paragraphs:
-    label: hidden
-    type: paragraph_summary
     weight: 0
     region: content
+  paragraphs:
+    type: paragraph_summary
+    label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   langcode: true

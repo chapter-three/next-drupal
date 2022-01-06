@@ -22,6 +22,7 @@ content:
   field_sections:
     type: paragraphs
     weight: 1
+    region: content
     settings:
       title: Section
       title_plural: Sections
@@ -37,7 +38,6 @@ content:
         collapse_edit_all: '0'
         duplicate: '0'
     third_party_settings: {  }
-    region: content
   langcode:
     type: language_select
     weight: 2
@@ -53,24 +53,24 @@ content:
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 4
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 7
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 5
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -83,11 +83,11 @@ content:
   uid:
     type: entity_reference_autocomplete
     weight: 2
+    region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
-    region: content
     third_party_settings: {  }
 hidden: {  }

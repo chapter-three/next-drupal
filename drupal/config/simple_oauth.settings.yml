@@ -1,11 +1,11 @@
-access_token_expiration: 300
-authorization_code_expiration: 300
-refresh_token_expiration: 1209600
-remember_clients: true
-token_cron_batch_size: 0
-use_implicit: false
-disable_openid_connect: false
 _core:
   default_config_hash: KsPFWSp6mgXIQgjBJEShfKUGn6VLRlbpIJ2EysXvXWM
+access_token_expiration: 7200
+authorization_code_expiration: 7200
+refresh_token_expiration: 1209600
+token_cron_batch_size: 0
 public_key: sites/default/files/private/public.key
 private_key: sites/default/files/private/private.key
+remember_clients: true
+use_implicit: false
+disable_openid_connect: false

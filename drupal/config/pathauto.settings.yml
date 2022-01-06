@@ -1,3 +1,5 @@
+_core:
+  default_config_hash: SwvLp8snyPEExF41CaJJYdPUVomofLqtXvwciHc4cPg
 enabled_entity_types:
   - user
 punctuation:
@@ -18,5 +20,3 @@ safe_tokens:
   - login-url
   - url
   - url-brief
-_core:
-  default_config_hash: SwvLp8snyPEExF41CaJJYdPUVomofLqtXvwciHc4cPg

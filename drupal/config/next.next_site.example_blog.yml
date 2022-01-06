@@ -4,6 +4,6 @@ status: true
 dependencies: {  }
 id: example_blog
 label: 'Example blog'
-base_url: 'https://next-example-blog.vercel.app'
-preview_url: 'https://next-example-blog.vercel.app/api/preview'
+base_url: 'http://localhost:3030'
+preview_url: 'http://localhost:3030/api/preview'
 preview_secret: secret

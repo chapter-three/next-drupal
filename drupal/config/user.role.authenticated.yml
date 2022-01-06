@@ -1,7 +1,17 @@
 uuid: b74d5033-c41f-4698-ae25-f1de2d642885
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - filter.format.basic_html
+    - rest.resource.webform_rest_submit
+  module:
+    - filter
+    - media
+    - rest
+    - shortcut
+    - simple_oauth
+    - system
 _core:
   default_config_hash: btW6TFHajhy7Eo6YUvdFiPh4TcPggo8GBXYctjV6zag
 id: authenticated
@@ -9,15 +19,10 @@ label: 'Authenticated user'
 weight: -9
 is_admin: false
 permissions:
-  - 'access comments'
   - 'access content'
   - 'access shortcuts'
-  - 'access site-wide contact form'
   - 'debug simple_oauth tokens'
   - 'grant simple_oauth codes'
-  - 'post comments'
   - 'restful post webform_rest_submit'
-  - 'search content'
-  - 'skip comment approval'
   - 'use text format basic_html'
   - 'view media'

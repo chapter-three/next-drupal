@@ -1,15 +1,15 @@
+_core:
+  default_config_hash: o4bYR9ZupWb3AsOIizTUG4g-nu1mdJqA59UB7QT-ifQ
 definitions:
   contact__site_page:
-    enabled: false
     menu_name: footer
     parent: ''
-    expanded: false
     weight: -48
+    expanded: false
+    enabled: false
   standard__front_page:
     menu_name: main
     parent: ''
     weight: -50
     expanded: false
     enabled: false
-_core:
-  default_config_hash: o4bYR9ZupWb3AsOIizTUG4g-nu1mdJqA59UB7QT-ifQ

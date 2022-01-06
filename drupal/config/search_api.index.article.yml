@@ -2,12 +2,12 @@ uuid: 9946c2dc-9084-4c20-91be-89f5542bd473
 langcode: en
 status: true
 dependencies:
-  module:
-    - node
-    - search_api
   config:
     - field.storage.node.body
     - search_api.server.database
+  module:
+    - node
+    - search_api
 id: article
 name: Article
 description: ''
@@ -74,30 +74,30 @@ processor_settings:
       preprocess_query: -30
   entity_status: {  }
   highlight:
-    highlight: always
-    highlight_partial: false
+    weights:
+      postprocess_query: 0
+    prefix: '<strong>'
+    suffix: '</strong>'
     excerpt: true
     excerpt_length: 256
     exclude_fields: {  }
-    prefix: '<strong>'
-    suffix: '</strong>'
-    weights:
-      postprocess_query: 0
+    highlight: always
+    highlight_partial: false
   ignorecase:
+    weights:
+      preprocess_index: -20
+      preprocess_query: -20
     all_fields: false
     fields:
       - body
       - title
-    weights:
-      preprocess_index: -20
-      preprocess_query: -20
   language_with_fallback: {  }
   rendered_item: {  }
 tracker_settings:
   default:
     indexing_order: fifo
 options:
+  cron_limit: 50
   index_directly: true
   track_changes_in_references: true
-  cron_limit: 50
 server: database

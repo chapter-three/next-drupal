@@ -26,31 +26,31 @@ third_party_settings:
         - field_size
         - field_beds
         - field_baths
+      label: Details
+      region: content
       parent_name: ''
       weight: 5
       format_type: fieldset
-      region: content
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: Details
     group_language:
       children:
         - langcode
+      label: Language
+      region: content
       parent_name: ''
       weight: 6
       format_type: details_sidebar
-      region: content
       format_settings:
-        description: ''
-        open: true
-        weight: -10
-        required_fields: true
-        id: ''
         classes: ''
-      label: Language
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+        weight: -10
 id: node.property_listing.default
 targetEntityType: node
 bundle: property_listing
@@ -59,13 +59,13 @@ content:
   body:
     type: text_textarea_with_summary
     weight: 4
+    region: content
     settings:
       rows: 9
       summary_rows: 3
       placeholder: ''
       show_summary: false
     third_party_settings: {  }
-    region: content
   created:
     type: datetime_timestamp
     weight: 9
@@ -73,62 +73,62 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_baths:
+    type: number
     weight: 7
+    region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
-    type: number
-    region: content
   field_beds:
+    type: number
     weight: 6
+    region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
-    type: number
-    region: content
   field_images:
     type: media_library_widget
     weight: 7
+    region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
-    region: content
   field_location:
+    type: options_select
     weight: 2
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_price:
+    type: string_textfield
     weight: 4
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_size:
+    type: string_textfield
     weight: 5
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_status:
+    type: options_select
     weight: 1
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_teaser:
+    type: string_textfield
     weight: 3
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   langcode:
     type: language_select
     weight: 1
@@ -144,24 +144,24 @@ content:
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 11
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 14
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 12
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -179,11 +179,11 @@ content:
   uid:
     type: entity_reference_autocomplete
     weight: 8
+    region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
-    region: content
     third_party_settings: {  }
 hidden: {  }

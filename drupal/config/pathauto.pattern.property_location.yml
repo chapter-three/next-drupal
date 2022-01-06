@@ -12,12 +12,12 @@ pattern: 'properties/locations/[term:name]'
 selection_criteria:
   2602dcde-b2f8-4032-82de-76b7b74869fa:
     id: 'entity_bundle:taxonomy_term'
-    bundles:
-      property_location: property_location
     negate: false
+    uuid: 2602dcde-b2f8-4032-82de-76b7b74869fa
     context_mapping:
       taxonomy_term: taxonomy_term
-    uuid: 2602dcde-b2f8-4032-82de-76b7b74869fa
+    bundles:
+      property_location: property_location
 selection_logic: and
 weight: -5
 relationships: {  }

@@ -73,6 +73,11 @@ export interface DrupalTranslatedPath {
     entryPoint: string
   }
   meta?: Record<string, unknown>
+  redirect?: {
+    from: string
+    to: string
+    status: string
+  }[]
 }
 
 export interface DrupalMenuLinkContent {

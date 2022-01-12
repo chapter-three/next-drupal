@@ -9,6 +9,7 @@ export * from "./get-search-index"
 export * from "./get-view"
 export * from "./types"
 export * from "./use-menu"
+export * from "./translate-path"
 export {
   deserialize,
   buildUrl,

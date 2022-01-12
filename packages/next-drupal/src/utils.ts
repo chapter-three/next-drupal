@@ -40,14 +40,15 @@ export async function getJsonApiIndex(
   )
 
   // As per https://www.drupal.org/node/2984034 /jsonapi is public.
-  // We only call buildHeaders if accessToken is explicitly set.
+  // We only call buildHeaders if accessToken or locale is explicitly set.
   // This is for rare cases where /jsonapi might be protected.
   const response = await fetch(url.toString(), {
-    headers: options
-      ? await buildHeaders(options)
-      : {
-          "Content-Type": "application/json",
-        },
+    headers:
+      locale || options
+        ? await buildHeaders(options)
+        : {
+            "Content-Type": "application/json",
+          },
   })
 
   if (!response.ok) {

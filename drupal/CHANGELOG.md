@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/chapter-three/next-drupal/compare/drupal@1.0.0...drupal@1.0.1) (2022-01-12)
+
+
+### Bug Fixes
+
+* **drupal:** update config ([9519336](https://github.com/chapter-three/next-drupal/commit/951933647b6771aa8ca9b0722e2f5570f0629424))
+* **drupal:** update jsonapi_extras ([ce65206](https://github.com/chapter-three/next-drupal/commit/ce6520638b6ec6f20969d2e68cfb616ca5593106))
+* **drupal:** update simple_oauth and facets ([d0a69a3](https://github.com/chapter-three/next-drupal/commit/d0a69a3db2983688410153a09a170fcc4600b6fd))
+
+
+
+
+
 # 1.0.0 (2021-12-03)
 
 

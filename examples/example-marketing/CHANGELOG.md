@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/chapter-three/next-drupal/compare/example-marketing@1.0.1...example-marketing@1.1.0) (2022-01-12)
+
+
+### Features
+
+* **example-marketing:** handle redirects ([ba12711](https://github.com/chapter-three/next-drupal/commit/ba1271155ebb6dda80dac77e29683b07021c8e73))
+
+
+
+
+
 ## [1.0.1](https://github.com/chapter-three/next-drupal/compare/example-marketing@1.0.0...example-marketing@1.0.1) (2021-12-21)
 
 **Note:** Version bump only for package example-marketing

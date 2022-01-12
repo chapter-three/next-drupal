@@ -11,8 +11,8 @@ import {
   DrupalNode,
   getPathsFromContext,
   getResourceFromContext,
-  getResourceTypeFromContext,
   getView,
+  translatePathFromContext,
 } from "next-drupal"
 import { DrupalJsonApiParams } from "drupal-jsonapi-params"
 
@@ -107,13 +107,26 @@ export async function getStaticPaths(
 export async function getStaticProps(
   context
 ): Promise<GetStaticPropsResult<NodePageProps>> {
-  const type = await getResourceTypeFromContext(context)
+  const path = await translatePathFromContext(context)
 
-  if (!type) {
+  if (!path) {
     return {
       notFound: true,
     }
   }
+
+  // Check for redirect
+  if (path.redirect?.length) {
+    const [redirect] = path.redirect
+    return {
+      redirect: {
+        destination: redirect.to,
+        permanent: redirect.status === "301",
+      },
+    }
+  }
+
+  const type = path.jsonapi.resourceName
 
   const apiParams = new DrupalJsonApiParams()
 

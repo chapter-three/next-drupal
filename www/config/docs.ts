@@ -37,6 +37,11 @@ export const docs: DocsConfig = {
           title: "Quick Start",
           href: "/docs/quick-start",
         },
+        {
+          title: "Changelog",
+          href: "https://github.com/chapter-three/next-drupal/blob/main/CHANGELOG.md",
+          external: true,
+        },
       ],
     },
     {
@@ -116,6 +121,10 @@ export const docs: DocsConfig = {
           title: "Webform",
           href: "/docs/guides/webform",
         },
+        {
+          title: "Redirects",
+          href: "/docs/guides/redirects",
+        },
       ],
     },
     {
@@ -153,6 +162,14 @@ export const docs: DocsConfig = {
         {
           title: "getMenu",
           href: "/docs/reference#getmenu",
+        },
+        {
+          title: "translatePath",
+          href: "/docs/reference#translatepath",
+        },
+        {
+          title: "translatePathFromContext",
+          href: "/docs/reference#translatepathfromcontext",
         },
       ],
     },

@@ -293,3 +293,52 @@ function getMenu(
 ```ts
 const { tree, items } = await getMenu("main")
 ```
+
+---
+
+## translatePath
+
+Returns the translated path from Decoupled Router.
+
+<Callout icon="⚠️">
+
+This is available in `next-drupal ^1.1.0`. See a guide on how to use translatedPath to handle redirect [here](/docs/guides/redirects).
+
+</Callout>
+
+```ts
+function translatePath(
+  path: string,
+  options?: {
+    accessToken?: AccessToken
+  }
+): Promise<DrupalTranslatedPath>
+```
+
+#### Examples
+
+```ts
+const path = await translatePath("/about")
+```
+
+## translatePathFromContext
+
+Returns the translated path from getStaticProps and getServerSideProps context.
+
+```ts
+function translatePathFromContext(
+  context: GetStaticPropsContext,
+  options?: {
+    accessToken?: AccessToken
+    prefix?: string
+  }
+): Promise<DrupalTranslatedPath>
+```
+
+#### Examples
+
+```ts
+export async function getStaticProps(context) {
+  const path = await translatePathFromContext(context)
+}
+```

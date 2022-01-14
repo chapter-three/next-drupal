@@ -1,0 +1,74 @@
+---
+title: Redirects
+excerpt: Handling redirects from the Redirect module.
+---
+
+<Callout>
+
+This guide uses `translatedPathFromContext` which is available in `next-drupal ^1.1.0`.
+
+</Callout>
+
+## Next.js
+
+To use redirects in Next.js you can configure a `redirects` key in `next.config.js`.
+
+```js title=next.config.js
+module.exports = {
+  async redirects() {
+    return [
+      {
+        source: "/about",
+        destination: "/",
+        permanent: true,
+      },
+    ]
+  },
+}
+```
+
+## Redirect Module
+
+To handle redirects coming from Drupal ([redirect module](https://www.drupal.org/project/redirect)), you can use `translatedPathFromContext`.
+
+Here's how you can handle redirect in `getStaticProps`.
+
+```tsx title=pages/[...slug].tsx
+import {
+  DrupalNode,
+  getPathsFromContext,
+  getResourceFromContext,
+  getView,
+  translatePathFromContext,
+} from "next-drupal"
+
+export async function getStaticProps(
+  context
+): Promise<GetStaticPropsResult<NodePageProps>> {
+  // Get information about the path.
+  const path = await translatePathFromContext(context)
+
+  if (!path) {
+    return {
+      notFound: true,
+    }
+  }
+
+  // Check for redirect.
+  if (path.redirect?.length) {
+    const [redirect] = path.redirect
+    return {
+      redirect: {
+        destination: redirect.to,
+        permanent: redirect.status === "301",
+      },
+    }
+  }
+
+  // No redirect. Fetch the resource for this type.
+  const type = path.jsonapi.resourceName
+  const resource = await getResourceFromContext<DrupalNode>(type, context)
+}
+```
+
+With `fallback: "blocking"` in `getStaticPaths`, this will cache and handle redirects configured in Drupal and still work with incremental static regeneration.

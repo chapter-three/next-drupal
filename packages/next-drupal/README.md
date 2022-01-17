@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="100%" alt="next-drupal" src="https://user-images.githubusercontent.com/124599/122514007-3ada9f80-d01c-11eb-8b33-2c33885bb683.jpg" />
+  <img width="100%" alt="Next.js for drupal" src="https://next-drupal.org/images/meta.jpg" />
   <h1>Next.js for Drupal</h1>
   <h3 align="center">Next-generation front end for your Drupal site.</h3>
 </div>
@@ -7,11 +7,11 @@
 ## Demo
 
 - https://demo.next-drupal.org
-- http://cms-drupal.vercel.app
+- https://cms-drupal.vercel.app
 
 ## Documentation
 
-https://next-drupal.org/docs
+https://next-drupal.org
 
 ## Example
 
@@ -33,7 +33,7 @@ export default function BlogPage({ nodes }: BlogPageProps) {
               <h1>{node.title}</h1>
             </div>
           ))
-    null}
+        : null}
     </div>
   )
 }

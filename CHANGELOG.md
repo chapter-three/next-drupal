@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.1
+
+### Bug Fixes
+
+* **next-drupal:** add return type for translatePathFromContext ([25265f1](https://github.com/chapter-three/next-drupal/commit/25265f1d4101a677eb5b73d18a801545adb0494e))
+* **next-drupal:** update peerDependencies ([6223e7b](https://github.com/chapter-three/next-drupal/commit/6223e7b16fa4960c707fbbf0ce593d849e706b48))
+
 ## 1.1.0
 
 ### Bug Fixes

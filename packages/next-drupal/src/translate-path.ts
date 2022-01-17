@@ -31,7 +31,7 @@ export async function translatePathFromContext(
     accessToken?: AccessToken
     prefix?: string
   }
-) {
+): Promise<DrupalTranslatedPath> {
   options = {
     prefix: "",
     ...options,

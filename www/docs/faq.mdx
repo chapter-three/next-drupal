@@ -1,0 +1,38 @@
+---
+title: FAQ
+excerpt: Frequently Asked Questions about Next.js for Drupal
+---
+
+## Can I use next-drupal with Drupal 8 or Drupal 9?
+
+Yes. Next.js for Drupal works with both Drupal 8 and Drupal 9.
+
+Some features such as [filter by site id](/docs/data-fetching/filter-by-site) is only available in Drupal _9.3.x_.
+
+## Does it work without access tokens?
+
+Yes. Access tokens are only required for previewing unpublished entities and revisions.
+
+You can use Next.js for Drupal without access tokens.
+
+## How do I customize the /jsonapi prefix?
+
+You can use the `DRUPAL_JSONAPI_PREFIX` environment variable.
+
+```
+DRUPAL_JSONAPI_PREFIX=/api
+```
+
+## Does it work with GraphQL?
+
+The `next` Drupal module works with both JSON:API and GraphQL.
+
+If you implement preview mode in your Next + GraphQL site and tell `next` module how to resolve it, it will display your preview in an iframe.
+
+The `next-drupal` package works with JSON:API **only**.
+
+## Something is not working. Help?
+
+You can get help in the [issue queue](https://github.com/chapter-three/next-drupal/issues) on GitHub or in the #nextjs channel on [Drupal Slack](https://drupal.slack.com/archives/C01E36BMU72).
+
+You can also reach out to me on Twitter: [@shadcn](https://twitter.com/shadcn).

@@ -38,6 +38,10 @@ export const docs: DocsConfig = {
           href: "/docs/quick-start",
         },
         {
+          title: "FAQ",
+          href: "/docs/faq",
+        },
+        {
           title: "Changelog",
           href: "https://github.com/chapter-three/next-drupal/blob/main/CHANGELOG.md",
           external: true,

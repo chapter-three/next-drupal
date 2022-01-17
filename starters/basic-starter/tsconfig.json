@@ -18,7 +18,8 @@
       "@/components/*": ["components/*"],
       "@/nodes/*": ["components/nodes/*"],
       "@/lib/*": ["lib/*"]
-    }
+    },
+    "incremental": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

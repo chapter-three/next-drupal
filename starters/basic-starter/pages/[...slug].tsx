@@ -41,7 +41,7 @@ export default function NodePage({ node, preview }: NodePageProps) {
         <div className="fixed top-4 right-4">
           <a
             href="/api/exit-preview"
-            className="bg-black text-white rounded-md px-4 py-2 text-sm"
+            className="px-4 py-2 text-sm text-white bg-black rounded-md"
           >
             Exit preview
           </a>
@@ -93,6 +93,6 @@ export async function getStaticProps(
       preview: context.preview || false,
       node,
     },
-    revalidate: 10,
+    revalidate: 900,
   }
 }

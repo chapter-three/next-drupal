@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/chapter-three/next-drupal/compare/basic-starter@1.1.1...basic-starter@1.2.0) (2022-01-17)
+
+
+### Features
+
+* **basic-starter:** update tailwind and dependencies ([5de7337](https://github.com/chapter-three/next-drupal/commit/5de7337c7372afe44692b3ba49bcf10afdf9cfd6))
+
+
+
+
+
 ## [1.1.1](https://github.com/chapter-three/next-drupal/compare/basic-starter@1.1.0...basic-starter@1.1.1) (2022-01-12)
 
 **Note:** Version bump only for package basic-starter

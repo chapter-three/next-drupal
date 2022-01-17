@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.1.0...next-drupal@1.1.1) (2022-01-17)
+
+
+### Bug Fixes
+
+* **next-drupal:** add return type for translatePathFromContext ([25265f1](https://github.com/chapter-three/next-drupal/commit/25265f1d4101a677eb5b73d18a801545adb0494e))
+* **next-drupal:** update peerDependencies ([6223e7b](https://github.com/chapter-three/next-drupal/commit/6223e7b16fa4960c707fbbf0ce593d849e706b48))
+
+
+
+
+
 # [1.1.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.0.1...next-drupal@1.1.0) (2022-01-12)
 
 

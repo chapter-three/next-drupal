@@ -1,7 +1,7 @@
 {
   "name": "basic-starter",
   "version": "1.2.0",
-  "private": "true",
+  "private": true,
   "license": "MIT",
   "scripts": {
     "dev": "next dev",

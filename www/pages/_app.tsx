@@ -1,11 +1,26 @@
-import { site } from "config/site"
+import Script from "next/script"
 import { DefaultSeo } from "next-seo"
+
+import { site } from "config/site"
 
 import "../styles/global.css"
 
 export default function App({ Component, pageProps }) {
   return (
     <>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=GTM-KZRZTL6"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'GTM-KZRZTL6');
+        `}
+      </Script>
       <DefaultSeo
         openGraph={{
           title: site.name,

@@ -44,6 +44,7 @@ module:
   media_library: 0
   menu_link_content: 0
   menu_ui: 0
+  metatag: 0
   next: 0
   next_extras: 0
   next_jsonapi: 0

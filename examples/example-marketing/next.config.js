@@ -1,4 +1,5 @@
 module.exports = {
+  swcMinify: true,
   i18n: {
     locales: ["en", "es"],
     defaultLocale: "en",
@@ -8,6 +9,10 @@ module.exports = {
   },
   async rewrites() {
     return [
+      {
+        source: "/blog",
+        destination: "/blog/page/0",
+      },
       {
         source: "/es",
         destination: "/es/home",

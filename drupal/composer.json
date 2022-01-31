@@ -22,7 +22,8 @@
   "require": {
     "composer/installers": "^1.7",
     "cweagans/composer-patches": "^1.6.5",
-    "drupal/admin_toolbar": "^3.0",
+    "drupal/admin_toolbar": "^3.1",
+    "drupal/config_pages": "^2.9",
     "drupal/console": "^1.0.2",
     "drupal/core-composer-scaffold": "^9",
     "drupal/core-project-message": "^9",
@@ -34,17 +35,19 @@
     "drupal/entity_usage": "^2.0@beta",
     "drupal/facets": "^2.0",
     "drupal/field_group": "^3.1",
-    "drupal/gin": "^3.0@alpha",
+    "drupal/gin": "^3.0",
     "drupal/gin_login": "^1.0",
     "drupal/jsonapi_extras": "^3.20",
     "drupal/jsonapi_menu_items": "^1.2",
     "drupal/jsonapi_schema": "^1.0@beta",
     "drupal/jsonapi_search_api": "^1.0@RC",
     "drupal/jsonapi_views": "^1.0",
+    "drupal/metatag": "^1.19",
     "drupal/next": "1.0.x-dev",
     "drupal/paragraphs": "^1.12",
     "drupal/pathauto": "^1.8",
     "drupal/require_login": "^2.4",
+    "drupal/search_api": "^1.23",
     "drupal/simple_oauth": "^5.2",
     "drupal/subrequests": "^3.0",
     "drupal/webform": "^6.1",
@@ -137,6 +140,9 @@
       },
       "drupal/decoupled_router": {
           "Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2021-05-05/3111456-34.patch"
+      },
+      "drupal/metatag": {
+        "Support JSON API, REST, GraphQL and custom normalizations": "https://www.drupal.org/files/issues/2021-12-21/metatag-data-type-support-2945817-132.patch"
       }
     }
   }

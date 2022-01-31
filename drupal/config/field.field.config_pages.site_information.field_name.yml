@@ -1,0 +1,19 @@
+uuid: c8b140ee-518c-4663-b482-0b3fb9021727
+langcode: en
+status: true
+dependencies:
+  config:
+    - config_pages.type.site_information
+    - field.storage.config_pages.field_name
+id: config_pages.site_information.field_name
+field_name: field_name
+entity_type: config_pages
+bundle: site_information
+label: Name
+description: 'The name of the site.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

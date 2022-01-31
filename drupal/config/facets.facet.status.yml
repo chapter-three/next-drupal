@@ -57,3 +57,6 @@ processor_configs:
       pre_query: 50
       build: 15
     settings: {  }
+hierarchy:
+  type: taxonomy
+  config: {  }

@@ -2,7 +2,6 @@ import * as React from "react"
 import {
   GetStaticPathsContext,
   GetStaticPathsResult,
-  GetStaticPropsContext,
   GetStaticPropsResult,
 } from "next"
 import Head from "next/head"
@@ -14,92 +13,48 @@ import {
   getView,
   translatePathFromContext,
 } from "next-drupal"
-import { DrupalJsonApiParams } from "drupal-jsonapi-params"
 
-import { NodeArticle } from "@/nodes/node-article"
-import { NodeLandingPage } from "@/nodes/node-landing-page"
-import { NodeBasicPage } from "@/nodes/node-basic-page"
+import { getMenus } from "lib/get-menus"
+import { absoluteURL } from "lib/utils/absolute-url"
+import { getParams } from "lib/get-params"
+import { Node } from "components/node"
+import { Layout, LayoutProps } from "components/layout"
+import { Meta } from "components/meta"
 
-interface NodePageProps {
-  preview: GetStaticPropsContext["preview"]
+const RESOURCE_TYPES = ["node--page", "node--landing_page", "node--article"]
+
+interface NodePageProps extends LayoutProps {
   node: DrupalNode
 }
 
-export default function NodePage({ node, preview }: NodePageProps) {
+export default function NodePage({ node, menus }: NodePageProps) {
   const router = useRouter()
-  const [showPreviewAlert, setShowPreviewAlert] = React.useState<boolean>(false)
-
-  if (!node) return null
-
-  React.useEffect(() => {
-    setShowPreviewAlert(preview && window.top === window.self)
-  }, [])
 
   return (
-    <>
+    <Layout menus={menus}>
+      <Meta title={node.title} tags={node.metatag} path={node.path?.alias} />
       <Head>
-        <title>{node.title}</title>
-        <meta
-          name="description"
-          content="A Next.js site powered by a Drupal backend. Built with paragraphs, views, menus and translations."
-        />
         {node.content_translations?.map((translation, index) =>
           translation.langcode !== router.locale ? (
             <link
               key={index}
               rel="alternate"
               hrefLang={translation.langcode}
-              href={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${translation.path}`}
+              href={absoluteURL(translation.path)}
             />
           ) : null
         )}
       </Head>
-      {showPreviewAlert && (
-        <div
-          sx={{
-            position: "fixed",
-            bottom: 4,
-            right: 4,
-            width: "auto",
-            bg: "black",
-            borderRadius: "xl",
-            height: "40px",
-            px: 2,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            zIndex: 1000,
-          }}
-        >
-          <a
-            href="/api/exit-preview"
-            sx={{
-              display: "inline-flex",
-              color: "white",
-              px: 3,
-              py: 2,
-              borderRadius: "md",
-              ml: "auto",
-            }}
-          >
-            Exit preview
-          </a>
-        </div>
-      )}
-      {node.type === "node--landing_page" && <NodeLandingPage node={node} />}
-      {node.type === "node--page" && <NodeBasicPage node={node} />}
-      {node.type === "node--article" && <NodeArticle node={node} />}
-    </>
+      <Node node={node} />
+    </Layout>
   )
 }
 
 export async function getStaticPaths(
   context: GetStaticPathsContext
 ): Promise<GetStaticPathsResult> {
-  const resourceTypes = ["node--page", "node--landing_page", "node--article"]
-
   return {
-    paths: await getPathsFromContext(resourceTypes, context),
+    paths: await getPathsFromContext(RESOURCE_TYPES, context),
     fallback: "blocking",
   }
 }
@@ -128,38 +83,17 @@ export async function getStaticProps(
 
   const type = path.jsonapi.resourceName
 
-  const apiParams = new DrupalJsonApiParams()
-
-  if (type === "node--landing_page") {
-    apiParams.addInclude([
-      "field_sections",
-      "field_sections.field_media.field_media_image",
-      "field_sections.field_items",
-      "field_sections.field_reusable_paragraph.paragraphs.field_items",
-    ])
-  }
-
-  if (type === "node--article") {
-    apiParams.addInclude(["field_image", "uid"])
-    apiParams.addFields(type, [
-      "title",
-      "body",
-      "uid",
-      "created",
-      "field_image",
-      "status",
-    ])
+  if (!RESOURCE_TYPES.includes(type)) {
+    return {
+      notFound: true,
+    }
   }
 
   const node = await getResourceFromContext<DrupalNode>(type, context, {
-    params: apiParams.getQueryObject(),
+    params: getParams(type),
   })
 
-  if (
-    !node?.status ||
-    (node.field_site &&
-      !node.field_site?.some(({ id }) => id === process.env.DRUPAL_SITE_ID))
-  ) {
+  if (!node || (!context.preview && node?.status === false)) {
     return {
       notFound: true,
     }
@@ -185,8 +119,8 @@ export async function getStaticProps(
 
   return {
     props: {
-      preview: context.preview || false,
       node,
+      menus: await getMenus(context),
     },
     revalidate: 7200,
   }

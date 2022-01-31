@@ -10,7 +10,7 @@ features:
 third_party_settings:
   shortcut:
     module_link: true
-preset_accent_color: custom
+preset_accent_color: blue
 preset_focus_color: accent
 enable_darkmode: false
 classic_toolbar: horizontal

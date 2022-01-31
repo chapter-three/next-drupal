@@ -1,15 +1,13 @@
-import Document, { Html, Main, NextScript, Head } from "next/document"
-import { InitializeColorMode } from "reflexjs"
+import NextDocument, { Html, Main, NextScript, Head } from "next/document"
 
-export default class extends Document {
+export default class Document extends NextDocument {
   render() {
     return (
-      <Html lang="en">
+      <Html lang="en" dir="ltr">
         <Head>
           <meta charSet="utf-8" />
         </Head>
         <body>
-          <InitializeColorMode />
           <Main />
           <NextScript />
         </body>

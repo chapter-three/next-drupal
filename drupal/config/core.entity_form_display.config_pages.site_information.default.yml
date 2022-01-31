@@ -1,0 +1,22 @@
+uuid: 61c718b4-da07-4e56-9a0e-9dc32dd782f5
+langcode: en
+status: true
+dependencies:
+  config:
+    - config_pages.type.site_information
+    - field.field.config_pages.site_information.field_name
+id: config_pages.site_information.default
+targetEntityType: config_pages
+bundle: site_information
+mode: default
+content:
+  field_name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  label: true

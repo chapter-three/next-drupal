@@ -1,14 +1,13 @@
 import * as React from "react"
 import { AppProps } from "next/app"
 import Router from "next/router"
-import { ThemeProvider } from "reflexjs"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { Hydrate } from "react-query/hydration"
 import NProgress from "nprogress"
 import { syncDrupalPreviewRoutes } from "next-drupal"
-
-import "@fontsource/playfair-display/900.css"
 import "nprogress/nprogress.css"
+
+import "styles/globals.css"
 
 Router.events.on("routeChangeStart", function (path) {
   syncDrupalPreviewRoutes(path)
@@ -16,9 +15,6 @@ Router.events.on("routeChangeStart", function (path) {
 })
 Router.events.on("routeChangeComplete", () => NProgress.done())
 Router.events.on("routeChangeError", () => NProgress.done())
-
-import { Layout } from "@/components/layout"
-import theme from "../src/theme"
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClientRef = React.useRef<QueryClient>()
@@ -28,11 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClientRef.current}>
       <Hydrate state={pageProps.dehydratedState}>
-        <ThemeProvider theme={theme}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ThemeProvider>
+        <Component {...pageProps} />
       </Hydrate>
     </QueryClientProvider>
   )

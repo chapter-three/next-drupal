@@ -1,0 +1,22 @@
+uuid: 4f8a64f5-73f8-4466-913a-e8b464f42831
+langcode: en
+status: true
+dependencies:
+  config:
+    - config_pages.type.site_information
+    - field.field.config_pages.site_information.field_name
+id: config_pages.site_information.default
+targetEntityType: config_pages
+bundle: site_information
+mode: default
+content:
+  field_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

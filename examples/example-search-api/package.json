@@ -17,7 +17,7 @@
     "@tailwindcss/forms": "^0.3.4",
     "@tailwindcss/typography": "^0.4.1",
     "next": "^12.0.3",
-    "next-drupal": "*",
+    "next-drupal": "^1.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

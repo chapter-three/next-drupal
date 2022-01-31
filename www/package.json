@@ -29,7 +29,7 @@
     "@types/react": "^17.0.3",
     "autoprefixer": "^10.4.0",
     "eslint": "^7.28.0",
-    "eslint-config-next": "^11.0.0",
+    "eslint-config-next": "^12.0.9",
     "postcss": "^8.4.1",
     "remark-autolink-headings": "^6.0.1",
     "remark-slug": "^6.0.0",

@@ -36,3 +36,6 @@ lerna-debug.log*
 .vercel
 
 /certificates/*
+
+cypress/screenshots
+cypress/videos

@@ -5,7 +5,7 @@ import Link from "next/link"
 import { getResourceCollection, DrupalTaxonomyTerm } from "next-drupal"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
-import { yupResolver } from "@hookform/resolvers/yup/dist/yup"
+import { yupResolver } from "@hookform/resolvers/yup"
 import { contactFormSchema } from "../validations/contact"
 
 type FormData = yup.TypeOf<typeof contactFormSchema>

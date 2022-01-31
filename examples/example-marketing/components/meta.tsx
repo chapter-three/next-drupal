@@ -23,6 +23,9 @@ export function Meta({ title, tags }: MetaProps) {
         rel="canonical"
         href={absoluteURL(router.asPath !== "/" ? router.asPath : "")}
       />
+      <meta property="og:image" content={absoluteURL("/images/meta.jpg")} />
+      <meta property="og:image:width" content="800" />
+      <meta property="og:image:height" content="600" />
       {tags?.length ? (
         tags.map((tag) =>
           tag.attributes.name === "title" ? (

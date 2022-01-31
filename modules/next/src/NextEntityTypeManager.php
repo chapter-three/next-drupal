@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\next\Entity\NextEntityTypeConfigInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * Defines the next entity type manager service.
@@ -66,7 +67,12 @@ class NextEntityTypeManager implements NextEntityTypeManagerInterface {
     // TODO: Handle all revisionable entity types.
     $revision_routes = ['entity.node.revision', 'entity.node.latest_version'];
     if (in_array($route_match->getRouteName(), $revision_routes) && in_array('node', $entity_types_ids)) {
-      return $this->entityTypeManager->getStorage('node')->loadRevision($route_match->getParameter('node_revision'));
+      $node_revision = $route_match->getParameter('node_revision');
+      if ($node_revision instanceof NodeInterface) {
+        return $node_revision;
+      }
+
+      return $this->entityTypeManager->getStorage('node')->loadRevision($node_revision);
     }
 
     foreach ($route_match->getParameters() as $parameter) {

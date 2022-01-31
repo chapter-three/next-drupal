@@ -1,6 +1,4 @@
-const withTM = require("next-transpile-modules")(["next-drupal"])
-
-module.exports = withTM({
+module.exports = {
   swcMinify: true,
   i18n: {
     locales: ["en", "es"],
@@ -27,4 +25,4 @@ module.exports = withTM({
       },
     ]
   },
-})
+}

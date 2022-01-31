@@ -20,7 +20,7 @@
     "drupal-jsonapi-params": "^1.2.2",
     "html-react-parser": "^1.2.7",
     "next": "^12.0.8",
-    "next-drupal": "*",
+    "next-drupal": "^1.1.1",
     "nprogress": "^0.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -33,7 +33,6 @@
     "@types/react": "^17.0.0",
     "autoprefixer": "^10.4.0",
     "eslint-config-next": "^11.0.0",
-    "next-transpile-modules": "^9.0.0",
     "postcss": "^8.3.11",
     "tailwindcss": "^2.2.19",
     "typescript": "^4.5.5"

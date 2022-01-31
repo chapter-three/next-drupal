@@ -1,6 +1,7 @@
 {
   "name": "next-drupal-monorepo",
   "private": true,
+  "packageManager": "yarn@1.22.15",
   "workspaces": [
     "packages/*",
     "examples/*",
@@ -10,7 +11,7 @@
   ],
   "scripts": {
     "test": "jest",
-    "dev": "turbo run dev --ignore='basic-starter'",
+    "dev": "turbo run dev --parallel --ignore='starters/**/*'",
     "dev:starter": "lerna run --parallel --scope drupal --scope basic-starter dev",
     "prepare": "lerna run prepare",
     "watch": "lerna run watch",
@@ -24,32 +25,6 @@
     "cy:open": "lerna run --parallel cy:open",
     "test:e2e": "lerna run --parallel test:e2e",
     "test:e2e:ci": "lerna run --parallel test:e2e:ci"
-  },
-  "turbo": {
-    "baseBranch": "origin/main",
-    "pipeline": {
-      "build": {
-        "dependsOn": [
-          "^build"
-        ],
-        "outputs": [
-          "dist/**",
-          ".next/**"
-        ]
-      },
-      "preview": {
-        "dependsOn": [
-          "^preview"
-        ],
-        "outputs": [
-          ".next/**"
-        ]
-      },
-      "lint": {},
-      "dev": {
-        "cache": false
-      }
-    }
   },
   "husky": {
     "hooks": {
@@ -108,6 +83,5 @@
   "dependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^9.1.2"
-  },
-  "packageManager": "yarn@1.22.15"
+  }
 }

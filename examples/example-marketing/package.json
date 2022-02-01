@@ -4,15 +4,14 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "next dev -p 3000",
+    "dev": "next dev -p 3001",
     "build": "next build",
-    "start": "next start",
-    "preview": "next build && next start",
+    "preview": "next build && next start -p 3001",
     "lint": "next lint",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "test:e2e": "start-server-and-test 'yarn preview' http://localhost:3000 cy:open",
-    "test:e2e:ci": "start-server-and-test 'yarn preview' http://localhost:3000 cy:run"
+    "test:e2e": "start-server-and-test 'yarn preview' http://localhost:3001 cy:open",
+    "test:e2e:ci": "start-server-and-test 'yarn preview' http://localhost:3001 cy:run"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.4.0",

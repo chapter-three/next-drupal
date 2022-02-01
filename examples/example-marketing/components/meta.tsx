@@ -2,8 +2,6 @@ import Head from "next/head"
 import { useRouter } from "next/router"
 import { DrupalMetatag } from "types/drupal"
 
-import { absoluteURL } from "lib/utils/absolute-url"
-
 interface MetaProps {
   title?: string
   path?: string
@@ -15,31 +13,40 @@ export function Meta({ title, tags }: MetaProps) {
 
   return (
     <Head>
-      <meta
-        name="description"
-        content="A Next.js site powered by a Drupal backend. Built with paragraphs, views, menus and translations."
-      />
       <link
         rel="canonical"
-        href={absoluteURL(router.asPath !== "/" ? router.asPath : "")}
+        href={`${process.env.NEXT_PUBLIC_BASE_URL}${
+          router.asPath !== "/" ? router.asPath : ""
+        }`}
       />
-      <meta property="og:image" content={absoluteURL("/images/meta.jpg")} />
-      <meta property="og:image:width" content="800" />
-      <meta property="og:image:height" content="600" />
       {tags?.length ? (
-        tags.map((tag) =>
-          tag.attributes.name === "title" ? (
-            <title key={tag.attributes.name}>{tag.attributes.content}</title>
-          ) : (
-            <meta
-              key={tag.attributes.name}
-              name={tag.attributes.name}
-              content={tag.attributes.content}
-            />
-          )
-        )
+        tags.map((tag, index) => {
+          if (tag.attributes.rel === "canonical") {
+            return null
+          }
+
+          if (tag.attributes.name === "title") {
+            return (
+              <title key={tag.attributes.name}>{tag.attributes.content}</title>
+            )
+          }
+          const Tag = tag.tag as keyof JSX.IntrinsicElements
+          return <Tag key={index} {...tag.attributes}></Tag>
+        })
       ) : (
-        <title>{title} | Next.js for Drupal</title>
+        <>
+          <title>{title} | Next.js for Drupal</title>
+          <meta
+            name="description"
+            content="A Next.js blog powered by a Drupal backend."
+          />
+          <meta
+            property="og:image"
+            content={`${process.env.NEXT_PUBLIC_BASE_URL}/images/meta.jpg`}
+          />
+          <meta property="og:image:width" content="800" />
+          <meta property="og:image:height" content="600" />
+        </>
       )}
     </Head>
   )

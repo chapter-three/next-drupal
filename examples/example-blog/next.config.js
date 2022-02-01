@@ -1,8 +1,16 @@
-const withTM = require("next-transpile-modules")(["next-drupal"])
-
-module.exports = withTM({
-  reactStrictMode: true,
+module.exports = {
+  swcMinify: true,
   images: {
     domains: [process.env.NEXT_IMAGE_DOMAIN],
   },
-})
+  async rewrites() {
+    return {
+      afterFiles: [
+        {
+          source: "/",
+          destination: "/page/0",
+        },
+      ],
+    }
+  },
+}

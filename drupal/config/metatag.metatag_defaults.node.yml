@@ -9,4 +9,4 @@ label: Content
 tags:
   title: '[node:title] | [site:name]'
   description: '[node:summary]'
-  canonical_url: '[node:url]'
+  og_image: '[node:field_image:open_graph:url]'

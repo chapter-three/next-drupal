@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "test": "jest",
-    "dev": "turbo run dev --parallel --ignore='starters/**/*'",
+    "dev": "turbo run dev --parallel",
     "dev:starter": "lerna run --parallel --scope drupal --scope basic-starter dev",
     "prepare": "lerna run prepare",
     "watch": "lerna run watch",

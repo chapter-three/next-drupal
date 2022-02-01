@@ -6,7 +6,7 @@ use Drupal\Core\Field\FieldItemList;
 use Drupal\Core\TypedData\ComputedItemListTrait;
 
 /**
- * Class ContentTranslationsFieldItemList
+ * Class ContentTranslationsFieldItemList.
  */
 class ContentTranslationsFieldItemList extends FieldItemList {
 

@@ -18,7 +18,7 @@ class NextSiteEntityControllerTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['next'];
+  protected static $modules = ['next'];
 
   /**
    * The next_site entity.
@@ -30,7 +30,7 @@ class NextSiteEntityControllerTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $this->nextSite = NextSite::create([

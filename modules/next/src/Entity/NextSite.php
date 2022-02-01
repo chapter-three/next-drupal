@@ -157,7 +157,6 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
         $rel = 'working-copy';
       }
 
-
       // In Drupal terms, the "latest version" is the latest "default" revision. It
       // may or may not have later revisions after it, as long as none of them are
       // "default" revisions. This revision is the latest version because it is the

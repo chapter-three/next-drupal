@@ -99,7 +99,7 @@ class EntityReferenceField extends ConfigurableSiteResolverBase implements Conta
       return $form;
     }
 
-    list($entity_type_id, $bundle) = explode('.', $entity->id());
+    [$entity_type_id, $bundle] = explode('.', $entity->id());
 
     $definitions = array_filter($this->entityFieldManager->getFieldDefinitions($entity_type_id, $bundle), function (FieldDefinitionInterface $definition) {
       if ($definition->getType() !== "entity_reference") {

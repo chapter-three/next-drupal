@@ -51,7 +51,7 @@ class NextEntityTypeManager implements NextEntityTypeManagerInterface {
 
     $entities = $this->entityTypeManager->getStorage('next_entity_type_config')->loadMultiple();
     foreach ($entities as $entity) {
-      list($entity_type_id) = explode('.', $entity->id());
+      [$entity_type_id] = explode('.', $entity->id());
       $ids[$entity_type_id] = $entity_type_id;
     }
 

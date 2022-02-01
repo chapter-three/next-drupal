@@ -24,12 +24,12 @@ class HtmlRendererTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['filter', 'next', 'node', 'system', 'user'];
+  protected static $modules = ['filter', 'next', 'node', 'system', 'user'];
 
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $this->installEntitySchema('node');

@@ -138,7 +138,7 @@ class HtmlRenderer extends CoreHtmlRenderer {
     // Allow modules to alter the preview.
     $this->moduleHandler->alter('next_site_preview', $preview, $context);
 
-    list($page, $title) = $build;
+    [$page, $title] = $build;
     $page['content'] = $preview;
 
     return [$page, $title];

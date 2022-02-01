@@ -16,7 +16,7 @@ class SiteResolverManagerTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['next'];
+  protected static $modules = ['next'];
 
   /**
    * The site resolver manager.
@@ -28,7 +28,7 @@ class SiteResolverManagerTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->siteResolverManager = $this->container->get('plugin.manager.next.site_resolver');
   }

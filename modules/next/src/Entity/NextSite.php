@@ -145,7 +145,29 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
     /** @var \Drupal\next\NextEntityTypeManagerInterface $next_entity_type_manager */
     $next_entity_type_manager = \Drupal::service('next.entity_type.manager');
     if ($next_entity_type_manager->isEntityRevisionable($entity)) {
-      $query['resourceVersion'] = $entity->isLatestRevision() ? "rel:latest-version" : "id:{$entity->getRevisionId()}";
+      /** @var \Drupal\Core\Entity\RevisionableInterface $entity */
+      $rel = NULL;
+
+      // In Drupal terms, a "working copy" is the latest revision. It may or may not
+      // be a "default" revision. This revision is the working copy because it is
+      // the revision to which new work will be applied. In other words, it denotes
+      // the most recent revision which might be considered a work-in-progress.
+      // @see \Drupal\jsonapi\Revisions\VersionByRel
+      if ($entity->isLatestRevision()) {
+        $rel = 'working-copy';
+      }
+
+
+      // In Drupal terms, the "latest version" is the latest "default" revision. It
+      // may or may not have later revisions after it, as long as none of them are
+      // "default" revisions. This revision is the latest version because it is the
+      // last revision where work was considered finished. Typically, this means
+      // that it is the most recent "published" revision.
+      // @see \Drupal\jsonapi\Revisions\VersionByRel
+      if ($entity->isDefaultRevision()) {
+        $rel = 'latest-version';
+      }
+      $query['resourceVersion'] = $rel ? "rel:$rel" : "id:{$entity->getRevisionId()}";
     }
 
     return Url::fromUri($this->preview_url, [

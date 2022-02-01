@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * @file
+ * Implements hooks for the next module.
+ */
+
+use Drupal\content_moderation\EntityOperations;
+
+/**
+ * Implements hook_next_site_preview_alter().
+ */
+function next_next_site_preview_alter(array &$preview, array $context) {
+  if (!Drupal::moduleHandler()->moduleExists('content_moderation')) {
+    return;
+  }
+
+  /** @var \Drupal\next\Plugin\SitePreviewerInterface $plugin */
+  $plugin = $context['plugin'];
+
+  if ($plugin->getId() !== 'iframe') {
+    return;
+  }
+
+  /** @var \Drupal\Core\Entity\EntityInterface $entity */
+  $entity = $context['entity'];
+  /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $display_repository */
+  $display_repository = Drupal::service('entity_display.repository');
+  $display = $display_repository->getViewDisplay($entity->getEntityTypeId(), $entity->bundle());
+
+  // Add the content moderation control form to the preview.
+  $build = [];
+
+  \Drupal::service('class_resolver')
+    ->getInstanceFromDefinition(EntityOperations::class)
+    ->entityView($build, $entity, $display, $display->getMode());
+
+  if (isset($build['content_moderation_control'])) {
+    // Pull the moderation form to the top.
+    $build['content_moderation_control']['#weight'] = -100;
+    $preview['content_moderation_control'] = $build['content_moderation_control'];
+  }
+}

@@ -126,8 +126,20 @@ class HtmlRenderer extends CoreHtmlRenderer {
     }
 
     // Build preview.
+    $preview = $site_previewer->render($entity, $sites);
+
+    $context = [
+      'plugin' => $site_previewer,
+      'original_build' => $build,
+      'entity' => $entity,
+      'sites' => $sites,
+    ];
+
+    // Allow modules to alter the preview.
+    $this->moduleHandler->alter('next_site_preview', $preview, $context);
+
     list($page, $title) = $build;
-    $page['content'] = $site_previewer->render($entity, $sites);
+    $page['content'] = $preview;
 
     return [$page, $title];
   }

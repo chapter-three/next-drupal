@@ -6,6 +6,7 @@ import { FormattedText } from "./formatted-text"
 export function ParagraphFAQ({ paragraph, ...props }: ParagraphProps) {
   return (
     <Section
+      data-cy="paragraph-faq"
       backgroundColor={
         paragraph.field_background_color === "muted" && "bg-gray-50"
       }

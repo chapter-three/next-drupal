@@ -22,9 +22,9 @@
     "sync:examples": "./scripts/sync-examples.sh \"examples/example-*\"",
     "sync:starters": "./scripts/sync-starters.sh \"starters/*\"",
     "seed": "NUM_NODES=200 node ./scripts/seed",
-    "cy:open": "lerna run --parallel cy:open",
-    "test:e2e": "lerna run --parallel test:e2e",
-    "test:e2e:ci": "lerna run --parallel test:e2e:ci"
+    "cy:open": "turbo run cy:open --parallel",
+    "test:e2e": "turbo run test:e2e --parallel",
+    "test:e2e:ci": "turbo run test:e2e:ci --parallel"
   },
   "husky": {
     "hooks": {

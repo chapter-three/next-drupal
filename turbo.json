@@ -12,6 +12,7 @@
     "lint": {},
     "dev": {
       "cache": false
-    }
+    },
+    "test:e2e:ci": {}
   }
 }

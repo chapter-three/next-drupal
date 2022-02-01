@@ -10,6 +10,7 @@ export function LocaleSwitcher() {
       {locales.map((locale) => (
         <Link href={asPath} key={locale} locale={locale} passHref>
           <a
+            data-cy={`local-switcher-${locale}`}
             className={classNames(
               "flex items-center justify-center p-2 uppercase",
               locale === currentLocale ? "text-black" : "text-gray-500"

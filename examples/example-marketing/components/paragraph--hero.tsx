@@ -7,6 +7,7 @@ import { SectionHeader } from "components/section-header"
 export function ParagraphHero({ paragraph, ...props }: ParagraphProps) {
   return (
     <section
+      data-cy="paragraph-hero"
       className={classNames(
         "pt-8 md:pt-12 lg:pt-20",
         paragraph.field_media?.field_media_image

@@ -10,6 +10,7 @@ import { Section } from "components/section"
 export function ParagraphFeature({ paragraph, ...props }: ParagraphProps) {
   return (
     <Section
+      data-cy="paragraph-feature"
       backgroundColor={
         paragraph.field_background_color === "muted" && "bg-gray-50"
       }

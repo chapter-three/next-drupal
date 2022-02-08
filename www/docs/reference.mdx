@@ -173,7 +173,6 @@ Get a resource by path in `getStaticProps` or `getServerSideProps`.
 
 ```ts
 function getResourceByPath(
-  type: string,
   path: string,
   options?: {
     deserialize?: boolean
@@ -186,15 +185,25 @@ function getResourceByPath(
 Get an article by path.
 
 ```ts
-const node = await getResourceByPath("node--article", "/blog/hello-world")
+const node = await getResourceByPath("/blog/hello-world")
 ```
 
-Get the `es` translation for a article by path.
+Get the `es` translation for an article by path.
 
 ```ts
-const node = await getResourceByPath("node--article", "/blog/hello-world", {
+const node = await getResourceByPath("/blog/hello-world", {
   locale: "es",
   defaultLocale: "en",
+})
+```
+
+Get some fields for an article by path.
+
+```ts
+const node = await getResourceByPath("/blog/hello-world", {
+  params: {
+    "fields[node--article]": "title,body,status,path",
+  },
 })
 ```
 

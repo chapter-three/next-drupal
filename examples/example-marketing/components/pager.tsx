@@ -1,7 +1,7 @@
 import classNames from "classnames"
 
 import { usePagination, usePaginationProps } from "hooks/use-pagination"
-import { Link } from "components/link"
+import Link from "next/link"
 
 export interface PagerProps extends React.HTMLAttributes<HTMLElement> {
   current: number

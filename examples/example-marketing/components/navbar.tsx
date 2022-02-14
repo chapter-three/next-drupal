@@ -4,7 +4,7 @@ import { DrupalMenuLinkContent } from "next-drupal"
 import classNames from "classnames"
 
 import { LocaleSwitcher } from "components/locale-switcher"
-import { Link } from "components/link"
+import Link from "next/link"
 
 interface NavbarProps {
   links: DrupalMenuLinkContent[]

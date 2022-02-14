@@ -4,7 +4,7 @@ import { Element } from "domhandler/lib/node"
 import parse from "html-react-parser"
 
 import { isRelative } from "lib/utils/is-relative"
-import { Link } from "components/link"
+import Link from "next/link"
 
 const options: HTMLReactParserOptions = {
   replace: (domNode) => {

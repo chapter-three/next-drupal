@@ -7,7 +7,7 @@ export function PreviewAlert() {
   const [showPreviewAlert, setShowPreviewAlert] = React.useState<boolean>(false)
 
   React.useEffect(() => {
-    setShowPreviewAlert(true)
+    setShowPreviewAlert(isPreview && window.top === window.self)
   }, [isPreview])
 
   if (!showPreviewAlert) {

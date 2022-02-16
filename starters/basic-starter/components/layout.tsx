@@ -1,12 +1,17 @@
 import Link from "next/link"
-import { useMenu } from "next-drupal"
 import { useRouter } from "next/router"
+import { DrupalMenuLinkContent } from "next-drupal"
 
 import { PreviewAlert } from "@/components/preview-alert"
 
-export function Layout({ children }) {
+export interface LayoutProps {
+  menus: {
+    main: DrupalMenuLinkContent[]
+  }
+}
+
+export function Layout({ menus, children }) {
   const { asPath } = useRouter()
-  const { tree } = useMenu("main")
 
   return (
     <>
@@ -17,23 +22,25 @@ export function Layout({ children }) {
             <Link href="/" passHref>
               <a className="text-2xl font-semibold no-underline">Brand.</a>
             </Link>
-            <nav>
-              <ul className={`flex`}>
-                {tree?.map((link) => (
-                  <li key={link.url}>
-                    <Link href={link.url} passHref>
-                      <a
-                        className={`ml-10 hover:text-blue-600 ${
-                          asPath === link.url ? "underline" : "no-underline"
-                        }`}
-                      >
-                        {link.title}
-                      </a>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+            {menus?.main && (
+              <nav>
+                <ul className={`flex`}>
+                  {menus.main?.map((link) => (
+                    <li key={link.url}>
+                      <Link href={link.url} passHref>
+                        <a
+                          className={`ml-10 hover:text-blue-600 ${
+                            asPath === link.url ? "underline" : "no-underline"
+                          }`}
+                        >
+                          {link.title}
+                        </a>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            )}
           </div>
         </header>
         <main className="container py-10 mx-auto">{children}</main>

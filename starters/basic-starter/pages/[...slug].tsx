@@ -1,4 +1,5 @@
 import * as React from "react"
+import { GetStaticPathsResult, GetStaticPropsResult } from "next"
 import Head from "next/head"
 import {
   DrupalNode,
@@ -6,19 +7,21 @@ import {
   getResourceFromContext,
   getResourceTypeFromContext,
 } from "next-drupal"
-import { GetStaticPathsResult, GetStaticPropsResult } from "next"
+
+import { getMenus } from "@/lib/get-menus"
 import { NodeArticle } from "@/components/node-article"
 import { NodeBasicPage } from "@/components/node-basic-page"
+import { Layout, LayoutProps } from "@/components/layout"
 
-interface NodePageProps {
+interface NodePageProps extends LayoutProps {
   node: DrupalNode
 }
 
-export default function NodePage({ node }: NodePageProps) {
+export default function NodePage({ node, menus }: NodePageProps) {
   if (!node) return null
 
   return (
-    <>
+    <Layout menus={menus}>
       <Head>
         <title>{node.title}</title>
         <meta
@@ -28,7 +31,7 @@ export default function NodePage({ node }: NodePageProps) {
       </Head>
       {node.type === "node--page" && <NodeBasicPage node={node} />}
       {node.type === "node--article" && <NodeArticle node={node} />}
-    </>
+    </Layout>
   )
 }
 
@@ -69,6 +72,7 @@ export async function getStaticProps(
 
   return {
     props: {
+      menus: await getMenus(),
       node,
     },
     revalidate: 900,

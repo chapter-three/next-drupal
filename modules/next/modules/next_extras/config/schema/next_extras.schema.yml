@@ -1,0 +1,7 @@
+next.next_entity_type_config.*.third_party.next_extras:
+  type: mapping
+  label: 'Revalidate'
+  mapping:
+    revalidate:
+      type: boolean
+      label: 'Revalidate'

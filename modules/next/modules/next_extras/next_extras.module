@@ -5,9 +5,15 @@
  * Module implementation file.
  */
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Url;
+use Drupal\next\Entity\NextEntityTypeConfigInterface;
+use GuzzleHttp\Exception\RequestException;
 
 /**
  * Implements hook_entity_base_field_info().
@@ -23,4 +29,93 @@ function next_extras_entity_base_field_info(EntityTypeInterface $entity_type) {
       return $fields;
     }
   }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function next_extras_form_next_entity_type_config_edit_form_alter(&$form, FormStateInterface $form_state) {
+  /** @var \Drupal\next\Entity\NextEntityTypeConfigInterface $entity */
+  $entity = $form_state->getFormObject()->getEntity();
+
+  $form['experimental'] = [
+    '#type' => 'details',
+    '#title' => t('Experimental'),
+  ];
+
+  $form['experimental']['messages'] = [
+    '#theme' => 'status_messages',
+    '#message_list' => [
+      MessengerInterface::TYPE_WARNING => [
+          t('Experimental features are not production-ready and may change in future releases. Use at your own risk.'),
+        ],
+      ],
+  ];
+
+  $form['experimental']['revalidate'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Revalidate'),
+    '#description' => t('If checked, a request will be made to the Next.js site for revalidation when the entity is updated.'),
+    '#default_value' => $entity->getThirdPartySetting('next_extras', 'revalidate'),
+  ];
+
+  $form['#entity_builders'][] = 'next_extras_form_next_entity_type_config_edit_form_builder';
+}
+
+/**
+ * Callback for entity_builders for next_entity_type_config_edit_form.
+ */
+function next_extras_form_next_entity_type_config_edit_form_builder($entity_type, NextEntityTypeConfigInterface $entity, &$form, FormStateInterface $form_state) {
+  $entity->setThirdPartySetting('next_extras', 'revalidate', (bool) $form_state->getValue('revalidate'));
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function next_extras_entity_update(EntityInterface $entity) {
+  /** @var \Drupal\next\NextEntityTypeManagerInterface $next_entity_type_manager */
+  $next_entity_type_manager = \Drupal::service('next.entity_type.manager');
+
+  $next_entity_type_config = $next_entity_type_manager->getConfigForEntityType($entity->getEntityTypeId(), $entity->bundle());
+  if (!$next_entity_type_config) {
+    return;
+  }
+
+  $revalidate = (bool) $next_entity_type_config->getThirdPartySetting('next_extras', 'revalidate');
+  if (!$revalidate) {
+    return;
+  }
+
+  // Find Next.js sites for entity.
+  $sites = $next_entity_type_config->getSiteResolver()->getSitesForEntity($entity);
+  if (!count($sites)) {
+    return;
+  }
+
+  // Revalidate entity.
+  $slug = $entity->toUrl()->toString();
+
+  foreach ($sites as $site) {
+    $query = [
+      'secret' => $site->getPreviewSecret(),
+      'slug' => $slug,
+    ];
+
+    // TODO: Make this path configurable.
+    $revalidate_url = Url::fromUri("{$site->getBaseUrl()}/api/revalidate", [
+      'query' => $query,
+    ])->toString();
+
+    try {
+      Drupal::logger('next_extras')->notice('Revalidating page at %url', [
+        '%url' => $revalidate_url,
+      ]);
+
+      \Drupal::httpClient()->get($revalidate_url);
+    }
+    catch (RequestException $exception) {
+      watchdog_exception('next_extras', $exception);
+    }
+  }
+
 }

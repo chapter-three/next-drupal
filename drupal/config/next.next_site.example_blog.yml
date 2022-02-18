@@ -4,6 +4,6 @@ status: true
 dependencies: {  }
 id: example_blog
 label: 'Example blog'
-base_url: 'http://localhost:3030'
-preview_url: 'http://localhost:3030/api/preview'
+base_url: 'https://example-blog.next-drupal.org'
+preview_url: 'https://example-blog.next-drupal.org/api/preview'
 preview_secret: secret

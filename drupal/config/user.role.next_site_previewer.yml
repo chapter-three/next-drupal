@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - content_moderation
     - node
     - simple_oauth
     - subrequests
@@ -16,3 +17,6 @@ permissions:
   - 'debug simple_oauth tokens'
   - 'issue subrequests'
   - 'view all revisions'
+  - 'view any unpublished content'
+  - 'view latest version'
+  - 'view own unpublished content'

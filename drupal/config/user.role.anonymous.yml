@@ -4,10 +4,16 @@ status: true
 dependencies:
   config:
     - filter.format.restricted_html
+    - node.type.article
+    - node.type.landing_page
+    - node.type.page
+    - node.type.property_listing
     - rest.resource.webform_rest_submit
   module:
+    - content_moderation
     - filter
     - media
+    - node
     - rest
     - simple_oauth
     - subrequests
@@ -20,8 +26,50 @@ weight: -10
 is_admin: false
 permissions:
   - 'access content'
+  - 'access content overview'
+  - 'administer content types'
+  - 'administer nodes'
+  - 'bypass node access'
+  - 'create article content'
+  - 'create landing_page content'
+  - 'create page content'
+  - 'create property_listing content'
   - 'debug simple_oauth tokens'
+  - 'delete all revisions'
+  - 'delete any article content'
+  - 'delete any landing_page content'
+  - 'delete any page content'
+  - 'delete any property_listing content'
+  - 'delete article revisions'
+  - 'delete landing_page revisions'
+  - 'delete own article content'
+  - 'delete own landing_page content'
+  - 'delete own page content'
+  - 'delete own property_listing content'
+  - 'delete page revisions'
+  - 'delete property_listing revisions'
+  - 'edit any article content'
+  - 'edit any landing_page content'
+  - 'edit any page content'
+  - 'edit any property_listing content'
+  - 'edit own article content'
+  - 'edit own landing_page content'
+  - 'edit own page content'
+  - 'edit own property_listing content'
   - 'issue subrequests'
   - 'restful post webform_rest_submit'
+  - 'revert all revisions'
+  - 'revert article revisions'
+  - 'revert landing_page revisions'
+  - 'revert page revisions'
+  - 'revert property_listing revisions'
   - 'use text format restricted_html'
+  - 'view all revisions'
+  - 'view any unpublished content'
+  - 'view article revisions'
+  - 'view landing_page revisions'
+  - 'view latest version'
   - 'view media'
+  - 'view own unpublished content'
+  - 'view page revisions'
+  - 'view property_listing revisions'

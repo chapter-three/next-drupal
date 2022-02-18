@@ -1,7 +1,12 @@
 uuid: b68acafa-8572-44c4-ab72-6d53b86eaf2e
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - next_extras
+third_party_settings:
+  next_extras:
+    revalidate: false
 id: node.article
 site_resolver: site_selector
 configuration:

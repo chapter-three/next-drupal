@@ -1,11 +1,15 @@
 uuid: a1774ec6-3bf1-4b96-b206-803886970a8f
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - next_extras
+third_party_settings:
+  next_extras:
+    revalidate: false
 id: node.page
 site_resolver: site_selector
 configuration:
   sites:
+    example_blog: example_blog
     example_marketing: example_marketing
-    example_blog: '0'
-    no_preview_site: '0'

@@ -11,7 +11,7 @@ _core:
 id: gin_content
 theme: gin
 region: content
-weight: 0
+weight: -2
 provider: null
 plugin: system_main_block
 settings:

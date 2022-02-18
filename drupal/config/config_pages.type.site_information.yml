@@ -1,0 +1,17 @@
+uuid: 82942cf8-1254-4d51-a842-2f47f10527ba
+langcode: en
+status: true
+dependencies: {  }
+id: site_information
+label: 'Site Information'
+token: false
+context:
+  show_warning: true
+  group:
+    language: false
+  fallback:
+    language: ''
+menu:
+  path: ''
+  weight: 0
+  description: ''

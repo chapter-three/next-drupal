@@ -9,7 +9,7 @@ _core:
 id: gin_local_actions
 theme: gin
 region: content
-weight: -10
+weight: -3
 provider: null
 plugin: local_actions_block
 settings:

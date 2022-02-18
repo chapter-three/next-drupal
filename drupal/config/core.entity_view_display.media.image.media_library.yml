@@ -30,4 +30,5 @@ hidden:
   field_media_image: true
   langcode: true
   name: true
+  search_api_excerpt: true
   uid: true

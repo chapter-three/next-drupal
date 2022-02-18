@@ -6,8 +6,10 @@ dependencies:
     - filter.format.basic_html
     - rest.resource.webform_rest_submit
   module:
+    - content_moderation
     - filter
     - media
+    - node
     - rest
     - shortcut
     - simple_oauth
@@ -21,8 +23,11 @@ is_admin: false
 permissions:
   - 'access content'
   - 'access shortcuts'
+  - 'bypass node access'
   - 'debug simple_oauth tokens'
   - 'grant simple_oauth codes'
   - 'restful post webform_rest_submit'
   - 'use text format basic_html'
+  - 'view any unpublished content'
+  - 'view latest version'
   - 'view media'

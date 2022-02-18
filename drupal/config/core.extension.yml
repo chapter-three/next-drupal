@@ -1,7 +1,6 @@
 _core:
   default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc
 module:
-  require_login: -1000
   admin_toolbar: 0
   admin_toolbar_tools: 0
   automated_cron: 0
@@ -11,7 +10,10 @@ module:
   breakpoint: 0
   ckeditor: 0
   config: 0
+  config_pages: 0
   consumers: 0
+  content_moderation: 0
+  contextual: 0
   ctools: 0
   datetime: 0
   dblog: 0
@@ -74,6 +76,7 @@ module:
   webform: 0
   webform_rest: 0
   webform_ui: 0
+  workflows: 0
   pathauto: 1
   content_translation: 10
   views: 10

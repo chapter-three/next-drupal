@@ -8,20 +8,19 @@ import {
   getResourceTypeFromContext,
 } from "next-drupal"
 
-import { getMenus } from "@/lib/get-menus"
 import { NodeArticle } from "@/components/node-article"
 import { NodeBasicPage } from "@/components/node-basic-page"
-import { Layout, LayoutProps } from "@/components/layout"
+import { Layout } from "@/components/layout"
 
-interface NodePageProps extends LayoutProps {
+interface NodePageProps {
   node: DrupalNode
 }
 
-export default function NodePage({ node, menus }: NodePageProps) {
+export default function NodePage({ node }: NodePageProps) {
   if (!node) return null
 
   return (
-    <Layout menus={menus}>
+    <Layout>
       <Head>
         <title>{node.title}</title>
         <meta
@@ -72,7 +71,6 @@ export async function getStaticProps(
 
   return {
     props: {
-      menus: await getMenus(),
       node,
     },
     revalidate: 900,

@@ -8744,9 +8744,9 @@ json5@^2.1.2, json5@^2.2.0:
     minimist "^1.2.5"
 
 jsona@^1.8.0:
-  version "1.9.5"
-  resolved "https://registry.yarnpkg.com/jsona/-/jsona-1.9.5.tgz#b2cdfa5eb373373e95074152c86983ba9629d5cb"
-  integrity sha512-VCBfwL8dUPa0hx827LJK8kpcSsoH0al+wsuZ72AbP/gy7kTJBr6/7GdVdCtYci//uGe9i7wimUFKS5uya0+nLw==
+  version "1.9.6"
+  resolved "https://registry.yarnpkg.com/jsona/-/jsona-1.9.6.tgz#774bc7633d23d07c2d7ff4a6e68ed92533759546"
+  integrity sha512-JCx2oMhOrsmNyM6vz76J+xGkjOS3h7lJn4cGDPCGCXofiKa9RTvSK8bwmCHKNRwaG8juZbtCeftnTG3mz+J3qw==
 
 jsonfile@^4.0.0:
   version "4.0.0"

@@ -1,0 +1,7 @@
+services:
+  next_extras.cache_invalidator:
+    class: Drupal\next_extras\NextCacheInvalidator
+    arguments: ['@next.entity_type.manager', '@http_client', '@logger.channel.next_extras']
+  logger.channel.next_extras:
+    parent: logger.channel_base
+    arguments: [ 'next_extras' ]

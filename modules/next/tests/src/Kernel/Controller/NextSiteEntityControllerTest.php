@@ -57,4 +57,17 @@ class NextSiteEntityControllerTest extends KernelTestBase {
     $this->assertEquals(\Drupal::configFactory()->get('system.site')->get('page.front'), $build['container']['DRUPAL_FRONT_PAGE']['#context']['value']);
   }
 
+  /**
+   * @covers ::environmentVariables
+   */
+  public function testOverriddenEnvironmentVariables() {
+    $GLOBALS['config']['next.next_site.' . $this->nextSite->id()] = [
+      'preview_secret' => 'overridden'
+    ];
+    $overridden_entity = NextSite::load($this->nextSite->id());
+    $controller = NextSiteEntityController::create($this->container);
+    $build = $controller->environmentVariables($overridden_entity);
+    $this->assertEquals('overridden', $build['container']['DRUPAL_PREVIEW_SECRET']['#context']['value']);
+  }
+
 }

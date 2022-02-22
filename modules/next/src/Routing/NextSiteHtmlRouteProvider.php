@@ -44,6 +44,11 @@ class NextSiteHtmlRouteProvider extends AdminHtmlRouteProvider {
     $route->setDefault('_title', 'Environment variables');
     $route->setRequirement('_permission', $entity_type->getAdminPermission());
     $route->setOption('_admin_route', TRUE);
+    $route->setOption('parameters', [
+      'next_site' => [
+        'with_config_overrides' => TRUE,
+      ],
+    ]);
 
     return $route;
   }

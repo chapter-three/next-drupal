@@ -72,6 +72,10 @@ export const docs: DocsConfig = {
           href: "/docs/data-fetching/blocks",
         },
         {
+          title: "Views",
+          href: "/docs/data-fetching/views",
+        },
+        {
           title: "Filter by Site",
           href: "/docs/data-fetching/filter-by-site",
         },
@@ -166,6 +170,10 @@ export const docs: DocsConfig = {
         {
           title: "getMenu",
           href: "/docs/reference#getmenu",
+        },
+        {
+          title: "getView",
+          href: "/docs/reference#getview",
         },
         {
           title: "translatePath",

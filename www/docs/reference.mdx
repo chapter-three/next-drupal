@@ -351,3 +351,79 @@ export async function getStaticProps(context) {
   const path = await translatePathFromContext(context)
 }
 ```
+
+--
+
+## getView
+
+<Callout icon="⚠️">
+
+You need to install the [JSON:API Views](https://www.drupal.org/project/jsonapi_views) module to use `getView`.
+
+</Callout>
+
+Returns view results in `getStaticProps` or `getServerSideProps`.
+
+```ts
+export async function getView<T>(
+  name: string,
+  options?: {
+    deserialize?: boolean
+    accessToken?: AccessToken
+  } & JsonApiWithLocaleOptions
+): Promise<{
+  results: T
+  meta: Record<string, any>
+  links: {
+    [key in "next" | "prev" | "self"]?: {
+      href: "string"
+    }
+  }
+}>
+```
+
+- `results` is an array of view results.
+- `meta` has additional information from the view. ex. the count.
+
+#### Examples
+
+```ts
+const view = await getView("article--block_1")
+```
+
+You can also pass additional params to `getView`.
+
+```ts
+// Get the articles--block_1 view with user information.
+const view = await getView("article--block_1", {
+  params: {
+    include: "uid",
+  },
+})
+```
+
+#### Filters
+
+You can pass filters to the view just like JSON:API params. Note `status` is an exposed filter on the view.
+
+```ts
+// Get the articles--block_1 view with user information and filter by status true.
+const view = await getView("article--block_1", {
+  params: {
+    include: "uid",
+    "view-filter[status]": 1,
+  },
+})
+```
+
+#### TypeScript
+
+```ts
+import { DrupalNode } from "next-drupal"
+
+const view = await getView<DrupalNode[]>("article--block_1")
+```
+
+`view.results` will be properly typed as an array of `DrupalNode`.
+
+---

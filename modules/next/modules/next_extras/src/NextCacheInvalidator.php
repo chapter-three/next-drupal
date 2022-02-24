@@ -9,6 +9,7 @@ use Drupal\next\Entity\NextSiteInterface;
 use Drupal\next\NextEntityTypeManagerInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Invalidates Next.js ISR caches.
@@ -20,21 +21,21 @@ class NextCacheInvalidator {
    *
    * @var \Drupal\next\NextEntityTypeManagerInterface
    */
-  private NextEntityTypeManagerInterface $nextEntityTypeManager;
+  protected NextEntityTypeManagerInterface $nextEntityTypeManager;
 
   /**
    * HTTP client service.
    *
    * @var \GuzzleHttp\Client
    */
-  private Client $httpClient;
+  protected Client $httpClient;
 
   /**
    * Logger channel.
    *
    * @var \Drupal\Core\Logger\LoggerChannelInterface
    */
-  private LoggerChannelInterface $logger;
+  protected LoggerChannelInterface $logger;
 
   /**
    * NextCacheInvalidator constructor.
@@ -53,6 +54,29 @@ class NextCacheInvalidator {
   }
 
   /**
+   * Returns an array of sites to invalidate for given entity.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity to retrieve sites for.
+   *
+   * @return \Drupal\next\Entity\NextSiteInterface[]
+   *   An array of next sites.
+   */
+  public function getSitesToInvalidate(EntityInterface $entity): array {
+    $next_entity_type_config = $this->nextEntityTypeManager->getConfigForEntityType($entity->getEntityTypeId(), $entity->bundle());
+    if (!$next_entity_type_config) {
+      return [];
+    }
+
+    $revalidate = (bool) $next_entity_type_config->getThirdPartySetting('next_extras', 'revalidate');
+    if (!$revalidate) {
+      return [];
+    }
+
+    return $next_entity_type_config->getSiteResolver()->getSitesForEntity($entity);
+  }
+
+  /**
    * Invalidates an entity.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
@@ -61,25 +85,12 @@ class NextCacheInvalidator {
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function invalidateEntity(EntityInterface $entity): void {
-    $next_entity_type_config = $this->nextEntityTypeManager->getConfigForEntityType($entity->getEntityTypeId(), $entity->bundle());
-    if (!$next_entity_type_config) {
-      return;
-    }
-
-    $revalidate = (bool) $next_entity_type_config->getThirdPartySetting('next_extras', 'revalidate');
-    if (!$revalidate) {
-      return;
-    }
-
-    // Find Next.js sites for entity.
-    $sites = $next_entity_type_config->getSiteResolver()->getSitesForEntity($entity);
+    $sites = $this->getSitesToInvalidate($entity);
     if (!count($sites)) {
       return;
     }
 
-    // Revalidate entity.
-    $slug = $entity->toUrl()->toString();
-    $this->invalidatePath($slug, $sites);
+    $this->invalidatePath($entity->toUrl()->toString(), $sites);
   }
 
   /**
@@ -98,7 +109,12 @@ class NextCacheInvalidator {
           '%url' => $revalidate_url,
         ]);
 
-        $this->httpClient->get($revalidate_url);
+        $response = $this->httpClient->get($revalidate_url);
+        if ($response->getStatusCode() === Response::HTTP_OK) {
+          $this->logger->notice('Successfully revalidated page at %url', [
+            '%url' => $revalidate_url,
+          ]);
+        }
       }
       catch (RequestException $exception) {
         watchdog_exception('next_extras', $exception);

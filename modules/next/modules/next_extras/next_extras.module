@@ -11,9 +11,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
-use Drupal\Core\Url;
 use Drupal\next\Entity\NextEntityTypeConfigInterface;
-use GuzzleHttp\Exception\RequestException;
 
 /**
  * Implements hook_entity_base_field_info().
@@ -47,9 +45,9 @@ function next_extras_form_next_entity_type_config_edit_form_alter(&$form, FormSt
     '#theme' => 'status_messages',
     '#message_list' => [
       MessengerInterface::TYPE_WARNING => [
-          t('Experimental features are not production-ready and may change in future releases. Use at your own risk.'),
-        ],
+        t('Experimental features are not production-ready and may change in future releases. Use at your own risk.'),
       ],
+    ],
   ];
 
   $form['experimental']['revalidate'] = [
@@ -73,5 +71,39 @@ function next_extras_form_next_entity_type_config_edit_form_builder($entity_type
  * Implements hook_entity_update().
  */
 function next_extras_entity_update(EntityInterface $entity) {
-  \Drupal::service('next_extras.cache_invalidator')->invalidateEntity($entity);
+  drupal_register_shutdown_function('_next_extras_invalidate_entity_cache', $entity);
+}
+
+/**
+ * Implements hook_entity_predelete().
+ */
+function next_extras_entity_predelete(EntityInterface $entity) {
+  // Assumes only entity with canonical link have equivalent page on Next sites.
+  // TODO: Refactor this to the NextEntityTypeManager service?
+  if (!$entity->hasLinkTemplate('canonical')) {
+    return;
+  }
+
+  drupal_register_shutdown_function('_next_extras_invalidate_entity_cache', $entity, $entity->toUrl()->toString());
+}
+
+/**
+ * Shutdown callback for invalidating entity cache.
+ */
+function _next_extras_invalidate_entity_cache(EntityInterface $entity, string $path = NULL) {
+  /** @var \Drupal\next_extras\NextCacheInvalidator $next_cache_invalidator */
+  $next_cache_invalidator = \Drupal::service('next_extras.cache_invalidator');
+
+  $sites = $next_cache_invalidator->getSitesToInvalidate($entity);
+  if (!$sites) {
+    return;
+  }
+
+  if (!$path) {
+    $path = $entity->toUrl()->toString();
+  }
+
+  // We call invalidatePath instead of invalidateEntity because in the shutdown
+  // entity alias is has already been purged.
+  \Drupal::service('next_extras.cache_invalidator')->invalidatePath($path, $sites);
 }

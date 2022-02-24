@@ -6,6 +6,7 @@
     "packages/*",
     "examples/*",
     "starters/*",
+    "modules/*",
     "drupal",
     "www"
   ],

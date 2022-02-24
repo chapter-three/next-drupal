@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.0
+
+### Features
+
+* **next-drupal:** add UNSTABLE_DRUPAL_ACCESS_TOKEN ([325e368](https://github.com/chapter-three/next-drupal/commit/325e368534720c8350afdf381f12b982f9a5d196))
+
 ## 1.1.1
 
 ### Bug Fixes

@@ -1,6 +1,0 @@
-{
-  "name": "next",
-  "description": "Next.js + Drupal for Incremental Static Regeneration and Preview mode.",
-  "version": "1.0.0",
-  "license": "MIT"
-}

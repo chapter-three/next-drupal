@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/chapter-three/next-drupal/compare/basic-starter@1.2.0...basic-starter@1.3.0) (2022-02-24)
+
+
+### Bug Fixes
+
+* **basic-starter:** fix type for private in package.json ([b1a6e90](https://github.com/chapter-three/next-drupal/commit/b1a6e907e22de61354b42b0126e5a084bd90f57b))
+* **basic-starter:** update @tailwindcss/typography ([aa70f4e](https://github.com/chapter-three/next-drupal/commit/aa70f4ee6287e7fcc6ce1352114a4ef24474e404))
+* **basic-starter:** update typescript ([3eda875](https://github.com/chapter-three/next-drupal/commit/3eda8755dbf2c904e9253bff7df67a9992bbdc12))
+
+
+### Features
+
+* bump all examples to next 12.1.0 ([00b15f2](https://github.com/chapter-three/next-drupal/commit/00b15f2b308a0a9fcb298789a9ca712f4efa7eff))
+* **basic-starter:** simplify starter by removing menus ([7ce44ac](https://github.com/chapter-three/next-drupal/commit/7ce44ac11b628f06849b09a1831069df5da2a926))
+* **basic-starter:** use server-side menus ([58f1150](https://github.com/chapter-three/next-drupal/commit/58f1150e750d860cb62b60f28edca3673dbb3c68))
+
+
+
+
+
 # [1.2.0](https://github.com/chapter-three/next-drupal/compare/basic-starter@1.1.1...basic-starter@1.2.0) (2022-01-17)
 
 

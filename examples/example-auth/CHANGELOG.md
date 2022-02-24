@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/chapter-three/next-drupal/compare/example-auth@1.0.3...example-auth@1.1.0) (2022-02-24)
+
+
+### Bug Fixes
+
+* **example-auth:** add next.config.js ([f1ea066](https://github.com/chapter-three/next-drupal/commit/f1ea06681e511a6e49ed48c435f450299df7eaa1))
+* **example-auth:** add typescript ([d4939ff](https://github.com/chapter-three/next-drupal/commit/d4939fffe5ce669b6396d5294a5e3c04fcb3e9fb))
+* revert next-drupal versions ([c9b52d6](https://github.com/chapter-three/next-drupal/commit/c9b52d647343980cc081771e05a8af2d6f457709))
+* update dependencies ([3f3db43](https://github.com/chapter-three/next-drupal/commit/3f3db433633ad15abcb5b211aebef3e386613eae))
+* update gitignore ([0e05896](https://github.com/chapter-three/next-drupal/commit/0e05896f06a6a48bf82db4830c085e6f9c5e7b84))
+
+
+### Features
+
+* bump all examples to next 12.1.0 ([00b15f2](https://github.com/chapter-three/next-drupal/commit/00b15f2b308a0a9fcb298789a9ca712f4efa7eff))
+* **example-blog:** update to tailwind ([2369a14](https://github.com/chapter-three/next-drupal/commit/2369a1437a684062a9dacf4d6ec5821b16ae9d7e))
+* add and configure turbo ([04f2198](https://github.com/chapter-three/next-drupal/commit/04f2198a5a92251e420ceb1285bc6f39ded5efad))
+
+
+
+
+
 ## [1.0.3](https://github.com/chapter-three/next-drupal/compare/example-auth@1.0.2...example-auth@1.0.3) (2022-01-17)
 
 **Note:** Version bump only for package example-auth

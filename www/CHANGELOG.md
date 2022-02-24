@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/chapter-three/next-drupal/compare/www@1.1.1...www@1.2.0) (2022-02-24)
+
+
+### Features
+
+* bump all examples to next 12.1.0 ([00b15f2](https://github.com/chapter-three/next-drupal/commit/00b15f2b308a0a9fcb298789a9ca712f4efa7eff))
+* **example-blog:** update to tailwind ([2369a14](https://github.com/chapter-three/next-drupal/commit/2369a1437a684062a9dacf4d6ec5821b16ae9d7e))
+* add and configure turbo ([04f2198](https://github.com/chapter-three/next-drupal/commit/04f2198a5a92251e420ceb1285bc6f39ded5efad))
+* **www:** add gtag ([58b7e84](https://github.com/chapter-three/next-drupal/commit/58b7e84ac1bb7ee9c34dd0b9a10d63e0db405f0a))
+
+
+
+
+
 ## [1.1.1](https://github.com/chapter-three/next-drupal/compare/www@1.1.0...www@1.1.1) (2022-01-17)
 
 **Note:** Version bump only for package www

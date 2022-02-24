@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/chapter-three/next-drupal/compare/drupal@1.0.1...drupal@1.1.0) (2022-02-24)
+
+
+### Features
+
+* **drupal:** update modules ([32b5df1](https://github.com/chapter-three/next-drupal/commit/32b5df19b2444685e76d1d744fa3a3e8e5fee621))
+* **example-blog:** update to tailwind ([2369a14](https://github.com/chapter-three/next-drupal/commit/2369a1437a684062a9dacf4d6ec5821b16ae9d7e))
+* **example-no-preview:** remove example ([85ce8d7](https://github.com/chapter-three/next-drupal/commit/85ce8d78b1d610987e04a8b9551ca9c98c0063b5))
+
+
+
+
+
 ## [1.0.1](https://github.com/chapter-three/next-drupal/compare/drupal@1.0.0...drupal@1.0.1) (2022-01-12)
 
 

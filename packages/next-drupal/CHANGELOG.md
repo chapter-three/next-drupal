@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.1.1...next-drupal@1.2.0) (2022-02-24)
+
+
+### Features
+
+* **next-drupal:** add UNSTABLE_DRUPAL_ACCESS_TOKEN ([325e368](https://github.com/chapter-three/next-drupal/commit/325e368534720c8350afdf381f12b982f9a5d196))
+
+
+
+
+
 ## [1.1.1](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.1.0...next-drupal@1.1.1) (2022-01-17)
 
 

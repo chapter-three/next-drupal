@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/chapter-three/next-drupal/compare/example-marketing@1.1.1...example-marketing@1.2.0) (2022-02-24)
+
+
+### Bug Fixes
+
+* **example-marketing:** add next-transpile-modules ([b574e30](https://github.com/chapter-three/next-drupal/commit/b574e3077ee90d742b9ec49713597bb4b8d8005e))
+* **example-marketing:** add tailwindcss forms ([e9b583f](https://github.com/chapter-three/next-drupal/commit/e9b583f645e2a8aa9a5bf70cc132fc31b2ebb6b3))
+* **example-marketing:** debug code for translatePath in getStaticProps ([c14b690](https://github.com/chapter-three/next-drupal/commit/c14b690fdc3bd2b1125ba080f0343293426f9e6b))
+* **example-marketing:** remove next-transpile-modules ([5b248c2](https://github.com/chapter-three/next-drupal/commit/5b248c2e4d44c9e2acf363743904e4078c5ec610))
+* **example-marketing:** remove tailwind forms ([630fc24](https://github.com/chapter-three/next-drupal/commit/630fc24e126560f1dccc6f495079e895fa4f70ca))
+* **example-marketing:** switch to next/link ([b39da07](https://github.com/chapter-three/next-drupal/commit/b39da077b2bb4c6cbbbd51a533aa7d061842c532))
+* **example-marketing:** update meta component ([4d4e99b](https://github.com/chapter-three/next-drupal/commit/4d4e99b7c9206bc05117ac10868c12e696f53dae))
+* **example-marketing:** update tailwindcss ([943d7f1](https://github.com/chapter-three/next-drupal/commit/943d7f1c9a37418125053e897b67b070065479c4))
+* **example-marketing:** use local version for next-drupal ([8903fc9](https://github.com/chapter-three/next-drupal/commit/8903fc9e79d29c0e4a87acd7357229c5fe1bc61b))
+* update gitignore ([0e05896](https://github.com/chapter-three/next-drupal/commit/0e05896f06a6a48bf82db4830c085e6f9c5e7b84))
+
+
+### Features
+
+* **example-marketing:** add revalidate api ([bf402b1](https://github.com/chapter-three/next-drupal/commit/bf402b1a8ae4937cb91cd636c1256161da7d612e))
+* bump all examples to next 12.1.0 ([00b15f2](https://github.com/chapter-three/next-drupal/commit/00b15f2b308a0a9fcb298789a9ca712f4efa7eff))
+* **example-marketing:** add meta og image ([116e29f](https://github.com/chapter-three/next-drupal/commit/116e29f3171b40b274435f1ac064567770ed8f32))
+
+
+
+
+
 ## [1.1.1](https://github.com/chapter-three/next-drupal/compare/example-marketing@1.1.0...example-marketing@1.1.1) (2022-01-17)
 
 **Note:** Version bump only for package example-marketing

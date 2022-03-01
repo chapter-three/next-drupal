@@ -77,6 +77,30 @@ class NextCacheInvalidator {
   }
 
   /**
+   * Returns an array of paths to invalidate for given entity.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity to retrieve paths for.
+   *
+   * @return string[]
+   *   An array of paths.
+   */
+  public function getPathsToInvalidate(EntityInterface $entity): array {
+    $next_entity_type_config = $this->nextEntityTypeManager->getConfigForEntityType($entity->getEntityTypeId(), $entity->bundle());
+    if (!$next_entity_type_config) {
+      return [];
+    }
+
+    $paths = [$entity->toUrl()->toString()];
+
+    $revalidate_paths = $next_entity_type_config->getThirdPartySetting('next_extras', 'revalidate_paths');
+
+    $paths = array_merge($paths, array_map('trim', explode("\n", $revalidate_paths)));
+
+    return $paths;
+  }
+
+  /**
    * Invalidates an entity.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity

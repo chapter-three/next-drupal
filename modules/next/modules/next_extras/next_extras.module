@@ -57,6 +57,20 @@ function next_extras_form_next_entity_type_config_edit_form_alter(&$form, FormSt
     '#default_value' => $entity->getThirdPartySetting('next_extras', 'revalidate'),
   ];
 
+  $form['experimental']['revalidate_paths'] = [
+    '#type' => 'textarea',
+    '#title' => t('Paths'),
+    '#description' => t('Additional paths to revalidate on entity update. Enter one path per line. Example %example.', [
+      '%example' => '/blog',
+    ]),
+    '#default_value' => $entity->getThirdPartySetting('next_extras', 'revalidate_paths'),
+    '#states' => [
+      'visible' => [
+        ':input[name="revalidate"]' => ['checked' => TRUE],
+      ],
+    ],
+  ];
+
   $form['#entity_builders'][] = 'next_extras_form_next_entity_type_config_edit_form_builder';
 }
 
@@ -65,13 +79,25 @@ function next_extras_form_next_entity_type_config_edit_form_alter(&$form, FormSt
  */
 function next_extras_form_next_entity_type_config_edit_form_builder($entity_type, NextEntityTypeConfigInterface $entity, &$form, FormStateInterface $form_state) {
   $entity->setThirdPartySetting('next_extras', 'revalidate', (bool) $form_state->getValue('revalidate'));
+  $entity->setThirdPartySetting('next_extras', 'revalidate_paths', $form_state->getValue('revalidate_paths'));
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function next_extras_entity_insert(EntityInterface $entity) {
+  $paths = \Drupal::service('next_extras.cache_invalidator')->getPathsToInvalidate($entity);
+
+  drupal_register_shutdown_function('_next_extras_invalidate_entity_cache', $entity, $paths);
 }
 
 /**
  * Implements hook_entity_update().
  */
 function next_extras_entity_update(EntityInterface $entity) {
-  drupal_register_shutdown_function('_next_extras_invalidate_entity_cache', $entity);
+  $paths = \Drupal::service('next_extras.cache_invalidator')->getPathsToInvalidate($entity);
+
+  drupal_register_shutdown_function('_next_extras_invalidate_entity_cache', $entity, $paths);
 }
 
 /**
@@ -84,13 +110,20 @@ function next_extras_entity_predelete(EntityInterface $entity) {
     return;
   }
 
-  drupal_register_shutdown_function('_next_extras_invalidate_entity_cache', $entity, $entity->toUrl()->toString());
+  $paths = \Drupal::service('next_extras.cache_invalidator')->getPathsToInvalidate($entity);
+
+  drupal_register_shutdown_function('_next_extras_invalidate_entity_cache', $entity, $paths);
 }
 
 /**
  * Shutdown callback for invalidating entity cache.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity to revalidate.
+ * @param array $paths
+ *   An array of paths to revalidate.
  */
-function _next_extras_invalidate_entity_cache(EntityInterface $entity, string $path = NULL) {
+function _next_extras_invalidate_entity_cache(EntityInterface $entity, array $paths) {
   /** @var \Drupal\next_extras\NextCacheInvalidator $next_cache_invalidator */
   $next_cache_invalidator = \Drupal::service('next_extras.cache_invalidator');
 
@@ -99,11 +132,10 @@ function _next_extras_invalidate_entity_cache(EntityInterface $entity, string $p
     return;
   }
 
-  if (!$path) {
-    $path = $entity->toUrl()->toString();
-  }
-
   // We call invalidatePath instead of invalidateEntity because in the shutdown
   // entity alias is has already been purged.
-  \Drupal::service('next_extras.cache_invalidator')->invalidatePath($path, $sites);
+  foreach ($paths as $path) {
+    \Drupal::service('next_extras.cache_invalidator')
+      ->invalidatePath($path, $sites);
+  }
 }

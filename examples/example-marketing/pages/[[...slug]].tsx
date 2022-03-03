@@ -103,6 +103,5 @@ export async function getStaticProps(
       node,
       menus: await getMenus(context),
     },
-    revalidate: 7200,
   }
 }

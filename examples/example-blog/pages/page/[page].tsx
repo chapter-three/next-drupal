@@ -122,6 +122,5 @@ export async function getStaticProps(
       },
       menus: await getMenus(context),
     },
-    revalidate: 7200,
   }
 }

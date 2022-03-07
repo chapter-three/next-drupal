@@ -38,6 +38,10 @@ export const docs: DocsConfig = {
           href: "/docs/quick-start",
         },
         {
+          title: "Environment Variables",
+          href: "/docs/environment-variables",
+        },
+        {
           title: "FAQ",
           href: "/docs/faq",
         },

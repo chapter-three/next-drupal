@@ -43,6 +43,17 @@ export const mdxComponents = {
   pre: (props) => {
     return <div className="flex-1 my-10" {...props} />
   },
+  table: (props) => (
+    <div className="table-container">
+      <table {...props} />
+    </div>
+  ),
+  td: ({ align, ...props }) => {
+    return <td align={align} {...props} />
+  },
+  th: ({ align, ...props }) => {
+    return <th align={align} {...props} />
+  },
   code: CodeBlock,
   Callout,
   Link,

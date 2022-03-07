@@ -1,0 +1,40 @@
+---
+title: Environment Variables
+excerpt: Configuration variables for Next.js and Drupal.
+---
+
+```txt title=.env.local
+# Required
+NEXT_PUBLIC_DRUPAL_BASE_URL=http://localhost:8080
+NEXT_IMAGE_DOMAIN=localhost
+DRUPAL_PREVIEW_SECRET=
+DRUPAL_CLIENT_ID=
+DRUPAL_CLIENT_SECRET=
+
+# Optional
+DRUPAL_SITE_ID=
+DRUPAL_FRONT_PAGE=/home
+DRUPAL_JSONAPI_PREFIX=/jsonapi
+```
+
+## Required
+
+These environment variables are required for fetching data from the Drupal site.
+
+| Name                          | Description                                                                                                                |
+| ----------------------------- | :------------------------------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_DRUPAL_BASE_URL` | The base url for your Drupal site. Example: `https://drupal.org`                                                           |
+| `NEXT_IMAGE_DOMAIN`           | The domain name for [next/image](https://nextjs.org/docs/basic-features/image-optimization#domains). Example: `drupal.org` |
+| `DRUPAL_PREVIEW_SECRET`       | The secret for [preview mode](https://nextjs.org/docs/advanced-features/preview-mode). Example: `6SZy9xkdtR`               |
+| `DRUPAL_CLIENT_ID`            | The OAuth client id. Example: `a53b1d17-6b23-478d-8649-9aee63974c80`                                                       |
+| `DRUPAL_CLIENT_SECRET`        | The OAuth client secret. Example: `3#9h$2DU#8qKb6&`                                                                        |
+
+## Optional
+
+Environment variables you can use to customize the Next.js site.
+
+| Name                    | Description                                                 |
+| ----------------------- | :---------------------------------------------------------- |
+| `DRUPAL_SITE_ID`        | The site id for the Next.js site. Example: `marketing_site` |
+| `DRUPAL_FRONT_PAGE`     | The path for the Drupal front page. Example: `/home`        |
+| `DRUPAL_JSONAPI_PREFIX` | The JSON:API prefix. Example: `/jsonapi`                    |

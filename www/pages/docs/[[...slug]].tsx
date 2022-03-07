@@ -27,7 +27,7 @@ export default function DocsPage({ doc, toc }: DocsPageProps) {
           <SidebarNav items={docs.links} />
         </aside>
         <div className="items-start col-span-4 gap-12 pb-10 xl:col-span-3 xl:grid xl:grid-cols-3 xl:gap-24">
-          <div className="col-span-2 pt-4 sm:pt-6 md:pt-10 DocSearch-content">
+          <div className="col-span-2 pt-4 sm:pt-6 md:pt-10 DocSearch-content main-content">
             <h1 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
               {doc.frontMatter.title}
             </h1>

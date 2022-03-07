@@ -94,6 +94,36 @@ html {
   }
 }
 
+/* Table */
+.main-content table {
+  @apply p-0 w-full;
+}
+.main-content table tr {
+  @apply p-0 m-0 border-t border-gray-300;
+}
+.main-content table tr:nth-child(2n) {
+  @apply bg-gray-100;
+}
+.main-content table tr th {
+  @apply font-semibold;
+}
+.main-content table tr th[align="center"],
+.main-content table tr td[align="center"] {
+  @apply text-center;
+}
+.main-content table tr th[align="right"],
+.main-content table tr td[align="right"] {
+  @apply text-right;
+}
+.main-content table tr th,
+.main-content table tr td {
+  @apply text-left;
+  @apply px-4 py-2 m-0 border border-gray-300;
+}
+article .table-container {
+  overflow: auto;
+}
+
 /**
  * MIT License
  * Copyright (c) 2018 Sarah Drasner

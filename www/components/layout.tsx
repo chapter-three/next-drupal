@@ -45,7 +45,7 @@ export function Layout({
         }}
       />
       <div className="bg-[#34c5c6]">
-        <div className="container flex flex-col items-center justify-between px-6 py-4 mx-auto sm:py-2 sm:flex-row xl:px-4">
+        <div className="container flex flex-col items-center justify-between px-6 py-4 mx-auto sm:py-2 sm:flex-row xl:px-6">
           <a
             href={`${site.social.contact}?utm_source=next-drupal&utm_medium=banner`}
             rel="noopener noreferrer"
@@ -124,7 +124,7 @@ export function Layout({
             "bg-black text-white": mode === "dark",
           })}
         >
-          <div className="container flex items-center justify-between px-6 mx-auto h-14 xl:h-20 xl:px-4">
+          <div className="container flex items-center justify-between px-6 mx-auto h-14 xl:h-16 xl:px-6">
             <div className="flex items-center justify-between">
               <button
                 className="relative flex w-6 h-6 mr-4 transition-all lg:hidden"
@@ -219,7 +219,7 @@ export function Layout({
         </header>
         <main className="flex-1">{children}</main>
         <footer>
-          <div className="container flex items-center justify-center px-6 py-10 mx-auto text-sm border-t md:justify-between xl:px-4">
+          <div className="container flex items-center justify-center px-6 py-10 mx-auto text-sm border-t md:justify-between xl:px-6">
             <div className="flex flex-col items-center md:items-start">
               <a
                 href={`${site.social.contact}?utm_source=next-drupal&utm_medium=footer`}

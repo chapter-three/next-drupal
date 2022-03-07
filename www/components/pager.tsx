@@ -14,7 +14,7 @@ export function Pager({ links }: PagerProps) {
     <div className="flex items-center justify-between mt-10 md:mt-14">
       {prev ? (
         <Link href={prev.href} passHref>
-          <a className="flex items-center px-2 py-2 leading-none text-gray-600 hover:text-black">
+          <a className="flex items-center px-4 py-3 leading-none text-gray-600 border rounded-md hover:text-black">
             <svg
               className="w-4 h-4 mr-2"
               viewBox="0 0 24 24"
@@ -32,7 +32,7 @@ export function Pager({ links }: PagerProps) {
       ) : null}
       {next ? (
         <Link href={next.href} passHref>
-          <a className="flex items-center px-2 py-2 ml-auto leading-none text-gray-600 hover:text-black">
+          <a className="flex items-center px-4 py-3 ml-auto leading-none text-gray-600 border rounded-md hover:text-black">
             {next.title}
             <svg
               className="w-4 h-4 ml-2"

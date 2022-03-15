@@ -95,7 +95,9 @@ class NextCacheInvalidator {
 
     $revalidate_paths = $next_entity_type_config->getThirdPartySetting('next_extras', 'revalidate_paths');
 
-    $paths = array_merge($paths, array_map('trim', explode("\n", $revalidate_paths)));
+    if ($revalidate_paths) {
+      $paths = array_merge($paths, array_map('trim', explode("\n", $revalidate_paths)));
+    }
 
     return $paths;
   }

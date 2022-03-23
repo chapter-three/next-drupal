@@ -1,0 +1,939 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`deserialize it allows for custom data formatter 1`] = `
+Object {
+  "id": "52837ad0-f218-46bd-a106-5710336b7053",
+  "title": "TITLE: Give it a go and grow your own herbs",
+}
+`;
+
+exports[`deserialize it deserializes JSON:API collection 1`] = `
+Array [
+  Object {
+    "id": "52837ad0-f218-46bd-a106-5710336b7053",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053?resourceVersion=id%3A20",
+      },
+    },
+    "title": "Give it a go and grow your own herbs",
+    "type": "node--article",
+  },
+  Object {
+    "id": "3d5a7bca-5b4a-49ee-87d2-cbe313562903",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/3d5a7bca-5b4a-49ee-87d2-cbe313562903?resourceVersion=id%3A22",
+      },
+    },
+    "title": "Dairy-free and delicious milk chocolate",
+    "type": "node--article",
+  },
+  Object {
+    "id": "a1ef61c9-ed15-4b6d-bba2-bf6e5141f961",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/a1ef61c9-ed15-4b6d-bba2-bf6e5141f961?resourceVersion=id%3A24",
+      },
+    },
+    "title": "The real deal for supermarket savvy shopping",
+    "type": "node--article",
+  },
+  Object {
+    "id": "ac0b8b56-db8d-4322-9b1e-224f22083f0d",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/ac0b8b56-db8d-4322-9b1e-224f22083f0d?resourceVersion=id%3A26",
+      },
+    },
+    "title": "The Umami guide to our favorite mushrooms",
+    "type": "node--article",
+  },
+  Object {
+    "id": "22874ecc-0443-441b-a3c9-3aa94d85b800",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/22874ecc-0443-441b-a3c9-3aa94d85b800?resourceVersion=id%3A28",
+      },
+    },
+    "title": "Let's hear it for carrots",
+    "type": "node--article",
+  },
+  Object {
+    "id": "ec51b1de-f51e-4761-b061-aa2624e58b4a",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/ec51b1de-f51e-4761-b061-aa2624e58b4a?resourceVersion=id%3A30",
+      },
+    },
+    "title": "Baking mishaps - our troubleshooting tips",
+    "type": "node--article",
+  },
+  Object {
+    "id": "d5b9ef80-c0aa-45ca-88e7-79c28abe5d50",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/d5b9ef80-c0aa-45ca-88e7-79c28abe5d50?resourceVersion=id%3A32",
+      },
+    },
+    "title": "Skip the spirits with delicious mocktails",
+    "type": "node--article",
+  },
+  Object {
+    "id": "6c7c249f-cd1a-41d5-944b-b3bfce68b325",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/6c7c249f-cd1a-41d5-944b-b3bfce68b325?resourceVersion=id%3A34",
+      },
+    },
+    "title": "Give your oatmeal the ultimate makeover",
+    "type": "node--article",
+  },
+]
+`;
+
+exports[`deserialize it deserializes JSON:API resource 1`] = `
+Object {
+  "body": Object {
+    "format": "basic_html",
+    "processed": "<p>There's nothing like having your own supply of fresh herbs, readily available and close at hand to use while cooking. Whether you have a large garden or a small kitchen window sill, there's always enough room for something home grown.</p>
+<h2>Outdoors</h2>
+<h3>Mint</h3>
+<p>Mint is a great plant to grow as it's hardy and can grow in almost any soil. Mint can grow wild, so keep it contained in a pot or it might spread and take over your whole garden.</p>
+<h3>Sage</h3>
+<p>Like mint, sage is another prolific growing plant and will take over your garden if you let it. Highly aromatic, the sage plant can be planted in a pot or flower bed in well drained soil. The best way to store the herb is to sun dry the leaves and store in a cool, dark cupboard in a sealed container.</p>
+<h3>Rosemary</h3>
+<p>Rosemary plants grow into lovely shrubs. Easily grown from cuttings, rosemary plants do not like freezing temperatures so keep pots or planted bushes near the home to shelter them from the cold. It grows well in pots as it likes dry soil, but can survive well in the ground too. If pruning rosemary to encourage it into a better shape, save the branches and hang them upside down to preserve the flavor and use in food.</p>
+<h2>Indoors</h2>
+<h3>Basil</h3>
+<p>Perfect in sunny spot on a kitchen window sill. Basil is an annual plant, so will die off in the autumn, so it's a good idea to harvest it in the summer if you have an abundance and dry it. Picked basil stays fresh longer if it is placed in water (like fresh flowers). A great way to store basil is to make it into pesto!</p>
+<h3>Chives</h3>
+<p>A versatile herb, chives can grow well indoors. Ensure the plant is watered well, and gets plenty of light. Remember to regularly trim the chives. This prevents the flowers from developing and encourages new growth.</p>
+<h3>Coriander (Cilantro)</h3>
+<p>Coriander can grow indoors, but unlike the other herbs, it doesn't like full sun. If you have a south facing kitchen window, this isn't the place for it. Although not as thirsty as basil, coriander doesn't like dry soil so don't forget to water it! Cut coriander is best stored in the fridge.</p>
+",
+    "summary": null,
+    "value": "<p>There's nothing like having your own supply of fresh herbs, readily available and close at hand to use while cooking. Whether you have a large garden or a small kitchen window sill, there's always enough room for something home grown.</p>
+<h2>Outdoors</h2>
+<h3>Mint</h3>
+<p>Mint is a great plant to grow as it's hardy and can grow in almost any soil. Mint can grow wild, so keep it contained in a pot or it might spread and take over your whole garden.</p>
+<h3>Sage</h3>
+<p>Like mint, sage is another prolific growing plant and will take over your garden if you let it. Highly aromatic, the sage plant can be planted in a pot or flower bed in well drained soil. The best way to store the herb is to sun dry the leaves and store in a cool, dark cupboard in a sealed container.</p>
+<h3>Rosemary</h3>
+<p>Rosemary plants grow into lovely shrubs. Easily grown from cuttings, rosemary plants do not like freezing temperatures so keep pots or planted bushes near the home to shelter them from the cold. It grows well in pots as it likes dry soil, but can survive well in the ground too. If pruning rosemary to encourage it into a better shape, save the branches and hang them upside down to preserve the flavor and use in food.</p>
+<h2>Indoors</h2>
+<h3>Basil</h3>
+<p>Perfect in sunny spot on a kitchen window sill. Basil is an annual plant, so will die off in the autumn, so it's a good idea to harvest it in the summer if you have an abundance and dry it. Picked basil stays fresh longer if it is placed in water (like fresh flowers). A great way to store basil is to make it into pesto!</p>
+<h3>Chives</h3>
+<p>A versatile herb, chives can grow well indoors. Ensure the plant is watered well, and gets plenty of light. Remember to regularly trim the chives. This prevents the flowers from developing and encourages new growth.</p>
+<h3>Coriander (Cilantro)</h3>
+<p>Coriander can grow indoors, but unlike the other herbs, it doesn't like full sun. If you have a south facing kitchen window, this isn't the place for it. Although not as thirsty as basil, coriander doesn't like dry soil so don't forget to water it! Cut coriander is best stored in the fridge.</p>
+",
+  },
+  "changed": "2022-03-21T10:52:42+00:00",
+  "content_translation_outdated": false,
+  "content_translation_source": "und",
+  "created": "2022-03-21T10:52:42+00:00",
+  "default_langcode": true,
+  "drupal_internal__nid": 10,
+  "drupal_internal__vid": 20,
+  "field_media_image": Object {
+    "id": "e5091a16-134e-400d-8393-cfe4eccbcaa2",
+    "resourceIdObjMeta": Object {
+      "drupal_internal__target_id": 10,
+    },
+    "type": "media--image",
+  },
+  "field_tags": Array [
+    Object {
+      "changed": "2022-03-21T10:52:42+00:00",
+      "content_translation_created": "2022-03-21T10:52:42+00:00",
+      "content_translation_outdated": false,
+      "content_translation_source": "und",
+      "content_translation_uid": Object {
+        "id": "256a133b-0bd7-4426-a823-b8ce81e0d778",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 0,
+        },
+        "type": "user--user",
+      },
+      "default_langcode": true,
+      "description": null,
+      "drupal_internal__revision_id": 14,
+      "drupal_internal__tid": 14,
+      "id": "dcd81647-71b7-48cb-b555-e20322bcb7a7",
+      "langcode": "en",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/taxonomy_term/tags/dcd81647-71b7-48cb-b555-e20322bcb7a7",
+        },
+      },
+      "name": "Grow your own",
+      "parent": Array [
+        Object {
+          "id": "virtual",
+          "resourceIdObjMeta": Object {
+            "links": Object {
+              "help": Object {
+                "href": "https://www.drupal.org/docs/8/modules/json-api/core-concepts#virtual",
+                "meta": Object {
+                  "about": "Usage and meaning of the 'virtual' resource identifier.",
+                },
+              },
+            },
+          },
+          "type": "taxonomy_term--tags",
+        },
+      ],
+      "path": Object {
+        "alias": "/tags/grow-your-own",
+        "langcode": "en",
+        "pid": 27,
+      },
+      "relationshipNames": Array [
+        "vid",
+        "revision_user",
+        "parent",
+        "content_translation_uid",
+      ],
+      "resourceIdObjMeta": Object {
+        "drupal_internal__target_id": 14,
+      },
+      "revision_created": "2022-03-21T10:52:42+00:00",
+      "revision_log_message": null,
+      "revision_translation_affected": true,
+      "revision_user": null,
+      "status": true,
+      "type": "taxonomy_term--tags",
+      "vid": Object {
+        "id": "b0442737-e5ff-4c7c-8c2b-c977886d6e73",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": "tags",
+        },
+        "type": "taxonomy_vocabulary--taxonomy_vocabulary",
+      },
+      "weight": 0,
+    },
+    Object {
+      "changed": "2022-03-21T10:52:42+00:00",
+      "content_translation_created": "2022-03-21T10:52:42+00:00",
+      "content_translation_outdated": false,
+      "content_translation_source": "und",
+      "content_translation_uid": Object {
+        "id": "256a133b-0bd7-4426-a823-b8ce81e0d778",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 0,
+        },
+        "type": "user--user",
+      },
+      "default_langcode": true,
+      "description": null,
+      "drupal_internal__revision_id": 23,
+      "drupal_internal__tid": 23,
+      "id": "60d20a4c-9d42-4b25-b717-3af3cba6abe8",
+      "langcode": "en",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/taxonomy_term/tags/60d20a4c-9d42-4b25-b717-3af3cba6abe8",
+        },
+      },
+      "name": "Seasonal",
+      "parent": Array [
+        Object {
+          "id": "virtual",
+          "resourceIdObjMeta": Object {
+            "links": Object {
+              "help": Object {
+                "href": "https://www.drupal.org/docs/8/modules/json-api/core-concepts#virtual",
+                "meta": Object {
+                  "about": "Usage and meaning of the 'virtual' resource identifier.",
+                },
+              },
+            },
+          },
+          "type": "taxonomy_term--tags",
+        },
+      ],
+      "path": Object {
+        "alias": "/tags/seasonal",
+        "langcode": "en",
+        "pid": 45,
+      },
+      "relationshipNames": Array [
+        "vid",
+        "revision_user",
+        "parent",
+        "content_translation_uid",
+      ],
+      "resourceIdObjMeta": Object {
+        "drupal_internal__target_id": 23,
+      },
+      "revision_created": "2022-03-21T10:52:42+00:00",
+      "revision_log_message": null,
+      "revision_translation_affected": true,
+      "revision_user": null,
+      "status": true,
+      "type": "taxonomy_term--tags",
+      "vid": Object {
+        "id": "b0442737-e5ff-4c7c-8c2b-c977886d6e73",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": "tags",
+        },
+        "type": "taxonomy_vocabulary--taxonomy_vocabulary",
+      },
+      "weight": 0,
+    },
+    Object {
+      "changed": "2022-03-21T10:52:42+00:00",
+      "content_translation_created": "2022-03-21T10:52:42+00:00",
+      "content_translation_outdated": false,
+      "content_translation_source": "und",
+      "content_translation_uid": Object {
+        "id": "256a133b-0bd7-4426-a823-b8ce81e0d778",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 0,
+        },
+        "type": "user--user",
+      },
+      "default_langcode": true,
+      "description": null,
+      "drupal_internal__revision_id": 16,
+      "drupal_internal__tid": 16,
+      "id": "57a1d9f6-23a6-4215-a8a9-582202cd938d",
+      "langcode": "en",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/taxonomy_term/tags/57a1d9f6-23a6-4215-a8a9-582202cd938d",
+        },
+      },
+      "name": "Herbs",
+      "parent": Array [
+        Object {
+          "id": "virtual",
+          "resourceIdObjMeta": Object {
+            "links": Object {
+              "help": Object {
+                "href": "https://www.drupal.org/docs/8/modules/json-api/core-concepts#virtual",
+                "meta": Object {
+                  "about": "Usage and meaning of the 'virtual' resource identifier.",
+                },
+              },
+            },
+          },
+          "type": "taxonomy_term--tags",
+        },
+      ],
+      "path": Object {
+        "alias": "/tags/herbs",
+        "langcode": "en",
+        "pid": 31,
+      },
+      "relationshipNames": Array [
+        "vid",
+        "revision_user",
+        "parent",
+        "content_translation_uid",
+      ],
+      "resourceIdObjMeta": Object {
+        "drupal_internal__target_id": 16,
+      },
+      "revision_created": "2022-03-21T10:52:42+00:00",
+      "revision_log_message": null,
+      "revision_translation_affected": true,
+      "revision_user": null,
+      "status": true,
+      "type": "taxonomy_term--tags",
+      "vid": Object {
+        "id": "b0442737-e5ff-4c7c-8c2b-c977886d6e73",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": "tags",
+        },
+        "type": "taxonomy_vocabulary--taxonomy_vocabulary",
+      },
+      "weight": 0,
+    },
+  ],
+  "id": "52837ad0-f218-46bd-a106-5710336b7053",
+  "langcode": "en",
+  "links": Object {
+    "self": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053?resourceVersion=id%3A20",
+    },
+  },
+  "moderation_state": "published",
+  "node_type": Object {
+    "id": "a145b65a-e660-4f5d-ac0d-bd2ff9e3f0b0",
+    "resourceIdObjMeta": Object {
+      "drupal_internal__target_id": "article",
+    },
+    "type": "node_type--node_type",
+  },
+  "path": Object {
+    "alias": "/articles/give-it-a-go-and-grow-your-own-herbs",
+    "langcode": "en",
+    "pid": 85,
+  },
+  "promote": true,
+  "relationshipNames": Array [
+    "node_type",
+    "revision_uid",
+    "uid",
+    "field_media_image",
+    "field_tags",
+  ],
+  "revision_log": null,
+  "revision_timestamp": "2022-03-21T10:52:42+00:00",
+  "revision_translation_affected": null,
+  "revision_uid": Object {
+    "id": "dd9c916d-4d66-4bff-a851-eeba0cf7673a",
+    "resourceIdObjMeta": Object {
+      "drupal_internal__target_id": 5,
+    },
+    "type": "user--user",
+  },
+  "status": true,
+  "sticky": false,
+  "title": "Give it a go and grow your own herbs",
+  "type": "node--article",
+  "uid": Object {
+    "id": "dd9c916d-4d66-4bff-a851-eeba0cf7673a",
+    "resourceIdObjMeta": Object {
+      "drupal_internal__target_id": 5,
+    },
+    "type": "user--user",
+  },
+}
+`;
+
+exports[`fetch it allows fetching custom url 1`] = `
+Object {
+  "data": Object {
+    "attributes": Object {
+      "body": Object {
+        "format": "basic_html",
+        "processed": "<p>There's nothing like having your own supply of fresh herbs, readily available and close at hand to use while cooking. Whether you have a large garden or a small kitchen window sill, there's always enough room for something home grown.</p>
+<h2>Outdoors</h2>
+<h3>Mint</h3>
+<p>Mint is a great plant to grow as it's hardy and can grow in almost any soil. Mint can grow wild, so keep it contained in a pot or it might spread and take over your whole garden.</p>
+<h3>Sage</h3>
+<p>Like mint, sage is another prolific growing plant and will take over your garden if you let it. Highly aromatic, the sage plant can be planted in a pot or flower bed in well drained soil. The best way to store the herb is to sun dry the leaves and store in a cool, dark cupboard in a sealed container.</p>
+<h3>Rosemary</h3>
+<p>Rosemary plants grow into lovely shrubs. Easily grown from cuttings, rosemary plants do not like freezing temperatures so keep pots or planted bushes near the home to shelter them from the cold. It grows well in pots as it likes dry soil, but can survive well in the ground too. If pruning rosemary to encourage it into a better shape, save the branches and hang them upside down to preserve the flavor and use in food.</p>
+<h2>Indoors</h2>
+<h3>Basil</h3>
+<p>Perfect in sunny spot on a kitchen window sill. Basil is an annual plant, so will die off in the autumn, so it's a good idea to harvest it in the summer if you have an abundance and dry it. Picked basil stays fresh longer if it is placed in water (like fresh flowers). A great way to store basil is to make it into pesto!</p>
+<h3>Chives</h3>
+<p>A versatile herb, chives can grow well indoors. Ensure the plant is watered well, and gets plenty of light. Remember to regularly trim the chives. This prevents the flowers from developing and encourages new growth.</p>
+<h3>Coriander (Cilantro)</h3>
+<p>Coriander can grow indoors, but unlike the other herbs, it doesn't like full sun. If you have a south facing kitchen window, this isn't the place for it. Although not as thirsty as basil, coriander doesn't like dry soil so don't forget to water it! Cut coriander is best stored in the fridge.</p>
+",
+        "summary": null,
+        "value": "<p>There's nothing like having your own supply of fresh herbs, readily available and close at hand to use while cooking. Whether you have a large garden or a small kitchen window sill, there's always enough room for something home grown.</p>
+<h2>Outdoors</h2>
+<h3>Mint</h3>
+<p>Mint is a great plant to grow as it's hardy and can grow in almost any soil. Mint can grow wild, so keep it contained in a pot or it might spread and take over your whole garden.</p>
+<h3>Sage</h3>
+<p>Like mint, sage is another prolific growing plant and will take over your garden if you let it. Highly aromatic, the sage plant can be planted in a pot or flower bed in well drained soil. The best way to store the herb is to sun dry the leaves and store in a cool, dark cupboard in a sealed container.</p>
+<h3>Rosemary</h3>
+<p>Rosemary plants grow into lovely shrubs. Easily grown from cuttings, rosemary plants do not like freezing temperatures so keep pots or planted bushes near the home to shelter them from the cold. It grows well in pots as it likes dry soil, but can survive well in the ground too. If pruning rosemary to encourage it into a better shape, save the branches and hang them upside down to preserve the flavor and use in food.</p>
+<h2>Indoors</h2>
+<h3>Basil</h3>
+<p>Perfect in sunny spot on a kitchen window sill. Basil is an annual plant, so will die off in the autumn, so it's a good idea to harvest it in the summer if you have an abundance and dry it. Picked basil stays fresh longer if it is placed in water (like fresh flowers). A great way to store basil is to make it into pesto!</p>
+<h3>Chives</h3>
+<p>A versatile herb, chives can grow well indoors. Ensure the plant is watered well, and gets plenty of light. Remember to regularly trim the chives. This prevents the flowers from developing and encourages new growth.</p>
+<h3>Coriander (Cilantro)</h3>
+<p>Coriander can grow indoors, but unlike the other herbs, it doesn't like full sun. If you have a south facing kitchen window, this isn't the place for it. Although not as thirsty as basil, coriander doesn't like dry soil so don't forget to water it! Cut coriander is best stored in the fridge.</p>
+",
+      },
+      "changed": "2022-03-21T10:52:42+00:00",
+      "content_translation_outdated": false,
+      "content_translation_source": "und",
+      "created": "2022-03-21T10:52:42+00:00",
+      "default_langcode": true,
+      "drupal_internal__nid": 10,
+      "drupal_internal__vid": 20,
+      "langcode": "en",
+      "moderation_state": "published",
+      "path": Object {
+        "alias": "/articles/give-it-a-go-and-grow-your-own-herbs",
+        "langcode": "en",
+        "pid": 85,
+      },
+      "promote": true,
+      "revision_log": null,
+      "revision_timestamp": "2022-03-21T10:52:42+00:00",
+      "revision_translation_affected": null,
+      "status": true,
+      "sticky": false,
+      "title": "Give it a go and grow your own herbs",
+    },
+    "id": "52837ad0-f218-46bd-a106-5710336b7053",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053?resourceVersion=id%3A20",
+      },
+    },
+    "relationships": Object {
+      "field_media_image": Object {
+        "data": Object {
+          "id": "e5091a16-134e-400d-8393-cfe4eccbcaa2",
+          "meta": Object {
+            "drupal_internal__target_id": 10,
+          },
+          "type": "media--image",
+        },
+        "links": Object {
+          "related": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053/field_media_image?resourceVersion=id%3A20",
+          },
+          "self": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053/relationships/field_media_image?resourceVersion=id%3A20",
+          },
+        },
+      },
+      "field_tags": Object {
+        "data": Array [
+          Object {
+            "id": "dcd81647-71b7-48cb-b555-e20322bcb7a7",
+            "meta": Object {
+              "drupal_internal__target_id": 14,
+            },
+            "type": "taxonomy_term--tags",
+          },
+          Object {
+            "id": "60d20a4c-9d42-4b25-b717-3af3cba6abe8",
+            "meta": Object {
+              "drupal_internal__target_id": 23,
+            },
+            "type": "taxonomy_term--tags",
+          },
+          Object {
+            "id": "57a1d9f6-23a6-4215-a8a9-582202cd938d",
+            "meta": Object {
+              "drupal_internal__target_id": 16,
+            },
+            "type": "taxonomy_term--tags",
+          },
+        ],
+        "links": Object {
+          "related": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053/field_tags?resourceVersion=id%3A20",
+          },
+          "self": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053/relationships/field_tags?resourceVersion=id%3A20",
+          },
+        },
+      },
+      "node_type": Object {
+        "data": Object {
+          "id": "a145b65a-e660-4f5d-ac0d-bd2ff9e3f0b0",
+          "meta": Object {
+            "drupal_internal__target_id": "article",
+          },
+          "type": "node_type--node_type",
+        },
+        "links": Object {
+          "related": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053/node_type?resourceVersion=id%3A20",
+          },
+          "self": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053/relationships/node_type?resourceVersion=id%3A20",
+          },
+        },
+      },
+      "revision_uid": Object {
+        "data": Object {
+          "id": "dd9c916d-4d66-4bff-a851-eeba0cf7673a",
+          "meta": Object {
+            "drupal_internal__target_id": 5,
+          },
+          "type": "user--user",
+        },
+        "links": Object {
+          "related": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053/revision_uid?resourceVersion=id%3A20",
+          },
+          "self": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053/relationships/revision_uid?resourceVersion=id%3A20",
+          },
+        },
+      },
+      "uid": Object {
+        "data": Object {
+          "id": "dd9c916d-4d66-4bff-a851-eeba0cf7673a",
+          "meta": Object {
+            "drupal_internal__target_id": 5,
+          },
+          "type": "user--user",
+        },
+        "links": Object {
+          "related": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053/uid?resourceVersion=id%3A20",
+          },
+          "self": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053/relationships/uid?resourceVersion=id%3A20",
+          },
+        },
+      },
+    },
+    "type": "node--article",
+  },
+  "jsonapi": Object {
+    "meta": Object {
+      "links": Object {
+        "self": Object {
+          "href": "http://jsonapi.org/format/1.0/",
+        },
+      },
+    },
+    "version": "1.0",
+  },
+  "links": Object {
+    "self": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053",
+    },
+  },
+}
+`;
+
+exports[`getIndex it fetches the JSON:API index 1`] = `
+Object {
+  "data": Array [],
+  "jsonapi": Object {
+    "meta": Object {
+      "links": Object {
+        "self": Object {
+          "href": "http://jsonapi.org/format/1.0/",
+        },
+      },
+    },
+    "version": "1.0",
+  },
+  "links": Object {
+    "action--action": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/action/action",
+    },
+    "base_field_override--base_field_override": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/base_field_override/base_field_override",
+    },
+    "block--block": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/block/block",
+    },
+    "block_content--banner_block": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/block_content/banner_block",
+    },
+    "block_content--basic": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/block_content/basic",
+    },
+    "block_content--disclaimer_block": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/block_content/disclaimer_block",
+    },
+    "block_content--footer_promo_block": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/block_content/footer_promo_block",
+    },
+    "block_content_type--block_content_type": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/block_content_type/block_content_type",
+    },
+    "configurable_language--configurable_language": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/configurable_language/configurable_language",
+    },
+    "contact_form--contact_form": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/contact_form/contact_form",
+    },
+    "contact_message--feedback": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/contact_message/feedback",
+    },
+    "contact_message--personal": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/contact_message/personal",
+    },
+    "date_format--date_format": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/date_format/date_format",
+    },
+    "editor--editor": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/editor/editor",
+    },
+    "entity_form_display--entity_form_display": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/entity_form_display/entity_form_display",
+    },
+    "entity_form_mode--entity_form_mode": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/entity_form_mode/entity_form_mode",
+    },
+    "entity_view_display--entity_view_display": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/entity_view_display/entity_view_display",
+    },
+    "entity_view_mode--entity_view_mode": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/entity_view_mode/entity_view_mode",
+    },
+    "field_config--field_config": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/field_config/field_config",
+    },
+    "field_storage_config--field_storage_config": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/field_storage_config/field_storage_config",
+    },
+    "file--file": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/file/file",
+    },
+    "filter_format--filter_format": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/filter_format/filter_format",
+    },
+    "image_style--image_style": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/image_style/image_style",
+    },
+    "language_content_settings--language_content_settings": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/language_content_settings/language_content_settings",
+    },
+    "media--audio": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/media/audio",
+    },
+    "media--document": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/media/document",
+    },
+    "media--image": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/media/image",
+    },
+    "media--remote_video": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/media/remote_video",
+    },
+    "media--video": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/media/video",
+    },
+    "media_type--media_type": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/media_type/media_type",
+    },
+    "menu--menu": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/menu/menu",
+    },
+    "menu_link_content--menu_link_content": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/menu_link_content/menu_link_content",
+    },
+    "node--article": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article",
+    },
+    "node--page": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/page",
+    },
+    "node--recipe": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe",
+    },
+    "node_type--node_type": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node_type/node_type",
+    },
+    "path_alias--path_alias": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/path_alias/path_alias",
+    },
+    "rdf_mapping--rdf_mapping": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/rdf_mapping/rdf_mapping",
+    },
+    "responsive_image_style--responsive_image_style": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/responsive_image_style/responsive_image_style",
+    },
+    "search_page--search_page": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/search_page/search_page",
+    },
+    "self": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi",
+    },
+    "shortcut--default": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/shortcut/default",
+    },
+    "shortcut_set--shortcut_set": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/shortcut_set/shortcut_set",
+    },
+    "taxonomy_term--recipe_category": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/taxonomy_term/recipe_category",
+    },
+    "taxonomy_term--tags": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/taxonomy_term/tags",
+    },
+    "taxonomy_vocabulary--taxonomy_vocabulary": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/taxonomy_vocabulary/taxonomy_vocabulary",
+    },
+    "tour--tour": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/tour/tour",
+    },
+    "user--user": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/user/user",
+    },
+    "user_role--user_role": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/user_role/user_role",
+    },
+    "view--view": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/view/view",
+    },
+    "workflow--workflow": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/workflow/workflow",
+    },
+  },
+}
+`;
+
+exports[`getIndex it fetches the JSON:API index with locale 1`] = `
+Object {
+  "data": Array [],
+  "jsonapi": Object {
+    "meta": Object {
+      "links": Object {
+        "self": Object {
+          "href": "http://jsonapi.org/format/1.0/",
+        },
+      },
+    },
+    "version": "1.0",
+  },
+  "links": Object {
+    "action--action": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/action/action",
+    },
+    "base_field_override--base_field_override": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/base_field_override/base_field_override",
+    },
+    "block--block": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/block/block",
+    },
+    "block_content--banner_block": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/block_content/banner_block",
+    },
+    "block_content--basic": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/block_content/basic",
+    },
+    "block_content--disclaimer_block": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/block_content/disclaimer_block",
+    },
+    "block_content--footer_promo_block": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/block_content/footer_promo_block",
+    },
+    "block_content_type--block_content_type": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/block_content_type/block_content_type",
+    },
+    "configurable_language--configurable_language": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/configurable_language/configurable_language",
+    },
+    "contact_form--contact_form": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/contact_form/contact_form",
+    },
+    "contact_message--feedback": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/contact_message/feedback",
+    },
+    "contact_message--personal": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/contact_message/personal",
+    },
+    "date_format--date_format": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/date_format/date_format",
+    },
+    "editor--editor": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/editor/editor",
+    },
+    "entity_form_display--entity_form_display": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/entity_form_display/entity_form_display",
+    },
+    "entity_form_mode--entity_form_mode": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/entity_form_mode/entity_form_mode",
+    },
+    "entity_view_display--entity_view_display": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/entity_view_display/entity_view_display",
+    },
+    "entity_view_mode--entity_view_mode": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/entity_view_mode/entity_view_mode",
+    },
+    "field_config--field_config": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/field_config/field_config",
+    },
+    "field_storage_config--field_storage_config": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/field_storage_config/field_storage_config",
+    },
+    "file--file": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/file/file",
+    },
+    "filter_format--filter_format": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/filter_format/filter_format",
+    },
+    "image_style--image_style": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/image_style/image_style",
+    },
+    "language_content_settings--language_content_settings": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/language_content_settings/language_content_settings",
+    },
+    "media--audio": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/media/audio",
+    },
+    "media--document": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/media/document",
+    },
+    "media--image": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/media/image",
+    },
+    "media--remote_video": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/media/remote_video",
+    },
+    "media--video": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/media/video",
+    },
+    "media_type--media_type": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/media_type/media_type",
+    },
+    "menu--menu": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/menu/menu",
+    },
+    "menu_link_content--menu_link_content": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/menu_link_content/menu_link_content",
+    },
+    "node--article": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article",
+    },
+    "node--page": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/page",
+    },
+    "node--recipe": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/recipe",
+    },
+    "node_type--node_type": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node_type/node_type",
+    },
+    "path_alias--path_alias": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/path_alias/path_alias",
+    },
+    "rdf_mapping--rdf_mapping": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/rdf_mapping/rdf_mapping",
+    },
+    "responsive_image_style--responsive_image_style": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/responsive_image_style/responsive_image_style",
+    },
+    "search_page--search_page": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/search_page/search_page",
+    },
+    "self": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi",
+    },
+    "shortcut--default": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/shortcut/default",
+    },
+    "shortcut_set--shortcut_set": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/shortcut_set/shortcut_set",
+    },
+    "taxonomy_term--recipe_category": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/taxonomy_term/recipe_category",
+    },
+    "taxonomy_term--tags": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/taxonomy_term/tags",
+    },
+    "taxonomy_vocabulary--taxonomy_vocabulary": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/taxonomy_vocabulary/taxonomy_vocabulary",
+    },
+    "tour--tour": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/tour/tour",
+    },
+    "user--user": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/user/user",
+    },
+    "user_role--user_role": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/user_role/user_role",
+    },
+    "view--view": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/view/view",
+    },
+    "workflow--workflow": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/workflow/workflow",
+    },
+  },
+}
+`;

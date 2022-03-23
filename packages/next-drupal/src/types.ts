@@ -1,21 +1,40 @@
 export type Locale = string
 
-export type JsonApiWithLocaleOptions = {
+export type JsonApiOptions = {
+  deserialize?: boolean
   params?: JsonApiParams
-} & (
-  | {
-      locale: Locale
-      defaultLocale: Locale
-    }
-  | {
-      locale?: undefined
-      defaultLocale?: never
-    }
-)
+}
+
+export type JsonApiWithLocaleOptions = JsonApiOptions &
+  (
+    | {
+        locale: Locale
+        defaultLocale: Locale
+      }
+    | {
+        locale?: undefined
+        defaultLocale?: never
+      }
+  )
 
 // TODO: Properly type this.
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export type JsonApiParams = Record<string, any>
+
+// https://jsonapi.org/format/#error-objects
+export interface JsonApiError {
+  id?: string
+  status?: string
+  code?: string
+  title?: string
+  detail?: string
+  links?: JsonApiLinks
+}
+
+// https://jsonapi.org/format/#document-links
+export interface JsonApiLinks {
+  [key: string]: string | Record<string, string>
+}
 
 // TODO: any...ugh.
 export interface JsonApiResponse extends Record<string, any> {
@@ -24,12 +43,12 @@ export interface JsonApiResponse extends Record<string, any> {
     meta: Record<string, any>[]
   }
   data: Record<string, any>[]
-  errors: Record<string, any>[]
+  errors: JsonApiError[]
   meta: {
     count: number
     [key: string]: any
   }
-  links?: Record<string, any>[]
+  links?: JsonApiLinks
   included?: Record<string, any>[]
 }
 
@@ -37,6 +56,32 @@ export interface JsonApiSearchApiResponse extends JsonApiResponse {
   meta: JsonApiResponse["meta"] & {
     facets?: DrupalSearchApiFacet[]
   }
+}
+
+export interface DataFormatter {
+  deserialize(
+    body: Record<string, unknown>,
+    options?: Record<string, unknown>
+  ): unknown
+}
+
+export type Fetcher = (
+  input: RequestInfo,
+  init?: FetchOptions
+) => Promise<Response>
+
+type DataCacheKey = string | number
+
+export interface DataCache {
+  get<T>(key: DataCacheKey): T | undefined
+
+  set<T>(key: DataCacheKey, value: T, ttl: number): boolean
+
+  del(keys: DataCacheKey | DataCacheKey[]): number
+}
+
+export interface FetchOptions extends RequestInit {
+  withAuth?: boolean
 }
 
 export interface DrupalSearchApiFacet {

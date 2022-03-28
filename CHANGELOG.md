@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1
+
+### Bug Fixes
+
+* **next-drupal:** handle cases where menu might be empty ([76c9fd6](https://github.com/chapter-three/next-drupal/commit/76c9fd693492c86210db41cfbee1537800f4419f))
+
 ## 1.2.0
 
 ### Features

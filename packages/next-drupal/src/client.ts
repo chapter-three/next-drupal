@@ -1,4 +1,4 @@
-import {
+import type {
   GetStaticPathsContext,
   GetStaticPathsResult,
   GetStaticPropsContext,
@@ -7,95 +7,134 @@ import { stringify } from "qs"
 import NodeCache from "node-cache"
 import Jsona from "jsona"
 
-import {
+import type {
   JsonApiResource,
   Locale,
   AccessToken,
-  DataFormatter,
   JsonApiResponse,
   JsonApiWithLocaleOptions,
   JsonApiParams,
   DrupalTranslatedPath,
   DrupalMenuLinkContent,
-  DataCache,
   JsonApiOptions,
   FetchOptions,
-  Fetcher,
+  DrupalClientOptions,
+  BaseUrl,
+  JsonApiWithAuthOptions,
 } from "./types"
+import { logger as defaultLogger } from "./logger"
 
-const CACHE_KEY = "NEXT_DRUPAL_ACCESS_TOKEN"
+// const CACHE_KEY = "NEXT_DRUPAL_ACCESS_TOKEN"
 
-class Logger {
-  isDebug: boolean
+const DEFAULT_API_PREFIX = "/jsonapi"
+const DEFAULT_FRONT_PAGE = "/home"
 
-  constructor({ isDebug = false } = {}) {
-    this.isDebug = isDebug
-  }
+// From simple_oauth.
+const DEFAULT_AUTH_URL = "/oauth/token"
 
-  debug(message) {
-    !!this.isDebug && console.log(`[next-drupal][debug]: ${message}`)
-  }
-}
-
-type DrupalClientOptions = {
-  baseUrl: string
-  apiPrefix?: string
-  dataFormatter?: DataFormatter
-  fetcher?: Fetcher
-  cache?: DataCache
-  debug?: boolean
-  frontPage?: string
-  logger?: Logger
-  auth?:
-    | { clientI2d: string; clientSecret: string; url?: string }
-    | (() => string)
-  useDefaultResourceTypeEntry?: boolean
+// See https://jsonapi.org/format/#content-negotiation.
+const DEFAULT_HEADERS = {
+  "Content-Type": "application/vnd.api+json",
+  Accept: "application/vnd.api+json",
 }
 
 export class Unstable_DrupalClient {
-  baseUrl: string
-  apiPrefix: string
-  dataFormatter: DrupalClientOptions["dataFormatter"]
-  cache: DrupalClientOptions["cache"]
-  debug?: boolean
-  frontPage?: string
-  fetcher?: DrupalClientOptions["fetcher"]
-  auth?: DrupalClientOptions["auth"]
-  logger: DrupalClientOptions["logger"]
-  private token?: AccessToken
-  private useDefaultResourceTypeEntry?: boolean
+  baseUrl: BaseUrl
 
-  constructor(options: DrupalClientOptions) {
-    if (!options || !options?.baseUrl) {
-      throw new Error("Error: The 'baseUrl' option is required.")
+  debug: DrupalClientOptions["debug"]
+
+  frontPage: DrupalClientOptions["frontPage"]
+
+  private formatter: DrupalClientOptions["formatter"]
+
+  private cache: DrupalClientOptions["cache"]
+
+  private logger: DrupalClientOptions["logger"]
+
+  private fetcher?: DrupalClientOptions["fetcher"]
+
+  private _headers?: DrupalClientOptions["headers"]
+
+  private _auth?: DrupalClientOptions["auth"]
+
+  private _apiPrefix: DrupalClientOptions["apiPrefix"]
+
+  private useDefaultResourceTypeEntry?: DrupalClientOptions["useDefaultResourceTypeEntry"]
+
+  private _token?: AccessToken
+
+  private tokenExpiresOn?: number
+
+  /**
+   *
+   * @param {BaseUrl} baseUrl The baseUrl of your Drupal site. Do not add the /jsonapi suffix.
+   * @param {DrupalClientOptions} options Options for the client.
+   */
+  constructor(baseUrl: BaseUrl, options: DrupalClientOptions = {}) {
+    if (!baseUrl || typeof baseUrl !== "string") {
+      throw new Error("Error: The 'baseUrl' param is required.")
     }
 
     const {
-      baseUrl,
-      apiPrefix = "/jsonapi",
-      dataFormatter = new Jsona(),
+      apiPrefix = DEFAULT_API_PREFIX,
+      formatter: dataFormatter = new Jsona(),
       cache = new NodeCache(),
+      debug = false,
+      frontPage = DEFAULT_FRONT_PAGE,
+      useDefaultResourceTypeEntry = false,
+      headers = DEFAULT_HEADERS,
+      logger = defaultLogger,
       fetcher,
       auth,
-      debug = false,
-      frontPage = "/",
-      useDefaultResourceTypeEntry = false,
-      logger = new Logger(),
     } = options
 
     this.baseUrl = baseUrl
-    this.apiPrefix = apiPrefix.charAt(0) === "/" ? apiPrefix : `/${apiPrefix}`
-    this.dataFormatter = dataFormatter
+    this.apiPrefix = apiPrefix
+    this.formatter = dataFormatter
     this.frontPage = frontPage
     this.cache = cache
     this.debug = debug
     this.useDefaultResourceTypeEntry = useDefaultResourceTypeEntry
     this.fetcher = fetcher
     this.auth = auth
+    this.headers = headers
     this.logger = logger
-    this.logger.isDebug = this.debug
 
-    this.logger.debug("Debug mode is on.")
+    this._debug("Debug mode is on.")
+  }
+
+  set apiPrefix(apiPrefix: DrupalClientOptions["apiPrefix"]) {
+    this._apiPrefix = apiPrefix.charAt(0) === "/" ? apiPrefix : `/${apiPrefix}`
+  }
+
+  get apiPrefix() {
+    return this._apiPrefix
+  }
+
+  set auth(auth: DrupalClientOptions["auth"]) {
+    if (typeof auth === "object") {
+      if (!auth.clientId || !auth.clientSecret) {
+        throw new Error(
+          `Error: 'clientId' and 'clientSecret' are required for 'auth'`
+        )
+      }
+
+      auth = {
+        url: DEFAULT_AUTH_URL,
+        ...auth,
+      }
+    }
+
+    this._auth = auth
+  }
+
+  set headers(value: DrupalClientOptions["headers"]) {
+    this._headers = value
+  }
+
+  private set token(token: AccessToken) {
+    this._token = token
+    this.tokenExpiresOn = Date.now() + token.expires_in * 1000
   }
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -103,23 +142,22 @@ export class Unstable_DrupalClient {
     init = {
       ...init,
       headers: {
-        "Content-Type": "application/vnd.api+json",
-        Accept: "application/vnd.api+json",
+        ...this._headers,
         ...init?.headers,
       },
     }
 
     if (init?.withAuth) {
-      this.logger.debug(`Using authenticated request.`)
+      this._debug(`Using authenticated request.`)
 
       // If a custom auth is provided, use that.
-      if (typeof this.auth === "function") {
-        this.logger.debug(`Using custom auth.`)
+      if (typeof this._auth === "function") {
+        this._debug(`Using custom auth.`)
 
-        init["headers"]["Authorization"] = this.auth()
+        init["headers"]["Authorization"] = this._auth()
       } else {
         // Otherwise use the built-in client_credentials grant.
-        this.logger.debug(`Using default auth (client_credentials).`)
+        this._debug(`Using default auth (client_credentials).`)
 
         // Fetch an access token and add it to the request.
         // Access token can be fetched from cache or using a custom auth method.
@@ -131,16 +169,16 @@ export class Unstable_DrupalClient {
     }
 
     if (this.fetcher) {
-      this.logger.debug(`Using custom fetcher.`)
+      this._debug(`Using custom fetcher.`)
 
       return await this.fetcher(input, init)
     }
 
-    this.logger.debug(`Using default fetch (polyfilled by Next.js).`)
+    this._debug(`Using default fetch (polyfilled by Next.js).`)
 
     const response = await fetch(input, init)
 
-    this.logger.debug({ response })
+    this._debug({ response })
 
     if (response.ok) {
       return response
@@ -154,7 +192,7 @@ export class Unstable_DrupalClient {
   async getResource<T extends JsonApiResource>(
     type: string,
     uuid: string,
-    options?: JsonApiWithLocaleOptions
+    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -169,7 +207,9 @@ export class Unstable_DrupalClient {
 
     const url = this.buildUrl(`${apiPath}/${uuid}`, options?.params)
 
-    const response = await this.fetch(url.toString())
+    const response = await this.fetch(url.toString(), {
+      withAuth: options.withAuth,
+    })
 
     const json = await response.json()
 
@@ -206,8 +246,7 @@ export class Unstable_DrupalClient {
       })
     }
 
-    const { resourceVersion = "rel:latest-version", ...params } =
-      options?.params
+    const { resourceVersion = "rel:latest-version", ...params } = options.params
 
     if (options.isVersionable) {
       params.resourceVersion = resourceVersion
@@ -700,55 +739,33 @@ export class Unstable_DrupalClient {
     return url
   }
 
-  // async buildHeaders({
-  //   headers = {},
-  // }: {
-  //   headers?: RequestInit["headers"]
-  // } = {}): Promise<RequestInit["headers"]> {
-  //   headers = {
-  //     "Content-Type": "application/vnd.api+json",
-  //   }
-
-  //   // This allows an access_token (preferrably long-lived) to be set directly on the env.
-  //   // This reduces the number of OAuth call to the Drupal server.
-  //   // Intentionally marked as unstable for now.
-  //   if (process.env.UNSTABLE_DRUPAL_ACCESS_TOKEN) {
-  //     headers[
-  //       "Authorization"
-  //     ] = `Bearer ${process.env.UNSTABLE_DRUPAL_ACCESS_TOKEN}`
-
-  //     return headers
-  //   }
-
-  //   const token = accessToken || (await this.getAccessToken())
-  //   if (token) {
-  //     headers["Authorization"] = `Bearer ${token.access_token}`
-  //   }
-
-  //   return headers
-  // }
-
   async getAccessToken(): Promise<AccessToken> {
-    if (
-      typeof this.auth === "object" &&
-      (!this.auth.clientId || !this.clientSecret)
-    ) {
+    if (typeof this._auth !== "object") {
+      return null
+    }
+
+    if (!this._auth.clientId || !this._auth.clientSecret) {
       throw new Error(`Error: 'clientId' and 'clientSecret' required.`)
     }
 
-    const cached = this.cache.get<AccessToken>(CACHE_KEY)
-    if (cached?.access_token) {
-      this.logger.debug(`Using cached access token.`)
-      return cached
+    if (this._token && Date.now() < this.tokenExpiresOn) {
+      this._debug(`Using existing access token.`)
+      return this._token
     }
 
-    this.logger.debug(`Fetching new access token.`)
+    // const cached = this.cache.get<AccessToken>(CACHE_KEY)
+    // if (cached?.access_token) {
+    //   this._debug(`Using cached access token.`)
+    //   return cached
+    // }
 
-    const basic = Buffer.from(`${this.clientId}:${this.clientSecret}`).toString(
-      "base64"
-    )
+    this._debug(`Fetching new access token.`)
 
-    const response = await fetch(`${this.baseUrl}/oauth/token`, {
+    const basic = Buffer.from(
+      `${this._auth.clientId}:${this._auth.clientSecret}`
+    ).toString("base64")
+
+    const response = await fetch(`${this.baseUrl}${this._auth.url}`, {
       method: "POST",
       headers: {
         Authorization: `Basic ${basic}`,
@@ -757,18 +774,26 @@ export class Unstable_DrupalClient {
       body: `grant_type=client_credentials`,
     })
 
-    if (!response.ok) {
-      throw new Error(response.statusText)
+    if (!response?.ok) {
+      throw new Error(response?.statusText)
     }
 
     const result: AccessToken = await response.json()
 
-    this.cache.set(CACHE_KEY, result, result.expires_in)
+    this.token = result
+
+    // this.cache.set(CACHE_KEY, result, result.expires_in)
 
     return result
   }
 
-  async formatErrorResponse(response: Response) {
+  deserialize(body, options?) {
+    if (!body) return null
+
+    return this.formatter.deserialize(body, options)
+  }
+
+  private async formatErrorResponse(response: Response) {
     let message = response.statusText
 
     const type = response.headers.get("content-type")
@@ -797,9 +822,35 @@ export class Unstable_DrupalClient {
     return message
   }
 
-  deserialize(body, options?) {
-    if (!body) return null
-
-    return this.dataFormatter.deserialize(body, options)
+  private _debug(message) {
+    !!this.debug && this.logger.debug(message)
   }
+
+  // async buildHeaders({
+  //   headers = {},
+  // }: {
+  //   headers?: RequestInit["headers"]
+  // } = {}): Promise<RequestInit["headers"]> {
+  //   headers = {
+  //     "Content-Type": "application/vnd.api+json",
+  //   }
+
+  //   // This allows an access_token (preferrably long-lived) to be set directly on the env.
+  //   // This reduces the number of OAuth call to the Drupal server.
+  //   // Intentionally marked as unstable for now.
+  //   if (process.env.UNSTABLE_DRUPAL_ACCESS_TOKEN) {
+  //     headers[
+  //       "Authorization"
+  //     ] = `Bearer ${process.env.UNSTABLE_DRUPAL_ACCESS_TOKEN}`
+
+  //     return headers
+  //   }
+
+  //   const token = accessToken || (await this.getAccessToken())
+  //   if (token) {
+  //     headers["Authorization"] = `Bearer ${token.access_token}`
+  //   }
+
+  //   return headers
+  // }
 }

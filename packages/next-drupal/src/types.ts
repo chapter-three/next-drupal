@@ -1,3 +1,116 @@
+export type DrupalClientOptions = {
+  /**
+   * Set the JSON:API prefix.
+   *
+   * * **Default value**: `/jsonapi`
+   * * **Required**: *No*
+   *
+   * [Documentation](https://next-drupal.org/docs/client#apiPrefix)
+   */
+  apiPrefix?: string
+  /**
+   * Set debug to true to enable debug messages.
+   *
+   * * **Default value**: `false`
+   * * **Required**: *No*
+   *
+   * [Documentation](https://next-drupal.org/docs/client#debug)
+   */
+  debug?: boolean
+  /**
+   * Set the default frontPage.
+   *
+   * * **Default value**: `/home`
+   * * **Required**: *No*
+   *
+   * [Documentation](https://next-drupal.org/docs/client#frontPage)
+   */
+  frontPage?: string
+  /**
+   * Set custom headers for the fetcher.
+   *
+   * * **Default value**: { "Content-Type": "application/vnd.api+json", Accept: "application/vnd.api+json" }
+   * * **Required**: *No*
+   *
+   * [Documentation](https://next-drupal.org/docs/client#headers)
+   */
+  headers?: HeadersInit
+  /**
+   * Override the default data formatter. You can use this to add your own JSON:API data deserializer.
+   *
+   * * **Default value**: `jsona`
+   * * **Required**: *No*
+   *
+   * [Documentation](https://next-drupal.org/docs/client#formatter)
+   */
+  formatter?: DataFormatter
+  /**
+   * Override the default fetcher. Use this to add your own fetcher ex. axios.
+   *
+   * * **Default value**: `fetch`
+   * * **Required**: *No*
+   *
+   * [Documentation](https://next-drupal.org/docs/client#fetcher)
+   */
+  fetcher?: Fetcher
+  /**
+   * Override the default cache.
+   *
+   * * **Default value**: `node-cache`
+   * * **Required**: *No*
+   *
+   * [Documentation](https://next-drupal.org/docs/client#cache)
+   */
+  cache?: DataCache
+  /**
+   * Override the default logger. You can use this to send logs to a third-party service.
+   *
+   * * **Default value**: `console`
+   * * **Required**: *No*
+   *
+   * [Documentation](https://next-drupal.org/docs/client#logger)
+   */
+  logger?: Logger
+  /**
+   * Override the default auth. You can use this to implement your own authentication mechanism.
+   *
+   * [Documentation](https://next-drupal.org/docs/client#auth)
+   */
+  auth?:
+    | { clientId: string; clientSecret: string; url?: string }
+    | (() => string)
+  /**
+   * By default, the client will make a request to JSON:API to retrieve the index. You can turn this off and use the default entry point from the resource name.
+   *
+   * * **Default value**: `false`
+   * * **Required**: *No*
+   *
+   * [Documentation](https://next-drupal.org/docs/useDefaultResourceTypeEntry#auth)
+   */
+  useDefaultResourceTypeEntry?: boolean
+}
+
+export interface Logger {
+  log(message): void
+
+  debug(message): void
+
+  warn(message): void
+
+  error(message): void
+}
+
+/**
+ * The baseUrl of your Drupal site. Do not add the /jsonapi suffix.
+ *
+ * **Required**: *yes*
+ *
+ * @example
+ *
+ * https://example.com
+ */
+export type BaseUrl = string
+
 export type Locale = string
 
 export type JsonApiOptions = {
@@ -16,6 +129,10 @@ export type JsonApiWithLocaleOptions = JsonApiOptions &
         defaultLocale?: never
       }
   )
+
+export type JsonApiWithAuthOptions = {
+  withAuth?: boolean
+}
 
 // TODO: Properly type this.
 /* eslint-disable  @typescript-eslint/no-explicit-any */

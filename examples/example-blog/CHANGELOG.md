@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/chapter-three/next-drupal/compare/example-blog@1.1.0...example-blog@1.1.1) (2022-03-28)
+
+
+### Bug Fixes
+
+* **example-blog:** switch to manual revalidation ([933ca86](https://github.com/chapter-three/next-drupal/commit/933ca86d47a35dc3bf2a120466f1fec197ca8b61))
+
+
+
+
+
 # [1.1.0](https://github.com/chapter-three/next-drupal/compare/example-blog@1.0.3...example-blog@1.1.0) (2022-02-24)
 
 

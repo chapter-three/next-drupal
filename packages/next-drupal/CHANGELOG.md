@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.2.0...next-drupal@1.2.1) (2022-03-28)
+
+
+### Bug Fixes
+
+* **next-drupal:** handle cases where menu might be empty ([76c9fd6](https://github.com/chapter-three/next-drupal/commit/76c9fd693492c86210db41cfbee1537800f4419f))
+
+
+
+
+
 # [1.2.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.1.1...next-drupal@1.2.0) (2022-02-24)
 
 

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/chapter-three/next-drupal/compare/example-marketing@1.2.0...example-marketing@1.2.1) (2022-03-28)
+
+
+### Bug Fixes
+
+* **example-blog:** switch to manual revalidation ([933ca86](https://github.com/chapter-three/next-drupal/commit/933ca86d47a35dc3bf2a120466f1fec197ca8b61))
+* **example-marketing:** turn off revalidate for pages ([22e8bf1](https://github.com/chapter-three/next-drupal/commit/22e8bf1f333e08aa6f13b6038e362bf826133acb))
+
+
+
+
+
 # [1.2.0](https://github.com/chapter-three/next-drupal/compare/example-marketing@1.1.1...example-marketing@1.2.0) (2022-02-24)
 
 

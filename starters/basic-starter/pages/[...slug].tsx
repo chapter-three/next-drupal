@@ -5,7 +5,7 @@ import {
   DrupalNode,
   getPathsFromContext,
   getResourceFromContext,
-  getResourceTypeFromContext,
+  translatePathFromContext,
 } from "next-drupal"
 
 import { NodeArticle } from "@/components/node-article"
@@ -13,23 +13,23 @@ import { NodeBasicPage } from "@/components/node-basic-page"
 import { Layout } from "@/components/layout"
 
 interface NodePageProps {
-  node: DrupalNode
+  resource: DrupalNode
 }
 
-export default function NodePage({ node }: NodePageProps) {
-  if (!node) return null
+export default function NodePage({ resource }: NodePageProps) {
+  if (!resource) return null
 
   return (
     <Layout>
       <Head>
-        <title>{node.title}</title>
+        <title>{resource.title}</title>
         <meta
           name="description"
           content="A Next.js site powered by a Drupal backend."
         />
       </Head>
-      {node.type === "node--page" && <NodeBasicPage node={node} />}
-      {node.type === "node--article" && <NodeArticle node={node} />}
+      {resource.type === "node--page" && <NodeBasicPage node={resource} />}
+      {resource.type === "node--article" && <NodeArticle node={resource} />}
     </Layout>
   )
 }
@@ -44,13 +44,15 @@ export async function getStaticPaths(context): Promise<GetStaticPathsResult> {
 export async function getStaticProps(
   context
 ): Promise<GetStaticPropsResult<NodePageProps>> {
-  const type = await getResourceTypeFromContext(context)
+  const path = await translatePathFromContext(context)
 
-  if (!type) {
+  if (!path) {
     return {
       notFound: true,
     }
   }
+
+  const type = path.jsonapi.resourceName
 
   let params = {}
   if (type === "node--article") {
@@ -59,11 +61,21 @@ export async function getStaticProps(
     }
   }
 
-  const node = await getResourceFromContext<DrupalNode>(type, context, {
+  const resource = await getResourceFromContext<DrupalNode>(type, context, {
     params,
   })
 
-  if (!node?.status) {
+  // At this point, we know the path exists and it points to a resource.
+  // If we receive an error, it means something went wrong on the Drupal.
+  // We throw an error to tell revalidation to skip this for now.
+  // Revalidation can try again on next request.
+  if (!resource) {
+    throw new Error(`Failed to fetch resource: ${path.jsonapi.individual}`)
+  }
+
+  // If we're not in preview mode and the resource is not published,
+  // Return page not found.
+  if (!context.preview && resource?.status === false) {
     return {
       notFound: true,
     }
@@ -71,7 +83,7 @@ export async function getStaticProps(
 
   return {
     props: {
-      node,
+      resource,
     },
     revalidate: 900,
   }

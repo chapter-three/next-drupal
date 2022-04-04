@@ -137,6 +137,10 @@ export const docs: DocsConfig = {
           title: "Redirects",
           href: "/docs/guides/redirects",
         },
+        {
+          title: "Search API",
+          href: "/docs/guides/search-api",
+        },
       ],
     },
     {

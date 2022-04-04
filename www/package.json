@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@mapbox/rehype-prism": "^0.8.0",
-    "@tailwindcss/aspect-ratio": "^0.3.0",
+    "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.3.4",
     "@types/react": "^17.0.3",
     "autoprefixer": "^10.4.0",

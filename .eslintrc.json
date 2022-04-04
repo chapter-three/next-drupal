@@ -24,7 +24,8 @@
     "prettier/prettier": ["error"],
     "react/display-name": "off",
     "react/react-in-jsx-scope": "off",
-    "import/export": 0
+    "import/export": 0,
+    "no-unused-vars": "off"
   },
   "settings": {
     "react": {
@@ -41,7 +42,8 @@
         "plugin:@typescript-eslint/recommended"
       ],
       "rules": {
-        "@typescript-eslint/explicit-module-boundary-types": "off"
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-unused-vars": ["warn", { "args": "none" }]
       }
     }
   ]

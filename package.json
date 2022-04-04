@@ -15,7 +15,7 @@
     "dev:starter": "lerna run --parallel --scope drupal --scope basic-starter dev",
     "prepare": "lerna run prepare",
     "watch": "lerna run watch",
-    "lint": "eslint --cache --ext .js,.jsx .",
+    "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx .",
     "phpcs": "./drupal/vendor/bin/phpcs -s -n --colors --standard=modules/next/phpcs.xml.dist modules/next",
     "test:next": "./drupal/vendor/bin/phpunit -c ./drupal/web modules/next",
     "sync:modules": "./scripts/sync-modules.sh \"modules/*\"",

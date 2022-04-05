@@ -1,3 +1,4 @@
+import { expect } from "@jest/globals"
 import { Unstable_DrupalClient as DrupalClient } from "../src/client"
 import type { DataFormatter, DrupalNode, Logger } from "../src/types"
 

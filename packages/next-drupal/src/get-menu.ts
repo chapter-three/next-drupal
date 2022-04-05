@@ -51,6 +51,12 @@ function buildMenuTree(
   links: DrupalMenuLinkContent[],
   parent: DrupalMenuLinkContent["id"] = ""
 ) {
+  if (!links?.length) {
+    return {
+      items: [],
+    }
+  }
+
   const children = links.filter((link) => link.parent === parent)
 
   return children.length

@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/chapter-three/next-drupal/compare/www@1.2.0...www@1.3.0) (2022-03-28)
+
+
+### Bug Fixes
+
+* **www:** update react-prism-renderer ([a925e26](https://github.com/chapter-three/next-drupal/commit/a925e26ebbc3a9c8be027a6d5cae6ca6787365d4))
+* **www:** update spacing ([d4caa28](https://github.com/chapter-three/next-drupal/commit/d4caa2897384364cece4d2c8190c33bfc8a05eb1))
+
+
+### Features
+
+* **www:** add demo screenshot ([99d9b77](https://github.com/chapter-three/next-drupal/commit/99d9b77770e14e9d00d07cf2033d393e62849a4c))
+
+
+
+
+
 # [1.2.0](https://github.com/chapter-three/next-drupal/compare/www@1.1.1...www@1.2.0) (2022-02-24)
 
 

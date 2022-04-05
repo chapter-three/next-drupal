@@ -8,8 +8,9 @@ services:
   next.entity_type.manager:
     class: Drupal\next\NextEntityTypeManager
     arguments: ["@entity_type.manager"]
-  main_content_renderer.html:
+  next.main_content_renderer.html:
     class: Drupal\next\Render\MainContent\HtmlRenderer
+    decorates: main_content_renderer.html
     arguments:
       [
         "@title_resolver",

@@ -55,9 +55,11 @@ export function NodeArticleTeaser({ node, ...props }) {
           />
         </div>
       )}
-      <p className="mt-6 font-serif text-xl leading-loose">
-        {node.body.summary}
-      </p>
+      {node.body?.summary && (
+        <p className="mt-6 font-serif text-xl leading-loose">
+          {node.body.summary}
+        </p>
+      )}
     </article>
   )
 }

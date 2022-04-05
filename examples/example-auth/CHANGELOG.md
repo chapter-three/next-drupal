@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/chapter-three/next-drupal/compare/example-auth@1.1.0...example-auth@1.1.1) (2022-03-28)
+
+**Note:** Version bump only for package example-auth
+
+
+
+
+
 # [1.1.0](https://github.com/chapter-three/next-drupal/compare/example-auth@1.0.3...example-auth@1.1.0) (2022-02-24)
 
 

@@ -33,7 +33,7 @@ export function SidebarNavItem({ items, onLinkClick }: SidebarNavProps) {
         <Link key={index} href={item.href} passHref>
           <a
             className={classNames(
-              "px-2 py-1 rounded-md hover:text-black",
+              "px-2 py-2 rounded-md hover:text-black hover:bg-gray-100",
               asPath === item.href ? "text-black bg-blue-50" : "text-gray-700"
             )}
             onClick={onLinkClick}

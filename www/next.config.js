@@ -17,6 +17,11 @@ module.exports = {
         destination: "/docs/examples",
         permanent: true,
       },
+      {
+        source: "/docs/search-api",
+        destination: "/docs/guides/search-api",
+        permanent: true,
+      },
     ]
   },
 }

@@ -1,0 +1,87 @@
+---
+title: Search API
+excerpt: Implement search using Drupal Search API.
+---
+
+<Callout icon="⚠️">
+
+You need to install the [JSON:API Search API](https://www.drupal.org/project/jsonapi_search_api) module to query your Search API indexes.
+
+</Callout>
+
+## Installation
+
+1. Start by installing the [Search API](https://www.drupal.org/project/search_api) module. If you want faceted search, install the [Facets](https://www.drupal.org/project/facets) module as well.
+
+```sh
+composer require drupal/search_api drupal/facets
+```
+
+2. Enable the following modules: **Search API**, **Database Search**, **Facets**, **JSON:API Search API** and **JSON:API Search API Facets**.
+3. Create a **server** and **index** by following the guide [here](https://www.drupal.org/docs/contributed-modules/search-api).
+
+For every index created, a **facet source** is available. You can use this source to create filters.
+
+4. Visit _/admin/config/search/facets_ and click on **Add facet**.
+5. Under **Facet source**, select the server created above. For **Field**, select the field to filter on. Save.
+6. Next, edit the facet and make sure **JSON:API Search API** is selected under widget.
+7. You can now make queries to your indexes via JSON:API.
+
+```ts
+import { getSearchIndex } from "next-drupal"
+
+const results = await getSearchIndex(indexName, {
+  params: {
+    filter: { name_of_field: value },
+  },
+})
+```
+
+## Implementation
+
+We recommend using an [API route](https://nextjs.org/docs/api-routes/introduction) for querying the search index. Using an API route means you can share search indexes, implement rate limiting and filtering using middlewares.
+
+1. Create the following API route.
+
+```ts title=api/pages/[index].tsx
+import { NextApiRequest, NextApiResponse } from "next"
+import { DrupalNode, getSearchIndex } from "next-drupal"
+
+export default async function handler(
+  request: NextApiRequest,
+  response: NextApiResponse
+) {
+  try {
+    const body = JSON.parse(request.body)
+
+    const { index } = request.query
+
+    const results = await getSearchIndex<DrupalNode>(index as string, body)
+
+    response.json(results)
+  } catch (error) {
+    return response.status(400).json(error.message)
+  }
+}
+```
+
+2. To make a search request from your React component, you can use a simple fetch request.
+
+```tsx
+const response = await fetch("/api/search/INDEX-NAME-HERE", {
+  method: "POST",
+  body: JSON.stringify({
+    params: {
+      filter: { name_of_field: value },
+    },
+  }),
+})
+```
+
+## Demo
+
+See [https://example-search-api.next-drupal.org](https://example-search-api.next-drupal.org).
+
+## Example
+
+See [https://github.com/chapter-three/next-drupal/tree/main/examples/example-search-api](https://github.com/chapter-three/next-drupal/tree/main/examples/example-search-api)

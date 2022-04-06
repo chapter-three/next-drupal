@@ -1,7 +1,10 @@
 import { expect } from "@jest/globals"
+import { GetStaticPropsContext } from "next"
 import { Unstable_DrupalClient as DrupalClient } from "../src/client"
 import type { DataFormatter, DrupalNode, Logger } from "../src/types"
 
+// Run all tests against this env until we configure CI to setup a Drupal instance.
+// TODO: Bootstrap and expose the /drupal env for testing.
 const BASE_URL = "https://dev-next-drupal-tests.pantheonsite.io"
 
 afterEach(() => {
@@ -16,14 +19,12 @@ describe("DrupalClient", () => {
   test("it throws error for invalid baseUrl", () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    expect(() => new DrupalClient()).toThrow(
-      "Error: The 'baseUrl' param is required."
-    )
+    expect(() => new DrupalClient()).toThrow("The 'baseUrl' param is required.")
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     expect(() => new DrupalClient({})).toThrow(
-      "Error: The 'baseUrl' param is required."
+      "The 'baseUrl' param is required."
     )
   })
 
@@ -39,6 +40,9 @@ describe("DrupalClient", () => {
     const client3 = new DrupalClient(BASE_URL, {})
     client3.apiPrefix = "api"
     expect(client3.apiPrefix).toBe("/api")
+
+    const client4 = new DrupalClient(BASE_URL, {})
+    expect(client4.apiPrefix).toBe("/jsonapi")
   })
 
   test("it has a debug mode", async () => {
@@ -114,7 +118,9 @@ describe("auth", () => {
             clientId: "7795065e-8ad0-45eb-a64d-73d9f3a5e943",
           },
         })
-    ).toThrow("Error: 'clientId' and 'clientSecret' are required for 'auth'")
+    ).toThrow(
+      "'clientId' and 'clientSecret' are required for auth. See https://next-drupal.org/docs/client/auth"
+    )
 
     expect(() => {
       const client = new DrupalClient(BASE_URL)
@@ -123,7 +129,9 @@ describe("auth", () => {
       client.auth = {
         clientSecret: "d92Fm^ds",
       }
-    }).toThrow("Error: 'clientId' and 'clientSecret' are required for 'auth'")
+    }).toThrow(
+      "'clientId' and 'clientSecret' are required for auth. See https://next-drupal.org/docs/client/auth"
+    )
   })
 })
 
@@ -298,6 +306,18 @@ describe("fetch", () => {
     expect(getAccessTokenSpy).toHaveBeenCalled()
   })
 
+  test("it throws an error if withAuth is called when auth is not configured", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const url = client.buildUrl("/jsonapi")
+
+    await expect(
+      client.fetch(url.toString(), {
+        withAuth: true,
+      })
+    ).rejects.toThrow("auth is not configured.")
+  })
+
   test("it allows for custom fetcher", async () => {
     const customFetch = jest.fn()
 
@@ -436,6 +456,115 @@ describe("deserialize", () => {
   })
 })
 
+describe("getPathFromContext", () => {
+  test("it returns a path from context", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    expect(
+      client.getPathFromContext({
+        params: {
+          slug: ["foo"],
+        },
+      })
+    ).toEqual("/foo")
+
+    expect(
+      client.getPathFromContext({
+        params: {
+          slug: ["foo", "bar"],
+        },
+      })
+    ).toEqual("/foo/bar")
+
+    expect(
+      client.getPathFromContext({
+        locale: "en",
+        defaultLocale: "es",
+        params: {
+          slug: ["foo", "bar"],
+        },
+      })
+    ).toEqual("/en/foo/bar")
+
+    expect(
+      client.getPathFromContext({
+        params: {
+          slug: [],
+        },
+      })
+    ).toEqual("/home")
+
+    client.frontPage = "/front"
+
+    expect(
+      client.getPathFromContext({
+        params: {
+          slug: [],
+        },
+      })
+    ).toEqual("/front")
+
+    expect(
+      client.getPathFromContext({
+        locale: "es",
+        defaultLocale: "en",
+        params: {
+          slug: [],
+        },
+      })
+    ).toEqual("/es/front")
+  })
+
+  test("it returns a path from context with prefix", () => {
+    const client = new DrupalClient(BASE_URL)
+
+    expect(
+      client.getPathFromContext(
+        {
+          locale: "es",
+          defaultLocale: "en",
+          params: {
+            slug: [],
+          },
+        },
+        {
+          prefix: "/foo",
+        }
+      )
+    ).toEqual("/es/foo/home")
+
+    client.frontPage = "/baz"
+
+    expect(
+      client.getPathFromContext(
+        {
+          locale: "en",
+          defaultLocale: "en",
+          params: {
+            slug: [],
+          },
+        },
+        {
+          prefix: "foo",
+        }
+      )
+    ).toEqual("/foo/baz")
+
+    expect(
+      client.getPathFromContext(
+        {
+          params: {
+            slug: [],
+          },
+        },
+        {
+          prefix: "/foo/bar",
+        }
+      )
+    ).toEqual("/foo/bar/baz")
+  })
+})
+
 describe("getIndex", () => {
   test("it fetches the JSON:API index", async () => {
     const client = new DrupalClient(BASE_URL)
@@ -455,7 +584,7 @@ describe("getIndex", () => {
     const client = new DrupalClient("https://example.com")
 
     await expect(client.getIndex()).rejects.toThrow(
-      "Error: Failed to fetch JSON:API index at https://example.com/jsonapi"
+      "Failed to fetch JSON:API index at https://example.com/jsonapi"
     )
   })
 })
@@ -490,9 +619,7 @@ describe("getEntryForResourceType", () => {
 
     await expect(
       client.getEntryForResourceType("RESOURCE-DOES-NOT-EXIST")
-    ).rejects.toThrow(
-      "Error: Resource of type RESOURCE-DOES-NOT-EXIST not found."
-    )
+    ).rejects.toThrow("Resource of type 'RESOURCE-DOES-NOT-EXIST' not found.")
   })
 })
 
@@ -537,6 +664,20 @@ describe("getResource", () => {
     )
 
     expect(recipe).toMatchSnapshot()
+  })
+
+  test("it fetches raw data", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    await expect(
+      client.getResource(
+        "node--recipe",
+        "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+        {
+          deserialize: false,
+        }
+      )
+    ).resolves.toMatchSnapshot()
   })
 
   test("it fetches a resource by revision", async () => {
@@ -612,9 +753,7 @@ describe("getResource", () => {
         "RESOURCE-DOES-NOT-EXIST",
         "71e04ead-4cc7-416c-b9ca-60b635fdc50f"
       )
-    ).rejects.toThrow(
-      "Error: Resource of type RESOURCE-DOES-NOT-EXIST not found."
-    )
+    ).rejects.toThrow("Resource of type 'RESOURCE-DOES-NOT-EXIST' not found.")
   })
 
   test("it throws an error for invalid params", async () => {
@@ -643,13 +782,23 @@ describe("getResource", () => {
       "node--recipe",
       "71e04ead-4cc7-416c-b9ca-60b635fdc50f"
     )
-
-    expect(fetchSpy).toHaveBeenCalledWith(expect.anything(), {})
+    expect(fetchSpy).toHaveBeenCalledWith(expect.anything(), {
+      withAuth: false,
+    })
   })
 
-  test("it makes authenticated requests with withAuth", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const fetchSpy = jest.spyOn(client, "fetch")
+  test("it makes authenticated requests with withAuth option", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      useDefaultResourceTypeEntry: true,
+    })
+    const fetchSpy = jest
+      .spyOn(global, "fetch")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+        ) as jest.Mock
+      )
+    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
 
     await client.getResource(
       "node--recipe",
@@ -659,8 +808,435 @@ describe("getResource", () => {
       }
     )
 
-    expect(fetchSpy).toHaveBeenCalledWith(expect.anything(), {
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: true,
+      })
+    )
+  })
+})
+
+describe("getResourceByPath", () => {
+  test("it fetches a resource by path", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    await expect(
+      client.getResourceByPath("/recipes/deep-mediterranean-quiche")
+    ).resolves.toMatchSnapshot()
+  })
+
+  test("it fetches a resource by path with params", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    await expect(
+      client.getResourceByPath("/recipes/deep-mediterranean-quiche", {
+        params: {
+          "fields[node--recipe]": "title,field_cooking_time",
+        },
+      })
+    ).resolves.toMatchSnapshot()
+  })
+
+  test("it fetches a resource by path using locale", async () => {
+    const client = new DrupalClient(BASE_URL)
+    const recipe = await client.getResourceByPath(
+      "/recipes/quiche-mediterráneo-profundo",
+      {
+        locale: "es",
+        defaultLocale: "en",
+        params: {
+          "fields[node--recipe]": "title,field_cooking_time",
+        },
+      }
+    )
+
+    expect(recipe).toMatchSnapshot()
+  })
+
+  test("it fetches raw data", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    await expect(
+      client.getResourceByPath("/recipes/deep-mediterranean-quiche", {
+        deserialize: false,
+      })
+    ).resolves.toMatchSnapshot()
+  })
+
+  test("it fetches a resource by revision", async () => {
+    const client = new DrupalClient(BASE_URL)
+    const recipe = await client.getResourceByPath<DrupalNode>(
+      "/recipes/deep-mediterranean-quiche",
+      {
+        params: {
+          "fields[node--recipe]": "drupal_internal__vid",
+        },
+      }
+    )
+    const latestRevision = await client.getResourceByPath<DrupalNode>(
+      "/recipes/deep-mediterranean-quiche",
+      {
+        params: {
+          resourceVersion: "rel:latest-version",
+          "fields[node--recipe]": "drupal_internal__vid",
+        },
+      }
+    )
+
+    expect(recipe.drupal_internal__vid).toEqual(
+      latestRevision.drupal_internal__vid
+    )
+  })
+
+  test("it throws an error for invalid revision", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    await expect(
+      client.getResourceByPath<DrupalNode>(
+        "/recipes/deep-mediterranean-quiche",
+        {
+          params: {
+            resourceVersion: "id:-11",
+            "fields[node--recipe]": "title",
+          },
+        }
+      )
+    ).rejects.toThrow(
+      "404 Not Found\nThe requested version, identified by `id:-11`, could not be found."
+    )
+  })
+
+  test("it throws an error if revision access if forbidden", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    await expect(
+      client.getResourceByPath<DrupalNode>(
+        "/recipes/deep-mediterranean-quiche",
+        {
+          params: {
+            resourceVersion: "id:1",
+            "fields[node--recipe]": "title",
+          },
+        }
+      )
+    ).rejects.toThrow(
+      "403 Forbidden\nThe current user is not allowed to GET the selected resource. The user does not have access to the requested version."
+    )
+  })
+
+  test("it returns null for path not found", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    await expect(
+      client.getResourceByPath<DrupalNode>("/path-do-not-exist")
+    ).rejects.toThrow("Unable to resolve path /path-do-not-exist.")
+  })
+
+  test("it throws an error for invalid params", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    await expect(
+      client.getResourceByPath<DrupalNode>(
+        "/recipes/deep-mediterranean-quiche",
+        {
+          params: {
+            include: "invalid_relationship",
+          },
+        }
+      )
+    ).rejects.toThrow(
+      "400 Bad Request\n`invalid_relationship` is not a valid relationship field name. Possible values: node_type, revision_uid, uid, menu_link, field_media_image, field_recipe_category, field_tags."
+    )
+  })
+
+  test("it makes un-authenticated requests by default", async () => {
+    const client = new DrupalClient(BASE_URL)
+    const fetchSpy = jest.spyOn(client, "fetch")
+    const getAccessTokenSpy = jest.spyOn(client, "getAccessToken")
+
+    await client.getResourceByPath<DrupalNode>(
+      "/recipes/deep-mediterranean-quiche"
+    )
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.not.objectContaining({
+        withAuth: true,
+      })
+    )
+    expect(getAccessTokenSpy).not.toHaveBeenCalled()
+  })
+
+  test("it makes authenticated requests with withAuth", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      auth: {
+        clientId: "7795065e-8ad0-45eb-a64d-73d9f3a5e943",
+        clientSecret: "d92Fm^ds",
+      },
+    })
+    const fetchSpy = jest
+      .spyOn(global, "fetch")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+        ) as jest.Mock
+      )
+    const getAccessTokenSpy = jest.spyOn(client, "getAccessToken")
+
+    await client.getResourceByPath<DrupalNode>(
+      "/recipes/deep-mediterranean-quiche",
+      {
+        withAuth: true,
+      }
+    )
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: true,
+      })
+    )
+    expect(getAccessTokenSpy).toHaveBeenCalled()
+  })
+})
+
+describe("getResourceFromContext", () => {
+  test("it fetches a resource from context", async () => {
+    const client = new DrupalClient(BASE_URL)
+    const context: GetStaticPropsContext = {
+      params: {
+        slug: ["recipes", "deep-mediterranean-quiche"],
+      },
+    }
+    const recipe = await client.getResourceFromContext<DrupalNode>(
+      "node--recipe",
+      context
+    )
+
+    expect(recipe).toMatchSnapshot()
+  })
+
+  test("it fetches a resource from context with params", async () => {
+    const client = new DrupalClient(BASE_URL)
+    const context: GetStaticPropsContext = {
+      params: {
+        slug: ["recipes", "deep-mediterranean-quiche"],
+      },
+    }
+    const recipe = await client.getResourceFromContext<DrupalNode>(
+      "node--recipe",
+      context,
+      {
+        params: {
+          "fields[node--recipe]": "title",
+        },
+      }
+    )
+
+    expect(recipe).toMatchSnapshot()
+  })
+
+  test("it fetches a resource from context using locale", async () => {
+    const client = new DrupalClient(BASE_URL)
+    const context: GetStaticPropsContext = {
+      params: {
+        slug: ["recipes", "quiche-mediterráneo-profundo"],
+      },
+      locale: "es",
+      defaultLocale: "en",
+    }
+    const recipe = await client.getResourceFromContext<DrupalNode>(
+      "node--recipe",
+      context,
+      {
+        params: {
+          "fields[node--recipe]": "title,field_cooking_time",
+        },
+      }
+    )
+
+    expect(recipe).toMatchSnapshot()
+  })
+
+  test("it fetches raw data", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const context: GetStaticPropsContext = {
+      params: {
+        slug: ["recipes", "deep-mediterranean-quiche"],
+      },
+    }
+    const recipe = await client.getResourceFromContext<DrupalNode>(
+      "node--recipe",
+      context,
+      {
+        deserialize: false,
+        params: {
+          "fields[node--recipe]": "title",
+        },
+      }
+    )
+
+    expect(recipe).toMatchSnapshot()
+  })
+
+  test("it fetches a resource from context by revision", async () => {
+    const client = new DrupalClient(BASE_URL)
+    const context: GetStaticPropsContext = {
+      params: {
+        slug: ["recipes", "quiche-mediterráneo-profundo"],
+      },
+      locale: "es",
+      defaultLocale: "en",
+    }
+    const recipe = await client.getResourceFromContext<DrupalNode>(
+      "node--recipe",
+      context,
+      {
+        params: {
+          "fields[node--recipe]": "drupal_internal__vid",
+        },
+      }
+    )
+
+    context.previewData = { resourceVersion: "rel:latest-version" }
+
+    const latestRevision = await client.getResourceFromContext<DrupalNode>(
+      "node--recipe",
+      context,
+      {
+        params: {
+          "fields[node--recipe]": "drupal_internal__vid",
+        },
+      }
+    )
+
+    expect(recipe.drupal_internal__vid).toEqual(
+      latestRevision.drupal_internal__vid
+    )
+  })
+
+  test("it throws an error for invalid revision", async () => {
+    const client = new DrupalClient(BASE_URL)
+    const context: GetStaticPropsContext = {
+      previewData: {
+        resourceVersion: "id:-11",
+      },
+      params: {
+        slug: ["recipes", "deep-mediterranean-quiche"],
+      },
+    }
+
+    await expect(
+      client.getResourceFromContext<DrupalNode>("node--recipe", context, {
+        params: {
+          "fields[node--recipe]": "drupal_internal__vid",
+        },
+      })
+    ).rejects.toThrow(
+      "404 Not Found\nThe requested version, identified by `id:-11`, could not be found."
+    )
+  })
+
+  test("it throws an error if revision access if forbidden", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const context: GetStaticPropsContext = {
+      previewData: {
+        resourceVersion: "id:1",
+      },
+      params: {
+        slug: ["recipes", "deep-mediterranean-quiche"],
+      },
+    }
+
+    await expect(
+      client.getResourceFromContext<DrupalNode>("node--recipe", context, {
+        params: {
+          "fields[node--recipe]": "title",
+        },
+      })
+    ).rejects.toThrow(
+      "403 Forbidden\nThe current user is not allowed to GET the selected resource. The user does not have access to the requested version."
+    )
+  })
+
+  test("it makes un-authenticated requests by default", async () => {
+    const client = new DrupalClient(BASE_URL)
+    const fetchSpy = jest.spyOn(client, "fetch")
+    const context: GetStaticPropsContext = {
+      params: {
+        slug: ["recipes", "deep-mediterranean-quiche"],
+      },
+    }
+
+    await client.getResourceFromContext("node--recipe", context)
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: false,
+      })
+    )
+  })
+
+  test("it makes authenticated requests with withAuth option", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      useDefaultResourceTypeEntry: true,
+    })
+    const fetchSpy = jest
+      .spyOn(global, "fetch")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+        ) as jest.Mock
+      )
+    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
+
+    const context: GetStaticPropsContext = {
+      params: {
+        slug: ["recipes", "deep-mediterranean-quiche"],
+      },
+    }
+
+    await client.getResourceFromContext("node--recipe", context, {
       withAuth: true,
     })
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: true,
+      })
+    )
+  })
+
+  test("it makes authenticated requests when preview is true", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      useDefaultResourceTypeEntry: true,
+    })
+    const fetchSpy = jest
+      .spyOn(global, "fetch")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+        ) as jest.Mock
+      )
+    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
+
+    const context: GetStaticPropsContext = {
+      preview: true,
+      params: {
+        slug: ["recipes", "deep-mediterranean-quiche"],
+      },
+    }
+
+    await client.getResourceFromContext("node--recipe", context)
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: true,
+      })
+    )
   })
 })

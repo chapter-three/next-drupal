@@ -80,6 +80,15 @@ export type DrupalClientOptions = {
     | { clientId: string; clientSecret: string; url?: string }
     | (() => string)
   /**
+   * Set whether the client should use authenticated requests by default.
+   *
+   * * **Default value**: `true`
+   * * **Required**: **No*
+   *
+   * [Documentation](https://next-drupal.org/docs/client#withAuth)
+   */
+  withAuth?: boolean
+  /**
    * By default, the client will make a request to JSON:API to retrieve the index. You can turn this off and use the default entry point from the resource name.
    *
    * * **Default value**: `false`
@@ -112,6 +121,8 @@ export interface Logger {
 export type BaseUrl = string
 
 export type Locale = string
+
+export type PathPrefix = string
 
 export type JsonApiOptions = {
   deserialize?: boolean

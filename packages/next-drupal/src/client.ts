@@ -4,7 +4,6 @@ import type {
   GetStaticPropsContext,
 } from "next"
 import { stringify } from "qs"
-import NodeCache from "node-cache"
 import Jsona from "jsona"
 
 import type {
@@ -21,13 +20,13 @@ import type {
   DrupalClientOptions,
   BaseUrl,
   JsonApiWithAuthOptions,
+  PathPrefix,
 } from "./types"
 import { logger as defaultLogger } from "./logger"
 
-// const CACHE_KEY = "NEXT_DRUPAL_ACCESS_TOKEN"
-
 const DEFAULT_API_PREFIX = "/jsonapi"
 const DEFAULT_FRONT_PAGE = "/home"
+const DEFAULT_WITH_AUTH = false
 
 // From simple_oauth.
 const DEFAULT_AUTH_URL = "/oauth/token"
@@ -47,8 +46,6 @@ export class Unstable_DrupalClient {
 
   private formatter: DrupalClientOptions["formatter"]
 
-  private cache: DrupalClientOptions["cache"]
-
   private logger: DrupalClientOptions["logger"]
 
   private fetcher?: DrupalClientOptions["fetcher"]
@@ -65,25 +62,30 @@ export class Unstable_DrupalClient {
 
   private tokenExpiresOn?: number
 
+  private withAuth?: DrupalClientOptions["withAuth"]
+
   /**
+   * Instantiates a new DrupalClient.
    *
-   * @param {BaseUrl} baseUrl The baseUrl of your Drupal site. Do not add the /jsonapi suffix.
-   * @param {DrupalClientOptions} options Options for the client.
+   * const client = new DrupalClient(baseUrl)
+   *
+   * @param {baseUrl} baseUrl The baseUrl of your Drupal site. Do not add the /jsonapi suffix.
+   * @param {options} options Options for the client. See DrupalClientOptions.
    */
   constructor(baseUrl: BaseUrl, options: DrupalClientOptions = {}) {
     if (!baseUrl || typeof baseUrl !== "string") {
-      throw new Error("Error: The 'baseUrl' param is required.")
+      throw new Error("The 'baseUrl' param is required.")
     }
 
     const {
       apiPrefix = DEFAULT_API_PREFIX,
       formatter: dataFormatter = new Jsona(),
-      cache = new NodeCache(),
       debug = false,
       frontPage = DEFAULT_FRONT_PAGE,
       useDefaultResourceTypeEntry = false,
       headers = DEFAULT_HEADERS,
       logger = defaultLogger,
+      withAuth = DEFAULT_WITH_AUTH,
       fetcher,
       auth,
     } = options
@@ -92,13 +94,13 @@ export class Unstable_DrupalClient {
     this.apiPrefix = apiPrefix
     this.formatter = dataFormatter
     this.frontPage = frontPage
-    this.cache = cache
     this.debug = debug
     this.useDefaultResourceTypeEntry = useDefaultResourceTypeEntry
     this.fetcher = fetcher
     this.auth = auth
     this.headers = headers
     this.logger = logger
+    this.withAuth = withAuth
 
     this._debug("Debug mode is on.")
   }
@@ -115,7 +117,7 @@ export class Unstable_DrupalClient {
     if (typeof auth === "object") {
       if (!auth.clientId || !auth.clientSecret) {
         throw new Error(
-          `Error: 'clientId' and 'clientSecret' are required for 'auth'`
+          `'clientId' and 'clientSecret' are required for auth. See https://next-drupal.org/docs/client/auth`
         )
       }
 
@@ -178,8 +180,6 @@ export class Unstable_DrupalClient {
 
     const response = await fetch(input, init)
 
-    this._debug({ response })
-
     if (response.ok) {
       return response
     }
@@ -196,6 +196,7 @@ export class Unstable_DrupalClient {
   ): Promise<T> {
     options = {
       deserialize: true,
+      withAuth: this.withAuth,
       params: {},
       ...options,
     }
@@ -216,15 +217,68 @@ export class Unstable_DrupalClient {
     return options.deserialize ? this.deserialize(json) : json
   }
 
+  async getResourceFromContext<T extends JsonApiResource>(
+    type: string,
+    context: GetStaticPropsContext,
+    options?: {
+      prefix?: PathPrefix
+      isVersionable?: boolean
+    } & JsonApiWithLocaleOptions &
+      JsonApiWithAuthOptions
+  ): Promise<T> {
+    options = {
+      // Add support for revisions for node by default.
+      // TODO: Make this required before stable?
+      isVersionable: /^node--/.test(type),
+      deserialize: true,
+      prefix: "/",
+      withAuth: this.withAuth,
+      params: {},
+      ...options,
+    }
+
+    const path = this.getPathFromContext(context, {
+      prefix: options?.prefix,
+    })
+
+    const previewData = context.previewData as { resourceVersion?: string }
+
+    const resource = await this.getResourceByPath<T>(path, {
+      deserialize: options.deserialize,
+      isVersionable: options.isVersionable,
+      locale: context.locale,
+      defaultLocale: context.defaultLocale,
+      withAuth: context.preview || options?.withAuth,
+      params: {
+        resourceVersion: previewData?.resourceVersion,
+        ...options?.params,
+      },
+    })
+
+    // If no locale is passed, skip entity if not default_langcode.
+    // This happens because decoupled_router will still translate the path
+    // to a resource.
+    // TODO: Figure out if we want this behavior.
+    // For now this causes a bug where a non-i18n sites builds (ISR) pages for
+    // localized pages.
+    // if (!context.locale && !resource?.default_langcode) {
+    //   return null
+    // }
+
+    return resource
+  }
+
   async getResourceByPath<T extends JsonApiResource>(
     path: string,
     options?: {
       isVersionable?: boolean
-    } & JsonApiWithLocaleOptions
+    } & JsonApiWithLocaleOptions &
+      JsonApiWithAuthOptions
   ): Promise<T> {
     options = {
       deserialize: true,
       isVersionable: false,
+      withAuth: this.withAuth,
       params: {},
       ...options,
     }
@@ -246,6 +300,11 @@ export class Unstable_DrupalClient {
       })
     }
 
+    // If a resourceVersion is provided, assume entity type is versionable.
+    if (options.params.resourceVersion) {
+      options.isVersionable = true
+    }
+
     const { resourceVersion = "rel:latest-version", ...params } = options.params
 
     if (options.isVersionable) {
@@ -254,6 +313,8 @@ export class Unstable_DrupalClient {
 
     const resourceParams = stringify(params)
 
+    // We are intentionally not using translatePath here.
+    // We want a single request using subrequests.
     const payload = [
       {
         requestId: "router",
@@ -290,71 +351,29 @@ export class Unstable_DrupalClient {
       credentials: "include",
       redirect: "follow",
       body: JSON.stringify(payload),
+      withAuth: options.withAuth,
     })
-
-    if (!response.ok) {
-      throw new Error(response.statusText)
-    }
 
     const json = await response.json()
 
-    if (!json["resolvedResource#uri{0}"]) {
+    if (!json?.["resolvedResource#uri{0}"]?.body) {
+      if (json?.router?.body) {
+        const error = JSON.parse(json.router.body)
+        if (error?.message) {
+          throw new Error(error.message)
+        }
+      }
+
       return null
     }
 
     const data = JSON.parse(json["resolvedResource#uri{0}"]?.body)
 
     if (data.errors) {
-      throw new Error(data.errors[0].detail)
+      throw new Error(this.formatJsonApiErrors(data.errors))
     }
 
     return options.deserialize ? this.deserialize(data) : data
-  }
-
-  async getResourceFromContext<T extends JsonApiResource>(
-    type: string,
-    context: GetStaticPropsContext,
-    options?: {
-      prefix?: string
-      deserialize?: boolean
-      params?: JsonApiParams
-      isVersionable?: boolean
-    }
-  ): Promise<T> {
-    options = {
-      deserialize: true,
-      // Add support for revisions for node by default.
-      // TODO: Make this required before stable?
-      isVersionable: /^node--/.test(type),
-      ...options,
-    }
-
-    const path = this.getPathFromContext(context, options?.prefix)
-
-    const previewData = context.previewData as { resourceVersion?: string }
-
-    const resource = await this.getResourceByPath<T>(path, {
-      deserialize: options.deserialize,
-      isVersionable: options.isVersionable,
-      locale: context.locale,
-      defaultLocale: context.defaultLocale,
-      params: {
-        resourceVersion: previewData?.resourceVersion,
-        ...options?.params,
-      },
-    })
-
-    // If no locale is passed, skip entity if not default_langcode.
-    // This happens because decoupled_router will still translate the path
-    // to a resource.
-    // TODO: Figure out if we want this behavior.
-    // For now this causes a bug where a non-i18n sites builds (ISR) pages for
-    // localized pages.
-    if (!context.locale && !resource?.default_langcode) {
-      return null
-    }
-
-    return resource
   }
 
   async getResourceCollection<T = JsonApiResource[]>(
@@ -492,35 +511,52 @@ export class Unstable_DrupalClient {
   async translatePathFromContext(
     context: GetStaticPropsContext,
     options?: {
-      prefix?: string
+      prefix?: PathPrefix
     }
   ): Promise<DrupalTranslatedPath> {
     options = {
-      prefix: "",
+      prefix: "/",
       ...options,
     }
-    const path = this.getPathFromContext(context, options.prefix)
+    const path = this.getPathFromContext(context, {
+      prefix: options.prefix,
+    })
 
     const response = await this.translatePath(path)
 
     return response
   }
 
-  getPathFromContext(context: GetStaticPropsContext, prefix = "") {
-    let { slug } = context.params
+  getPathFromContext(
+    context: GetStaticPropsContext,
+    options?: {
+      prefix?: PathPrefix
+    }
+  ) {
+    options = {
+      prefix: "/",
+      ...options,
+    }
 
-    slug = Array.isArray(slug) ? slug.join("/") : slug
+    let slug = context.params?.slug
+
+    let prefix =
+      options.prefix?.charAt(0) === "/" ? options.prefix : `/${options.prefix}`
 
     // Handle locale.
     if (context.locale && context.locale !== context.defaultLocale) {
-      slug = `/${context.locale}/${slug}`
+      prefix = `/${context.locale}${prefix}`
     }
 
+    slug = Array.isArray(slug) ? slug.join("/") : slug
+
+    // Handle front page.
     if (!slug) {
-      return this.frontPage
+      slug = this.frontPage
+      prefix = prefix.replace(/\/$/, "")
     }
 
-    return prefix ? `${prefix}/${slug}` : slug
+    return `${prefix}${slug}`
   }
 
   async getIndex(locale?: Locale): Promise<JsonApiResponse> {
@@ -529,16 +565,15 @@ export class Unstable_DrupalClient {
     )
 
     try {
-      // As per https://www.drupal.org/node/2984034 /jsonapi is public.
-      // We only call buildHeaders if locale is explicitly set.
       const response = await this.fetch(url.toString(), {
-        // withAuth: !!locale,
+        // As per https://www.drupal.org/node/2984034 /jsonapi is public.
+        withAuth: false,
       })
 
       return await response.json()
     } catch (error) {
       throw new Error(
-        `Error: Failed to fetch JSON:API index at ${url.toString()}`
+        `Failed to fetch JSON:API index at ${url.toString()} - ${error.message}`
       )
     }
   }
@@ -557,10 +592,10 @@ export class Unstable_DrupalClient {
 
     const index = await this.getIndex(locale)
 
-    const link = index?.links[type] as { href: string }
+    const link = index.links?.[type] as { href: string }
 
     if (!link) {
-      throw new Error(`Error: Resource of type ${type} not found.`)
+      throw new Error(`Resource of type '${type}' not found.`)
     }
 
     return link.href
@@ -741,11 +776,15 @@ export class Unstable_DrupalClient {
 
   async getAccessToken(): Promise<AccessToken> {
     if (typeof this._auth !== "object") {
-      return null
+      throw new Error(
+        "auth is not configured. See https://next-drupal.org/docs/client/auth"
+      )
     }
 
     if (!this._auth.clientId || !this._auth.clientSecret) {
-      throw new Error(`Error: 'clientId' and 'clientSecret' required.`)
+      throw new Error(
+        `'clientId' and 'clientSecret' required. See https://next-drupal.org/docs/client/auth`
+      )
     }
 
     if (this._token && Date.now() < this.tokenExpiresOn) {
@@ -780,6 +819,8 @@ export class Unstable_DrupalClient {
 
     const result: AccessToken = await response.json()
 
+    this._debug(result)
+
     this.token = result
 
     // this.cache.set(CACHE_KEY, result, result.expires_in)
@@ -794,29 +835,34 @@ export class Unstable_DrupalClient {
   }
 
   private async formatErrorResponse(response: Response) {
-    let message = response.statusText
-
     const type = response.headers.get("content-type")
+
+    if (type === "application/json") {
+      const error = await response.json()
+      return error.message
+    }
 
     // Construct error from response.
     // Check for type to ensure this is a JSON:API formatted error.
     // See https://jsonapi.org/format/#errors.
-    if (type !== "application/vnd.api+json") {
-      throw new Error(
-        `Error: Invalid JSON:API response. See https://jsonapi.org/format/#errors.`
-      )
+    if (type === "application/vnd.api+json") {
+      const _error: JsonApiResponse = await response.json()
+
+      if (_error?.errors?.length) {
+        return this.formatJsonApiErrors(_error.errors)
+      }
     }
 
-    const _error: JsonApiResponse = await response.json()
+    return response.statusText
+  }
 
-    if (_error?.errors?.length) {
-      const [error] = _error.errors
+  private formatJsonApiErrors(errors) {
+    const [error] = errors
 
-      message = `${error.status} ${error.title}`
+    let message = `${error.status} ${error.title}`
 
-      if (error.detail) {
-        message += `\n${error.detail}`
-      }
+    if (error.detail) {
+      message += `\n${error.detail}`
     }
 
     return message

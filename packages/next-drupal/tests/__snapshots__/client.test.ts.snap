@@ -637,6 +637,9 @@ Object {
     "configurable_language--configurable_language": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/configurable_language/configurable_language",
     },
+    "consumer--consumer": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/consumer/consumer",
+    },
     "contact_form--contact_form": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/contact_form/contact_form",
     },
@@ -706,6 +709,12 @@ Object {
     "menu_link_content--menu_link_content": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/menu_link_content/menu_link_content",
     },
+    "next_entity_type_config--next_entity_type_config": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/next_entity_type_config/next_entity_type_config",
+    },
+    "next_site--next_site": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/next_site/next_site",
+    },
     "node--article": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article",
     },
@@ -718,8 +727,23 @@ Object {
     "node_type--node_type": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node_type/node_type",
     },
+    "oauth2_token--access_token": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/oauth2_token/access_token",
+    },
+    "oauth2_token--auth_code": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/oauth2_token/auth_code",
+    },
+    "oauth2_token--refresh_token": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/oauth2_token/refresh_token",
+    },
+    "oauth2_token_type--oauth2_token_type": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/oauth2_token_type/oauth2_token_type",
+    },
     "path_alias--path_alias": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/path_alias/path_alias",
+    },
+    "pathauto_pattern--pathauto_pattern": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/pathauto_pattern/pathauto_pattern",
     },
     "rdf_mapping--rdf_mapping": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/rdf_mapping/rdf_mapping",
@@ -808,6 +832,9 @@ Object {
     "configurable_language--configurable_language": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/configurable_language/configurable_language",
     },
+    "consumer--consumer": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/consumer/consumer",
+    },
     "contact_form--contact_form": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/contact_form/contact_form",
     },
@@ -877,6 +904,12 @@ Object {
     "menu_link_content--menu_link_content": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/menu_link_content/menu_link_content",
     },
+    "next_entity_type_config--next_entity_type_config": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/next_entity_type_config/next_entity_type_config",
+    },
+    "next_site--next_site": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/next_site/next_site",
+    },
     "node--article": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article",
     },
@@ -889,8 +922,23 @@ Object {
     "node_type--node_type": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node_type/node_type",
     },
+    "oauth2_token--access_token": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/oauth2_token/access_token",
+    },
+    "oauth2_token--auth_code": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/oauth2_token/auth_code",
+    },
+    "oauth2_token--refresh_token": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/oauth2_token/refresh_token",
+    },
+    "oauth2_token_type--oauth2_token_type": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/oauth2_token_type/oauth2_token_type",
+    },
     "path_alias--path_alias": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/path_alias/path_alias",
+    },
+    "pathauto_pattern--pathauto_pattern": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/pathauto_pattern/pathauto_pattern",
     },
     "rdf_mapping--rdf_mapping": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/rdf_mapping/rdf_mapping",
@@ -1102,5 +1150,794 @@ Object {
   },
   "title": "Quiche mediterráneo profundo",
   "type": "node--recipe",
+}
+`;
+
+exports[`getResource it fetches raw data 1`] = `
+Object {
+  "data": Object {
+    "attributes": Object {
+      "changed": "2022-03-25T08:02:17+00:00",
+      "content_translation_outdated": false,
+      "content_translation_source": "und",
+      "created": "2022-03-21T10:52:42+00:00",
+      "default_langcode": true,
+      "drupal_internal__nid": 1,
+      "drupal_internal__vid": 37,
+      "field_cooking_time": 30,
+      "field_difficulty": "medium",
+      "field_ingredients": Array [
+        "For the pastry:",
+        "280g plain flour",
+        "140g butter",
+        "Cold water",
+        "For the filling:",
+        "1 onion",
+        "2 garlic cloves",
+        "Half a courgette",
+        "450ml soya milk",
+        "500g grated parmesan",
+        "2 eggs",
+        "200g sun dried tomatoes",
+        "100g feta",
+      ],
+      "field_number_of_servings": 8,
+      "field_preparation_time": 40,
+      "field_recipe_instruction": Object {
+        "format": "basic_html",
+        "processed": "<ol>
+<li>Preheat the oven to 400°F/200°C. Starting with the pastry; rub the flour and butter together in a bowl until crumbling like breadcrumbs. Add water, a little at a time, until it forms a dough.</li>
+<li>Roll out the pastry on a floured board and gently spread over your tin. Place in the fridge for 20 minutes before blind baking for a further 10.</li>
+<li>Whilst the pastry is cooling, chop and gently cook the onions, garlic and courgette.</li>
+<li>In a large bowl, add the soya milk, half the parmesan, and the eggs. Gently mix.</li>
+<li>Once the pastry is cooked, spread the onions, garlic and sun dried tomatoes over the base and pour the eggs mix over. Sprinkle the remaining parmesan and careful lay the feta over the top. Bake for 30 minutes or until golden brown.</li>
+</ol>
+",
+        "value": "<ol>
+	<li>Preheat the oven to 400°F/200°C. Starting with the pastry; rub the flour and butter together in a bowl until crumbling like breadcrumbs. Add water, a little at a time, until it forms a dough.</li>
+	<li>Roll out the pastry on a floured board and gently spread over your tin. Place in the fridge for 20 minutes before blind baking for a further 10.</li>
+	<li>Whilst the pastry is cooling, chop and gently cook the onions, garlic and courgette.</li>
+	<li>In a large bowl, add the soya milk, half the parmesan, and the eggs. Gently mix.</li>
+	<li>Once the pastry is cooked, spread the onions, garlic and sun dried tomatoes over the base and pour the eggs mix over. Sprinkle the remaining parmesan and careful lay the feta over the top. Bake for 30 minutes or until golden brown.</li>
+</ol>
+",
+      },
+      "field_summary": Object {
+        "format": "basic_html",
+        "processed": "<p>An Italian inspired quiche with sun dried tomatoes and courgette. A perfect light meal for a summer's day.</p>
+",
+        "value": "<p>An Italian inspired quiche with sun dried tomatoes and courgette. A perfect light meal for a summer's day.</p>
+",
+      },
+      "langcode": "en",
+      "moderation_state": "published",
+      "path": Object {
+        "alias": "/recipes/deep-mediterranean-quiche",
+        "langcode": "en",
+        "pid": 67,
+      },
+      "promote": true,
+      "revision_log": null,
+      "revision_timestamp": "2022-03-25T08:02:17+00:00",
+      "revision_translation_affected": true,
+      "status": true,
+      "sticky": false,
+      "title": "Deep mediterranean quiche - edited",
+    },
+    "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?resourceVersion=id%3A37",
+      },
+    },
+    "relationships": Object {
+      "field_media_image": Object {
+        "data": Object {
+          "id": "bbfe9d97-2da2-432b-a22c-0396c08e06ca",
+          "meta": Object {
+            "drupal_internal__target_id": 1,
+          },
+          "type": "media--image",
+        },
+        "links": Object {
+          "related": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/field_media_image?resourceVersion=id%3A37",
+          },
+          "self": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/relationships/field_media_image?resourceVersion=id%3A37",
+          },
+        },
+      },
+      "field_recipe_category": Object {
+        "data": Array [
+          Object {
+            "id": "a6c02fe4-67bf-462c-90cb-32281a07efe4",
+            "meta": Object {
+              "drupal_internal__target_id": 31,
+            },
+            "type": "taxonomy_term--recipe_category",
+          },
+        ],
+        "links": Object {
+          "related": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/field_recipe_category?resourceVersion=id%3A37",
+          },
+          "self": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/relationships/field_recipe_category?resourceVersion=id%3A37",
+          },
+        },
+      },
+      "field_tags": Object {
+        "data": Array [
+          Object {
+            "id": "46258827-cfad-4813-99dc-287c4cb41117",
+            "meta": Object {
+              "drupal_internal__target_id": 22,
+            },
+            "type": "taxonomy_term--tags",
+          },
+          Object {
+            "id": "f32a4d84-0568-4bfd-8be3-8217d36efb6d",
+            "meta": Object {
+              "drupal_internal__target_id": 13,
+            },
+            "type": "taxonomy_term--tags",
+          },
+        ],
+        "links": Object {
+          "related": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/field_tags?resourceVersion=id%3A37",
+          },
+          "self": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/relationships/field_tags?resourceVersion=id%3A37",
+          },
+        },
+      },
+      "node_type": Object {
+        "data": Object {
+          "id": "9b70a287-cade-454f-be8b-dea7b9a37c7a",
+          "meta": Object {
+            "drupal_internal__target_id": "recipe",
+          },
+          "type": "node_type--node_type",
+        },
+        "links": Object {
+          "related": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/node_type?resourceVersion=id%3A37",
+          },
+          "self": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/relationships/node_type?resourceVersion=id%3A37",
+          },
+        },
+      },
+      "revision_uid": Object {
+        "data": Object {
+          "id": "365cc7b5-ddc4-4b3b-939e-1494400aab4a",
+          "meta": Object {
+            "drupal_internal__target_id": 1,
+          },
+          "type": "user--user",
+        },
+        "links": Object {
+          "related": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/revision_uid?resourceVersion=id%3A37",
+          },
+          "self": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/relationships/revision_uid?resourceVersion=id%3A37",
+          },
+        },
+      },
+      "uid": Object {
+        "data": Object {
+          "id": "9e4944e8-dd77-407a-8610-83e823b48b56",
+          "meta": Object {
+            "drupal_internal__target_id": 4,
+          },
+          "type": "user--user",
+        },
+        "links": Object {
+          "related": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/uid?resourceVersion=id%3A37",
+          },
+          "self": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/relationships/uid?resourceVersion=id%3A37",
+          },
+        },
+      },
+    },
+    "type": "node--recipe",
+  },
+  "jsonapi": Object {
+    "meta": Object {
+      "links": Object {
+        "self": Object {
+          "href": "http://jsonapi.org/format/1.0/",
+        },
+      },
+    },
+    "version": "1.0",
+  },
+  "links": Object {
+    "self": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+    },
+  },
+}
+`;
+
+exports[`getResourceByPath it fetches a resource by path 1`] = `
+Object {
+  "changed": "2022-03-25T08:02:17+00:00",
+  "content_translation_outdated": false,
+  "content_translation_source": "und",
+  "created": "2022-03-21T10:52:42+00:00",
+  "default_langcode": true,
+  "drupal_internal__nid": 1,
+  "drupal_internal__vid": 37,
+  "field_cooking_time": 30,
+  "field_difficulty": "medium",
+  "field_ingredients": Array [
+    "For the pastry:",
+    "280g plain flour",
+    "140g butter",
+    "Cold water",
+    "For the filling:",
+    "1 onion",
+    "2 garlic cloves",
+    "Half a courgette",
+    "450ml soya milk",
+    "500g grated parmesan",
+    "2 eggs",
+    "200g sun dried tomatoes",
+    "100g feta",
+  ],
+  "field_media_image": Object {
+    "id": "bbfe9d97-2da2-432b-a22c-0396c08e06ca",
+    "resourceIdObjMeta": Object {
+      "drupal_internal__target_id": 1,
+    },
+    "type": "media--image",
+  },
+  "field_number_of_servings": 8,
+  "field_preparation_time": 40,
+  "field_recipe_category": Array [
+    Object {
+      "id": "a6c02fe4-67bf-462c-90cb-32281a07efe4",
+      "resourceIdObjMeta": Object {
+        "drupal_internal__target_id": 31,
+      },
+      "type": "taxonomy_term--recipe_category",
+    },
+  ],
+  "field_recipe_instruction": Object {
+    "format": "basic_html",
+    "processed": "<ol>
+<li>Preheat the oven to 400°F/200°C. Starting with the pastry; rub the flour and butter together in a bowl until crumbling like breadcrumbs. Add water, a little at a time, until it forms a dough.</li>
+<li>Roll out the pastry on a floured board and gently spread over your tin. Place in the fridge for 20 minutes before blind baking for a further 10.</li>
+<li>Whilst the pastry is cooling, chop and gently cook the onions, garlic and courgette.</li>
+<li>In a large bowl, add the soya milk, half the parmesan, and the eggs. Gently mix.</li>
+<li>Once the pastry is cooked, spread the onions, garlic and sun dried tomatoes over the base and pour the eggs mix over. Sprinkle the remaining parmesan and careful lay the feta over the top. Bake for 30 minutes or until golden brown.</li>
+</ol>
+",
+    "value": "<ol>
+	<li>Preheat the oven to 400°F/200°C. Starting with the pastry; rub the flour and butter together in a bowl until crumbling like breadcrumbs. Add water, a little at a time, until it forms a dough.</li>
+	<li>Roll out the pastry on a floured board and gently spread over your tin. Place in the fridge for 20 minutes before blind baking for a further 10.</li>
+	<li>Whilst the pastry is cooling, chop and gently cook the onions, garlic and courgette.</li>
+	<li>In a large bowl, add the soya milk, half the parmesan, and the eggs. Gently mix.</li>
+	<li>Once the pastry is cooked, spread the onions, garlic and sun dried tomatoes over the base and pour the eggs mix over. Sprinkle the remaining parmesan and careful lay the feta over the top. Bake for 30 minutes or until golden brown.</li>
+</ol>
+",
+  },
+  "field_summary": Object {
+    "format": "basic_html",
+    "processed": "<p>An Italian inspired quiche with sun dried tomatoes and courgette. A perfect light meal for a summer's day.</p>
+",
+    "value": "<p>An Italian inspired quiche with sun dried tomatoes and courgette. A perfect light meal for a summer's day.</p>
+",
+  },
+  "field_tags": Array [
+    Object {
+      "id": "46258827-cfad-4813-99dc-287c4cb41117",
+      "resourceIdObjMeta": Object {
+        "drupal_internal__target_id": 22,
+      },
+      "type": "taxonomy_term--tags",
+    },
+    Object {
+      "id": "f32a4d84-0568-4bfd-8be3-8217d36efb6d",
+      "resourceIdObjMeta": Object {
+        "drupal_internal__target_id": 13,
+      },
+      "type": "taxonomy_term--tags",
+    },
+  ],
+  "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+  "langcode": "en",
+  "links": Object {
+    "self": Object {
+      "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?resourceVersion=id%3A37",
+    },
+  },
+  "moderation_state": "published",
+  "node_type": Object {
+    "id": "9b70a287-cade-454f-be8b-dea7b9a37c7a",
+    "resourceIdObjMeta": Object {
+      "drupal_internal__target_id": "recipe",
+    },
+    "type": "node_type--node_type",
+  },
+  "path": Object {
+    "alias": "/recipes/deep-mediterranean-quiche",
+    "langcode": "en",
+    "pid": 67,
+  },
+  "promote": true,
+  "relationshipNames": Array [
+    "node_type",
+    "revision_uid",
+    "uid",
+    "field_media_image",
+    "field_recipe_category",
+    "field_tags",
+  ],
+  "revision_log": null,
+  "revision_timestamp": "2022-03-25T08:02:17+00:00",
+  "revision_translation_affected": true,
+  "revision_uid": Object {
+    "id": "365cc7b5-ddc4-4b3b-939e-1494400aab4a",
+    "resourceIdObjMeta": Object {
+      "drupal_internal__target_id": 1,
+    },
+    "type": "user--user",
+  },
+  "status": true,
+  "sticky": false,
+  "title": "Deep mediterranean quiche - edited",
+  "type": "node--recipe",
+  "uid": Object {
+    "id": "9e4944e8-dd77-407a-8610-83e823b48b56",
+    "resourceIdObjMeta": Object {
+      "drupal_internal__target_id": 4,
+    },
+    "type": "user--user",
+  },
+}
+`;
+
+exports[`getResourceByPath it fetches a resource by path using locale 1`] = `
+Object {
+  "field_cooking_time": 30,
+  "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+  "links": Object {
+    "self": Object {
+      "href": "http://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?resourceVersion=id%3A37",
+    },
+  },
+  "title": "Quiche mediterráneo profundo",
+  "type": "node--recipe",
+}
+`;
+
+exports[`getResourceByPath it fetches a resource by path with params 1`] = `
+Object {
+  "field_cooking_time": 30,
+  "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+  "links": Object {
+    "self": Object {
+      "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?resourceVersion=id%3A37",
+    },
+  },
+  "title": "Deep mediterranean quiche - edited",
+  "type": "node--recipe",
+}
+`;
+
+exports[`getResourceByPath it fetches raw data 1`] = `
+Object {
+  "data": Object {
+    "attributes": Object {
+      "changed": "2022-03-25T08:02:17+00:00",
+      "content_translation_outdated": false,
+      "content_translation_source": "und",
+      "created": "2022-03-21T10:52:42+00:00",
+      "default_langcode": true,
+      "drupal_internal__nid": 1,
+      "drupal_internal__vid": 37,
+      "field_cooking_time": 30,
+      "field_difficulty": "medium",
+      "field_ingredients": Array [
+        "For the pastry:",
+        "280g plain flour",
+        "140g butter",
+        "Cold water",
+        "For the filling:",
+        "1 onion",
+        "2 garlic cloves",
+        "Half a courgette",
+        "450ml soya milk",
+        "500g grated parmesan",
+        "2 eggs",
+        "200g sun dried tomatoes",
+        "100g feta",
+      ],
+      "field_number_of_servings": 8,
+      "field_preparation_time": 40,
+      "field_recipe_instruction": Object {
+        "format": "basic_html",
+        "processed": "<ol>
+<li>Preheat the oven to 400°F/200°C. Starting with the pastry; rub the flour and butter together in a bowl until crumbling like breadcrumbs. Add water, a little at a time, until it forms a dough.</li>
+<li>Roll out the pastry on a floured board and gently spread over your tin. Place in the fridge for 20 minutes before blind baking for a further 10.</li>
+<li>Whilst the pastry is cooling, chop and gently cook the onions, garlic and courgette.</li>
+<li>In a large bowl, add the soya milk, half the parmesan, and the eggs. Gently mix.</li>
+<li>Once the pastry is cooked, spread the onions, garlic and sun dried tomatoes over the base and pour the eggs mix over. Sprinkle the remaining parmesan and careful lay the feta over the top. Bake for 30 minutes or until golden brown.</li>
+</ol>
+",
+        "value": "<ol>
+	<li>Preheat the oven to 400°F/200°C. Starting with the pastry; rub the flour and butter together in a bowl until crumbling like breadcrumbs. Add water, a little at a time, until it forms a dough.</li>
+	<li>Roll out the pastry on a floured board and gently spread over your tin. Place in the fridge for 20 minutes before blind baking for a further 10.</li>
+	<li>Whilst the pastry is cooling, chop and gently cook the onions, garlic and courgette.</li>
+	<li>In a large bowl, add the soya milk, half the parmesan, and the eggs. Gently mix.</li>
+	<li>Once the pastry is cooked, spread the onions, garlic and sun dried tomatoes over the base and pour the eggs mix over. Sprinkle the remaining parmesan and careful lay the feta over the top. Bake for 30 minutes or until golden brown.</li>
+</ol>
+",
+      },
+      "field_summary": Object {
+        "format": "basic_html",
+        "processed": "<p>An Italian inspired quiche with sun dried tomatoes and courgette. A perfect light meal for a summer's day.</p>
+",
+        "value": "<p>An Italian inspired quiche with sun dried tomatoes and courgette. A perfect light meal for a summer's day.</p>
+",
+      },
+      "langcode": "en",
+      "moderation_state": "published",
+      "path": Object {
+        "alias": "/recipes/deep-mediterranean-quiche",
+        "langcode": "en",
+        "pid": 67,
+      },
+      "promote": true,
+      "revision_log": null,
+      "revision_timestamp": "2022-03-25T08:02:17+00:00",
+      "revision_translation_affected": true,
+      "status": true,
+      "sticky": false,
+      "title": "Deep mediterranean quiche - edited",
+    },
+    "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+    "links": Object {
+      "self": Object {
+        "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?resourceVersion=id%3A37",
+      },
+    },
+    "relationships": Object {
+      "field_media_image": Object {
+        "data": Object {
+          "id": "bbfe9d97-2da2-432b-a22c-0396c08e06ca",
+          "meta": Object {
+            "drupal_internal__target_id": 1,
+          },
+          "type": "media--image",
+        },
+        "links": Object {
+          "related": Object {
+            "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/field_media_image?resourceVersion=id%3A37",
+          },
+          "self": Object {
+            "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/relationships/field_media_image?resourceVersion=id%3A37",
+          },
+        },
+      },
+      "field_recipe_category": Object {
+        "data": Array [
+          Object {
+            "id": "a6c02fe4-67bf-462c-90cb-32281a07efe4",
+            "meta": Object {
+              "drupal_internal__target_id": 31,
+            },
+            "type": "taxonomy_term--recipe_category",
+          },
+        ],
+        "links": Object {
+          "related": Object {
+            "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/field_recipe_category?resourceVersion=id%3A37",
+          },
+          "self": Object {
+            "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/relationships/field_recipe_category?resourceVersion=id%3A37",
+          },
+        },
+      },
+      "field_tags": Object {
+        "data": Array [
+          Object {
+            "id": "46258827-cfad-4813-99dc-287c4cb41117",
+            "meta": Object {
+              "drupal_internal__target_id": 22,
+            },
+            "type": "taxonomy_term--tags",
+          },
+          Object {
+            "id": "f32a4d84-0568-4bfd-8be3-8217d36efb6d",
+            "meta": Object {
+              "drupal_internal__target_id": 13,
+            },
+            "type": "taxonomy_term--tags",
+          },
+        ],
+        "links": Object {
+          "related": Object {
+            "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/field_tags?resourceVersion=id%3A37",
+          },
+          "self": Object {
+            "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/relationships/field_tags?resourceVersion=id%3A37",
+          },
+        },
+      },
+      "node_type": Object {
+        "data": Object {
+          "id": "9b70a287-cade-454f-be8b-dea7b9a37c7a",
+          "meta": Object {
+            "drupal_internal__target_id": "recipe",
+          },
+          "type": "node_type--node_type",
+        },
+        "links": Object {
+          "related": Object {
+            "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/node_type?resourceVersion=id%3A37",
+          },
+          "self": Object {
+            "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/relationships/node_type?resourceVersion=id%3A37",
+          },
+        },
+      },
+      "revision_uid": Object {
+        "data": Object {
+          "id": "365cc7b5-ddc4-4b3b-939e-1494400aab4a",
+          "meta": Object {
+            "drupal_internal__target_id": 1,
+          },
+          "type": "user--user",
+        },
+        "links": Object {
+          "related": Object {
+            "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/revision_uid?resourceVersion=id%3A37",
+          },
+          "self": Object {
+            "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/relationships/revision_uid?resourceVersion=id%3A37",
+          },
+        },
+      },
+      "uid": Object {
+        "data": Object {
+          "id": "9e4944e8-dd77-407a-8610-83e823b48b56",
+          "meta": Object {
+            "drupal_internal__target_id": 4,
+          },
+          "type": "user--user",
+        },
+        "links": Object {
+          "related": Object {
+            "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/uid?resourceVersion=id%3A37",
+          },
+          "self": Object {
+            "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f/relationships/uid?resourceVersion=id%3A37",
+          },
+        },
+      },
+    },
+    "type": "node--recipe",
+  },
+  "jsonapi": Object {
+    "meta": Object {
+      "links": Object {
+        "self": Object {
+          "href": "http://jsonapi.org/format/1.0/",
+        },
+      },
+    },
+    "version": "1.0",
+  },
+  "links": Object {
+    "self": Object {
+      "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+    },
+  },
+}
+`;
+
+exports[`getResourceFromContext it fetches a resource from context 1`] = `
+Object {
+  "changed": "2022-03-25T08:02:17+00:00",
+  "content_translation_outdated": false,
+  "content_translation_source": "und",
+  "created": "2022-03-21T10:52:42+00:00",
+  "default_langcode": true,
+  "drupal_internal__nid": 1,
+  "drupal_internal__vid": 37,
+  "field_cooking_time": 30,
+  "field_difficulty": "medium",
+  "field_ingredients": Array [
+    "For the pastry:",
+    "280g plain flour",
+    "140g butter",
+    "Cold water",
+    "For the filling:",
+    "1 onion",
+    "2 garlic cloves",
+    "Half a courgette",
+    "450ml soya milk",
+    "500g grated parmesan",
+    "2 eggs",
+    "200g sun dried tomatoes",
+    "100g feta",
+  ],
+  "field_media_image": Object {
+    "id": "bbfe9d97-2da2-432b-a22c-0396c08e06ca",
+    "resourceIdObjMeta": Object {
+      "drupal_internal__target_id": 1,
+    },
+    "type": "media--image",
+  },
+  "field_number_of_servings": 8,
+  "field_preparation_time": 40,
+  "field_recipe_category": Array [
+    Object {
+      "id": "a6c02fe4-67bf-462c-90cb-32281a07efe4",
+      "resourceIdObjMeta": Object {
+        "drupal_internal__target_id": 31,
+      },
+      "type": "taxonomy_term--recipe_category",
+    },
+  ],
+  "field_recipe_instruction": Object {
+    "format": "basic_html",
+    "processed": "<ol>
+<li>Preheat the oven to 400°F/200°C. Starting with the pastry; rub the flour and butter together in a bowl until crumbling like breadcrumbs. Add water, a little at a time, until it forms a dough.</li>
+<li>Roll out the pastry on a floured board and gently spread over your tin. Place in the fridge for 20 minutes before blind baking for a further 10.</li>
+<li>Whilst the pastry is cooling, chop and gently cook the onions, garlic and courgette.</li>
+<li>In a large bowl, add the soya milk, half the parmesan, and the eggs. Gently mix.</li>
+<li>Once the pastry is cooked, spread the onions, garlic and sun dried tomatoes over the base and pour the eggs mix over. Sprinkle the remaining parmesan and careful lay the feta over the top. Bake for 30 minutes or until golden brown.</li>
+</ol>
+",
+    "value": "<ol>
+	<li>Preheat the oven to 400°F/200°C. Starting with the pastry; rub the flour and butter together in a bowl until crumbling like breadcrumbs. Add water, a little at a time, until it forms a dough.</li>
+	<li>Roll out the pastry on a floured board and gently spread over your tin. Place in the fridge for 20 minutes before blind baking for a further 10.</li>
+	<li>Whilst the pastry is cooling, chop and gently cook the onions, garlic and courgette.</li>
+	<li>In a large bowl, add the soya milk, half the parmesan, and the eggs. Gently mix.</li>
+	<li>Once the pastry is cooked, spread the onions, garlic and sun dried tomatoes over the base and pour the eggs mix over. Sprinkle the remaining parmesan and careful lay the feta over the top. Bake for 30 minutes or until golden brown.</li>
+</ol>
+",
+  },
+  "field_summary": Object {
+    "format": "basic_html",
+    "processed": "<p>An Italian inspired quiche with sun dried tomatoes and courgette. A perfect light meal for a summer's day.</p>
+",
+    "value": "<p>An Italian inspired quiche with sun dried tomatoes and courgette. A perfect light meal for a summer's day.</p>
+",
+  },
+  "field_tags": Array [
+    Object {
+      "id": "46258827-cfad-4813-99dc-287c4cb41117",
+      "resourceIdObjMeta": Object {
+        "drupal_internal__target_id": 22,
+      },
+      "type": "taxonomy_term--tags",
+    },
+    Object {
+      "id": "f32a4d84-0568-4bfd-8be3-8217d36efb6d",
+      "resourceIdObjMeta": Object {
+        "drupal_internal__target_id": 13,
+      },
+      "type": "taxonomy_term--tags",
+    },
+  ],
+  "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+  "langcode": "en",
+  "links": Object {
+    "self": Object {
+      "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?resourceVersion=id%3A37",
+    },
+  },
+  "moderation_state": "published",
+  "node_type": Object {
+    "id": "9b70a287-cade-454f-be8b-dea7b9a37c7a",
+    "resourceIdObjMeta": Object {
+      "drupal_internal__target_id": "recipe",
+    },
+    "type": "node_type--node_type",
+  },
+  "path": Object {
+    "alias": "/recipes/deep-mediterranean-quiche",
+    "langcode": "en",
+    "pid": 67,
+  },
+  "promote": true,
+  "relationshipNames": Array [
+    "node_type",
+    "revision_uid",
+    "uid",
+    "field_media_image",
+    "field_recipe_category",
+    "field_tags",
+  ],
+  "revision_log": null,
+  "revision_timestamp": "2022-03-25T08:02:17+00:00",
+  "revision_translation_affected": true,
+  "revision_uid": Object {
+    "id": "365cc7b5-ddc4-4b3b-939e-1494400aab4a",
+    "resourceIdObjMeta": Object {
+      "drupal_internal__target_id": 1,
+    },
+    "type": "user--user",
+  },
+  "status": true,
+  "sticky": false,
+  "title": "Deep mediterranean quiche - edited",
+  "type": "node--recipe",
+  "uid": Object {
+    "id": "9e4944e8-dd77-407a-8610-83e823b48b56",
+    "resourceIdObjMeta": Object {
+      "drupal_internal__target_id": 4,
+    },
+    "type": "user--user",
+  },
+}
+`;
+
+exports[`getResourceFromContext it fetches a resource from context using locale 1`] = `
+Object {
+  "field_cooking_time": 30,
+  "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+  "links": Object {
+    "self": Object {
+      "href": "http://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?resourceVersion=id%3A37",
+    },
+  },
+  "title": "Quiche mediterráneo profundo",
+  "type": "node--recipe",
+}
+`;
+
+exports[`getResourceFromContext it fetches a resource from context with params 1`] = `
+Object {
+  "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+  "links": Object {
+    "self": Object {
+      "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?resourceVersion=id%3A37",
+    },
+  },
+  "title": "Deep mediterranean quiche - edited",
+  "type": "node--recipe",
+}
+`;
+
+exports[`getResourceFromContext it fetches raw data 1`] = `
+Object {
+  "data": Object {
+    "attributes": Object {
+      "title": "Deep mediterranean quiche - edited",
+    },
+    "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+    "links": Object {
+      "self": Object {
+        "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?resourceVersion=id%3A37",
+      },
+    },
+    "type": "node--recipe",
+  },
+  "jsonapi": Object {
+    "meta": Object {
+      "links": Object {
+        "self": Object {
+          "href": "http://jsonapi.org/format/1.0/",
+        },
+      },
+    },
+    "version": "1.0",
+  },
+  "links": Object {
+    "self": Object {
+      "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?fields%5Bnode--recipe%5D=title&resourceVersion=rel%3Alatest-version",
+    },
+  },
 }
 `;

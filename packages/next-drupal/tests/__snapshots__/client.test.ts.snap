@@ -2396,6 +2396,317 @@ Object {
 }
 `;
 
+exports[`getStaticPathsFromContext it returns static paths for multiple resoure types from context 1`] = `
+Array [
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "give-it-a-go-and-grow-your-own-herbs",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "dairy-free-and-delicious-milk-chocolate",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "the-real-deal-for-supermarket-savvy-shopping",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "the-umami-guide-to-our-favourite-mushrooms",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "lets-hear-it-for-carrots",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "baking-mishaps-our-troubleshooting-tips",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "skip-the-spirits-with-delicious-mocktails",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "give-your-oatmeal-the-ultimate-makeover",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "prueba-y-cultiva-tus-propias-hierbas",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "delicioso-chocolate-sin-lactosa",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "el-verdadeo-negocio-para-comprar-en-el-supermercado",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "guia-umami-de-nuestras-setas-preferidas",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "un-aplauso-para-las-zanahorias",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "percances-al-hornear-nuestros-consejos-para-solucionar-problemas",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "salta-los-espiritus-con-deliciosos-cocteles-sin-alcohol",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "dale-a-tu-avena-el-cambio-de-imagen-definitivo",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "recipes",
+        "vegan-chocolate-and-nut-brownies",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "recipes",
+        "super-easy-vegetarian-pasta-bake",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "recipes",
+        "watercress-soup",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "recipes",
+        "victoria-sponge-cake",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "recipes",
+        "gluten-free-pizza",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "recipes",
+        "thai-green-curry",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "recipes",
+        "crema-catalana",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "recipes",
+        "fiery-chili-sauce",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "recipes",
+        "deep-mediterranean-quiche",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "recipes",
+        "bizcochos-veganos-de-chocolate-y-nueces",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "recipes",
+        "pasta-vegetariana-horno-super-facil",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "recipes",
+        "sopa-de-berro",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "recipes",
+        "pastel-victoria",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "recipes",
+        "pizza-sin-gluten",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "recipes",
+        "curry-verde-tailandes",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "recipes",
+        "crema-catalana",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "recipes",
+        "salsa-de-chile-ardiente",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "recipes",
+        "quiche-mediterráneo-profundo",
+      ],
+    },
+  },
+]
+`;
+
 exports[`getStaticPathsFromContext it returns static paths from context 1`] = `
 Array [
   Object {

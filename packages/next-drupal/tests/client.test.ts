@@ -1735,6 +1735,20 @@ describe("getStaticPathsFromContext", () => {
     expect(paths).toMatchSnapshot()
   })
 
+  test("it returns static paths for multiple resoure types from context", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const paths = await client.getStaticPathsFromContext(
+      ["node--article", "node--recipe"],
+      {
+        locales: ["en", "es"],
+        defaultLocale: "en",
+      }
+    )
+
+    expect(paths).toMatchSnapshot()
+  })
+
   test("it returns static paths from context with params", async () => {
     const client = new DrupalClient(BASE_URL)
 
@@ -1753,5 +1767,50 @@ describe("getStaticPathsFromContext", () => {
     )
 
     expect(paths).toMatchSnapshot()
+  })
+
+  test("it makes un-authenticated requests by default", async () => {
+    const client = new DrupalClient(BASE_URL)
+    const fetchSpy = jest.spyOn(client, "fetch")
+
+    await client.getStaticPathsFromContext("node--article", {
+      locales: ["en", "es"],
+      defaultLocale: "en",
+    })
+    expect(fetchSpy).toHaveBeenCalledWith(expect.anything(), {
+      withAuth: false,
+    })
+  })
+
+  test("it makes authenticated requests with withAuth option", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      useDefaultResourceTypeEntry: true,
+    })
+    const fetchSpy = jest
+      .spyOn(global, "fetch")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+        ) as jest.Mock
+      )
+    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
+
+    await client.getStaticPathsFromContext(
+      "node--article",
+      {
+        locales: ["en", "es"],
+        defaultLocale: "en",
+      },
+      {
+        withAuth: true,
+      }
+    )
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: true,
+      })
+    )
   })
 })

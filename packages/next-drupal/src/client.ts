@@ -433,10 +433,14 @@ export class Unstable_DrupalClient {
   async getStaticPathsFromContext(
     types: string | string[],
     context: GetStaticPathsContext,
-    options?: { params: JsonApiParams } & JsonApiWithAuthOptions
+    options?: {
+      params?: JsonApiParams
+      prefix?: PathPrefix
+    } & JsonApiWithAuthOptions
   ): Promise<GetStaticPathsResult["paths"]> {
     options = {
       withAuth: this.withAuth,
+      prefix: "/",
       params: {},
       ...options,
     }
@@ -448,7 +452,7 @@ export class Unstable_DrupalClient {
     const paths = await Promise.all(
       types.map(async (type) => {
         // Use sparse fieldset to expand max size.
-        options.params = {
+        const params = {
           [`fields[${type}]`]: "path",
           ...options?.params,
         }
@@ -456,11 +460,13 @@ export class Unstable_DrupalClient {
         // Handle localized path aliases
         if (!context.locales?.length) {
           const resources = await this.getResourceCollection(type, {
-            deserialize: true,
-            ...options,
+            params,
+            withAuth: options.withAuth,
           })
 
-          return this.buildPathsFromResources(resources)
+          return this.buildPathsFromResources(resources, {
+            prefix: options.prefix,
+          })
         }
 
         const paths = await Promise.all(
@@ -469,10 +475,14 @@ export class Unstable_DrupalClient {
               deserialize: true,
               locale,
               defaultLocale: context.defaultLocale,
-              ...options,
+              params,
+              withAuth: options.withAuth,
             })
 
-            return this.buildPathsFromResources(resources, locale)
+            return this.buildPathsFromResources(resources, {
+              locale,
+              prefix: options.prefix,
+            })
           })
         )
 
@@ -483,7 +493,13 @@ export class Unstable_DrupalClient {
     return paths.flat()
   }
 
-  buildPathsFromResources(resources, locale?: Locale) {
+  buildPathsFromResources(
+    resources,
+    options?: {
+      prefix?: PathPrefix
+      locale?: Locale
+    }
+  ) {
     return resources?.flatMap((resource) => {
       const slug =
         resource?.path?.alias === this.frontPage ? "/" : resource?.path?.alias
@@ -494,8 +510,8 @@ export class Unstable_DrupalClient {
         },
       }
 
-      if (locale) {
-        path["locale"] = locale
+      if (options?.locale) {
+        path["locale"] = options.locale
       }
 
       return path

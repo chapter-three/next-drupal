@@ -380,9 +380,11 @@ export class Unstable_DrupalClient {
     type: string,
     options?: {
       deserialize?: boolean
-    } & JsonApiWithLocaleOptions
+    } & JsonApiWithLocaleOptions &
+      JsonApiWithAuthOptions
   ): Promise<T> {
     options = {
+      withAuth: this.withAuth,
       deserialize: true,
       ...options,
     }
@@ -396,11 +398,9 @@ export class Unstable_DrupalClient {
       ...options?.params,
     })
 
-    const response = await this.fetch(url.toString())
-
-    if (!response.ok) {
-      throw new Error(response.statusText)
-    }
+    const response = await this.fetch(url.toString(), {
+      withAuth: options.withAuth,
+    })
 
     const json = await response.json()
 
@@ -410,9 +410,13 @@ export class Unstable_DrupalClient {
   async getResourceCollectionFromContext<T = JsonApiResource[]>(
     type: string,
     context: GetStaticPropsContext,
-    options?: JsonApiOptions
+    options?: {
+      deserialize?: boolean
+    } & JsonApiWithLocaleOptions &
+      JsonApiWithAuthOptions
   ): Promise<T> {
     options = {
+      withAuth: this.withAuth,
       deserialize: true,
       ...options,
     }
@@ -424,13 +428,19 @@ export class Unstable_DrupalClient {
     })
   }
 
-  async getPathsFromContext(
+  getPathsFromContext = this.getStaticPathsFromContext
+
+  async getStaticPathsFromContext(
     types: string | string[],
     context: GetStaticPathsContext,
-    options: {
-      params?: JsonApiParams
-    } = {}
+    options?: { params: JsonApiParams } & JsonApiWithAuthOptions
   ): Promise<GetStaticPathsResult["paths"]> {
+    options = {
+      withAuth: this.withAuth,
+      params: {},
+      ...options,
+    }
+
     if (typeof types === "string") {
       types = [types]
     }
@@ -492,12 +502,22 @@ export class Unstable_DrupalClient {
     })
   }
 
-  async translatePath(path: string): Promise<DrupalTranslatedPath> {
+  async translatePath(
+    path: string,
+    options?: JsonApiWithAuthOptions
+  ): Promise<DrupalTranslatedPath> {
+    options = {
+      withAuth: this.withAuth,
+      ...options,
+    }
+
     const url = this.buildUrl("/router/translate-path", {
       path,
     })
 
-    const response = await this.fetch(url.toString())
+    const response = await this.fetch(url.toString(), {
+      withAuth: options.withAuth,
+    })
 
     if (!response.ok) {
       return null
@@ -512,17 +532,20 @@ export class Unstable_DrupalClient {
     context: GetStaticPropsContext,
     options?: {
       prefix?: PathPrefix
-    }
+    } & JsonApiWithAuthOptions
   ): Promise<DrupalTranslatedPath> {
     options = {
       prefix: "/",
+      withAuth: this.withAuth,
       ...options,
     }
     const path = this.getPathFromContext(context, {
       prefix: options.prefix,
     })
 
-    const response = await this.translatePath(path)
+    const response = await this.translatePath(path, {
+      withAuth: options.withAuth,
+    })
 
     return response
   }
@@ -555,6 +578,9 @@ export class Unstable_DrupalClient {
       slug = this.frontPage
       prefix = prefix.replace(/\/$/, "")
     }
+
+    slug =
+      prefix.slice(-1) !== "/" && slug.charAt(0) !== "/" ? `/${slug}` : slug
 
     return `${prefix}${slug}`
   }
@@ -871,32 +897,4 @@ export class Unstable_DrupalClient {
   private _debug(message) {
     !!this.debug && this.logger.debug(message)
   }
-
-  // async buildHeaders({
-  //   headers = {},
-  // }: {
-  //   headers?: RequestInit["headers"]
-  // } = {}): Promise<RequestInit["headers"]> {
-  //   headers = {
-  //     "Content-Type": "application/vnd.api+json",
-  //   }
-
-  //   // This allows an access_token (preferrably long-lived) to be set directly on the env.
-  //   // This reduces the number of OAuth call to the Drupal server.
-  //   // Intentionally marked as unstable for now.
-  //   if (process.env.UNSTABLE_DRUPAL_ACCESS_TOKEN) {
-  //     headers[
-  //       "Authorization"
-  //     ] = `Bearer ${process.env.UNSTABLE_DRUPAL_ACCESS_TOKEN}`
-
-  //     return headers
-  //   }
-
-  //   const token = accessToken || (await this.getAccessToken())
-  //   if (token) {
-  //     headers["Authorization"] = `Bearer ${token.access_token}`
-  //   }
-
-  //   return headers
-  // }
 }

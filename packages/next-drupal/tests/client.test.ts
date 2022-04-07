@@ -521,6 +521,62 @@ describe("getPathFromContext", () => {
     expect(
       client.getPathFromContext(
         {
+          params: {
+            slug: ["bar", "baz"],
+          },
+        },
+        {
+          prefix: "/foo",
+        }
+      )
+    ).toEqual("/foo/bar/baz")
+
+    expect(
+      client.getPathFromContext(
+        {
+          params: {
+            slug: ["bar", "baz"],
+          },
+        },
+        {
+          prefix: "foo",
+        }
+      )
+    ).toEqual("/foo/bar/baz")
+
+    expect(
+      client.getPathFromContext(
+        {
+          locale: "en",
+          defaultLocale: "en",
+          params: {
+            slug: ["bar", "baz"],
+          },
+        },
+        {
+          prefix: "foo",
+        }
+      )
+    ).toEqual("/foo/bar/baz")
+
+    expect(
+      client.getPathFromContext(
+        {
+          locale: "es",
+          defaultLocale: "en",
+          params: {
+            slug: ["bar", "baz"],
+          },
+        },
+        {
+          prefix: "foo",
+        }
+      )
+    ).toEqual("/es/foo/bar/baz")
+
+    expect(
+      client.getPathFromContext(
+        {
           locale: "es",
           defaultLocale: "en",
           params: {
@@ -1238,5 +1294,464 @@ describe("getResourceFromContext", () => {
         withAuth: true,
       })
     )
+  })
+})
+
+describe("translatePath", () => {
+  test("it translates a path", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const path = await client.translatePath("recipes/deep-mediterranean-quiche")
+
+    expect(path).toMatchSnapshot()
+
+    const path2 = await client.translatePath(
+      "/recipes/deep-mediterranean-quiche"
+    )
+
+    expect(path).toEqual(path2)
+  })
+
+  test("it throws an error for path not found", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    await expect(client.translatePath("/path-not-found")).rejects.toThrow(
+      "Unable to resolve path /path-not-found."
+    )
+  })
+
+  test("it makes un-authenticated requests by default", async () => {
+    const client = new DrupalClient(BASE_URL)
+    const fetchSpy = jest.spyOn(client, "fetch")
+
+    await client.translatePath("recipes/deep-mediterranean-quiche")
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: false,
+      })
+    )
+  })
+
+  test("it makes authenticated requests with withAuth option", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      useDefaultResourceTypeEntry: true,
+    })
+    const fetchSpy = jest
+      .spyOn(global, "fetch")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+        ) as jest.Mock
+      )
+    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
+
+    await client.translatePath("recipes/deep-mediterranean-quiche", {
+      withAuth: true,
+    })
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: true,
+      })
+    )
+  })
+})
+
+describe("translatePathFromContext", () => {
+  test("it translates a path", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const context: GetStaticPropsContext = {
+      params: {
+        slug: ["recipes", "deep-mediterranean-quiche"],
+      },
+    }
+
+    const path = await client.translatePathFromContext(context)
+
+    expect(path).toMatchSnapshot()
+  })
+
+  test("it throws an error for path not found", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const context: GetStaticPropsContext = {
+      params: {
+        slug: ["path-not-found"],
+      },
+    }
+
+    await expect(client.translatePathFromContext(context)).rejects.toThrow(
+      "Unable to resolve path /path-not-found."
+    )
+  })
+
+  test("it translates a path with prefix", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const context: GetStaticPropsContext = {
+      params: {
+        slug: ["deep-mediterranean-quiche"],
+      },
+    }
+
+    const path = await client.translatePathFromContext(context, {
+      prefix: "recipes",
+    })
+
+    expect(path).toMatchSnapshot()
+
+    const path2 = await client.translatePathFromContext(context, {
+      prefix: "/recipes",
+    })
+
+    expect(path).toEqual(path2)
+  })
+
+  test("it makes un-authenticated requests by default", async () => {
+    const client = new DrupalClient(BASE_URL)
+    const fetchSpy = jest.spyOn(client, "fetch")
+
+    const context: GetStaticPropsContext = {
+      params: {
+        slug: ["recipes", "deep-mediterranean-quiche"],
+      },
+    }
+    await client.translatePathFromContext(context)
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: false,
+      })
+    )
+  })
+
+  test("it makes authenticated requests with withAuth option", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      useDefaultResourceTypeEntry: true,
+    })
+    const fetchSpy = jest
+      .spyOn(global, "fetch")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+        ) as jest.Mock
+      )
+    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
+
+    const context: GetStaticPropsContext = {
+      params: {
+        slug: ["deep-mediterranean-quiche"],
+      },
+    }
+    await client.translatePathFromContext(context, {
+      prefix: "recipes",
+      withAuth: true,
+    })
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: true,
+      })
+    )
+  })
+})
+
+describe("getResourceCollection", () => {
+  test("it fetches a resource collection", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const articles = await client.getResourceCollection("node--article", {
+      params: {
+        "fields[node--article]": "title",
+      },
+    })
+
+    expect(articles).toMatchSnapshot()
+  })
+
+  test("it fetches a resource collection using locale", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const articles = await client.getResourceCollection("node--article", {
+      locale: "es",
+      defaultLocale: "en",
+      params: {
+        "fields[node--article]": "title,langcode",
+      },
+    })
+
+    expect(articles[0].langcode).toEqual("es")
+
+    expect(articles).toMatchSnapshot()
+  })
+
+  test("it fetches raw data", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const recipes = await client.getResourceCollection("node--recipe", {
+      deserialize: false,
+      params: {
+        "fields[node--recipe]": "title",
+        "page[limit]": 2,
+      },
+    })
+
+    expect(recipes).toMatchSnapshot()
+  })
+
+  test("it throws an error for invalid resource type", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    await expect(
+      client.getResourceCollection("RESOURCE-DOES-NOT-EXIST")
+    ).rejects.toThrow("Resource of type 'RESOURCE-DOES-NOT-EXIST' not found.")
+  })
+
+  test("it throws an error for invalid params", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    await expect(
+      client.getResourceCollection<DrupalNode>("node--recipe", {
+        params: {
+          include: "invalid_relationship",
+        },
+      })
+    ).rejects.toThrow(
+      "400 Bad Request\n`invalid_relationship` is not a valid relationship field name. Possible values: node_type, revision_uid, uid, menu_link, field_media_image, field_recipe_category, field_tags."
+    )
+  })
+
+  test("it makes un-authenticated requests by default", async () => {
+    const client = new DrupalClient(BASE_URL)
+    const fetchSpy = jest.spyOn(client, "fetch")
+
+    await client.getResourceCollection("node--recipe")
+    expect(fetchSpy).toHaveBeenCalledWith(expect.anything(), {
+      withAuth: false,
+    })
+  })
+
+  test("it makes authenticated requests with withAuth option", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      useDefaultResourceTypeEntry: true,
+    })
+    const fetchSpy = jest
+      .spyOn(global, "fetch")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+        ) as jest.Mock
+      )
+    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
+
+    await client.getResourceCollection("node--recipe", {
+      withAuth: true,
+    })
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: true,
+      })
+    )
+  })
+})
+
+describe("getResourceCollectionFromContext", () => {
+  test("it fetches a resource collection", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const context: GetStaticPropsContext = {
+      locale: "en",
+      defaultLocale: "en",
+    }
+
+    const articles = await client.getResourceCollectionFromContext(
+      "node--article",
+      context,
+      {
+        params: {
+          "fields[node--article]": "title",
+        },
+      }
+    )
+
+    expect(articles).toMatchSnapshot()
+  })
+
+  test("it fetches a resource collection using locale", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const context: GetStaticPropsContext = {
+      locale: "es",
+      defaultLocale: "en",
+    }
+
+    const articles = await client.getResourceCollectionFromContext(
+      "node--article",
+      context,
+      {
+        params: {
+          "fields[node--article]": "title,langcode",
+        },
+      }
+    )
+
+    expect(articles[0].langcode).toEqual("es")
+
+    expect(articles).toMatchSnapshot()
+  })
+
+  test("it fetches raw data", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const context: GetStaticPropsContext = {
+      locale: "en",
+      defaultLocale: "en",
+    }
+
+    const recipes = await client.getResourceCollectionFromContext(
+      "node--recipe",
+      context,
+      {
+        deserialize: false,
+        params: {
+          "fields[node--recipe]": "title",
+          "page[limit]": 2,
+        },
+      }
+    )
+
+    expect(recipes).toMatchSnapshot()
+  })
+
+  test("it throws an error for invalid resource type", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const context: GetStaticPropsContext = {
+      locale: "en",
+      defaultLocale: "en",
+    }
+
+    await expect(
+      client.getResourceCollectionFromContext(
+        "RESOURCE-DOES-NOT-EXIST",
+        context
+      )
+    ).rejects.toThrow("Resource of type 'RESOURCE-DOES-NOT-EXIST' not found.")
+  })
+
+  test("it throws an error for invalid params", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const context: GetStaticPropsContext = {
+      locale: "en",
+      defaultLocale: "en",
+    }
+
+    await expect(
+      client.getResourceCollectionFromContext<DrupalNode>(
+        "node--recipe",
+        context,
+        {
+          params: {
+            include: "invalid_relationship",
+          },
+        }
+      )
+    ).rejects.toThrow(
+      "400 Bad Request\n`invalid_relationship` is not a valid relationship field name. Possible values: node_type, revision_uid, uid, menu_link, field_media_image, field_recipe_category, field_tags."
+    )
+  })
+
+  test("it makes un-authenticated requests by default", async () => {
+    const client = new DrupalClient(BASE_URL)
+    const fetchSpy = jest.spyOn(client, "fetch")
+
+    const context: GetStaticPropsContext = {
+      locale: "en",
+      defaultLocale: "en",
+    }
+
+    await client.getResourceCollectionFromContext("node--recipe", context)
+    expect(fetchSpy).toHaveBeenCalledWith(expect.anything(), {
+      withAuth: false,
+    })
+  })
+
+  test("it makes authenticated requests with withAuth option", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      useDefaultResourceTypeEntry: true,
+    })
+    const fetchSpy = jest
+      .spyOn(global, "fetch")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+        ) as jest.Mock
+      )
+    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
+
+    const context: GetStaticPropsContext = {
+      locale: "en",
+      defaultLocale: "en",
+    }
+    await client.getResourceCollectionFromContext("node--recipe", context, {
+      withAuth: true,
+    })
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: true,
+      })
+    )
+  })
+})
+
+describe("getStaticPathsFromContext", () => {
+  test("it returns static paths from context", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const paths = await client.getStaticPathsFromContext("node--article", {})
+
+    expect(paths).toMatchSnapshot()
+  })
+
+  test("it returns static paths from context with locale", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const paths = await client.getStaticPathsFromContext("node--article", {
+      locales: ["en", "es"],
+      defaultLocale: "en",
+    })
+
+    expect(paths).toMatchSnapshot()
+  })
+
+  test("it returns static paths from context with params", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const params = {
+      getQueryObject: () => ({
+        "filter[promote]": 1,
+      }),
+    }
+
+    const paths = await client.getStaticPathsFromContext(
+      "node--article",
+      {},
+      {
+        params,
+      }
+    )
+
+    expect(paths).toMatchSnapshot()
   })
 })

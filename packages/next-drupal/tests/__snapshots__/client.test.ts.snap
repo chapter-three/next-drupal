@@ -1744,6 +1744,460 @@ Object {
 }
 `;
 
+exports[`getResourceCollection it fetches a resource collection 1`] = `
+Array [
+  Object {
+    "id": "52837ad0-f218-46bd-a106-5710336b7053",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053?resourceVersion=id%3A20",
+      },
+    },
+    "title": "Give it a go and grow your own herbs",
+    "type": "node--article",
+  },
+  Object {
+    "id": "3d5a7bca-5b4a-49ee-87d2-cbe313562903",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/3d5a7bca-5b4a-49ee-87d2-cbe313562903?resourceVersion=id%3A22",
+      },
+    },
+    "title": "Dairy-free and delicious milk chocolate",
+    "type": "node--article",
+  },
+  Object {
+    "id": "a1ef61c9-ed15-4b6d-bba2-bf6e5141f961",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/a1ef61c9-ed15-4b6d-bba2-bf6e5141f961?resourceVersion=id%3A24",
+      },
+    },
+    "title": "The real deal for supermarket savvy shopping",
+    "type": "node--article",
+  },
+  Object {
+    "id": "ac0b8b56-db8d-4322-9b1e-224f22083f0d",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/ac0b8b56-db8d-4322-9b1e-224f22083f0d?resourceVersion=id%3A26",
+      },
+    },
+    "title": "The Umami guide to our favorite mushrooms",
+    "type": "node--article",
+  },
+  Object {
+    "id": "22874ecc-0443-441b-a3c9-3aa94d85b800",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/22874ecc-0443-441b-a3c9-3aa94d85b800?resourceVersion=id%3A28",
+      },
+    },
+    "title": "Let's hear it for carrots",
+    "type": "node--article",
+  },
+  Object {
+    "id": "ec51b1de-f51e-4761-b061-aa2624e58b4a",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/ec51b1de-f51e-4761-b061-aa2624e58b4a?resourceVersion=id%3A30",
+      },
+    },
+    "title": "Baking mishaps - our troubleshooting tips",
+    "type": "node--article",
+  },
+  Object {
+    "id": "d5b9ef80-c0aa-45ca-88e7-79c28abe5d50",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/d5b9ef80-c0aa-45ca-88e7-79c28abe5d50?resourceVersion=id%3A32",
+      },
+    },
+    "title": "Skip the spirits with delicious mocktails",
+    "type": "node--article",
+  },
+  Object {
+    "id": "6c7c249f-cd1a-41d5-944b-b3bfce68b325",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/6c7c249f-cd1a-41d5-944b-b3bfce68b325?resourceVersion=id%3A34",
+      },
+    },
+    "title": "Give your oatmeal the ultimate makeover",
+    "type": "node--article",
+  },
+]
+`;
+
+exports[`getResourceCollection it fetches a resource collection using locale 1`] = `
+Array [
+  Object {
+    "id": "52837ad0-f218-46bd-a106-5710336b7053",
+    "langcode": "es",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053?resourceVersion=id%3A20",
+      },
+    },
+    "title": "Prueba y cultiva tus propias hierbas",
+    "type": "node--article",
+  },
+  Object {
+    "id": "3d5a7bca-5b4a-49ee-87d2-cbe313562903",
+    "langcode": "es",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/3d5a7bca-5b4a-49ee-87d2-cbe313562903?resourceVersion=id%3A22",
+      },
+    },
+    "title": "Delicioso chocolate sin lactosa",
+    "type": "node--article",
+  },
+  Object {
+    "id": "a1ef61c9-ed15-4b6d-bba2-bf6e5141f961",
+    "langcode": "es",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/a1ef61c9-ed15-4b6d-bba2-bf6e5141f961?resourceVersion=id%3A24",
+      },
+    },
+    "title": "El verdadero negocio para comprar en el supermercado",
+    "type": "node--article",
+  },
+  Object {
+    "id": "ac0b8b56-db8d-4322-9b1e-224f22083f0d",
+    "langcode": "es",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/ac0b8b56-db8d-4322-9b1e-224f22083f0d?resourceVersion=id%3A26",
+      },
+    },
+    "title": "Guía Umami de nuestras setas preferidas",
+    "type": "node--article",
+  },
+  Object {
+    "id": "22874ecc-0443-441b-a3c9-3aa94d85b800",
+    "langcode": "es",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/22874ecc-0443-441b-a3c9-3aa94d85b800?resourceVersion=id%3A28",
+      },
+    },
+    "title": "Un aplauso para las zanahorias",
+    "type": "node--article",
+  },
+  Object {
+    "id": "ec51b1de-f51e-4761-b061-aa2624e58b4a",
+    "langcode": "es",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/ec51b1de-f51e-4761-b061-aa2624e58b4a?resourceVersion=id%3A30",
+      },
+    },
+    "title": "Percances al hornear - nuestros consejos para solucionar los problemas",
+    "type": "node--article",
+  },
+  Object {
+    "id": "d5b9ef80-c0aa-45ca-88e7-79c28abe5d50",
+    "langcode": "es",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/d5b9ef80-c0aa-45ca-88e7-79c28abe5d50?resourceVersion=id%3A32",
+      },
+    },
+    "title": "Salta los espíritus con deliciosos cócteles sin alcohol",
+    "type": "node--article",
+  },
+  Object {
+    "id": "6c7c249f-cd1a-41d5-944b-b3bfce68b325",
+    "langcode": "es",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/6c7c249f-cd1a-41d5-944b-b3bfce68b325?resourceVersion=id%3A34",
+      },
+    },
+    "title": "Dale a tu avena el cambio de imagen definitivo",
+    "type": "node--article",
+  },
+]
+`;
+
+exports[`getResourceCollection it fetches raw data 1`] = `
+Object {
+  "data": Array [
+    Object {
+      "attributes": Object {
+        "title": "Vegan chocolate and nut brownies",
+      },
+      "id": "7862d283-ece2-4ae1-8bef-865259f72315",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/7862d283-ece2-4ae1-8bef-865259f72315?resourceVersion=id%3A4",
+        },
+      },
+      "type": "node--recipe",
+    },
+    Object {
+      "attributes": Object {
+        "title": "Super easy vegetarian pasta bake",
+      },
+      "id": "8d4b237f-f6fe-4bb1-95ef-f9e3b3f9d6b7",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/8d4b237f-f6fe-4bb1-95ef-f9e3b3f9d6b7?resourceVersion=id%3A6",
+        },
+      },
+      "type": "node--recipe",
+    },
+  ],
+  "jsonapi": Object {
+    "meta": Object {
+      "links": Object {
+        "self": Object {
+          "href": "http://jsonapi.org/format/1.0/",
+        },
+      },
+    },
+    "version": "1.0",
+  },
+  "links": Object {
+    "next": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe?fields%5Bnode--recipe%5D=title&page%5Boffset%5D=2&page%5Blimit%5D=2",
+    },
+    "self": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe?fields%5Bnode--recipe%5D=title&page%5Blimit%5D=2",
+    },
+  },
+}
+`;
+
+exports[`getResourceCollectionFromContext it fetches a resource collection 1`] = `
+Array [
+  Object {
+    "id": "52837ad0-f218-46bd-a106-5710336b7053",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053?resourceVersion=id%3A20",
+      },
+    },
+    "title": "Give it a go and grow your own herbs",
+    "type": "node--article",
+  },
+  Object {
+    "id": "3d5a7bca-5b4a-49ee-87d2-cbe313562903",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/3d5a7bca-5b4a-49ee-87d2-cbe313562903?resourceVersion=id%3A22",
+      },
+    },
+    "title": "Dairy-free and delicious milk chocolate",
+    "type": "node--article",
+  },
+  Object {
+    "id": "a1ef61c9-ed15-4b6d-bba2-bf6e5141f961",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/a1ef61c9-ed15-4b6d-bba2-bf6e5141f961?resourceVersion=id%3A24",
+      },
+    },
+    "title": "The real deal for supermarket savvy shopping",
+    "type": "node--article",
+  },
+  Object {
+    "id": "ac0b8b56-db8d-4322-9b1e-224f22083f0d",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/ac0b8b56-db8d-4322-9b1e-224f22083f0d?resourceVersion=id%3A26",
+      },
+    },
+    "title": "The Umami guide to our favorite mushrooms",
+    "type": "node--article",
+  },
+  Object {
+    "id": "22874ecc-0443-441b-a3c9-3aa94d85b800",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/22874ecc-0443-441b-a3c9-3aa94d85b800?resourceVersion=id%3A28",
+      },
+    },
+    "title": "Let's hear it for carrots",
+    "type": "node--article",
+  },
+  Object {
+    "id": "ec51b1de-f51e-4761-b061-aa2624e58b4a",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/ec51b1de-f51e-4761-b061-aa2624e58b4a?resourceVersion=id%3A30",
+      },
+    },
+    "title": "Baking mishaps - our troubleshooting tips",
+    "type": "node--article",
+  },
+  Object {
+    "id": "d5b9ef80-c0aa-45ca-88e7-79c28abe5d50",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/d5b9ef80-c0aa-45ca-88e7-79c28abe5d50?resourceVersion=id%3A32",
+      },
+    },
+    "title": "Skip the spirits with delicious mocktails",
+    "type": "node--article",
+  },
+  Object {
+    "id": "6c7c249f-cd1a-41d5-944b-b3bfce68b325",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/6c7c249f-cd1a-41d5-944b-b3bfce68b325?resourceVersion=id%3A34",
+      },
+    },
+    "title": "Give your oatmeal the ultimate makeover",
+    "type": "node--article",
+  },
+]
+`;
+
+exports[`getResourceCollectionFromContext it fetches a resource collection using locale 1`] = `
+Array [
+  Object {
+    "id": "52837ad0-f218-46bd-a106-5710336b7053",
+    "langcode": "es",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053?resourceVersion=id%3A20",
+      },
+    },
+    "title": "Prueba y cultiva tus propias hierbas",
+    "type": "node--article",
+  },
+  Object {
+    "id": "3d5a7bca-5b4a-49ee-87d2-cbe313562903",
+    "langcode": "es",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/3d5a7bca-5b4a-49ee-87d2-cbe313562903?resourceVersion=id%3A22",
+      },
+    },
+    "title": "Delicioso chocolate sin lactosa",
+    "type": "node--article",
+  },
+  Object {
+    "id": "a1ef61c9-ed15-4b6d-bba2-bf6e5141f961",
+    "langcode": "es",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/a1ef61c9-ed15-4b6d-bba2-bf6e5141f961?resourceVersion=id%3A24",
+      },
+    },
+    "title": "El verdadero negocio para comprar en el supermercado",
+    "type": "node--article",
+  },
+  Object {
+    "id": "ac0b8b56-db8d-4322-9b1e-224f22083f0d",
+    "langcode": "es",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/ac0b8b56-db8d-4322-9b1e-224f22083f0d?resourceVersion=id%3A26",
+      },
+    },
+    "title": "Guía Umami de nuestras setas preferidas",
+    "type": "node--article",
+  },
+  Object {
+    "id": "22874ecc-0443-441b-a3c9-3aa94d85b800",
+    "langcode": "es",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/22874ecc-0443-441b-a3c9-3aa94d85b800?resourceVersion=id%3A28",
+      },
+    },
+    "title": "Un aplauso para las zanahorias",
+    "type": "node--article",
+  },
+  Object {
+    "id": "ec51b1de-f51e-4761-b061-aa2624e58b4a",
+    "langcode": "es",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/ec51b1de-f51e-4761-b061-aa2624e58b4a?resourceVersion=id%3A30",
+      },
+    },
+    "title": "Percances al hornear - nuestros consejos para solucionar los problemas",
+    "type": "node--article",
+  },
+  Object {
+    "id": "d5b9ef80-c0aa-45ca-88e7-79c28abe5d50",
+    "langcode": "es",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/d5b9ef80-c0aa-45ca-88e7-79c28abe5d50?resourceVersion=id%3A32",
+      },
+    },
+    "title": "Salta los espíritus con deliciosos cócteles sin alcohol",
+    "type": "node--article",
+  },
+  Object {
+    "id": "6c7c249f-cd1a-41d5-944b-b3bfce68b325",
+    "langcode": "es",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/6c7c249f-cd1a-41d5-944b-b3bfce68b325?resourceVersion=id%3A34",
+      },
+    },
+    "title": "Dale a tu avena el cambio de imagen definitivo",
+    "type": "node--article",
+  },
+]
+`;
+
+exports[`getResourceCollectionFromContext it fetches raw data 1`] = `
+Object {
+  "data": Array [
+    Object {
+      "attributes": Object {
+        "title": "Vegan chocolate and nut brownies",
+      },
+      "id": "7862d283-ece2-4ae1-8bef-865259f72315",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/7862d283-ece2-4ae1-8bef-865259f72315?resourceVersion=id%3A4",
+        },
+      },
+      "type": "node--recipe",
+    },
+    Object {
+      "attributes": Object {
+        "title": "Super easy vegetarian pasta bake",
+      },
+      "id": "8d4b237f-f6fe-4bb1-95ef-f9e3b3f9d6b7",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/8d4b237f-f6fe-4bb1-95ef-f9e3b3f9d6b7?resourceVersion=id%3A6",
+        },
+      },
+      "type": "node--recipe",
+    },
+  ],
+  "jsonapi": Object {
+    "meta": Object {
+      "links": Object {
+        "self": Object {
+          "href": "http://jsonapi.org/format/1.0/",
+        },
+      },
+    },
+    "version": "1.0",
+  },
+  "links": Object {
+    "next": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe?fields%5Bnode--recipe%5D=title&page%5Boffset%5D=2&page%5Blimit%5D=2",
+    },
+    "self": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe?fields%5Bnode--recipe%5D=title&page%5Blimit%5D=2",
+    },
+  },
+}
+`;
+
 exports[`getResourceFromContext it fetches a resource from context 1`] = `
 Object {
   "changed": "2022-03-25T08:02:17+00:00",
@@ -1939,5 +2393,376 @@ Object {
       "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?fields%5Bnode--recipe%5D=title&resourceVersion=rel%3Alatest-version",
     },
   },
+}
+`;
+
+exports[`getStaticPathsFromContext it returns static paths from context 1`] = `
+Array [
+  Object {
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "give-it-a-go-and-grow-your-own-herbs",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "dairy-free-and-delicious-milk-chocolate",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "the-real-deal-for-supermarket-savvy-shopping",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "the-umami-guide-to-our-favourite-mushrooms",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "lets-hear-it-for-carrots",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "baking-mishaps-our-troubleshooting-tips",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "skip-the-spirits-with-delicious-mocktails",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "give-your-oatmeal-the-ultimate-makeover",
+      ],
+    },
+  },
+]
+`;
+
+exports[`getStaticPathsFromContext it returns static paths from context with locale 1`] = `
+Array [
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "give-it-a-go-and-grow-your-own-herbs",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "dairy-free-and-delicious-milk-chocolate",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "the-real-deal-for-supermarket-savvy-shopping",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "the-umami-guide-to-our-favourite-mushrooms",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "lets-hear-it-for-carrots",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "baking-mishaps-our-troubleshooting-tips",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "skip-the-spirits-with-delicious-mocktails",
+      ],
+    },
+  },
+  Object {
+    "locale": "en",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "give-your-oatmeal-the-ultimate-makeover",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "prueba-y-cultiva-tus-propias-hierbas",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "delicioso-chocolate-sin-lactosa",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "el-verdadeo-negocio-para-comprar-en-el-supermercado",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "guia-umami-de-nuestras-setas-preferidas",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "un-aplauso-para-las-zanahorias",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "percances-al-hornear-nuestros-consejos-para-solucionar-problemas",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "salta-los-espiritus-con-deliciosos-cocteles-sin-alcohol",
+      ],
+    },
+  },
+  Object {
+    "locale": "es",
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "dale-a-tu-avena-el-cambio-de-imagen-definitivo",
+      ],
+    },
+  },
+]
+`;
+
+exports[`getStaticPathsFromContext it returns static paths from context with params 1`] = `
+Array [
+  Object {
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "give-it-a-go-and-grow-your-own-herbs",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "dairy-free-and-delicious-milk-chocolate",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "the-real-deal-for-supermarket-savvy-shopping",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "the-umami-guide-to-our-favourite-mushrooms",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "lets-hear-it-for-carrots",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "baking-mishaps-our-troubleshooting-tips",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "skip-the-spirits-with-delicious-mocktails",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "slug": Array [
+        "articles",
+        "give-your-oatmeal-the-ultimate-makeover",
+      ],
+    },
+  },
+]
+`;
+
+exports[`translatePath it translates a path 1`] = `
+Object {
+  "entity": Object {
+    "bundle": "recipe",
+    "canonical": "https://dev-next-drupal-tests.pantheonsite.io/en/recipes/deep-mediterranean-quiche",
+    "id": "1",
+    "langcode": "en",
+    "type": "node",
+    "uuid": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+  },
+  "isHomePath": false,
+  "jsonapi": Object {
+    "basePath": "/jsonapi",
+    "entryPoint": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi",
+    "individual": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+    "pathPrefix": "jsonapi",
+    "resourceName": "node--recipe",
+  },
+  "label": "Deep mediterranean quiche - edited",
+  "meta": Object {
+    "deprecated": Object {
+      "jsonapi.pathPrefix": "This property has been deprecated and will be removed in the next version of Decoupled Router. Use basePath instead.",
+    },
+  },
+  "resolved": "https://dev-next-drupal-tests.pantheonsite.io/en/recipes/deep-mediterranean-quiche",
+}
+`;
+
+exports[`translatePathFromContext it translates a path 1`] = `
+Object {
+  "entity": Object {
+    "bundle": "recipe",
+    "canonical": "https://dev-next-drupal-tests.pantheonsite.io/en/recipes/deep-mediterranean-quiche",
+    "id": "1",
+    "langcode": "en",
+    "type": "node",
+    "uuid": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+  },
+  "isHomePath": false,
+  "jsonapi": Object {
+    "basePath": "/jsonapi",
+    "entryPoint": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi",
+    "individual": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+    "pathPrefix": "jsonapi",
+    "resourceName": "node--recipe",
+  },
+  "label": "Deep mediterranean quiche - edited",
+  "meta": Object {
+    "deprecated": Object {
+      "jsonapi.pathPrefix": "This property has been deprecated and will be removed in the next version of Decoupled Router. Use basePath instead.",
+    },
+  },
+  "resolved": "https://dev-next-drupal-tests.pantheonsite.io/en/recipes/deep-mediterranean-quiche",
+}
+`;
+
+exports[`translatePathFromContext it translates a path with prefix 1`] = `
+Object {
+  "entity": Object {
+    "bundle": "recipe",
+    "canonical": "https://dev-next-drupal-tests.pantheonsite.io/en/recipes/deep-mediterranean-quiche",
+    "id": "1",
+    "langcode": "en",
+    "type": "node",
+    "uuid": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+  },
+  "isHomePath": false,
+  "jsonapi": Object {
+    "basePath": "/jsonapi",
+    "entryPoint": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi",
+    "individual": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+    "pathPrefix": "jsonapi",
+    "resourceName": "node--recipe",
+  },
+  "label": "Deep mediterranean quiche - edited",
+  "meta": Object {
+    "deprecated": Object {
+      "jsonapi.pathPrefix": "This property has been deprecated and will be removed in the next version of Decoupled Router. Use basePath instead.",
+    },
+  },
+  "resolved": "https://dev-next-drupal-tests.pantheonsite.io/en/recipes/deep-mediterranean-quiche",
 }
 `;

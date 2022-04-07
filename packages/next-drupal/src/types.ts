@@ -294,14 +294,17 @@ export interface JsonApiResource extends Record<string, any> {
   status: boolean
 }
 
-export interface DrupalNode extends JsonApiResource {
+export interface JsonApiResourceWithPath extends JsonApiResource {
+  path: PathAlias
+}
+
+export interface DrupalNode extends JsonApiResourceWithPath {
   drupal_internal__nid: number
   drupal_internal__vid: number
   changed: string
   created: string
   title: string
   default_langcode: boolean
-  path: PathAlias
   sticky: boolean
 }
 
@@ -322,21 +325,19 @@ export interface DrupalMedia extends JsonApiResource {
   name: string
 }
 
-export interface DrupalTaxonomyTerm extends JsonApiResource {
+export interface DrupalTaxonomyTerm extends JsonApiResourceWithPath {
   drupal_internal__tid: string
   changed: string
   default_langcode: boolean
-  path: PathAlias
   name: string
   description: string
   weight: number
 }
 
-export interface DrupalUser extends JsonApiResource {
+export interface DrupalUser extends JsonApiResourceWithPath {
   drupal_internal__uid: string
   changed: string
   created: string
   default_langcode: boolean
   name: string
-  path: PathAlias
 }

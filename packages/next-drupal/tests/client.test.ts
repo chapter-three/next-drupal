@@ -1,7 +1,12 @@
 import { expect } from "@jest/globals"
 import { GetStaticPropsContext } from "next"
 import { Unstable_DrupalClient as DrupalClient } from "../src/client"
-import type { DataFormatter, DrupalNode, Logger } from "../src/types"
+import type {
+  DataFormatter,
+  DrupalNode,
+  Logger,
+  JsonApiResourceWithPath,
+} from "../src/types"
 
 // Run all tests against this env until we configure CI to setup a Drupal instance.
 // TODO: Bootstrap and expose the /drupal env for testing.
@@ -1752,17 +1757,13 @@ describe("getStaticPathsFromContext", () => {
   test("it returns static paths from context with params", async () => {
     const client = new DrupalClient(BASE_URL)
 
-    const params = {
-      getQueryObject: () => ({
-        "filter[promote]": 1,
-      }),
-    }
-
     const paths = await client.getStaticPathsFromContext(
       "node--article",
       {},
       {
-        params,
+        params: {
+          "filter[promote]": 1,
+        },
       }
     )
 
@@ -1812,5 +1813,123 @@ describe("getStaticPathsFromContext", () => {
         withAuth: true,
       })
     )
+  })
+})
+
+describe("buildStaticPathsParamsFromPaths", () => {
+  test("it builds static paths from paths", () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const paths = ["/blog/post/one", "/blog/post/two", "/blog/post/three"]
+
+    expect(client.buildStaticPathsParamsFromPaths(paths)).toMatchSnapshot()
+
+    expect(
+      client.buildStaticPathsParamsFromPaths(paths, { locale: "en" })
+    ).toMatchSnapshot()
+  })
+
+  test("it builds static paths from paths with prefix", () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const paths = client.buildStaticPathsParamsFromPaths(
+      ["/blog/post/one", "/blog/post/two", "/blog/post"],
+      { prefix: "blog" }
+    )
+
+    const paths2 = client.buildStaticPathsParamsFromPaths(
+      ["/blog/post/one", "/blog/post/two", "/blog/post"],
+      { prefix: "/blog" }
+    )
+
+    const paths3 = client.buildStaticPathsParamsFromPaths(
+      ["blog/post/one", "blog/post/two", "blog/post"],
+      { prefix: "/blog" }
+    )
+
+    const paths4 = client.buildStaticPathsParamsFromPaths(
+      ["blog/post/one", "blog/post/two", "blog/post"],
+      { prefix: "blog" }
+    )
+
+    expect(paths).toMatchSnapshot()
+
+    expect(paths).toEqual(paths2)
+    expect(paths).toEqual(paths3)
+    expect(paths).toEqual(paths4)
+  })
+})
+
+describe("buildStaticPathsFromResources", () => {
+  test("it builds static paths from resources", () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const resources: Pick<JsonApiResourceWithPath, "path">[] = [
+      {
+        path: {
+          alias: "blog/post/one",
+          pid: 1,
+          langcode: "en",
+        },
+      },
+      {
+        path: {
+          alias: "blog/post/two",
+          pid: 2,
+          langcode: "en",
+        },
+      },
+    ]
+
+    expect(client.buildStaticPathsFromResources(resources)).toMatchSnapshot()
+
+    expect(
+      client.buildStaticPathsFromResources(resources, { locale: "es" })
+    ).toMatchSnapshot()
+  })
+
+  test("it builds static paths from resources with prefix", () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const resources: Pick<JsonApiResourceWithPath, "path">[] = [
+      {
+        path: {
+          alias: "blog/post/one",
+          pid: 1,
+          langcode: "en",
+        },
+      },
+      {
+        path: {
+          alias: "blog/post/two",
+          pid: 2,
+          langcode: "en",
+        },
+      },
+    ]
+
+    const paths = client.buildStaticPathsFromResources(resources, {
+      prefix: "blog",
+    })
+
+    const paths2 = client.buildStaticPathsFromResources(resources, {
+      prefix: "/blog",
+    })
+
+    const paths3 = client.buildStaticPathsFromResources(resources, {
+      prefix: "/blog/post",
+      locale: "es",
+    })
+
+    const paths4 = client.buildStaticPathsFromResources(resources, {
+      prefix: "blog/post",
+      locale: "es",
+    })
+
+    expect(paths).toMatchSnapshot()
+    expect(paths3).toMatchSnapshot()
+
+    expect(paths).toEqual(paths2)
+    expect(paths3).toEqual(paths4)
   })
 })

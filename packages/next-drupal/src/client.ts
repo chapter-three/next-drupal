@@ -21,6 +21,8 @@ import type {
   BaseUrl,
   JsonApiWithAuthOptions,
   PathPrefix,
+  JsonApiResourceWithPath,
+  PathAlias,
 } from "./types"
 import { logger as defaultLogger } from "./logger"
 
@@ -459,19 +461,23 @@ export class Unstable_DrupalClient {
 
         // Handle localized path aliases
         if (!context.locales?.length) {
-          const resources = await this.getResourceCollection(type, {
+          const resources = await this.getResourceCollection<
+            JsonApiResourceWithPath[]
+          >(type, {
             params,
             withAuth: options.withAuth,
           })
 
-          return this.buildPathsFromResources(resources, {
+          return this.buildStaticPathsFromResources(resources, {
             prefix: options.prefix,
           })
         }
 
         const paths = await Promise.all(
           context.locales.map(async (locale) => {
-            const resources = await this.getResourceCollection(type, {
+            const resources = await this.getResourceCollection<
+              JsonApiResourceWithPath[]
+            >(type, {
               deserialize: true,
               locale,
               defaultLocale: context.defaultLocale,
@@ -479,7 +485,7 @@ export class Unstable_DrupalClient {
               withAuth: options.withAuth,
             })
 
-            return this.buildPathsFromResources(resources, {
+            return this.buildStaticPathsFromResources(resources, {
               locale,
               prefix: options.prefix,
             })
@@ -493,20 +499,44 @@ export class Unstable_DrupalClient {
     return paths.flat()
   }
 
-  buildPathsFromResources(
-    resources,
+  buildStaticPathsFromResources(
+    resources: {
+      path: PathAlias
+    }[],
     options?: {
       prefix?: PathPrefix
       locale?: Locale
     }
   ) {
-    return resources?.flatMap((resource) => {
-      const slug =
-        resource?.path?.alias === this.frontPage ? "/" : resource?.path?.alias
+    const paths = resources?.flatMap((resource) => {
+      return resource?.path?.alias === this.frontPage
+        ? "/"
+        : resource?.path?.alias
+    })
+
+    return paths?.length
+      ? this.buildStaticPathsParamsFromPaths(paths, options)
+      : []
+  }
+
+  buildStaticPathsParamsFromPaths(
+    paths: string[],
+    options?: { prefix?: PathPrefix; locale?: Locale }
+  ) {
+    return paths.flatMap((_path) => {
+      _path = _path.replace(/^\/|\/$/g, "")
+
+      // Remove prefix.
+      if (options?.prefix) {
+        // Remove leading slash from prefix.
+        const prefix = options.prefix.replace(/^\//, "")
+
+        _path = _path.replace(`${prefix}/`, "")
+      }
 
       const path = {
         params: {
-          slug: `${slug?.replace(/^\/|\/$/g, "")}`.split("/"),
+          slug: _path.split("/"),
         },
       }
 

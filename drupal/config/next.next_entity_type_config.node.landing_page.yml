@@ -1,7 +1,13 @@
 uuid: a04e5b82-b2f0-42ec-86f2-58e65c409e7b
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - next_extras
+third_party_settings:
+  next_extras:
+    revalidate: true
+    revalidate_paths: ''
 id: node.landing_page
 site_resolver: site_selector
 configuration:

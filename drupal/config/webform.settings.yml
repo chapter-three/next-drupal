@@ -233,85 +233,8 @@ batch:
 purge:
   cron_size: 100
 test:
-  types: |
-    checkbox:
-      - true
-    color:
-      - '#ffffcc'
-      - '#ffffcc'
-      - '#ccffff'
-    email:
-      - 'example@example.com'
-      - 'test@test.com'
-      - 'random@random.com'
-    language_select:
-      - en
-    machine_name:
-      - 'loremipsum'
-      - 'oratione'
-      - 'dixisset'
-    tel:
-      - '123-456-7890'
-      - '098-765-4321'
-    textarea:
-      - 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Negat esse eam, inquit, propter se expetendam. Primum Theophrasti, Strato, physicum se voluit; Id mihi magnum videtur. Itaque mihi non satis videmini considerare quod iter sit naturae quaeque progressio. Quare hoc videndum est, possitne nobis hoc ratio philosophorum dare. Est enim tanti philosophi tamque nobilis audacter sua decreta defendere.'
-      - 'Huius, Lyco, oratione locuples, rebus ipsis ielunior. Duo Reges: constructio interrete. Sed haec in pueris; Sed utrum hortandus es nobis, Luci, inquit, an etiam tua sponte propensus es? Sapiens autem semper beatus est et est aliquando in dolore; Immo videri fortasse. Paulum, cum regem Persem captum adduceret, eodem flumine invectio? Et ille ridens: Video, inquit, quid agas;'
-      - 'Quae cum dixisset, finem ille. Quamquam non negatis nos intellegere quid sit voluptas, sed quid ille dicat. Progredientibus autem aetatibus sensim tardeve potius quasi nosmet ipsos cognoscimus. Gloriosa ostentatio in constituendo summo bono. Qui-vere falsone, quaerere mittimus-dicitur oculis se privasse; Duarum enim vitarum nobis erunt instituta capienda. Comprehensum, quod cognitum non habet? Qui enim existimabit posse se miserum esse beatus non erit. Causa autem fuit huc veniendi ut quosdam hinc libros promerem. Nunc omni virtuti vitium contrario nomine opponitur.'
-    text_format:
-      - value: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Negat esse eam, inquit, propter se expetendam. Primum Theophrasti, Strato, physicum se voluit; Id mihi magnum videtur. Itaque mihi non satis videmini considerare quod iter sit naturae quaeque progressio. Quare hoc videndum est, possitne nobis hoc ratio philosophorum dare. Est enim tanti philosophi tamque nobilis audacter sua decreta defendere.</p>'
-      - value: '<p>Huius, Lyco, oratione locuples, rebus ipsis ielunior. Duo Reges: constructio interrete. Sed haec in pueris; Sed utrum hortandus es nobis, Luci, inquit, an etiam tua sponte propensus es? Sapiens autem semper beatus est et est aliquando in dolore; Immo videri fortasse. Paulum, cum regem Persem captum adduceret, eodem flumine invectio? Et ille ridens: Video, inquit, quid agas;</p>'
-      - value: '<p>Quae cum dixisset, finem ille. Quamquam non negatis nos intellegere quid sit voluptas, sed quid ille dicat. Progredientibus autem aetatibus sensim tardeve potius quasi nosmet ipsos cognoscimus. Gloriosa ostentatio in constituendo summo bono. Qui-vere falsone, quaerere mittimus-dicitur oculis se privasse; Duarum enim vitarum nobis erunt instituta capienda. Comprehensum, quod cognitum non habet? Qui enim existimabit posse se miserum esse beatus non erit. Causa autem fuit huc veniendi ut quosdam hinc libros promerem. Nunc omni virtuti vitium contrario nomine opponitur.</p>'
-    url:
-      - 'http://example.com'
-      - 'http://test.com'
-    webform_email_confirm:
-      - 'example@example.com'
-      - 'test@test.com'
-      - 'random@random.com'
-    webform_email_multiple:
-      - 'example@example.com, test@test.com, random@random.com'
-    webform_time:
-      - '09:00'
-      - '17:00'
-  names: |
-    first_name:
-      - 'John'
-      - 'Paul'
-      - 'Ringo'
-      - 'George'
-    last_name:
-      - 'Lennon'
-      - 'McCartney'
-      - 'Starr'
-      - 'Harrison'
-    address:
-      - '10 Main Street'
-      - '11 Brook Alley Road. APT 1'
-    zip:
-      - '11111'
-      - '12345'
-      - '12345-6789'
-    postal_code:
-      - '11111'
-      - '12345'
-      - '12345-6789'
-    phone:
-      - '123-456-7890'
-      - '098-765-4321'
-    fax:
-      - '123-456-7890'
-      - '098-765-4321'
-    city:
-      - 'Springfield'
-      - 'Pleasantville'
-      - 'Hill Valley'
-    url:
-      - 'http://example.com'
-      - 'http://test.com'
-    default:
-      - 'Loremipsum'
-      - 'Oratione'
-      - 'Dixisset'
+  types: "checkbox:\r\n  - true\r\ncolor:\r\n  - '#ffffcc'\r\n  - '#ffffcc'\r\n  - '#ccffff'\r\nemail:\r\n  - 'example@example.com'\r\n  - 'test@test.com'\r\n  - 'random@random.com'\r\nlanguage_select:\r\n  - en\r\nmachine_name:\r\n  - 'loremipsum'\r\n  - 'oratione'\r\n  - 'dixisset'\r\ntel:\r\n  - '123-456-7890'\r\n  - '098-765-4321'\r\ntextarea:\r\n  - 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Negat esse eam, inquit, propter se expetendam. Primum Theophrasti, Strato, physicum se voluit; Id mihi magnum videtur. Itaque mihi non satis videmini considerare quod iter sit naturae quaeque progressio. Quare hoc videndum est, possitne nobis hoc ratio philosophorum dare. Est enim tanti philosophi tamque nobilis audacter sua decreta defendere.'\r\n  - 'Huius, Lyco, oratione locuples, rebus ipsis ielunior. Duo Reges: constructio interrete. Sed haec in pueris; Sed utrum hortandus es nobis, Luci, inquit, an etiam tua sponte propensus es? Sapiens autem semper beatus est et est aliquando in dolore; Immo videri fortasse. Paulum, cum regem Persem captum adduceret, eodem flumine invectio? Et ille ridens: Video, inquit, quid agas;'\r\n  - 'Quae cum dixisset, finem ille. Quamquam non negatis nos intellegere quid sit voluptas, sed quid ille dicat. Progredientibus autem aetatibus sensim tardeve potius quasi nosmet ipsos cognoscimus. Gloriosa ostentatio in constituendo summo bono. Qui-vere falsone, quaerere mittimus-dicitur oculis se privasse; Duarum enim vitarum nobis erunt instituta capienda. Comprehensum, quod cognitum non habet? Qui enim existimabit posse se miserum esse beatus non erit. Causa autem fuit huc veniendi ut quosdam hinc libros promerem. Nunc omni virtuti vitium contrario nomine opponitur.'\r\ntext_format:\r\n  - value: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Negat esse eam, inquit, propter se expetendam. Primum Theophrasti, Strato, physicum se voluit; Id mihi magnum videtur. Itaque mihi non satis videmini considerare quod iter sit naturae quaeque progressio. Quare hoc videndum est, possitne nobis hoc ratio philosophorum dare. Est enim tanti philosophi tamque nobilis audacter sua decreta defendere.</p>'\r\n  - value: '<p>Huius, Lyco, oratione locuples, rebus ipsis ielunior. Duo Reges: constructio interrete. Sed haec in pueris; Sed utrum hortandus es nobis, Luci, inquit, an etiam tua sponte propensus es? Sapiens autem semper beatus est et est aliquando in dolore; Immo videri fortasse. Paulum, cum regem Persem captum adduceret, eodem flumine invectio? Et ille ridens: Video, inquit, quid agas;</p>'\r\n  - value: '<p>Quae cum dixisset, finem ille. Quamquam non negatis nos intellegere quid sit voluptas, sed quid ille dicat. Progredientibus autem aetatibus sensim tardeve potius quasi nosmet ipsos cognoscimus. Gloriosa ostentatio in constituendo summo bono. Qui-vere falsone, quaerere mittimus-dicitur oculis se privasse; Duarum enim vitarum nobis erunt instituta capienda. Comprehensum, quod cognitum non habet? Qui enim existimabit posse se miserum esse beatus non erit. Causa autem fuit huc veniendi ut quosdam hinc libros promerem. Nunc omni virtuti vitium contrario nomine opponitur.</p>'\r\nurl:\r\n  - 'http://example.com'\r\n  - 'http://test.com'\r\nwebform_email_confirm:\r\n  - 'example@example.com'\r\n  - 'test@test.com'\r\n  - 'random@random.com'\r\nwebform_email_multiple:\r\n  - 'example@example.com, test@test.com, random@random.com'\r\nwebform_time:\r\n  - '09:00'\r\n  - '17:00'\r\n"
+  names: "first_name:\r\n  - 'John'\r\n  - 'Paul'\r\n  - 'Ringo'\r\n  - 'George'\r\nlast_name:\r\n  - 'Lennon'\r\n  - 'McCartney'\r\n  - 'Starr'\r\n  - 'Harrison'\r\naddress:\r\n  - '10 Main Street'\r\n  - '11 Brook Alley Road. APT 1'\r\nzip:\r\n  - '11111'\r\n  - '12345'\r\n  - '12345-6789'\r\npostal_code:\r\n  - '11111'\r\n  - '12345'\r\n  - '12345-6789'\r\nphone:\r\n  - '123-456-7890'\r\n  - '098-765-4321'\r\nfax:\r\n  - '123-456-7890'\r\n  - '098-765-4321'\r\ncity:\r\n  - 'Springfield'\r\n  - 'Pleasantville'\r\n  - 'Hill Valley'\r\nurl:\r\n  - 'http://example.com'\r\n  - 'http://test.com'\r\ndefault:\r\n  - 'Loremipsum'\r\n  - 'Oratione'\r\n  - 'Dixisset'\r\n"
 ui:
   video_display: dialog
   help_disabled: false
@@ -327,7 +250,7 @@ libraries:
     - choices
     - jquery.chosen
 requirements:
-  cdn: true
+  cdn: false
   clientside_validation: true
   bootstrap: true
   spam: true

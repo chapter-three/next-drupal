@@ -1933,3 +1933,66 @@ describe("buildStaticPathsFromResources", () => {
     expect(paths3).toEqual(paths4)
   })
 })
+
+describe("getMenu", () => {
+  test("it fetches menu items for a menu", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const menu = await client.getMenu("main")
+
+    expect(menu).toMatchSnapshot()
+  })
+
+  test("it fetches menu items for a menu with params", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const menu = await client.getMenu("main", {
+      params: {
+        "fields[menu_link_content--menu_link_content]": "title",
+      },
+    })
+
+    expect(menu).toMatchSnapshot()
+  })
+
+  test("it throws an error for invalid menu name", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    await expect(client.getMenu("INVALID")).rejects.toThrow(
+      '404 Not Found\nThe "menu" parameter was not converted for the path "/jsonapi/menu_items/{menu}" (route name: "jsonapi_menu_items.menu")'
+    )
+  })
+
+  test("it makes un-authenticated requests by default", async () => {
+    const client = new DrupalClient(BASE_URL)
+    const fetchSpy = jest.spyOn(client, "fetch")
+
+    await client.getMenu("main")
+    expect(fetchSpy).toHaveBeenCalledWith(expect.anything(), {
+      withAuth: false,
+    })
+  })
+
+  test("it makes authenticated requests with withAuth option", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      useDefaultResourceTypeEntry: true,
+    })
+    const fetchSpy = jest
+      .spyOn(global, "fetch")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+        ) as jest.Mock
+      )
+    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
+
+    await client.getMenu("main", { withAuth: true })
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: true,
+      })
+    )
+  })
+})

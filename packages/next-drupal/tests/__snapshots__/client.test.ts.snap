@@ -1171,6 +1171,164 @@ Object {
 }
 `;
 
+exports[`getMenu it fetches menu items for a menu 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "description": "",
+      "enabled": true,
+      "expanded": false,
+      "id": "standard.front_page",
+      "menu_name": "main",
+      "meta": Array [],
+      "options": Array [],
+      "parent": "",
+      "provider": "demo_umami",
+      "route": Object {
+        "name": "<front>",
+        "parameters": Array [],
+      },
+      "title": "Home",
+      "type": "menu_link_content--menu_link_content",
+      "url": "/en",
+      "weight": "0",
+    },
+    Object {
+      "description": "",
+      "enabled": true,
+      "expanded": false,
+      "id": "views_view:views.featured_articles.page_1",
+      "menu_name": "main",
+      "meta": Object {
+        "display_id": "page_1",
+        "view_id": "featured_articles",
+      },
+      "options": Array [],
+      "parent": "",
+      "provider": "views",
+      "route": Object {
+        "name": "view.featured_articles.page_1",
+        "parameters": Array [],
+      },
+      "title": "Articles",
+      "type": "menu_link_content--menu_link_content",
+      "url": "/en/articles",
+      "weight": "20",
+    },
+    Object {
+      "description": "",
+      "enabled": true,
+      "expanded": false,
+      "id": "views_view:views.recipes.page_1",
+      "menu_name": "main",
+      "meta": Object {
+        "display_id": "page_1",
+        "view_id": "recipes",
+      },
+      "options": Array [],
+      "parent": "",
+      "provider": "views",
+      "route": Object {
+        "name": "view.recipes.page_1",
+        "parameters": Array [],
+      },
+      "title": "Recipes",
+      "type": "menu_link_content--menu_link_content",
+      "url": "/en/recipes",
+      "weight": "30",
+    },
+  ],
+  "tree": Array [
+    Object {
+      "description": "",
+      "enabled": true,
+      "expanded": false,
+      "id": "standard.front_page",
+      "menu_name": "main",
+      "meta": Array [],
+      "options": Array [],
+      "parent": "",
+      "provider": "demo_umami",
+      "route": Object {
+        "name": "<front>",
+        "parameters": Array [],
+      },
+      "title": "Home",
+      "type": "menu_link_content--menu_link_content",
+      "url": "/en",
+      "weight": "0",
+    },
+    Object {
+      "description": "",
+      "enabled": true,
+      "expanded": false,
+      "id": "views_view:views.featured_articles.page_1",
+      "menu_name": "main",
+      "meta": Object {
+        "display_id": "page_1",
+        "view_id": "featured_articles",
+      },
+      "options": Array [],
+      "parent": "",
+      "provider": "views",
+      "route": Object {
+        "name": "view.featured_articles.page_1",
+        "parameters": Array [],
+      },
+      "title": "Articles",
+      "type": "menu_link_content--menu_link_content",
+      "url": "/en/articles",
+      "weight": "20",
+    },
+    Object {
+      "description": "",
+      "enabled": true,
+      "expanded": false,
+      "id": "views_view:views.recipes.page_1",
+      "menu_name": "main",
+      "meta": Object {
+        "display_id": "page_1",
+        "view_id": "recipes",
+      },
+      "options": Array [],
+      "parent": "",
+      "provider": "views",
+      "route": Object {
+        "name": "view.recipes.page_1",
+        "parameters": Array [],
+      },
+      "title": "Recipes",
+      "type": "menu_link_content--menu_link_content",
+      "url": "/en/recipes",
+      "weight": "30",
+    },
+  ],
+}
+`;
+
+exports[`getMenu it fetches menu items for a menu with params 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "id": "standard.front_page",
+      "title": "Home",
+      "type": "menu_link_content--menu_link_content",
+    },
+    Object {
+      "id": "views_view:views.featured_articles.page_1",
+      "title": "Articles",
+      "type": "menu_link_content--menu_link_content",
+    },
+    Object {
+      "id": "views_view:views.recipes.page_1",
+      "title": "Recipes",
+      "type": "menu_link_content--menu_link_content",
+    },
+  ],
+  "tree": undefined,
+}
+`;
+
 exports[`getResource it fetches a resource by uuid 1`] = `
 Object {
   "changed": "2022-03-25T08:02:17+00:00",

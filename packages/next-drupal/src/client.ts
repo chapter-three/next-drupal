@@ -15,7 +15,6 @@ import type {
   JsonApiParams,
   DrupalTranslatedPath,
   DrupalMenuLinkContent,
-  JsonApiOptions,
   FetchOptions,
   DrupalClientOptions,
   BaseUrl,
@@ -673,15 +672,17 @@ export class Unstable_DrupalClient {
     return link.href
   }
 
-  async getMenu(
+  async getMenu<T extends DrupalMenuLinkContent>(
     name: string,
-    options?: JsonApiWithLocaleOptions
+    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
   ): Promise<{
-    items: DrupalMenuLinkContent[]
-    tree: DrupalMenuLinkContent[]
+    items: T[]
+    tree: T[]
   }> {
     options = {
+      withAuth: this.withAuth,
       deserialize: true,
+      params: {},
       ...options,
     }
 
@@ -690,13 +691,14 @@ export class Unstable_DrupalClient {
         ? `/${options.locale}`
         : ""
 
-    const url = this.buildUrl(`${localePrefix}/jsonapi/menu_items/${name}`)
+    const url = this.buildUrl(
+      `${localePrefix}${this.apiPrefix}/menu_items/${name}`,
+      options.params
+    )
 
-    const response = await this.fetch(url.toString())
-
-    if (!response.ok) {
-      throw new Error(response.statusText)
-    }
+    const response = await this.fetch(url.toString(), {
+      withAuth: options.withAuth,
+    })
 
     const data = await response.json()
 
@@ -714,7 +716,13 @@ export class Unstable_DrupalClient {
     links: DrupalMenuLinkContent[],
     parent: DrupalMenuLinkContent["id"] = ""
   ) {
-    const children = links.filter((link) => link.parent === parent)
+    if (!links?.length) {
+      return {
+        items: [],
+      }
+    }
+
+    const children = links.filter((link) => link?.parent === parent)
 
     return children.length
       ? {

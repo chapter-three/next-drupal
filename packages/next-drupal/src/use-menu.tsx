@@ -4,18 +4,18 @@ import { useRouter } from "next/router"
 import { getMenu } from "./get-menu"
 import { DrupalMenuLinkContent } from "./types"
 
-export function useMenu(
+export function useMenu<T extends DrupalMenuLinkContent>(
   name: string
 ): {
-  items: DrupalMenuLinkContent[]
-  tree: DrupalMenuLinkContent[]
+  items: T[]
+  tree: T[]
   error: unknown
   isLoading: boolean
 } {
   const router = useRouter()
   const [data, setData] = React.useState<{
-    items: DrupalMenuLinkContent[]
-    tree: DrupalMenuLinkContent[]
+    items: T[]
+    tree: T[]
   }>(null)
   const [error, setError] = React.useState(null)
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
@@ -24,7 +24,7 @@ export function useMenu(
     const fetchMenuItems = async () => {
       setIsLoading(true)
       try {
-        const data = await getMenu(name, {
+        const data = await getMenu<T>(name, {
           locale: router.locale,
           defaultLocale: router.defaultLocale,
         })

@@ -87,7 +87,7 @@ export interface DrupalMenuLinkContent {
   id: string
   menu_name: string
   meta: Record<string, unknown>
-  options: []
+  options: Record<string, unknown>
   parent: string
   provider: string
   route: {

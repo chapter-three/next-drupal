@@ -5,15 +5,15 @@ import {
 } from "./types"
 import { buildHeaders, buildUrl, deserialize } from "./utils"
 
-export async function getMenu(
+export async function getMenu<T extends DrupalMenuLinkContent>(
   name: string,
   options?: {
     deserialize?: boolean
     accessToken?: AccessToken
   } & JsonApiWithLocaleOptions
 ): Promise<{
-  items: DrupalMenuLinkContent[]
-  tree: DrupalMenuLinkContent[]
+  items: T[]
+  tree: T[]
 }> {
   options = {
     deserialize: true,

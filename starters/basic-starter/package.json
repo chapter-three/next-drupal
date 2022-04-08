@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
-    "preview": "next build && next start"
+    "preview": "next build && next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.2",

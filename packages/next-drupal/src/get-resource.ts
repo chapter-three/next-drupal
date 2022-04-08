@@ -101,7 +101,7 @@ export async function getResourceByPath<T extends JsonApiResource>(
     })
   }
 
-  const { resourceVersion = "rel:latest-version", ...params } = options?.params
+  const { resourceVersion = "rel:latest-version", ...params } = options.params
 
   if (options.isVersionable) {
     params.resourceVersion = resourceVersion

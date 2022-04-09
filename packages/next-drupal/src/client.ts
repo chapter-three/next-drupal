@@ -778,11 +778,10 @@ export class Unstable_DrupalClient {
 
   async getSearchIndex<T = JsonApiResource[]>(
     name: string,
-    options?: {
-      deserialize?: boolean
-    } & JsonApiWithLocaleOptions
+    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
   ): Promise<T> {
     options = {
+      withAuth: this.withAuth,
       deserialize: true,
       ...options,
     }
@@ -793,15 +792,13 @@ export class Unstable_DrupalClient {
         : ""
 
     const url = this.buildUrl(
-      `${localePrefix}/jsonapi/index/${name}`,
+      `${localePrefix}${this.apiPrefix}/index/${name}`,
       options.params
     )
 
-    const response = await fetch(url.toString())
-
-    if (!response.ok) {
-      throw new Error(response.statusText)
-    }
+    const response = await this.fetch(url.toString(), {
+      withAuth: options.withAuth,
+    })
 
     const json = await response.json()
 
@@ -811,15 +808,8 @@ export class Unstable_DrupalClient {
   async getSearchIndexFromContext<T = JsonApiResource[]>(
     name: string,
     context: GetStaticPropsContext,
-    options?: {
-      deserialize?: boolean
-    } & JsonApiWithLocaleOptions
+    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
   ): Promise<T> {
-    options = {
-      deserialize: true,
-      ...options,
-    }
-
     return await this.getSearchIndex<T>(name, {
       ...options,
       locale: context.locale,

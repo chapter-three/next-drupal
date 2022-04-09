@@ -6,6 +6,7 @@ import type {
   DrupalNode,
   Logger,
   JsonApiResourceWithPath,
+  JsonApiSearchApiResponse,
 } from "../src/types"
 
 // Run all tests against this env until we configure CI to setup a Drupal instance.
@@ -2088,6 +2089,117 @@ describe("getView", () => {
     jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
 
     await client.getView("featured_articles--page_1", { withAuth: true })
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: true,
+      })
+    )
+  })
+
+  test("it fetches a view with links for pagination", async () => {
+    const client = new DrupalClient(BASE_URL)
+    const view = await client.getView("recipes--page_1")
+
+    expect(view.links).toHaveProperty("next")
+  })
+})
+
+describe("getSearchIndex", () => {
+  test("it fetches a search index", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const search = await client.getSearchIndex("recipes", {
+      params: {
+        "fields[node--recipe]": "title",
+      },
+    })
+
+    expect(search).toMatchSnapshot()
+  })
+
+  test("it fetches a search index with locale", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const search = await client.getSearchIndex("recipes", {
+      locale: "es",
+      defaultLocale: "en",
+      params: {
+        "fields[node--recipe]": "title",
+      },
+    })
+
+    expect(search).toMatchSnapshot()
+  })
+
+  test("it fetches a search index with facets filters", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const search = await client.getSearchIndex<JsonApiSearchApiResponse>(
+      "recipes",
+      {
+        deserialize: false,
+        params: {
+          "filter[difficulty]": "easy",
+          "fields[node--recipe]": "title,field_difficulty",
+        },
+      }
+    )
+
+    expect(search).toMatchSnapshot()
+    expect(search.meta.facets).not.toBeNull()
+  })
+
+  test("it fetches raw data from search index", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const search = await client.getSearchIndex("recipes", {
+      deserialize: false,
+      params: {
+        "filter[difficulty]": "easy",
+        "fields[node--recipe]": "title,field_difficulty",
+      },
+    })
+
+    expect(search).toMatchSnapshot()
+  })
+
+  test("it makes un-authenticated requests by default", async () => {
+    const client = new DrupalClient(BASE_URL)
+    const fetchSpy = jest.spyOn(client, "fetch")
+
+    await client.getSearchIndex("recipes")
+
+    expect(fetchSpy).toHaveBeenCalledWith(expect.anything(), {
+      withAuth: false,
+    })
+  })
+
+  test("it throws an error for invalid index", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    await expect(client.getSearchIndex("INVALID-INDEX")).rejects.toThrow(
+      "Not Found"
+    )
+  })
+
+  test("it makes authenticated requests with withAuth option", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      useDefaultResourceTypeEntry: true,
+    })
+    const fetchSpy = jest
+      .spyOn(global, "fetch")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+        ) as jest.Mock
+      )
+    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
+
+    await client.getSearchIndex("recipes", {
+      withAuth: true,
+    })
 
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),

@@ -2874,6 +2874,2090 @@ Object {
 }
 `;
 
+exports[`getSearchIndex it fetches a search index 1`] = `
+Array [
+  Object {
+    "id": "3873f7b4-790c-4f93-ac7a-b4ca71272128",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/3873f7b4-790c-4f93-ac7a-b4ca71272128?resourceVersion=id%3A18",
+      },
+    },
+    "title": "Fiery chili sauce",
+    "type": "node--recipe",
+  },
+  Object {
+    "id": "f4fff2df-1a2a-4762-be23-6b7d5755eba1",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/f4fff2df-1a2a-4762-be23-6b7d5755eba1?resourceVersion=id%3A10",
+      },
+    },
+    "title": "Victoria sponge cake",
+    "type": "node--recipe",
+  },
+  Object {
+    "id": "20b576d2-2343-4b94-bd46-445ecc526e48",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/20b576d2-2343-4b94-bd46-445ecc526e48?resourceVersion=id%3A16",
+      },
+    },
+    "title": "Crema catalana",
+    "type": "node--recipe",
+  },
+  Object {
+    "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?resourceVersion=id%3A37",
+      },
+    },
+    "title": "Deep mediterranean quiche - edited",
+    "type": "node--recipe",
+  },
+  Object {
+    "id": "8d4b237f-f6fe-4bb1-95ef-f9e3b3f9d6b7",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/8d4b237f-f6fe-4bb1-95ef-f9e3b3f9d6b7?resourceVersion=id%3A6",
+      },
+    },
+    "title": "Super easy vegetarian pasta bake",
+    "type": "node--recipe",
+  },
+  Object {
+    "id": "84e09cbf-e33e-46bd-b40c-4dda4e00937a",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/84e09cbf-e33e-46bd-b40c-4dda4e00937a?resourceVersion=id%3A12",
+      },
+    },
+    "title": "Gluten free pizza",
+    "type": "node--recipe",
+  },
+  Object {
+    "id": "194f2647-1fbb-42b1-9ea5-3a3eb0494e04",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/194f2647-1fbb-42b1-9ea5-3a3eb0494e04?resourceVersion=id%3A14",
+      },
+    },
+    "title": "Thai green curry",
+    "type": "node--recipe",
+  },
+  Object {
+    "id": "7862d283-ece2-4ae1-8bef-865259f72315",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/7862d283-ece2-4ae1-8bef-865259f72315?resourceVersion=id%3A4",
+      },
+    },
+    "title": "Vegan chocolate and nut brownies",
+    "type": "node--recipe",
+  },
+  Object {
+    "id": "0bf47bce-51c9-480e-9c24-cd0a457a4f9b",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/0bf47bce-51c9-480e-9c24-cd0a457a4f9b?resourceVersion=id%3A8",
+      },
+    },
+    "title": "Watercress soup",
+    "type": "node--recipe",
+  },
+]
+`;
+
+exports[`getSearchIndex it fetches a search index with facets filters 1`] = `
+Object {
+  "data": Array [
+    Object {
+      "attributes": Object {
+        "field_difficulty": "easy",
+        "title": "Super easy vegetarian pasta bake",
+      },
+      "id": "8d4b237f-f6fe-4bb1-95ef-f9e3b3f9d6b7",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/8d4b237f-f6fe-4bb1-95ef-f9e3b3f9d6b7?resourceVersion=id%3A6",
+        },
+      },
+      "type": "node--recipe",
+    },
+    Object {
+      "attributes": Object {
+        "field_difficulty": "easy",
+        "title": "Watercress soup",
+      },
+      "id": "0bf47bce-51c9-480e-9c24-cd0a457a4f9b",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/0bf47bce-51c9-480e-9c24-cd0a457a4f9b?resourceVersion=id%3A8",
+        },
+      },
+      "type": "node--recipe",
+    },
+    Object {
+      "attributes": Object {
+        "field_difficulty": "easy",
+        "title": "Victoria sponge cake",
+      },
+      "id": "f4fff2df-1a2a-4762-be23-6b7d5755eba1",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/f4fff2df-1a2a-4762-be23-6b7d5755eba1?resourceVersion=id%3A10",
+        },
+      },
+      "type": "node--recipe",
+    },
+    Object {
+      "attributes": Object {
+        "field_difficulty": "easy",
+        "title": "Fiery chili sauce",
+      },
+      "id": "3873f7b4-790c-4f93-ac7a-b4ca71272128",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/3873f7b4-790c-4f93-ac7a-b4ca71272128?resourceVersion=id%3A18",
+        },
+      },
+      "type": "node--recipe",
+    },
+  ],
+  "jsonapi": Object {
+    "meta": Object {
+      "links": Object {
+        "self": Object {
+          "href": "http://jsonapi.org/format/1.0/",
+        },
+      },
+    },
+    "version": "1.0",
+  },
+  "links": Object {
+    "self": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/jsonapi/index/recipes?fields%5Bnode--recipe%5D=title%2Cfield_difficulty&filter%5Bdifficulty%5D=easy",
+    },
+  },
+  "meta": Object {
+    "count": 8,
+    "facets": Array [
+      Object {
+        "#attached": Object {
+          "library": Array [
+            "facets/drupal.facets.link-widget",
+          ],
+        },
+        "#attributes": Object {
+          "class": Array [
+            "facet-active",
+            "js-facets-links",
+          ],
+          "data-drupal-facet-alias": "difficulty",
+          "data-drupal-facet-id": "difficulty",
+        },
+        "#cache": Object {
+          "contexts": Array [
+            "url.path",
+            "url.query_args",
+          ],
+        },
+        "#context": Object {
+          "list_style": "links",
+        },
+        "#facet": Object {
+          "show_title": null,
+        },
+        "#items": Array [
+          Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 10,
+              "data-drupal-facet-item-id": "difficulty-medium",
+              "data-drupal-facet-item-value": "medium",
+            },
+            "#title": Object {
+              "#count": 10,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "medium",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "medium",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          Object {
+            "#attributes": Object {
+              "class": Array [
+                "is-active",
+              ],
+              "data-drupal-facet-item-count": 8,
+              "data-drupal-facet-item-id": "difficulty-easy",
+              "data-drupal-facet-item-value": "easy",
+            },
+            "#title": Object {
+              "#count": 8,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": true,
+              "#raw_value": "easy",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "easy",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+        ],
+        "#theme": "facets_item_list__links__difficulty",
+      },
+      Object {
+        "#attached": Object {
+          "library": Array [
+            "facets/drupal.facets.link-widget",
+          ],
+        },
+        "#attributes": Object {
+          "class": Array [
+            "facet-inactive",
+            "js-facets-links",
+          ],
+          "data-drupal-facet-alias": "recipe_category",
+          "data-drupal-facet-id": "recipe_category",
+        },
+        "#cache": Object {
+          "contexts": Array [
+            "url.path",
+            "url.query_args",
+          ],
+        },
+        "#context": Object {
+          "list_style": "links",
+        },
+        "#facet": Object {
+          "show_title": null,
+        },
+        "#items": Array [
+          Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 2,
+              "data-drupal-facet-item-id": "recipe-category-29",
+              "data-drupal-facet-item-value": "29",
+            },
+            "#title": Object {
+              "#count": 2,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "29",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "29",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 2,
+              "data-drupal-facet-item-id": "recipe-category-30",
+              "data-drupal-facet-item-value": "30",
+            },
+            "#title": Object {
+              "#count": 2,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "30",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "30",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 2,
+              "data-drupal-facet-item-id": "recipe-category-31",
+              "data-drupal-facet-item-value": "31",
+            },
+            "#title": Object {
+              "#count": 2,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "31",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "31",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 2,
+              "data-drupal-facet-item-id": "recipe-category-33",
+              "data-drupal-facet-item-value": "33",
+            },
+            "#title": Object {
+              "#count": 2,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "33",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "33",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+        ],
+        "#theme": "facets_item_list__links__recipe_category",
+      },
+      Object {
+        "#attached": Object {
+          "library": Array [
+            "facets/drupal.facets.link-widget",
+          ],
+        },
+        "#attributes": Object {
+          "class": Array [
+            "facet-inactive",
+            "js-facets-links",
+          ],
+          "data-drupal-facet-alias": "title",
+          "data-drupal-facet-id": "title",
+        },
+        "#cache": Object {
+          "contexts": Array [
+            "url.path",
+            "url.query_args",
+          ],
+        },
+        "#context": Object {
+          "list_style": "links",
+        },
+        "#facet": Object {
+          "show_title": null,
+        },
+        "#items": Object {
+          "0": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 2,
+              "data-drupal-facet-item-id": "title-de",
+              "data-drupal-facet-item-value": "de",
+            },
+            "#title": Object {
+              "#count": 2,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "de",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "de",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "1": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 2,
+              "data-drupal-facet-item-id": "title-pasta",
+              "data-drupal-facet-item-value": "pasta",
+            },
+            "#title": Object {
+              "#count": 2,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "pasta",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "pasta",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "10": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-easy",
+              "data-drupal-facet-item-value": "easy",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "easy",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "easy",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "11": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-fiery",
+              "data-drupal-facet-item-value": "fiery",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "fiery",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "fiery",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "12": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-fácil",
+              "data-drupal-facet-item-value": "fácil",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "fácil",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "fácil",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "13": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-horno",
+              "data-drupal-facet-item-value": "horno",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "horno",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "horno",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "14": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-pastel",
+              "data-drupal-facet-item-value": "pastel",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "pastel",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "pastel",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "15": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-salsa",
+              "data-drupal-facet-item-value": "salsa",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "salsa",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "salsa",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "16": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-sauce",
+              "data-drupal-facet-item-value": "sauce",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "sauce",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "sauce",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "17": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-sopa",
+              "data-drupal-facet-item-value": "sopa",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "sopa",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "sopa",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "18": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-soup",
+              "data-drupal-facet-item-value": "soup",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "soup",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "soup",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "19": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-sponge",
+              "data-drupal-facet-item-value": "sponge",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "sponge",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "sponge",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "2": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 2,
+              "data-drupal-facet-item-id": "title-victoria",
+              "data-drupal-facet-item-value": "victoria",
+            },
+            "#title": Object {
+              "#count": 2,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "victoria",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "victoria",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "20": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-super",
+              "data-drupal-facet-item-value": "super",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "super",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "super",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "21": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-súper",
+              "data-drupal-facet-item-value": "súper",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "súper",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "súper",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "22": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-vegetarian",
+              "data-drupal-facet-item-value": "vegetarian",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "vegetarian",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "vegetarian",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "23": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-vegetariana",
+              "data-drupal-facet-item-value": "vegetariana",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "vegetariana",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "vegetariana",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "24": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-watercress",
+              "data-drupal-facet-item-value": "watercress",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "watercress",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "watercress",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "3": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-al",
+              "data-drupal-facet-item-value": "al",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "al",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "al",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "4": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-ardiente",
+              "data-drupal-facet-item-value": "ardiente",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "ardiente",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "ardiente",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "5": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-bake",
+              "data-drupal-facet-item-value": "bake",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "bake",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "bake",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "6": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-berro",
+              "data-drupal-facet-item-value": "berro",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "berro",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "berro",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "7": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-cake",
+              "data-drupal-facet-item-value": "cake",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "cake",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "cake",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "8": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-chile",
+              "data-drupal-facet-item-value": "chile",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "chile",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "chile",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "9": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-chili",
+              "data-drupal-facet-item-value": "chili",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "chili",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "chili",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+        },
+        "#theme": "facets_item_list__links__title",
+      },
+    ],
+  },
+}
+`;
+
+exports[`getSearchIndex it fetches a search index with locale 1`] = `
+Array [
+  Object {
+    "id": "3873f7b4-790c-4f93-ac7a-b4ca71272128",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/recipe/3873f7b4-790c-4f93-ac7a-b4ca71272128?resourceVersion=id%3A18",
+      },
+    },
+    "title": "Salsa de chile ardiente",
+    "type": "node--recipe",
+  },
+  Object {
+    "id": "f4fff2df-1a2a-4762-be23-6b7d5755eba1",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/recipe/f4fff2df-1a2a-4762-be23-6b7d5755eba1?resourceVersion=id%3A10",
+      },
+    },
+    "title": "Pastel Victoria",
+    "type": "node--recipe",
+  },
+  Object {
+    "id": "20b576d2-2343-4b94-bd46-445ecc526e48",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/recipe/20b576d2-2343-4b94-bd46-445ecc526e48?resourceVersion=id%3A16",
+      },
+    },
+    "title": "Crema catalana",
+    "type": "node--recipe",
+  },
+  Object {
+    "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?resourceVersion=id%3A37",
+      },
+    },
+    "title": "Quiche mediterráneo profundo",
+    "type": "node--recipe",
+  },
+  Object {
+    "id": "8d4b237f-f6fe-4bb1-95ef-f9e3b3f9d6b7",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/recipe/8d4b237f-f6fe-4bb1-95ef-f9e3b3f9d6b7?resourceVersion=id%3A6",
+      },
+    },
+    "title": "Pasta vegetariana al horno súper fácil",
+    "type": "node--recipe",
+  },
+  Object {
+    "id": "84e09cbf-e33e-46bd-b40c-4dda4e00937a",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/recipe/84e09cbf-e33e-46bd-b40c-4dda4e00937a?resourceVersion=id%3A12",
+      },
+    },
+    "title": "Pizza sin gluten",
+    "type": "node--recipe",
+  },
+  Object {
+    "id": "194f2647-1fbb-42b1-9ea5-3a3eb0494e04",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/recipe/194f2647-1fbb-42b1-9ea5-3a3eb0494e04?resourceVersion=id%3A14",
+      },
+    },
+    "title": "Curry verde tailandés",
+    "type": "node--recipe",
+  },
+  Object {
+    "id": "7862d283-ece2-4ae1-8bef-865259f72315",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/recipe/7862d283-ece2-4ae1-8bef-865259f72315?resourceVersion=id%3A4",
+      },
+    },
+    "title": "Bizcochos veganos de chocolate y nueces",
+    "type": "node--recipe",
+  },
+  Object {
+    "id": "0bf47bce-51c9-480e-9c24-cd0a457a4f9b",
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/recipe/0bf47bce-51c9-480e-9c24-cd0a457a4f9b?resourceVersion=id%3A8",
+      },
+    },
+    "title": "Sopa de berro",
+    "type": "node--recipe",
+  },
+]
+`;
+
+exports[`getSearchIndex it fetches raw data from search index 1`] = `
+Object {
+  "data": Array [
+    Object {
+      "attributes": Object {
+        "field_difficulty": "easy",
+        "title": "Super easy vegetarian pasta bake",
+      },
+      "id": "8d4b237f-f6fe-4bb1-95ef-f9e3b3f9d6b7",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/8d4b237f-f6fe-4bb1-95ef-f9e3b3f9d6b7?resourceVersion=id%3A6",
+        },
+      },
+      "type": "node--recipe",
+    },
+    Object {
+      "attributes": Object {
+        "field_difficulty": "easy",
+        "title": "Watercress soup",
+      },
+      "id": "0bf47bce-51c9-480e-9c24-cd0a457a4f9b",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/0bf47bce-51c9-480e-9c24-cd0a457a4f9b?resourceVersion=id%3A8",
+        },
+      },
+      "type": "node--recipe",
+    },
+    Object {
+      "attributes": Object {
+        "field_difficulty": "easy",
+        "title": "Victoria sponge cake",
+      },
+      "id": "f4fff2df-1a2a-4762-be23-6b7d5755eba1",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/f4fff2df-1a2a-4762-be23-6b7d5755eba1?resourceVersion=id%3A10",
+        },
+      },
+      "type": "node--recipe",
+    },
+    Object {
+      "attributes": Object {
+        "field_difficulty": "easy",
+        "title": "Fiery chili sauce",
+      },
+      "id": "3873f7b4-790c-4f93-ac7a-b4ca71272128",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/3873f7b4-790c-4f93-ac7a-b4ca71272128?resourceVersion=id%3A18",
+        },
+      },
+      "type": "node--recipe",
+    },
+  ],
+  "jsonapi": Object {
+    "meta": Object {
+      "links": Object {
+        "self": Object {
+          "href": "http://jsonapi.org/format/1.0/",
+        },
+      },
+    },
+    "version": "1.0",
+  },
+  "links": Object {
+    "self": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/jsonapi/index/recipes?fields%5Bnode--recipe%5D=title%2Cfield_difficulty&filter%5Bdifficulty%5D=easy",
+    },
+  },
+  "meta": Object {
+    "count": 8,
+    "facets": Array [
+      Object {
+        "#attached": Object {
+          "library": Array [
+            "facets/drupal.facets.link-widget",
+          ],
+        },
+        "#attributes": Object {
+          "class": Array [
+            "facet-active",
+            "js-facets-links",
+          ],
+          "data-drupal-facet-alias": "difficulty",
+          "data-drupal-facet-id": "difficulty",
+        },
+        "#cache": Object {
+          "contexts": Array [
+            "url.path",
+            "url.query_args",
+          ],
+        },
+        "#context": Object {
+          "list_style": "links",
+        },
+        "#facet": Object {
+          "show_title": null,
+        },
+        "#items": Array [
+          Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 10,
+              "data-drupal-facet-item-id": "difficulty-medium",
+              "data-drupal-facet-item-value": "medium",
+            },
+            "#title": Object {
+              "#count": 10,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "medium",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "medium",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          Object {
+            "#attributes": Object {
+              "class": Array [
+                "is-active",
+              ],
+              "data-drupal-facet-item-count": 8,
+              "data-drupal-facet-item-id": "difficulty-easy",
+              "data-drupal-facet-item-value": "easy",
+            },
+            "#title": Object {
+              "#count": 8,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": true,
+              "#raw_value": "easy",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "easy",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+        ],
+        "#theme": "facets_item_list__links__difficulty",
+      },
+      Object {
+        "#attached": Object {
+          "library": Array [
+            "facets/drupal.facets.link-widget",
+          ],
+        },
+        "#attributes": Object {
+          "class": Array [
+            "facet-inactive",
+            "js-facets-links",
+          ],
+          "data-drupal-facet-alias": "recipe_category",
+          "data-drupal-facet-id": "recipe_category",
+        },
+        "#cache": Object {
+          "contexts": Array [
+            "url.path",
+            "url.query_args",
+          ],
+        },
+        "#context": Object {
+          "list_style": "links",
+        },
+        "#facet": Object {
+          "show_title": null,
+        },
+        "#items": Array [
+          Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 2,
+              "data-drupal-facet-item-id": "recipe-category-29",
+              "data-drupal-facet-item-value": "29",
+            },
+            "#title": Object {
+              "#count": 2,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "29",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "29",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 2,
+              "data-drupal-facet-item-id": "recipe-category-30",
+              "data-drupal-facet-item-value": "30",
+            },
+            "#title": Object {
+              "#count": 2,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "30",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "30",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 2,
+              "data-drupal-facet-item-id": "recipe-category-31",
+              "data-drupal-facet-item-value": "31",
+            },
+            "#title": Object {
+              "#count": 2,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "31",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "31",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 2,
+              "data-drupal-facet-item-id": "recipe-category-33",
+              "data-drupal-facet-item-value": "33",
+            },
+            "#title": Object {
+              "#count": 2,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "33",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "33",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+        ],
+        "#theme": "facets_item_list__links__recipe_category",
+      },
+      Object {
+        "#attached": Object {
+          "library": Array [
+            "facets/drupal.facets.link-widget",
+          ],
+        },
+        "#attributes": Object {
+          "class": Array [
+            "facet-inactive",
+            "js-facets-links",
+          ],
+          "data-drupal-facet-alias": "title",
+          "data-drupal-facet-id": "title",
+        },
+        "#cache": Object {
+          "contexts": Array [
+            "url.path",
+            "url.query_args",
+          ],
+        },
+        "#context": Object {
+          "list_style": "links",
+        },
+        "#facet": Object {
+          "show_title": null,
+        },
+        "#items": Object {
+          "0": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 2,
+              "data-drupal-facet-item-id": "title-de",
+              "data-drupal-facet-item-value": "de",
+            },
+            "#title": Object {
+              "#count": 2,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "de",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "de",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "1": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 2,
+              "data-drupal-facet-item-id": "title-pasta",
+              "data-drupal-facet-item-value": "pasta",
+            },
+            "#title": Object {
+              "#count": 2,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "pasta",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "pasta",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "10": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-easy",
+              "data-drupal-facet-item-value": "easy",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "easy",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "easy",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "11": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-fiery",
+              "data-drupal-facet-item-value": "fiery",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "fiery",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "fiery",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "12": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-fácil",
+              "data-drupal-facet-item-value": "fácil",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "fácil",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "fácil",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "13": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-horno",
+              "data-drupal-facet-item-value": "horno",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "horno",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "horno",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "14": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-pastel",
+              "data-drupal-facet-item-value": "pastel",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "pastel",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "pastel",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "15": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-salsa",
+              "data-drupal-facet-item-value": "salsa",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "salsa",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "salsa",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "16": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-sauce",
+              "data-drupal-facet-item-value": "sauce",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "sauce",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "sauce",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "17": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-sopa",
+              "data-drupal-facet-item-value": "sopa",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "sopa",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "sopa",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "18": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-soup",
+              "data-drupal-facet-item-value": "soup",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "soup",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "soup",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "19": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-sponge",
+              "data-drupal-facet-item-value": "sponge",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "sponge",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "sponge",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "2": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 2,
+              "data-drupal-facet-item-id": "title-victoria",
+              "data-drupal-facet-item-value": "victoria",
+            },
+            "#title": Object {
+              "#count": 2,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "victoria",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "victoria",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "20": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-super",
+              "data-drupal-facet-item-value": "super",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "super",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "super",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "21": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-súper",
+              "data-drupal-facet-item-value": "súper",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "súper",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "súper",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "22": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-vegetarian",
+              "data-drupal-facet-item-value": "vegetarian",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "vegetarian",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "vegetarian",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "23": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-vegetariana",
+              "data-drupal-facet-item-value": "vegetariana",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "vegetariana",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "vegetariana",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "24": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-watercress",
+              "data-drupal-facet-item-value": "watercress",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "watercress",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "watercress",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "3": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-al",
+              "data-drupal-facet-item-value": "al",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "al",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "al",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "4": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-ardiente",
+              "data-drupal-facet-item-value": "ardiente",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "ardiente",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "ardiente",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "5": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-bake",
+              "data-drupal-facet-item-value": "bake",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "bake",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "bake",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "6": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-berro",
+              "data-drupal-facet-item-value": "berro",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "berro",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "berro",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "7": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-cake",
+              "data-drupal-facet-item-value": "cake",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "cake",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "cake",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "8": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-chile",
+              "data-drupal-facet-item-value": "chile",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "chile",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "chile",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+          "9": Object {
+            "#attributes": Object {
+              "data-drupal-facet-item-count": 1,
+              "data-drupal-facet-item-id": "title-chili",
+              "data-drupal-facet-item-value": "chili",
+            },
+            "#title": Object {
+              "#count": 1,
+              "#facet": Object {
+                "show_title": null,
+              },
+              "#is_active": false,
+              "#raw_value": "chili",
+              "#show_count": false,
+              "#theme": "facets_result_item",
+              "#value": "chili",
+            },
+            "#type": "link",
+            "#url": Object {},
+            "#wrapper_attributes": Object {
+              "class": Array [
+                "facet-item",
+              ],
+            },
+          },
+        },
+        "#theme": "facets_item_list__links__title",
+      },
+    ],
+  },
+}
+`;
+
 exports[`getStaticPathsFromContext it returns static paths for multiple resoure types from context 1`] = `
 Array [
   Object {

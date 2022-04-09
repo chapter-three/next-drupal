@@ -1306,6 +1306,141 @@ Object {
 }
 `;
 
+exports[`getMenu it fetches menu items for a menu with locale 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "description": "",
+      "enabled": true,
+      "expanded": false,
+      "id": "standard.front_page",
+      "menu_name": "main",
+      "meta": Array [],
+      "options": Array [],
+      "parent": "",
+      "provider": "demo_umami",
+      "route": Object {
+        "name": "<front>",
+        "parameters": Array [],
+      },
+      "title": "Inicio",
+      "type": "menu_link_content--menu_link_content",
+      "url": "/es",
+      "weight": "0",
+    },
+    Object {
+      "description": "",
+      "enabled": true,
+      "expanded": false,
+      "id": "views_view:views.featured_articles.page_1",
+      "menu_name": "main",
+      "meta": Object {
+        "display_id": "page_1",
+        "view_id": "featured_articles",
+      },
+      "options": Array [],
+      "parent": "",
+      "provider": "views",
+      "route": Object {
+        "name": "view.featured_articles.page_1",
+        "parameters": Array [],
+      },
+      "title": "Artículos",
+      "type": "menu_link_content--menu_link_content",
+      "url": "/es/articles",
+      "weight": "20",
+    },
+    Object {
+      "description": "",
+      "enabled": true,
+      "expanded": false,
+      "id": "views_view:views.recipes.page_1",
+      "menu_name": "main",
+      "meta": Object {
+        "display_id": "page_1",
+        "view_id": "recipes",
+      },
+      "options": Array [],
+      "parent": "",
+      "provider": "views",
+      "route": Object {
+        "name": "view.recipes.page_1",
+        "parameters": Array [],
+      },
+      "title": "Recetas",
+      "type": "menu_link_content--menu_link_content",
+      "url": "/es/recipes",
+      "weight": "30",
+    },
+  ],
+  "tree": Array [
+    Object {
+      "description": "",
+      "enabled": true,
+      "expanded": false,
+      "id": "standard.front_page",
+      "menu_name": "main",
+      "meta": Array [],
+      "options": Array [],
+      "parent": "",
+      "provider": "demo_umami",
+      "route": Object {
+        "name": "<front>",
+        "parameters": Array [],
+      },
+      "title": "Inicio",
+      "type": "menu_link_content--menu_link_content",
+      "url": "/es",
+      "weight": "0",
+    },
+    Object {
+      "description": "",
+      "enabled": true,
+      "expanded": false,
+      "id": "views_view:views.featured_articles.page_1",
+      "menu_name": "main",
+      "meta": Object {
+        "display_id": "page_1",
+        "view_id": "featured_articles",
+      },
+      "options": Array [],
+      "parent": "",
+      "provider": "views",
+      "route": Object {
+        "name": "view.featured_articles.page_1",
+        "parameters": Array [],
+      },
+      "title": "Artículos",
+      "type": "menu_link_content--menu_link_content",
+      "url": "/es/articles",
+      "weight": "20",
+    },
+    Object {
+      "description": "",
+      "enabled": true,
+      "expanded": false,
+      "id": "views_view:views.recipes.page_1",
+      "menu_name": "main",
+      "meta": Object {
+        "display_id": "page_1",
+        "view_id": "recipes",
+      },
+      "options": Array [],
+      "parent": "",
+      "provider": "views",
+      "route": Object {
+        "name": "view.recipes.page_1",
+        "parameters": Array [],
+      },
+      "title": "Recetas",
+      "type": "menu_link_content--menu_link_content",
+      "url": "/es/recipes",
+      "weight": "30",
+    },
+  ],
+}
+`;
+
 exports[`getMenu it fetches menu items for a menu with params 1`] = `
 Object {
   "items": Array [
@@ -3269,6 +3404,1355 @@ Array [
     },
   },
 ]
+`;
+
+exports[`getView it fetches a view 1`] = `
+Object {
+  "links": Object {
+    "self": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/jsonapi/views/featured_articles/page_1",
+    },
+  },
+  "meta": Object {
+    "count": 8,
+  },
+  "results": Array [
+    Object {
+      "body": Object {
+        "format": "basic_html",
+        "processed": "<p>There's nothing like having your own supply of fresh herbs, readily available and close at hand to use while cooking. Whether you have a large garden or a small kitchen window sill, there's always enough room for something home grown.</p>
+<h2>Outdoors</h2>
+<h3>Mint</h3>
+<p>Mint is a great plant to grow as it's hardy and can grow in almost any soil. Mint can grow wild, so keep it contained in a pot or it might spread and take over your whole garden.</p>
+<h3>Sage</h3>
+<p>Like mint, sage is another prolific growing plant and will take over your garden if you let it. Highly aromatic, the sage plant can be planted in a pot or flower bed in well drained soil. The best way to store the herb is to sun dry the leaves and store in a cool, dark cupboard in a sealed container.</p>
+<h3>Rosemary</h3>
+<p>Rosemary plants grow into lovely shrubs. Easily grown from cuttings, rosemary plants do not like freezing temperatures so keep pots or planted bushes near the home to shelter them from the cold. It grows well in pots as it likes dry soil, but can survive well in the ground too. If pruning rosemary to encourage it into a better shape, save the branches and hang them upside down to preserve the flavor and use in food.</p>
+<h2>Indoors</h2>
+<h3>Basil</h3>
+<p>Perfect in sunny spot on a kitchen window sill. Basil is an annual plant, so will die off in the autumn, so it's a good idea to harvest it in the summer if you have an abundance and dry it. Picked basil stays fresh longer if it is placed in water (like fresh flowers). A great way to store basil is to make it into pesto!</p>
+<h3>Chives</h3>
+<p>A versatile herb, chives can grow well indoors. Ensure the plant is watered well, and gets plenty of light. Remember to regularly trim the chives. This prevents the flowers from developing and encourages new growth.</p>
+<h3>Coriander (Cilantro)</h3>
+<p>Coriander can grow indoors, but unlike the other herbs, it doesn't like full sun. If you have a south facing kitchen window, this isn't the place for it. Although not as thirsty as basil, coriander doesn't like dry soil so don't forget to water it! Cut coriander is best stored in the fridge.</p>
+",
+        "summary": null,
+        "value": "<p>There's nothing like having your own supply of fresh herbs, readily available and close at hand to use while cooking. Whether you have a large garden or a small kitchen window sill, there's always enough room for something home grown.</p>
+<h2>Outdoors</h2>
+<h3>Mint</h3>
+<p>Mint is a great plant to grow as it's hardy and can grow in almost any soil. Mint can grow wild, so keep it contained in a pot or it might spread and take over your whole garden.</p>
+<h3>Sage</h3>
+<p>Like mint, sage is another prolific growing plant and will take over your garden if you let it. Highly aromatic, the sage plant can be planted in a pot or flower bed in well drained soil. The best way to store the herb is to sun dry the leaves and store in a cool, dark cupboard in a sealed container.</p>
+<h3>Rosemary</h3>
+<p>Rosemary plants grow into lovely shrubs. Easily grown from cuttings, rosemary plants do not like freezing temperatures so keep pots or planted bushes near the home to shelter them from the cold. It grows well in pots as it likes dry soil, but can survive well in the ground too. If pruning rosemary to encourage it into a better shape, save the branches and hang them upside down to preserve the flavor and use in food.</p>
+<h2>Indoors</h2>
+<h3>Basil</h3>
+<p>Perfect in sunny spot on a kitchen window sill. Basil is an annual plant, so will die off in the autumn, so it's a good idea to harvest it in the summer if you have an abundance and dry it. Picked basil stays fresh longer if it is placed in water (like fresh flowers). A great way to store basil is to make it into pesto!</p>
+<h3>Chives</h3>
+<p>A versatile herb, chives can grow well indoors. Ensure the plant is watered well, and gets plenty of light. Remember to regularly trim the chives. This prevents the flowers from developing and encourages new growth.</p>
+<h3>Coriander (Cilantro)</h3>
+<p>Coriander can grow indoors, but unlike the other herbs, it doesn't like full sun. If you have a south facing kitchen window, this isn't the place for it. Although not as thirsty as basil, coriander doesn't like dry soil so don't forget to water it! Cut coriander is best stored in the fridge.</p>
+",
+      },
+      "changed": "2022-03-21T10:52:42+00:00",
+      "content_translation_outdated": false,
+      "content_translation_source": "und",
+      "created": "2022-03-21T10:52:42+00:00",
+      "default_langcode": true,
+      "drupal_internal__nid": 10,
+      "drupal_internal__vid": 20,
+      "field_media_image": Object {
+        "id": "e5091a16-134e-400d-8393-cfe4eccbcaa2",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 10,
+        },
+        "type": "media--image",
+      },
+      "field_tags": Array [
+        Object {
+          "id": "dcd81647-71b7-48cb-b555-e20322bcb7a7",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 14,
+          },
+          "type": "taxonomy_term--tags",
+        },
+        Object {
+          "id": "60d20a4c-9d42-4b25-b717-3af3cba6abe8",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 23,
+          },
+          "type": "taxonomy_term--tags",
+        },
+        Object {
+          "id": "57a1d9f6-23a6-4215-a8a9-582202cd938d",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 16,
+          },
+          "type": "taxonomy_term--tags",
+        },
+      ],
+      "id": "52837ad0-f218-46bd-a106-5710336b7053",
+      "langcode": "en",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053?resourceVersion=id%3A20",
+        },
+      },
+      "moderation_state": "published",
+      "node_type": Object {
+        "id": "a145b65a-e660-4f5d-ac0d-bd2ff9e3f0b0",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": "article",
+        },
+        "type": "node_type--node_type",
+      },
+      "path": Object {
+        "alias": "/articles/give-it-a-go-and-grow-your-own-herbs",
+        "langcode": "en",
+        "pid": 85,
+      },
+      "promote": true,
+      "relationshipNames": Array [
+        "node_type",
+        "revision_uid",
+        "uid",
+        "field_media_image",
+        "field_tags",
+      ],
+      "revision_log": null,
+      "revision_timestamp": "2022-03-21T10:52:42+00:00",
+      "revision_translation_affected": null,
+      "revision_uid": Object {
+        "id": "dd9c916d-4d66-4bff-a851-eeba0cf7673a",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 5,
+        },
+        "type": "user--user",
+      },
+      "status": true,
+      "sticky": false,
+      "title": "Give it a go and grow your own herbs",
+      "type": "node--article",
+      "uid": Object {
+        "id": "dd9c916d-4d66-4bff-a851-eeba0cf7673a",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 5,
+        },
+        "type": "user--user",
+      },
+    },
+    Object {
+      "body": Object {
+        "format": "basic_html",
+        "processed": "<p>The calendar is full of excuses for chocolate-lovers to indulge, from religious festivals to birthdays - and even World Chocolate Day on the 7th July. But for those who are vegan, or on dairy-free diets, there is no need to miss out, because there are plenty of delicious vegan chocolate varieties on offer.</p>
+<p>Dairy-free milk chocolate is made in largely the same way as regular chocolate, until the point when the milk is added. Cacao beans are roasted for a couple of hours until they develop a rich flavor. The outer shells are removed, and the interior nibs are ground to make a paste that can be mixed with cocoa butter to produce the desired percentage of chocolate. Flavorings, sugar and milk are added in different quantities to get the type of chocolate being produced. The chocolate is grainy at this point and needs to be mashed until it is smooth - this can take days! Finally, it is tempered through a process of heating and cooling until it is ready to eat.</p>
+<p>So, how do vegan chocolatiers get that creamy milk flavor and texture into their products?</p>
+<h2>Rice milk</h2>
+<p>The flavor of rice milk perfectly complements the cocoa beans and it was one of the first dairy milk alternatives to be used to create vegan milk chocolate. Rice milk is made from rice powder and is sometimes combined with hazelnut milk to create the correct texture and taste that is ideal for producing all kinds of chocolate bars.</p>
+<h2>Coconut milk</h2>
+<p>Coconut milk has to be the perfect ingredient for adding creaminess into a chocolate bar. With high fat levels, a sweet, but not overpowering taste and the correct consistency, coconut milk is a great choice for vegan milk chocolate. Chocolate made in this way will melt wonderfully for drizzling or dipping, and the coconut milk adds a slight tropical flavor that works well with other fruit flavors and nuts.</p>
+<h2>Soy milk</h2>
+<p>Soy has long been the mainstay of vegan and vegetarian diets, as it is rich in protein and is available in a wide variety of textures suitable for all kinds of dishes. Soy milk is widely available and is a great alternative to dairy milk in chocolate. It isn’t as rich in fat as some vegan milks, but does have a neutral taste that makes it easy to combine with almost any other flavor.</p>
+<h2>Nut milks</h2>
+<p>Milks made from almonds and hazelnuts are easy to find on supermarket shelves, and are perfect for chocolate production. Like soy milk, they can be quite low in fat and therefore a little less creamy, but they have that nutty taste that goes so well with chocolate of all kinds.</p>
+<p>Many manufacturers will use a combination of the above milks to create the perfect consistency for their product. Using this milk mixture they are able to produce all kinds of milk chocolates, including white chocolate.</p>
+",
+        "summary": null,
+        "value": "<p>The calendar is full of excuses for chocolate-lovers to indulge, from religious festivals to birthdays - and even World Chocolate Day on the 7th July. But for those who are vegan, or on dairy-free diets, there is no need to miss out, because there are plenty of delicious vegan chocolate varieties on offer.</p>
+<p>Dairy-free milk chocolate is made in largely the same way as regular chocolate, until the point when the milk is added. Cacao beans are roasted for a couple of hours until they develop a rich flavor. The outer shells are removed, and the interior nibs are ground to make a paste that can be mixed with cocoa butter to produce the desired percentage of chocolate. Flavorings, sugar and milk are added in different quantities to get the type of chocolate being produced. The chocolate is grainy at this point and needs to be mashed until it is smooth - this can take days! Finally, it is tempered through a process of heating and cooling until it is ready to eat.</p>
+<p>So, how do vegan chocolatiers get that creamy milk flavor and texture into their products?</p>
+<h2>Rice milk</h2>
+<p>The flavor of rice milk perfectly complements the cocoa beans and it was one of the first dairy milk alternatives to be used to create vegan milk chocolate. Rice milk is made from rice powder and is sometimes combined with hazelnut milk to create the correct texture and taste that is ideal for producing all kinds of chocolate bars.</p>
+<h2>Coconut milk</h2>
+<p>Coconut milk has to be the perfect ingredient for adding creaminess into a chocolate bar. With high fat levels, a sweet, but not overpowering taste and the correct consistency, coconut milk is a great choice for vegan milk chocolate. Chocolate made in this way will melt wonderfully for drizzling or dipping, and the coconut milk adds a slight tropical flavor that works well with other fruit flavors and nuts.</p>
+<h2>Soy milk</h2>
+<p>Soy has long been the mainstay of vegan and vegetarian diets, as it is rich in protein and is available in a wide variety of textures suitable for all kinds of dishes. Soy milk is widely available and is a great alternative to dairy milk in chocolate. It isn&rsquo;t as rich in fat as some vegan milks, but does have a neutral taste that makes it easy to combine with almost any other flavor.</p>
+<h2>Nut milks</h2>
+<p>Milks made from almonds and hazelnuts are easy to find on supermarket shelves, and are perfect for chocolate production. Like soy milk, they can be quite low in fat and therefore a little less creamy, but they have that nutty taste that goes so well with chocolate of all kinds.</p>
+<p>Many manufacturers will use a combination of the above milks to create the perfect consistency for their product. Using this milk mixture they are able to produce all kinds of milk chocolates, including white chocolate.</p>
+",
+      },
+      "changed": "2022-03-21T10:52:42+00:00",
+      "content_translation_outdated": false,
+      "content_translation_source": "und",
+      "created": "2022-03-21T10:52:42+00:00",
+      "default_langcode": true,
+      "drupal_internal__nid": 11,
+      "drupal_internal__vid": 22,
+      "field_media_image": Object {
+        "id": "8427a15e-771b-405c-b887-3f712973c006",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 11,
+        },
+        "type": "media--image",
+      },
+      "field_tags": Array [
+        Object {
+          "id": "a47d1f3a-cc76-4d32-bffe-baf1ed2ee8a3",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 27,
+          },
+          "type": "taxonomy_term--tags",
+        },
+        Object {
+          "id": "7b732cc1-c963-498f-91ae-c429059a3cdc",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 7,
+          },
+          "type": "taxonomy_term--tags",
+        },
+      ],
+      "id": "3d5a7bca-5b4a-49ee-87d2-cbe313562903",
+      "langcode": "en",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/3d5a7bca-5b4a-49ee-87d2-cbe313562903?resourceVersion=id%3A22",
+        },
+      },
+      "moderation_state": "published",
+      "node_type": Object {
+        "id": "a145b65a-e660-4f5d-ac0d-bd2ff9e3f0b0",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": "article",
+        },
+        "type": "node_type--node_type",
+      },
+      "path": Object {
+        "alias": "/articles/dairy-free-and-delicious-milk-chocolate",
+        "langcode": "en",
+        "pid": 87,
+      },
+      "promote": true,
+      "relationshipNames": Array [
+        "node_type",
+        "revision_uid",
+        "uid",
+        "field_media_image",
+        "field_tags",
+      ],
+      "revision_log": null,
+      "revision_timestamp": "2022-03-21T10:52:42+00:00",
+      "revision_translation_affected": null,
+      "revision_uid": Object {
+        "id": "9e4944e8-dd77-407a-8610-83e823b48b56",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 4,
+        },
+        "type": "user--user",
+      },
+      "status": true,
+      "sticky": false,
+      "title": "Dairy-free and delicious milk chocolate",
+      "type": "node--article",
+      "uid": Object {
+        "id": "9e4944e8-dd77-407a-8610-83e823b48b56",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 4,
+        },
+        "type": "user--user",
+      },
+    },
+    Object {
+      "body": Object {
+        "format": "basic_html",
+        "processed": "<p>This may not surprise you - but your supermarket is a hot bed of marketing mayhem, designed to improve their profit and to encourage the consumer to spend more than they intended. The tricks that all supermarkets employ are sometimes sensible ploys that any retailer should do to improve sales - but some may be more subtle and less obvious than you might think.</p>
+<p>With consumer awareness articles and documentaries frequently picking up on this topic, it's likely the case that retailers find it harder to get away with the more obvious ploys. We are becoming ever more savvy consumers and there's probably not a great deal that gets past us. But here's a few retail tricks to keep in mind when you are rushing around the weekly supermarket stock-up.</p>
+<h2>Lost essentials</h2>
+<p>The layout of your supermarket may make sense to you when you have shopped there for a while. But for newcomers trying to find essentials, it may make very little sense at all. Some supermarkets have noted that people come to their store to buy milk, bread, or eggs and that by hiding these essentials in the far reaches of the store, they encourage the newcomer to wander the aisles - picking up other items as they go.</p>
+<p>Sure, this can be great for nudging the memory on essentials you might otherwise forget, but for saving the pennies it's tough to stick to grabbing only the things you came for and the supermarkets know it!</p>
+<blockquote><p>
+Our tip: Make your shopping list before leaving the house, checking what you need and sticking to that list. You could be amazed by what you'll save over time.
+</p></blockquote>
+<h2>Nonsensical multibuys</h2>
+<p>Buy one, get one free; two for £2 and meal deals. They all seem like a great deal. But in some cases these are loss leaders that are positioned to encourage you to take up the deal and buy other stuff while you are there. In other cases, deals for multi-buy or discounts on specific pack sizes might seem like a bargain, until you compare the pricing like-for-like on similar brands or with pack sizes for the same brand. These deals can mean you end up paying less but is it less for something you don't really need and in some cases you can end up paying more for the item. Remember, the supermarkets know you are often in a hurry and might not have the time to take in the full picture.</p>
+<blockquote><p>Our tip: Don't be rushed, take the time to read the small print. The large print will draw you in but if you read the label small print, you should find the price per 100 grams or per ounce/litre and you'll be surprised how often the headline deals are actually more expensive than just buying a different package type or size of the product.</p>
+</blockquote>
+<h2>Understanding our shopping habits</h2>
+<p>The cheapest products in a supermarket are almost always positioned on the bottom of the shelving where you'll need to bend over to pick it up. You also may not be able to easily read the price ticket. Most people will shop on the middle rows because it is easier and often quicker. These are where the highest profit items are kept and they are the ones the supermarkets want you to buy.</p>
+<p>The layout, the music, the colors, and the product types are all decided based on principles laid down by industry experts on people - psychologists and behavioral experts who know how we think. And so the savvy shopper will certainly be able to take advantage of great deals in their weekly shop, but it takes a little time and effort just to be more aware of what we are being encouraged to reach for in the aisles.</p>
+",
+        "summary": null,
+        "value": "<p>This may not surprise you - but your supermarket is a hot bed of marketing mayhem, designed to improve their profit and to encourage the consumer to spend more than they intended. The tricks that all supermarkets employ are sometimes sensible ploys that any retailer should do to improve sales - but some may be more subtle and less obvious than you might think.</p>
+<p>With consumer awareness articles and documentaries frequently picking up on this topic, it's likely the case that retailers find it harder to get away with the more obvious ploys. We are becoming ever more savvy consumers and there's probably not a great deal that gets past us. But here's a few retail tricks to keep in mind when you are rushing around the weekly supermarket stock-up.</p>
+<h2>Lost essentials</h2>
+<p>The layout of your supermarket may make sense to you when you have shopped there for a while. But for newcomers trying to find essentials, it may make very little sense at all. Some supermarkets have noted that people come to their store to buy milk, bread, or eggs and that by hiding these essentials in the far reaches of the store, they encourage the newcomer to wander the aisles - picking up other items as they go.</p>
+<p>Sure, this can be great for nudging the memory on essentials you might otherwise forget, but for saving the pennies it's tough to stick to grabbing only the things you came for and the supermarkets know it!</p>
+<blockquote>
+Our tip: Make your shopping list before leaving the house, checking what you need and sticking to that list. You could be amazed by what you'll save over time.
+</blockquote>
+<h2>Nonsensical multibuys</h2>
+<p>Buy one, get one free; two for &pound;2 and meal deals. They all seem like a great deal. But in some cases these are loss leaders that are positioned to encourage you to take up the deal and buy other stuff while you are there. In other cases, deals for multi-buy or discounts on specific pack sizes might seem like a bargain, until you compare the pricing like-for-like on similar brands or with pack sizes for the same brand. These deals can mean you end up paying less but is it less for something you don't really need and in some cases you can end up paying more for the item. Remember, the supermarkets know you are often in a hurry and might not have the time to take in the full picture.</p>
+<blockquote>
+<p>Our tip: Don't be rushed, take the time to read the small print. The large print will draw you in but if you read the label small print, you should find the price per 100 grams or per ounce/litre and you'll be surprised how often the headline deals are actually more expensive than just buying a different package type or size of the product.</p>
+</blockquote>
+<h2>Understanding our shopping habits</h2>
+<p>The cheapest products in a supermarket are almost always positioned on the bottom of the shelving where you'll need to bend over to pick it up. You also may not be able to easily read the price ticket. Most people will shop on the middle rows because it is easier and often quicker. These are where the highest profit items are kept and they are the ones the supermarkets want you to buy.</p>
+<p>The layout, the music, the colors, and the product types are all decided based on principles laid down by industry experts on people - psychologists and behavioral experts who know how we think. And so the savvy shopper will certainly be able to take advantage of great deals in their weekly shop, but it takes a little time and effort just to be more aware of what we are being encouraged to reach for in the aisles.</p>
+",
+      },
+      "changed": "2022-03-21T10:52:42+00:00",
+      "content_translation_outdated": false,
+      "content_translation_source": "und",
+      "created": "2022-03-21T10:52:42+00:00",
+      "default_langcode": true,
+      "drupal_internal__nid": 12,
+      "drupal_internal__vid": 24,
+      "field_media_image": Object {
+        "id": "2c9a045b-ee1a-4664-86de-4328d891a444",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 12,
+        },
+        "type": "media--image",
+      },
+      "field_tags": Array [
+        Object {
+          "id": "3dd82cec-a0ad-44ae-b5aa-b22b29ca9e9c",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 26,
+          },
+          "type": "taxonomy_term--tags",
+        },
+        Object {
+          "id": "4b1d0dcc-3fc7-4946-8702-00c04688b790",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 24,
+          },
+          "type": "taxonomy_term--tags",
+        },
+      ],
+      "id": "a1ef61c9-ed15-4b6d-bba2-bf6e5141f961",
+      "langcode": "en",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/a1ef61c9-ed15-4b6d-bba2-bf6e5141f961?resourceVersion=id%3A24",
+        },
+      },
+      "moderation_state": "published",
+      "node_type": Object {
+        "id": "a145b65a-e660-4f5d-ac0d-bd2ff9e3f0b0",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": "article",
+        },
+        "type": "node_type--node_type",
+      },
+      "path": Object {
+        "alias": "/articles/the-real-deal-for-supermarket-savvy-shopping",
+        "langcode": "en",
+        "pid": 89,
+      },
+      "promote": true,
+      "relationshipNames": Array [
+        "node_type",
+        "revision_uid",
+        "uid",
+        "field_media_image",
+        "field_tags",
+      ],
+      "revision_log": null,
+      "revision_timestamp": "2022-03-21T10:52:42+00:00",
+      "revision_translation_affected": null,
+      "revision_uid": Object {
+        "id": "cddd2eed-95b6-4261-8de1-d09958a079e7",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 6,
+        },
+        "type": "user--user",
+      },
+      "status": true,
+      "sticky": false,
+      "title": "The real deal for supermarket savvy shopping",
+      "type": "node--article",
+      "uid": Object {
+        "id": "cddd2eed-95b6-4261-8de1-d09958a079e7",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 6,
+        },
+        "type": "user--user",
+      },
+    },
+    Object {
+      "body": Object {
+        "format": "basic_html",
+        "processed": "<p>We think mushrooms are one of the most enjoyable ingredients to cook with. There are plenty of edible varieties to try, each with their own distinctive shape, size, and taste. And with curious names such as chanterelle, the gypsy, horn of plenty, or hen of the woods, who wouldn't want to know more about cooking with the mighty mushroom?</p>
+<p>One of the best things about mushrooms is their versatility. They can be fried, roasted, grilled, steamed, or even cooked in the microwave. And they can be served as the main ingredient for a dish, or simply added as part of the mix. This makes mushrooms an ideal choice for creating absolutely delicious vegetarian dishes.</p>
+<p>So let's take a look at some of our favorite types of mushroom. You might not have tried cooking with them before but don't let that put you off. With their delicious, distinctive flavors you can easily transform soups, starters, sauces and create amazing pasta, or stir-fry dishes.</p>
+<p>Try the lovely <strong>shiitake</strong>. Used in Asian cooking, these can be purchased dried and rehydrated for a strong, deep flavor. Or buy fresh and add to soups and stir-fries. Not only does this mushroom have an intense flavor, it looks lovely too. The deep brown and smooth shapes will provide texture to your meal. In their dried form and rehydrated, these are the perfect addition for a deep and flavorful stock for a risotto.</p>
+<p>The gorgeous sunny <strong>chanterelle</strong> with its yellow flesh has a fruity flavor - but it is worth mentioning that there are many lookalikes out there and care should be taken to ensure you're eating the right ones. These look great in an omelette or an Asian soup to complement the yellow tones.</p>
+<p>The brown <strong>morel</strong> offers a meaty and distinctive flavor and you'll probably love how extraordinary they look in a meal. The morel is a more popular mushroom during the spring, when their availability is high.</p>
+<p>For delicacy try the <strong>enoki</strong> with its tiny white heads that grow in a bunch. These can even be eaten raw in salads. Finally, you can choose the popular <strong>oyster</strong> mushroom. They are named thus because they look nothing like a mushroom and resemble the innards of an oyster and their sweet flavor is delicious.</p>
+",
+        "summary": null,
+        "value": "<p>We think mushrooms are one of the most enjoyable ingredients to cook with. There are plenty of edible varieties to try, each with their own distinctive shape, size, and taste. And with curious names such as chanterelle, the gypsy, horn of plenty, or hen of the woods, who wouldn't want to know more about cooking with the mighty mushroom?</p>
+<p>One of the best things about mushrooms is their versatility. They can be fried, roasted, grilled, steamed, or even cooked in the microwave. And they can be served as the main ingredient for a dish, or simply added as part of the mix. This makes mushrooms an ideal choice for creating absolutely delicious vegetarian dishes.</p>
+<p>So let's take a look at some of our favorite types of mushroom. You might not have tried cooking with them before but don't let that put you off. With their delicious, distinctive flavors you can easily transform soups, starters, sauces and create amazing pasta, or stir-fry dishes.</p>
+<p>Try the lovely <strong>shiitake</strong>. Used in Asian cooking, these can be purchased dried and rehydrated for a strong, deep flavor. Or buy fresh and add to soups and stir-fries. Not only does this mushroom have an intense flavor, it looks lovely too. The deep brown and smooth shapes will provide texture to your meal. In their dried form and rehydrated, these are the perfect addition for a deep and flavorful stock for a risotto.</p>
+<p>The gorgeous sunny <strong>chanterelle</strong> with its yellow flesh has a fruity flavor - but it is worth mentioning that there are many lookalikes out there and care should be taken to ensure you're eating the right ones. These look great in an omelette or an Asian soup to complement the yellow tones.</p>
+<p>The brown <strong>morel</strong> offers a meaty and distinctive flavor and you'll probably love how extraordinary they look in a meal. The morel is a more popular mushroom during the spring, when their availability is high.</p>
+<p>For delicacy try the <strong>enoki</strong> with its tiny white heads that grow in a bunch. These can even be eaten raw in salads. Finally, you can choose the popular <strong>oyster</strong> mushroom. They are named thus because they look nothing like a mushroom and resemble the innards of an oyster and their sweet flavor is delicious.</p>
+",
+      },
+      "changed": "2022-03-21T10:52:42+00:00",
+      "content_translation_outdated": false,
+      "content_translation_source": "und",
+      "created": "2022-03-21T10:52:42+00:00",
+      "default_langcode": true,
+      "drupal_internal__nid": 13,
+      "drupal_internal__vid": 26,
+      "field_media_image": Object {
+        "id": "cea9398a-a669-4465-92c4-546fd43f7eb3",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 13,
+        },
+        "type": "media--image",
+      },
+      "field_tags": Array [
+        Object {
+          "id": "c8baa7f8-245e-45c6-b26c-8456c5c87190",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 18,
+          },
+          "type": "taxonomy_term--tags",
+        },
+        Object {
+          "id": "f19c842c-17ec-47e8-9079-44afda5ed90d",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 28,
+          },
+          "type": "taxonomy_term--tags",
+        },
+      ],
+      "id": "ac0b8b56-db8d-4322-9b1e-224f22083f0d",
+      "langcode": "en",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/ac0b8b56-db8d-4322-9b1e-224f22083f0d?resourceVersion=id%3A26",
+        },
+      },
+      "moderation_state": "published",
+      "node_type": Object {
+        "id": "a145b65a-e660-4f5d-ac0d-bd2ff9e3f0b0",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": "article",
+        },
+        "type": "node_type--node_type",
+      },
+      "path": Object {
+        "alias": "/articles/the-umami-guide-to-our-favourite-mushrooms",
+        "langcode": "en",
+        "pid": 91,
+      },
+      "promote": true,
+      "relationshipNames": Array [
+        "node_type",
+        "revision_uid",
+        "uid",
+        "field_media_image",
+        "field_tags",
+      ],
+      "revision_log": null,
+      "revision_timestamp": "2022-03-21T10:52:42+00:00",
+      "revision_translation_affected": null,
+      "revision_uid": Object {
+        "id": "9e4944e8-dd77-407a-8610-83e823b48b56",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 4,
+        },
+        "type": "user--user",
+      },
+      "status": true,
+      "sticky": false,
+      "title": "The Umami guide to our favorite mushrooms",
+      "type": "node--article",
+      "uid": Object {
+        "id": "9e4944e8-dd77-407a-8610-83e823b48b56",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 4,
+        },
+        "type": "user--user",
+      },
+    },
+    Object {
+      "body": Object {
+        "format": "basic_html",
+        "processed": "<p>Let's hear it for the humble carrot! This sweet and healthy ‘everyday’ veg packs it all in. Great flavor, fantastic color, and if you're one for believing the old story, they can even help you to see better in the dark.</p>
+<p>Who doesn't love cooking with this super versatile root veg? We roast them, boil them, blend them into soups, and grate them into salads. The humble carrot has to be one of our favorite veg choices and it's been grown for thousands of years. But back then you were more likely to find a purple, red, yellow or white carrot and not the orange one we are all so familiar with today.</p>
+<h2>So what happened? When did orange become the preferred color?</h2>
+<p>It was the Dutch during the 17th century who cultivated and made popular the orange variety, most likely because of its brilliant color and higher levels of beta carotene. And it has also been suggested that they were cultivated in tribute to William of Orange, who led the struggle during the Dutch battle for independence.</p>
+<p>For whatever reason, the orange variety has stuck but look out for the ‘heritage’ varieties at farmers markets and grocers, their mix of purple, yellow, orange and white are especially appealing to cook with and look absolutely great served as a side dish.</p>
+<h2>Nutrition</h2>
+<p>Carrots are rich in beta carotene which your body converts into vitamin A. It's often tricky to know whether cooking vegetables will enhance or reduce their nutritious value and unfortunately there's no simple rule. But in the case of carrots, nutrition is enhanced by consuming them cooked. In fact, it only takes 100 grams of carrots to get more than your daily value of vitamin A.</p>
+<h2>Get them at their best</h2>
+<p>Young carrots, harvested when they are small have an especially sweet flavor and they are absolutely delicious. To cook them you can skip the peeling, give them a good wash and pop them in the steamer for just a few minutes. Carrots will taste the best when they are fresh, so make sure they are firm and bright in color when buying.</p>
+<h2>And that thing about carrots helping you see more in the dark?</h2>
+<p>Of course it's a myth. During World War II the UK Ministry of Food promoted carrots as a super healthy veggie that would improve your ability to see during the blackouts and as an explanation for the successful night missions of UK fighter pilots. In reality, the only truth in the connection between carrots and improved eye sight is that vitamin A does indeed help to maintain vision.</p>
+",
+        "summary": null,
+        "value": "<p>Let's hear it for the humble carrot! This sweet and healthy &lsquo;everyday&rsquo; veg packs it all in. Great flavor, fantastic color, and if you're one for believing the old story, they can even help you to see better in the dark.</p>
+<p>Who doesn't love cooking with this super versatile root veg? We roast them, boil them, blend them into soups, and grate them into salads. The humble carrot has to be one of our favorite veg choices and it's been grown for thousands of years. But back then you were more likely to find a purple, red, yellow or white carrot and not the orange one we are all so familiar with today.</p>
+<h2>So what happened? When did orange become the preferred color?</h2>
+<p>It was the Dutch during the 17th century who cultivated and made popular the orange variety, most likely because of its brilliant color and higher levels of beta carotene. And it has also been suggested that they were cultivated in tribute to William of Orange, who led the struggle during the Dutch battle for independence.</p>
+<p>For whatever reason, the orange variety has stuck but look out for the &lsquo;heritage&rsquo; varieties at farmers markets and grocers, their mix of purple, yellow, orange and white are especially appealing to cook with and look absolutely great served as a side dish.</p>
+<h2>Nutrition</h2>
+<p>Carrots are rich in beta carotene which your body converts into vitamin A. It's often tricky to know whether cooking vegetables will enhance or reduce their nutritious value and unfortunately there's no simple rule. But in the case of carrots, nutrition is enhanced by consuming them cooked. In fact, it only takes 100 grams of carrots to get more than your daily value of vitamin A.</p>
+<h2>Get them at their best</h2>
+<p>Young carrots, harvested when they are small have an especially sweet flavor and they are absolutely delicious. To cook them you can skip the peeling, give them a good wash and pop them in the steamer for just a few minutes. Carrots will taste the best when they are fresh, so make sure they are firm and bright in color when buying.</p>
+<h2>And that thing about carrots helping you see more in the dark?</h2>
+<p>Of course it's a myth. During World War II the UK Ministry of Food promoted carrots as a super healthy veggie that would improve your ability to see during the blackouts and as an explanation for the successful night missions of UK fighter pilots. In reality, the only truth in the connection between carrots and improved eye sight is that vitamin A does indeed help to maintain vision.</p>
+",
+      },
+      "changed": "2022-03-21T10:52:42+00:00",
+      "content_translation_outdated": false,
+      "content_translation_source": "und",
+      "created": "2022-03-21T10:52:42+00:00",
+      "default_langcode": true,
+      "drupal_internal__nid": 14,
+      "drupal_internal__vid": 28,
+      "field_media_image": Object {
+        "id": "f40adf47-e201-421a-968f-65221d09d4ce",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 14,
+        },
+        "type": "media--image",
+      },
+      "field_tags": Array [
+        Object {
+          "id": "83a40a0b-b420-40d5-9a30-aedd15a87cde",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 6,
+          },
+          "type": "taxonomy_term--tags",
+        },
+        Object {
+          "id": "f19c842c-17ec-47e8-9079-44afda5ed90d",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 28,
+          },
+          "type": "taxonomy_term--tags",
+        },
+        Object {
+          "id": "359d7eee-03f0-420f-8c65-30dcc51cdafe",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 15,
+          },
+          "type": "taxonomy_term--tags",
+        },
+      ],
+      "id": "22874ecc-0443-441b-a3c9-3aa94d85b800",
+      "langcode": "en",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/22874ecc-0443-441b-a3c9-3aa94d85b800?resourceVersion=id%3A28",
+        },
+      },
+      "moderation_state": "published",
+      "node_type": Object {
+        "id": "a145b65a-e660-4f5d-ac0d-bd2ff9e3f0b0",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": "article",
+        },
+        "type": "node_type--node_type",
+      },
+      "path": Object {
+        "alias": "/articles/lets-hear-it-for-carrots",
+        "langcode": "en",
+        "pid": 93,
+      },
+      "promote": true,
+      "relationshipNames": Array [
+        "node_type",
+        "revision_uid",
+        "uid",
+        "field_media_image",
+        "field_tags",
+      ],
+      "revision_log": null,
+      "revision_timestamp": "2022-03-21T10:52:42+00:00",
+      "revision_translation_affected": null,
+      "revision_uid": Object {
+        "id": "9e4944e8-dd77-407a-8610-83e823b48b56",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 4,
+        },
+        "type": "user--user",
+      },
+      "status": true,
+      "sticky": false,
+      "title": "Let's hear it for carrots",
+      "type": "node--article",
+      "uid": Object {
+        "id": "9e4944e8-dd77-407a-8610-83e823b48b56",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 4,
+        },
+        "type": "user--user",
+      },
+    },
+    Object {
+      "body": Object {
+        "format": "basic_html",
+        "processed": "<p>You follow the recipe, you weigh all your ingredients, you use the right oven temperature and you take your time and yet still, your baking comes out with a soggy bottom, fails to rise or just tastes plain horrible. We have come up with a list of the most frustrating baking problems and the techniques you can use to try and avoid them.</p>
+<h2>Your cake failed to rise</h2>
+<p>Don't under any circumstances open the oven door in the middle of the cooking time. The heat will come whooshing out, destroying the chemical reaction taking place inside your cake. Your raising agent needs the heat to become activated and you might kill it off.</p>
+<h2>Your cake is chewy and tough</h2>
+<p>If your light sponge is the consistency of a spare tire, you might have over-mixed your batter. Keep the lightness inside your cake mixture by carefully and gently folding in the ingredients and only to the point they are just mixed. If you over-fold, the gluten in the flour will start to come out and you'll be making bread instead of cake.</p>
+<h2>Your cookies burned</h2>
+<p>A great trick is to use light colored bakeware, rather than black. It is less likely to absorb the heat and transfer it to the bottom of your biscuits. Using baking paper will also help with this. Also, using too much sugar can result in your cookies browning too much and giving them a caramelized look.</p>
+<h2>Split top to your cake or bread</h2>
+<p>Your oven is very likely too hot. If you suspect your oven doesn't keep to the right temperature, invest in a thermometer and check it regularly throughout the cooking. With bread, over-mixing the dough can result in a cracked or split top.</p>
+<h2>The dreaded soggy bottom</h2>
+<p>As mentioned above, the color of your pan is important. In this case, a dark pan will increase the heat at the bottom and give you that crisp underneath that you want. If you are using a flaky pastry, you really need to blind bake it. Putting your pie towards the bottom of the oven will increase the heat reaching that part.</p>
+<h2>Your pastry has shrunk</h2>
+<p>You simply tried to make it stretch too far. When rolling, don't try to make it too thin or too big and when draping over your pan, allow it to settle on its own without stretching it to fit. Or just add more pastry - everyone loves pastry anyway!</p>
+",
+        "summary": null,
+        "value": "<p>You follow the recipe, you weigh all your ingredients, you use the right oven temperature and you take your time and yet still, your baking comes out with a soggy bottom, fails to rise or just tastes plain horrible. We have come up with a list of the most frustrating baking problems and the techniques you can use to try and avoid them.</p>
+<h2>Your cake failed to rise</h2>
+<p>Don't under any circumstances open the oven door in the middle of the cooking time. The heat will come whooshing out, destroying the chemical reaction taking place inside your cake. Your raising agent needs the heat to become activated and you might kill it off.</p>
+<h2>Your cake is chewy and tough</h2>
+<p>If your light sponge is the consistency of a spare tire, you might have over-mixed your batter. Keep the lightness inside your cake mixture by carefully and gently folding in the ingredients and only to the point they are just mixed. If you over-fold, the gluten in the flour will start to come out and you'll be making bread instead of cake.</p>
+<h2>Your cookies burned</h2>
+<p>A great trick is to use light colored bakeware, rather than black. It is less likely to absorb the heat and transfer it to the bottom of your biscuits. Using baking paper will also help with this. Also, using too much sugar can result in your cookies browning too much and giving them a caramelized look.</p>
+<h2>Split top to your cake or bread</h2>
+<p>Your oven is very likely too hot. If you suspect your oven doesn't keep to the right temperature, invest in a thermometer and check it regularly throughout the cooking. With bread, over-mixing the dough can result in a cracked or split top.</p>
+<h2>The dreaded soggy bottom</h2>
+<p>As mentioned above, the color of your pan is important. In this case, a dark pan will increase the heat at the bottom and give you that crisp underneath that you want. If you are using a flaky pastry, you really need to blind bake it. Putting your pie towards the bottom of the oven will increase the heat reaching that part.</p>
+<h2>Your pastry has shrunk</h2>
+<p>You simply tried to make it stretch too far. When rolling, don't try to make it too thin or too big and when draping over your pan, allow it to settle on its own without stretching it to fit. Or just add more pastry - everyone loves pastry anyway!</p>
+",
+      },
+      "changed": "2022-03-21T10:52:42+00:00",
+      "content_translation_outdated": false,
+      "content_translation_source": "und",
+      "created": "2022-03-21T10:52:42+00:00",
+      "default_langcode": true,
+      "drupal_internal__nid": 15,
+      "drupal_internal__vid": 30,
+      "field_media_image": Object {
+        "id": "73b0659f-323b-4391-bf53-f650ab1ec9d3",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 15,
+        },
+        "type": "media--image",
+      },
+      "field_tags": Array [
+        Object {
+          "id": "c504fd5e-2422-452f-9f89-d001079329fa",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 3,
+          },
+          "type": "taxonomy_term--tags",
+        },
+        Object {
+          "id": "500189ad-65ee-4b9b-93f0-748a297c0134",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 17,
+          },
+          "type": "taxonomy_term--tags",
+        },
+      ],
+      "id": "ec51b1de-f51e-4761-b061-aa2624e58b4a",
+      "langcode": "en",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/ec51b1de-f51e-4761-b061-aa2624e58b4a?resourceVersion=id%3A30",
+        },
+      },
+      "moderation_state": "published",
+      "node_type": Object {
+        "id": "a145b65a-e660-4f5d-ac0d-bd2ff9e3f0b0",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": "article",
+        },
+        "type": "node_type--node_type",
+      },
+      "path": Object {
+        "alias": "/articles/baking-mishaps-our-troubleshooting-tips",
+        "langcode": "en",
+        "pid": 95,
+      },
+      "promote": true,
+      "relationshipNames": Array [
+        "node_type",
+        "revision_uid",
+        "uid",
+        "field_media_image",
+        "field_tags",
+      ],
+      "revision_log": null,
+      "revision_timestamp": "2022-03-21T10:52:42+00:00",
+      "revision_translation_affected": null,
+      "revision_uid": Object {
+        "id": "9e4944e8-dd77-407a-8610-83e823b48b56",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 4,
+        },
+        "type": "user--user",
+      },
+      "status": true,
+      "sticky": false,
+      "title": "Baking mishaps - our troubleshooting tips",
+      "type": "node--article",
+      "uid": Object {
+        "id": "9e4944e8-dd77-407a-8610-83e823b48b56",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 4,
+        },
+        "type": "user--user",
+      },
+    },
+    Object {
+      "body": Object {
+        "format": "basic_html",
+        "processed": "<p>Having a cocktail party? Then why not serve up something just as special for those who don't drink alcohol but do want to join in on all the fun? After all, what cocktail party is complete without those incredible looking glasses of mixed fruits, bright colors and of course, the little umbrellas? Do your bit for the environment by ditching the plastic straws and get hold of some great looking alternatives made out of glass, metal, or even bamboo. Don't forget the classic cocktail glasses and cool tumblers to really bring these recipes to life.
+</p>
+<p>
+So, grab the cocktail mixer, skip the spirits, and shake up these deliciously refreshing mocktails that won't leave you or your guests, short on flavor or style.
+</p>
+<h2>Mango-licious</h2>
+<p>This delicious drink has a sophisticated taste that is ideal for adults and the color is perfect for a late summer BBQ.</p>
+<h3>Instructions:</h3>
+<p>Give a few slices of cucumber and a little honey a good shake in a cocktail shaker. Add a spirit measure of mango puree and the juice of one lime. Add some ice and shake for all you're worth. Using a strainer, pour into a fancy glass and top with ginger beer. A few slices of lime and you're ready to go.</p>
+<h2>Mocky Mojito</h2>
+<p>There's nothing quite like a Mojito on a warm day and this version is ideal for a relaxing end of the day moment of bliss in the garden.</p>
+<h3>Instructions:</h3>
+<p>Muddle sugar, a squeeze of lime, and mint leaves in a tall glass, then add a few chunks of ice, top with the juice of a blood orange (for the sunset effect), and add a splash of soda water. Add a few sprigs of mint for an authentic look.</p>
+<h2>Sinless Strawberry Martini</h2>
+<p>Strawberries add a beautiful rich red to this mocktail, while the ginger gives it a little kick. Serve in a proper martini glass, but maybe avoid the olives.</p>
+<h3>Instructions:</h3>
+<p>Muddle a strawberry with a dash a ginger beer and some sugar syrup in a cocktail shaker. Add a capful of elderflower cordial and a few mint leaves. Throw in a slice of orange and lemon and shake with ice. Strain into your glass and enjoy the sweet strawberry flavor.</p>
+<h2>Coconut Queen</h2>
+<p>Crazy about coconuts? Then you'll love the refreshing taste of this coconut based mocktail. The flavors give a hint of the tropical, while the look is grown-up sophistication.</p>
+<h3>Instructions:</h3>
+<p>Add sliced cucumbers, the juice of a lime or two, and some mint leaves to a pitcher of coconut water and leave to chill and infuse for a few hours in the fridge. You can also add some sugar if you fancy this sweeter. Serve poured into glasses full of ice with sliced cucumber and mint leaves. Simple and beautiful.</p>
+",
+        "summary": null,
+        "value": "<p>Having a cocktail party? Then why not serve up something just as special for those who don't drink alcohol but do want to join in on all the fun? After all, what cocktail party is complete without those incredible looking glasses of mixed fruits, bright colors and of course, the little umbrellas? Do your bit for the environment by ditching the plastic straws and get hold of some great looking alternatives made out of glass, metal, or even bamboo. Don't forget the classic cocktail glasses and cool tumblers to really bring these recipes to life.
+</p>
+<p>
+So, grab the cocktail mixer, skip the spirits, and shake up these deliciously refreshing mocktails that won't leave you or your guests, short on flavor or style.
+</p>
+<h2>Mango-licious</h2>
+<p>This delicious drink has a sophisticated taste that is ideal for adults and the color is perfect for a late summer BBQ.</p>
+<h3>Instructions:</h3>
+<p>Give a few slices of cucumber and a little honey a good shake in a cocktail shaker. Add a spirit measure of mango puree and the juice of one lime. Add some ice and shake for all you're worth. Using a strainer, pour into a fancy glass and top with ginger beer. A few slices of lime and you're ready to go.</p>
+<h2>Mocky Mojito</h2>
+<p>There's nothing quite like a Mojito on a warm day and this version is ideal for a relaxing end of the day moment of bliss in the garden.</p>
+<h3>Instructions:</h3>
+<p>Muddle sugar, a squeeze of lime, and mint leaves in a tall glass, then add a few chunks of ice, top with the juice of a blood orange (for the sunset effect), and add a splash of soda water. Add a few sprigs of mint for an authentic look.</p>
+<h2>Sinless Strawberry Martini</h2>
+<p>Strawberries add a beautiful rich red to this mocktail, while the ginger gives it a little kick. Serve in a proper martini glass, but maybe avoid the olives.</p>
+<h3>Instructions:</h3>
+<p>Muddle a strawberry with a dash a ginger beer and some sugar syrup in a cocktail shaker. Add a capful of elderflower cordial and a few mint leaves. Throw in a slice of orange and lemon and shake with ice. Strain into your glass and enjoy the sweet strawberry flavor.</p>
+<h2>Coconut Queen</h2>
+<p>Crazy about coconuts? Then you'll love the refreshing taste of this coconut based mocktail. The flavors give a hint of the tropical, while the look is grown-up sophistication.</p>
+<h3>Instructions:</h3>
+<p>Add sliced cucumbers, the juice of a lime or two, and some mint leaves to a pitcher of coconut water and leave to chill and infuse for a few hours in the fridge. You can also add some sugar if you fancy this sweeter. Serve poured into glasses full of ice with sliced cucumber and mint leaves. Simple and beautiful.</p>
+",
+      },
+      "changed": "2022-03-21T10:52:42+00:00",
+      "content_translation_outdated": false,
+      "content_translation_source": "und",
+      "created": "2022-03-21T10:52:42+00:00",
+      "default_langcode": true,
+      "drupal_internal__nid": 16,
+      "drupal_internal__vid": 32,
+      "field_media_image": Object {
+        "id": "e1950c46-ec1a-4a93-a761-6705342c0e04",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 16,
+        },
+        "type": "media--image",
+      },
+      "field_tags": Array [
+        Object {
+          "id": "77c4a26a-ce8d-44be-a098-e0bedd11f9f0",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 1,
+          },
+          "type": "taxonomy_term--tags",
+        },
+        Object {
+          "id": "d2ceae46-6cc5-4891-b67f-b896d1055bcf",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 12,
+          },
+          "type": "taxonomy_term--tags",
+        },
+        Object {
+          "id": "606fa8a9-b565-45d2-bd18-6ffb256459c3",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 20,
+          },
+          "type": "taxonomy_term--tags",
+        },
+        Object {
+          "id": "14edf86c-8dfb-4da8-9632-2d72b36f622f",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 8,
+          },
+          "type": "taxonomy_term--tags",
+        },
+        Object {
+          "id": "a1bd5b9e-ba25-4a37-a44d-a6ab51f70334",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 11,
+          },
+          "type": "taxonomy_term--tags",
+        },
+      ],
+      "id": "d5b9ef80-c0aa-45ca-88e7-79c28abe5d50",
+      "langcode": "en",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/d5b9ef80-c0aa-45ca-88e7-79c28abe5d50?resourceVersion=id%3A32",
+        },
+      },
+      "moderation_state": "published",
+      "node_type": Object {
+        "id": "a145b65a-e660-4f5d-ac0d-bd2ff9e3f0b0",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": "article",
+        },
+        "type": "node_type--node_type",
+      },
+      "path": Object {
+        "alias": "/articles/skip-the-spirits-with-delicious-mocktails",
+        "langcode": "en",
+        "pid": 97,
+      },
+      "promote": true,
+      "relationshipNames": Array [
+        "node_type",
+        "revision_uid",
+        "uid",
+        "field_media_image",
+        "field_tags",
+      ],
+      "revision_log": null,
+      "revision_timestamp": "2022-03-21T10:52:42+00:00",
+      "revision_translation_affected": null,
+      "revision_uid": Object {
+        "id": "cddd2eed-95b6-4261-8de1-d09958a079e7",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 6,
+        },
+        "type": "user--user",
+      },
+      "status": true,
+      "sticky": false,
+      "title": "Skip the spirits with delicious mocktails",
+      "type": "node--article",
+      "uid": Object {
+        "id": "cddd2eed-95b6-4261-8de1-d09958a079e7",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 6,
+        },
+        "type": "user--user",
+      },
+    },
+    Object {
+      "body": Object {
+        "format": "basic_html",
+        "processed": "<p>
+It is vegan, gluten-free, low in fat, high in fiber, and can even lower cholesterol - but oatmeal is boring, right? Well, before you write off that boring jar of oats, you might want to take inspiration from our topping ideas that will take your oatmeal from bland to creatively delicious in just a few minutes.
+</p>
+<p>
+Call it oatmeal, porridge, hot cereal, or just plain oats, it is loved the world over; but recently, the humble oat is getting a funky makeover. Long gone are the days of stodgy breakfast bowls of thick gloop, because oats are getting served up as a delicious meal that can suit any time of the day. Trendy build-your-own oatmeal bars are popping up, and they are providing the ultimate oatmeal experience. Diners can choose their oats to be made with milk or water and then go to town with their choice of favorite toppings - sweet, savory, or even spicy.
+</p>
+<p>
+It sounds great, doesn’t it? So before you close the cupboard door on that bland-looking jar of oats, we think you should try some of these scrumptious topping ideas to inspire your very own oatmeal makeover.
+</p>
+<h2>Soaked dried fruit</h2>
+<p>
+Sometimes plain dried fruit can be a bit chewy and harsh when combined with creamy oats. But if you simply soak your dried fruit in orange juice overnight, they develop a tang, and they swell up, making them softer and even more delicious. Plus the splash of color can really brighten your day.
+</p>
+<h2>Porridge crème brûlée</h2>
+<p>
+So simple - but why has no one thought of it before? Put your cooked oatmeal into a ramekin, sprinkle with sugar, and pop under the grill. The sugar will harden, giving you the delight of cracking through the surface and scooping out the creamy deliciousness beneath. If you are really professional, you can use a blow torch.
+</p>
+<h2>Super seeds</h2>
+<p>
+For a more savory meal option, cook your oats with water, a little salt, and sprinkle with toasted seeds. You can choose any that you enjoy, but pumpkin seeds, sesame, linseed, and sunflower seeds are especially good. Some supermarkets also sell seed blends to make the job even easier.
+</p>
+<h2>Deconstructed carrot cake</h2>
+<p>
+Cook your oats with grated carrots and a little sugar, then top with a sprinkle of cinnamon, chopped walnuts, and a dollop of sweetened cream cheese. If you don’t love this, there’s something wrong with your taste buds.
+</p>
+<h2>Dark chocolate</h2>
+<p>
+This low-sugar delight will meet all of those chocolate cravings and is the perfect dessert. Add a spoonful of cocoa to your oatmeal as it cooks, then top with a few squares of dark chocolate. As it melts, simply swirl into the bowl as artfully as you can. If you are really decadent, a squirt of whipped cream will add further delights.
+</p>
+",
+        "summary": null,
+        "value": "<p>
+It is vegan, gluten-free, low in fat, high in fiber, and can even lower cholesterol - but oatmeal is boring, right? Well, before you write off that boring jar of oats, you might want to take inspiration from our topping ideas that will take your oatmeal from bland to creatively delicious in just a few minutes.
+</p>
+
+<p>
+Call it oatmeal, porridge, hot cereal, or just plain oats, it is loved the world over; but recently, the humble oat is getting a funky makeover. Long gone are the days of stodgy breakfast bowls of thick gloop, because oats are getting served up as a delicious meal that can suit any time of the day. Trendy build-your-own oatmeal bars are popping up, and they are providing the ultimate oatmeal experience. Diners can choose their oats to be made with milk or water and then go to town with their choice of favorite toppings - sweet, savory, or even spicy.
+</p>
+
+<p>
+It sounds great, doesn’t it? So before you close the cupboard door on that bland-looking jar of oats, we think you should try some of these scrumptious topping ideas to inspire your very own oatmeal makeover.
+</p>
+
+
+<h2>Soaked dried fruit</h2>
+
+<p>
+Sometimes plain dried fruit can be a bit chewy and harsh when combined with creamy oats. But if you simply soak your dried fruit in orange juice overnight, they develop a tang, and they swell up, making them softer and even more delicious. Plus the splash of color can really brighten your day.
+</p>
+
+
+<h2>Porridge crème brûlée</h2>
+
+<p>
+So simple - but why has no one thought of it before? Put your cooked oatmeal into a ramekin, sprinkle with sugar, and pop under the grill. The sugar will harden, giving you the delight of cracking through the surface and scooping out the creamy deliciousness beneath. If you are really professional, you can use a blow torch.
+</p>
+
+<h2>Super seeds</h2>
+
+<p>
+For a more savory meal option, cook your oats with water, a little salt, and sprinkle with toasted seeds. You can choose any that you enjoy, but pumpkin seeds, sesame, linseed, and sunflower seeds are especially good. Some supermarkets also sell seed blends to make the job even easier.
+</p>
+
+<h2>Deconstructed carrot cake</h2>
+
+<p>
+Cook your oats with grated carrots and a little sugar, then top with a sprinkle of cinnamon, chopped walnuts, and a dollop of sweetened cream cheese. If you don’t love this, there’s something wrong with your taste buds.
+</p>
+
+<h2>Dark chocolate</h2>
+
+<p>
+This low-sugar delight will meet all of those chocolate cravings and is the perfect dessert. Add a spoonful of cocoa to your oatmeal as it cooks, then top with a few squares of dark chocolate. As it melts, simply swirl into the bowl as artfully as you can. If you are really decadent, a squirt of whipped cream will add further delights.
+</p>
+",
+      },
+      "changed": "2022-03-21T10:52:42+00:00",
+      "content_translation_outdated": false,
+      "content_translation_source": "und",
+      "created": "2022-03-21T10:52:42+00:00",
+      "default_langcode": true,
+      "drupal_internal__nid": 17,
+      "drupal_internal__vid": 34,
+      "field_media_image": Object {
+        "id": "fef8de9e-7e41-4fa7-a58f-7f54db52ffe3",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 17,
+        },
+        "type": "media--image",
+      },
+      "field_tags": Array [
+        Object {
+          "id": "a47d1f3a-cc76-4d32-bffe-baf1ed2ee8a3",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 27,
+          },
+          "type": "taxonomy_term--tags",
+        },
+        Object {
+          "id": "f19c842c-17ec-47e8-9079-44afda5ed90d",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 28,
+          },
+          "type": "taxonomy_term--tags",
+        },
+        Object {
+          "id": "f775118a-6c20-482e-9117-20314c76f2a3",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 19,
+          },
+          "type": "taxonomy_term--tags",
+        },
+        Object {
+          "id": "0a31fa5c-3b1d-40b0-9841-2f607fe35272",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 4,
+          },
+          "type": "taxonomy_term--tags",
+        },
+        Object {
+          "id": "eaf76dc5-7988-48cc-8c5b-d240f86d0acc",
+          "resourceIdObjMeta": Object {
+            "drupal_internal__target_id": 10,
+          },
+          "type": "taxonomy_term--tags",
+        },
+      ],
+      "id": "6c7c249f-cd1a-41d5-944b-b3bfce68b325",
+      "langcode": "en",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/6c7c249f-cd1a-41d5-944b-b3bfce68b325?resourceVersion=id%3A34",
+        },
+      },
+      "moderation_state": "published",
+      "node_type": Object {
+        "id": "a145b65a-e660-4f5d-ac0d-bd2ff9e3f0b0",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": "article",
+        },
+        "type": "node_type--node_type",
+      },
+      "path": Object {
+        "alias": "/articles/give-your-oatmeal-the-ultimate-makeover",
+        "langcode": "en",
+        "pid": 99,
+      },
+      "promote": true,
+      "relationshipNames": Array [
+        "node_type",
+        "revision_uid",
+        "uid",
+        "field_media_image",
+        "field_tags",
+      ],
+      "revision_log": null,
+      "revision_timestamp": "2022-03-21T10:52:42+00:00",
+      "revision_translation_affected": null,
+      "revision_uid": Object {
+        "id": "9e4944e8-dd77-407a-8610-83e823b48b56",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 4,
+        },
+        "type": "user--user",
+      },
+      "status": true,
+      "sticky": false,
+      "title": "Give your oatmeal the ultimate makeover",
+      "type": "node--article",
+      "uid": Object {
+        "id": "9e4944e8-dd77-407a-8610-83e823b48b56",
+        "resourceIdObjMeta": Object {
+          "drupal_internal__target_id": 4,
+        },
+        "type": "user--user",
+      },
+    },
+  ],
+}
+`;
+
+exports[`getView it fetches a view with locale 1`] = `
+Object {
+  "links": Object {
+    "self": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/views/featured_articles/page_1?fields%5Bnode--article%5D=title",
+    },
+  },
+  "meta": Object {
+    "count": 8,
+  },
+  "results": Array [
+    Object {
+      "id": "52837ad0-f218-46bd-a106-5710336b7053",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053?resourceVersion=id%3A20",
+        },
+      },
+      "title": "Prueba y cultiva tus propias hierbas",
+      "type": "node--article",
+    },
+    Object {
+      "id": "3d5a7bca-5b4a-49ee-87d2-cbe313562903",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/3d5a7bca-5b4a-49ee-87d2-cbe313562903?resourceVersion=id%3A22",
+        },
+      },
+      "title": "Delicioso chocolate sin lactosa",
+      "type": "node--article",
+    },
+    Object {
+      "id": "a1ef61c9-ed15-4b6d-bba2-bf6e5141f961",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/a1ef61c9-ed15-4b6d-bba2-bf6e5141f961?resourceVersion=id%3A24",
+        },
+      },
+      "title": "El verdadero negocio para comprar en el supermercado",
+      "type": "node--article",
+    },
+    Object {
+      "id": "ac0b8b56-db8d-4322-9b1e-224f22083f0d",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/ac0b8b56-db8d-4322-9b1e-224f22083f0d?resourceVersion=id%3A26",
+        },
+      },
+      "title": "Guía Umami de nuestras setas preferidas",
+      "type": "node--article",
+    },
+    Object {
+      "id": "22874ecc-0443-441b-a3c9-3aa94d85b800",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/22874ecc-0443-441b-a3c9-3aa94d85b800?resourceVersion=id%3A28",
+        },
+      },
+      "title": "Un aplauso para las zanahorias",
+      "type": "node--article",
+    },
+    Object {
+      "id": "ec51b1de-f51e-4761-b061-aa2624e58b4a",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/ec51b1de-f51e-4761-b061-aa2624e58b4a?resourceVersion=id%3A30",
+        },
+      },
+      "title": "Percances al hornear - nuestros consejos para solucionar los problemas",
+      "type": "node--article",
+    },
+    Object {
+      "id": "d5b9ef80-c0aa-45ca-88e7-79c28abe5d50",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/d5b9ef80-c0aa-45ca-88e7-79c28abe5d50?resourceVersion=id%3A32",
+        },
+      },
+      "title": "Salta los espíritus con deliciosos cócteles sin alcohol",
+      "type": "node--article",
+    },
+    Object {
+      "id": "6c7c249f-cd1a-41d5-944b-b3bfce68b325",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/6c7c249f-cd1a-41d5-944b-b3bfce68b325?resourceVersion=id%3A34",
+        },
+      },
+      "title": "Dale a tu avena el cambio de imagen definitivo",
+      "type": "node--article",
+    },
+  ],
+}
+`;
+
+exports[`getView it fetches a view with params 1`] = `
+Object {
+  "links": Object {
+    "self": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/jsonapi/views/featured_articles/page_1?fields%5Bnode--article%5D=title",
+    },
+  },
+  "meta": Object {
+    "count": 8,
+  },
+  "results": Array [
+    Object {
+      "id": "52837ad0-f218-46bd-a106-5710336b7053",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053?resourceVersion=id%3A20",
+        },
+      },
+      "title": "Give it a go and grow your own herbs",
+      "type": "node--article",
+    },
+    Object {
+      "id": "3d5a7bca-5b4a-49ee-87d2-cbe313562903",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/3d5a7bca-5b4a-49ee-87d2-cbe313562903?resourceVersion=id%3A22",
+        },
+      },
+      "title": "Dairy-free and delicious milk chocolate",
+      "type": "node--article",
+    },
+    Object {
+      "id": "a1ef61c9-ed15-4b6d-bba2-bf6e5141f961",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/a1ef61c9-ed15-4b6d-bba2-bf6e5141f961?resourceVersion=id%3A24",
+        },
+      },
+      "title": "The real deal for supermarket savvy shopping",
+      "type": "node--article",
+    },
+    Object {
+      "id": "ac0b8b56-db8d-4322-9b1e-224f22083f0d",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/ac0b8b56-db8d-4322-9b1e-224f22083f0d?resourceVersion=id%3A26",
+        },
+      },
+      "title": "The Umami guide to our favorite mushrooms",
+      "type": "node--article",
+    },
+    Object {
+      "id": "22874ecc-0443-441b-a3c9-3aa94d85b800",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/22874ecc-0443-441b-a3c9-3aa94d85b800?resourceVersion=id%3A28",
+        },
+      },
+      "title": "Let's hear it for carrots",
+      "type": "node--article",
+    },
+    Object {
+      "id": "ec51b1de-f51e-4761-b061-aa2624e58b4a",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/ec51b1de-f51e-4761-b061-aa2624e58b4a?resourceVersion=id%3A30",
+        },
+      },
+      "title": "Baking mishaps - our troubleshooting tips",
+      "type": "node--article",
+    },
+    Object {
+      "id": "d5b9ef80-c0aa-45ca-88e7-79c28abe5d50",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/d5b9ef80-c0aa-45ca-88e7-79c28abe5d50?resourceVersion=id%3A32",
+        },
+      },
+      "title": "Skip the spirits with delicious mocktails",
+      "type": "node--article",
+    },
+    Object {
+      "id": "6c7c249f-cd1a-41d5-944b-b3bfce68b325",
+      "links": Object {
+        "self": Object {
+          "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/article/6c7c249f-cd1a-41d5-944b-b3bfce68b325?resourceVersion=id%3A34",
+        },
+      },
+      "title": "Give your oatmeal the ultimate makeover",
+      "type": "node--article",
+    },
+  ],
+}
+`;
+
+exports[`getView it fetches raw data 1`] = `
+Object {
+  "links": Object {
+    "self": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/views/featured_articles/page_1?fields%5Bnode--article%5D=title",
+    },
+  },
+  "meta": Object {
+    "count": 8,
+  },
+  "results": Object {
+    "data": Array [
+      Object {
+        "attributes": Object {
+          "title": "Prueba y cultiva tus propias hierbas",
+        },
+        "id": "52837ad0-f218-46bd-a106-5710336b7053",
+        "links": Object {
+          "self": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053?resourceVersion=id%3A20",
+          },
+        },
+        "type": "node--article",
+      },
+      Object {
+        "attributes": Object {
+          "title": "Delicioso chocolate sin lactosa",
+        },
+        "id": "3d5a7bca-5b4a-49ee-87d2-cbe313562903",
+        "links": Object {
+          "self": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/3d5a7bca-5b4a-49ee-87d2-cbe313562903?resourceVersion=id%3A22",
+          },
+        },
+        "type": "node--article",
+      },
+      Object {
+        "attributes": Object {
+          "title": "El verdadero negocio para comprar en el supermercado",
+        },
+        "id": "a1ef61c9-ed15-4b6d-bba2-bf6e5141f961",
+        "links": Object {
+          "self": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/a1ef61c9-ed15-4b6d-bba2-bf6e5141f961?resourceVersion=id%3A24",
+          },
+        },
+        "type": "node--article",
+      },
+      Object {
+        "attributes": Object {
+          "title": "Guía Umami de nuestras setas preferidas",
+        },
+        "id": "ac0b8b56-db8d-4322-9b1e-224f22083f0d",
+        "links": Object {
+          "self": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/ac0b8b56-db8d-4322-9b1e-224f22083f0d?resourceVersion=id%3A26",
+          },
+        },
+        "type": "node--article",
+      },
+      Object {
+        "attributes": Object {
+          "title": "Un aplauso para las zanahorias",
+        },
+        "id": "22874ecc-0443-441b-a3c9-3aa94d85b800",
+        "links": Object {
+          "self": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/22874ecc-0443-441b-a3c9-3aa94d85b800?resourceVersion=id%3A28",
+          },
+        },
+        "type": "node--article",
+      },
+      Object {
+        "attributes": Object {
+          "title": "Percances al hornear - nuestros consejos para solucionar los problemas",
+        },
+        "id": "ec51b1de-f51e-4761-b061-aa2624e58b4a",
+        "links": Object {
+          "self": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/ec51b1de-f51e-4761-b061-aa2624e58b4a?resourceVersion=id%3A30",
+          },
+        },
+        "type": "node--article",
+      },
+      Object {
+        "attributes": Object {
+          "title": "Salta los espíritus con deliciosos cócteles sin alcohol",
+        },
+        "id": "d5b9ef80-c0aa-45ca-88e7-79c28abe5d50",
+        "links": Object {
+          "self": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/d5b9ef80-c0aa-45ca-88e7-79c28abe5d50?resourceVersion=id%3A32",
+          },
+        },
+        "type": "node--article",
+      },
+      Object {
+        "attributes": Object {
+          "title": "Dale a tu avena el cambio de imagen definitivo",
+        },
+        "id": "6c7c249f-cd1a-41d5-944b-b3bfce68b325",
+        "links": Object {
+          "self": Object {
+            "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/article/6c7c249f-cd1a-41d5-944b-b3bfce68b325?resourceVersion=id%3A34",
+          },
+        },
+        "type": "node--article",
+      },
+    ],
+    "jsonapi": Object {
+      "meta": Object {
+        "links": Object {
+          "self": Object {
+            "href": "http://jsonapi.org/format/1.0/",
+          },
+        },
+      },
+      "version": "1.0",
+    },
+    "links": Object {
+      "self": Object {
+        "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/views/featured_articles/page_1?fields%5Bnode--article%5D=title",
+      },
+    },
+    "meta": Object {
+      "count": 8,
+    },
+  },
+}
 `;
 
 exports[`translatePath it translates a path 1`] = `

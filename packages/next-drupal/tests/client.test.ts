@@ -1943,6 +1943,17 @@ describe("getMenu", () => {
     expect(menu).toMatchSnapshot()
   })
 
+  test("it fetches menu items for a menu with locale", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const menu = await client.getMenu("main", {
+      locale: "es",
+      defaultLocale: "en",
+    })
+
+    expect(menu).toMatchSnapshot()
+  })
+
   test("it fetches menu items for a menu with params", async () => {
     const client = new DrupalClient(BASE_URL)
 
@@ -1987,6 +1998,96 @@ describe("getMenu", () => {
     jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
 
     await client.getMenu("main", { withAuth: true })
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: true,
+      })
+    )
+  })
+})
+
+describe("getView", () => {
+  test("it fetches a view", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const view = await client.getView("featured_articles--page_1")
+
+    expect(view).toMatchSnapshot()
+  })
+
+  test("it fetches a view with params", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const view = await client.getView("featured_articles--page_1", {
+      params: {
+        "fields[node--article]": "title",
+      },
+    })
+
+    expect(view).toMatchSnapshot()
+  })
+
+  test("it fetches a view with locale", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const view = await client.getView("featured_articles--page_1", {
+      locale: "es",
+      defaultLocale: "en",
+      params: {
+        "fields[node--article]": "title",
+      },
+    })
+
+    expect(view).toMatchSnapshot()
+  })
+
+  test("it fetches raw data", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const view = await client.getView("featured_articles--page_1", {
+      locale: "es",
+      defaultLocale: "en",
+      deserialize: false,
+      params: {
+        "fields[node--article]": "title",
+      },
+    })
+
+    expect(view).toMatchSnapshot()
+  })
+
+  test("it throws an error for invalid view name", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    await expect(client.getView("INVALID")).rejects.toThrow("Not Found")
+  })
+
+  test("it makes un-authenticated requests by default", async () => {
+    const client = new DrupalClient(BASE_URL)
+    const fetchSpy = jest.spyOn(client, "fetch")
+
+    await client.getView("featured_articles--page_1")
+    expect(fetchSpy).toHaveBeenCalledWith(expect.anything(), {
+      withAuth: false,
+    })
+  })
+
+  test("it makes authenticated requests with withAuth option", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      useDefaultResourceTypeEntry: true,
+    })
+    const fetchSpy = jest
+      .spyOn(global, "fetch")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+        ) as jest.Mock
+      )
+    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
+
+    await client.getView("featured_articles--page_1", { withAuth: true })
 
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),

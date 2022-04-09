@@ -736,21 +736,16 @@ export class Unstable_DrupalClient {
 
   async getView<T>(
     name: string,
-    options?: {
-      deserialize?: boolean
-    } & JsonApiWithLocaleOptions
+    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
   ): Promise<{
     results: T
-    /* eslint-disable  @typescript-eslint/no-explicit-any */
-    meta: Record<string, any>
-    links: {
-      [key in "next" | "prev" | "self"]?: {
-        href: "string"
-      }
-    }
+    meta: JsonApiResponse["meta"]
+    links: JsonApiResponse["links"]
   }> {
     options = {
+      withAuth: this.withAuth,
       deserialize: true,
+      params: {},
       ...options,
     }
 
@@ -762,15 +757,13 @@ export class Unstable_DrupalClient {
     const [viewId, displayId] = name.split("--")
 
     const url = this.buildUrl(
-      `${localePrefix}/jsonapi/views/${viewId}/${displayId}`,
+      `${localePrefix}${this.apiPrefix}/views/${viewId}/${displayId}`,
       options.params
     )
 
-    const response = await this.fetch(url.toString())
-
-    if (!response.ok) {
-      throw new Error(response.statusText)
-    }
+    const response = await this.fetch(url.toString(), {
+      withAuth: options.withAuth,
+    })
 
     const data = await response.json()
 

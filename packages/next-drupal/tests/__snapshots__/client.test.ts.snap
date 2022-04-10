@@ -852,6 +852,12 @@ Object {
     "entity_view_mode--entity_view_mode": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/entity_view_mode/entity_view_mode",
     },
+    "facets_facet--facets_facet": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/facets_facet/facets_facet",
+    },
+    "facets_facet_source--facets_facet_source": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/facets_facet_source/facets_facet_source",
+    },
     "field_config--field_config": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/field_config/field_config",
     },
@@ -935,6 +941,15 @@ Object {
     },
     "responsive_image_style--responsive_image_style": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/responsive_image_style/responsive_image_style",
+    },
+    "search_api_index--search_api_index": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/search_api_index/search_api_index",
+    },
+    "search_api_server--search_api_server": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/search_api_server/search_api_server",
+    },
+    "search_api_task--search_api_task": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/search_api_task/search_api_task",
     },
     "search_page--search_page": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/search_page/search_page",
@@ -1047,6 +1062,12 @@ Object {
     "entity_view_mode--entity_view_mode": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/entity_view_mode/entity_view_mode",
     },
+    "facets_facet--facets_facet": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/facets_facet/facets_facet",
+    },
+    "facets_facet_source--facets_facet_source": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/facets_facet_source/facets_facet_source",
+    },
     "field_config--field_config": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/field_config/field_config",
     },
@@ -1130,6 +1151,15 @@ Object {
     },
     "responsive_image_style--responsive_image_style": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/responsive_image_style/responsive_image_style",
+    },
+    "search_api_index--search_api_index": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/search_api_index/search_api_index",
+    },
+    "search_api_server--search_api_server": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/search_api_server/search_api_server",
+    },
+    "search_api_task--search_api_task": Object {
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/search_api_task/search_api_task",
     },
     "search_page--search_page": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/search_page/search_page",

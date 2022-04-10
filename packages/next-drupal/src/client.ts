@@ -2,6 +2,8 @@ import type {
   GetStaticPathsContext,
   GetStaticPathsResult,
   GetStaticPropsContext,
+  NextApiRequest,
+  NextApiResponse,
 } from "next"
 import { stringify } from "qs"
 import Jsona from "jsona"
@@ -22,6 +24,8 @@ import type {
   PathPrefix,
   JsonApiResourceWithPath,
   PathAlias,
+  PreviewOptions,
+  GetResourcePreviewUrlOptions,
 } from "./types"
 import { logger as defaultLogger } from "./logger"
 
@@ -426,6 +430,7 @@ export class Unstable_DrupalClient {
       ...options,
       locale: context.locale,
       defaultLocale: context.defaultLocale,
+      withAuth: context.preview || options.withAuth,
     })
   }
 
@@ -589,7 +594,7 @@ export class Unstable_DrupalClient {
     })
 
     const response = await this.translatePath(path, {
-      withAuth: options.withAuth,
+      withAuth: context.preview || options.withAuth,
     })
 
     return response
@@ -670,6 +675,83 @@ export class Unstable_DrupalClient {
     }
 
     return link.href
+  }
+
+  // async preview(options?: PreviewOptions) {
+  //   return (request, response) => this.handlePreview(request, response, options)
+  // }
+
+  async preview(
+    request?: NextApiRequest,
+    response?: NextApiResponse,
+    options?: PreviewOptions
+  ) {
+    const { slug, resourceVersion, secret, locale, defaultLocale } =
+      request.query
+
+    if (secret !== process.env.DRUPAL_PREVIEW_SECRET) {
+      return response.status(401).json({
+        message: options?.errorMessages.secret || "Invalid preview secret.",
+      })
+    }
+
+    if (!slug) {
+      return response
+        .status(401)
+        .end({ message: options?.errorMessages.slug || "Invalid slug." })
+    }
+
+    let _options: GetResourcePreviewUrlOptions = {
+      isVersionable: typeof resourceVersion !== "undefined",
+    }
+
+    if (locale && defaultLocale) {
+      _options = {
+        ..._options,
+        locale: locale as string,
+        defaultLocale: defaultLocale as string,
+      }
+    }
+
+    const url = await this.getResourcePreviewUrl(slug as string, _options)
+
+    if (!url) {
+      response
+        .status(404)
+        .end({ message: options?.errorMessages.slug || "Invalid slug" })
+    }
+
+    response.setPreviewData({
+      resourceVersion,
+    })
+
+    response.writeHead(307, { Location: url })
+
+    return response.end()
+  }
+
+  async getResourcePreviewUrl(
+    slug: string,
+    options?: GetResourcePreviewUrlOptions
+  ) {
+    const entity = await this.getResourceByPath(slug, {
+      withAuth: true,
+      ...options,
+    })
+
+    if (!entity) {
+      return null
+    }
+
+    if (!entity?.path) {
+      throw new Error(
+        `The path attribute is missing for entity type ${entity.type}`
+      )
+    }
+
+    return entity?.default_langcode
+      ? entity.path.alias
+      : `/${entity.path.langcode}${entity.path.alias}`
   }
 
   async getMenu<T extends DrupalMenuLinkContent>(

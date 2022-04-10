@@ -298,6 +298,17 @@ export interface JsonApiResourceWithPath extends JsonApiResource {
   path: PathAlias
 }
 
+export interface PreviewOptions {
+  errorMessages?: {
+    secret?: string
+    slug?: string
+  }
+}
+
+export type GetResourcePreviewUrlOptions = JsonApiWithLocaleOptions & {
+  isVersionable?: boolean
+}
+
 export interface DrupalNode extends JsonApiResourceWithPath {
   drupal_internal__nid: number
   drupal_internal__vid: number

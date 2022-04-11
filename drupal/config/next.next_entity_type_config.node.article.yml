@@ -7,9 +7,11 @@ dependencies:
 third_party_settings:
   next_extras:
     revalidate: false
+    revalidate_paths: ''
 id: node.article
-site_resolver: site_selector
+site_resolver: entity_reference_field
 configuration:
+  field_name: field_site
   sites:
     example_blog: example_blog
     example_marketing: example_marketing

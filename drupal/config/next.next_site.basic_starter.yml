@@ -1,0 +1,9 @@
+uuid: b981f4e9-b28e-40ec-95a8-ef09ce7faa76
+langcode: en
+status: true
+dependencies: {  }
+id: basic_starter
+label: 'Basic Starter'
+base_url: 'http://localhost:3000'
+preview_url: 'http://localhost:3000/api/preview'
+preview_secret: secret

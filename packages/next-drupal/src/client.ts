@@ -447,7 +447,7 @@ export class Unstable_DrupalClient {
       params?: JsonApiParams
       pathPrefix?: PathPrefix
     } & JsonApiWithAuthOptions
-  ): Promise<GetStaticPathsResult["paths"]> {
+  ): Promise<GetStaticPathsResult<{ slug: string[] }>["paths"]> {
     options = {
       withAuth: this.withAuth,
       pathPrefix: "/",
@@ -535,7 +535,7 @@ export class Unstable_DrupalClient {
       _path = _path.replace(/^\/|\/$/g, "")
 
       // Remove pathPrefix.
-      if (options?.pathPrefix) {
+      if (options?.pathPrefix && options.pathPrefix !== "/") {
         // Remove leading slash from pathPrefix.
         const pathPrefix = options.pathPrefix.replace(/^\//, "")
 

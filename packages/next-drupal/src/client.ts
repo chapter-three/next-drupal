@@ -69,6 +69,8 @@ export class Unstable_DrupalClient {
 
   private withAuth?: DrupalClientOptions["withAuth"]
 
+  private previewSecret?: DrupalClientOptions["previewSecret"]
+
   /**
    * Instantiates a new DrupalClient.
    *
@@ -93,6 +95,7 @@ export class Unstable_DrupalClient {
       withAuth = DEFAULT_WITH_AUTH,
       fetcher,
       auth,
+      previewSecret,
     } = options
 
     this.baseUrl = baseUrl
@@ -106,6 +109,7 @@ export class Unstable_DrupalClient {
     this.headers = headers
     this.logger = logger
     this.withAuth = withAuth
+    this.previewSecret = previewSecret
 
     this._debug("Debug mode is on.")
   }
@@ -677,10 +681,6 @@ export class Unstable_DrupalClient {
     return link.href
   }
 
-  // async preview(options?: PreviewOptions) {
-  //   return (request, response) => this.handlePreview(request, response, options)
-  // }
-
   async preview(
     request?: NextApiRequest,
     response?: NextApiResponse,
@@ -689,7 +689,7 @@ export class Unstable_DrupalClient {
     const { slug, resourceVersion, secret, locale, defaultLocale } =
       request.query
 
-    if (secret !== process.env.DRUPAL_PREVIEW_SECRET) {
+    if (secret !== this.previewSecret) {
       return response.status(401).json({
         message: options?.errorMessages.secret || "Invalid preview secret.",
       })
@@ -702,7 +702,7 @@ export class Unstable_DrupalClient {
     }
 
     let _options: GetResourcePreviewUrlOptions = {
-      isVersionable: typeof resourceVersion !== "undefined",
+      isVersionable: typeof resourceVersion !== undefined,
     }
 
     if (locale && defaultLocale) {
@@ -713,7 +713,20 @@ export class Unstable_DrupalClient {
       }
     }
 
-    const url = await this.getResourcePreviewUrl(slug as string, _options)
+    const entity = await this.getResourceByPath(slug as string, {
+      withAuth: true,
+      ...options,
+    })
+
+    if (!entity || !entity?.path) {
+      throw new Error(
+        `The path attribute is missing for entity with slug ${slug}`
+      )
+    }
+
+    const url = entity?.default_langcode
+      ? entity.path.alias
+      : `/${entity.path.langcode}${entity.path.alias}`
 
     if (!url) {
       response
@@ -728,30 +741,6 @@ export class Unstable_DrupalClient {
     response.writeHead(307, { Location: url })
 
     return response.end()
-  }
-
-  async getResourcePreviewUrl(
-    slug: string,
-    options?: GetResourcePreviewUrlOptions
-  ) {
-    const entity = await this.getResourceByPath(slug, {
-      withAuth: true,
-      ...options,
-    })
-
-    if (!entity) {
-      return null
-    }
-
-    if (!entity?.path) {
-      throw new Error(
-        `The path attribute is missing for entity type ${entity.type}`
-      )
-    }
-
-    return entity?.default_langcode
-      ? entity.path.alias
-      : `/${entity.path.langcode}${entity.path.alias}`
   }
 
   async getMenu<T extends DrupalMenuLinkContent>(

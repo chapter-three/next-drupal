@@ -94,9 +94,19 @@ export type DrupalClientOptions = {
    * * **Default value**: `false`
    * * **Required**: *No*
    *
-   * [Documentation](https://next-drupal.org/docs/useDefaultResourceTypeEntry#auth)
+   * [Documentation](https://next-drupal.org/docs/client#auth)
    */
   useDefaultResourceTypeEntry?: boolean
+
+  /**
+   * The secret to use for preview mode.
+   *
+   * * **Default value**: `null`
+   * * **Required**: *No*
+   *
+   * [Documentation](https://next-drupal.org/docs/client#previewSecret)
+   */
+  previewSecret?: string
 }
 
 export interface Logger {

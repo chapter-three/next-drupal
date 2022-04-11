@@ -4994,7 +4994,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "articlesgive-it-a-go-and-grow-your-own-herbs",
+        "articles",
+        "give-it-a-go-and-grow-your-own-herbs",
       ],
     },
   },
@@ -5002,7 +5003,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "articlesdairy-free-and-delicious-milk-chocolate",
+        "articles",
+        "dairy-free-and-delicious-milk-chocolate",
       ],
     },
   },
@@ -5010,7 +5012,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "articlesthe-real-deal-for-supermarket-savvy-shopping",
+        "articles",
+        "the-real-deal-for-supermarket-savvy-shopping",
       ],
     },
   },
@@ -5018,7 +5021,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "articlesthe-umami-guide-to-our-favourite-mushrooms",
+        "articles",
+        "the-umami-guide-to-our-favourite-mushrooms",
       ],
     },
   },
@@ -5026,7 +5030,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "articleslets-hear-it-for-carrots",
+        "articles",
+        "lets-hear-it-for-carrots",
       ],
     },
   },
@@ -5034,7 +5039,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "articlesbaking-mishaps-our-troubleshooting-tips",
+        "articles",
+        "baking-mishaps-our-troubleshooting-tips",
       ],
     },
   },
@@ -5042,7 +5048,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "articlesskip-the-spirits-with-delicious-mocktails",
+        "articles",
+        "skip-the-spirits-with-delicious-mocktails",
       ],
     },
   },
@@ -5050,7 +5057,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "articlesgive-your-oatmeal-the-ultimate-makeover",
+        "articles",
+        "give-your-oatmeal-the-ultimate-makeover",
       ],
     },
   },
@@ -5058,7 +5066,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "articlesprueba-y-cultiva-tus-propias-hierbas",
+        "articles",
+        "prueba-y-cultiva-tus-propias-hierbas",
       ],
     },
   },
@@ -5066,7 +5075,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "articlesdelicioso-chocolate-sin-lactosa",
+        "articles",
+        "delicioso-chocolate-sin-lactosa",
       ],
     },
   },
@@ -5074,7 +5084,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "articlesel-verdadeo-negocio-para-comprar-en-el-supermercado",
+        "articles",
+        "el-verdadeo-negocio-para-comprar-en-el-supermercado",
       ],
     },
   },
@@ -5082,7 +5093,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "articlesguia-umami-de-nuestras-setas-preferidas",
+        "articles",
+        "guia-umami-de-nuestras-setas-preferidas",
       ],
     },
   },
@@ -5090,7 +5102,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "articlesun-aplauso-para-las-zanahorias",
+        "articles",
+        "un-aplauso-para-las-zanahorias",
       ],
     },
   },
@@ -5098,7 +5111,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "articlespercances-al-hornear-nuestros-consejos-para-solucionar-problemas",
+        "articles",
+        "percances-al-hornear-nuestros-consejos-para-solucionar-problemas",
       ],
     },
   },
@@ -5106,7 +5120,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "articlessalta-los-espiritus-con-deliciosos-cocteles-sin-alcohol",
+        "articles",
+        "salta-los-espiritus-con-deliciosos-cocteles-sin-alcohol",
       ],
     },
   },
@@ -5114,7 +5129,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "articlesdale-a-tu-avena-el-cambio-de-imagen-definitivo",
+        "articles",
+        "dale-a-tu-avena-el-cambio-de-imagen-definitivo",
       ],
     },
   },
@@ -5122,7 +5138,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "recipesvegan-chocolate-and-nut-brownies",
+        "recipes",
+        "vegan-chocolate-and-nut-brownies",
       ],
     },
   },
@@ -5130,7 +5147,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "recipessuper-easy-vegetarian-pasta-bake",
+        "recipes",
+        "super-easy-vegetarian-pasta-bake",
       ],
     },
   },
@@ -5138,7 +5156,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "recipeswatercress-soup",
+        "recipes",
+        "watercress-soup",
       ],
     },
   },
@@ -5146,7 +5165,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "recipesvictoria-sponge-cake",
+        "recipes",
+        "victoria-sponge-cake",
       ],
     },
   },
@@ -5154,7 +5174,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "recipesgluten-free-pizza",
+        "recipes",
+        "gluten-free-pizza",
       ],
     },
   },
@@ -5162,7 +5183,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "recipesthai-green-curry",
+        "recipes",
+        "thai-green-curry",
       ],
     },
   },
@@ -5170,7 +5192,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "recipescrema-catalana",
+        "recipes",
+        "crema-catalana",
       ],
     },
   },
@@ -5178,7 +5201,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "recipesfiery-chili-sauce",
+        "recipes",
+        "fiery-chili-sauce",
       ],
     },
   },
@@ -5186,7 +5210,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "recipesdeep-mediterranean-quiche",
+        "recipes",
+        "deep-mediterranean-quiche",
       ],
     },
   },
@@ -5194,7 +5219,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "recipesbizcochos-veganos-de-chocolate-y-nueces",
+        "recipes",
+        "bizcochos-veganos-de-chocolate-y-nueces",
       ],
     },
   },
@@ -5202,7 +5228,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "recipespasta-vegetariana-horno-super-facil",
+        "recipes",
+        "pasta-vegetariana-horno-super-facil",
       ],
     },
   },
@@ -5210,7 +5237,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "recipessopa-de-berro",
+        "recipes",
+        "sopa-de-berro",
       ],
     },
   },
@@ -5218,7 +5246,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "recipespastel-victoria",
+        "recipes",
+        "pastel-victoria",
       ],
     },
   },
@@ -5226,7 +5255,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "recipespizza-sin-gluten",
+        "recipes",
+        "pizza-sin-gluten",
       ],
     },
   },
@@ -5234,7 +5264,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "recipescurry-verde-tailandes",
+        "recipes",
+        "curry-verde-tailandes",
       ],
     },
   },
@@ -5242,7 +5273,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "recipescrema-catalana",
+        "recipes",
+        "crema-catalana",
       ],
     },
   },
@@ -5250,7 +5282,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "recipessalsa-de-chile-ardiente",
+        "recipes",
+        "salsa-de-chile-ardiente",
       ],
     },
   },
@@ -5258,7 +5291,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "recipesquiche-mediterráneo-profundo",
+        "recipes",
+        "quiche-mediterráneo-profundo",
       ],
     },
   },
@@ -5270,56 +5304,64 @@ Array [
   Object {
     "params": Object {
       "slug": Array [
-        "articlesgive-it-a-go-and-grow-your-own-herbs",
+        "articles",
+        "give-it-a-go-and-grow-your-own-herbs",
       ],
     },
   },
   Object {
     "params": Object {
       "slug": Array [
-        "articlesdairy-free-and-delicious-milk-chocolate",
+        "articles",
+        "dairy-free-and-delicious-milk-chocolate",
       ],
     },
   },
   Object {
     "params": Object {
       "slug": Array [
-        "articlesthe-real-deal-for-supermarket-savvy-shopping",
+        "articles",
+        "the-real-deal-for-supermarket-savvy-shopping",
       ],
     },
   },
   Object {
     "params": Object {
       "slug": Array [
-        "articlesthe-umami-guide-to-our-favourite-mushrooms",
+        "articles",
+        "the-umami-guide-to-our-favourite-mushrooms",
       ],
     },
   },
   Object {
     "params": Object {
       "slug": Array [
-        "articleslets-hear-it-for-carrots",
+        "articles",
+        "lets-hear-it-for-carrots",
       ],
     },
   },
   Object {
     "params": Object {
       "slug": Array [
-        "articlesbaking-mishaps-our-troubleshooting-tips",
+        "articles",
+        "baking-mishaps-our-troubleshooting-tips",
       ],
     },
   },
   Object {
     "params": Object {
       "slug": Array [
-        "articlesskip-the-spirits-with-delicious-mocktails",
+        "articles",
+        "skip-the-spirits-with-delicious-mocktails",
       ],
     },
   },
   Object {
     "params": Object {
       "slug": Array [
-        "articlesgive-your-oatmeal-the-ultimate-makeover",
+        "articles",
+        "give-your-oatmeal-the-ultimate-makeover",
       ],
     },
   },
@@ -5332,7 +5374,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "articlesgive-it-a-go-and-grow-your-own-herbs",
+        "articles",
+        "give-it-a-go-and-grow-your-own-herbs",
       ],
     },
   },
@@ -5340,7 +5383,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "articlesdairy-free-and-delicious-milk-chocolate",
+        "articles",
+        "dairy-free-and-delicious-milk-chocolate",
       ],
     },
   },
@@ -5348,7 +5392,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "articlesthe-real-deal-for-supermarket-savvy-shopping",
+        "articles",
+        "the-real-deal-for-supermarket-savvy-shopping",
       ],
     },
   },
@@ -5356,7 +5401,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "articlesthe-umami-guide-to-our-favourite-mushrooms",
+        "articles",
+        "the-umami-guide-to-our-favourite-mushrooms",
       ],
     },
   },
@@ -5364,7 +5410,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "articleslets-hear-it-for-carrots",
+        "articles",
+        "lets-hear-it-for-carrots",
       ],
     },
   },
@@ -5372,7 +5419,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "articlesbaking-mishaps-our-troubleshooting-tips",
+        "articles",
+        "baking-mishaps-our-troubleshooting-tips",
       ],
     },
   },
@@ -5380,7 +5428,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "articlesskip-the-spirits-with-delicious-mocktails",
+        "articles",
+        "skip-the-spirits-with-delicious-mocktails",
       ],
     },
   },
@@ -5388,7 +5437,8 @@ Array [
     "locale": "en",
     "params": Object {
       "slug": Array [
-        "articlesgive-your-oatmeal-the-ultimate-makeover",
+        "articles",
+        "give-your-oatmeal-the-ultimate-makeover",
       ],
     },
   },
@@ -5396,7 +5446,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "articlesprueba-y-cultiva-tus-propias-hierbas",
+        "articles",
+        "prueba-y-cultiva-tus-propias-hierbas",
       ],
     },
   },
@@ -5404,7 +5455,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "articlesdelicioso-chocolate-sin-lactosa",
+        "articles",
+        "delicioso-chocolate-sin-lactosa",
       ],
     },
   },
@@ -5412,7 +5464,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "articlesel-verdadeo-negocio-para-comprar-en-el-supermercado",
+        "articles",
+        "el-verdadeo-negocio-para-comprar-en-el-supermercado",
       ],
     },
   },
@@ -5420,7 +5473,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "articlesguia-umami-de-nuestras-setas-preferidas",
+        "articles",
+        "guia-umami-de-nuestras-setas-preferidas",
       ],
     },
   },
@@ -5428,7 +5482,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "articlesun-aplauso-para-las-zanahorias",
+        "articles",
+        "un-aplauso-para-las-zanahorias",
       ],
     },
   },
@@ -5436,7 +5491,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "articlespercances-al-hornear-nuestros-consejos-para-solucionar-problemas",
+        "articles",
+        "percances-al-hornear-nuestros-consejos-para-solucionar-problemas",
       ],
     },
   },
@@ -5444,7 +5500,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "articlessalta-los-espiritus-con-deliciosos-cocteles-sin-alcohol",
+        "articles",
+        "salta-los-espiritus-con-deliciosos-cocteles-sin-alcohol",
       ],
     },
   },
@@ -5452,7 +5509,8 @@ Array [
     "locale": "es",
     "params": Object {
       "slug": Array [
-        "articlesdale-a-tu-avena-el-cambio-de-imagen-definitivo",
+        "articles",
+        "dale-a-tu-avena-el-cambio-de-imagen-definitivo",
       ],
     },
   },
@@ -5464,56 +5522,64 @@ Array [
   Object {
     "params": Object {
       "slug": Array [
-        "articlesgive-it-a-go-and-grow-your-own-herbs",
+        "articles",
+        "give-it-a-go-and-grow-your-own-herbs",
       ],
     },
   },
   Object {
     "params": Object {
       "slug": Array [
-        "articlesdairy-free-and-delicious-milk-chocolate",
+        "articles",
+        "dairy-free-and-delicious-milk-chocolate",
       ],
     },
   },
   Object {
     "params": Object {
       "slug": Array [
-        "articlesthe-real-deal-for-supermarket-savvy-shopping",
+        "articles",
+        "the-real-deal-for-supermarket-savvy-shopping",
       ],
     },
   },
   Object {
     "params": Object {
       "slug": Array [
-        "articlesthe-umami-guide-to-our-favourite-mushrooms",
+        "articles",
+        "the-umami-guide-to-our-favourite-mushrooms",
       ],
     },
   },
   Object {
     "params": Object {
       "slug": Array [
-        "articleslets-hear-it-for-carrots",
+        "articles",
+        "lets-hear-it-for-carrots",
       ],
     },
   },
   Object {
     "params": Object {
       "slug": Array [
-        "articlesbaking-mishaps-our-troubleshooting-tips",
+        "articles",
+        "baking-mishaps-our-troubleshooting-tips",
       ],
     },
   },
   Object {
     "params": Object {
       "slug": Array [
-        "articlesskip-the-spirits-with-delicious-mocktails",
+        "articles",
+        "skip-the-spirits-with-delicious-mocktails",
       ],
     },
   },
   Object {
     "params": Object {
       "slug": Array [
-        "articlesgive-your-oatmeal-the-ultimate-makeover",
+        "articles",
+        "give-your-oatmeal-the-ultimate-makeover",
       ],
     },
   },

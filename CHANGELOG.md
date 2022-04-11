@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.2
+
+### Bug Fixes
+
+* **next-drupal:** use a generic for getMenu and useMenu ([8e2cdc2](https://github.com/chapter-three/next-drupal/commit/8e2cdc244c20710f46db94a1f257157f7d285601))
+
 ## 1.2.1
 
 ### Bug Fixes

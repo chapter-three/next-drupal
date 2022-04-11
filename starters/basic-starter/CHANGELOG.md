@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/chapter-three/next-drupal/compare/basic-starter@1.3.1...basic-starter@1.4.0) (2022-04-11)
+
+
+### Bug Fixes
+
+* **basic-starter:** use a tag for exit preview ([8f68023](https://github.com/chapter-three/next-drupal/commit/8f680232a53740f083fd7c208b54f4293ad0f58a))
+
+
+### Features
+
+* **basic-starter:** show only published articles on index ([d209af9](https://github.com/chapter-three/next-drupal/commit/d209af9c08b4db12f8c2f7adfb7adfc3840a8f02))
+* **basic-starter:** update starter ([ad6afa9](https://github.com/chapter-three/next-drupal/commit/ad6afa999b59f49d5f6b199aaa4b3e3c1683c352))
+
+
+
+
+
 ## [1.3.1](https://github.com/chapter-three/next-drupal/compare/basic-starter@1.3.0...basic-starter@1.3.1) (2022-03-28)
 
 **Note:** Version bump only for package basic-starter

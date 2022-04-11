@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.2.1...next-drupal@1.2.2) (2022-04-11)
+
+
+### Bug Fixes
+
+* **next-drupal:** unnecessary optional chaining ([3335d94](https://github.com/chapter-three/next-drupal/commit/3335d947b8090bb0b8719f6a385f5a8c2f7a951e))
+* **next-drupal:** use a generic for getMenu and useMenu ([8e2cdc2](https://github.com/chapter-three/next-drupal/commit/8e2cdc244c20710f46db94a1f257157f7d285601))
+
+
+
+
+
 ## [1.2.1](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.2.0...next-drupal@1.2.1) (2022-03-28)
 
 

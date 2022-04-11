@@ -230,7 +230,7 @@ export class Unstable_DrupalClient {
     type: string,
     context: GetStaticPropsContext,
     options?: {
-      prefix?: PathPrefix
+      pathPrefix?: PathPrefix
       isVersionable?: boolean
     } & JsonApiWithLocaleOptions &
       JsonApiWithAuthOptions
@@ -240,14 +240,14 @@ export class Unstable_DrupalClient {
       // TODO: Make this required before stable?
       isVersionable: /^node--/.test(type),
       deserialize: true,
-      prefix: "/",
+      pathPrefix: "/",
       withAuth: this.withAuth,
       params: {},
       ...options,
     }
 
     const path = this.getPathFromContext(context, {
-      prefix: options?.prefix,
+      pathPrefix: options?.pathPrefix,
     })
 
     const previewData = context.previewData as { resourceVersion?: string }
@@ -445,12 +445,12 @@ export class Unstable_DrupalClient {
     context: GetStaticPathsContext,
     options?: {
       params?: JsonApiParams
-      prefix?: PathPrefix
+      pathPrefix?: PathPrefix
     } & JsonApiWithAuthOptions
   ): Promise<GetStaticPathsResult["paths"]> {
     options = {
       withAuth: this.withAuth,
-      prefix: "/",
+      pathPrefix: "/",
       params: {},
       ...options,
     }
@@ -477,7 +477,7 @@ export class Unstable_DrupalClient {
           })
 
           return this.buildStaticPathsFromResources(resources, {
-            prefix: options.prefix,
+            pathPrefix: options.pathPrefix,
           })
         }
 
@@ -495,7 +495,7 @@ export class Unstable_DrupalClient {
 
             return this.buildStaticPathsFromResources(resources, {
               locale,
-              prefix: options.prefix,
+              pathPrefix: options.pathPrefix,
             })
           })
         )
@@ -512,7 +512,7 @@ export class Unstable_DrupalClient {
       path: PathAlias
     }[],
     options?: {
-      prefix?: PathPrefix
+      pathPrefix?: PathPrefix
       locale?: Locale
     }
   ) {
@@ -529,17 +529,17 @@ export class Unstable_DrupalClient {
 
   buildStaticPathsParamsFromPaths(
     paths: string[],
-    options?: { prefix?: PathPrefix; locale?: Locale }
+    options?: { pathPrefix?: PathPrefix; locale?: Locale }
   ) {
     return paths.flatMap((_path) => {
       _path = _path.replace(/^\/|\/$/g, "")
 
-      // Remove prefix.
-      if (options?.prefix) {
-        // Remove leading slash from prefix.
-        const prefix = options.prefix.replace(/^\//, "")
+      // Remove pathPrefix.
+      if (options?.pathPrefix) {
+        // Remove leading slash from pathPrefix.
+        const pathPrefix = options.pathPrefix.replace(/^\//, "")
 
-        _path = _path.replace(`${prefix}/`, "")
+        _path = _path.replace(`${pathPrefix}/`, "")
       }
 
       const path = {
@@ -585,16 +585,16 @@ export class Unstable_DrupalClient {
   async translatePathFromContext(
     context: GetStaticPropsContext,
     options?: {
-      prefix?: PathPrefix
+      pathPrefix?: PathPrefix
     } & JsonApiWithAuthOptions
   ): Promise<DrupalTranslatedPath> {
     options = {
-      prefix: "/",
+      pathPrefix: "/",
       withAuth: this.withAuth,
       ...options,
     }
     const path = this.getPathFromContext(context, {
-      prefix: options.prefix,
+      pathPrefix: options.pathPrefix,
     })
 
     const response = await this.translatePath(path, {
@@ -607,22 +607,24 @@ export class Unstable_DrupalClient {
   getPathFromContext(
     context: GetStaticPropsContext,
     options?: {
-      prefix?: PathPrefix
+      pathPrefix?: PathPrefix
     }
   ) {
     options = {
-      prefix: "/",
+      pathPrefix: "/",
       ...options,
     }
 
     let slug = context.params?.slug
 
-    let prefix =
-      options.prefix?.charAt(0) === "/" ? options.prefix : `/${options.prefix}`
+    let pathPrefix =
+      options.pathPrefix?.charAt(0) === "/"
+        ? options.pathPrefix
+        : `/${options.pathPrefix}`
 
     // Handle locale.
     if (context.locale && context.locale !== context.defaultLocale) {
-      prefix = `/${context.locale}${prefix}`
+      pathPrefix = `/${context.locale}${pathPrefix}`
     }
 
     slug = Array.isArray(slug) ? slug.join("/") : slug
@@ -630,13 +632,13 @@ export class Unstable_DrupalClient {
     // Handle front page.
     if (!slug) {
       slug = this.frontPage
-      prefix = prefix.replace(/\/$/, "")
+      pathPrefix = pathPrefix.replace(/\/$/, "")
     }
 
     slug =
-      prefix.slice(-1) !== "/" && slug.charAt(0) !== "/" ? `/${slug}` : slug
+      pathPrefix.slice(-1) !== "/" && slug.charAt(0) !== "/" ? `/${slug}` : slug
 
-    return `${prefix}${slug}`
+    return `${pathPrefix}${slug}`
   }
 
   async getIndex(locale?: Locale): Promise<JsonApiResponse> {

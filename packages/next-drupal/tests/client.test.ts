@@ -437,11 +437,11 @@ describe("deserialize", () => {
     const formatter: DataFormatter = {
       deserialize: (
         body: { data: { id: string; attributes: { title: string } } },
-        options: { prefix: string }
+        options: { pathPrefix: string }
       ) => {
         return {
           id: body.data.id,
-          title: `${options.prefix}: ${body.data.attributes.title}`,
+          title: `${options.pathPrefix}: ${body.data.attributes.title}`,
         }
       },
     }
@@ -454,7 +454,9 @@ describe("deserialize", () => {
 
     const response = await client.fetch(url.toString())
     const json = await response.json()
-    const article = client.deserialize(json, { prefix: "TITLE" }) as DrupalNode
+    const article = client.deserialize(json, {
+      pathPrefix: "TITLE",
+    }) as DrupalNode
 
     expect(article).toMatchSnapshot()
     expect(article.id).toEqual("52837ad0-f218-46bd-a106-5710336b7053")
@@ -521,7 +523,7 @@ describe("getPathFromContext", () => {
     ).toEqual("/es/front")
   })
 
-  test("it returns a path from context with prefix", () => {
+  test("it returns a path from context with pathPrefix", () => {
     const client = new DrupalClient(BASE_URL)
 
     expect(
@@ -532,7 +534,7 @@ describe("getPathFromContext", () => {
           },
         },
         {
-          prefix: "/foo",
+          pathPrefix: "/foo",
         }
       )
     ).toEqual("/foo/bar/baz")
@@ -545,7 +547,7 @@ describe("getPathFromContext", () => {
           },
         },
         {
-          prefix: "foo",
+          pathPrefix: "foo",
         }
       )
     ).toEqual("/foo/bar/baz")
@@ -560,7 +562,7 @@ describe("getPathFromContext", () => {
           },
         },
         {
-          prefix: "foo",
+          pathPrefix: "foo",
         }
       )
     ).toEqual("/foo/bar/baz")
@@ -575,7 +577,7 @@ describe("getPathFromContext", () => {
           },
         },
         {
-          prefix: "foo",
+          pathPrefix: "foo",
         }
       )
     ).toEqual("/es/foo/bar/baz")
@@ -590,7 +592,7 @@ describe("getPathFromContext", () => {
           },
         },
         {
-          prefix: "/foo",
+          pathPrefix: "/foo",
         }
       )
     ).toEqual("/es/foo/home")
@@ -607,7 +609,7 @@ describe("getPathFromContext", () => {
           },
         },
         {
-          prefix: "foo",
+          pathPrefix: "foo",
         }
       )
     ).toEqual("/foo/baz")
@@ -620,7 +622,7 @@ describe("getPathFromContext", () => {
           },
         },
         {
-          prefix: "/foo/bar",
+          pathPrefix: "/foo/bar",
         }
       )
     ).toEqual("/foo/bar/baz")
@@ -1395,7 +1397,7 @@ describe("translatePathFromContext", () => {
     )
   })
 
-  test("it translates a path with prefix", async () => {
+  test("it translates a path with pathPrefix", async () => {
     const client = new DrupalClient(BASE_URL)
 
     const context: GetStaticPropsContext = {
@@ -1405,13 +1407,13 @@ describe("translatePathFromContext", () => {
     }
 
     const path = await client.translatePathFromContext(context, {
-      prefix: "recipes",
+      pathPrefix: "recipes",
     })
 
     expect(path).toMatchSnapshot()
 
     const path2 = await client.translatePathFromContext(context, {
-      prefix: "/recipes",
+      pathPrefix: "/recipes",
     })
 
     expect(path).toEqual(path2)
@@ -1455,7 +1457,7 @@ describe("translatePathFromContext", () => {
       },
     }
     await client.translatePathFromContext(context, {
-      prefix: "recipes",
+      pathPrefix: "recipes",
       withAuth: true,
     })
 
@@ -1830,27 +1832,27 @@ describe("buildStaticPathsParamsFromPaths", () => {
     ).toMatchSnapshot()
   })
 
-  test("it builds static paths from paths with prefix", () => {
+  test("it builds static paths from paths with pathPrefix", () => {
     const client = new DrupalClient(BASE_URL)
 
     const paths = client.buildStaticPathsParamsFromPaths(
       ["/blog/post/one", "/blog/post/two", "/blog/post"],
-      { prefix: "blog" }
+      { pathPrefix: "blog" }
     )
 
     const paths2 = client.buildStaticPathsParamsFromPaths(
       ["/blog/post/one", "/blog/post/two", "/blog/post"],
-      { prefix: "/blog" }
+      { pathPrefix: "/blog" }
     )
 
     const paths3 = client.buildStaticPathsParamsFromPaths(
       ["blog/post/one", "blog/post/two", "blog/post"],
-      { prefix: "/blog" }
+      { pathPrefix: "/blog" }
     )
 
     const paths4 = client.buildStaticPathsParamsFromPaths(
       ["blog/post/one", "blog/post/two", "blog/post"],
-      { prefix: "blog" }
+      { pathPrefix: "blog" }
     )
 
     expect(paths).toMatchSnapshot()
@@ -1889,7 +1891,7 @@ describe("buildStaticPathsFromResources", () => {
     ).toMatchSnapshot()
   })
 
-  test("it builds static paths from resources with prefix", () => {
+  test("it builds static paths from resources with pathPrefix", () => {
     const client = new DrupalClient(BASE_URL)
 
     const resources: Pick<JsonApiResourceWithPath, "path">[] = [
@@ -1910,20 +1912,20 @@ describe("buildStaticPathsFromResources", () => {
     ]
 
     const paths = client.buildStaticPathsFromResources(resources, {
-      prefix: "blog",
+      pathPrefix: "blog",
     })
 
     const paths2 = client.buildStaticPathsFromResources(resources, {
-      prefix: "/blog",
+      pathPrefix: "/blog",
     })
 
     const paths3 = client.buildStaticPathsFromResources(resources, {
-      prefix: "/blog/post",
+      pathPrefix: "/blog/post",
       locale: "es",
     })
 
     const paths4 = client.buildStaticPathsFromResources(resources, {
-      prefix: "blog/post",
+      pathPrefix: "blog/post",
       locale: "es",
     })
 

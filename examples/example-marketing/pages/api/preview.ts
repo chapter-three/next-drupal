@@ -1,3 +1,5 @@
-import { DrupalPreview } from "next-drupal"
+import { drupal } from "lib/drupal"
 
-export default DrupalPreview()
+export default async function (request, response) {
+  return drupal.preview(request, response)
+}

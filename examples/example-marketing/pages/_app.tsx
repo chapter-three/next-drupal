@@ -9,6 +9,8 @@ import "nprogress/nprogress.css"
 
 import "styles/globals.css"
 
+NProgress.configure({ showSpinner: false })
+
 Router.events.on("routeChangeStart", function (path) {
   syncDrupalPreviewRoutes(path)
   NProgress.start()

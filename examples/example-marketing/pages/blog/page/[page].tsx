@@ -1,10 +1,14 @@
 import * as React from "react"
 import { GetStaticPathsResult, GetStaticPropsResult } from "next"
 import { useRouter } from "next/router"
-import { DrupalNode, JsonApiResponse } from "next-drupal"
+import {
+  deserialize,
+  DrupalNode,
+  getResourceCollectionFromContext,
+  JsonApiResponse,
+} from "next-drupal"
 import { DrupalJsonApiParams } from "drupal-jsonapi-params"
 
-import { drupal } from "lib/drupal"
 import { getMenus } from "lib/get-menus"
 import { Layout, LayoutProps } from "components/layout"
 import { Pager, PagerProps } from "components/pager"
@@ -90,7 +94,7 @@ export async function getStaticProps(
     .addFilter("status", "1")
     .addSort("created", "DESC")
 
-  const result = await drupal.getResourceCollectionFromContext<JsonApiResponse>(
+  const result = await getResourceCollectionFromContext<JsonApiResponse>(
     "node--article",
     context,
     {
@@ -111,7 +115,7 @@ export async function getStaticProps(
     }
   }
 
-  const nodes = drupal.deserialize(result) as DrupalNode[]
+  const nodes = deserialize(result) as DrupalNode[]
 
   return {
     props: {

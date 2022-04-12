@@ -2,14 +2,18 @@ import * as React from "react"
 import {
   GetStaticPathsContext,
   GetStaticPathsResult,
-  GetStaticPropsContext,
   GetStaticPropsResult,
 } from "next"
 import Head from "next/head"
 import { useRouter } from "next/router"
-import { DrupalNode } from "next-drupal"
+import {
+  DrupalNode,
+  getPathsFromContext,
+  getResourceFromContext,
+  getResourceTypeFromContext,
+  getView,
+} from "next-drupal"
 
-import { drupal } from "lib/drupal"
 import { getMenus } from "lib/get-menus"
 import { absoluteURL } from "lib/utils/absolute-url"
 import { getParams } from "lib/get-params"
@@ -50,25 +54,23 @@ export async function getStaticPaths(
   context: GetStaticPathsContext
 ): Promise<GetStaticPathsResult> {
   return {
-    paths: await drupal.getStaticPathsFromContext(RESOURCE_TYPES, context),
+    paths: await getPathsFromContext(RESOURCE_TYPES, context),
     fallback: "blocking",
   }
 }
 
 export async function getStaticProps(
-  context: GetStaticPropsContext
+  context
 ): Promise<GetStaticPropsResult<NodePageProps>> {
-  const path = await drupal.translatePathFromContext(context)
+  const type = await getResourceTypeFromContext(context)
 
-  if (!path || !RESOURCE_TYPES.includes(path.jsonapi.resourceName)) {
+  if (!RESOURCE_TYPES.includes(type)) {
     return {
       notFound: true,
     }
   }
 
-  const type = path.jsonapi.resourceName
-
-  const node = await drupal.getResourceFromContext<DrupalNode>(type, context, {
+  const node = await getResourceFromContext<DrupalNode>(type, context, {
     params: getParams(type),
   })
 
@@ -82,7 +84,7 @@ export async function getStaticProps(
   if (type === "node--landing_page") {
     for (const section of node.field_sections) {
       if (section.type === "paragraph--view" && section.field_view) {
-        const view = await drupal.getView(section.field_view, {
+        const view = await getView(section.field_view, {
           params: {
             include: "field_location,field_images.field_media_image",
           },

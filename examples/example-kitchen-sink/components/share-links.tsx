@@ -6,7 +6,7 @@ interface ShareLinksProps {
 // eslint-disable @next/next/no-html-link-for-pages
 export function ShareLinks({ title, href }: ShareLinksProps) {
   return (
-    <div className="flex flex-col items-center space-y-6">
+    <div className="flex flex-col items-center space-y-6 sm:space-x-6 sm:space-y-0 sm:flex-row lg:space-x-0 lg:space-y-6 lg:flex-col">
       <p className="text-sm font-semibold tracking-widest uppercase">
         Share this on
       </p>

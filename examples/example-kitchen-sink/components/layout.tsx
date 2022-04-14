@@ -12,11 +12,11 @@ export interface LayoutProps {
 
 export function Layout({ menus, children }: LayoutProps) {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <PreviewAlert />
       <Navbar menu={menus.main} />
-      <main className="container py-10 mx-auto">{children}</main>
+      <main className="flex-1">{children}</main>
       <Footer menu={menus.footer} />
-    </>
+    </div>
   )
 }

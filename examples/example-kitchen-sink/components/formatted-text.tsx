@@ -4,7 +4,7 @@ import parse from "html-react-parser"
 import Image from "next/image"
 import Link from "next/link"
 
-import { isRelative } from "lib/is-relative"
+import { isRelative } from "lib/utils"
 
 const options: HTMLReactParserOptions = {
   replace: (domNode) => {

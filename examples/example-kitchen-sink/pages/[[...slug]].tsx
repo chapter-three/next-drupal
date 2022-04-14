@@ -8,11 +8,15 @@ import { DrupalNode, JsonApiResource } from "next-drupal"
 import { drupal } from "lib/drupal"
 import { getMenus } from "lib/get-menus"
 import { getParams } from "lib/get-params"
+import { formatRecipe } from "formatters/recipe"
+import { formatPost } from "formatters/post"
+import { formatLandingPage } from "formatters/landing-page"
 import { Layout, LayoutProps } from "components/layout"
-import { NodeArticle } from "components/node--article"
-import { NodeLandingPage } from "components/node--landing-page"
+import { PostPage } from "components/post-page"
+import { LandingPage } from "components/landing-page"
+import { RecipePage } from "components/recipe-page"
 
-const RESOURCE_TYPES = ["node--landing_page", "node--article"]
+const RESOURCE_TYPES = ["node--landing_page", "node--article", "node--recipe"]
 
 interface PageProps extends LayoutProps {
   resource: JsonApiResource
@@ -22,10 +26,13 @@ export default function Page({ menus, resource }: PageProps) {
   return (
     <Layout menus={menus}>
       {resource.type === "node--article" && (
-        <NodeArticle node={resource as DrupalNode} />
+        <PostPage post={formatPost(resource as DrupalNode)} />
+      )}
+      {resource.type === "node--recipe" && (
+        <RecipePage recipe={formatRecipe(resource as DrupalNode)} />
       )}
       {resource.type === "node--landing_page" && (
-        <NodeLandingPage node={resource as DrupalNode} />
+        <LandingPage page={formatLandingPage(resource as DrupalNode)} />
       )}
     </Layout>
   )
@@ -92,11 +99,10 @@ export async function getStaticProps(
   if (resource?.field_sections) {
     for (const section of resource.field_sections) {
       if (section?.type === "paragraph--view") {
-        section.view = await drupal.getView(section.field_view)
-
-        // JSON:API Views does not include the view id.
-        // Let's forward it to the meta
-        section.view.meta.id = section.field_view
+        const viewId = section.field_view
+        section.field_view = await drupal.getView(viewId, {
+          params: getParams(viewId),
+        })
       }
     }
   }

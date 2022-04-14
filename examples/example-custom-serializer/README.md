@@ -1,6 +1,6 @@
-# example-custom-formatter
+# example-custom-serializer
 
-An example showing how to use a custom formatter for deserializing JSON:API in Next.js for Drupal.
+An example showing how to use a custom serializer for deserializing JSON:API in Next.js for Drupal.
 
 ## Documentation
 

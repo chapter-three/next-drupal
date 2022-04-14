@@ -49,7 +49,7 @@ export class Unstable_DrupalClient {
 
   frontPage: DrupalClientOptions["frontPage"]
 
-  private formatter: DrupalClientOptions["formatter"]
+  private serializer: DrupalClientOptions["serializer"]
 
   private logger: DrupalClientOptions["logger"]
 
@@ -86,7 +86,7 @@ export class Unstable_DrupalClient {
 
     const {
       apiPrefix = DEFAULT_API_PREFIX,
-      formatter: dataFormatter = new Jsona(),
+      serializer = new Jsona(),
       debug = false,
       frontPage = DEFAULT_FRONT_PAGE,
       useDefaultResourceTypeEntry = false,
@@ -100,7 +100,7 @@ export class Unstable_DrupalClient {
 
     this.baseUrl = baseUrl
     this.apiPrefix = apiPrefix
-    this.formatter = dataFormatter
+    this.serializer = serializer
     this.frontPage = frontPage
     this.debug = debug
     this.useDefaultResourceTypeEntry = useDefaultResourceTypeEntry
@@ -811,6 +811,7 @@ export class Unstable_DrupalClient {
     name: string,
     options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
   ): Promise<{
+    id: string
     results: T
     meta: JsonApiResponse["meta"]
     links: JsonApiResponse["links"]
@@ -843,6 +844,7 @@ export class Unstable_DrupalClient {
     const results = options.deserialize ? this.deserialize(data) : data
 
     return {
+      id: name,
       results,
       meta: data.meta,
       links: data.links,
@@ -967,7 +969,7 @@ export class Unstable_DrupalClient {
   deserialize(body, options?) {
     if (!body) return null
 
-    return this.formatter.deserialize(body, options)
+    return this.serializer.deserialize(body, options)
   }
 
   private async formatErrorResponse(response: Response) {

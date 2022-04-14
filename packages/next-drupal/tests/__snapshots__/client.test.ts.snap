@@ -185,7 +185,7 @@ Array [
 ]
 `;
 
-exports[`deserialize it allows for custom data formatter 1`] = `
+exports[`deserialize it allows for custom data serializer 1`] = `
 Object {
   "id": "52837ad0-f218-46bd-a106-5710336b7053",
   "title": "TITLE: Give it a go and grow your own herbs",
@@ -5588,6 +5588,7 @@ Array [
 
 exports[`getView it fetches a view 1`] = `
 Object {
+  "id": "featured_articles--page_1",
   "links": Object {
     "self": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/jsonapi/views/featured_articles/page_1",
@@ -6616,6 +6617,7 @@ This low-sugar delight will meet all of those chocolate cravings and is the perf
 
 exports[`getView it fetches a view with locale 1`] = `
 Object {
+  "id": "featured_articles--page_1",
   "links": Object {
     "self": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/views/featured_articles/page_1?fields%5Bnode--article%5D=title",
@@ -6711,6 +6713,7 @@ Object {
 
 exports[`getView it fetches a view with params 1`] = `
 Object {
+  "id": "featured_articles--page_1",
   "links": Object {
     "self": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/jsonapi/views/featured_articles/page_1?fields%5Bnode--article%5D=title",
@@ -6806,6 +6809,7 @@ Object {
 
 exports[`getView it fetches raw data 1`] = `
 Object {
+  "id": "featured_articles--page_1",
   "links": Object {
     "self": Object {
       "href": "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/views/featured_articles/page_1?fields%5Bnode--article%5D=title",

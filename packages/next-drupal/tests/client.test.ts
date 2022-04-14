@@ -2,7 +2,7 @@ import { expect } from "@jest/globals"
 import { GetStaticPropsContext } from "next"
 import { Unstable_DrupalClient as DrupalClient } from "../src/client"
 import type {
-  DataFormatter,
+  Serializer,
   DrupalNode,
   Logger,
   JsonApiResourceWithPath,
@@ -433,8 +433,8 @@ describe("deserialize", () => {
     expect(articles).toMatchSnapshot()
   })
 
-  test("it allows for custom data formatter", async () => {
-    const formatter: DataFormatter = {
+  test("it allows for custom data serializer", async () => {
+    const serializer: Serializer = {
       deserialize: (
         body: { data: { id: string; attributes: { title: string } } },
         options: { pathPrefix: string }
@@ -446,7 +446,7 @@ describe("deserialize", () => {
       },
     }
     const client = new DrupalClient(BASE_URL, {
-      formatter,
+      serializer,
     })
     const url = client.buildUrl(
       "/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053"

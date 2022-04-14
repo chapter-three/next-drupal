@@ -36,14 +36,14 @@ export type DrupalClientOptions = {
    */
   headers?: HeadersInit
   /**
-   * Override the default data formatter. You can use this to add your own JSON:API data deserializer.
+   * Override the default data serializer. You can use this to add your own JSON:API data deserializer.
    *
    * * **Default value**: `jsona`
    * * **Required**: *No*
    *
-   * [Documentation](https://next-drupal.org/docs/client#formatter)
+   * [Documentation](https://next-drupal.org/docs/client#serializer)
    */
-  formatter?: DataFormatter
+  serializer?: Serializer
   /**
    * Override the default fetcher. Use this to add your own fetcher ex. axios.
    *
@@ -196,7 +196,7 @@ export interface JsonApiSearchApiResponse extends JsonApiResponse {
   }
 }
 
-export interface DataFormatter {
+export interface Serializer {
   deserialize(
     body: Record<string, unknown>,
     options?: Record<string, unknown>
@@ -346,6 +346,27 @@ export interface DrupalMedia extends JsonApiResource {
   name: string
 }
 
+export interface DrupalFile extends JsonApiResource {
+  drupal_internal__fid: string
+  changed: string
+  created: string
+  filename: string
+  uri: {
+    value: string
+    url: string
+  }
+  filesize: number
+  filemime: string
+  resourceIdObjMeta?: DrupalFileMeta
+}
+
+export interface DrupalFileMeta {
+  alt?: string
+  title?: string
+  width: number
+  height: number
+}
+
 export interface DrupalTaxonomyTerm extends JsonApiResourceWithPath {
   drupal_internal__tid: string
   changed: string
@@ -361,4 +382,14 @@ export interface DrupalUser extends JsonApiResourceWithPath {
   created: string
   default_langcode: boolean
   name: string
+}
+
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+export interface DrupalView<T = Record<string, any>[]> {
+  id: string
+  results: T
+  meta: {
+    count?: number
+    [key: string]: any
+  }
 }

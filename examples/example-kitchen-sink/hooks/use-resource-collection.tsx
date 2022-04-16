@@ -1,7 +1,8 @@
-import { config } from "config"
 import { JsonApiResource, JsonApiWithLocaleOptions } from "next-drupal"
 import { stringify } from "qs"
 import { useQuery } from "react-query"
+
+import config from "config"
 
 // This is a custom hook for fetching client-side data.
 // This can be used inside components to fetch data from Drupal at runtime.

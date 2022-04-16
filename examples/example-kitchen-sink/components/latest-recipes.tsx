@@ -4,6 +4,8 @@ import { DrupalJsonApiParams } from "drupal-jsonapi-params"
 import { useResourceCollection } from "hooks/use-resource-collection"
 import { formatRecipe } from "formatters/recipe"
 import { RecipeTeaser } from "components/recipe-teaser"
+import { useTranslation } from "next-i18next"
+import { useRouter } from "next/router"
 
 interface LatestRecipes {
   exclude?: string
@@ -11,6 +13,9 @@ interface LatestRecipes {
 }
 
 export function LatestRecipes({ exclude, show = 4 }: LatestRecipes) {
+  const router = useRouter()
+  const { t } = useTranslation("common")
+
   const params = new DrupalJsonApiParams()
     .addSort("created", "DESC")
     .addPageLimit(show)
@@ -31,6 +36,8 @@ export function LatestRecipes({ exclude, show = 4 }: LatestRecipes) {
     data: recipes,
   } = useResourceCollection<DrupalNode[]>("node--recipe", {
     params: params.getQueryObject(),
+    locale: router.locale,
+    defaultLocale: router.defaultLocale,
   })
 
   if (isError) {
@@ -39,7 +46,7 @@ export function LatestRecipes({ exclude, show = 4 }: LatestRecipes) {
 
   return (
     <div className="w-full">
-      <h3 className="mb-6 text-3xl font-semibold">Latest Recipes</h3>
+      <h3 className="mb-6 text-3xl font-semibold">{t("latest-recipes")}</h3>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-1">
         {Array.from(Array(show).keys()).map((key) => (
           <RecipeTeaser

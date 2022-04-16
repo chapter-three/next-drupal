@@ -1,9 +1,11 @@
 import {
   GetStaticPathsContext,
   GetStaticPathsResult,
+  GetStaticPropsContext,
   GetStaticPropsResult,
 } from "next"
 import { DrupalNode, JsonApiResource } from "next-drupal"
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
 import { drupal } from "lib/drupal"
 import { getMenus } from "lib/get-menus"
@@ -51,7 +53,7 @@ export async function getStaticPaths(
 }
 
 export async function getStaticProps(
-  context
+  context: GetStaticPropsContext
 ): Promise<GetStaticPropsResult<PageProps>> {
   // Get info about this path.
   // This will return the resource name, the entity information and the uuid.
@@ -102,6 +104,8 @@ export async function getStaticProps(
         const viewId = section.field_view
         section.field_view = await drupal.getView(viewId, {
           params: getParams(viewId),
+          locale: context.locale,
+          defaultLocale: context.defaultLocale,
         })
       }
     }
@@ -109,7 +113,11 @@ export async function getStaticProps(
 
   return {
     props: {
-      menus: await getMenus(),
+      ...(await serverSideTranslations(context.locale, ["common"])),
+      menus: await getMenus({
+        locale: context.locale,
+        defaultLocale: context.defaultLocale,
+      }),
       resource,
     },
   }

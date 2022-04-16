@@ -1,4 +1,4 @@
-import { config } from "config"
+import config from "config"
 
 export function truncate(value: string, length: number, suffix = "...") {
   if (value.length < length) {

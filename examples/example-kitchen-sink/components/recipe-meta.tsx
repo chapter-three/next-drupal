@@ -3,6 +3,7 @@ import Image from "next/image"
 import { formatDate } from "lib/utils"
 import React from "react"
 import { Recipe } from "types"
+import { useTranslation } from "next-i18next"
 
 type RecipeMetaProps = Pick<
   Recipe,
@@ -16,6 +17,8 @@ export function RecipeMeta({
   cookTime,
   categories,
 }: RecipeMetaProps) {
+  const { t } = useTranslation("common")
+
   return (
     <div className="grid w-full max-w-5xl gap-4 divide-y md:divide-y-0 md:divide-x sm:grid-rows-2 md:grid-rows-1 md:grid-cols-2">
       <div className="grid gap-4 divide-y sm:divide-y-0 sm:divide-x sm:grid-cols-2">
@@ -49,7 +52,7 @@ export function RecipeMeta({
             </svg>
             <div className="flex flex-col space-y-1">
               <p className="text-xs font-medium tracking-wider uppercase">
-                Prep time
+                {t("prep-time")}
               </p>
               <span className="text-sm text-gray-500">{prepTime}</span>
             </div>
@@ -67,7 +70,7 @@ export function RecipeMeta({
             </svg>
             <div className="flex flex-col space-y-1">
               <p className="text-xs font-medium tracking-wider uppercase">
-                Cook time
+                {t("cook-time")}
               </p>
               <span className="text-sm text-gray-500">{cookTime}</span>
             </div>
@@ -83,7 +86,7 @@ export function RecipeMeta({
             </svg>
             <div className="flex flex-col space-y-1">
               <p className="text-xs font-medium tracking-wider uppercase">
-                Categories
+                {t("categories")}
               </p>
               <p className="text-sm text-gray-500">
                 {categories

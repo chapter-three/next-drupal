@@ -1,11 +1,11 @@
 import * as React from "react"
-import { AppProps } from "next/app"
 import Router from "next/router"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { Hydrate } from "react-query/hydration"
 import NProgress from "nprogress"
 import { syncDrupalPreviewRoutes } from "next-drupal"
 import "nprogress/nprogress.css"
+import { appWithTranslation } from "next-i18next"
 
 import "styles/globals.css"
 
@@ -18,11 +18,12 @@ Router.events.on("routeChangeStart", function (path) {
 Router.events.on("routeChangeComplete", () => NProgress.done())
 Router.events.on("routeChangeError", () => NProgress.done())
 
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }) {
   const queryClientRef = React.useRef<QueryClient>()
   if (!queryClientRef.current) {
     queryClientRef.current = new QueryClient()
   }
+
   return (
     <QueryClientProvider client={queryClientRef.current}>
       <Hydrate state={pageProps.dehydratedState}>
@@ -31,3 +32,5 @@ export default function App({ Component, pageProps }: AppProps) {
     </QueryClientProvider>
   )
 }
+
+export default appWithTranslation(App)

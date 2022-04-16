@@ -7,12 +7,15 @@ import { LatestRecipes } from "components/latest-recipes"
 import { RecipeMeta } from "components/recipe-meta"
 import { RecipeNutrition } from "components/recipe-nutrition"
 import { PageHeader } from "components/page-header"
+import { useTranslation } from "next-i18next"
 
 interface RecipeProps {
   recipe: Recipe
 }
 
 export function RecipePage({ recipe }: RecipeProps) {
+  const { t } = useTranslation("common")
+
   return (
     <article className="container px-4 mx-auto lg:px-8">
       <PageHeader heading={recipe.name}>
@@ -39,7 +42,7 @@ export function RecipePage({ recipe }: RecipeProps) {
           )}
         </div>
         <RecipeNutrition
-          heading="Nutrition Information"
+          heading={t("nutrition-information")}
           nutritions={recipe.nutritions}
           caption={recipe.nutritionCaption}
         />

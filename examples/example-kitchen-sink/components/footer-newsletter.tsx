@@ -18,8 +18,8 @@ export function FooterNewsletter({ heading, text }: FooterNewsletterProps) {
           height={442}
         />
       </div>
-      <div className="inset-0 flex flex-col items-center justify-center max-w-xl px-10 mx-auto space-y-4 lg:max-w-3xl md:absolute lg:space-y-12">
-        <div className="max-w-2xl text-center">
+      <div className="inset-0 flex flex-col items-center justify-center max-w-xl px-8 mx-auto space-y-4 lg:max-w-3xl md:absolute lg:space-y-12">
+        <div className="text-center">
           <div className="flex flex-col space-y-2 lg:space-y-8">
             <p className="text-2xl font-semibold tracking-tight md:text-4xl lg:text-5xl">
               {heading}

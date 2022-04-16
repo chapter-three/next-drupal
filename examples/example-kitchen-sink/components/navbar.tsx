@@ -1,9 +1,11 @@
+import * as React from "react"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { DrupalMenuLinkContent } from "next-drupal"
 import classNames from "classnames"
 
 import { Logo } from "components/logo"
-import { useRouter } from "next/router"
+import { LocaleSwitcher } from "components/locale-switcher"
 
 export interface NavbarProps {
   menu: DrupalMenuLinkContent[]
@@ -43,7 +45,9 @@ export function Navbar({ menu }: NavbarProps) {
             )
           })}
         </ul>
-        <div className="flex justify-end w-32">En</div>
+        <div className="flex justify-end w-32">
+          <LocaleSwitcher />
+        </div>
       </div>
     </header>
   )

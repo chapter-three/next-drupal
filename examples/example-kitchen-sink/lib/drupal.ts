@@ -1,4 +1,4 @@
-import { config } from "config"
+import config from "config"
 import { Unstable_DrupalClient as DrupalClient } from "next-drupal"
 
 export const drupal = new DrupalClient(config.drupalBaseUrl, {

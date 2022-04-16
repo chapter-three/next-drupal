@@ -246,6 +246,7 @@ export interface DrupalTranslatedPath {
     bundle: string
     id: string
     uuid: string
+    langcode?: string
   }
   label?: string
   jsonapi?: {

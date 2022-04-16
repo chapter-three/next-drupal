@@ -227,7 +227,7 @@ export class Unstable_DrupalClient {
   }
 
   async getResourceFromContext<T extends JsonApiResource>(
-    type: string,
+    input: string | DrupalTranslatedPath,
     context: GetStaticPropsContext,
     options?: {
       pathPrefix?: PathPrefix
@@ -235,6 +235,21 @@ export class Unstable_DrupalClient {
     } & JsonApiWithLocaleOptions &
       JsonApiWithAuthOptions
   ): Promise<T> {
+    const type = typeof input === "string" ? input : input.jsonapi.resourceName
+
+    if (typeof input !== "string") {
+      // Fix for subrequests and translation.
+      // TODO: Confirm if we still need this after https://www.drupal.org/i/3111456.
+      // @shadcn, note to self:
+      // Give an entity at /example with no translation.
+      // When we try to translate /es/example, decoupled router will properly
+      // translate to the untranslated version and set the locale to es.
+      // However a subrequests to /es/subrequests for decoupled router will fail.
+      if (input.entity.langcode !== context.locale) {
+        context.locale = input.entity.langcode
+      }
+    }
+
     options = {
       // Add support for revisions for node by default.
       // TODO: Make this required before stable?
@@ -342,6 +357,7 @@ export class Unstable_DrupalClient {
     // Localized subrequests.
     // I was hoping we would not need this but it seems like subrequests is not properly
     // setting the jsonapi locale from a translated path.
+    // TODO: Confirm if we still need this after https://www.drupal.org/i/3111456.
     let subrequestsPath = "/subrequests"
     if (
       options.locale &&
@@ -730,7 +746,7 @@ export class Unstable_DrupalClient {
 
     const entity = await this.getResourceByPath(slug as string, {
       withAuth: true,
-      ...options,
+      ..._options,
     })
 
     if (!entity || !entity?.path) {

@@ -15,13 +15,13 @@ export function Navbar({ menu }: NavbarProps) {
   const router = useRouter()
   return (
     <header className="border-b border-b-gray-200">
-      <div className="container flex items-center justify-between px-4 py-6 mx-auto lg:py-10 lg:px-8">
+      <div className="container relative flex flex-wrap items-center justify-between px-4 py-6 mx-auto lg:py-10 lg:px-8">
         <Link href="/" passHref>
           <a className="flex justify-start w-32">
             <Logo />
           </a>
         </Link>
-        <ul className="hidden space-x-12 lg:flex">
+        <ul className="flex justify-center w-full mt-6 space-x-6 sm:mt-0 sm:w-auto md:space-x-6 lg:space-x-12">
           {menu.map((item) => {
             const isActive =
               router.asPath === item.url ||
@@ -45,7 +45,7 @@ export function Navbar({ menu }: NavbarProps) {
             )
           })}
         </ul>
-        <div className="flex justify-end w-32">
+        <div className="absolute flex justify-end sm:w-32 right-4 top-4 sm:static">
           <LocaleSwitcher />
         </div>
       </div>

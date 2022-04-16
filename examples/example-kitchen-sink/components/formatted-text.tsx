@@ -54,5 +54,7 @@ interface FormattedTextProps {
 }
 
 export function FormattedText({ text }: FormattedTextProps) {
+  if (!text) return null
+
   return <>{parse(text, options)}</>
 }

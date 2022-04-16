@@ -28,7 +28,7 @@ export function formatLandingPage(node: DrupalNode): LandingPage {
           id: section.id,
           type: "feature",
           heading: section.field_heading,
-          text: section.field_text,
+          text: section.field_text.processed,
           image: formatImage(section.field_media.field_media_image),
           link: {
             title: section.field_link.title,

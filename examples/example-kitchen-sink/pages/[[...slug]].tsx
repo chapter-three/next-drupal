@@ -45,7 +45,14 @@ export async function getStaticPaths(
 ): Promise<GetStaticPathsResult> {
   return {
     // Build static paths for all resource types.
-    paths: await drupal.getStaticPathsFromContext(RESOURCE_TYPES, context),
+    paths: await drupal.getStaticPathsFromContext(RESOURCE_TYPES, context, {
+      params: {
+        filter: {
+          "field_site.meta.drupal_internal__target_id":
+            process.env.DRUPAL_SITE_ID,
+        },
+      },
+    }),
 
     // If a path is requested and is not static, Next.js will call getStaticProps and try to find it.
     fallback: "blocking",
@@ -71,13 +78,9 @@ export async function getStaticProps(
   }
 
   // Fetch the resource from Drupal.
-  const resource = await drupal.getResourceFromContext(
-    path.jsonapi.resourceName,
-    context,
-    {
-      params: getParams(type),
-    }
-  )
+  const resource = await drupal.getResourceFromContext(path, context, {
+    params: getParams(type),
+  })
 
   // At this point, we know the path exists and it points to a resource.
   // If we receive an error, it means something went wront on the error.

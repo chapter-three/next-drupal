@@ -5,7 +5,7 @@ import { Menu, Transition } from "@headlessui/react"
 
 import config from "config"
 
-export function LocaleSwitcher() {
+export function LocaleSwitcher({ ...props }) {
   const { locales, asPath, locale: currentLocale } = useRouter()
 
   if (!locales || locales.length < 2) {
@@ -13,7 +13,7 @@ export function LocaleSwitcher() {
   }
 
   return (
-    <div className="flex">
+    <div {...props}>
       <Menu as="div" className="relative inline-block text-left">
         <Menu.Button>
           <span className="sr-only">Select language</span>

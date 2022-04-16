@@ -37,15 +37,15 @@ export function RecipeCard({ recipe, isLoading = false }: RecipeCardProps) {
         />
       </figure>
       <div className="flex flex-col flex-1 p-6 space-y-6">
-        <h3 className="mb-2 text-xl font-semibold leading-loose md:text-base xl:text-2xl">
+        <h3 className="mb-2 text-2xl font-semibold">
           <Link href={recipe.url} passHref>
             <a className="transition-colors group-hover:text-primary ">
               <span aria-hidden="true" className="absolute inset-0" />
-              {truncate(recipe.name, 60)}
+              {truncate(recipe.name, 45)}
             </a>
           </Link>
         </h3>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-2 gap-4">
           <div className="flex items-center space-x-2">
             {recipe.author.picture && (
               <figure className="w-8 overflow-hidden rounded-full">
@@ -66,7 +66,7 @@ export function RecipeCard({ recipe, isLoading = false }: RecipeCardProps) {
             </div>
           </div>
           {recipe.cookTime && (
-            <div className="flex items-center pt-4 space-x-2 md:pt-0">
+            <div className="flex items-center space-x-2">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path
                   d="M9.75 1.5h4.5a.75.75 0 1 0 0-1.5h-4.5a.75.75 0 1 0 0 1.5ZM12 3a9 9 0 1 0 9 9 9.01 9.01 0 0 0-9-9Zm4.243 5.818L12.53 12.53a.75.75 0 0 1-1.06-1.06l3.712-3.713a.75.75 0 1 1 1.06 1.061Z"

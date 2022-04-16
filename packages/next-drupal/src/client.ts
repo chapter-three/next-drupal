@@ -680,7 +680,20 @@ export class Unstable_DrupalClient {
       throw new Error(`Resource of type '${type}' not found.`)
     }
 
-    return link.href
+    const { href } = link
+
+    // Fix for missing locale in JSON:API index.
+    // This fix ensures the locale is included in the resouce link.
+    if (locale) {
+      const pattern = `^\\/${locale}\\/`
+      const path = href.replace(this.baseUrl, "")
+
+      if (!new RegExp(pattern, "i").test(path)) {
+        return `${this.baseUrl}/${locale}${path}`
+      }
+    }
+
+    return href
   }
 
   async preview(

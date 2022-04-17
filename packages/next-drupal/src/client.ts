@@ -42,7 +42,7 @@ const DEFAULT_HEADERS = {
   Accept: "application/vnd.api+json",
 }
 
-export class Unstable_DrupalClient {
+export class DrupalClient {
   baseUrl: BaseUrl
 
   debug: DrupalClientOptions["debug"]

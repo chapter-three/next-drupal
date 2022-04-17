@@ -50,7 +50,14 @@ export async function getStaticPaths(
   context: GetStaticPathsContext
 ): Promise<GetStaticPathsResult> {
   return {
-    paths: await drupal.getStaticPathsFromContext(RESOURCE_TYPES, context),
+    paths: await drupal.getStaticPathsFromContext(RESOURCE_TYPES, context, {
+      params: {
+        filter: {
+          "field_site.meta.drupal_internal__target_id":
+            process.env.DRUPAL_SITE_ID,
+        },
+      },
+    }),
     fallback: "blocking",
   }
 }
@@ -68,7 +75,7 @@ export async function getStaticProps(
 
   const type = path.jsonapi.resourceName
 
-  const node = await drupal.getResourceFromContext<DrupalNode>(type, context, {
+  const node = await drupal.getResourceFromContext<DrupalNode>(path, context, {
     params: getParams(type),
   })
 

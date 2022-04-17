@@ -1,5 +1,4 @@
 import * as React from "react"
-import { AppProps } from "next/app"
 import Router from "next/router"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { Hydrate } from "react-query/hydration"
@@ -18,7 +17,7 @@ Router.events.on("routeChangeStart", function (path) {
 Router.events.on("routeChangeComplete", () => NProgress.done())
 Router.events.on("routeChangeError", () => NProgress.done())
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }) {
   const queryClientRef = React.useRef<QueryClient>()
   if (!queryClientRef.current) {
     queryClientRef.current = new QueryClient()

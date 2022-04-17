@@ -8147,7 +8147,7 @@ json5@^2.1.2, json5@^2.2.0:
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.1.tgz#655d50ed1e6f95ad1a3caababd2b0efda10b395c"
   integrity sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==
 
-jsona@^1.8.0, jsona@^1.9.7:
+jsona@^1.9.7:
   version "1.9.7"
   resolved "https://registry.yarnpkg.com/jsona/-/jsona-1.9.7.tgz#993c603f22320ce698de791db617fb9fbcf18330"
   integrity sha512-GC3uTVJfYu0ovWrXmhAC+SqroKyv64dOI8iIWdVKYYn0ef7XNfXEkvkVcmdjfKdIjk6nZrf8VkYsZeSbPF3BGQ==
@@ -9319,15 +9319,6 @@ next-auth@^4.0.5:
     preact "^10.6.3"
     preact-render-to-string "^5.1.19"
     uuid "^8.3.2"
-
-next-drupal@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/next-drupal/-/next-drupal-1.2.2.tgz#96417110371900f6781bed0231b463eef2255cf0"
-  integrity sha512-j9K6OcSrKGklF6v33/ZJdjIia5vVqJ0NSAv76UV1Se7LtbstIh7evihcB2yKJkq1PH5Vv6z/Yejs7wKui8P+Rg==
-  dependencies:
-    jsona "^1.8.0"
-    node-cache "^5.1.2"
-    qs "^6.10.1"
 
 next-i18next@^11.0.0:
   version "11.0.0"
@@ -10830,7 +10821,7 @@ q@^1.5.1:
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
 
-qs@^6.10.0, qs@^6.10.1, qs@^6.10.3, qs@^6.9.4:
+qs@^6.10.0, qs@^6.10.3, qs@^6.9.4:
   version "6.10.3"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.10.3.tgz#d6cde1b2ffca87b5aa57889816c5f81535e22e8e"
   integrity sha512-wr7M2E0OFRfIfJZjKGieI8lBKb7fRCH4Fv5KNPEs7gJ8jadvotdsS08PzOKR7opXhZ/Xkjtt3WF9g38drmyRqQ==

@@ -203,10 +203,7 @@ export interface Serializer {
   ): unknown
 }
 
-export type Fetcher = (
-  input: RequestInfo,
-  init?: FetchOptions
-) => Promise<Response>
+export type Fetcher = WindowOrWorkerGlobalScope["fetch"]
 
 type DataCacheKey = string | number
 

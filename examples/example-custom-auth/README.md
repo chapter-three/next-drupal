@@ -2,7 +2,7 @@
 
 An example showing how to use basic auth for client authentication in Next.js for Drupal.
 
-## Documentation
+## Example
 
 ## License
 

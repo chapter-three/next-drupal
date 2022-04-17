@@ -1,4 +1,4 @@
-import { Unstable_DrupalClient as DrupalClient } from "next-drupal"
+import { DrupalClient } from "next-drupal"
 import crossFetch from "cross-fetch"
 
 // We create a custom fetcher that we can pass to the DrupalClient.

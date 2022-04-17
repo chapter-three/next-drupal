@@ -1,4 +1,4 @@
-import { Unstable_DrupalClient as DrupalClient } from "next-drupal"
+import { DrupalClient } from "next-drupal"
 import { Deserializer } from "jsonapi-serializer"
 
 // next-drupal uses the jsona deserializer for data formatting by default.

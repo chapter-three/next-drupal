@@ -21,7 +21,6 @@ export function Feature({
   link,
   ...props
 }: FeatureProps) {
-  console.log(text)
   return (
     <section {...props}>
       <div className="container px-6 py-10 mx-auto md:py-24 lg:px-8">

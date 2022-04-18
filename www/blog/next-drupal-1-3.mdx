@@ -1,0 +1,267 @@
+---
+title: Next-Drupal 1.3
+author: shadcn
+date: April 19, 2022
+excerpt: Next-Drupal 1.3 ships with an experimental JSON:API client with support for custom auth, serializer, fetcher and caching.
+---
+
+Since releasing `next-drupal 1.0` last December, we have seen incredible adoption. Our community has grown beyond expectations. We are now approaching **1000+** downloads per week.
+
+Today we're excited to release `next-drupal 1.3`, one of our most important releases.
+
+Next-Drupal 1.3 ships a powerful and flexible JSON:API client for fetching data from Drupal.
+
+It is a replacement for functional helpers such as `getResource` and `getResourceCollection` and provides tons of customizations.
+
+<Callout>
+
+The `DrupalClient` is an optional feature. You can safely upgrade your site to `next-drupal 1.3.0` without any breaking changes.
+
+</Callout>
+
+## Features
+
+1. [Customizable JSON:API client for data fetching](#drupalclient).
+2. [Helpers to fetching resources, menus, views and search indices](#data-fetching).
+3. [Support for custom auth](#auth) - `Bearer`, `Basic` or bring your own.
+4. [Support for custom serializer](#serializer).
+5. [Support for custom fetcher](#fetcher).
+6. [Support for cached resources](#caching) - memory cache, redis...etc.
+7. [Improved error messages](#error-messages)
+
+---
+
+## DrupalClient
+
+<Callout>
+
+The `DrupalClient` is available in `next-drupal ^1.3.0` as **experimental**.
+
+</Callout>
+
+```ts title=lib/drupal.ts
+import { Experimental_DrupalClient as DrupalClient } from "next-drupal"
+
+const drupal = new DrupalClient("https://example.com")
+
+// Fetch articles.
+const articles = await drupal.getResourceCollection("node--article")
+```
+
+---
+
+## Data Fetching
+
+Every data fetching helper has been upgraded and made more flexible with options for authentication, localization and caching.
+
+```ts
+import { drupal } from "lib/drupal"
+
+// Fetch articles.
+const articles = await drupal.getResourceCollection("node--article")
+
+// Fetch articles with translation.
+const articles = await drupal.getResourceCollectionFromContext(
+  "node--article",
+  context
+)
+
+// Get static paths for resources.
+const paths = await drupal.getStaticPathsFromContext(
+  ["node--article", "node--page"],
+  context
+)
+
+// Make an auth request to fetch a block.
+const menu = await drupal.getResource(
+  "block_content--basic",
+  "42487873-3aad-44ab-8dd6-c2fb0d82bb8f",
+  {
+    withAuth: true,
+  }
+)
+
+// Fetch a menu and cache the response during build.
+const menu = await drupal.getMenu("main", {
+  withCache: process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD,
+  cacheKey: `menu:main`,
+})
+```
+
+---
+
+## Auth
+
+In addition to Bearer tokens (via Simple OAuth), you can now provide own custom authentication implementation for fetching Drupal data.
+
+### Bearer
+
+To configure authentication, provide a `client_id` and `client_secret` as options.
+
+```ts title=lib/drupal.ts
+export const drupal = new DrupalClient(
+  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+  {
+    auth: {
+      clientId: process.env.DRUPAL_CLIENT_ID,
+      clientSecret: process.env.DRUPAL_CLIENT_SECRET,
+    },
+  }
+)
+```
+
+`DrupalClient` will fetch **Bearer** token and handle expiration for you.
+
+### Basic
+
+You can also use the basic authorization header as follows:
+
+<Callout icon="⚠️">
+
+You need to enable the `basic_auth` module on Drupal.
+
+</Callout>
+
+```ts title=lib/drupal.ts
+export const drupal = new DrupalClient(
+  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+  {
+    auth: () =>
+      "Basic " +
+      Buffer.from(
+        `${process.env.BASIC_AUTH_USERNAME}:${process.env.BASIC_AUTH_PASSWORD}`
+      ).toString("base64"),
+  }
+)
+```
+
+### Callback
+
+You can also provide a custom callback for authentication. The callback must return an `Authorization` compatible header.
+
+```ts title=lib/drupal.ts
+export const drupal = new DrupalClient(
+  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+  {
+    auth: () => {
+      // Authenticate and return headers.
+    },
+  }
+)
+```
+
+---
+
+## Serializer
+
+The `DrupalClient` uses [jsona](https://github.com/olosegres/jsona) as the default serializer for serializing and deserializing JSON:API data.
+
+You can provide your own using the [`serializer`](/docs/client/configuration#serializer) option.
+
+```ts title=lib/drupal.ts
+import { Deserializer } from "jsonapi-serializer"
+
+const customSerializer = new Deserializer({
+  keyForAttribute: "camelCase",
+})
+
+export const drupal = new DrupalClient(
+  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+  {
+    serializer: customSerializer,
+  }
+)
+```
+
+---
+
+## Fetcher
+
+You can now provide your own fetcher using the [`fetcher`](/docs/client/configuration#fetcher) option. This replaces Next.js' polyfilled `fetch` for JSON:API calls.
+
+```ts title=lib/drupal.ts
+import { Experiment_DrupalClient as DrupalClient } from "next-drupal"
+import crossFetch from "cross-fetch"
+
+const fetcher = (url, options) => {
+  const { withAuth, ...opts } = options
+
+  if (withAuth) {
+    // Make additional requests to fetch a bearer token
+    // Or any other Authorization headers.
+  }
+
+  return crossFetch(url, {
+    ...opts,
+    // Pass in additional options. Example: agent.
+  })
+}
+
+export const drupal = new DrupalClient(
+  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+  {
+    fetcher,
+  }
+)
+```
+
+---
+
+## Caching
+
+The `DrupalClient` has support for caching resources. You can provide your own cache implementation using the [`cache`](/docs/client/configuration#cache) option.
+
+Here's an example on how you can use Redis to cache resources.
+
+```ts title=lib/drupal.ts
+import { Experiment_DrupalClient as DrupalClient, DataCache } from "next-drupal"
+import Redis from "ioredis"
+
+const redis = new Redis(process.env.REDIS_URL)
+
+// Create a custom cache.
+export const redisCache: DataCache = {
+  async set(key, value) {
+    return await redis.set(key, value)
+  },
+
+  async get(key) {
+    return await redis.get(key)
+  },
+}
+
+export const drupal = new DrupalClient(
+  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+  {
+    cache: redisCache,
+  }
+)
+```
+
+Now when you make a `getResource` or `getMenu` call, you can tell the client to cache and re-use responses.
+
+```ts title=lib/get-menu.ts
+import { PHASE_PRODUCTION_BUILD } from "next/constants"
+
+const menu = await drupal.getMenu("main", {
+  withCache: process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD,
+  cacheKey: `menu:main`,
+})
+```
+
+---
+
+## Error Messages
+
+We have improved the error messages from the client with support for formatted JSON:API errors.
+
+<Img
+  src="/images/error-message.png"
+  alt="Error messages"
+  width="700"
+  height="465"
+/>
+
+## Upgrading
+
+You can try the new `DrupalClient` today by following our upgrade guide [here](/docs/client/upgrade).

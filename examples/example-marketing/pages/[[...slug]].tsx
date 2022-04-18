@@ -2,18 +2,14 @@ import * as React from "react"
 import {
   GetStaticPathsContext,
   GetStaticPathsResult,
+  GetStaticPropsContext,
   GetStaticPropsResult,
 } from "next"
 import Head from "next/head"
 import { useRouter } from "next/router"
-import {
-  DrupalNode,
-  getPathsFromContext,
-  getResourceFromContext,
-  getResourceTypeFromContext,
-  getView,
-} from "next-drupal"
+import { DrupalNode } from "next-drupal"
 
+import { drupal } from "lib/drupal"
 import { getMenus } from "lib/get-menus"
 import { absoluteURL } from "lib/utils/absolute-url"
 import { getParams } from "lib/get-params"
@@ -54,23 +50,32 @@ export async function getStaticPaths(
   context: GetStaticPathsContext
 ): Promise<GetStaticPathsResult> {
   return {
-    paths: await getPathsFromContext(RESOURCE_TYPES, context),
+    paths: await drupal.getStaticPathsFromContext(RESOURCE_TYPES, context, {
+      params: {
+        filter: {
+          "field_site.meta.drupal_internal__target_id":
+            process.env.DRUPAL_SITE_ID,
+        },
+      },
+    }),
     fallback: "blocking",
   }
 }
 
 export async function getStaticProps(
-  context
+  context: GetStaticPropsContext
 ): Promise<GetStaticPropsResult<NodePageProps>> {
-  const type = await getResourceTypeFromContext(context)
+  const path = await drupal.translatePathFromContext(context)
 
-  if (!RESOURCE_TYPES.includes(type)) {
+  if (!path || !RESOURCE_TYPES.includes(path.jsonapi.resourceName)) {
     return {
       notFound: true,
     }
   }
 
-  const node = await getResourceFromContext<DrupalNode>(type, context, {
+  const type = path.jsonapi.resourceName
+
+  const node = await drupal.getResourceFromContext<DrupalNode>(path, context, {
     params: getParams(type),
   })
 
@@ -84,7 +89,7 @@ export async function getStaticProps(
   if (type === "node--landing_page") {
     for (const section of node.field_sections) {
       if (section.type === "paragraph--view" && section.field_view) {
-        const view = await getView(section.field_view, {
+        const view = await drupal.getView(section.field_view, {
           params: {
             include: "field_location,field_images.field_media_image",
           },

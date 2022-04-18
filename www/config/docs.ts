@@ -3,26 +3,6 @@ import { DocsConfig } from "types"
 export const docs: DocsConfig = {
   links: [
     {
-      title: "Community",
-      items: [
-        {
-          title: "GitHub",
-          href: "https://github.com/chapter-three/next-drupal",
-          external: true,
-        },
-        {
-          title: "Drupal",
-          href: "https://drupal.org/project/next",
-          external: true,
-        },
-        {
-          title: "Slack",
-          href: "https://drupal.slack.com/archives/C01E36BMU72",
-          external: true,
-        },
-      ],
-    },
-    {
       title: "Getting Started",
       items: [
         {
@@ -82,6 +62,44 @@ export const docs: DocsConfig = {
         {
           title: "Filter by Site",
           href: "/docs/data-fetching/filter-by-site",
+        },
+      ],
+    },
+    {
+      title: "Drupal Client",
+      badge: "Experimental",
+      items: [
+        {
+          title: "Introduction",
+          href: "/docs/client",
+        },
+        {
+          title: "Configuration",
+          href: "/docs/client/configuration",
+        },
+        {
+          title: "Authentication",
+          href: "/docs/client/auth",
+        },
+        {
+          title: "Fetcher",
+          href: "/docs/client/fetcher",
+        },
+        {
+          title: "Serializer",
+          href: "/docs/client/serializer",
+        },
+        {
+          title: "Caching",
+          href: "/docs/client/cache",
+        },
+        {
+          title: "Preview Mode",
+          href: "/docs/client/preview-mode",
+        },
+        {
+          title: "Upgrade Guide",
+          href: "/docs/client/upgrade",
         },
       ],
     },

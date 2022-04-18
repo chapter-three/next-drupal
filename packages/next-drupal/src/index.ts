@@ -17,3 +17,5 @@ export {
   getJsonApiPathForResourceType,
   syncDrupalPreviewRoutes,
 } from "./utils"
+
+export * from "./client"

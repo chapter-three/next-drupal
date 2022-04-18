@@ -16,6 +16,13 @@ export type Doc = MdxNode<{
   excerpt?: string
 }>
 
+export type Blog = MdxNode<{
+  title: string
+  excerpt?: string
+  date?: string
+  author?: string
+}>
+
 export type Guide = MdxNode<{
   title?: string
   date?: string
@@ -43,6 +50,7 @@ export type NavLink = {
   title: string
   external?: boolean
   activePathNames?: string[]
+  badge?: string
 } & (
   | {
       href: string

@@ -12,5 +12,10 @@
     "contentPath": "features",
     "basePath": "/features",
     "sortBy": "weight"
+  },
+  "blog": {
+    "contentPath": "blog",
+    "basePath": "/blog",
+    "sortBy": "created"
   }
 }

@@ -26,14 +26,12 @@
     "@mapbox/rehype-prism": "^0.8.0",
     "@tailwindcss/aspect-ratio": "^0.3.0",
     "@tailwindcss/forms": "^0.3.4",
-    "@types/react": "^17.0.3",
     "autoprefixer": "^10.4.0",
-    "eslint": "^7.28.0",
     "eslint-config-next": "^12.0.10",
     "postcss": "^8.4.1",
     "remark-autolink-headings": "^6.0.1",
     "remark-slug": "^6.0.0",
     "tailwindcss": "^2.2.19",
-    "typescript": "^4.3.3"
+    "typescript": "^4.5.5"
   }
 }

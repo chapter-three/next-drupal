@@ -22,6 +22,11 @@ module.exports = {
         destination: "/docs/guides/search-api",
         permanent: true,
       },
+      {
+        source: "/blog",
+        destination: "/blog/next-drupal-1-3",
+        permanent: false,
+      },
     ]
   },
 }

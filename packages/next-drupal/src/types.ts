@@ -155,15 +155,10 @@ export type JsonApiWithAuthOptions = {
   withAuth?: boolean
 }
 
-export type JsonApiWithCacheOptions =
-  | {
-      withCache: boolean
-      cacheKey: string
-    }
-  | {
-      withCache?: undefined
-      cacheKey: never
-    }
+export type JsonApiWithCacheOptions = {
+  withCache?: boolean
+  cacheKey?: string
+}
 
 // TODO: Properly type this.
 /* eslint-disable  @typescript-eslint/no-explicit-any */

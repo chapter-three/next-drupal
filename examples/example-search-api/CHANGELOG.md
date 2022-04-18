@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-alpha.0](https://github.com/chapter-three/next-drupal/compare/example-search-api@1.1.2...example-search-api@1.2.0-alpha.0) (2022-04-18)
+
+
+### Features
+
+* add example-cache ([2b29d66](https://github.com/chapter-three/next-drupal/commit/2b29d66c8cddb66a331e3b588da8140a4e4ba61e))
+
+
+
+
+
 ## [1.1.2](https://github.com/chapter-three/next-drupal/compare/example-search-api@1.1.1...example-search-api@1.1.2) (2022-04-11)
 
 **Note:** Version bump only for package example-search-api

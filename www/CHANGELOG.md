@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0-alpha.0](https://github.com/chapter-three/next-drupal/compare/www@1.3.1...www@1.4.0-alpha.0) (2022-04-18)
+
+
+### Bug Fixes
+
+* update tests ([0f4d49e](https://github.com/chapter-three/next-drupal/commit/0f4d49e9bb3b8767577bdba4ef52d7e58ad6bf91))
+* **www:** update types ([f253e6f](https://github.com/chapter-three/next-drupal/commit/f253e6f815f26546ab3a3b4e0329ec1bd12f3603))
+
+
+### Features
+
+* **www:** add blog ([2b2832c](https://github.com/chapter-three/next-drupal/commit/2b2832cd6cc107fe0f8dde697232490532116fba))
+* **www:** update spacing and colors ([4eb197f](https://github.com/chapter-three/next-drupal/commit/4eb197fc7def86cb4d92cbadeff7fd4952712474))
+
+
+
+
+
 ## [1.3.1](https://github.com/chapter-three/next-drupal/compare/www@1.3.0...www@1.3.1) (2022-04-11)
 
 

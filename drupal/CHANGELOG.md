@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-alpha.0](https://github.com/chapter-three/next-drupal/compare/drupal@1.1.1...drupal@1.2.0-alpha.0) (2022-04-18)
+
+
+### Features
+
+* **example-kitchen-sink:** add translation ([cf52a89](https://github.com/chapter-three/next-drupal/commit/cf52a89e13d897a3f631a41955cbd428c7934065))
+
+
+
+
+
 ## [1.1.1](https://github.com/chapter-three/next-drupal/compare/drupal@1.1.0...drupal@1.1.1) (2022-04-11)
 
 **Note:** Version bump only for package drupal

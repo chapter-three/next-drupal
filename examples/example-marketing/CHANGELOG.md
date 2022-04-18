@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0-alpha.0](https://github.com/chapter-three/next-drupal/compare/example-marketing@1.2.2...example-marketing@1.3.0-alpha.0) (2022-04-18)
+
+
+### Bug Fixes
+
+* **example-marketing:** update slug ([cd6f9cc](https://github.com/chapter-three/next-drupal/commit/cd6f9ccdb783f95bc95d5dc7a551edcd5b2601b2))
+* update examples ([c00cafb](https://github.com/chapter-three/next-drupal/commit/c00cafbf3c667265fd6f0478164808664f778433))
+
+
+### Features
+
+* add example-cache ([2b29d66](https://github.com/chapter-three/next-drupal/commit/2b29d66c8cddb66a331e3b588da8140a4e4ba61e))
+* **next-drupal:** rename DrupalClient to Experimental_DrupalClient ([0d5cf2f](https://github.com/chapter-three/next-drupal/commit/0d5cf2f44b503a2d8e61eee19146fd5b797356ab))
+
+
+### Reverts
+
+* Revert "chore: revert example-marketing" ([88a9505](https://github.com/chapter-three/next-drupal/commit/88a950508617e3e94a2b6504bb0ea95d7574c3b9))
+
+
+
+
+
 ## [1.2.2](https://github.com/chapter-three/next-drupal/compare/example-marketing@1.2.1...example-marketing@1.2.2) (2022-04-11)
 
 **Note:** Version bump only for package example-marketing

@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0-alpha.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.2.2...next-drupal@1.3.0-alpha.0) (2022-04-18)
+
+
+### Bug Fixes
+
+* **next-drupal:** ensure pathPrefix is set ([781d646](https://github.com/chapter-three/next-drupal/commit/781d6468b6ded00b99d2bba881aab681ff75a4d8))
+* **next-drupal:** fix issue with translated path and decoupled_router ([3092a74](https://github.com/chapter-three/next-drupal/commit/3092a74598a2a633cde3f3a3095ff8851ad4083e))
+* **next-drupal:** fix missing locale from json:api index ([cb48519](https://github.com/chapter-three/next-drupal/commit/cb485197066adb45c49f58f75cb814d4d40fa5cc))
+* **next-drupal:** update types for cache ([f646b0d](https://github.com/chapter-three/next-drupal/commit/f646b0d90f46bb01179c98084e5424caf4831ce6))
+* update tests ([0f4d49e](https://github.com/chapter-three/next-drupal/commit/0f4d49e9bb3b8767577bdba4ef52d7e58ad6bf91))
+
+
+### Features
+
+* add example-cache ([2b29d66](https://github.com/chapter-three/next-drupal/commit/2b29d66c8cddb66a331e3b588da8140a4e4ba61e))
+* **example-custom-fetcher:** add example for custom fetcher ([4ac0864](https://github.com/chapter-three/next-drupal/commit/4ac0864da97dc4f952e2e9898dafd5ec7f9f0f18))
+* **next-drupal:** add getMenu ([778ec9d](https://github.com/chapter-three/next-drupal/commit/778ec9deaf679d740cc9ffb4bdc00d0f380436a2))
+* **next-drupal:** add getSearchIndex to client ([cee1852](https://github.com/chapter-three/next-drupal/commit/cee185254d55c73bb253e6f9831e79650911785c))
+* **next-drupal:** add getView ([aa2f0e7](https://github.com/chapter-three/next-drupal/commit/aa2f0e799a326a975dfea40ad1258bd189fe3d0e))
+* **next-drupal:** add preview mode ([3ea2a92](https://github.com/chapter-three/next-drupal/commit/3ea2a927360e646e3b93c9766c2fb18a16f1b209))
+* **next-drupal:** add support for long-lived accessToken ([0541296](https://github.com/chapter-three/next-drupal/commit/05412965ed1addb54cfb03389931df24f1148ab3))
+* **next-drupal:** add withAuth and prefix options to getStaticPathsFromContext ([126e1f2](https://github.com/chapter-three/next-drupal/commit/126e1f248a9be04775df3932d2fc37311aab270e))
+* **next-drupal:** rename DrupalClient to Experimental_DrupalClient ([0d5cf2f](https://github.com/chapter-three/next-drupal/commit/0d5cf2f44b503a2d8e61eee19146fd5b797356ab))
+* **next-drupal:** rename formatter to serializer ([59a2fac](https://github.com/chapter-three/next-drupal/commit/59a2fac22ba6a3d00a622edb957c33ec353e7351))
+* **next-drupal:** rename prefix to pathPrefix ([4361b6f](https://github.com/chapter-three/next-drupal/commit/4361b6ffc38a0a081d05a95bf04079df7101b70e))
+* **next-drupal:** rename Unstable_DrupalClient to DrupalClient 🥳 ([b8aaa3a](https://github.com/chapter-three/next-drupal/commit/b8aaa3a359e06514117423137cc69d9ce3f7e44f))
+* **next-drupal:** update client ([621cb1b](https://github.com/chapter-three/next-drupal/commit/621cb1b4a2b96b4d6b215e68090f4790c35b88f7))
+
+
+
+
+
 ## [1.2.2](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.2.1...next-drupal@1.2.2) (2022-04-11)
 
 

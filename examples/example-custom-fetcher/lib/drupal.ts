@@ -1,7 +1,7 @@
-import { DrupalClient } from "next-drupal"
+import { Experiment_DrupalClient } from "next-drupal"
 import crossFetch from "cross-fetch"
 
-// We create a custom fetcher that we can pass to the DrupalClient.
+// We create a custom fetcher that we can pass to the Experiment_DrupalClient.
 const fetcher = (url, options) => {
   const { withAuth, ...opts } = options
 
@@ -15,7 +15,7 @@ const fetcher = (url, options) => {
   })
 }
 
-export const drupal = new DrupalClient(
+export const drupal = new Experiment_DrupalClient(
   process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
   {
     fetcher,

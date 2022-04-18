@@ -18,7 +18,7 @@ import type {
   DrupalTranslatedPath,
   DrupalMenuLinkContent,
   FetchOptions,
-  DrupalClientOptions,
+  Experiment_DrupalClientOptions,
   BaseUrl,
   JsonApiWithAuthOptions,
   PathPrefix,
@@ -43,46 +43,46 @@ const DEFAULT_HEADERS = {
   Accept: "application/vnd.api+json",
 }
 
-export class DrupalClient {
+export class Experiment_DrupalClient {
   baseUrl: BaseUrl
 
-  debug: DrupalClientOptions["debug"]
+  debug: Experiment_DrupalClientOptions["debug"]
 
-  frontPage: DrupalClientOptions["frontPage"]
+  frontPage: Experiment_DrupalClientOptions["frontPage"]
 
-  private serializer: DrupalClientOptions["serializer"]
+  private serializer: Experiment_DrupalClientOptions["serializer"]
 
-  private cache: DrupalClientOptions["cache"]
+  private cache: Experiment_DrupalClientOptions["cache"]
 
-  private logger: DrupalClientOptions["logger"]
+  private logger: Experiment_DrupalClientOptions["logger"]
 
-  private fetcher?: DrupalClientOptions["fetcher"]
+  private fetcher?: Experiment_DrupalClientOptions["fetcher"]
 
-  private _headers?: DrupalClientOptions["headers"]
+  private _headers?: Experiment_DrupalClientOptions["headers"]
 
-  private _auth?: DrupalClientOptions["auth"]
+  private _auth?: Experiment_DrupalClientOptions["auth"]
 
-  private _apiPrefix: DrupalClientOptions["apiPrefix"]
+  private _apiPrefix: Experiment_DrupalClientOptions["apiPrefix"]
 
-  private useDefaultResourceTypeEntry?: DrupalClientOptions["useDefaultResourceTypeEntry"]
+  private useDefaultResourceTypeEntry?: Experiment_DrupalClientOptions["useDefaultResourceTypeEntry"]
 
   private _token?: AccessToken
 
   private tokenExpiresOn?: number
 
-  private withAuth?: DrupalClientOptions["withAuth"]
+  private withAuth?: Experiment_DrupalClientOptions["withAuth"]
 
-  private previewSecret?: DrupalClientOptions["previewSecret"]
+  private previewSecret?: Experiment_DrupalClientOptions["previewSecret"]
 
   /**
-   * Instantiates a new DrupalClient.
+   * Instantiates a new Experiment_DrupalClient.
    *
-   * const client = new DrupalClient(baseUrl)
+   * const client = new Experiment_DrupalClient(baseUrl)
    *
    * @param {baseUrl} baseUrl The baseUrl of your Drupal site. Do not add the /jsonapi suffix.
-   * @param {options} options Options for the client. See DrupalClientOptions.
+   * @param {options} options Options for the client. See Experiment_DrupalClientOptions.
    */
-  constructor(baseUrl: BaseUrl, options: DrupalClientOptions = {}) {
+  constructor(baseUrl: BaseUrl, options: Experiment_DrupalClientOptions = {}) {
     if (!baseUrl || typeof baseUrl !== "string") {
       throw new Error("The 'baseUrl' param is required.")
     }
@@ -119,7 +119,7 @@ export class DrupalClient {
     this._debug("Debug mode is on.")
   }
 
-  set apiPrefix(apiPrefix: DrupalClientOptions["apiPrefix"]) {
+  set apiPrefix(apiPrefix: Experiment_DrupalClientOptions["apiPrefix"]) {
     this._apiPrefix = apiPrefix.charAt(0) === "/" ? apiPrefix : `/${apiPrefix}`
   }
 
@@ -127,7 +127,7 @@ export class DrupalClient {
     return this._apiPrefix
   }
 
-  set auth(auth: DrupalClientOptions["auth"]) {
+  set auth(auth: Experiment_DrupalClientOptions["auth"]) {
     if (typeof auth === "object") {
       if (!auth.clientId || !auth.clientSecret) {
         throw new Error(
@@ -144,7 +144,7 @@ export class DrupalClient {
     this._auth = auth
   }
 
-  set headers(value: DrupalClientOptions["headers"]) {
+  set headers(value: Experiment_DrupalClientOptions["headers"]) {
     this._headers = value
   }
 

@@ -1,6 +1,6 @@
 import { expect } from "@jest/globals"
 import { GetStaticPropsContext } from "next"
-import { DrupalClient } from "../src/client"
+import { Experiment_DrupalClient as DrupalClient } from "../src/client"
 import type {
   Serializer,
   DrupalNode,
@@ -203,7 +203,9 @@ describe("getAccessToken", () => {
 describe("headers", () => {
   test("it allows setting custom headers", async () => {
     const customFetch = jest.fn()
-    const client = new DrupalClient(BASE_URL, { fetcher: customFetch })
+    const client = new DrupalClient(BASE_URL, {
+      fetcher: customFetch,
+    })
     client.headers = {
       foo: "bar",
     }

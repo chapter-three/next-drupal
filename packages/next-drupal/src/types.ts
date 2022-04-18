@@ -1,4 +1,4 @@
-export type DrupalClientOptions = {
+export type Experiment_DrupalClientOptions = {
   /**
    * Set the JSON:API prefix.
    *

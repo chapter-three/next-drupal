@@ -1,7 +1,7 @@
 import config from "config"
-import { DrupalClient } from "next-drupal"
+import { Experiment_DrupalClient } from "next-drupal"
 
-export const drupal = new DrupalClient(config.drupalBaseUrl, {
+export const drupal = new Experiment_DrupalClient(config.drupalBaseUrl, {
   frontPage: "/foodieland",
   previewSecret: "secret",
   auth: {

@@ -1,4 +1,4 @@
-import { DrupalClient, DataCache } from "next-drupal"
+import { Experiment_DrupalClient, DataCache } from "next-drupal"
 import Redis from "ioredis"
 
 const redis = new Redis(process.env.REDIS_URL)
@@ -13,7 +13,7 @@ export const cache: DataCache = {
   },
 }
 
-export const drupal = new DrupalClient(
+export const drupal = new Experiment_DrupalClient(
   process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
   {
     debug: true,

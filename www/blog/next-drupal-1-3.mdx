@@ -2,18 +2,18 @@
 title: Next-Drupal 1.3
 author: shadcn
 date: April 19, 2022
-excerpt: Next-Drupal 1.3.0 ships with an experimental JSON:API client with support for custom auth, serializer, fetcher and caching.
+excerpt: Next-Drupal 1.3 ships with an experimental JSON:API client with support for custom auth, serializer, fetcher and caching.
 ---
 
-Since releasing `next-drupal 1.0.0` last December, we have seen incredible adoption and community growth.
+Since releasing `next-drupal 1.0` last December, we have seen incredible adoption. Our community has grown beyond expectations. We are now approaching **1000+** downloads per week.
 
-Today we're excited to release `next-drupal 1.3.0`, one of our most important release.
+Today we're excited to release `next-drupal 1.3`, one of our most important releases.
 
 Next-Drupal 1.3 ships a powerful and flexible JSON:API client for fetching data from Drupal.
 
-It is a replacement for functional helpers such as `getResource`, `getResourceCollection` ...etc.
+It is a replacement for functional helpers such as `getResource` and `getResourceCollection` and provides tons of customizations.
 
-<Callout icon="✅">
+<Callout>
 
 The `DrupalClient` is an optional feature. You can safely upgrade your site to `next-drupal 1.3.0` without any breaking changes.
 
@@ -29,9 +29,11 @@ The `DrupalClient` is an optional feature. You can safely upgrade your site to `
 6. [Support for cached resources](#caching) - memory cache, redis...etc.
 7. [Improved error messages](#error-messages)
 
+---
+
 ## DrupalClient
 
-<Callout icon="⚠️">
+<Callout>
 
 The `DrupalClient` is available in `next-drupal ^1.3.0` as **experimental**.
 
@@ -46,9 +48,11 @@ const drupal = new DrupalClient("https://example.com")
 const articles = await drupal.getResourceCollection("node--article")
 ```
 
+---
+
 ## Data Fetching
 
-Every data fetching helper has been upgraded and made more flexible with options for caching and authentication.
+Every data fetching helper has been upgraded and made more flexible with options for authentication, localization and caching.
 
 ```ts
 import { drupal } from "lib/drupal"
@@ -84,9 +88,11 @@ const menu = await drupal.getMenu("main", {
 })
 ```
 
+---
+
 ## Auth
 
-You can now provide own custom authentication implementation for fetching Drupal data.
+In addition to Bearer tokens (via Simple OAuth), you can now provide own custom authentication implementation for fetching Drupal data.
 
 ### Bearer
 
@@ -144,6 +150,8 @@ export const drupal = new DrupalClient(
 )
 ```
 
+---
+
 ## Serializer
 
 The `DrupalClient` uses [jsona](https://github.com/olosegres/jsona) as the default serializer for serializing and deserializing JSON:API data.
@@ -165,9 +173,11 @@ export const drupal = new DrupalClient(
 )
 ```
 
+---
+
 ## Fetcher
 
-You can provide your own fetcher using the [`fetcher`](/docs/client/configuration#fetcher) option.
+You can now provide your own fetcher using the [`fetcher`](/docs/client/configuration#fetcher) option. This replaces Next.js' polyfilled `fetch` for JSON:API calls.
 
 ```ts title=lib/drupal.ts
 import { Experiment_DrupalClient as DrupalClient } from "next-drupal"
@@ -194,6 +204,8 @@ export const drupal = new DrupalClient(
   }
 )
 ```
+
+---
 
 ## Caching
 
@@ -226,7 +238,7 @@ export const drupal = new DrupalClient(
 )
 ```
 
-Now when you make a `getResource` or `getMenu` call you can tell the client to cache and re-use responses.
+Now when you make a `getResource` or `getMenu` call, you can tell the client to cache and re-use responses.
 
 ```ts title=lib/get-menu.ts
 import { PHASE_PRODUCTION_BUILD } from "next/constants"
@@ -236,6 +248,8 @@ const menu = await drupal.getMenu("main", {
   cacheKey: `menu:main`,
 })
 ```
+
+---
 
 ## Error Messages
 
@@ -250,4 +264,4 @@ We have improved the error messages from the client with support for formatted J
 
 ## Upgrading
 
-Try the new `DrupalClient` by following our upgrade guide [here](/docs/client/upgrade).
+You can try the new `DrupalClient` today by following our upgrade guide [here](/docs/client/upgrade).

@@ -26,6 +26,7 @@ import type {
   PathAlias,
   PreviewOptions,
   GetResourcePreviewUrlOptions,
+  JsonApiWithCacheOptions,
 } from "./types"
 import { logger as defaultLogger } from "./logger"
 
@@ -50,6 +51,8 @@ export class DrupalClient {
   frontPage: DrupalClientOptions["frontPage"]
 
   private serializer: DrupalClientOptions["serializer"]
+
+  private cache: DrupalClientOptions["cache"]
 
   private logger: DrupalClientOptions["logger"]
 
@@ -87,6 +90,7 @@ export class DrupalClient {
     const {
       apiPrefix = DEFAULT_API_PREFIX,
       serializer = new Jsona(),
+      cache = null,
       debug = false,
       frontPage = DEFAULT_FRONT_PAGE,
       useDefaultResourceTypeEntry = false,
@@ -110,6 +114,7 @@ export class DrupalClient {
     this.logger = logger
     this.withAuth = withAuth
     this.previewSecret = previewSecret
+    this.cache = cache
 
     this._debug("Debug mode is on.")
   }
@@ -201,13 +206,28 @@ export class DrupalClient {
   async getResource<T extends JsonApiResource>(
     type: string,
     uuid: string,
-    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
+    options?: JsonApiWithLocaleOptions &
+      JsonApiWithAuthOptions &
+      JsonApiWithCacheOptions
   ): Promise<T> {
     options = {
       deserialize: true,
       withAuth: this.withAuth,
+      withCache: false,
       params: {},
       ...options,
+    }
+
+    if (options.withCache) {
+      const cached = (await this.cache.get(options.cacheKey)) as string
+
+      if (cached) {
+        this._debug(`Returning cached resource ${type} with id ${uuid}`)
+
+        const json = JSON.parse(cached)
+
+        return options.deserialize ? this.deserialize(json) : json
+      }
     }
 
     const apiPath = await this.getEntryForResourceType(
@@ -217,11 +237,18 @@ export class DrupalClient {
 
     const url = this.buildUrl(`${apiPath}/${uuid}`, options?.params)
 
+    this._debug(`Fetching resource ${type} with id ${uuid}.`)
+    this._debug(url.toString())
+
     const response = await this.fetch(url.toString(), {
       withAuth: options.withAuth,
     })
 
     const json = await response.json()
+
+    if (options.withCache) {
+      await this.cache.set(options.cacheKey, JSON.stringify(json))
+    }
 
     return options.deserialize ? this.deserialize(json) : json
   }
@@ -241,7 +268,7 @@ export class DrupalClient {
       // Fix for subrequests and translation.
       // TODO: Confirm if we still need this after https://www.drupal.org/i/3111456.
       // @shadcn, note to self:
-      // Give an entity at /example with no translation.
+      // Given an entity at /example with no translation.
       // When we try to translate /es/example, decoupled router will properly
       // translate to the untranslated version and set the locale to es.
       // However a subrequests to /es/subrequests for decoupled router will fail.
@@ -776,7 +803,9 @@ export class DrupalClient {
 
   async getMenu<T extends DrupalMenuLinkContent>(
     name: string,
-    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
+    options?: JsonApiWithLocaleOptions &
+      JsonApiWithAuthOptions &
+      JsonApiWithCacheOptions
   ): Promise<{
     items: T[]
     tree: T[]
@@ -785,7 +814,17 @@ export class DrupalClient {
       withAuth: this.withAuth,
       deserialize: true,
       params: {},
+      withCache: false,
       ...options,
+    }
+
+    if (options.withCache) {
+      const cached = (await this.cache.get(options.cacheKey)) as string
+
+      if (cached) {
+        this._debug(`Returning cached menu items for ${name}`)
+        return JSON.parse(cached)
+      }
     }
 
     const localePrefix =
@@ -798,6 +837,9 @@ export class DrupalClient {
       options.params
     )
 
+    this._debug(`Fetching menu items for ${name}.`)
+    this._debug(url.toString())
+
     const response = await this.fetch(url.toString(), {
       withAuth: options.withAuth,
     })
@@ -808,10 +850,16 @@ export class DrupalClient {
 
     const { items: tree } = this.buildMenuTree(items)
 
-    return {
+    const menu = {
       items,
       tree,
     }
+
+    if (options.withCache) {
+      await this.cache.set(options.cacheKey, JSON.stringify(menu))
+    }
+
+    return menu
   }
 
   buildMenuTree(

@@ -155,6 +155,16 @@ export type JsonApiWithAuthOptions = {
   withAuth?: boolean
 }
 
+export type JsonApiWithCacheOptions =
+  | {
+      withCache: boolean
+      cacheKey: string
+    }
+  | {
+      withCache?: undefined
+      cacheKey: never
+    }
+
 // TODO: Properly type this.
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export type JsonApiParams = Record<string, any>
@@ -205,14 +215,12 @@ export interface Serializer {
 
 export type Fetcher = WindowOrWorkerGlobalScope["fetch"]
 
-type DataCacheKey = string | number
-
 export interface DataCache {
-  get<T>(key: DataCacheKey): T | undefined
+  get(key): Promise<unknown>
 
-  set<T>(key: DataCacheKey, value: T, ttl: number): boolean
+  set(key, value, ttl?: number): Promise<unknown>
 
-  del(keys: DataCacheKey | DataCacheKey[]): number
+  del?(keys): Promise<unknown>
 }
 
 export interface FetchOptions extends RequestInit {

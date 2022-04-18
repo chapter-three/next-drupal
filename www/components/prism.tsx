@@ -1,4 +1,4 @@
-import { ComponentProps } from "react"
+import React, { ComponentProps } from "react"
 import Highlight, { defaultProps, Language } from "prism-react-renderer"
 import classNames from "classnames"
 

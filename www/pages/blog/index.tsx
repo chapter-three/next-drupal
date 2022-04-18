@@ -10,7 +10,10 @@ export interface BlogsPageProps {
 
 export default function BlogsPage({ blogs }: BlogsPageProps) {
   return (
-    <Layout title="Blog">
+    <Layout
+      title="Blog"
+      description="Latest updates from the Next-Drupal team."
+    >
       <div className="container max-w-3xl px-6 py-12 mx-auto xl:px-8">
         <h1 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
           Blog
@@ -20,7 +23,7 @@ export default function BlogsPage({ blogs }: BlogsPageProps) {
         {blogs.map((blog) => (
           <article key={blog.slug}>
             <h2 className="text-2xl font-bold leading-tight sm:text-3xl md:text-3xl">
-              <Link href={blog.slug} passHref>
+              <Link href={blog.url} passHref>
                 <a>{blog.frontMatter.title}</a>
               </Link>
             </h2>

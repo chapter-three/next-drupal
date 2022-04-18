@@ -107,6 +107,16 @@ export type Experiment_DrupalClientOptions = {
    * [Documentation](https://next-drupal.org/docs/client#previewSecret)
    */
   previewSecret?: string
+
+  /**
+   * A long-lived access token you can set for the client.
+   *
+   * * **Default value**: `null`
+   * * **Required**: *No*
+   *
+   * [Documentation](https://next-drupal.org/docs/client#accessToken)
+   */
+  accessToken?: AccessToken
 }
 
 export interface Logger {

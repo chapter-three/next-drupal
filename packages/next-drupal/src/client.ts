@@ -68,6 +68,8 @@ export class Experiment_DrupalClient {
 
   private _token?: AccessToken
 
+  private accessToken?: Experiment_DrupalClientOptions["accessToken"]
+
   private tokenExpiresOn?: number
 
   private withAuth?: Experiment_DrupalClientOptions["withAuth"]
@@ -100,6 +102,7 @@ export class Experiment_DrupalClient {
       fetcher,
       auth,
       previewSecret,
+      accessToken,
     } = options
 
     this.baseUrl = baseUrl
@@ -115,6 +118,7 @@ export class Experiment_DrupalClient {
     this.withAuth = withAuth
     this.previewSecret = previewSecret
     this.cache = cache
+    this.accessToken = accessToken
 
     this._debug("Debug mode is on.")
   }
@@ -990,6 +994,10 @@ export class Experiment_DrupalClient {
   }
 
   async getAccessToken(): Promise<AccessToken> {
+    if (this.accessToken) {
+      return this.accessToken
+    }
+
     if (typeof this._auth !== "object") {
       throw new Error(
         "auth is not configured. See https://next-drupal.org/docs/client/auth"
@@ -1006,12 +1014,6 @@ export class Experiment_DrupalClient {
       this._debug(`Using existing access token.`)
       return this._token
     }
-
-    // const cached = this.cache.get<AccessToken>(CACHE_KEY)
-    // if (cached?.access_token) {
-    //   this._debug(`Using cached access token.`)
-    //   return cached
-    // }
 
     this._debug(`Fetching new access token.`)
 
@@ -1037,8 +1039,6 @@ export class Experiment_DrupalClient {
     this._debug(result)
 
     this.token = result
-
-    // this.cache.set(CACHE_KEY, result, result.expires_in)
 
     return result
   }

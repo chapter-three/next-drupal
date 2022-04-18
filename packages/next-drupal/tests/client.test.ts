@@ -198,6 +198,23 @@ describe("getAccessToken", () => {
     const token2 = await client.getAccessToken()
     expect(token1).toEqual(token2)
   })
+
+  test("it accepts a long-lived accessToken", async () => {
+    const accessToken = {
+      token_type: "Bearer",
+      expires_in: 300,
+      access_token:
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImVlNDkyOTI4ZTZjNj",
+    }
+
+    const client = new DrupalClient(BASE_URL, {
+      accessToken,
+    })
+
+    const token = await client.getAccessToken()
+
+    expect(token).toEqual(accessToken)
+  })
 })
 
 describe("headers", () => {

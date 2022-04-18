@@ -25,6 +25,7 @@ export function Layout({
   const [showMenu, setShowMenu] = React.useState<boolean>(false)
 
   const { asPath: path, pathname } = useRouter()
+
   return (
     <>
       <NextSeo
@@ -44,8 +45,8 @@ export function Layout({
           ],
         }}
       />
-      <div className="bg-[#34c5c6]">
-        <div className="container flex flex-col items-center justify-between px-6 py-4 mx-auto sm:py-2 sm:flex-row xl:px-6">
+      <div className={classNames(path === "/" ? "bg-[#34c5c6]" : "bg-black")}>
+        <div className="container flex flex-col items-center justify-between px-6 py-4 mx-auto sm:py-2 sm:flex-row xl:px-8">
           <a
             href={`${site.social.contact}?utm_source=next-drupal&utm_medium=banner`}
             rel="noopener noreferrer"
@@ -54,7 +55,7 @@ export function Layout({
           >
             <span className="sr-only">Chapter Three</span>
             <svg
-              width="150"
+              width="120"
               height="15"
               viewBox="4985.5 484.6 300 29"
               xmlSpace="preserve"
@@ -69,9 +70,9 @@ export function Layout({
             href={`${site.social.contact}?utm_source=next-drupal&utm_medium=banner`}
             rel="noopener noreferrer"
             target="_blank"
-            className="mt-2 text-sm font-semibold text-white sm:text-base sm:mt-0 hover:underline"
+            className="mt-2 text-sm text-white sm:text-base sm:mt-0 hover:underline"
           >
-            Contact Chapter Three for your Next project
+            Contact Chapter Three for your next project
           </a>
         </div>
       </div>
@@ -103,7 +104,7 @@ export function Layout({
                   <a
                     className={classNames(
                       "text-sm font-medium hover:underline",
-                      isActive ? "text-blue-700" : "text-gray-700"
+                      isActive ? "text-blue-700" : "text-gray-900"
                     )}
                     target={link.external ? "_blank" : "_self"}
                     rel={link.external ? "noreferrer" : ""}
@@ -124,7 +125,7 @@ export function Layout({
             "bg-black text-white": mode === "dark",
           })}
         >
-          <div className="container flex items-center justify-between px-6 mx-auto h-14 xl:h-16 xl:px-6">
+          <div className="container flex items-center justify-between px-6 mx-auto h-14 xl:h-16 xl:px-8">
             <div className="flex items-center justify-between">
               <button
                 className="relative flex w-6 h-6 mr-4 transition-all lg:hidden"
@@ -183,9 +184,10 @@ export function Layout({
                     <Link key={link.href} href={link.href} passHref>
                       <a
                         className={classNames(
+                          "hover:underline",
                           mode === "dark"
                             ? "text-white"
-                            : "text-gray-600 hover:text-black",
+                            : "text-gray-900 hover:text-black",
                           {
                             underline: isActive,
                           }
@@ -251,7 +253,7 @@ export function Layout({
         </header>
         <main className="flex-1">{children}</main>
         <footer>
-          <div className="container flex items-center justify-center px-6 py-8 mx-auto text-sm border-t md:justify-between xl:px-6">
+          <div className="container flex items-center justify-center px-6 py-8 mx-auto text-sm border-t md:justify-between xl:px-8">
             <div className="flex flex-col items-center md:items-start">
               <a
                 href={`${site.social.contact}?utm_source=next-drupal&utm_medium=footer`}

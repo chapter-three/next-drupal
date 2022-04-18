@@ -33,13 +33,13 @@ export function SidebarNavItem({ items, onLinkClick }: SidebarNavProps) {
   const { asPath } = useRouter()
 
   return items?.length ? (
-    <div className="grid grid-flow-row gap-1 text-sm auto-rows-max">
+    <div className="grid grid-flow-row text-sm auto-rows-max">
       {items.map((item, index) => (
         <Link key={index} href={item.href} passHref>
           <a
             className={classNames(
-              "px-2 py-2 rounded-md hover:text-black hover:bg-gray-100",
-              asPath === item.href ? "text-black bg-blue-50" : "text-gray-700"
+              "px-2 py-2 rounded-md hover:underline",
+              asPath === item.href ? "text-black bg-blue-50" : "text-gray-900"
             )}
             onClick={onLinkClick}
             target={item.external && "_blank"}

@@ -1,4 +1,4 @@
-# example-cache
+# example-custom-cache
 
 An example showing how to use Redis to cache global resources such as menus and global blocks during build.
 

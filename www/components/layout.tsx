@@ -78,7 +78,7 @@ export function Layout({
       </div>
       <div
         className={classNames(
-          "fixed z-50 block p-6 overflow-auto bg-white bottom-0 transition-transform top-14 border-r border-t lg:hidden",
+          "fixed z-50 block p-6 overflow-auto bg-white bottom-0 transition-transform top-[139px] border-r border-t lg:hidden",
           showMenu ? "translate-x-0" : "-translate-x-full"
         )}
       >

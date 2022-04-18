@@ -16,6 +16,13 @@ export type Doc = MdxNode<{
   excerpt?: string
 }>
 
+export type Blog = MdxNode<{
+  title: string
+  excerpt?: string
+  date?: string
+  author?: string
+}>
+
 export type Guide = MdxNode<{
   title?: string
   date?: string

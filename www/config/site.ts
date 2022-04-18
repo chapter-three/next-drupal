@@ -16,6 +16,11 @@ export const site: SiteConfig = {
       activePathNames: ["/docs/[[...slug]]"],
     },
     {
+      title: "Blog",
+      href: "/blog",
+      activePathNames: ["/blog/[...slug]"],
+    },
+    {
       title: "Contact",
       href: "https://www.chapterthree.com/contact?utm_source=next-drupal&utm_medium=banner",
       external: true,

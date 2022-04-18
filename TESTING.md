@@ -1,5 +1,13 @@
 # Testing
 
+## next-drupal
+
+To run the tests for `next-drupal`, run:
+
+```
+yarn test
+```
+
 ## Next module
 
 Tests for the `next` module use PHPUnit. To run the tests:

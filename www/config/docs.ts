@@ -67,6 +67,7 @@ export const docs: DocsConfig = {
     },
     {
       title: "Drupal Client",
+      badge: "Experimental",
       items: [
         {
           title: "Introduction",
@@ -95,6 +96,10 @@ export const docs: DocsConfig = {
         {
           title: "Preview Mode",
           href: "/docs/client/preview-mode",
+        },
+        {
+          title: "Upgrade Guide",
+          href: "/docs/client/upgrade",
         },
       ],
     },

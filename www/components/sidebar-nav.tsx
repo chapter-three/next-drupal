@@ -15,7 +15,12 @@ export function SidebarNav({ items, onLinkClick }: SidebarNavProps) {
       {items.map((item, index) => (
         <div key={index} className={classNames("pb-8")}>
           <h4 className="px-2 py-1 mb-1 text-sm font-medium rounded-md">
-            {item.title}
+            {item.title}{" "}
+            {item.badge && (
+              <span className="p-1 text-xs font-normal bg-blue-200 rounded-md">
+                {item.badge}
+              </span>
+            )}
           </h4>
           <SidebarNavItem items={item.items} onLinkClick={onLinkClick} />
         </div>

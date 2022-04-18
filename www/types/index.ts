@@ -43,6 +43,7 @@ export type NavLink = {
   title: string
   external?: boolean
   activePathNames?: string[]
+  badge?: string
 } & (
   | {
       href: string

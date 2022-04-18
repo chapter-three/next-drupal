@@ -2706,6 +2706,25 @@ Object {
 }
 `;
 
+exports[`getResourceFromContext it accepts a translated path 1`] = `
+Object {
+  "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+  "links": Object {
+    "self": Object {
+      "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?resourceVersion=id%3A37",
+    },
+  },
+  "path": Object {
+    "alias": "/recipes/deep-mediterranean-quiche",
+    "langcode": "en",
+    "pid": 67,
+  },
+  "status": true,
+  "title": "Deep mediterranean quiche - edited",
+  "type": "node--recipe",
+}
+`;
+
 exports[`getResourceFromContext it fetches a resource from context 1`] = `
 Object {
   "changed": "2022-03-25T08:02:17+00:00",

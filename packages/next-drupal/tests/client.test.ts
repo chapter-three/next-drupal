@@ -1303,6 +1303,26 @@ describe("getResourceFromContext", () => {
       })
     )
   })
+
+  test("it accepts a translated path", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const path = await client.translatePath("recipes/deep-mediterranean-quiche")
+
+    const context: GetStaticPropsContext = {
+      params: {
+        slug: ["recipes", "deep-mediterranean-quiche"],
+      },
+    }
+
+    const recipe = await client.getResourceFromContext(path, context, {
+      params: {
+        "fields[node--recipe]": "title,path,status",
+      },
+    })
+
+    await expect(recipe).toMatchSnapshot()
+  })
 })
 
 describe("translatePath", () => {

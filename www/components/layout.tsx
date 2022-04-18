@@ -171,7 +171,10 @@ export function Layout({
                   {site.name}
                 </a>
               </Link>
-              <div className="flex-grow hidden grid-flow-col gap-6 ml-4 lg:grid lg:ml-8 lg:gap-8 auto-cols-max">
+            </div>
+
+            <div className="flex items-center flex-1 sm:ml-4 md:flex-initial">
+              <div className="flex-grow hidden grid-flow-col gap-6 mr-4 lg:grid lg:mr-8 lg:gap-8 auto-cols-max">
                 {site.links.map((link) => {
                   const isActive =
                     pathname === link.href ||
@@ -180,8 +183,9 @@ export function Layout({
                     <Link key={link.href} href={link.href} passHref>
                       <a
                         className={classNames(
-                          "text-sm font-medium hover:underline",
-                          mode === "dark" ? "text-white" : "text-black",
+                          mode === "dark"
+                            ? "text-white"
+                            : "text-gray-600 hover:text-black",
                           {
                             underline: isActive,
                           }
@@ -195,8 +199,6 @@ export function Layout({
                   )
                 })}
               </div>
-            </div>
-            <div className="flex items-center flex-1 sm:ml-4 md:flex-initial">
               <DocSearch />
               <a
                 href={`https://github.com/${site.social.github}`}
@@ -214,12 +216,42 @@ export function Layout({
                   <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
                 </svg>
               </a>
+              <a
+                href={`https://drupal.org/project/next`}
+                target="_blank"
+                rel="noreferrer"
+                className="flex ml-4"
+              >
+                <span className="sr-only">Drupal</span>
+                <svg
+                  className="w-6 h-6"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M15.78 5.113C14.09 3.425 12.48 1.815 11.998 0c-.48 1.815-2.09 3.425-3.778 5.113-2.534 2.53-5.405 5.4-5.405 9.702a9.184 9.185 0 1 0 18.368 0c0-4.303-2.871-7.171-5.405-9.702M6.72 16.954c-.563-.019-2.64-3.6 1.215-7.416l2.55 2.788a.218.218 0 0 1-.016.325c-.61.625-3.204 3.227-3.527 4.126-.066.186-.164.18-.222.177M12 21.677a3.158 3.158 0 0 1-3.158-3.159 3.291 3.291 0 0 1 .787-2.087c.57-.696 2.37-2.655 2.37-2.655s1.774 1.988 2.367 2.649a3.09 3.09 0 0 1 .792 2.093A3.158 3.158 0 0 1 12 21.677m6.046-5.123c-.068.15-.223.398-.431.405-.371.014-.411-.177-.686-.583-.604-.892-5.864-6.39-6.848-7.455-.866-.935-.122-1.595.223-1.94C10.736 6.547 12 5.285 12 5.285s3.766 3.574 5.336 6.016c1.57 2.443 1.029 4.556.71 5.253" />
+                </svg>
+              </a>
+              <a
+                href={`https://drupal.slack.com/archives/C01E36BMU72`}
+                target="_blank"
+                rel="noreferrer"
+                className="flex ml-4"
+              >
+                <span className="sr-only">Slack</span>
+                <svg
+                  className="w-6 h-6"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zm10.122 2.521a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zm-1.268 0a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zm-2.523 10.122a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zm0-1.268a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z" />
+                </svg>
+              </a>
             </div>
           </div>
         </header>
         <main className="flex-1">{children}</main>
         <footer>
-          <div className="container flex items-center justify-center px-6 py-10 mx-auto text-sm border-t md:justify-between xl:px-6">
+          <div className="container flex items-center justify-center px-6 py-8 mx-auto text-sm border-t md:justify-between xl:px-6">
             <div className="flex flex-col items-center md:items-start">
               <a
                 href={`${site.social.contact}?utm_source=next-drupal&utm_medium=footer`}
@@ -227,8 +259,8 @@ export function Layout({
               >
                 <span className="sr-only">Chapter Three</span>
                 <svg
-                  width="150"
-                  height="25"
+                  width="120"
+                  height="20"
                   viewBox="4985.5 484.6 300 29"
                   xmlSpace="preserve"
                   className="text-black"
@@ -242,7 +274,7 @@ export function Layout({
               {site.copyright && (
                 <p
                   dangerouslySetInnerHTML={{ __html: site.copyright }}
-                  className="w-full mt-4 text-center text-gray-600 sm:w-auto md:text-left"
+                  className="w-full mt-2 text-center text-gray-600 sm:w-auto md:text-left"
                 />
               )}
             </div>

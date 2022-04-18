@@ -5,7 +5,7 @@ export type Experiment_DrupalClientOptions = {
    * * **Default value**: `/jsonapi`
    * * **Required**: *No*
    *
-   * [Documentation](https://next-drupal.org/docs/client#apiPrefix)
+   * [Documentation](https://next-drupal.org/docs/client/configuration#apiprefix)
    */
   apiPrefix?: string
   /**
@@ -14,7 +14,7 @@ export type Experiment_DrupalClientOptions = {
    * * **Default value**: `false`
    * * **Required**: *No*
    *
-   * [Documentation](https://next-drupal.org/docs/client#debug)
+   * [Documentation](https://next-drupal.org/docs/client/configuration#debug)
    */
   debug?: boolean
   /**
@@ -23,7 +23,7 @@ export type Experiment_DrupalClientOptions = {
    * * **Default value**: `/home`
    * * **Required**: *No*
    *
-   * [Documentation](https://next-drupal.org/docs/client#frontPage)
+   * [Documentation](https://next-drupal.org/docs/client/configuration#frontpage)
    */
   frontPage?: string
   /**
@@ -32,7 +32,7 @@ export type Experiment_DrupalClientOptions = {
    * * **Default value**: { "Content-Type": "application/vnd.api+json", Accept: "application/vnd.api+json" }
    * * **Required**: *No*
    *
-   * [Documentation](https://next-drupal.org/docs/client#headers)
+   * [Documentation](https://next-drupal.org/docs/client/configuration#headers)
    */
   headers?: HeadersInit
   /**
@@ -41,7 +41,7 @@ export type Experiment_DrupalClientOptions = {
    * * **Default value**: `jsona`
    * * **Required**: *No*
    *
-   * [Documentation](https://next-drupal.org/docs/client#serializer)
+   * [Documentation](https://next-drupal.org/docs/client/configuration#serializer)
    */
   serializer?: Serializer
   /**
@@ -50,7 +50,7 @@ export type Experiment_DrupalClientOptions = {
    * * **Default value**: `fetch`
    * * **Required**: *No*
    *
-   * [Documentation](https://next-drupal.org/docs/client#fetcher)
+   * [Documentation](https://next-drupal.org/docs/client/configuration#fetcher)
    */
   fetcher?: Fetcher
   /**
@@ -59,7 +59,7 @@ export type Experiment_DrupalClientOptions = {
    * * **Default value**: `node-cache`
    * * **Required**: *No*
    *
-   * [Documentation](https://next-drupal.org/docs/client#cache)
+   * [Documentation](https://next-drupal.org/docs/client/configuration#cache)
    */
   cache?: DataCache
   /**
@@ -68,13 +68,13 @@ export type Experiment_DrupalClientOptions = {
    * * **Default value**: `console`
    * * **Required**: *No*
    *
-   * [Documentation](https://next-drupal.org/docs/client#logger)
+   * [Documentation](https://next-drupal.org/docs/client/configuration#logger)
    */
   logger?: Logger
   /**
    * Override the default auth. You can use this to implement your own authentication mechanism.
    *
-   * [Documentation](https://next-drupal.org/docs/client#auth)
+   * [Documentation](https://next-drupal.org/docs/client/configuration#auth)
    */
   auth?:
     | { clientId: string; clientSecret: string; url?: string }
@@ -85,7 +85,7 @@ export type Experiment_DrupalClientOptions = {
    * * **Default value**: `true`
    * * **Required**: **No*
    *
-   * [Documentation](https://next-drupal.org/docs/client#withAuth)
+   * [Documentation](https://next-drupal.org/docs/client/configuration#withauth)
    */
   withAuth?: boolean
   /**
@@ -94,7 +94,7 @@ export type Experiment_DrupalClientOptions = {
    * * **Default value**: `false`
    * * **Required**: *No*
    *
-   * [Documentation](https://next-drupal.org/docs/client#auth)
+   * [Documentation](https://next-drupal.org/docs/client/configuration#auth)
    */
   useDefaultResourceTypeEntry?: boolean
 
@@ -104,7 +104,7 @@ export type Experiment_DrupalClientOptions = {
    * * **Default value**: `null`
    * * **Required**: *No*
    *
-   * [Documentation](https://next-drupal.org/docs/client#previewSecret)
+   * [Documentation](https://next-drupal.org/docs/client/configuration#previewsecret)
    */
   previewSecret?: string
 
@@ -114,7 +114,7 @@ export type Experiment_DrupalClientOptions = {
    * * **Default value**: `null`
    * * **Required**: *No*
    *
-   * [Documentation](https://next-drupal.org/docs/client#accessToken)
+   * [Documentation](https://next-drupal.org/docs/client/configuration#accesstoken)
    */
   accessToken?: AccessToken
 }

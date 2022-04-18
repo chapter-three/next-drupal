@@ -39,10 +39,7 @@ export function DocSearch({ ...props }) {
   }, [])
 
   return (
-    <div
-      className="relative flex-1 md:min-w-[300px] xl:min-w-[400px]"
-      {...props}
-    >
+    <div className="relative flex-1 md:min-w-[300px]" {...props}>
       <label htmlFor="docsearch-input" className="sr-only">
         Search
       </label>
@@ -51,7 +48,7 @@ export function DocSearch({ ...props }) {
         id="docsearch-input"
         placeholder="Search the docs..."
         ref={input}
-        className="w-full text-sm text-black border-0 border-gray-200 rounded-md h-9 bg-gray-50 focus:ring-blue-700"
+        className="w-full text-sm text-black bg-gray-100 border-0 border-gray-200 rounded-md h-9 focus:ring-blue-700"
       />
       <span className="absolute flex items-center justify-center w-5 h-5 text-xs text-gray-600 bg-gray-200 rounded-md top-2 right-2">
         {KEYBOARD_SHORTCUT_KEY}

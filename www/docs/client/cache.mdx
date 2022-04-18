@@ -1,0 +1,84 @@
+---
+title: Cache
+excerpt: Using a custom cache for resources.
+---
+
+<Callout icon="⚠️">
+
+The `DrupalClient` is available in `next-drupal ^1.3.0` as **experimental**.
+
+</Callout>
+
+The `DrupalClient` has support for caching resources.
+
+You can provide your own cache implementation using the [`cache`](/docs/client/configuration#cache) option.
+
+### Example
+
+Here's an example on how you can Redis to cache resources.
+
+<Callout icon="⚠️">
+
+Note: as of `next-drupal 1.3.0`, only `getResource` and `getMenu` supports caching.
+
+</Callout>
+
+```ts title=lib/drupal.ts
+import { Experiment_DrupalClient as DrupalClient, DataCache } from "next-drupal"
+import Redis from "ioredis"
+
+const redis = new Redis(process.env.REDIS_URL)
+
+export const redisCache: DataCache = {
+  async set(key, value) {
+    return await redis.set(key, value)
+  },
+
+  async get(key) {
+    return await redis.get(key)
+  },
+}
+
+export const drupal = new Experiment_DrupalClient(
+  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+  {
+    cache: redisCache,
+  }
+)
+```
+
+Now when you make a `getResource` or `getMenu` call you can tell the client to cache and re-use responses.
+
+```ts title=lib/get-menu.ts
+import { PHASE_PRODUCTION_BUILD } from "next/constants"
+import { DrupalMenuLinkContent } from "next-drupal"
+
+import { drupal } from "lib/drupal"
+
+export async function getMenu(name: string): Promise<DrupalMenuLinkContent[]> {
+  const menu = await drupal.getMenu(name, {
+    // Cache resource during build.
+    withCache: process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD,
+    cacheKey: `menu:${name}`,
+  })
+
+  return menu.items
+}
+```
+
+```ts title=lib/get-block.ts
+import { PHASE_PRODUCTION_BUILD } from "next/constants"
+import { DrupalBlock } from "next-drupal"
+
+import { drupal } from "lib/drupal"
+
+export async function getBlock(
+  type: string,
+  uuid: string
+): Promise<DrupalBlock> {
+  return await drupal.getResource(type, uuid, {
+    withCache: process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD,
+    cacheKey: `block:${type}:${uuid}`,
+  })
+}
+```

@@ -76,6 +76,8 @@ export class Experiment_DrupalClient {
 
   private previewSecret?: Experiment_DrupalClientOptions["previewSecret"]
 
+  private forceIframeSameSiteCookie?: Experiment_DrupalClientOptions["forceIframeSameSiteCookie"]
+
   /**
    * Instantiates a new Experiment_DrupalClient.
    *
@@ -103,6 +105,7 @@ export class Experiment_DrupalClient {
       auth,
       previewSecret,
       accessToken,
+      forceIframeSameSiteCookie = false,
     } = options
 
     this.baseUrl = baseUrl
@@ -119,6 +122,7 @@ export class Experiment_DrupalClient {
     this.previewSecret = previewSecret
     this.cache = cache
     this.accessToken = accessToken
+    this.forceIframeSameSiteCookie = forceIframeSameSiteCookie
 
     this._debug("Debug mode is on.")
   }
@@ -198,13 +202,22 @@ export class Experiment_DrupalClient {
 
     const response = await fetch(input, init)
 
-    if (response.ok) {
+    if (response?.ok) {
       return response
     }
 
     const message = await this.formatErrorResponse(response)
 
-    throw new Error(message)
+    // Only throw errors in development
+    if (process.env.NODE_ENV !== "production") {
+      throw new Error(message)
+    } else {
+      if (this.debug) {
+        this.logger.error(message)
+      }
+
+      return null
+    }
   }
 
   async getResource<T extends JsonApiResource>(
@@ -276,7 +289,7 @@ export class Experiment_DrupalClient {
       // When we try to translate /es/example, decoupled router will properly
       // translate to the untranslated version and set the locale to es.
       // However a subrequests to /es/subrequests for decoupled router will fail.
-      if (input.entity.langcode !== context.locale) {
+      if (context.locale && input.entity.langcode !== context.locale) {
         context.locale = input.entity.langcode
       }
     }
@@ -509,6 +522,7 @@ export class Experiment_DrupalClient {
     const paths = await Promise.all(
       types.map(async (type) => {
         // Use sparse fieldset to expand max size.
+        // Note we don't need status filter here since this runs non-authenticated (by default).
         const params = {
           [`fields[${type}]`]: "path",
           ...options?.params,
@@ -563,11 +577,13 @@ export class Experiment_DrupalClient {
       locale?: Locale
     }
   ) {
-    const paths = resources?.flatMap((resource) => {
-      return resource?.path?.alias === this.frontPage
-        ? "/"
-        : resource?.path?.alias
-    })
+    const paths = resources
+      ?.flatMap((resource) => {
+        return resource?.path?.alias === this.frontPage
+          ? "/"
+          : resource?.path?.alias
+      })
+      .filter(Boolean)
 
     return paths?.length
       ? this.buildStaticPathsParamsFromPaths(paths, options)
@@ -620,7 +636,7 @@ export class Experiment_DrupalClient {
       withAuth: options.withAuth,
     })
 
-    if (!response.ok) {
+    if (!response?.ok) {
       return null
     }
 
@@ -764,13 +780,16 @@ export class Experiment_DrupalClient {
     }
 
     let _options: GetResourcePreviewUrlOptions = {
-      isVersionable: typeof resourceVersion !== undefined,
+      isVersionable: !!resourceVersion,
     }
 
     if (locale && defaultLocale) {
+      // Fix for und locale.
+      const _locale = locale === "und" ? defaultLocale : locale
+
       _options = {
         ..._options,
-        locale: locale as string,
+        locale: _locale as string,
         defaultLocale: defaultLocale as string,
       }
     }
@@ -799,6 +818,17 @@ export class Experiment_DrupalClient {
     response.setPreviewData({
       resourceVersion,
     })
+
+    // Fix issue with cookie.
+    // See https://github.com/vercel/next.js/discussions/32238.
+    // See https://github.com/vercel/next.js/blob/d895a50abbc8f91726daa2d7ebc22c58f58aabbb/packages/next/server/api-utils/node.ts#L504.
+    if (this.forceIframeSameSiteCookie) {
+      const previous = response.getHeader("Set-Cookie") as string[]
+      previous.forEach((cookie, index) => {
+        previous[index] = cookie.replace("SameSite=Lax", "SameSite=None;Secure")
+      })
+      response.setHeader(`Set-Cookie`, previous)
+    }
 
     response.writeHead(307, { Location: url })
 

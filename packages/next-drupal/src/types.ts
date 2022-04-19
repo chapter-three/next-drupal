@@ -8,6 +8,7 @@ export type Experiment_DrupalClientOptions = {
    * [Documentation](https://next-drupal.org/docs/client/configuration#apiprefix)
    */
   apiPrefix?: string
+
   /**
    * Set debug to true to enable debug messages.
    *
@@ -17,6 +18,7 @@ export type Experiment_DrupalClientOptions = {
    * [Documentation](https://next-drupal.org/docs/client/configuration#debug)
    */
   debug?: boolean
+
   /**
    * Set the default frontPage.
    *
@@ -26,6 +28,7 @@ export type Experiment_DrupalClientOptions = {
    * [Documentation](https://next-drupal.org/docs/client/configuration#frontpage)
    */
   frontPage?: string
+
   /**
    * Set custom headers for the fetcher.
    *
@@ -35,6 +38,7 @@ export type Experiment_DrupalClientOptions = {
    * [Documentation](https://next-drupal.org/docs/client/configuration#headers)
    */
   headers?: HeadersInit
+
   /**
    * Override the default data serializer. You can use this to add your own JSON:API data deserializer.
    *
@@ -53,6 +57,7 @@ export type Experiment_DrupalClientOptions = {
    * [Documentation](https://next-drupal.org/docs/client/configuration#fetcher)
    */
   fetcher?: Fetcher
+
   /**
    * Override the default cache.
    *
@@ -71,6 +76,7 @@ export type Experiment_DrupalClientOptions = {
    * [Documentation](https://next-drupal.org/docs/client/configuration#logger)
    */
   logger?: Logger
+
   /**
    * Override the default auth. You can use this to implement your own authentication mechanism.
    *
@@ -79,6 +85,7 @@ export type Experiment_DrupalClientOptions = {
   auth?:
     | { clientId: string; clientSecret: string; url?: string }
     | (() => string)
+
   /**
    * Set whether the client should use authenticated requests by default.
    *
@@ -88,6 +95,7 @@ export type Experiment_DrupalClientOptions = {
    * [Documentation](https://next-drupal.org/docs/client/configuration#withauth)
    */
   withAuth?: boolean
+
   /**
    * By default, the client will make a request to JSON:API to retrieve the index. You can turn this off and use the default entry point from the resource name.
    *
@@ -117,6 +125,16 @@ export type Experiment_DrupalClientOptions = {
    * [Documentation](https://next-drupal.org/docs/client/configuration#accesstoken)
    */
   accessToken?: AccessToken
+
+  /**
+   * If set to true, the preview cookie will be set with SameSite=None,Secure.
+   *
+   * * **Default value**: `false`
+   * * **Required**: *No*
+   *
+   * [Documentation](https://next-drupal.org/docs/client/configuration#forceiframesamesitecookie)
+   */
+  forceIframeSameSiteCookie?: boolean
 }
 
 export interface Logger {

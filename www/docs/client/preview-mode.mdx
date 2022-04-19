@@ -23,14 +23,14 @@ export default async function (
   request: NextApiRequest,
   response: NextApiResponse
 ) {
-  return drupal.preview(request, response)
+  return await drupal.preview(request, response)
 }
 ```
 
 ```ts title=pages/api/exit-preview.ts
 import { NextApiResponse } from "next"
 
-export default async function exit(_, response: NextApiResponse) {
+export default function exit(_, response: NextApiResponse) {
   response.clearPreviewData()
   response.writeHead(307, { Location: "/" })
   response.end()

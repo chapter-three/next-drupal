@@ -63,7 +63,7 @@ export const drupal = new DrupalClient(
 + import { drupal } from "lib/drupal"
 +
 + export default async function (request, response) {
-+  return drupal.preview(request, response)
++  return await drupal.preview(request, response)
 + }
 ```
 

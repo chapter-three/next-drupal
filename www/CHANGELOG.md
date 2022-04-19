@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0-rc.0](https://github.com/chapter-three/next-drupal/compare/www@1.4.0-alpha.0...www@1.4.0-rc.0) (2022-04-19)
+
+
+### Features
+
+* **www:** add algolia search component ([cd7b02d](https://github.com/chapter-three/next-drupal/commit/cd7b02dcda1a483d3ebe19c18422706674c389f1))
+
+
+
+
+
 # [1.4.0-alpha.0](https://github.com/chapter-three/next-drupal/compare/www@1.3.1...www@1.4.0-alpha.0) (2022-04-18)
 
 

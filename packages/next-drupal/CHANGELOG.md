@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0-rc.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.3.0-alpha.0...next-drupal@1.3.0-rc.0) (2022-04-19)
+
+
+### Features
+
+* **next-drupal:** add forceIframeSameSiteCookie option to client ([e958d84](https://github.com/chapter-three/next-drupal/commit/e958d84f14081dd994beb3519ee909e0f3982cd3))
+
+
+
+
+
 # [1.3.0-alpha.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.2.2...next-drupal@1.3.0-alpha.0) (2022-04-18)
 
 

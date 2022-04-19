@@ -296,3 +296,7 @@ pre.is-highlighted:hover .token-line {
   filter: none;
   opacity: 1;
 }
+
+.DocSearch.DocSearch-Button {
+  @apply md:min-w-[300px] md:bg-gray-100;
+}

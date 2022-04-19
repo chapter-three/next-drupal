@@ -21,10 +21,6 @@ export default function App({ Component, pageProps }) {
           gtag('config', 'GTM-KZRZTL6');
         `}
       </Script>
-      <Script
-        type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"
-      ></Script>
       <DefaultSeo
         openGraph={{
           title: site.name,

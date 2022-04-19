@@ -8,8 +8,9 @@ export default class extends Document {
           <meta charSet="utf-8" />
           <link rel="icon" type="image/png" href="/images/favicon.ico" />
           <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"
+            rel="preconnect"
+            href={`https://${process.env.NEXT_PUBLIC_ALGOLIA_APP_ID}-dsn.algolia.net`}
+            crossOrigin="true"
           />
         </Head>
         <body>

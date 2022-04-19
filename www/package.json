@@ -11,6 +11,7 @@
     "preview": "next build && next start -p 4444"
   },
   "dependencies": {
+    "@docsearch/react": "3",
     "classnames": "^2.3.1",
     "copy-to-clipboard": "^3.3.1",
     "next": "^12.1.0",

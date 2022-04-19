@@ -241,3 +241,31 @@ A long-lived access token you can set directly on the client.
 
 Use this to turn on the built-in logger. If you would like to replace with your own logger, see [#logger](/docs/client/configuration#logger)
 .
+
+---
+
+### forceIframeSameSiteCookie
+
+<Callout icon="⚠️">
+
+Use `forceIframeSameSiteCookie` in development only.
+
+</Callout>
+
+- **Default value**: `false`
+- **Required**: No
+
+If you're running your site in development and the host address is different from the iframe preview, you might run into issues with `SameSite` cookies.
+
+You can use this option to force the cookie to be set to `SameSite=None,Secure` in **development**.
+
+```ts
+export const drupal = new DrupalClient(
+  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+  {
+    forceIframeSameSiteCookie: process.env.NODE_ENV === "development",
+  }
+)
+```
+
+For more info see: https://github.com/vercel/next.js/discussions/32238

@@ -42,7 +42,7 @@ export default function BlogsPage({ blogs }: BlogsPageProps) {
               <p className="my-4 text-gray-700">{blog.frontMatter.excerpt}</p>
             ) : null}
 
-            <Link href={blog.slug} passHref>
+            <Link href={blog.url} passHref>
               <a className="text-sm text-blue-500 hover:text-black">
                 Read More →
               </a>

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/chapter-three/next-drupal/compare/basic-starter@1.4.1-rc.0...basic-starter@1.5.0) (2022-04-19)
+
+
+### Bug Fixes
+
+* **basic-starter:** rename eslint.json ([844bd93](https://github.com/chapter-three/next-drupal/commit/844bd93b0d4e6a3d24e6e76622067f344e440def))
+
+
+
+
+
 ## [1.4.1-rc.0](https://github.com/chapter-three/next-drupal/compare/basic-starter@1.4.1-alpha.0...basic-starter@1.4.1-rc.0) (2022-04-19)
 
 **Note:** Version bump only for package basic-starter

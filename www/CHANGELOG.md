@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/chapter-three/next-drupal/compare/www@1.4.0-rc.0...www@1.4.0) (2022-04-19)
+
+
+### Features
+
+* **www:** update docs for upgrade guide ([5ef28f4](https://github.com/chapter-three/next-drupal/commit/5ef28f44fe068510fb641dfa89f2881e33dd68a8))
+
+
+
+
+
 # [1.4.0-rc.0](https://github.com/chapter-three/next-drupal/compare/www@1.4.0-alpha.0...www@1.4.0-rc.0) (2022-04-19)
 
 

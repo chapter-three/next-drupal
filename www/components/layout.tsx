@@ -9,6 +9,7 @@ import "@docsearch/css"
 import { site } from "config/site"
 import { docs } from "config/docs"
 import { SidebarNav } from "components/sidebar-nav"
+import { DrupalConLogo } from "./drupalcon-logo"
 
 interface LayoutProps {
   title: string
@@ -52,7 +53,7 @@ export function Layout({
             href={`${site.social.contact}?utm_source=next-drupal&utm_medium=banner`}
             rel="noopener noreferrer"
             target="_blank"
-            className="mt-2 text-sm font-semibold text-white sm:text-base sm:mt-0 hover:underline"
+            className="mt-2 md:w-[320px] text-sm font-semibold text-white sm:text-base sm:mt-0 hover:underline"
           >
             <span className="sr-only">Chapter Three</span>
             <svg
@@ -68,10 +69,19 @@ export function Layout({
             </svg>
           </a>
           <a
+            href="https://chapterthree.com/next-drupal"
+            rel="noopener noreferrer"
+            target="_blank"
+            className="flex items-center mx-auto mt-2 space-x-2 font-semibold text-black md:ml-auto sm:mr-0 md:mt-0 lg:mr-auto"
+          >
+            <DrupalConLogo />{" "}
+            <span className="underline">Join our DrupalCon BoF</span>
+          </a>
+          <a
             href={`${site.social.contact}?utm_source=next-drupal&utm_medium=banner`}
             rel="noopener noreferrer"
             target="_blank"
-            className="mt-2 text-sm text-white sm:text-base sm:mt-0 hover:underline"
+            className="mt-2 text-sm hidden lg:inline text-white md:w-[320px] sm:text-base sm:mt-0 hover:underline"
           >
             Contact Chapter Three for your next project
           </a>

@@ -9,15 +9,18 @@ interface IndexPageProps {
 
 export default function IndexPage({ articles }: IndexPageProps) {
   return (
-    <ul>
-      {articles.map((article) => (
-        <li key={article.id}>
-          <Link href={article.path.alias}>
-            <a>{article.title}</a>
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <div className="max-w-3xl py-10 mx-auto prose">
+      <h1>Articles</h1>
+      <ul>
+        {articles.map((article) => (
+          <li key={article.id}>
+            <Link href={article.path.alias}>
+              <a>{article.title}</a>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
 

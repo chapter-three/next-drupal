@@ -1,26 +1,37 @@
 import { drupal } from "lib/drupal"
 import { GetStaticPropsContext, GetStaticPropsResult } from "next"
 import { DrupalNode } from "next-drupal"
+import Link from "next/link"
 
 interface IndexPageProps {
-  article: DrupalNode
+  articles: DrupalNode[]
 }
 
-export default function IndexPage({ article }: IndexPageProps) {
-  return <h1>{article.title}</h1>
+export default function IndexPage({ articles }: IndexPageProps) {
+  return (
+    <ul>
+      {articles.map((article) => (
+        <li key={article.id}>
+          <Link href={article.path.alias}>
+            <a>{article.title}</a>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  )
 }
 
 export async function getStaticProps(
   context: GetStaticPropsContext
 ): Promise<GetStaticPropsResult<IndexPageProps>> {
-  const article = await drupal.getResource<DrupalNode>(
+  const articles = await drupal.getResourceCollectionFromContext<DrupalNode[]>(
     "node--article",
-    "090fbb9e-55b5-4e93-b755-6e0d36426188"
+    context
   )
 
   return {
     props: {
-      article,
+      articles,
     },
   }
 }

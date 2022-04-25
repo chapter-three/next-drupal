@@ -33,10 +33,8 @@ Once this is done, you can open the site and proceed with installation.
 Run the following command to install the [Next.js](https://drupal.org/project/next) module and dependencies.
 
 ```sh
-composer require drupal/next:1.0.x-dev
+composer require drupal/next
 ```
-
-Note: we are pulling the latest dev version since there are no stable releases at this moment.
 
 ### 3. Enable Next.js
 
@@ -164,8 +162,18 @@ We are going to use the [basic starter](https://github.com/chapter-three/next-dr
 
 Run the following command to create a new Next.js site:
 
+#### Using Basic Starter
+
 ```sh
 npx create-next-app -e https://github.com/chapter-three/next-drupal-basic-starter
+```
+
+#### Using Basic Starter with DrupalClient
+
+If you would like to use the new [`DrupalClient`](/docs/client), use the following command instead:
+
+```sh
+npx create-next-app -e https://github.com/chapter-three/next-drupal-basic-starter-client
 ```
 
 ### 2. Connect Drupal

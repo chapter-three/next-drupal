@@ -1,5 +1,6 @@
 {
   "name": "basic-starter-client",
+  "description": "A simple starter for building your site with Next.js and Drupal.",
   "version": "1.0.0",
   "private": true,
   "license": "MIT",

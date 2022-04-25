@@ -1494,6 +1494,34 @@ Object {
 }
 `;
 
+exports[`getPathFromContext it encodes path with punctuation 1`] = `
+Object {
+  "entity": Object {
+    "bundle": "page",
+    "canonical": "https://dev-next-drupal-tests.pantheonsite.io/en/path%26with%5Epunc%26in%24path",
+    "id": "20",
+    "langcode": "en",
+    "type": "node",
+    "uuid": "e4bbe727-14ee-44bc-a34a-14ce5c86a82e",
+  },
+  "isHomePath": false,
+  "jsonapi": Object {
+    "basePath": "/jsonapi",
+    "entryPoint": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi",
+    "individual": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/page/e4bbe727-14ee-44bc-a34a-14ce5c86a82e",
+    "pathPrefix": "jsonapi",
+    "resourceName": "node--page",
+  },
+  "label": "Page with characters in path",
+  "meta": Object {
+    "deprecated": Object {
+      "jsonapi.pathPrefix": "This property has been deprecated and will be removed in the next version of Decoupled Router. Use basePath instead.",
+    },
+  },
+  "resolved": "https://dev-next-drupal-tests.pantheonsite.io/en/path%26with%5Epunc%26in%24path",
+}
+`;
+
 exports[`getResource it fetches a resource by uuid 1`] = `
 Object {
   "changed": "2022-03-25T08:02:17+00:00",

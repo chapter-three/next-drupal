@@ -690,7 +690,9 @@ export class Experiment_DrupalClient {
       pathPrefix = `/${context.locale}${pathPrefix}`
     }
 
-    slug = Array.isArray(slug) ? slug.join("/") : slug
+    slug = Array.isArray(slug)
+      ? slug.map((s) => encodeURIComponent(s)).join("/")
+      : slug
 
     // Handle front page.
     if (!slug) {

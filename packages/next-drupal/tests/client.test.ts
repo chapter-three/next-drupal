@@ -646,6 +646,22 @@ describe("getPathFromContext", () => {
       )
     ).toEqual("/foo/bar/baz")
   })
+
+  test("it encodes path with punctuation", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const path = client.getPathFromContext({
+      params: {
+        slug: ["path&with^punc&in$path"],
+      },
+    })
+
+    expect(path).toEqual("/path%26with%5Epunc%26in%24path")
+
+    const translatedPath = await client.translatePath(path)
+
+    expect(translatedPath).toMatchSnapshot()
+  })
 })
 
 describe("getIndex", () => {

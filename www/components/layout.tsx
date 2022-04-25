@@ -53,7 +53,7 @@ export function Layout({
             href={`${site.social.contact}?utm_source=next-drupal&utm_medium=banner`}
             rel="noopener noreferrer"
             target="_blank"
-            className="mt-2 md:w-[330px] text-sm font-semibold text-white sm:text-base sm:mt-0 hover:underline"
+            className="mt-2 md:w-[340px] text-sm font-semibold text-white sm:text-base sm:mt-0 hover:underline"
           >
             <span className="sr-only">Chapter Three</span>
             <svg
@@ -88,7 +88,7 @@ export function Layout({
             href={`${site.social.contact}?utm_source=next-drupal&utm_medium=banner`}
             rel="noopener noreferrer"
             target="_blank"
-            className="mt-2 text-sm text-right hidden lg:inline text-white md:w-[330px] sm:text-base sm:mt-0 hover:underline"
+            className="mt-2 text-sm text-right hidden lg:inline text-white md:w-[340px] sm:text-base sm:mt-0 hover:underline"
           >
             Contact Chapter Three for your next project
           </a>

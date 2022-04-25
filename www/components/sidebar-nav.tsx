@@ -38,8 +38,10 @@ export function SidebarNavItem({ items, onLinkClick }: SidebarNavProps) {
         <Link key={index} href={item.href} passHref>
           <a
             className={classNames(
-              "px-2 py-2 rounded-md hover:underline",
-              asPath === item.href ? "text-black bg-blue-50" : "text-gray-900"
+              "px-2 py-2 rounded-md hover:underline text-black",
+              {
+                "bg-blue-50": asPath === item.href,
+              }
             )}
             onClick={onLinkClick}
             target={item.external && "_blank"}

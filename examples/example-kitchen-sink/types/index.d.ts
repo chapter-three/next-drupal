@@ -76,7 +76,13 @@ export interface PageFeature {
   }
 }
 
-export type PageSection = PageHeader | PageView | PageFeature
+export interface PageVideo {
+  type: "video"
+  id: string
+  video: string
+}
+
+export type PageSection = PageHeader | PageView | PageFeature | PageVideo
 
 export interface LandingPage {
   sections: PageSection[]

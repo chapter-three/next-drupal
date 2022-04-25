@@ -1,3 +1,4 @@
+import { absoluteURL } from "lib/utils"
 import { DrupalNode } from "next-drupal"
 
 import { LandingPage, PageFeature, PageHeader, PageView } from "types"
@@ -35,6 +36,16 @@ export function formatLandingPage(node: DrupalNode): LandingPage {
             href: section.field_link.url,
           },
         } as PageFeature
+      }
+
+      if (section.type === "paragraph--video") {
+        return {
+          id: section.id,
+          type: "video",
+          video: absoluteURL(
+            section.field_media.field_media_video_file.uri.url
+          ),
+        }
       }
 
       return null

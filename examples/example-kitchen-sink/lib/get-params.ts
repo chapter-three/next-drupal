@@ -6,7 +6,9 @@ export function getParams(name: string) {
 
   if (name === "node--landing_page") {
     params
-      .addInclude(["field_sections.field_media.field_media_image"])
+      .addInclude([
+        "field_sections.field_media.field_media_image,field_sections.field_media.field_media_video_file",
+      ])
       .addFields("node--landing_page", [
         "title",
         "path",

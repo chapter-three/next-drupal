@@ -38,5 +38,13 @@ export function LandingPageSection({ section }: LandingPageSectionProps) {
     return <Feature {...section} />
   }
 
+  if (section.type === "video") {
+    return (
+      <video controls autoPlay muted>
+        <source src={section.video} type="video/mp4" />
+      </video>
+    )
+  }
+
   return null
 }

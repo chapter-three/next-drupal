@@ -11092,9 +11092,9 @@ react-property@2.0.0:
   integrity sha512-kzmNjIgU32mO4mmH5+iUyrqlpFQhF8K2k7eZ4fdLSOPFrD1XgEuSBv9LDEgxRXTMBqMd8ppT0x6TIzqE5pdGdw==
 
 react-query@^3.17.0, react-query@^3.34.19:
-  version "3.34.19"
-  resolved "https://registry.yarnpkg.com/react-query/-/react-query-3.34.19.tgz#0ff049b6e0d2ed148e9abfdd346625d0e88dc229"
-  integrity sha512-JO0Ymi58WKmvnhgg6bGIrYIeKb64KsKaPWo8JcGnmK2jJxAs2XmMBzlP75ZepSU7CHzcsWtIIyhMrLbX3pb/3w==
+  version "3.38.0"
+  resolved "https://registry.yarnpkg.com/react-query/-/react-query-3.38.0.tgz#e7f4081e45ba47a4119e548ddcfd0fab18f0580e"
+  integrity sha512-VRbCTRrDfC5FsB70+JfZuxFRv9SAvkZ1h36MsN8+QaDN+NWB6s1vJndqpoLQnJqN0COTG2zsInMq0KFdYze6TA==
   dependencies:
     "@babel/runtime" "^7.5.5"
     broadcast-channel "^3.4.1"

@@ -110,7 +110,9 @@ export function getPathFromContext(
 ) {
   let { slug } = context.params
 
-  slug = Array.isArray(slug) ? slug.join("/") : slug
+  slug = Array.isArray(slug)
+    ? slug.map((s) => encodeURIComponent(s)).join("/")
+    : slug
 
   // Handle locale.
   if (context.locale && context.locale !== context.defaultLocale) {

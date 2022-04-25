@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/chapter-three/next-drupal/compare/example-kitchen-sink@1.1.0...example-kitchen-sink@1.2.0) (2022-04-25)
+
+
+### Features
+
+* **example-kitchen-sink:** add video paragraph ([55f8ed1](https://github.com/chapter-three/next-drupal/commit/55f8ed103dad1f2c212da9ca84ce75d2ba1aca63))
+
+
+
+
+
 # [1.1.0](https://github.com/chapter-three/next-drupal/compare/example-kitchen-sink@1.1.0-rc.0...example-kitchen-sink@1.1.0) (2022-04-19)
 
 **Note:** Version bump only for package example-kitchen-sink

@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/chapter-three/next-drupal/compare/www@1.4.0...www@1.5.0) (2022-04-25)
+
+
+### Bug Fixes
+
+* **www:** header size ([dd5db0c](https://github.com/chapter-three/next-drupal/commit/dd5db0c8697133bea16de4dee50d563c5d68a5c8))
+* **www:** update header colors ([2ae9ed8](https://github.com/chapter-three/next-drupal/commit/2ae9ed80ce7ed0865ec9b13bc51583ac9de0de0e))
+* **www:** update styles ([4971a37](https://github.com/chapter-three/next-drupal/commit/4971a37d49ad4260686cabc091f65808d844f7b5))
+
+
+### Features
+
+* **www:** add drupalcon link and update colors ([8d0917c](https://github.com/chapter-three/next-drupal/commit/8d0917c801563bca6d07fe2248c23d30e89b667e))
+
+
+
+
+
 # [1.4.0](https://github.com/chapter-three/next-drupal/compare/www@1.4.0-rc.0...www@1.4.0) (2022-04-19)
 
 

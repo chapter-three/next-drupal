@@ -72,13 +72,3 @@ export async function getStaticProps(
 ```
 
 With `fallback: "blocking"` in `getStaticPaths`, this will cache and handle redirects configured in Drupal and still work with incremental static regeneration.
-
-In multilingual setup you may need to specify `pathPrefix` option for `translatePathFromContext` for default locale.
-In some cases Drupal can't find a matching redirect for path without explicit locale prefix.
-
-```tsx
-// Get information about the path.
-const path = await drupal.translatePathFromContext(context, {
-  pathPrefix: context.locale === context.defaultLocale ? context.locale : "/",
-})
-```

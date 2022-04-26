@@ -159,6 +159,10 @@ export const docs: DocsConfig = {
           title: "Search API",
           href: "/docs/guides/search-api",
         },
+        {
+          title: "On-demand Revalidation",
+          href: "/docs/guides/on-demand-revalidation",
+        },
       ],
     },
     {

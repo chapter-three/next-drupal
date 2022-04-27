@@ -46,7 +46,7 @@ export function Layout({
           ],
         }}
       />
-      <div className={classNames(path === "/" ? "bg-[#34c5c6]" : "bg-black")}>
+      <div className="bg-black">
         <div className="container flex flex-col items-center justify-between px-6 py-2 mx-auto sm:py-2 sm:flex-row xl:px-8">
           <a
             href={`${site.social.contact}?utm_source=next-drupal&utm_medium=banner`}
@@ -73,12 +73,7 @@ export function Layout({
             target="_blank"
             className="flex items-center mx-auto mt-2 space-x-2 text-sm font-semibold text-black md:ml-auto sm:mr-0 md:mt-0 lg:mr-auto"
           >
-            <span
-              className={classNames(
-                "underline",
-                path === "/" ? "text-black" : "text-white"
-              )}
-            >
+            <span className={classNames("underline text-white")}>
               Join our DrupalCon BoF
             </span>
           </a>
@@ -94,7 +89,7 @@ export function Layout({
       </div>
       <div
         className={classNames(
-          "fixed z-50 block p-6 overflow-auto bg-white bottom-0 transition-transform top-[139px] border-r border-t lg:hidden",
+          "fixed z-50 block p-6 overflow-auto bg-white bottom-0 transition-transform top-[123px] border-r border-t lg:hidden",
           showMenu ? "translate-x-0" : "-translate-x-full"
         )}
       >

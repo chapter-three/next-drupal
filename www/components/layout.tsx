@@ -9,7 +9,6 @@ import "@docsearch/css"
 import { site } from "config/site"
 import { docs } from "config/docs"
 import { SidebarNav } from "components/sidebar-nav"
-import { DrupalConLogo } from "./drupalcon-logo"
 
 interface LayoutProps {
   title: string
@@ -48,7 +47,7 @@ export function Layout({
         }}
       />
       <div className={classNames(path === "/" ? "bg-[#34c5c6]" : "bg-black")}>
-        <div className="container flex flex-col items-center justify-between px-6 py-4 mx-auto sm:py-2 sm:flex-row xl:px-8">
+        <div className="container flex flex-col items-center justify-between px-6 py-2 mx-auto sm:py-2 sm:flex-row xl:px-8">
           <a
             href={`${site.social.contact}?utm_source=next-drupal&utm_medium=banner`}
             rel="noopener noreferrer"
@@ -72,9 +71,8 @@ export function Layout({
             href="https://chapterthree.com/next-drupal"
             rel="noopener noreferrer"
             target="_blank"
-            className="flex items-center mx-auto mt-2 space-x-2 font-semibold text-black md:ml-auto sm:mr-0 md:mt-0 lg:mr-auto"
+            className="flex items-center mx-auto mt-2 space-x-2 text-sm font-semibold text-black md:ml-auto sm:mr-0 md:mt-0 lg:mr-auto"
           >
-            <DrupalConLogo />{" "}
             <span
               className={classNames(
                 "underline",
@@ -88,7 +86,7 @@ export function Layout({
             href={`${site.social.contact}?utm_source=next-drupal&utm_medium=banner`}
             rel="noopener noreferrer"
             target="_blank"
-            className="mt-2 text-sm text-right hidden lg:inline text-white md:w-[340px] sm:text-base sm:mt-0 hover:underline"
+            className="mt-2 text-sm text-right hidden lg:inline text-white md:w-[340px] sm:mt-0 hover:underline"
           >
             Contact Chapter Three for your next project
           </a>

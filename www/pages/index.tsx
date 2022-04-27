@@ -54,6 +54,14 @@ export default function IndexPage({ features }: IndexPageProps) {
               </a>
             </Link>
           </div>
+          <video
+            controls
+            muted
+            autoPlay
+            className="w-full overflow-hidden rounded-md aspect-video"
+          >
+            <source src="/videos/next-drupal-promo.mp4" type="video/mp4" />
+          </video>
         </div>
       </section>
       <div className="hidden w-full lg:block h-14 md:h-20 divider" />

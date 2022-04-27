@@ -30,7 +30,7 @@ export default function BlogsPage({ blogs }: BlogsPageProps) {
             <p className="mt-2 text-gray-700">
               {blog.frontMatter.date} -{" "}
               <a
-                href="https://twitter.com"
+                href="https://twitter.com/shadcn"
                 target="_blank"
                 rel="noreferrer nofollow"
                 className="text-blue-600"

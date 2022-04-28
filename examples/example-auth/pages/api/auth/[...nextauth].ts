@@ -108,8 +108,8 @@ async function refreshAccessToken(token) {
     const formData = new URLSearchParams()
 
     formData.append("grant_type", "refresh_token")
-    formData.append("client_id", process.env.DRUPAL_CLIENT_ID)
-    formData.append("client_secret", process.env.DRUPAL_CLIENT_SECRET)
+    formData.append("client_id", process.env.OAUTH_CLIENT_ID)
+    formData.append("client_secret", process.env.OAUTH_CLIENT_SECRET)
     formData.append("refresh_token", token.refreshToken)
 
     const response = await fetch(

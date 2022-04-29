@@ -52,7 +52,7 @@ export function Layout({
             href={`${site.social.contact}?utm_source=next-drupal&utm_medium=banner`}
             rel="noopener noreferrer"
             target="_blank"
-            className="mt-2 md:w-[340px] text-sm font-semibold text-white sm:text-base sm:mt-0 hover:underline"
+            className="mt-2 text-sm font-semibold text-white sm:text-base sm:mt-0 hover:underline"
           >
             <span className="sr-only">Chapter Three</span>
             <svg
@@ -68,20 +68,10 @@ export function Layout({
             </svg>
           </a>
           <a
-            href="https://chapterthree.com/next-drupal"
-            rel="noopener noreferrer"
-            target="_blank"
-            className="flex items-center mx-auto mt-2 space-x-2 text-sm font-semibold text-black md:ml-auto sm:mr-0 md:mt-0 lg:mr-auto"
-          >
-            <span className={classNames("underline text-white")}>
-              Join our DrupalCon BoF
-            </span>
-          </a>
-          <a
             href={`${site.social.contact}?utm_source=next-drupal&utm_medium=banner`}
             rel="noopener noreferrer"
             target="_blank"
-            className="mt-2 text-sm text-right hidden lg:inline text-white md:w-[340px] sm:mt-0 hover:underline"
+            className="inline mt-2 text-sm text-right text-white sm:mt-0 hover:underline"
           >
             Contact Chapter Three for your next project
           </a>

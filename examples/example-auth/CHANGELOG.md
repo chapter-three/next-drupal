@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/chapter-three/next-drupal/compare/example-auth@1.2.1...example-auth@1.2.2) (2022-05-02)
+
+
+### Bug Fixes
+
+* **example-auth:** update token name in refreshAccessToken ([314841a](https://github.com/chapter-three/next-drupal/commit/314841aeb4fef984799037e77404b3d66ca20eed))
+
+
+
+
+
 ## [1.2.1](https://github.com/chapter-three/next-drupal/compare/example-auth@1.2.0...example-auth@1.2.1) (2022-04-25)
 
 **Note:** Version bump only for package example-auth

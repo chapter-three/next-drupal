@@ -1,6 +1,6 @@
 {
   "name": "example-kitchen-sink",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -14,7 +14,7 @@
     "drupal-jsonapi-params": "^2.0.0",
     "html-react-parser": "^1.4.10",
     "next": "^12.1.4",
-    "next-drupal": "^1.3.1",
+    "next-drupal": "^1.3.2",
     "next-i18next": "^11.0.0",
     "nprogress": "^0.2.0",
     "qs": "^6.10.3",

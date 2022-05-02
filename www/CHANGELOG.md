@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/chapter-three/next-drupal/compare/www@1.5.0...www@1.6.0) (2022-05-02)
+
+
+### Bug Fixes
+
+* **www:** update twitter link ([e63f21e](https://github.com/chapter-three/next-drupal/commit/e63f21e7e05b38e728e043b6efc05ace540eba06))
+
+
+### Features
+
+* **www:** add promo video ([7533296](https://github.com/chapter-three/next-drupal/commit/7533296ed4bb753cc8670ba3629a9bd411232a44))
+* **www:** compress video ([5fcb737](https://github.com/chapter-three/next-drupal/commit/5fcb7374f30625d74c9453a6bfc4582b9e461537))
+* **www:** remove drupalcon link ([1e0d9c3](https://github.com/chapter-three/next-drupal/commit/1e0d9c333a30324e83fa079d0d7fcadf27f13fec))
+* **www:** update front-page colors ([f3c71b5](https://github.com/chapter-three/next-drupal/commit/f3c71b5afdfe2f9142f40b5388f51ea7f9365f25))
+
+
+
+
+
 # [1.5.0](https://github.com/chapter-three/next-drupal/compare/www@1.4.0...www@1.5.0) (2022-04-25)
 
 

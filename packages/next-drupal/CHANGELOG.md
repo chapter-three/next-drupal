@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.2](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.3.1...next-drupal@1.3.2) (2022-05-02)
+
+
+### Bug Fixes
+
+* **next-drupal:** skip subrequests if path is passed to getResourceFromContext ([ca65e62](https://github.com/chapter-three/next-drupal/commit/ca65e62118c733b7bd857ae3ab395b3dc4fbbbe8))
+
+
+
+
+
 ## [1.3.1](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.3.0...next-drupal@1.3.1) (2022-04-25)
 
 

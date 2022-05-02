@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.2
+
+### Bug Fixes
+
+* **next-drupal:** skip subrequests if path is passed to getResourceFromContext ([ca65e62](https://github.com/chapter-three/next-drupal/commit/ca65e62118c733b7bd857ae3ab395b3dc4fbbbe8))
+
 ## 1.3.1
 
 * **next-drupal:** backport slug encoding fix to helpers ([29ee9d3](https://github.com/chapter-three/next-drupal/commit/29ee9d3818aef4ebc925b37231693944f751d998))

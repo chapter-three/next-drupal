@@ -281,18 +281,7 @@ export class Experiment_DrupalClient {
   ): Promise<T> {
     const type = typeof input === "string" ? input : input.jsonapi.resourceName
 
-    if (typeof input !== "string") {
-      // Fix for subrequests and translation.
-      // TODO: Confirm if we still need this after https://www.drupal.org/i/3111456.
-      // @shadcn, note to self:
-      // Given an entity at /example with no translation.
-      // When we try to translate /es/example, decoupled router will properly
-      // translate to the untranslated version and set the locale to es.
-      // However a subrequests to /es/subrequests for decoupled router will fail.
-      if (context.locale && input.entity.langcode !== context.locale) {
-        context.locale = input.entity.langcode
-      }
-    }
+    const previewData = context.previewData as { resourceVersion?: string }
 
     options = {
       // Add support for revisions for node by default.
@@ -305,13 +294,7 @@ export class Experiment_DrupalClient {
       ...options,
     }
 
-    const path = this.getPathFromContext(context, {
-      pathPrefix: options?.pathPrefix,
-    })
-
-    const previewData = context.previewData as { resourceVersion?: string }
-
-    const resource = await this.getResourceByPath<T>(path, {
+    const _options = {
       deserialize: options.deserialize,
       isVersionable: options.isVersionable,
       locale: context.locale,
@@ -321,7 +304,32 @@ export class Experiment_DrupalClient {
         resourceVersion: previewData?.resourceVersion,
         ...options?.params,
       },
+    }
+
+    if (typeof input !== "string") {
+      // Fix for subrequests and translation.
+      // TODO: Confirm if we still need this after https://www.drupal.org/i/3111456.
+      // @shadcn, note to self:
+      // Given an entity at /example with no translation.
+      // When we try to translate /es/example, decoupled router will properly
+      // translate to the untranslated version and set the locale to es.
+      // However a subrequests to /es/subrequests for decoupled router will fail.
+      if (context.locale && input.entity.langcode !== context.locale) {
+        context.locale = input.entity.langcode
+      }
+
+      // Given we already have the path info, we can skip subrequests and just make a simple
+      // request to the Drupal site to get the entity.
+      if (input.entity?.uuid) {
+        return await this.getResource<T>(type, input.entity.uuid, _options)
+      }
+    }
+
+    const path = this.getPathFromContext(context, {
+      pathPrefix: options?.pathPrefix,
     })
+
+    const resource = await this.getResourceByPath<T>(path, _options)
 
     // If no locale is passed, skip entity if not default_langcode.
     // This happens because decoupled_router will still translate the path

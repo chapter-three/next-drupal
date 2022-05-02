@@ -11,7 +11,7 @@ export interface SidebarNavProps {
 
 export function SidebarNav({ items, onLinkClick }: SidebarNavProps) {
   return items.length ? (
-    <div className="-ml-2 pb-80">
+    <div className="w-full -ml-2 pb-80">
       {items.map((item, index) => (
         <div key={index} className={classNames("pb-8")}>
           <h4 className="px-2 py-1 mb-1 text-sm font-medium rounded-md">
@@ -38,7 +38,7 @@ export function SidebarNavItem({ items, onLinkClick }: SidebarNavProps) {
         <Link key={index} href={item.href} passHref>
           <a
             className={classNames(
-              "px-2 py-2 rounded-md hover:underline text-black",
+              "px-2 py-2 flex w-full rounded-md hover:underline text-black",
               {
                 "bg-blue-50": asPath === item.href,
               }

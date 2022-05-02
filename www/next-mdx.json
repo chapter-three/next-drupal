@@ -1,20 +1,24 @@
 {
   "doc": {
-    "contentPath": "docs",
+    "contentPath": "content/docs",
     "basePath": "/"
   },
+  "guide": {
+    "contentPath": "content/guides",
+    "basePath": "/guides"
+  },
   "tutorial": {
-    "contentPath": "tutorials",
+    "contentPath": "content/tutorials",
     "basePath": "/learn",
     "sortBy": "weight"
   },
   "feature": {
-    "contentPath": "features",
+    "contentPath": "content/features",
     "basePath": "/features",
     "sortBy": "weight"
   },
   "blog": {
-    "contentPath": "blog",
+    "contentPath": "content/blog",
     "basePath": "/blog",
     "sortBy": "created"
   }

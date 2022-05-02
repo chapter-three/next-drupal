@@ -178,6 +178,7 @@ export function Layout({
             <div className="flex items-center flex-1 sm:ml-4 md:flex-initial">
               <div className="flex-grow hidden grid-flow-col gap-6 mr-4 lg:grid lg:mr-8 lg:gap-8 auto-cols-max">
                 {site.links.map((link) => {
+                  console.log(pathname)
                   const isActive =
                     pathname === link.href ||
                     link.activePathNames?.includes(pathname)
@@ -186,12 +187,8 @@ export function Layout({
                       <a
                         className={classNames(
                           "hover:underline",
-                          mode === "dark"
-                            ? "text-white"
-                            : "text-gray-900 hover:text-black",
-                          {
-                            underline: isActive,
-                          }
+                          mode === "dark" ? "text-white" : "hover:text-black",
+                          isActive ? "text-black" : "text-gray-600"
                         )}
                         target={link.external ? "_blank" : "_self"}
                         rel={link.external ? "noreferrer" : ""}

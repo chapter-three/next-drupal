@@ -79,3 +79,7 @@ export interface SiteConfig {
 export interface DocsConfig {
   links: NavLinks
 }
+
+export interface GuidesConfig {
+  links: NavLinks
+}

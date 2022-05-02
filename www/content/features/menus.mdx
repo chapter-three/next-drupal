@@ -11,7 +11,7 @@ export async function getStaticProps() {
   // Fetch the main menu.
   return {
     props: {
-      menu: await getMenu("main"), // highlight-line,
+      menu: await getMenu("main"),
     },
   }
 }
@@ -22,7 +22,7 @@ import Link from "next/link"
 import { useMenu } from "next-drupal"
 
 export default function Page({ node }) {
-  const { tree } = useMenu("main") // highlight-line
+  const { tree } = useMenu("main")
 
   return (
     <ul>

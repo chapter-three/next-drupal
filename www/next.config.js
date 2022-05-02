@@ -22,6 +22,11 @@ module.exports = {
         destination: "/docs/guides/search-api",
         permanent: true,
       },
+      {
+        source: "/docs/guides/:slug*",
+        destination: "/guides/:slug*",
+        permanent: true,
+      },
     ]
   },
 }

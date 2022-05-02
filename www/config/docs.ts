@@ -14,8 +14,8 @@ export const docs: DocsConfig = {
           href: "/docs/examples",
         },
         {
-          title: "Quick Start",
-          href: "/docs/quick-start",
+          title: "Get Started",
+          href: "/learn/quick-start",
         },
         {
           title: "Environment Variables",
@@ -29,39 +29,6 @@ export const docs: DocsConfig = {
           title: "Changelog",
           href: "https://github.com/chapter-three/next-drupal/blob/main/CHANGELOG.md",
           external: true,
-        },
-      ],
-    },
-    {
-      title: "Data Fetching",
-      items: [
-        {
-          title: "Basic Example",
-          href: "/docs/data-fetching",
-        },
-        {
-          title: "Dynamic Pages",
-          href: "/docs/data-fetching#dynamic-pages",
-        },
-        {
-          title: "Advanced Example",
-          href: "/docs/data-fetching#advanced-example",
-        },
-        {
-          title: "Menus",
-          href: "/docs/data-fetching/menus",
-        },
-        {
-          title: "Blocks",
-          href: "/docs/data-fetching/blocks",
-        },
-        {
-          title: "Views",
-          href: "/docs/data-fetching/views",
-        },
-        {
-          title: "Filter by Site",
-          href: "/docs/data-fetching/filter-by-site",
         },
       ],
     },
@@ -104,6 +71,39 @@ export const docs: DocsConfig = {
       ],
     },
     {
+      title: "Data Fetching",
+      items: [
+        {
+          title: "Basic Example",
+          href: "/docs/data-fetching",
+        },
+        {
+          title: "Dynamic Pages",
+          href: "/docs/data-fetching#dynamic-pages",
+        },
+        {
+          title: "Advanced Example",
+          href: "/docs/data-fetching#advanced-example",
+        },
+        {
+          title: "Menus",
+          href: "/docs/data-fetching/menus",
+        },
+        {
+          title: "Blocks",
+          href: "/docs/data-fetching/blocks",
+        },
+        {
+          title: "Views",
+          href: "/docs/data-fetching/views",
+        },
+        {
+          title: "Filter by Site",
+          href: "/docs/data-fetching/filter-by-site",
+        },
+      ],
+    },
+    {
       title: "Authentication",
       items: [
         {
@@ -121,47 +121,6 @@ export const docs: DocsConfig = {
         {
           title: "Refresh Token Rotation",
           href: "/docs/authentication/refresh-token",
-        },
-      ],
-    },
-    {
-      title: "Guides",
-      items: [
-        {
-          title: "Query Params",
-          href: "/docs/guides/jsonapi-params",
-        },
-        {
-          title: "TypeScript",
-          href: "/docs/guides/typescript",
-        },
-        {
-          title: "Inline Images",
-          href: "/docs/guides/inline-images",
-        },
-        {
-          title: "Links",
-          href: "/docs/guides/links",
-        },
-        {
-          title: "Route Syncing",
-          href: "/docs/guides/route-syncing",
-        },
-        {
-          title: "Webform",
-          href: "/docs/guides/webform",
-        },
-        {
-          title: "Redirects",
-          href: "/docs/guides/redirects",
-        },
-        {
-          title: "Search API",
-          href: "/docs/guides/search-api",
-        },
-        {
-          title: "On-demand Revalidation",
-          href: "/docs/guides/on-demand-revalidation",
         },
       ],
     },

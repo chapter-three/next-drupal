@@ -9,6 +9,7 @@ export const site: SiteConfig = {
     {
       title: "Get Started",
       href: "/learn/quick-start",
+      activePathNames: ["/learn/[...slug]"],
     },
     {
       title: "Docs",

@@ -2739,7 +2739,7 @@ Object {
   "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
   "links": Object {
     "self": Object {
-      "href": "http://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?resourceVersion=id%3A37",
+      "href": "https://dev-next-drupal-tests.pantheonsite.io/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?resourceVersion=id%3A37",
     },
   },
   "path": Object {

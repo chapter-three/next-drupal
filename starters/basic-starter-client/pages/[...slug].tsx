@@ -66,7 +66,7 @@ export async function getStaticProps(
   )
 
   // At this point, we know the path exists and it points to a resource.
-  // If we receive an error, it means something went wrong on the Drupal.
+  // If we receive an error, it means something went wrong on Drupal.
   // We throw an error to tell revalidation to skip this for now.
   // Revalidation can try again on next request.
   if (!resource) {

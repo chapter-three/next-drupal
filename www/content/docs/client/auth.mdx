@@ -9,11 +9,19 @@ The `DrupalClient` is available in `next-drupal ^1.3.0` as **experimental**.
 
 </Callout>
 
-The `DrupalClient` uses the `client_credentials` grant to authentication and authorization calls with Drupal. This is handled on the Drupal side using the [Simple OAuth](https://drupal.org/project/simple_oauth) module.
+The `DrupalClient` works with several auth types. You can use **Bearer** (`client_credentials`), **Basic** or bring your own authorization headers.
 
-### Default
+---
+
+## Bearer
 
 To configure authentication, provide a `client_id` and `client_secret` as options.
+
+<Callout icon="⚠️">
+
+You need to enable the `simple_oauth` module on Drupal.
+
+</Callout>
 
 ```ts title=lib/drupal.ts
 import { Experiment_DrupalClient as DrupalClient } from "next-drupal"
@@ -48,7 +56,9 @@ export const drupal = new DrupalClient(
 )
 ```
 
-### Basic
+---
+
+## Basic
 
 You can also use the basic authorization header as follows:
 
@@ -73,7 +83,9 @@ export const drupal = new DrupalClient(
 )
 ```
 
-### Callback
+---
+
+## Callback
 
 You can also provide a custom callback for authentication. The callback must return an `Authorization` compatible header.
 
@@ -84,7 +96,7 @@ export const drupal = new DrupalClient(
   process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
   {
     auth: () => {
-      // Do something.
+      // Do something and return an Authorization header.
     },
   }
 )

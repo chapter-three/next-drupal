@@ -17,7 +17,7 @@ You can provide your own using the [`fetcher`](/docs/client/configuration#fetche
 
 Here's how you can replace the default fetcher with [cross-fetch](https://github.com/lquixada/cross-fetch).
 
-<Callout icon="⚠️">
+<Callout>
 
 We're using **cross-fetch** instead of **node-fetch** because it is compatible with the built-in fetch and uses the same signature.
 
@@ -27,7 +27,7 @@ We're using **cross-fetch** instead of **node-fetch** because it is compatible w
 import { Experiment_DrupalClient as DrupalClient } from "next-drupal"
 import crossFetch from "cross-fetch"
 
-const fetcher = (url, options) => {
+const customFetcher = (url, options) => {
   const { withAuth, ...opts } = options
 
   if (withAuth) {
@@ -44,7 +44,7 @@ const fetcher = (url, options) => {
 export const drupal = new DrupalClient(
   process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
   {
-    fetcher,
+    fetcher: customFetcher,
   }
 )
 ```

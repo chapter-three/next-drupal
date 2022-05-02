@@ -3,7 +3,7 @@ import { useHydrate } from "next-mdx/client"
 import { getTableOfContents, TableOfContents } from "next-mdx-toc"
 
 import { Guide } from "types"
-import { guides } from "config/guides"
+import { guidesConfig } from "config/guides"
 import { Layout } from "components/layout"
 import { SidebarNav } from "components/sidebar-nav"
 import { Pager } from "components/pager"
@@ -27,7 +27,7 @@ export default function GuidesPage({ guide, toc }: GuidesPageProps) {
     >
       <div className="container px-6 mx-auto md:gap-10 xl:gap-10 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-4 lg:grid xl:px-8">
         <aside className="hidden col-span-2 py-10 pr-4 border-r xl:col-span-1 lg:flex">
-          <SidebarNav items={guides.links} />
+          <SidebarNav items={guidesConfig.links} />
         </aside>
         <div className="items-start col-span-4 gap-12 pb-10 xl:col-span-3 xl:grid xl:grid-cols-3 xl:gap-24">
           <div className="col-span-2 pt-4 sm:pt-6 md:pt-10 GuideSearch-content main-content">
@@ -41,7 +41,7 @@ export default function GuidesPage({ guide, toc }: GuidesPageProps) {
             ) : null}
             <hr className="my-6" />
             {content}
-            <Pager links={guides.links} />
+            <Pager links={guidesConfig.links} />
           </div>
           <aside className="sticky top-0 hidden pt-10 xl:block">
             {toc.items?.length && (

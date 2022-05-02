@@ -7,7 +7,7 @@ import { DocSearch } from "@docsearch/react"
 import "@docsearch/css"
 
 import { site } from "config/site"
-import { docs } from "config/docs"
+import { docsConfig } from "config/docs"
 import { SidebarNav } from "components/sidebar-nav"
 
 interface LayoutProps {
@@ -117,7 +117,7 @@ export function Layout({
             )
           })}
         </ul>
-        <SidebarNav items={docs.links} />
+        <SidebarNav items={docsConfig.links} />
       </div>
       <div className="flex flex-col min-h-screen">
         <header
@@ -174,11 +174,9 @@ export function Layout({
                 </a>
               </Link>
             </div>
-
             <div className="flex items-center flex-1 sm:ml-4 md:flex-initial">
               <div className="flex-grow hidden grid-flow-col gap-6 mr-4 lg:grid lg:mr-8 lg:gap-8 auto-cols-max">
                 {site.links.map((link) => {
-                  console.log(pathname)
                   const isActive =
                     pathname === link.href ||
                     link.activePathNames?.includes(pathname)
@@ -209,7 +207,7 @@ export function Layout({
                   href={`https://github.com/${site.social.github}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex"
+                  className="flex transition-colors hover:text-primary"
                 >
                   <span className="sr-only">GitHub</span>
                   <svg
@@ -225,7 +223,7 @@ export function Layout({
                   href={`https://drupal.org/project/next`}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex"
+                  className="flex transition-colors hover:text-primary"
                 >
                   <span className="sr-only">Drupal</span>
                   <svg
@@ -240,7 +238,7 @@ export function Layout({
                   href={`https://drupal.slack.com/archives/C01E36BMU72`}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex"
+                  className="flex transition-colors hover:text-primary"
                 >
                   <span className="sr-only">Slack</span>
                   <svg

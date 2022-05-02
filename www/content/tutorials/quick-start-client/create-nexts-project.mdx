@@ -22,9 +22,12 @@ npx create-next-app -e https://github.com/chapter-three/next-drupal-basic-starte
 To connect the Next.js project to Drupal, we use [environment variables](https://nextjs.org/docs/basic-features/environment-variables).
 
 1. Copy `.env.example` to `.env.local`.
-2. On the **Drupal site**, visit _/admin/config/services/next_.
-3. Click **Environment variables**.
-4. Copy and paste the values into the `.env.local` file created above.
+2. Fill in the following **Environment variables**:
+
+```txt title=.env.local
+NEXT_PUBLIC_DRUPAL_BASE_URL=http://example.com
+NEXT_IMAGE_DOMAIN=example
+```
 
 ## Start Development Server
 

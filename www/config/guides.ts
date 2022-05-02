@@ -1,6 +1,6 @@
 import { GuidesConfig } from "types"
 
-export const guides: GuidesConfig = {
+export const guidesConfig: GuidesConfig = {
   links: [
     {
       title: "Guides",
@@ -10,7 +10,7 @@ export const guides: GuidesConfig = {
           href: "/guides",
         },
         {
-          title: "Query Params",
+          title: "JSON:API Params",
           href: "/guides/jsonapi-params",
         },
         {

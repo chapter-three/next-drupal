@@ -1,8 +1,9 @@
 import { getAllMdxNodes } from "next-mdx/server"
+import Link from "next/link"
 
 import { Guide } from "types"
+import { guidesConfig } from "config/guides"
 import { Layout } from "components/layout"
-import Link from "next/link"
 
 export interface GuidesPageProps {
   guides: Guide[]
@@ -56,9 +57,17 @@ export default function GuidesPage({ guides }: GuidesPageProps) {
 }
 
 export async function getStaticProps(context) {
+  const guides = await getAllMdxNodes<Guide>("guide", context)
+
+  const titles = guidesConfig.links[0].items.map((link) => link.title)
+
   return {
     props: {
-      guides: await getAllMdxNodes<Guide>("guide", context),
+      guides: guides.sort(
+        (a, b) =>
+          titles.indexOf(a.frontMatter.title) -
+          titles.indexOf(b.frontMatter.title)
+      ),
     },
   }
 }

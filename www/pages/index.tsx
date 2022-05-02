@@ -44,7 +44,7 @@ export default function IndexPage({ features }: IndexPageProps) {
           </p>
           <div className="flex flex-col items-center justify-center py-4 sm:flex-row md:py-8 lg:py-10">
             <Link href="/learn/quick-start" passHref>
-              <a className="w-2/3 px-8 py-2 font-semibold text-center text-white transition-all bg-[#CA4E00] border-2 border-[#CA4E00] rounded-md sm:w-auto hover:bg-[#CA4E00] hover:border-[#CA4E00]">
+              <a className="w-2/3 px-8 py-2 font-semibold text-center text-white transition-all border-2 rounded-md bg-primary border-primary sm:w-auto hover:bg-primary hover:border-primary">
                 Get Started
               </a>
             </Link>
@@ -154,13 +154,13 @@ export default function IndexPage({ features }: IndexPageProps) {
                   className={classNames(
                     "px-6 md:px-4 py-4 bg-white rounded-md w-full text-left block transition-all group",
                     {
-                      "md:shadow-lg text-[#CA4E00]":
+                      "md:shadow-lg text-primary":
                         selectedFeature.hash === feature.hash,
                     }
                   )}
                   onClick={() => setSelectedFeature(feature)}
                 >
-                  <h3 className="font-bold transition-all group-hover:text-[#CA4E00]">
+                  <h3 className="font-bold transition-all group-hover:text-primary">
                     {feature.frontMatter.title}
                   </h3>
                   <p className="text-sm text-gray-700">

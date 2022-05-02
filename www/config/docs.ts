@@ -1,6 +1,6 @@
 import { DocsConfig } from "types"
 
-export const docs: DocsConfig = {
+export const docsConfig: DocsConfig = {
   links: [
     {
       title: "Getting Started",

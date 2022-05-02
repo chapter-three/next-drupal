@@ -3,7 +3,7 @@ title: Search API
 excerpt: Implement search using Drupal Search API.
 ---
 
-<Callout icon="⚠️">
+<Callout>
 
 You need to install the [JSON:API Search API](https://www.drupal.org/project/jsonapi_search_api) module to query your Search API indexes.
 
@@ -22,7 +22,7 @@ composer require drupal/search_api drupal/facets
 
 For every index created, a **facet source** is available. You can use this source to create filters.
 
-4. Visit _/admin/config/search/facets_ and click on **Add facet**.
+4. Visit `/admin/config/search/facets` and click on **Add facet**.
 5. Under **Facet source**, select the server created above. For **Field**, select the field to filter on. Save.
 6. Next, edit the facet and make sure **JSON:API Search API** is selected under widget.
 7. You can now make queries to your indexes via JSON:API.

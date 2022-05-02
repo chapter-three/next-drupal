@@ -3,7 +3,7 @@ title: Inline Images
 excerpt: Using Next.js Image component for inline images and media entities in body fields.
 ---
 
-To replace inline images and media entities added via a WYSIWYG editor, we can use an html parser
+To handle inline images and media entities added via a WYSIWYG editor, we can use an html parser
 to replace the `img` tags with the Next.js `Image` component.
 
 ## Dependencies
@@ -26,6 +26,7 @@ import Image from "next/image"
 
 const options: HTMLReactParserOptions = {
   replace: (domNode) => {
+    // Look for an img tag and replace it with Image.
     if (domNode instanceof Element && domNode.name === "img") {
       const { src, alt, width, height } = domNode.attribs
 

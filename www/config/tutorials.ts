@@ -7,4 +7,8 @@ export const tutorialsConfig = [
     title: "Quick Start (DrupalClient)",
     items: [],
   },
+  {
+    title: "Preview Mode (DrupalClient)",
+    items: [],
+  },
 ]

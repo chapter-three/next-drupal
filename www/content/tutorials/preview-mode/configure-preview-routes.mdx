@@ -1,0 +1,40 @@
+---
+title: Configure Preview Routes
+excerpt: Preview routes in Next.js
+weight: 140
+group: Preview Mode (DrupalClient)
+---
+
+<Callout>
+
+If you're using the Basic Starter, preview routes are already configure for you.
+
+</Callout>
+
+To implement preview mode:
+
+1. Set a `previewSecret` on the `DrupalClient`. This is the same secret used when creating your site on Drupal.
+2. Implement preview mode using two API routes.
+
+```ts title=pages/api/preview.ts
+import { NextApiRequest, NextApiResponse } from "next"
+
+import { drupal } from "lib/drupal"
+
+export default async function handler(
+  request: NextApiRequest,
+  response: NextApiResponse
+) {
+  return await drupal.preview(request, response)
+}
+```
+
+```ts title=pages/api/exit-preview.ts
+import { NextApiResponse } from "next"
+
+export default function exit(_, response: NextApiResponse) {
+  response.clearPreviewData()
+  response.writeHead(307, { Location: "/" })
+  response.end()
+}
+```

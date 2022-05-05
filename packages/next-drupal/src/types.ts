@@ -67,6 +67,17 @@ export type Experiment_DrupalClientOptions = {
    * [Documentation](https://next-drupal.org/docs/client/configuration#cache)
    */
   cache?: DataCache
+
+  /**
+   * If set to true, JSON:API errors are thrown in non-production environments. The errors are shown in the Next.js overlay.
+   *
+   * **Default value**: `true`
+   * **Required**: *No*
+   *
+   * [Documentation](https://next-drupal.org/docs/client/configuration#throwjsonapierrors)
+   */
+  throwJsonApiErrors?: boolean
+
   /**
    * Override the default logger. You can use this to send logs to a third-party service.
    *

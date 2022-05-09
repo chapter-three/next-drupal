@@ -54,6 +54,8 @@ export class Experiment_DrupalClient {
 
   private cache: Experiment_DrupalClientOptions["cache"]
 
+  private throwJsonApiErrors?: Experiment_DrupalClientOptions["throwJsonApiErrors"]
+
   private logger: Experiment_DrupalClientOptions["logger"]
 
   private fetcher?: Experiment_DrupalClientOptions["fetcher"]
@@ -106,6 +108,7 @@ export class Experiment_DrupalClient {
       previewSecret,
       accessToken,
       forceIframeSameSiteCookie = false,
+      throwJsonApiErrors = true,
     } = options
 
     this.baseUrl = baseUrl
@@ -123,6 +126,12 @@ export class Experiment_DrupalClient {
     this.cache = cache
     this.accessToken = accessToken
     this.forceIframeSameSiteCookie = forceIframeSameSiteCookie
+    this.throwJsonApiErrors = throwJsonApiErrors
+
+    // Do not throw errors in production.
+    if (process.env.NODE_ENV === "production") {
+      this.throwJsonApiErrors = false
+    }
 
     this._debug("Debug mode is on.")
   }
@@ -208,16 +217,9 @@ export class Experiment_DrupalClient {
 
     const message = await this.formatErrorResponse(response)
 
-    // Only throw errors in development
-    if (process.env.NODE_ENV !== "production") {
-      throw new Error(message)
-    } else {
-      if (this.debug) {
-        this.logger.error(message)
-      }
+    this.throwError(new Error(message))
 
-      return null
-    }
+    return null
   }
 
   async getResource<T extends JsonApiResource>(
@@ -437,7 +439,7 @@ export class Experiment_DrupalClient {
       if (json?.router?.body) {
         const error = JSON.parse(json.router.body)
         if (error?.message) {
-          throw new Error(error.message)
+          this.throwError(new Error(error.message))
         }
       }
 
@@ -447,7 +449,7 @@ export class Experiment_DrupalClient {
     const data = JSON.parse(json["resolvedResource#uri{0}"]?.body)
 
     if (data.errors) {
-      throw new Error(this.formatJsonApiErrors(data.errors))
+      this.throwError(new Error(this.formatJsonApiErrors(data.errors)))
     }
 
     return options.deserialize ? this.deserialize(data) : data
@@ -727,8 +729,12 @@ export class Experiment_DrupalClient {
 
       return await response.json()
     } catch (error) {
-      throw new Error(
-        `Failed to fetch JSON:API index at ${url.toString()} - ${error.message}`
+      this.throwError(
+        new Error(
+          `Failed to fetch JSON:API index at ${url.toString()} - ${
+            error.message
+          }`
+        )
       )
     }
   }
@@ -778,15 +784,15 @@ export class Experiment_DrupalClient {
       request.query
 
     if (secret !== this.previewSecret) {
-      return response.status(401).json({
-        message: options?.errorMessages.secret || "Invalid preview secret.",
-      })
+      return response
+        .status(401)
+        .json(options?.errorMessages.secret || "Invalid preview secret.")
     }
 
     if (!slug) {
       return response
         .status(401)
-        .end({ message: options?.errorMessages.slug || "Invalid slug." })
+        .end(options?.errorMessages.slug || "Invalid slug.")
     }
 
     let _options: GetResourcePreviewUrlOptions = {
@@ -809,20 +815,29 @@ export class Experiment_DrupalClient {
       ..._options,
     })
 
-    if (!entity || !entity?.path) {
-      throw new Error(
-        `The path attribute is missing for entity with slug ${slug}`
-      )
+    const missingEntityErrorMessage = `The entity with slug ${slug} coud not be found. If the entity exists on your Drupal site, make sure the proper permissions are configured so that Next.js can access it.`
+    const missingPathAliasErrorMessage = `The path alias is missing for entity with slug ${slug}.`
+
+    if (!entity) {
+      this.throwError(new Error(missingEntityErrorMessage))
+
+      return response.status(404).end(missingEntityErrorMessage)
     }
 
-    const url = entity?.default_langcode
-      ? entity.path.alias
+    if (!entity?.path?.alias) {
+      this.throwError(new Error(missingPathAliasErrorMessage))
+
+      return response.status(404).end(missingPathAliasErrorMessage)
+    }
+
+    const url = entity.default_langcode
+      ? entity?.path.alias
       : `/${entity.path.langcode}${entity.path.alias}`
 
     if (!url) {
-      response
+      return response
         .status(404)
-        .end({ message: options?.errorMessages.slug || "Invalid slug" })
+        .end(options?.errorMessages.slug || "Invalid slug")
     }
 
     response.setPreviewData({
@@ -1071,7 +1086,7 @@ export class Experiment_DrupalClient {
     })
 
     if (!response?.ok) {
-      throw new Error(response?.statusText)
+      this.throwError(new Error(response?.statusText))
     }
 
     const result: AccessToken = await response.json()
@@ -1125,5 +1140,17 @@ export class Experiment_DrupalClient {
 
   private _debug(message) {
     !!this.debug && this.logger.debug(message)
+  }
+
+  // Error handling.
+  // If throwErrors is enable, we show errors in the Next.js overlay.
+  // Otherwise we log the errors even if debugging is turned off.
+  // In production, errors are always logged never thrown.
+  private throwError(error: Error) {
+    if (!this.throwJsonApiErrors) {
+      return this.logger.error(error)
+    }
+
+    throw error
   }
 }

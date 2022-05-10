@@ -93,9 +93,7 @@ export type Experiment_DrupalClientOptions = {
    *
    * [Documentation](https://next-drupal.org/docs/client/configuration#auth)
    */
-  auth?:
-    | { clientId: string; clientSecret: string; url?: string }
-    | (() => string)
+  auth?: DrupalClientAuth
 
   /**
    * Set whether the client should use authenticated requests by default.
@@ -148,6 +146,23 @@ export type Experiment_DrupalClientOptions = {
   forceIframeSameSiteCookie?: boolean
 }
 
+export type DrupalClientAuth =
+  | DrupalClientAuthClientIdSecret
+  | DrupalClientAuthUsernamePassword
+  | (() => string)
+  | string
+
+export interface DrupalClientAuthUsernamePassword {
+  username: string
+  password: string
+}
+
+export interface DrupalClientAuthClientIdSecret {
+  clientId: string
+  clientSecret: string
+  url?: string
+}
+
 export interface Logger {
   log(message): void
 
@@ -191,7 +206,7 @@ export type JsonApiWithLocaleOptions = JsonApiOptions &
   )
 
 export type JsonApiWithAuthOptions = {
-  withAuth?: boolean
+  withAuth?: boolean | DrupalClientAuth
 }
 
 export type JsonApiWithCacheOptions = {
@@ -275,7 +290,7 @@ export interface DataCache {
 }
 
 export interface FetchOptions extends RequestInit {
-  withAuth?: boolean
+  withAuth?: boolean | DrupalClientAuth
 }
 
 export interface DrupalSearchApiFacet {

@@ -11,7 +11,7 @@ import type {
 
 // Run all tests against this env until we configure CI to setup a Drupal instance.
 // TODO: Bootstrap and expose the /drupal env for testing.
-const BASE_URL = "https://dev-next-drupal-tests.pantheonsite.io"
+const BASE_URL = process.env.DRUPAL_BASE_URL
 
 afterEach(() => {
   jest.restoreAllMocks()
@@ -67,7 +67,30 @@ describe("DrupalClient", () => {
 })
 
 describe("auth", () => {
-  test("it accepts custom auth", async () => {
+  test("it accepts username and password for auth", async () => {
+    const customFetch = jest.fn()
+
+    const client = new DrupalClient(BASE_URL, {
+      auth: {
+        username: "admin",
+        password: "password",
+      },
+      fetcher: customFetch,
+    })
+    const url = client.buildUrl("/jsonapi").toString()
+
+    await client.fetch(url, { withAuth: true })
+    expect(customFetch).toHaveBeenCalledWith(url, {
+      headers: {
+        "Content-Type": "application/vnd.api+json",
+        Accept: "application/vnd.api+json",
+        Authorization: "Basic YWRtaW46cGFzc3dvcmQ=",
+      },
+      withAuth: true,
+    })
+  })
+
+  test("it accepts callback for auth", async () => {
     const customAuth = jest
       .fn()
       .mockReturnValue("Basic YXJzaGFkQG5leHQtZHJ1cGFsLm9yZzphYmMxMjM=")
@@ -88,6 +111,38 @@ describe("auth", () => {
       },
       withAuth: true,
     })
+  })
+
+  test("it accepts clientId and clientSecret for auth", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      auth: {
+        clientId: "7795065e-8ad0-45eb-a64d-73d9f3a5e943",
+        clientSecret: "d92Fm^ds",
+      },
+    })
+    const fetchSpy = jest
+      .spyOn(global, "fetch")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+        ) as jest.Mock
+      )
+
+    const basic = Buffer.from(
+      `7795065e-8ad0-45eb-a64d-73d9f3a5e943:d92Fm^ds`
+    ).toString("base64")
+
+    await client.fetch("http://example.com", { withAuth: true })
+    expect(fetchSpy).toHaveBeenNthCalledWith(
+      1,
+      `${BASE_URL}/oauth/token`,
+      expect.objectContaining({
+        headers: {
+          Authorization: `Basic ${basic}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
+    )
   })
 
   test("it accepts custom auth url", async () => {
@@ -137,6 +192,32 @@ describe("auth", () => {
       }
     }).toThrow(
       "'clientId' and 'clientSecret' are required for auth. See https://next-drupal.org/docs/client/auth"
+    )
+
+    expect(
+      () =>
+        new DrupalClient(BASE_URL, {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          auth: {
+            username: "admin",
+          },
+        })
+    ).toThrow(
+      "'username' and 'password' are required for auth. See https://next-drupal.org/docs/client/auth"
+    )
+
+    expect(
+      () =>
+        new DrupalClient(BASE_URL, {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          auth: {
+            password: "password",
+          },
+        })
+    ).toThrow(
+      "'username' and 'password' are required for auth. See https://next-drupal.org/docs/client/auth"
     )
   })
 })

@@ -29,6 +29,7 @@ import type {
   JsonApiWithCacheOptions,
   JsonApiCreateResourceBody,
   JsonApiUpdateResourceBody,
+  DrupalClientAuthUsernamePassword,
 } from "./types"
 import { logger as defaultLogger } from "./logger"
 
@@ -43,6 +44,15 @@ const DEFAULT_AUTH_URL = "/oauth/token"
 const DEFAULT_HEADERS = {
   "Content-Type": "application/vnd.api+json",
   Accept: "application/vnd.api+json",
+}
+
+function isBasicAuth(
+  auth: Experiment_DrupalClientOptions["auth"]
+): auth is DrupalClientAuthUsernamePassword {
+  return (
+    (auth as DrupalClientAuthUsernamePassword).username !== undefined ||
+    (auth as DrupalClientAuthUsernamePassword).password !== undefined
+  )
 }
 
 export class Experiment_DrupalClient {
@@ -148,7 +158,13 @@ export class Experiment_DrupalClient {
 
   set auth(auth: Experiment_DrupalClientOptions["auth"]) {
     if (typeof auth === "object") {
-      if (!auth.clientId || !auth.clientSecret) {
+      if (isBasicAuth(auth)) {
+        if (!auth.username || !auth.password) {
+          throw new Error(
+            `'username' and 'password' are required for auth. See https://next-drupal.org/docs/client/auth`
+          )
+        }
+      } else if (!auth.clientId || !auth.clientSecret) {
         throw new Error(
           `'clientId' and 'clientSecret' are required for auth. See https://next-drupal.org/docs/client/auth`
         )
@@ -182,18 +198,56 @@ export class Experiment_DrupalClient {
       },
     }
 
+    // Using the auth set on the client.
+    // TODO: Abstract this to a re-usable.
     if (init?.withAuth) {
       this._debug(`Using authenticated request.`)
 
-      // If a custom auth is provided, use that.
-      if (typeof this._auth === "function") {
-        this._debug(`Using custom auth.`)
+      if (init.withAuth === true) {
+        // By default, if withAuth is set to true, we use the auth configured
+        // in the client constructor.
+        if (typeof this._auth === "function") {
+          this._debug(`Using custom auth callback.`)
 
-        init["headers"]["Authorization"] = this._auth()
+          init["headers"]["Authorization"] = this._auth()
+        } else if (typeof this._auth === "object") {
+          this._debug(`Using custom auth credentials.`)
+
+          if (isBasicAuth(this._auth)) {
+            const basic = Buffer.from(
+              `${this._auth.username}:${this._auth.password}`
+            ).toString("base64")
+
+            init["headers"]["Authorization"] = `Basic ${basic}`
+          } else {
+            // Use the built-in client_credentials grant.
+            this._debug(`Using default auth (client_credentials).`)
+
+            // Fetch an access token and add it to the request.
+            // Access token can be fetched from cache or using a custom auth method.
+            const token = await this.getAccessToken()
+            if (token) {
+              init["headers"]["Authorization"] = `Bearer ${token.access_token}`
+            }
+          }
+        }
+      } else if (typeof init.withAuth === "string") {
+        this._debug(`Using custom authorization header.`)
+
+        init["headers"]["Authorization"] = init.withAuth
+      } else if (typeof init.withAuth === "function") {
+        this._debug(`Using custom authorization callback.`)
+
+        init["headers"]["Authorization"] = init.withAuth()
+      } else if (isBasicAuth(init.withAuth)) {
+        this._debug(`Using basic authorization header`)
+
+        const basic = Buffer.from(
+          `${init.withAuth.username}:${init.withAuth.password}`
+        ).toString("base64")
+
+        init["headers"]["Authorization"] = `Basic ${basic}`
       } else {
-        // Otherwise use the built-in client_credentials grant.
-        this._debug(`Using default auth (client_credentials).`)
-
         // Fetch an access token and add it to the request.
         // Access token can be fetched from cache or using a custom auth method.
         const token = await this.getAccessToken()
@@ -1156,18 +1210,23 @@ export class Experiment_DrupalClient {
       return this.accessToken
     }
 
-    if (typeof this._auth !== "object") {
+    if (typeof this._auth === "undefined") {
       throw new Error(
         "auth is not configured. See https://next-drupal.org/docs/client/auth"
       )
     }
 
-    if (!this._auth.clientId || !this._auth.clientSecret) {
+    if (
+      typeof this._auth === "string" ||
+      typeof this._auth === "function" ||
+      isBasicAuth(this._auth) ||
+      !this._auth.clientId ||
+      !this._auth.clientSecret
+    ) {
       throw new Error(
         `'clientId' and 'clientSecret' required. See https://next-drupal.org/docs/client/auth`
       )
     }
-
     if (this._token && Date.now() < this.tokenExpiresOn) {
       this._debug(`Using existing access token.`)
       return this._token

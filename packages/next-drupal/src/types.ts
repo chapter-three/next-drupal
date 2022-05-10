@@ -249,21 +249,28 @@ export interface JsonApiResponse extends Record<string, any> {
   included?: Record<string, any>[]
 }
 
+export interface JsonApiResourceBodyRelationship {
+  data: {
+    type: string
+    id: string
+  }
+}
+
 export interface JsonApiCreateResourceBody {
   data: {
     type?: string
-    attributes: Record<string, any>
+    attributes?: Record<string, any>
+    relationships?: Record<string, JsonApiResourceBodyRelationship>
   }
-  relationships?: Record<string, any>
 }
 
 export interface JsonApiUpdateResourceBody {
   data: {
     type?: string
     id?: string
-    attributes: Record<string, any>
+    attributes?: Record<string, any>
+    relationships?: Record<string, JsonApiResourceBodyRelationship>
   }
-  relationships?: Record<string, any>
 }
 
 export interface JsonApiSearchApiResponse extends JsonApiResponse {

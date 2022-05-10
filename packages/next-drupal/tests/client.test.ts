@@ -17,6 +17,38 @@ afterEach(() => {
   jest.restoreAllMocks()
 })
 
+afterAll(async () => {
+  // Clean up all test resources.
+  const client = new DrupalClient(BASE_URL, {
+    auth: {
+      username: process.env.DRUPAL_USERNAME,
+      password: process.env.DRUPAL_PASSWORD,
+    },
+  })
+
+  const testArticles = await client.getResourceCollection<DrupalNode[]>(
+    "node--article",
+    {
+      params: {
+        "filter[title][operator]": "STARTS_WITH",
+        "filter[title][value]": "TEST",
+        "filter[langcode]": "en",
+        "fields[node--article]": "id",
+      },
+      withAuth: true,
+    }
+  )
+
+  await Promise.all(
+    testArticles.map(
+      async (article) =>
+        await client.deleteResource("node--article", article.id, {
+          withAuth: true,
+        })
+    )
+  )
+})
+
 describe("DrupalClient", () => {
   test("it properly constructs a DrupalClient", () => {
     expect(new DrupalClient(BASE_URL)).toBeInstanceOf(DrupalClient)
@@ -2357,7 +2389,7 @@ describe("createResource", () => {
       {
         data: {
           attributes: {
-            title: "TEST: New article",
+            title: "TEST New article",
           },
         },
       },
@@ -2370,7 +2402,73 @@ describe("createResource", () => {
     )
 
     expect(article.id).not.toBeNull()
-    expect(article.title).toEqual("TEST: New article")
+    expect(article.title).toEqual("TEST New article")
+  })
+
+  test("it creates a resource with a relationship", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      auth: {
+        username: process.env.DRUPAL_USERNAME,
+        password: process.env.DRUPAL_PASSWORD,
+      },
+    })
+
+    // Find an image media.
+    const [mediaImage] = await client.getResourceCollection("media--image", {
+      params: {
+        "page[limit]": 1,
+        "filter[status]": 1,
+        "fields[media--image]": "name",
+      },
+    })
+
+    const article = await client.createResource(
+      "node--article",
+      {
+        data: {
+          attributes: {
+            title: "TEST: Article with media image",
+          },
+          relationships: {
+            field_media_image: {
+              data: {
+                type: "media--image",
+                id: mediaImage.id,
+              },
+            },
+          },
+        },
+      },
+      {
+        params: {
+          "fields[node--article]": "title,field_media_image",
+          include: "field_media_image",
+        },
+      }
+    )
+
+    expect(article.field_media_image.id).toEqual(mediaImage.id)
+    expect(article.field_media_image.name).toEqual(mediaImage.name)
+  })
+
+  it("creates a localized resource", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      auth: {
+        username: process.env.DRUPAL_USERNAME,
+        password: process.env.DRUPAL_PASSWORD,
+      },
+    })
+
+    const article = await client.createResource("node--article", {
+      data: {
+        attributes: {
+          title: "TEST Article in spanish",
+          langcode: "es",
+        },
+      },
+    })
+
+    expect(article.langcode).toEqual("es")
   })
 })
 
@@ -2387,7 +2485,7 @@ describe("updateResource", () => {
       {
         data: {
           attributes: {
-            title: "TEST: New article",
+            title: "TEST New article",
           },
         },
       },
@@ -2402,7 +2500,7 @@ describe("updateResource", () => {
       {
         data: {
           attributes: {
-            title: "TEST: New article updated",
+            title: "TEST New article updated",
           },
         },
       },
@@ -2412,20 +2510,49 @@ describe("updateResource", () => {
     )
 
     expect(article.id).toEqual(updatedArticle.id)
-    expect(updatedArticle.title).toEqual("TEST: New article updated")
+    expect(updatedArticle.title).toEqual("TEST New article updated")
   })
-})
 
-describe("deleteResource", () => {
-  test("it deletes a resource", async () => {
-    const client = new DrupalClient(BASE_URL)
+  test("it updates a resource with a relationship", async () => {
+    const basic = Buffer.from(
+      `${process.env.DRUPAL_USERNAME}:${process.env.DRUPAL_PASSWORD}`
+    ).toString("base64")
 
-    const article = await client.createResource<DrupalNode>(
+    const client = new DrupalClient(BASE_URL, {
+      auth: `Basic ${basic}`,
+    })
+
+    // Create an article.
+    const article = await client.createResource<DrupalNode>("node--article", {
+      data: {
+        attributes: {
+          title: "TEST New article",
+        },
+      },
+    })
+
+    // Find an image media.
+    const [mediaImage] = await client.getResourceCollection("media--image", {
+      params: {
+        "page[limit]": 1,
+        "filter[status]": 1,
+        "fields[media--image]": "name",
+      },
+    })
+
+    // Attach the media image to the article.
+    const updatedArticle = await client.updateResource(
       "node--article",
+      article.id,
       {
         data: {
-          attributes: {
-            title: "TEST: New article",
+          relationships: {
+            field_media_image: {
+              data: {
+                type: "media--image",
+                id: mediaImage.id,
+              },
+            },
           },
         },
       },
@@ -2434,15 +2561,37 @@ describe("deleteResource", () => {
           username: process.env.DRUPAL_USERNAME,
           password: process.env.DRUPAL_PASSWORD,
         },
+        params: {
+          "fields[node--article]": "title,field_media_image",
+          include: "field_media_image",
+        },
       }
     )
 
-    const deleted = await client.deleteResource("node--article", article.id, {
-      withAuth: {
+    expect(updatedArticle.id).toEqual(article.id)
+    expect(updatedArticle.field_media_image.id).toEqual(mediaImage.id)
+    expect(updatedArticle.field_media_image.name).toEqual(mediaImage.name)
+  })
+})
+
+describe("deleteResource", () => {
+  test("it deletes a resource", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      auth: {
         username: process.env.DRUPAL_USERNAME,
         password: process.env.DRUPAL_PASSWORD,
       },
     })
+
+    const article = await client.createResource<DrupalNode>("node--article", {
+      data: {
+        attributes: {
+          title: "TEST New article",
+        },
+      },
+    })
+
+    const deleted = await client.deleteResource("node--article", article.id)
 
     expect(deleted).toBe(true)
 

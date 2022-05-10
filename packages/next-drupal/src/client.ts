@@ -204,12 +204,22 @@ export class Experiment_DrupalClient {
       this._debug(`Using authenticated request.`)
 
       if (init.withAuth === true) {
+        if (typeof this._auth === "undefined") {
+          throw new Error(
+            "auth is not configured. See https://next-drupal.org/docs/client/auth"
+          )
+        }
+
         // By default, if withAuth is set to true, we use the auth configured
         // in the client constructor.
         if (typeof this._auth === "function") {
           this._debug(`Using custom auth callback.`)
 
           init["headers"]["Authorization"] = this._auth()
+        } else if (typeof this._auth === "string") {
+          this._debug(`Using custom authorization header.`)
+
+          init["headers"]["Authorization"] = this._auth
         } else if (typeof this._auth === "object") {
           this._debug(`Using custom auth credentials.`)
 
@@ -285,7 +295,7 @@ export class Experiment_DrupalClient {
   ): Promise<T> {
     options = {
       deserialize: true,
-      withAuth: this.withAuth,
+      withAuth: true,
       ...options,
     }
 
@@ -321,7 +331,7 @@ export class Experiment_DrupalClient {
   ): Promise<T> {
     options = {
       deserialize: true,
-      withAuth: this.withAuth,
+      withAuth: true,
       ...options,
     }
 
@@ -356,7 +366,7 @@ export class Experiment_DrupalClient {
     options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
   ): Promise<boolean> {
     options = {
-      withAuth: this.withAuth,
+      withAuth: true,
       params: {},
       ...options,
     }
@@ -633,6 +643,9 @@ export class Experiment_DrupalClient {
     const url = this.buildUrl(apiPath, {
       ...options?.params,
     })
+
+    this._debug(`Fetching resource collection of type ${type}`)
+    this._debug(url.toString())
 
     const response = await this.fetch(url.toString(), {
       withAuth: options.withAuth,

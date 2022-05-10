@@ -234,6 +234,23 @@ export interface JsonApiResponse extends Record<string, any> {
   included?: Record<string, any>[]
 }
 
+export interface JsonApiCreateResourceBody {
+  data: {
+    type?: string
+    attributes: Record<string, any>
+  }
+  relationships?: Record<string, any>
+}
+
+export interface JsonApiUpdateResourceBody {
+  data: {
+    type?: string
+    id?: string
+    attributes: Record<string, any>
+  }
+  relationships?: Record<string, any>
+}
+
 export interface JsonApiSearchApiResponse extends JsonApiResponse {
   meta: JsonApiResponse["meta"] & {
     facets?: DrupalSearchApiFacet[]

@@ -27,6 +27,8 @@ import type {
   PreviewOptions,
   GetResourcePreviewUrlOptions,
   JsonApiWithCacheOptions,
+  JsonApiCreateResourceBody,
+  JsonApiUpdateResourceBody,
 } from "./types"
 import { logger as defaultLogger } from "./logger"
 
@@ -220,6 +222,107 @@ export class Experiment_DrupalClient {
     this.throwError(new Error(message))
 
     return null
+  }
+
+  async createResource<T extends JsonApiResource>(
+    type: string,
+    body: JsonApiCreateResourceBody,
+    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
+  ): Promise<T> {
+    options = {
+      deserialize: true,
+      withAuth: this.withAuth,
+      ...options,
+    }
+
+    const apiPath = await this.getEntryForResourceType(
+      type,
+      options?.locale !== options?.defaultLocale ? options.locale : undefined
+    )
+
+    const url = this.buildUrl(apiPath, options?.params)
+
+    this._debug(`Creating resource of type ${type}.`)
+    this._debug(url.toString())
+
+    // Add type to body.
+    body.data.type = type
+
+    const response = await this.fetch(url.toString(), {
+      method: "POST",
+      body: JSON.stringify(body),
+      withAuth: options.withAuth,
+    })
+
+    const json = await response.json()
+
+    return options.deserialize ? this.deserialize(json) : json
+  }
+
+  async updateResource<T extends JsonApiResource>(
+    type: string,
+    uuid: string,
+    body: JsonApiUpdateResourceBody,
+    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
+  ): Promise<T> {
+    options = {
+      deserialize: true,
+      withAuth: this.withAuth,
+      ...options,
+    }
+
+    const apiPath = await this.getEntryForResourceType(
+      type,
+      options?.locale !== options?.defaultLocale ? options.locale : undefined
+    )
+
+    const url = this.buildUrl(`${apiPath}/${uuid}`, options?.params)
+
+    this._debug(`Updating resource of type ${type} with id ${uuid}.`)
+    this._debug(url.toString())
+
+    // Update body.
+    body.data.type = type
+    body.data.id = uuid
+
+    const response = await this.fetch(url.toString(), {
+      method: "PATCH",
+      body: JSON.stringify(body),
+      withAuth: options.withAuth,
+    })
+
+    const json = await response.json()
+
+    return options.deserialize ? this.deserialize(json) : json
+  }
+
+  async deleteResource(
+    type: string,
+    uuid: string,
+    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
+  ): Promise<boolean> {
+    options = {
+      withAuth: this.withAuth,
+      params: {},
+      ...options,
+    }
+
+    const apiPath = await this.getEntryForResourceType(
+      type,
+      options?.locale !== options?.defaultLocale ? options.locale : undefined
+    )
+
+    const url = this.buildUrl(`${apiPath}/${uuid}`, options?.params)
+
+    this._debug(`Deleting resource of type ${type} with id ${uuid}.`)
+    this._debug(url.toString())
+
+    const response = await this.fetch(url.toString(), {
+      method: "DELETE",
+      withAuth: options.withAuth,
+    })
+
+    return response.status === 204
   }
 
   async getResource<T extends JsonApiResource>(

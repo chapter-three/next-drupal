@@ -2266,3 +2266,109 @@ describe("getSearchIndex", () => {
     )
   })
 })
+
+describe("createResource", () => {
+  test("it creates a resource", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const article = await client.createResource<DrupalNode>(
+      "node--article",
+      {
+        data: {
+          attributes: {
+            title: "TEST: New article",
+          },
+        },
+      },
+      {
+        withAuth: {
+          username: process.env.DRUPAL_USERNAME,
+          password: process.env.DRUPAL_PASSWORD,
+        },
+      }
+    )
+
+    expect(article.id).not.toBeNull()
+    expect(article.title).toEqual("TEST: New article")
+  })
+})
+
+describe("updateResource", () => {
+  test("it updates a resource", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const basic = Buffer.from(
+      `${process.env.DRUPAL_USERNAME}:${process.env.DRUPAL_PASSWORD}`
+    ).toString("base64")
+
+    const article = await client.createResource<DrupalNode>(
+      "node--article",
+      {
+        data: {
+          attributes: {
+            title: "TEST: New article",
+          },
+        },
+      },
+      {
+        withAuth: `Basic ${basic}`,
+      }
+    )
+
+    const updatedArticle = await client.updateResource<DrupalNode>(
+      "node--article",
+      article.id,
+      {
+        data: {
+          attributes: {
+            title: "TEST: New article updated",
+          },
+        },
+      },
+      {
+        withAuth: `Basic ${basic}`,
+      }
+    )
+
+    expect(article.id).toEqual(updatedArticle.id)
+    expect(updatedArticle.title).toEqual("TEST: New article updated")
+  })
+})
+
+describe("deleteResource", () => {
+  test("it deletes a resource", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    const article = await client.createResource<DrupalNode>(
+      "node--article",
+      {
+        data: {
+          attributes: {
+            title: "TEST: New article",
+          },
+        },
+      },
+      {
+        withAuth: {
+          username: process.env.DRUPAL_USERNAME,
+          password: process.env.DRUPAL_PASSWORD,
+        },
+      }
+    )
+
+    const deleted = await client.deleteResource("node--article", article.id, {
+      withAuth: {
+        username: process.env.DRUPAL_USERNAME,
+        password: process.env.DRUPAL_PASSWORD,
+      },
+    })
+
+    expect(deleted).toBe(true)
+
+    await expect(
+      client.getResource("node--article", article.id)
+    ).rejects.toThrow(
+      '404 Not Found\nThe "entity" parameter was not converted for the path "/jsonapi/node/article/{entity}" (route name: "jsonapi.node--article.individual")'
+    )
+  })
+})

@@ -5,6 +5,11 @@ on:
     branches:
       - main
 
+env:
+  DRUPAL_BASE_URL: ${{ secrets.DRUPAL_BASE_URL }}
+  DRUPAL_USERNAME: ${{ secrets.DRUPAL_USERNAME }}
+  DRUPAL_PASSWORD: ${{ secrets.DRUPAL_PASSWORD }}
+
 jobs:
   build:
     runs-on: ubuntu-latest

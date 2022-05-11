@@ -1392,6 +1392,7 @@ describe("getResourceFromContext", () => {
   test("it makes authenticated requests when preview is true", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")

@@ -967,6 +967,7 @@ describe("getResource", () => {
   test("it makes authenticated requests with withAuth option", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")
@@ -1359,6 +1360,7 @@ describe("getResourceFromContext", () => {
   test("it makes authenticated requests with withAuth option", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")
@@ -1478,6 +1480,7 @@ describe("translatePath", () => {
   test("it makes authenticated requests with withAuth option", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")
@@ -1574,6 +1577,7 @@ describe("translatePathFromContext", () => {
   test("it makes authenticated requests with withAuth option", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")
@@ -1681,6 +1685,7 @@ describe("getResourceCollection", () => {
   test("it makes authenticated requests with withAuth option", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")
@@ -1829,6 +1834,7 @@ describe("getResourceCollectionFromContext", () => {
   test("it makes authenticated requests with withAuth option", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")
@@ -1922,6 +1928,7 @@ describe("getStaticPathsFromContext", () => {
   test("it makes authenticated requests with withAuth option", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")
@@ -2123,6 +2130,7 @@ describe("getMenu", () => {
   test("it makes authenticated requests with withAuth option", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")
@@ -2213,6 +2221,7 @@ describe("getView", () => {
   test("it makes authenticated requests with withAuth option", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")
@@ -2322,6 +2331,7 @@ describe("getSearchIndex", () => {
   test("it makes authenticated requests with withAuth option", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")

@@ -30,6 +30,8 @@ import type {
   JsonApiCreateResourceBody,
   JsonApiUpdateResourceBody,
   DrupalClientAuthUsernamePassword,
+  DrupalClientAuthAccessToken,
+  DrupalClientAuthClientIdSecret,
 } from "./types"
 import { logger as defaultLogger } from "./logger"
 
@@ -52,6 +54,21 @@ function isBasicAuth(
   return (
     (auth as DrupalClientAuthUsernamePassword).username !== undefined ||
     (auth as DrupalClientAuthUsernamePassword).password !== undefined
+  )
+}
+
+function isAccessTokenAuth(
+  auth: Experiment_DrupalClientOptions["auth"]
+): auth is DrupalClientAuthAccessToken {
+  return (auth as DrupalClientAuthAccessToken).access_token !== undefined
+}
+
+function isClientIdSecretAuth(
+  auth: Experiment_DrupalClient["auth"]
+): auth is DrupalClientAuthClientIdSecret {
+  return (
+    (auth as DrupalClientAuthClientIdSecret).clientId !== undefined ||
+    (auth as DrupalClientAuthClientIdSecret).clientSecret !== undefined
   )
 }
 
@@ -164,6 +181,12 @@ export class Experiment_DrupalClient {
             `'username' and 'password' are required for auth. See https://next-drupal.org/docs/client/auth`
           )
         }
+      } else if (isAccessTokenAuth(auth)) {
+        if (!auth.access_token || !auth.token_type) {
+          throw new Error(
+            `'access_token' and 'token_type' are required for auth. See https://next-drupal.org/docs/client/auth`
+          )
+        }
       } else if (!auth.clientId || !auth.clientSecret) {
         throw new Error(
           `'clientId' and 'clientSecret' are required for auth. See https://next-drupal.org/docs/client/auth`
@@ -192,6 +215,7 @@ export class Experiment_DrupalClient {
   async fetch(input: RequestInfo, init?: FetchOptions): Promise<Response> {
     init = {
       ...init,
+      credentials: "include",
       headers: {
         ...this._headers,
         ...init?.headers,
@@ -229,16 +253,20 @@ export class Experiment_DrupalClient {
             ).toString("base64")
 
             init["headers"]["Authorization"] = `Basic ${basic}`
-          } else {
+          } else if (isClientIdSecretAuth(this._auth)) {
             // Use the built-in client_credentials grant.
             this._debug(`Using default auth (client_credentials).`)
 
             // Fetch an access token and add it to the request.
             // Access token can be fetched from cache or using a custom auth method.
-            const token = await this.getAccessToken()
+            const token = await this.getAccessToken(this._auth)
             if (token) {
               init["headers"]["Authorization"] = `Bearer ${token.access_token}`
             }
+          } else if (isAccessTokenAuth(this._auth)) {
+            init["headers"][
+              "Authorization"
+            ] = `${this._auth.token_type} ${this._auth.access_token}`
           }
         }
       } else if (typeof init.withAuth === "string") {
@@ -257,13 +285,17 @@ export class Experiment_DrupalClient {
         ).toString("base64")
 
         init["headers"]["Authorization"] = `Basic ${basic}`
-      } else {
+      } else if (isClientIdSecretAuth(init.withAuth)) {
         // Fetch an access token and add it to the request.
         // Access token can be fetched from cache or using a custom auth method.
-        const token = await this.getAccessToken()
+        const token = await this.getAccessToken(init.withAuth)
         if (token) {
           init["headers"]["Authorization"] = `Bearer ${token.access_token}`
         }
+      } else if (isAccessTokenAuth(init.withAuth)) {
+        init["headers"][
+          "Authorization"
+        ] = `${init.withAuth.token_type} ${init.withAuth.access_token}`
       }
     }
 
@@ -1218,28 +1250,33 @@ export class Experiment_DrupalClient {
     return url
   }
 
-  async getAccessToken(): Promise<AccessToken> {
+  async getAccessToken(opts?: {
+    clientId: string
+    clientSecret: string
+    url?: string
+  }): Promise<AccessToken> {
     if (this.accessToken) {
       return this.accessToken
     }
 
-    if (typeof this._auth === "undefined") {
-      throw new Error(
-        "auth is not configured. See https://next-drupal.org/docs/client/auth"
-      )
+    if (!opts.clientId || !opts.clientSecret) {
+      if (typeof this._auth === "undefined") {
+        throw new Error(
+          "auth is not configured. See https://next-drupal.org/docs/client/auth"
+        )
+      }
     }
 
-    if (
-      typeof this._auth === "string" ||
-      typeof this._auth === "function" ||
-      isBasicAuth(this._auth) ||
-      !this._auth.clientId ||
-      !this._auth.clientSecret
-    ) {
+    if (!isClientIdSecretAuth(this._auth) || !isClientIdSecretAuth(opts)) {
       throw new Error(
         `'clientId' and 'clientSecret' required. See https://next-drupal.org/docs/client/auth`
       )
     }
+
+    const clientId = opts.clientId || this._auth.clientId
+    const clientSecret = opts.clientSecret || this._auth.clientSecret
+    const url = this.buildUrl(opts.url || this._auth.url || DEFAULT_AUTH_URL)
+
     if (this._token && Date.now() < this.tokenExpiresOn) {
       this._debug(`Using existing access token.`)
       return this._token
@@ -1247,11 +1284,9 @@ export class Experiment_DrupalClient {
 
     this._debug(`Fetching new access token.`)
 
-    const basic = Buffer.from(
-      `${this._auth.clientId}:${this._auth.clientSecret}`
-    ).toString("base64")
+    const basic = Buffer.from(`${clientId}:${clientSecret}`).toString("base64")
 
-    const response = await fetch(`${this.baseUrl}${this._auth.url}`, {
+    const response = await fetch(url.toString(), {
       method: "POST",
       headers: {
         Authorization: `Basic ${basic}`,

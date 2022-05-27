@@ -149,6 +149,7 @@ export type Experiment_DrupalClientOptions = {
 export type DrupalClientAuth =
   | DrupalClientAuthClientIdSecret
   | DrupalClientAuthUsernamePassword
+  | DrupalClientAuthAccessToken
   | (() => string)
   | string
 
@@ -162,6 +163,8 @@ export interface DrupalClientAuthClientIdSecret {
   clientSecret: string
   url?: string
 }
+
+export type DrupalClientAuthAccessToken = AccessToken
 
 export interface Logger {
   log(message): void
@@ -367,6 +370,7 @@ export type AccessToken = {
   token_type: string
   expires_in: number
   access_token: string
+  refresh_token?: string
 }
 
 export type PathAlias = {

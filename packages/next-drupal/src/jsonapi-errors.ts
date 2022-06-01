@@ -9,10 +9,11 @@ export class JsonApiErrors extends Error {
 
     this.errors = errors
     this.statusCode = statusCode
+    this.message = JsonApiErrors.formatMessage(errors)
   }
 
-  get message() {
-    const [error] = this.errors
+  private static formatMessage(errors) {
+    const [error] = errors
 
     let message = `${error.status} ${error.title}`
 

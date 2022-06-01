@@ -32,7 +32,7 @@ import type {
   DrupalClientAuthUsernamePassword,
   DrupalClientAuthAccessToken,
   DrupalClientAuthClientIdSecret,
-  JsonApiCreateMediaFileResourceBody,
+  JsonApiCreateFileResourceBody,
 } from "./types"
 import { logger as defaultLogger } from "./logger"
 import { JsonApiErrors } from "./jsonapi-errors"
@@ -351,9 +351,9 @@ export class Experiment_DrupalClient {
     return options.deserialize ? this.deserialize(json) : json
   }
 
-  async createMediaFileResource<T = JsonApiResource>(
+  async createFileResource<T = JsonApiResource>(
     type: string,
-    body: JsonApiCreateMediaFileResourceBody,
+    body: JsonApiCreateFileResourceBody,
     options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
   ): Promise<T> {
     options = {

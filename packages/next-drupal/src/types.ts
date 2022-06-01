@@ -267,9 +267,9 @@ export interface JsonApiCreateResourceBody {
   }
 }
 
-export interface JsonApiCreateMediaFileResourceBody {
+export interface JsonApiCreateFileResourceBody {
   data: {
-    /** The name of the file field on the media entity. Example: field_media_image */
+    /** The name of the file field on the parent entity. Example: field_media_image */
     type: string
     attributes: {
       filename: string

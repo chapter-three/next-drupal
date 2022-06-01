@@ -1,7 +1,7 @@
 import { JsonApiError } from "./types"
 
 export class JsonApiErrors extends Error {
-  errors: JsonApiError[]
+  errors: JsonApiError[] | string
   statusCode: number
 
   constructor(errors: JsonApiError[], statusCode: number) {
@@ -13,6 +13,10 @@ export class JsonApiErrors extends Error {
   }
 
   private static formatMessage(errors) {
+    if (typeof errors === "string") {
+      return errors
+    }
+
     const [error] = errors
 
     let message = `${error.status} ${error.title}`

@@ -216,8 +216,8 @@ export class Experiment_DrupalClient {
   /* eslint-disable @typescript-eslint/no-explicit-any */
   async fetch(input: RequestInfo, init?: FetchOptions): Promise<Response> {
     init = {
-      credentials: "include",
       ...init,
+      credentials: "include",
       headers: {
         ...this._headers,
         ...init?.headers,

@@ -446,13 +446,16 @@ describe("fetch", () => {
         foo: "bar",
       },
     })
-    expect(customFetch).toHaveBeenLastCalledWith(url, {
-      headers: {
-        Accept: "application/vnd.api+json",
-        "Content-Type": "application/vnd.api+json",
-        foo: "bar",
-      },
-    })
+    expect(customFetch).toHaveBeenLastCalledWith(
+      url,
+      expect.objectContaining({
+        headers: {
+          Accept: "application/vnd.api+json",
+          "Content-Type": "application/vnd.api+json",
+          foo: "bar",
+        },
+      })
+    )
   })
 })
 

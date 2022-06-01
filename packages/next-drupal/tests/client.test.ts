@@ -390,17 +390,6 @@ describe("fetch", () => {
     expect(json).toMatchSnapshot()
   })
 
-  test("it properly handles errors", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const url = client
-      .buildUrl("/jsonapi/node/article", { "filter[foo]": "bar" })
-      .toString()
-
-    await expect(client.fetch(url)).rejects.toThrow(
-      "400 Bad Request\nInvalid nested filtering. The field `foo`, given in the path `foo`, does not exist."
-    )
-  })
-
   test("it allows authenticated requests", async () => {
     const client = new DrupalClient(BASE_URL, {
       auth: {

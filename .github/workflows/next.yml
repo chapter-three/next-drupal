@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        drupal: ["8.9", "9.2"]
+        drupal: ["8.9", "9.2", "9.3"]
     name: Drupal ${{ matrix.drupal }}
     services:
       mysql:

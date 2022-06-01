@@ -93,9 +93,7 @@ export type Experiment_DrupalClientOptions = {
    *
    * [Documentation](https://next-drupal.org/docs/client/configuration#auth)
    */
-  auth?:
-    | { clientId: string; clientSecret: string; url?: string }
-    | (() => string)
+  auth?: DrupalClientAuth
 
   /**
    * Set whether the client should use authenticated requests by default.
@@ -148,6 +146,26 @@ export type Experiment_DrupalClientOptions = {
   forceIframeSameSiteCookie?: boolean
 }
 
+export type DrupalClientAuth =
+  | DrupalClientAuthClientIdSecret
+  | DrupalClientAuthUsernamePassword
+  | DrupalClientAuthAccessToken
+  | (() => string)
+  | string
+
+export interface DrupalClientAuthUsernamePassword {
+  username: string
+  password: string
+}
+
+export interface DrupalClientAuthClientIdSecret {
+  clientId: string
+  clientSecret: string
+  url?: string
+}
+
+export type DrupalClientAuthAccessToken = AccessToken
+
 export interface Logger {
   log(message): void
 
@@ -191,7 +209,7 @@ export type JsonApiWithLocaleOptions = JsonApiOptions &
   )
 
 export type JsonApiWithAuthOptions = {
-  withAuth?: boolean
+  withAuth?: boolean | DrupalClientAuth
 }
 
 export type JsonApiWithCacheOptions = {
@@ -234,6 +252,41 @@ export interface JsonApiResponse extends Record<string, any> {
   included?: Record<string, any>[]
 }
 
+export interface JsonApiResourceBodyRelationship {
+  data: {
+    type: string
+    id: string
+  }
+}
+
+export interface JsonApiCreateResourceBody {
+  data: {
+    type?: string
+    attributes?: Record<string, any>
+    relationships?: Record<string, JsonApiResourceBodyRelationship>
+  }
+}
+
+export interface JsonApiCreateFileResourceBody {
+  data: {
+    /** The name of the file field on the parent entity. Example: field_media_image */
+    type: string
+    attributes: {
+      filename: string
+      file: Buffer
+    }
+  }
+}
+
+export interface JsonApiUpdateResourceBody {
+  data: {
+    type?: string
+    id?: string
+    attributes?: Record<string, any>
+    relationships?: Record<string, JsonApiResourceBodyRelationship>
+  }
+}
+
 export interface JsonApiSearchApiResponse extends JsonApiResponse {
   meta: JsonApiResponse["meta"] & {
     facets?: DrupalSearchApiFacet[]
@@ -258,7 +311,7 @@ export interface DataCache {
 }
 
 export interface FetchOptions extends RequestInit {
-  withAuth?: boolean
+  withAuth?: boolean | DrupalClientAuth
 }
 
 export interface DrupalSearchApiFacet {
@@ -328,6 +381,7 @@ export type AccessToken = {
   token_type: string
   expires_in: number
   access_token: string
+  refresh_token?: string
 }
 
 export type PathAlias = {

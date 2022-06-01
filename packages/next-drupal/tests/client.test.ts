@@ -8,10 +8,7 @@ import type {
   JsonApiResourceWithPath,
   JsonApiSearchApiResponse,
 } from "../src/types"
-
-// Run all tests against this env until we configure CI to setup a Drupal instance.
-// TODO: Bootstrap and expose the /drupal env for testing.
-const BASE_URL = "https://dev-next-drupal-tests.pantheonsite.io"
+import { BASE_URL } from "./utils"
 
 afterEach(() => {
   jest.restoreAllMocks()
@@ -67,7 +64,33 @@ describe("DrupalClient", () => {
 })
 
 describe("auth", () => {
-  test("it accepts custom auth", async () => {
+  test("it accepts username and password for auth", async () => {
+    const customFetch = jest.fn()
+
+    const client = new DrupalClient(BASE_URL, {
+      auth: {
+        username: "admin",
+        password: "password",
+      },
+      fetcher: customFetch,
+    })
+    const url = client.buildUrl("/jsonapi").toString()
+
+    await client.fetch(url, { withAuth: true })
+    expect(customFetch).toHaveBeenCalledWith(
+      url,
+      expect.objectContaining({
+        headers: {
+          "Content-Type": "application/vnd.api+json",
+          Accept: "application/vnd.api+json",
+          Authorization: "Basic YWRtaW46cGFzc3dvcmQ=",
+        },
+        withAuth: true,
+      })
+    )
+  })
+
+  test("it accepts callback for auth", async () => {
     const customAuth = jest
       .fn()
       .mockReturnValue("Basic YXJzaGFkQG5leHQtZHJ1cGFsLm9yZzphYmMxMjM=")
@@ -80,14 +103,49 @@ describe("auth", () => {
     const url = client.buildUrl("/jsonapi").toString()
 
     await client.fetch(url, { withAuth: true })
-    expect(customFetch).toHaveBeenCalledWith(url, {
-      headers: {
-        "Content-Type": "application/vnd.api+json",
-        Accept: "application/vnd.api+json",
-        Authorization: "Basic YXJzaGFkQG5leHQtZHJ1cGFsLm9yZzphYmMxMjM=",
+    expect(customFetch).toHaveBeenCalledWith(
+      url,
+      expect.objectContaining({
+        headers: {
+          "Content-Type": "application/vnd.api+json",
+          Accept: "application/vnd.api+json",
+          Authorization: "Basic YXJzaGFkQG5leHQtZHJ1cGFsLm9yZzphYmMxMjM=",
+        },
+        withAuth: true,
+      })
+    )
+  })
+
+  test("it accepts clientId and clientSecret for auth", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      auth: {
+        clientId: "7795065e-8ad0-45eb-a64d-73d9f3a5e943",
+        clientSecret: "d92Fm^ds",
       },
-      withAuth: true,
     })
+    const fetchSpy = jest
+      .spyOn(global, "fetch")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+        ) as jest.Mock
+      )
+
+    const basic = Buffer.from(
+      `7795065e-8ad0-45eb-a64d-73d9f3a5e943:d92Fm^ds`
+    ).toString("base64")
+
+    await client.fetch("http://example.com", { withAuth: true })
+    expect(fetchSpy).toHaveBeenNthCalledWith(
+      1,
+      `${BASE_URL}/oauth/token`,
+      expect.objectContaining({
+        headers: {
+          Authorization: `Basic ${basic}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
+    )
   })
 
   test("it accepts custom auth url", async () => {
@@ -137,6 +195,32 @@ describe("auth", () => {
       }
     }).toThrow(
       "'clientId' and 'clientSecret' are required for auth. See https://next-drupal.org/docs/client/auth"
+    )
+
+    expect(
+      () =>
+        new DrupalClient(BASE_URL, {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          auth: {
+            username: "admin",
+          },
+        })
+    ).toThrow(
+      "'username' and 'password' are required for auth. See https://next-drupal.org/docs/client/auth"
+    )
+
+    expect(
+      () =>
+        new DrupalClient(BASE_URL, {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          auth: {
+            password: "password",
+          },
+        })
+    ).toThrow(
+      "'username' and 'password' are required for auth. See https://next-drupal.org/docs/client/auth"
     )
   })
 })
@@ -230,9 +314,12 @@ describe("headers", () => {
     const url = "http://example.com"
 
     await client.fetch(url)
-    expect(customFetch).toHaveBeenCalledWith(url, {
-      headers: { foo: "bar" },
-    })
+    expect(customFetch).toHaveBeenCalledWith(
+      url,
+      expect.objectContaining({
+        headers: { foo: "bar" },
+      })
+    )
   })
 
   test("it allows setting custom headers with custom auth", async () => {
@@ -251,13 +338,16 @@ describe("headers", () => {
 
     await client.fetch(url, { withAuth: true })
 
-    expect(customFetch).toHaveBeenCalledWith(url, {
-      headers: {
-        foo: "bar",
-        Authorization: "Basic YXJzaGFkQG5leHQtZHJ1cGFsLm9yZzphYmMxMjM=",
-      },
-      withAuth: true,
-    })
+    expect(customFetch).toHaveBeenCalledWith(
+      url,
+      expect.objectContaining({
+        headers: {
+          foo: "bar",
+          Authorization: "Basic YXJzaGFkQG5leHQtZHJ1cGFsLm9yZzphYmMxMjM=",
+        },
+        withAuth: true,
+      })
+    )
   })
 })
 
@@ -298,17 +388,6 @@ describe("fetch", () => {
     )
     const json = await response.json()
     expect(json).toMatchSnapshot()
-  })
-
-  test("it properly handles errors", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const url = client
-      .buildUrl("/jsonapi/node/article", { "filter[foo]": "bar" })
-      .toString()
-
-    await expect(client.fetch(url)).rejects.toThrow(
-      "400 Bad Request\nInvalid nested filtering. The field `foo`, given in the path `foo`, does not exist."
-    )
   })
 
   test("it allows authenticated requests", async () => {
@@ -352,25 +431,31 @@ describe("fetch", () => {
     const url = client.buildUrl("/jsonapi").toString()
 
     await client.fetch(url)
-    expect(customFetch).toHaveBeenCalledWith(url, {
-      headers: {
-        "Content-Type": "application/vnd.api+json",
-        Accept: "application/vnd.api+json",
-      },
-    })
+    expect(customFetch).toHaveBeenCalledWith(
+      url,
+      expect.objectContaining({
+        headers: {
+          "Content-Type": "application/vnd.api+json",
+          Accept: "application/vnd.api+json",
+        },
+      })
+    )
 
     await client.fetch(url, {
       headers: {
         foo: "bar",
       },
     })
-    expect(customFetch).toHaveBeenLastCalledWith(url, {
-      headers: {
-        Accept: "application/vnd.api+json",
-        "Content-Type": "application/vnd.api+json",
-        foo: "bar",
-      },
-    })
+    expect(customFetch).toHaveBeenLastCalledWith(
+      url,
+      expect.objectContaining({
+        headers: {
+          Accept: "application/vnd.api+json",
+          "Content-Type": "application/vnd.api+json",
+          foo: "bar",
+        },
+      })
+    )
   })
 })
 
@@ -889,6 +974,7 @@ describe("getResource", () => {
   test("it makes authenticated requests with withAuth option", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")
@@ -1281,6 +1367,7 @@ describe("getResourceFromContext", () => {
   test("it makes authenticated requests with withAuth option", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")
@@ -1312,6 +1399,7 @@ describe("getResourceFromContext", () => {
   test("it makes authenticated requests when preview is true", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")
@@ -1400,6 +1488,7 @@ describe("translatePath", () => {
   test("it makes authenticated requests with withAuth option", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")
@@ -1496,6 +1585,7 @@ describe("translatePathFromContext", () => {
   test("it makes authenticated requests with withAuth option", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")
@@ -1603,6 +1693,7 @@ describe("getResourceCollection", () => {
   test("it makes authenticated requests with withAuth option", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")
@@ -1751,6 +1842,7 @@ describe("getResourceCollectionFromContext", () => {
   test("it makes authenticated requests with withAuth option", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")
@@ -1844,6 +1936,7 @@ describe("getStaticPathsFromContext", () => {
   test("it makes authenticated requests with withAuth option", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")
@@ -2045,6 +2138,7 @@ describe("getMenu", () => {
   test("it makes authenticated requests with withAuth option", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")
@@ -2135,6 +2229,7 @@ describe("getView", () => {
   test("it makes authenticated requests with withAuth option", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")
@@ -2244,6 +2339,7 @@ describe("getSearchIndex", () => {
   test("it makes authenticated requests with withAuth option", async () => {
     const client = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
+      auth: `Bearer sample-token`,
     })
     const fetchSpy = jest
       .spyOn(global, "fetch")

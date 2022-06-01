@@ -32,8 +32,10 @@ import type {
   DrupalClientAuthUsernamePassword,
   DrupalClientAuthAccessToken,
   DrupalClientAuthClientIdSecret,
+  JsonApiCreateMediaFileResourceBody,
 } from "./types"
 import { logger as defaultLogger } from "./logger"
+import { JsonApiErrors } from "./jsonapi-errors"
 
 const DEFAULT_API_PREFIX = "/jsonapi"
 const DEFAULT_FRONT_PAGE = "/home"
@@ -214,8 +216,8 @@ export class Experiment_DrupalClient {
   /* eslint-disable @typescript-eslint/no-explicit-any */
   async fetch(input: RequestInfo, init?: FetchOptions): Promise<Response> {
     init = {
-      ...init,
       credentials: "include",
+      ...init,
       headers: {
         ...this._headers,
         ...init?.headers,
@@ -307,17 +309,7 @@ export class Experiment_DrupalClient {
 
     this._debug(`Using default fetch (polyfilled by Next.js).`)
 
-    const response = await fetch(input, init)
-
-    if (response?.ok) {
-      return response
-    }
-
-    const message = await this.formatErrorResponse(response)
-
-    this.throwError(new Error(message))
-
-    return null
+    return await fetch(input, init)
   }
 
   async createResource<T extends JsonApiResource>(
@@ -349,6 +341,51 @@ export class Experiment_DrupalClient {
       body: JSON.stringify(body),
       withAuth: options.withAuth,
     })
+
+    if (!response?.ok) {
+      await this.handleJsonApiErrors(response)
+    }
+
+    const json = await response.json()
+
+    return options.deserialize ? this.deserialize(json) : json
+  }
+
+  async createMediaFileResource<T = JsonApiResource>(
+    type: string,
+    body: JsonApiCreateMediaFileResourceBody,
+    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
+  ): Promise<T> {
+    options = {
+      deserialize: true,
+      withAuth: true,
+      ...options,
+    }
+
+    const apiPath = await this.getEntryForResourceType(
+      type,
+      options?.locale !== options?.defaultLocale ? options.locale : undefined
+    )
+
+    const url = this.buildUrl(`${apiPath}/${body.data.type}`, options?.params)
+
+    this._debug(`Creating file resource for media of type ${type}.`)
+    this._debug(url.toString())
+
+    const response = await this.fetch(url.toString(), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/octet-stream",
+        Accept: "application/vnd.api+json",
+        "Content-Disposition": `file; filename="${body.data.attributes.filename}"`,
+      },
+      body: body.data.attributes.file,
+      withAuth: options.withAuth,
+    })
+
+    if (!response?.ok) {
+      await this.handleJsonApiErrors(response)
+    }
 
     const json = await response.json()
 
@@ -387,6 +424,10 @@ export class Experiment_DrupalClient {
       withAuth: options.withAuth,
     })
 
+    if (!response?.ok) {
+      await this.handleJsonApiErrors(response)
+    }
+
     const json = await response.json()
 
     return options.deserialize ? this.deserialize(json) : json
@@ -417,6 +458,10 @@ export class Experiment_DrupalClient {
       method: "DELETE",
       withAuth: options.withAuth,
     })
+
+    if (!response?.ok) {
+      await this.handleJsonApiErrors(response)
+    }
 
     return response.status === 204
   }
@@ -461,6 +506,10 @@ export class Experiment_DrupalClient {
     const response = await this.fetch(url.toString(), {
       withAuth: options.withAuth,
     })
+
+    if (!response?.ok) {
+      await this.handleJsonApiErrors(response)
+    }
 
     const json = await response.json()
 
@@ -682,6 +731,10 @@ export class Experiment_DrupalClient {
     const response = await this.fetch(url.toString(), {
       withAuth: options.withAuth,
     })
+
+    if (!response?.ok) {
+      await this.handleJsonApiErrors(response)
+    }
 
     const json = await response.json()
 
@@ -1105,6 +1158,10 @@ export class Experiment_DrupalClient {
       withAuth: options.withAuth,
     })
 
+    if (!response?.ok) {
+      await this.handleJsonApiErrors(response)
+    }
+
     const data = await response.json()
 
     const items = options.deserialize ? this.deserialize(data) : data
@@ -1177,6 +1234,10 @@ export class Experiment_DrupalClient {
       withAuth: options.withAuth,
     })
 
+    if (!response?.ok) {
+      await this.handleJsonApiErrors(response)
+    }
+
     const data = await response.json()
 
     const results = options.deserialize ? this.deserialize(data) : data
@@ -1212,6 +1273,10 @@ export class Experiment_DrupalClient {
     const response = await this.fetch(url.toString(), {
       withAuth: options.withAuth,
     })
+
+    if (!response?.ok) {
+      await this.handleJsonApiErrors(response)
+    }
 
     const json = await response.json()
 
@@ -1296,7 +1361,7 @@ export class Experiment_DrupalClient {
     })
 
     if (!response?.ok) {
-      this.throwError(new Error(response?.statusText))
+      await this.handleJsonApiErrors(response)
     }
 
     const result: AccessToken = await response.json()
@@ -1314,7 +1379,7 @@ export class Experiment_DrupalClient {
     return this.serializer.deserialize(body, options)
   }
 
-  private async formatErrorResponse(response: Response) {
+  private async getErrorsFromResponse(response: Response) {
     const type = response.headers.get("content-type")
 
     if (type === "application/json") {
@@ -1329,7 +1394,7 @@ export class Experiment_DrupalClient {
       const _error: JsonApiResponse = await response.json()
 
       if (_error?.errors?.length) {
-        return this.formatJsonApiErrors(_error.errors)
+        return _error.errors
       }
     }
 
@@ -1362,5 +1427,12 @@ export class Experiment_DrupalClient {
     }
 
     throw error
+  }
+
+  private async handleJsonApiErrors(response: Response) {
+    if (!response?.ok) {
+      const errors = await this.getErrorsFromResponse(response)
+      throw new JsonApiErrors(errors, response.status)
+    }
   }
 }

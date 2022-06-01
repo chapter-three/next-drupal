@@ -267,6 +267,17 @@ export interface JsonApiCreateResourceBody {
   }
 }
 
+export interface JsonApiCreateMediaFileResourceBody {
+  data: {
+    /** The name of the file field on the media entity. Example: field_media_image */
+    type: string
+    attributes: {
+      filename: string
+      file: Buffer
+    }
+  }
+}
+
 export interface JsonApiUpdateResourceBody {
   data: {
     type?: string

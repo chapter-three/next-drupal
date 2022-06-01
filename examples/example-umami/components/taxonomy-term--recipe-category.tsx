@@ -23,10 +23,6 @@ export function TaxonomyTermRecipeCategory({
       <Breadcrumbs
         items={[
           {
-            title: t("home"),
-            url: "/",
-          },
-          {
             title: term.name,
           },
         ]}

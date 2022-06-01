@@ -1,6 +1,5 @@
 import { GetStaticPathsResult, GetStaticPropsResult } from "next"
 import { DrupalNode, DrupalTaxonomyTerm } from "next-drupal"
-import { DrupalJsonApiParams } from "drupal-jsonapi-params"
 
 import { PageProps } from "types"
 import { drupal } from "lib/drupal"

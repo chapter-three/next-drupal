@@ -25,10 +25,6 @@ export function TaxonomyTermTags({
       <Breadcrumbs
         items={[
           {
-            title: t("home"),
-            url: "/",
-          },
-          {
             title: term.name,
           },
         ]}

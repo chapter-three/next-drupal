@@ -3,25 +3,20 @@ import { useTranslation } from "next-i18next"
 import Link from "next/link"
 
 import { MediaImage } from "components/media--image"
-import { Breadcrumbs } from "./breadcrumbs"
-import { FormattedText } from "./formatted-text"
+import { Breadcrumbs } from "components/breadcrumbs"
+import { FormattedText } from "components/formatted-text"
 
 interface NodeRecipeProps {
   node: DrupalNode
 }
 
 export function NodeRecipe({ node, ...props }: NodeRecipeProps) {
-  console.log(node)
   const { t } = useTranslation()
 
   return (
     <div className="container" {...props}>
       <Breadcrumbs
         items={[
-          {
-            title: t("home"),
-            url: "/",
-          },
           {
             title: t("recipes"),
             url: "/recipes",
@@ -31,7 +26,7 @@ export function NodeRecipe({ node, ...props }: NodeRecipeProps) {
           },
         ]}
       />
-      <article className="bg-white border-beige p-9 text-text">
+      <article className="bg-white border border-border p-9 text-text">
         <div className="flex flex-col space-y-4">
           <h1 className="font-serif text-4xl">{node.title}</h1>
           {node.field_recipe_category?.length ? (

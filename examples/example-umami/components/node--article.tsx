@@ -23,10 +23,6 @@ export function NodeArticle({ node, additionalContent }: NodeArticleProps) {
       <Breadcrumbs
         items={[
           {
-            title: t("home"),
-            url: "/",
-          },
-          {
             title: t("articles"),
             url: "/articles",
           },

@@ -36,10 +36,6 @@ export default function RecipesPage({
         heading="Recipes"
         breadcrumbs={[
           {
-            title: "Home",
-            url: "/",
-          },
-          {
             title: "Recipes",
           },
         ]}

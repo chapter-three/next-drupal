@@ -1,3 +1,4 @@
+import { useTranslation } from "next-i18next"
 import Link from "next/link"
 
 export interface BreadcrumbsProps {
@@ -8,9 +9,15 @@ export interface BreadcrumbsProps {
 }
 
 export function Breadcrumbs({ items, ...props }: BreadcrumbsProps) {
+  const { t } = useTranslation()
   if (!items?.length) {
     return null
   }
+
+  items.unshift({
+    title: t("home"),
+    url: "/",
+  })
 
   return (
     <nav className="py-4 text-text" {...props}>

@@ -5,7 +5,7 @@ import classNames from "classnames"
 
 import { MediaImage } from "components/media--image"
 
-interface NodeArticleCardAltProps extends React.HTMLAttributes<HTMLElement> {
+interface NodeArticleCardAltProps extends React.HTMLProps<HTMLElement> {
   node: DrupalNode
 }
 

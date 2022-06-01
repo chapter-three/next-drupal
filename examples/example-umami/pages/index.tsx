@@ -44,10 +44,17 @@ export default function IndexPage({
           : null}
       </div>
       {promotedRecipes?.length ? (
-        <div className="container grid grid-cols-2 gap-8">
-          {promotedRecipes.map((node) => (
-            <NodeRecipeCard node={node} key={node.id} />
-          ))}
+        <div className="container">
+          <p className="py-10 font-serif text-3xl text-center text-text">
+            {t(
+              "explore-recipes-across-every-type-of-occasion-ingredient-and-skill-level"
+            )}
+          </p>
+          <div className="grid grid-cols-2 gap-8">
+            {promotedRecipes.map((node) => (
+              <NodeRecipeCard node={node} key={node.id} />
+            ))}
+          </div>
         </div>
       ) : null}
     </Layout>

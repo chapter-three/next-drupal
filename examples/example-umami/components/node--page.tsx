@@ -16,10 +16,6 @@ export function NodePage({ node }: NodePageProps) {
       <Breadcrumbs
         items={[
           {
-            title: t("home"),
-            url: "/",
-          },
-          {
             title: node.title,
           },
         ]}

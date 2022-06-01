@@ -33,6 +33,8 @@ module.exports = {
         "gray-lighter": "#dbdbdb",
         gray: "#767775",
         "gray-darker": "#5f635d",
+        error: "#ee2000",
+        success: "#008068",
       },
     },
   },

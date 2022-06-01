@@ -8,6 +8,7 @@ import { Logo } from "components/logo"
 import { LocaleSwitcher } from "components/locale-switcher"
 import { MenuMain } from "components/menu-main"
 import { MenuUser } from "components/menu-user"
+import { FormSearch } from "components/form--search"
 
 export interface HeaderProps {
   menus: {
@@ -21,9 +22,16 @@ export function Header({ menus }: HeaderProps) {
   return (
     <header className="bg-white">
       <div className="container">
-        <div className="flex items-center justify-between py-4 border-b border-gray-lighter md:py-6">
-          <LocaleSwitcher />
-          <MenuUser />
+        <div className="grid items-center justify-between grid-cols-3 py-4 border-b border-gray-lighter md:py-6">
+          <div>
+            <LocaleSwitcher />
+          </div>
+          <div className="flex justify-center">
+            <FormSearch />
+          </div>
+          <div className="flex justify-end">
+            <MenuUser />
+          </div>
         </div>
       </div>
       <div className="container relative flex-wrap items-center justify-between py-6 md:flex lg:py-10">

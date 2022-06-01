@@ -902,6 +902,8 @@ export class Experiment_DrupalClient {
     })
 
     if (!response?.ok) {
+      await this.handleJsonApiErrors(response)
+
       return null
     }
 

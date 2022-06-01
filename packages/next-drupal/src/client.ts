@@ -54,23 +54,23 @@ function isBasicAuth(
   auth: Experiment_DrupalClientOptions["auth"]
 ): auth is DrupalClientAuthUsernamePassword {
   return (
-    (auth as DrupalClientAuthUsernamePassword).username !== undefined ||
-    (auth as DrupalClientAuthUsernamePassword).password !== undefined
+    (auth as DrupalClientAuthUsernamePassword)?.username !== undefined ||
+    (auth as DrupalClientAuthUsernamePassword)?.password !== undefined
   )
 }
 
 function isAccessTokenAuth(
   auth: Experiment_DrupalClientOptions["auth"]
 ): auth is DrupalClientAuthAccessToken {
-  return (auth as DrupalClientAuthAccessToken).access_token !== undefined
+  return (auth as DrupalClientAuthAccessToken)?.access_token !== undefined
 }
 
 function isClientIdSecretAuth(
   auth: Experiment_DrupalClient["auth"]
 ): auth is DrupalClientAuthClientIdSecret {
   return (
-    (auth as DrupalClientAuthClientIdSecret).clientId !== undefined ||
-    (auth as DrupalClientAuthClientIdSecret).clientSecret !== undefined
+    (auth as DrupalClientAuthClientIdSecret)?.clientId !== undefined ||
+    (auth as DrupalClientAuthClientIdSecret)?.clientSecret !== undefined
   )
 }
 
@@ -1326,7 +1326,7 @@ export class Experiment_DrupalClient {
       return this.accessToken
     }
 
-    if (!opts.clientId || !opts.clientSecret) {
+    if (!opts?.clientId || !opts?.clientSecret) {
       if (typeof this._auth === "undefined") {
         throw new Error(
           "auth is not configured. See https://next-drupal.org/docs/client/auth"
@@ -1334,15 +1334,18 @@ export class Experiment_DrupalClient {
       }
     }
 
-    if (!isClientIdSecretAuth(this._auth) || !isClientIdSecretAuth(opts)) {
+    if (
+      !isClientIdSecretAuth(this._auth) ||
+      (opts && !isClientIdSecretAuth(opts))
+    ) {
       throw new Error(
         `'clientId' and 'clientSecret' required. See https://next-drupal.org/docs/client/auth`
       )
     }
 
-    const clientId = opts.clientId || this._auth.clientId
-    const clientSecret = opts.clientSecret || this._auth.clientSecret
-    const url = this.buildUrl(opts.url || this._auth.url || DEFAULT_AUTH_URL)
+    const clientId = opts?.clientId || this._auth.clientId
+    const clientSecret = opts?.clientSecret || this._auth.clientSecret
+    const url = this.buildUrl(opts?.url || this._auth.url || DEFAULT_AUTH_URL)
 
     if (this._token && Date.now() < this.tokenExpiresOn) {
       this._debug(`Using existing access token.`)

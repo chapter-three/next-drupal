@@ -77,14 +77,17 @@ describe("auth", () => {
     const url = client.buildUrl("/jsonapi").toString()
 
     await client.fetch(url, { withAuth: true })
-    expect(customFetch).toHaveBeenCalledWith(url, {
-      headers: {
-        "Content-Type": "application/vnd.api+json",
-        Accept: "application/vnd.api+json",
-        Authorization: "Basic YWRtaW46cGFzc3dvcmQ=",
-      },
-      withAuth: true,
-    })
+    expect(customFetch).toHaveBeenCalledWith(
+      url,
+      expect.objectContaining({
+        headers: {
+          "Content-Type": "application/vnd.api+json",
+          Accept: "application/vnd.api+json",
+          Authorization: "Basic YWRtaW46cGFzc3dvcmQ=",
+        },
+        withAuth: true,
+      })
+    )
   })
 
   test("it accepts callback for auth", async () => {
@@ -100,14 +103,17 @@ describe("auth", () => {
     const url = client.buildUrl("/jsonapi").toString()
 
     await client.fetch(url, { withAuth: true })
-    expect(customFetch).toHaveBeenCalledWith(url, {
-      headers: {
-        "Content-Type": "application/vnd.api+json",
-        Accept: "application/vnd.api+json",
-        Authorization: "Basic YXJzaGFkQG5leHQtZHJ1cGFsLm9yZzphYmMxMjM=",
-      },
-      withAuth: true,
-    })
+    expect(customFetch).toHaveBeenCalledWith(
+      url,
+      expect.objectContaining({
+        headers: {
+          "Content-Type": "application/vnd.api+json",
+          Accept: "application/vnd.api+json",
+          Authorization: "Basic YXJzaGFkQG5leHQtZHJ1cGFsLm9yZzphYmMxMjM=",
+        },
+        withAuth: true,
+      })
+    )
   })
 
   test("it accepts clientId and clientSecret for auth", async () => {
@@ -308,9 +314,12 @@ describe("headers", () => {
     const url = "http://example.com"
 
     await client.fetch(url)
-    expect(customFetch).toHaveBeenCalledWith(url, {
-      headers: { foo: "bar" },
-    })
+    expect(customFetch).toHaveBeenCalledWith(
+      url,
+      expect.objectContaining({
+        headers: { foo: "bar" },
+      })
+    )
   })
 
   test("it allows setting custom headers with custom auth", async () => {
@@ -329,13 +338,16 @@ describe("headers", () => {
 
     await client.fetch(url, { withAuth: true })
 
-    expect(customFetch).toHaveBeenCalledWith(url, {
-      headers: {
-        foo: "bar",
-        Authorization: "Basic YXJzaGFkQG5leHQtZHJ1cGFsLm9yZzphYmMxMjM=",
-      },
-      withAuth: true,
-    })
+    expect(customFetch).toHaveBeenCalledWith(
+      url,
+      expect.objectContaining({
+        headers: {
+          foo: "bar",
+          Authorization: "Basic YXJzaGFkQG5leHQtZHJ1cGFsLm9yZzphYmMxMjM=",
+        },
+        withAuth: true,
+      })
+    )
   })
 })
 
@@ -430,12 +442,15 @@ describe("fetch", () => {
     const url = client.buildUrl("/jsonapi").toString()
 
     await client.fetch(url)
-    expect(customFetch).toHaveBeenCalledWith(url, {
-      headers: {
-        "Content-Type": "application/vnd.api+json",
-        Accept: "application/vnd.api+json",
-      },
-    })
+    expect(customFetch).toHaveBeenCalledWith(
+      url,
+      expect.objectContaining({
+        headers: {
+          "Content-Type": "application/vnd.api+json",
+          Accept: "application/vnd.api+json",
+        },
+      })
+    )
 
     await client.fetch(url, {
       headers: {

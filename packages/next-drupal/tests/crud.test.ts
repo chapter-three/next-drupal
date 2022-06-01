@@ -92,7 +92,7 @@ describe("createResource", () => {
     expect(article.field_media_image.name).toEqual(mediaImage.name)
   })
 
-  it("creates a localized resource", async () => {
+  test("it creates a localized resource", async () => {
     const client = new DrupalClient(BASE_URL, {
       auth: {
         username: process.env.DRUPAL_USERNAME,
@@ -110,6 +110,65 @@ describe("createResource", () => {
     })
 
     expect(article.langcode).toEqual("es")
+  })
+
+  test("it throws an error for missing required attributes", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      auth: {
+        username: process.env.DRUPAL_USERNAME,
+        password: process.env.DRUPAL_PASSWORD,
+      },
+    })
+
+    await expect(
+      client.createResource("node--article", {
+        data: {
+          attributes: {},
+        },
+      })
+    ).rejects.toThrow(
+      "422 Unprocessable Entity\ntitle: This value should not be null."
+    )
+  })
+
+  test("it throws an error for invalid attributes", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      auth: {
+        username: process.env.DRUPAL_USERNAME,
+        password: process.env.DRUPAL_PASSWORD,
+      },
+    })
+
+    await expect(
+      client.createResource("node--article", {
+        data: {
+          attributes: {
+            title: "TEST: Article",
+            body: {
+              value: ["invalid-array-value"],
+            },
+          },
+        },
+      })
+    ).rejects.toThrow(
+      "422 Unprocessable Entity\nbody.0.value: This value should be of the correct primitive type."
+    )
+
+    await expect(
+      client.createResource("node--article", {
+        data: {
+          attributes: {
+            title: "TEST: Article",
+            body: {
+              value: "This is the body field",
+              format: "invalid_format",
+            },
+          },
+        },
+      })
+    ).rejects.toThrow(
+      "422 Unprocessable Entity\nbody.0.format: The value you selected is not a valid choice."
+    )
   })
 })
 
@@ -213,6 +272,81 @@ describe("updateResource", () => {
     expect(updatedArticle.field_media_image.id).toEqual(mediaImage.id)
     expect(updatedArticle.field_media_image.name).toEqual(mediaImage.name)
   })
+
+  test("it throws an error for missing required attributes", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      auth: {
+        username: process.env.DRUPAL_USERNAME,
+        password: process.env.DRUPAL_PASSWORD,
+      },
+    })
+
+    const article = await client.createResource<DrupalNode>("node--article", {
+      data: {
+        attributes: {
+          title: "TEST New article",
+        },
+      },
+    })
+
+    await expect(
+      client.updateResource("node--article", article.id, {
+        data: {
+          attributes: {
+            title: null,
+          },
+        },
+      })
+    ).rejects.toThrow(
+      "422 Unprocessable Entity\ntitle: This value should not be null."
+    )
+  })
+
+  test("it throws an error for invalid attributes", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      auth: {
+        username: process.env.DRUPAL_USERNAME,
+        password: process.env.DRUPAL_PASSWORD,
+      },
+    })
+
+    const article = await client.createResource<DrupalNode>("node--article", {
+      data: {
+        attributes: {
+          title: "TEST New article",
+        },
+      },
+    })
+
+    await expect(
+      client.updateResource("node--article", article.id, {
+        data: {
+          attributes: {
+            body: {
+              value: ["invalid-array-value"],
+            },
+          },
+        },
+      })
+    ).rejects.toThrow(
+      "422 Unprocessable Entity\nbody.0.value: This value should be of the correct primitive type."
+    )
+
+    await expect(
+      client.updateResource("node--article", article.id, {
+        data: {
+          attributes: {
+            body: {
+              value: "This is the body field",
+              format: "invalid_format",
+            },
+          },
+        },
+      })
+    ).rejects.toThrow(
+      "422 Unprocessable Entity\nbody.0.format: The value you selected is not a valid choice."
+    )
+  })
 })
 
 describe("deleteResource", () => {
@@ -240,6 +374,21 @@ describe("deleteResource", () => {
       client.getResource("node--article", article.id)
     ).rejects.toThrow(
       '404 Not Found\nThe "entity" parameter was not converted for the path "/jsonapi/node/article/{entity}" (route name: "jsonapi.node--article.individual")'
+    )
+  })
+
+  test("it throws an error for invalid resource", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      auth: {
+        username: process.env.DRUPAL_USERNAME,
+        password: process.env.DRUPAL_PASSWORD,
+      },
+    })
+
+    await expect(
+      client.deleteResource("node--article", "invalid-id")
+    ).rejects.toThrow(
+      '404 Not Found\nThe "entity" parameter was not converted for the path "/jsonapi/node/article/{entity}" (route name: "jsonapi.node--article.individual.delete")'
     )
   })
 })

@@ -13,10 +13,6 @@
     {
       "type": "composer",
       "url": "https://packages.drupal.org/8"
-    },
-    {
-      "type": "path",
-      "url": "upstream-configuration"
     }
   ],
   "require": {
@@ -57,7 +53,6 @@
     "drupal/webform": "^6.1",
     "drupal/webform_rest": "^4.0",
     "drush/drush": "^10.3",
-    "pantheon-upstreams/upstream-configuration": "*",
     "vlucas/phpdotenv": "^4.0",
     "webflo/drupal-finder": "^1.0.0",
     "zaporylie/composer-drupal-optimizations": "^1.0"

@@ -70,11 +70,12 @@ export default function SearchPage({ menus, blocks }: SearchPageProps) {
               </div>
             ))}
           </div>
-        ) : (
+        ) : null}
+        {!isLoading && !results?.length ? (
           <p className="font-serif text-2xl text-text">
             {t("your-search-yielded-no-results")}
           </p>
-        )}
+        ) : null}
       </div>
     </Layout>
   )

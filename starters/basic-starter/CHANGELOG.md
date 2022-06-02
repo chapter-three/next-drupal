@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.3-alpha.0](https://github.com/chapter-three/next-drupal/compare/basic-starter@1.5.2...basic-starter@1.5.3-alpha.0) (2022-06-02)
+
+
+### Bug Fixes
+
+* **basic-starter:** rename api pages to .ts ([40456b0](https://github.com/chapter-three/next-drupal/commit/40456b08ae288c441195fe38b8d5008736bfce05))
+
+
+
+
+
 ## [1.5.2](https://github.com/chapter-three/next-drupal/compare/basic-starter@1.5.1...basic-starter@1.5.2) (2022-05-02)
 
 **Note:** Version bump only for package basic-starter

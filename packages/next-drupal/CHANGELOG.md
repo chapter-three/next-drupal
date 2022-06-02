@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0-alpha.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.3.2...next-drupal@1.4.0-alpha.0) (2022-06-02)
+
+
+### Bug Fixes
+
+* **next-drupal:** update handling for string errors ([a4d3d38](https://github.com/chapter-three/next-drupal/commit/a4d3d3806637b17868e8d21fe1f383636a9c47d1))
+* **next-drupal:** update message handling in jsonapi-errors ([f9a281a](https://github.com/chapter-three/next-drupal/commit/f9a281ab51d4abcf865672fd3a9ed07c6f7feb3a))
+* **next-drupal:** update missing opts from access token ([b166ef0](https://github.com/chapter-three/next-drupal/commit/b166ef09d2c8201a3a5f6d771eb23f6f330c7916))
+* **next-drupal:** update translatePath handling ([fa3e864](https://github.com/chapter-three/next-drupal/commit/fa3e864fda741e22c9aeb2a0167a4a0cbcfeb733))
+
+
+### Features
+
+* **next-drupal:** add createResource, updateResource and deleteResource helpers ([5200824](https://github.com/chapter-three/next-drupal/commit/52008242ca7199991f88824614ffacef0b2faf77))
+* **next-drupal:** allow auth to accept an access token ([d7fade0](https://github.com/chapter-three/next-drupal/commit/d7fade049cdbaaf13b7af0fab91b86460577e286))
+* **next-drupal:** allow client to accept username and password for auth ([cff5ded](https://github.com/chapter-three/next-drupal/commit/cff5ded1da270db85a278e0e04f81a6551351620))
+* **next-drupal:** createResource, updateResource and deleteResource are auth'd by default ([205fb12](https://github.com/chapter-three/next-drupal/commit/205fb122065740da5a123777a55120959a21f9ad))
+* **next-drupal:** introduce throwJsonApiErrors option ([#196](https://github.com/chapter-three/next-drupal/issues/196)) ([18690e1](https://github.com/chapter-three/next-drupal/commit/18690e10a829104068693b93fa84e5987d59de21))
+* **next-drupal:** rename createMediaFileResource to createFileResource ([e4901e4](https://github.com/chapter-three/next-drupal/commit/e4901e4e0fa5d32d45032a8f0ec166d0d1253222))
+* **next-drupal:** update error handling ([c0ddc9c](https://github.com/chapter-three/next-drupal/commit/c0ddc9c6dd5a18f07e7981311df347367ff593d2))
+
+
+
+
+
 ## [1.3.2](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.3.1...next-drupal@1.3.2) (2022-05-02)
 
 

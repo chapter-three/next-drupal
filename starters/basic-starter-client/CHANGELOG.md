@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1-alpha.0](https://github.com/chapter-three/next-drupal/compare/basic-starter-client@1.1.0...basic-starter-client@1.1.1-alpha.0) (2022-06-02)
+
+
+### Bug Fixes
+
+* **basic-starter-client:** rename api pages to .ts ([74781c0](https://github.com/chapter-three/next-drupal/commit/74781c027d89c255a05e15abcd5919d824237ff0))
+
+
+
+
+
 # 1.1.0 (2022-05-02)
 
 

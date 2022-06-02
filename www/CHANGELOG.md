@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0-alpha.0](https://github.com/chapter-three/next-drupal/compare/www@1.6.0...www@1.7.0-alpha.0) (2022-06-02)
+
+
+### Bug Fixes
+
+* **www:** update active links for learn section ([7f87708](https://github.com/chapter-three/next-drupal/commit/7f8770882f853cb59986d1e912709304a149b77c))
+
+
+### Features
+
+* **www:** restructure site and add guides ([067788d](https://github.com/chapter-three/next-drupal/commit/067788d55d834605efae37aaf848a68b50e5a52d))
+
+
+
+
+
 # [1.6.0](https://github.com/chapter-three/next-drupal/compare/www@1.5.0...www@1.6.0) (2022-05-02)
 
 

@@ -36,13 +36,13 @@ export function Header({ menus }: HeaderProps) {
       </div>
       <div className="container relative flex-wrap items-center justify-between py-6 md:flex lg:py-10">
         <Link href="/" passHref>
-          <a className="flex justify-start w-52">
+          <a className="flex justify-start w-48 h-12 lg:h-16 lg:w-52">
             <Logo className="text-primary" />
             <span className="sr-only">{siteConfig.name}</span>
           </a>
         </Link>
         <button
-          className="absolute transition-all border beorder-transparent md:hidden right-4 top-10 hover:border-link"
+          className="absolute transition-all border beorder-transparent md:hidden right-4 top-8 hover:border-link"
           onClick={() => setShowMenu(!showMenu)}
         >
           <svg

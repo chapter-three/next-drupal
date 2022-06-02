@@ -27,7 +27,7 @@ export function getParams(
   if (name === "node--article") {
     return params
       .addInclude([
-        "field_media_image.field_media_image1",
+        "field_media_image.field_media_image",
         "uid.user_picture",
         "field_tags",
       ])

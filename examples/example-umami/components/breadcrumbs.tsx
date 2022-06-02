@@ -23,7 +23,7 @@ export function Breadcrumbs({ items, ...props }: BreadcrumbsProps) {
     <nav className="py-4 text-text" {...props}>
       <ol className="flex">
         {items.map((item, index) => (
-          <li key={index} className="flex items-center leading-none">
+          <li key={index} className="flex items-center leading-none truncate">
             {item.url ? (
               <Link href={item.url} passHref>
                 <a className="underline text-link">{item.title}</a>

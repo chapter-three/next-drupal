@@ -20,8 +20,8 @@ export default function NewArticlesPage({
         heading={t("new-article")}
         breadcrumbs={[
           {
-            title: t("articles"),
-            url: "/articles",
+            title: t("my-account"),
+            url: "/account",
           },
           {
             title: t("new-article"),

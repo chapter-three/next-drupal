@@ -32,7 +32,7 @@ export function NodeArticle({ node, additionalContent }: NodeArticleProps) {
         ]}
       />
       <article className="grid gap-8 pb-12 lg:grid-cols-10">
-        <div className="p-10 bg-white border border-border lg:col-span-7 text-text">
+        <div className="p-6 bg-white border md:p-10 border-border lg:col-span-7 text-text">
           <h1 className="font-serif text-4xl">{node.title}</h1>
           <div className="flex items-center my-4 space-x-2 text-sm">
             {node.uid?.display_name ? (

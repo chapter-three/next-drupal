@@ -11,7 +11,6 @@ declare module "next-auth" {
     accessToken: AccessToken
     user?: DefaultSession["user"] & {
       id: string
-      field_name?: string
     }
   }
 }

@@ -29,14 +29,14 @@ export default function IndexPage({
   return (
     <Layout meta={{ title: t("home") }} menus={menus} blocks={blocks}>
       <BlockBanner block={banner} />
-      <div className="container grid gap-8 py-8 grid-cols-2 lg:grid-cols-[2fr_1fr_1fr]">
+      <div className="container grid gap-8 py-8 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr]">
         {promotedArticles?.length
           ? promotedArticles.map((node, index) => (
               <NodeArticleCardAlt
                 node={node}
                 key={node.id}
                 className={classNames({
-                  "col-span-2 lg:col-span-1": index === 0,
+                  "col-span-1 sm:col-span-2 lg:col-span-1": index === 0,
                   "flex-col-reverse space-y-0 gap-4": index !== 0,
                 })}
               />
@@ -50,7 +50,7 @@ export default function IndexPage({
               "explore-recipes-across-every-type-of-occasion-ingredient-and-skill-level"
             )}
           </p>
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid gap-8 sm:grid-cols-2">
             {promotedRecipes.map((node) => (
               <NodeRecipeCard node={node} key={node.id} />
             ))}

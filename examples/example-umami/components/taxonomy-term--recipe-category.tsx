@@ -28,7 +28,7 @@ export function TaxonomyTermRecipeCategory({
         ]}
       />
       <PageHeader heading={term.name} />
-      <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
+      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {additionalContent?.termContent.map((recipe) => (
           <NodeRecipeTeaser key={recipe.id} node={recipe} />
         ))}

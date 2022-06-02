@@ -1,18 +1,31 @@
+import classNames from "classnames"
 import { BreadcrumbsProps, Breadcrumbs } from "components/breadcrumbs"
 
-interface PageHeaderProps {
+interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   heading: string
   breadcrumbs?: BreadcrumbsProps["items"]
 }
 
-export function PageHeader({ heading, breadcrumbs }: PageHeaderProps) {
+export function PageHeader({
+  heading,
+  breadcrumbs,
+  children,
+  className,
+  ...props
+}: PageHeaderProps) {
   return (
-    <div className="container">
+    <div className={classNames("container", className)} {...props}>
       {breadcrumbs?.length ? <Breadcrumbs items={breadcrumbs} /> : null}
-      <div className="flex flex-col items-center py-10 space-y-4 text-text md:space-y-8">
+      <div
+        className={classNames(
+          "flex items-center py-10 text-text",
+          children ? "justify-between" : "justify-center"
+        )}
+      >
         <h1 className="max-w-4xl font-serif text-2xl text-center md:text-5xl lg:text-4xl">
           {heading}
         </h1>
+        {children}
       </div>
     </div>
   )

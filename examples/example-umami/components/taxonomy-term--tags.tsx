@@ -30,7 +30,7 @@ export function TaxonomyTermTags({
         ]}
       />
       <PageHeader heading={term.name} />
-      <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
+      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {additionalContent?.termContent.map((node) => (
           <React.Fragment key={node.id}>
             {node.type === "node--recipe" && <NodeRecipeTeaser node={node} />}

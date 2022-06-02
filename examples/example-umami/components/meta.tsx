@@ -22,7 +22,7 @@ export function Meta({ title, description }: MetaProps) {
       <title>
         {title} | {siteConfig.name}
       </title>
-      {description && <meta name="description" content={description} />}
+      <meta name="description" content={description || siteConfig.slogan} />
       <meta
         property="og:image"
         content={`${process.env.NEXT_PUBLIC_BASE_URL}/images/meta.jpg`}

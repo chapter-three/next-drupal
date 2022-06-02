@@ -29,15 +29,15 @@ export default function ArticlesPage({
       }}
     >
       <PageHeader
-        heading="Articles"
+        heading={t("articles")}
         breadcrumbs={[
           {
-            title: "Articles",
+            title: t("articles"),
           },
         ]}
       />
       <div className="container">
-        <div className="grid grid-cols-2 gap-8 lg:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {articles.map((article) => (
             <NodeArticleCard key={article.id} node={article} />
           ))}

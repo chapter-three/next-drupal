@@ -1466,6 +1466,11 @@
   resolved "https://registry.yarnpkg.com/@headlessui/react/-/react-1.5.0.tgz#483b44ba2c8b8d4391e1d2c863898d7dd0cc0296"
   integrity sha512-aaRnYxBb3MU2FNJf3Ut9RMTUqqU3as0aI1lQhgo2n9Fa67wRu14iOGqx93xB+uMNVfNwZ5B3y/Ndm7qZGuFeMQ==
 
+"@headlessui/react@^1.6.4":
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/@headlessui/react/-/react-1.6.4.tgz#c73084e23386bef5fb86cd16da3352c3a844bb4c"
+  integrity sha512-0yqz1scwbFtwljmbbKjXsSGl5ABEYNICVHZnMCWo0UtOZodo2Tpu94uOVgCRjRZ77l2WcTi2S0uidINDvG7lsA==
+
 "@hookform/resolvers@^2.8.3":
   version "2.8.8"
   resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-2.8.8.tgz#17cf806485435877fdafce9f3bee6ff68f7f87b6"
@@ -3065,12 +3070,21 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@17.0.2", "@types/react@^17.0.0", "@types/react@^17.0.43":
+"@types/react@*", "@types/react@17.0.2", "@types/react@^17.0.0":
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.2.tgz#3de24c4efef902dd9795a49c75f760cbe4f7a5a8"
   integrity sha512-Xt40xQsrkdvjn1EyWe1Bc0dJLcil/9x2vAuW7ya+PuQip4UYUaXyhzWmAbwRsdMgwOFHpfp7/FFZebDU6Y8VHA==
   dependencies:
     "@types/prop-types" "*"
+    csstype "^3.0.2"
+
+"@types/react@^17.0.43":
+  version "17.0.45"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.45.tgz#9b3d5b661fd26365fefef0e766a1c6c30ccf7b3f"
+  integrity sha512-YfhQ22Lah2e3CHPsb93tRwIGNiSwkuz1/blk4e6QrWS0jQzCSNbGLtOEYhPg02W0yGTTmpajp7dCTbBAMN3qsg==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/scheduler" "*"
     csstype "^3.0.2"
 
 "@types/resolve@1.17.1":
@@ -3079,6 +3093,11 @@
   integrity sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==
   dependencies:
     "@types/node" "*"
+
+"@types/scheduler@*":
+  version "0.16.2"
+  resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.2.tgz#1a62f89525723dde24ba1b01b092bf5df8ad4d39"
+  integrity sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==
 
 "@types/sinonjs__fake-timers@8.1.1":
   version "8.1.1"

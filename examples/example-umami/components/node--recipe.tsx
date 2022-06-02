@@ -26,7 +26,7 @@ export function NodeRecipe({ node, ...props }: NodeRecipeProps) {
           },
         ]}
       />
-      <article className="bg-white border border-border p-9 text-text">
+      <article className="p-6 bg-white border border-border sm:p-9 text-text">
         <div className="flex flex-col space-y-4">
           <h1 className="font-serif text-4xl">{node.title}</h1>
           {node.field_recipe_category?.length ? (
@@ -60,7 +60,7 @@ export function NodeRecipe({ node, ...props }: NodeRecipeProps) {
           )}
         </div>
         <div className="grid gap-4 py-10 lg:grid-cols-2">
-          <MediaImage media={node.field_media_image} width={545} height={360} />
+          <MediaImage media={node.field_media_image} width={770} height={512} />
           <div className="grid gap-4 lg:grid-cols-2">
             {node.field_preparation_time && (
               <div className="flex items-center space-x-2 lg:flex-col">
@@ -143,9 +143,9 @@ export function NodeRecipe({ node, ...props }: NodeRecipeProps) {
         </div>
         <div className="grid gap-8 md:grid-cols-3">
           <div className="flex flex-col p-8 space-y-6 bg-body">
-            <h3 className="pb-3 font-serif text-2xl border-b lg:text-3xl border-pink">
+            <h2 className="pb-3 font-serif text-2xl border-b lg:text-3xl border-pink">
               {t("ingredients")}
-            </h3>
+            </h2>
             <ul className="divide-y divide-pink">
               {node.field_ingredients?.map((ingredients, index) => (
                 <li key={index} className="py-2">

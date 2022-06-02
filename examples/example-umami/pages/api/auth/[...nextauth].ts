@@ -5,6 +5,9 @@ import jwt_decode from "jwt-decode"
 import { clearJWT, getJWT } from "lib/jwt"
 
 export default NextAuth({
+  pages: {
+    signIn: "/login",
+  },
   providers: [
     CredentialsProvider({
       name: "Drupal",

@@ -1,6 +1,7 @@
 import * as React from "react"
 import classNames from "classnames"
 import { useTranslation } from "next-i18next"
+import { useRouter } from "next/router"
 
 interface FormArticleProps extends React.HTMLProps<HTMLFormElement> {}
 
@@ -12,6 +13,7 @@ interface FormStatus {
 export function FormArticle({ className, ...props }: FormArticleProps) {
   const [formStatus, setFormStatus] = React.useState<FormStatus>(null)
   const { t } = useTranslation()
+  const router = useRouter()
 
   const onSubmit = async (event) => {
     event.preventDefault()
@@ -33,10 +35,7 @@ export function FormArticle({ className, ...props }: FormArticleProps) {
       })
     }
 
-    return setFormStatus({
-      status: "success",
-      message: t("your-message-has-been-sent"),
-    })
+    router.push("/account")
   }
 
   return (

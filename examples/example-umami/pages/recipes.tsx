@@ -41,7 +41,7 @@ export default function RecipesPage({
         ]}
       />
       <div className="container">
-        <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {recipes.map((recipe) => (
             <NodeRecipeTeaser key={recipe.id} node={recipe} />
           ))}

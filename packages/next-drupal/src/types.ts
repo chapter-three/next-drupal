@@ -482,8 +482,6 @@ export interface DrupalUser extends JsonApiResourceWithPath {
 export interface DrupalView<T = Record<string, any>[]> {
   id: string
   results: T
-  meta: {
-    count?: number
-    [key: string]: any
-  }
+  meta: JsonApiResponse["meta"]
+  links: JsonApiResponse["links"]
 }

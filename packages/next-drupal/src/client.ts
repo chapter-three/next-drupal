@@ -33,6 +33,7 @@ import type {
   DrupalClientAuthAccessToken,
   DrupalClientAuthClientIdSecret,
   JsonApiCreateFileResourceBody,
+  DrupalView,
 } from "./types"
 import { logger as defaultLogger } from "./logger"
 import { JsonApiErrors } from "./jsonapi-errors"
@@ -1207,12 +1208,7 @@ export class Experiment_DrupalClient {
   async getView<T>(
     name: string,
     options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
-  ): Promise<{
-    id: string
-    results: T
-    meta: JsonApiResponse["meta"]
-    links: JsonApiResponse["links"]
-  }> {
+  ): Promise<DrupalView<T>> {
     options = {
       withAuth: this.withAuth,
       deserialize: true,

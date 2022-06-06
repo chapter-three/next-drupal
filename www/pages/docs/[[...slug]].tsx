@@ -28,11 +28,11 @@ export default function DocsPage({ doc, toc }: DocsPageProps) {
         </aside>
         <div className="items-start col-span-4 gap-12 pb-10 xl:col-span-1 xl:grid xl:grid-cols-3 xl:gap-18">
           <div className="col-span-2 pt-4 sm:pt-6 md:pt-10 DocSearch-content main-content">
-            <h1 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
+            <h1 className="text-3xl font-bold leading-tight sm:text-4xl">
               {doc.frontMatter.title}
             </h1>
             {doc.frontMatter.excerpt ? (
-              <p className="mt-2 text-lg font-light text-gray-700 md:text-2xl">
+              <p className="mt-2 text-lg font-light text-gray-700 md:text-xl">
                 {doc.frontMatter.excerpt}
               </p>
             ) : null}

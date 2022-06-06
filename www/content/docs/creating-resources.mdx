@@ -11,19 +11,21 @@ The `createResource` and `createFileResource` helpers are available in `next-dru
 
 The `DrupalClient` ships with a `createResource` and a `createFileResource` methods for creating JSON:API resources.
 
+---
+
 ## createResource
 
 ### Create Resource
 
+Create an article with a title and a body.
+
 ```ts
 const article = await drupal.createResource("node--article", {
-  data: {
-    attributes: {
-      title: "Title of Article",
-      body: {
-        value: "<p>Content of body field</p>",
-        format: "full_html",
-      },
+  attributes: {
+    title: "Title of Article",
+    body: {
+      value: "<p>Content of body field</p>",
+      format: "full_html",
     },
   },
 })
@@ -31,27 +33,31 @@ const article = await drupal.createResource("node--article", {
 
 ### Create Resource with Relationships
 
+Create an article with a media field.
+
 ```ts
 const article = await drupal.createResource("node--article", {
-  data: {
-    attributes: {
-      title: "Title of Article",
-      body: {
-        value: "<p>Content of body field</p>",
-        format: "full_html",
-      },
+  attributes: {
+    title: "Title of Article",
+    body: {
+      value: "<p>Content of body field</p>",
+      format: "full_html",
     },
-    relationships: {
-      field_media_image: {
-        data: {
-          type: "media--image",
-          id: media.id,
-        },
+  },
+  // highlight-start
+  relationships: {
+    field_media_image: {
+      data: {
+        type: "media--image",
+        id: media.id,
       },
     },
   },
+  // highlight-end
 })
 ```
+
+---
 
 ## createFileResource
 
@@ -60,15 +66,13 @@ To create a file resource, you use the name of the file field on the parent enti
 Example: A `media--image` with a file field called `field_media_image`.
 
 ```ts
-const file = await drupal.createFileResource<DrupalFile>(
+const file = await drupal.createFileResource(
   "media--image", // <-- The type of the parent resource.
   {
-    data: {
-      type: "field_media_image", // <-- The name of the field on the parent resource.
-      attributes: {
-        filename: "filename.jpg",
-        file: await fs.readFile("/path/to/file.jpg"),
-      },
+    attributes: {
+      field: "field_media_image", // <-- The name of the field on the parent resource.
+      filename: "filename.jpg",
+      file: await fs.readFile("/path/to/file.jpg"),
     },
   }
 )
@@ -80,39 +84,37 @@ You can then use this to create a new `media--image` with a relationship to the 
 
 ```ts
 const media = await drupal.createResource<DrupalMedia>("media--image", {
-  data: {
-    attributes: {
-      name: "Name for the media",
-    },
-    relationships: {
-      field_media_image: {
-        data: {
-          type: "file--file",
-          id: file.id,
-        },
+  attributes: {
+    name: "Name for the media",
+  },
+  relationships: {
+    field_media_image: {
+      data: {
+        type: "file--file",
+        id: file.id,
       },
     },
   },
 })
 ```
 
+---
+
 ## Authentication
 
 To make authenticated requests when creating resources, use the `withAuth` option.
 
-See the [authentication docs](/docs/client/auth) for the supported authentication methods.
+See the [authentication docs](/docs/authentication) for the supported authentication methods.
 
 ```ts
 const article = await drupal.createResource(
   "node--article",
   {
-    data: {
-      attributes: {
-        title: "Title of Article",
-        body: {
-          value: "<p>Content of body field</p>",
-          format: "full_html",
-        },
+    attributes: {
+      title: "Title of Article",
+      body: {
+        value: "<p>Content of body field</p>",
+        format: "full_html",
       },
     },
   },

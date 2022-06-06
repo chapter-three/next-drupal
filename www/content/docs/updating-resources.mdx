@@ -11,6 +11,8 @@ The `updateResource` helper is available in `next-drupal ^1.4.0`.
 
 The `DrupalClient` ships with a `updateResource` method for updating JSON:API resources.
 
+---
+
 ## updateResource
 
 ### Update Resource
@@ -53,11 +55,13 @@ const article = await drupal.updateResource(
 )
 ```
 
+---
+
 ## Authentication
 
 To make authenticated requests when updating resources, use the `withAuth` option.
 
-See the [authentication docs](/docs/client/auth) for the supported authentication methods.
+See the [authentication docs](/docs/authentication) for the supported authentication methods.
 
 ```ts
 const article = await drupal.updateResource(

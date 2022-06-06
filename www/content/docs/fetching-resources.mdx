@@ -3,19 +3,16 @@ title: Fetching Resources (GET)
 excerpt: How to fetch JSON:API resources using DrupalClient.
 ---
 
-<Callout icon="⚠️">
-
-The `DrupalClient` is available in `next-drupal ^1.3.0` as **experimental**.
-
-</Callout>
-
 The `DrupalClient` ships with helpers to fetch JSON:API data from Drupal.
+
+You can fetch a single resource, `getResource` or a collection of resources, `getResourceCollection`.
+
 Every helper methods:
 
-1. Accepts a resource type: `node--article`, `taxonomy_term--tags` or `user--user`.
-2. A `params` option for passing JSON:API query params: `fields`, `include`, `filter`, `sort`...etc
-3. A `withAuth` option for authentication. See the authentication docs.
-4. A `deserialize` option if you want to fetch the raw JSON:API data.
+- Accepts a resource type: `node--article` or `taxonomy_term--tags`.
+- A `params` option for query params: `fields`, `include`, `filter`, ...etc
+- A `withAuth` option for authentication. See the [authentication docs](/docs/authentication).
+- A `deserialize` option if you want to fetch raw JSON:API data.
 
 Here's what a call to fetch `node--article` resources would look like:
 
@@ -35,6 +32,8 @@ const articles = await drupal.getResourceCollection("node--article", {
 If you're building complex query params, see the guide on how to use [Drupal JSON:API Params](/guides/jsonapi-params).
 
 </Callout>
+
+---
 
 ## getResource
 
@@ -56,21 +55,21 @@ const block = await drupal.getResource(
 )
 ```
 
+---
+
 ## getResourceFromContext
 
-Fetch an article in `getStaticProps/getServerSideProps` with context. This will automatically fetch the resource using the `locale` from context.
+Fetch an article in `getStaticProps/getServerSideProps` with context.
+
+If you're using [internationalization](https://nextjs.org/docs/advanced-features/i18n-routing), this will automatically fetch the localized resource using the `locale` set in context.
 
 ```ts
 const article = await drupal.getResourceFromContext("node--article", context)
 ```
 
+---
+
 ## getResourceCollection
-
-Fetch all articles.
-
-```ts
-const articles = await drupal.getResourceCollection("node--article")
-```
 
 Fetch all users
 
@@ -78,9 +77,24 @@ Fetch all users
 const users = await drupal.getResourceCollection("user--user")
 ```
 
+Fetch all published articles sorted by date.
+
+```ts
+const articles = await drupal.getResourceCollection("node--article", {
+  params: {
+    "filter[status]": "1",
+    sort: "-created",
+  },
+})
+```
+
+---
+
 ## getResourceCollectionFromContext
 
-Fetch articles in `getStaticProps/getServerSideProps` with context. This will automatically fetch the collection using the `locale` from context.
+Fetch articles in `getStaticProps/getServerSideProps` with context.
+
+If you're using [internationalization](https://nextjs.org/docs/advanced-features/i18n-routing), this will automatically fetch localized resources using the `locale` set in context.
 
 ```ts
 const articles = await drupal.getResourceCollectionFromContext(
@@ -89,7 +103,15 @@ const articles = await drupal.getResourceCollectionFromContext(
 )
 ```
 
+---
+
 ## getMenu
+
+<Callout>
+
+You need to install the [JSON:API Menu Items](https://www.drupal.org/project/jsonapi_menu_items) module to use `getMenu`.
+
+</Callout>
 
 Fetch a menu by name
 
@@ -97,10 +119,84 @@ Fetch a menu by name
 const menu = await drupal.getMenu("main")
 ```
 
+---
+
 ## getView
+
+<Callout>
+
+You need to install the [JSON:API Views](https://www.drupal.org/project/jsonapi_views) module to use `getView`.
+
+</Callout>
 
 Fetch a view by name and display_id.
 
 ```ts
 const view = await drupal.getView("promoted_items--block_1")
 ```
+
+---
+
+## getSearchIndex
+
+<Callout>
+
+You need to install the [JSON:API Search API](https://www.drupal.org/project/jsonapi_search_api) module to query your Search API indexes.
+
+</Callout>
+
+Fetch results from a Search API index.
+
+```ts
+const results = await drupal.getSearchIndex(indexName, {
+  params: {
+    filter: { name_of_field: value },
+  },
+})
+```
+
+---
+
+## translatePath
+
+Fetch information about a path.
+
+```ts
+const path = await drupal.translatePath("/articles/slug-of-article")
+```
+
+---
+
+## translatePathFromContext
+
+Fetch information about a path in `getStaticProps/getServerSideProps` with context.
+
+```ts
+const path = await drupal.translatePathFromContext(
+  "/articles/slug-of-article",
+  context
+)
+```
+
+---
+
+## Authentication
+
+To make authenticated requests when fetching resources, use the `withAuth` option.
+
+See the [authentication docs](/docs/authentication) for the supported authentication methods.
+
+```ts
+const article = await drupal.getResourceCollection(
+  "node--article",
+  // highlight-start
+  {
+    withAuth: // <-- Your auth method here.
+  }
+  // highlight-end
+)
+```
+
+## More
+
+See the [Examples](/examples) section for data fetching examples.

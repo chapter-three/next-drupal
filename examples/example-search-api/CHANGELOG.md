@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.3-rc.0](https://github.com/chapter-three/next-drupal/compare/example-search-api@1.2.3-alpha.0...example-search-api@1.2.3-rc.0) (2022-06-06)
+
+**Note:** Version bump only for package example-search-api
+
+
+
+
+
 ## [1.2.3-alpha.0](https://github.com/chapter-three/next-drupal/compare/example-search-api@1.2.2...example-search-api@1.2.3-alpha.0) (2022-06-02)
 
 **Note:** Version bump only for package example-search-api

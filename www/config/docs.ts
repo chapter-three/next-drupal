@@ -71,6 +71,27 @@ export const docsConfig: DocsConfig = {
       ],
     },
     {
+      title: "Drupal Client",
+      items: [
+        {
+          title: "Fetching Resources (GET)",
+          href: "/docs/client/fetching-resources",
+        },
+        {
+          title: "Creating Resources (POST)",
+          href: "/docs/client/creating-resources",
+        },
+        {
+          title: "Updating Resources (PATCH)",
+          href: "/docs/client/updating-resources",
+        },
+        {
+          title: "Deleting Resources (DELETE)",
+          href: "/docs/client/deleting-resources",
+        },
+      ],
+    },
+    {
       title: "Data Fetching",
       items: [
         {

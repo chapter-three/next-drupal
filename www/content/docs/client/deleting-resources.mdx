@@ -1,0 +1,37 @@
+---
+title: Deleting Resources (GET)
+excerpt: How to delete JSON:API resources using DrupalClient.
+---
+
+<Callout icon="⚠️">
+
+The `deleteResource` helper is available in `next-drupal ^1.4.0`.
+
+</Callout>
+
+## deleteResource
+
+```ts
+const article = await drupal.deleteResource(
+  "node--article",
+  "a937dd34-5407-4fff-8594-fccaaa5bb72a" // <-- Article ID
+)
+```
+
+## Authentication
+
+To make authenticated requests when deleting resources, use the `withAuth` option.
+
+See the [authentication docs](/docs/client/auth) for the supported authentication methods.
+
+```ts
+const article = await drupal.deleteResource(
+  "node--article",
+  "a937dd34-5407-4fff-8594-fccaaa5bb72a",
+  // highlight-start
+  {
+    withAuth: // <-- Your auth method here.
+  }
+  // highlight-end
+)
+```

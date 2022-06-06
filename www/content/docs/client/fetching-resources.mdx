@@ -1,0 +1,106 @@
+---
+title: Fetching Resources (GET)
+excerpt: How to fetch JSON:API resources using DrupalClient.
+---
+
+<Callout icon="⚠️">
+
+The `DrupalClient` is available in `next-drupal ^1.3.0` as **experimental**.
+
+</Callout>
+
+The `DrupalClient` ships with helpers to fetch JSON:API data from Drupal.
+Every helper methods:
+
+1. Accepts a resource type: `node--article`, `taxonomy_term--tags` or `user--user`.
+2. A `params` option for passing JSON:API query params: `fields`, `include`, `filter`, `sort`...etc
+3. A `withAuth` option for authentication. See the authentication docs.
+4. A `deserialize` option if you want to fetch the raw JSON:API data.
+
+Here's what a call to fetch `node--article` resources would look like:
+
+```ts
+import { drupal } from "lib/drupal"
+
+const articles = await drupal.getResourceCollection("node--article", {
+  params: {
+    "fields[node--article]": "title,created", // Fetch the title and created fields only.
+    sort: "-created", // Sort the articles by created date in descending order.
+  },
+})
+```
+
+<Callout>
+
+If you're building complex query params, see the guide on how to use [Drupal JSON:API Params](/guides/jsonapi-params).
+
+</Callout>
+
+## getResource
+
+Fetch an article by id.
+
+```ts
+const article = await drupal.getResource(
+  "node--article",
+  "dad82fe9-f2b7-463e-8c5f-02f73018d6cb"
+)
+```
+
+Fetch a block by id.
+
+```ts
+const block = await drupal.getResource(
+  "block_content--basic",
+  "687f74ec-e599-4f5c-8175-f24510c77e83"
+)
+```
+
+## getResourceFromContext
+
+Fetch an article in `getStaticProps/getServerSideProps` with context. This will automatically fetch the resource using the `locale` from context.
+
+```ts
+const article = await drupal.getResourceFromContext("node--article", context)
+```
+
+## getResourceCollection
+
+Fetch all articles.
+
+```ts
+const articles = await drupal.getResourceCollection("node--article")
+```
+
+Fetch all users
+
+```ts
+const users = await drupal.getResourceCollection("user--user")
+```
+
+## getResourceCollectionFromContext
+
+Fetch articles in `getStaticProps/getServerSideProps` with context. This will automatically fetch the collection using the `locale` from context.
+
+```ts
+const articles = await drupal.getResourceCollectionFromContext(
+  "node--article",
+  context
+)
+```
+
+## getMenu
+
+Fetch a menu by name
+
+```ts
+const menu = await drupal.getMenu("main")
+```
+
+## getView
+
+Fetch a view by name and display_id.
+
+```ts
+const view = await drupal.getView("promoted_items--block_1")
+```

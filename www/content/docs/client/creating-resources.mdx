@@ -1,0 +1,125 @@
+---
+title: Creating Resources (POST)
+excerpt: How to create JSON:API resources using DrupalClient.
+---
+
+<Callout icon="⚠️">
+
+The `createResource` and `createFileResource` helpers are available in `next-drupal ^1.4.0`.
+
+</Callout>
+
+The `DrupalClient` ships with a `createResource` and a `createFileResource` methods for creating JSON:API resources.
+
+## createResource
+
+### Create Resource
+
+```ts
+const article = await drupal.createResource("node--article", {
+  data: {
+    attributes: {
+      title: "Title of Article",
+      body: {
+        value: "<p>Content of body field</p>",
+        format: "full_html",
+      },
+    },
+  },
+})
+```
+
+### Create Resource with Relationships
+
+```ts
+const article = await drupal.createResource("node--article", {
+  data: {
+    attributes: {
+      title: "Title of Article",
+      body: {
+        value: "<p>Content of body field</p>",
+        format: "full_html",
+      },
+    },
+    relationships: {
+      field_media_image: {
+        data: {
+          type: "media--image",
+          id: media.id,
+        },
+      },
+    },
+  },
+})
+```
+
+## createFileResource
+
+To create a file resource, you use the name of the file field on the parent entity.
+
+Example: A `media--image` with a file field called `field_media_image`.
+
+```ts
+const file = await drupal.createFileResource<DrupalFile>(
+  "media--image", // <-- The type of the parent resource.
+  {
+    data: {
+      type: "field_media_image", // <-- The name of the field on the parent resource.
+      attributes: {
+        filename: "filename.jpg",
+        file: await fs.readFile("/path/to/file.jpg"),
+      },
+    },
+  }
+)
+```
+
+This will create a `file--file` resource.
+
+You can then use this to create a new `media--image` with a relationship to the `file--file`.
+
+```ts
+const media = await drupal.createResource<DrupalMedia>("media--image", {
+  data: {
+    attributes: {
+      name: "Name for the media",
+    },
+    relationships: {
+      field_media_image: {
+        data: {
+          type: "file--file",
+          id: file.id,
+        },
+      },
+    },
+  },
+})
+```
+
+## Authentication
+
+To make authenticated requests when creating resources, use the `withAuth` option.
+
+See the [authentication docs](/docs/client/auth) for the supported authentication methods.
+
+```ts
+const article = await drupal.createResource(
+  "node--article",
+  {
+    data: {
+      attributes: {
+        title: "Title of Article",
+        body: {
+          value: "<p>Content of body field</p>",
+          format: "full_html",
+        },
+      },
+    },
+  },
+  // highlight-start
+  {
+    withAuth: // <-- Your auth method here.
+  }
+  // highlight-end
+)
+```

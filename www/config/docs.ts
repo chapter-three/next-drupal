@@ -10,20 +10,17 @@ export const docsConfig: DocsConfig = {
           href: "/docs",
         },
         {
-          title: "Examples",
-          href: "/docs/examples",
+          title: "Demo",
+          href: "https://demo.next-drupal.org",
+          external: true,
         },
         {
-          title: "Get Started",
-          href: "/learn/quick-start",
-        },
-        {
-          title: "Environment Variables",
-          href: "/docs/environment-variables",
-        },
-        {
-          title: "FAQ",
+          title: "Frequenty Asked Questions",
           href: "/docs/faq",
+        },
+        {
+          title: "Upgrade Guide",
+          href: "/docs/upgrade-guide",
         },
         {
           title: "Changelog",
@@ -34,7 +31,6 @@ export const docsConfig: DocsConfig = {
     },
     {
       title: "Drupal Client",
-      badge: "Experimental",
       items: [
         {
           title: "Introduction",
@@ -42,106 +38,74 @@ export const docsConfig: DocsConfig = {
         },
         {
           title: "Configuration",
-          href: "/docs/client/configuration",
+          href: "/docs/configuration",
         },
         {
-          title: "Authentication",
-          href: "/docs/client/auth",
-        },
-        {
-          title: "Fetcher",
-          href: "/docs/client/fetcher",
-        },
-        {
-          title: "Serializer",
-          href: "/docs/client/serializer",
-        },
-        {
-          title: "Caching",
-          href: "/docs/client/cache",
+          title: "Environment Variables",
+          href: "/docs/environment-variables",
         },
         {
           title: "Preview Mode",
-          href: "/docs/client/preview-mode",
-        },
-        {
-          title: "Upgrade Guide",
-          href: "/docs/client/upgrade",
+          href: "/docs/preview-mode",
         },
       ],
     },
     {
-      title: "Drupal Client",
+      title: "Customization",
+      items: [
+        {
+          title: "Authentication",
+          href: "/docs/auth",
+        },
+        {
+          title: "Fetcher",
+          href: "/docs/fetcher",
+        },
+        {
+          title: "Serializer",
+          href: "/docs/serializer",
+        },
+        {
+          title: "Caching",
+          href: "/docs/cache",
+        },
+      ],
+    },
+    {
+      title: "Working with JSON:API",
       items: [
         {
           title: "Fetching Resources (GET)",
-          href: "/docs/client/fetching-resources",
+          href: "/docs/fetching-resources",
         },
         {
           title: "Creating Resources (POST)",
-          href: "/docs/client/creating-resources",
+          href: "/docs/creating-resources",
         },
         {
           title: "Updating Resources (PATCH)",
-          href: "/docs/client/updating-resources",
+          href: "/docs/updating-resources",
         },
         {
           title: "Deleting Resources (DELETE)",
-          href: "/docs/client/deleting-resources",
+          href: "/docs/deleting-resources",
         },
       ],
     },
     {
-      title: "Data Fetching",
+      title: "Building Pages",
       items: [
         {
           title: "Basic Example",
-          href: "/docs/data-fetching",
+          href: "/docs/pages",
         },
         {
           title: "Dynamic Pages",
-          href: "/docs/data-fetching#dynamic-pages",
+          href: "/docs/pages#dynamic-pages",
         },
         {
           title: "Advanced Example",
-          href: "/docs/data-fetching#advanced-example",
-        },
-        {
-          title: "Menus",
-          href: "/docs/data-fetching/menus",
-        },
-        {
-          title: "Blocks",
-          href: "/docs/data-fetching/blocks",
-        },
-        {
-          title: "Views",
-          href: "/docs/data-fetching/views",
-        },
-        {
-          title: "Filter by Site",
-          href: "/docs/data-fetching/filter-by-site",
-        },
-      ],
-    },
-    {
-      title: "Authentication",
-      items: [
-        {
-          title: "Introduction",
-          href: "/docs/authentication",
-        },
-        {
-          title: "Password Grant",
-          href: "/docs/authentication/password-grant",
-        },
-        {
-          title: "Authorization Code Grant",
-          href: "/docs/authentication/authorization-code-grant",
-        },
-        {
-          title: "Refresh Token Rotation",
-          href: "/docs/authentication/refresh-token",
+          href: "/docs/pages#advanced-example",
         },
       ],
     },
@@ -192,15 +156,6 @@ export const docsConfig: DocsConfig = {
         {
           title: "translatePathFromContext",
           href: "/docs/reference#translatepathfromcontext",
-        },
-      ],
-    },
-    {
-      title: "Hooks",
-      items: [
-        {
-          title: "useMenu",
-          href: "/docs/hooks#useMenu",
         },
       ],
     },

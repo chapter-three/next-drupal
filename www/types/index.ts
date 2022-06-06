@@ -74,6 +74,11 @@ export interface SiteConfig {
     twitter?: string
     contact?: string
   }
+  versions: {
+    version: string
+    url?: string
+    active?: boolean
+  }[]
 }
 
 export interface DocsConfig {

@@ -2,16 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  @variants responsive {
-    .scrollbar-none::-webkit-scrollbar {
-      display: none;
-    }
+@layer responsive {
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
 
-    .scrollbar-none {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 
@@ -298,5 +296,5 @@ pre.is-highlighted:hover .token-line {
 }
 
 .DocSearch.DocSearch-Button {
-  @apply md:min-w-[200px] xl:min-w-[300px] md:bg-gray-100;
+  @apply md:min-w-[200px] xl:min-w-[250px] md:bg-gray-100;
 }

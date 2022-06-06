@@ -45,6 +45,10 @@ export const guidesConfig: GuidesConfig = {
           title: "On-demand Revalidation",
           href: "/guides/on-demand-revalidation",
         },
+        {
+          title: "Filter by Site",
+          href: "/guides/filter-by-site",
+        },
       ],
     },
   ],

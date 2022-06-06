@@ -58,6 +58,7 @@ export default function IndexPage({ features }: IndexPageProps) {
             controls
             muted
             autoPlay
+            loop
             className="w-full overflow-hidden border-2 border-black rounded-md shadow-2xl aspect-video"
           >
             <source src="/videos/next-drupal-promo.mp4" type="video/mp4" />

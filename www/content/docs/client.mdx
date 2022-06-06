@@ -1,0 +1,39 @@
+---
+title: Drupal Client
+excerpt: A powerful JSON:API client for Drupal.
+---
+
+The `DrupalClient` is a powerful JSON:API client that ships with helpers for working with Drupal data.
+
+You can use the `DrupalClient` to fetch JSON:API data from Drupal to build static pages.
+
+It also comes with full support for JSON:API write operations which means you can create JSON:API resources from Next.js to Drupal.
+
+## Features
+
+1. Customizable JSON:API client for data fetching.
+2. Helpers to fetching resources, menus, views and search indices.
+3. Helpers for JSON:API write operations (POST, PATCH, and DELETE)
+4. Support for custom auth (`Bearer`, `Basic`, `Next-Auth` or bring your own).
+5. Support for custom serializers.
+6. Support for custom fetcher.
+7. Support for cached resources (memory cache, redis...etc).
+8. Improved error messages.
+
+## Usage
+
+```ts
+import { Experimental_DrupalClient as DrupalClient } from "next-drupal"
+
+// Create a new DrupalClient.
+const drupal = new DrupalClient("https://example.com")
+
+// Fetch articles.
+const articles = await drupal.getResourceCollection("node--article")
+
+// Fetch one article by id.
+const article = await drupal.getResource(
+  "node--article",
+  "f4c61473-8297-4bf3-bab7-21c9633a7ca7"
+)
+```

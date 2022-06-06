@@ -22,11 +22,11 @@ export default function DocsPage({ doc, toc }: DocsPageProps) {
 
   return (
     <Layout title={doc.frontMatter.title} description={doc.frontMatter.excerpt}>
-      <div className="container px-6 mx-auto md:gap-10 xl:gap-8 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-4 lg:grid xl:px-8">
+      <div className="container px-6 mx-auto md:gap-10 xl:gap-8 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-[250px_1fr] lg:grid xl:px-8">
         <aside className="hidden col-span-2 py-10 pr-4 border-r xl:col-span-1 lg:flex">
           <SidebarNav items={docsConfig.links} />
         </aside>
-        <div className="items-start col-span-4 gap-12 pb-10 xl:col-span-3 xl:grid xl:grid-cols-3 xl:gap-18">
+        <div className="items-start col-span-4 gap-12 pb-10 xl:col-span-1 xl:grid xl:grid-cols-3 xl:gap-18">
           <div className="col-span-2 pt-4 sm:pt-6 md:pt-10 DocSearch-content main-content">
             <h1 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
               {doc.frontMatter.title}

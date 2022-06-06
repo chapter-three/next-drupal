@@ -5,13 +5,11 @@ excerpt: Guide for upgrading your site to use DrupalClient.
 
 <Callout icon="⚠️">
 
-The `DrupalClient` is available in `next-drupal ^1.3.0` as **experimental**.
-
-The `DrupalClient` is an optional feature. You can safely upgrade your site to `next-drupal 1.3.0` without any breaking changes.
+The `DrupalClient` is an optional feature. If you're running a site using `next-drupal 1.2 or below`, you can safely upgrade your site to `next-drupal 1.3.0` without any breaking changes.
 
 </Callout>
 
-1. Upgrade to `next-drupal 1.3.0`:
+1. Upgrade to the latest version
 
 ```sh
 yarn add next-drupal@latest
@@ -25,7 +23,7 @@ import { Experiment_DrupalClient as DrupalClient } from "next-drupal"
 export const drupal = new DrupalClient(
   process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
   {
-    frontPage: process.env.DRUPAL_FRONT_PAGE,
+    frontPage: "/home",
     previewSecret: process.env.DRUPAL_PREVIEW_SECRET,
     auth: {
       clientId: process.env.DRUPAL_CLIENT_ID,
@@ -73,4 +71,4 @@ export const drupal = new DrupalClient(
 
 6. Done. You are now ready to run your site using the new `DrupalClient`.
 
-Thanks for testing out our 1.3 release. If you see any bugs during the upgrade, feel free to create an issue on [GitHub](https://github.com/chapter-three/next-drupal).
+If you see any bugs during the upgrade, feel free to create an issue on [GitHub](https://github.com/chapter-three/next-drupal).

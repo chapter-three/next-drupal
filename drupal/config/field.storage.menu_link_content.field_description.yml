@@ -1,0 +1,19 @@
+uuid: a38a4135-a685-492c-a287-4a54e7ca4002
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_link_content
+    - text
+id: menu_link_content.field_description
+field_name: field_description
+entity_type: menu_link_content
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.landing_page.field_sections
+    - field.field.node.landing_page.field_site
     - node.type.landing_page
   module:
     - user
@@ -20,5 +21,6 @@ content:
     region: content
 hidden:
   field_sections: true
+  field_site: true
   langcode: true
   search_api_excerpt: true

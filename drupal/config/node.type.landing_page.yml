@@ -14,5 +14,5 @@ type: landing_page
 description: 'Use this content type to create a landing page with sections.'
 help: ''
 new_revision: true
-preview_mode: 1
+preview_mode: 0
 display_submitted: false

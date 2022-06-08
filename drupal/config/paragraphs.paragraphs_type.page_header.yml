@@ -1,0 +1,15 @@
+uuid: 1504bb42-0dde-464e-a3a5-8f1d0c6193c0
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs_library
+third_party_settings:
+  paragraphs_library:
+    allow_library_conversion: true
+id: page_header
+label: 'Page header'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

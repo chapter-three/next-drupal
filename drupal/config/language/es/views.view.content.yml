@@ -1,0 +1,12 @@
+label: Contenido
+display:
+  default:
+    display_title: 'Por defecto'
+    display_options:
+      title: Contenido
+  page_1:
+    display_options:
+      menu:
+        title: Contenido
+      tab_options:
+        title: Contenido

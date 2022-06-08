@@ -3,16 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - filter.format.basic_html
     - rest.resource.webform_rest_submit
   module:
-    - content_moderation
-    - filter
     - media
-    - node
     - rest
-    - shortcut
     - simple_oauth
+    - subrequests
     - system
 _core:
   default_config_hash: btW6TFHajhy7Eo6YUvdFiPh4TcPggo8GBXYctjV6zag
@@ -22,12 +18,8 @@ weight: -9
 is_admin: false
 permissions:
   - 'access content'
-  - 'access shortcuts'
-  - 'bypass node access'
-  - 'debug simple_oauth tokens'
+  - 'access user profiles'
   - 'grant simple_oauth codes'
+  - 'issue subrequests'
   - 'restful post webform_rest_submit'
-  - 'use text format basic_html'
-  - 'view any unpublished content'
-  - 'view latest version'
   - 'view media'

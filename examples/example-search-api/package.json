@@ -1,6 +1,6 @@
 {
   "name": "example-search-api",
-  "version": "1.2.3-rc.0",
+  "version": "1.2.3-rc.1",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -17,7 +17,7 @@
     "@tailwindcss/forms": "^0.4.0",
     "@tailwindcss/typography": "^0.5.1",
     "next": "^12.0.3",
-    "next-drupal": "^1.4.0-rc.0",
+    "next-drupal": "^1.4.0-rc.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

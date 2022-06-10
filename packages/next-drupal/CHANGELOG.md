@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0-rc.1](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.4.0-rc.0...next-drupal@1.4.0-rc.1) (2022-06-10)
+
+
+### Bug Fixes
+
+* **next-drupal:** remove fix for localized resources ([abcea72](https://github.com/chapter-three/next-drupal/commit/abcea720fbb9ae1924681ea5b1242869856ea665))
+
+
+
+
+
 # [1.4.0-rc.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.4.0-alpha.0...next-drupal@1.4.0-rc.0) (2022-06-06)
 
 

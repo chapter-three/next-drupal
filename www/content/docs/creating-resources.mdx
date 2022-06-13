@@ -66,16 +66,14 @@ To create a file resource, you use the name of the file field on the parent enti
 Example: A `media--image` with a file field called `field_media_image`.
 
 ```ts
-const file = await drupal.createFileResource(
-  "media--image", // <-- The type of the parent resource.
-  {
-    attributes: {
-      field: "field_media_image", // <-- The name of the field on the parent resource.
-      filename: "filename.jpg",
-      file: await fs.readFile("/path/to/file.jpg"),
-    },
-  }
-)
+const file = await drupal.createFileResource("file--file", {
+  attributes: {
+    type: "media--image", // <-- The type of the parent resource.
+    field: "field_media_image", // <-- The name of the field on the parent resource.
+    filename: "filename.jpg",
+    file: await fs.readFile("/path/to/file.jpg"),
+  },
+})
 ```
 
 This will create a `file--file` resource.

@@ -137,7 +137,7 @@ export const docsConfig: DocsConfig = {
           href: "/docs/reference/createresource",
         },
         {
-          title: "createFileResource **",
+          title: "createFileResource",
           href: "/docs/reference/createfileresource",
         },
         {

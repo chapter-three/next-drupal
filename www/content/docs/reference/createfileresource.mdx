@@ -4,7 +4,7 @@ excerpt: Create a file resource for a parent entity.
 ---
 
 ```ts
-const resource = await drupal.createResource<T = JsonApiResource>(
+const resource = await drupal.createFileResource<T = DrupalFile>(
   type,
   body,
   options?: {
@@ -17,19 +17,14 @@ const resource = await drupal.createResource<T = JsonApiResource>(
 
 - `type: string`
   - **Required**
-  - The resource type. Example: `node--article`, `taxonomy_term--tags`, or `block_content--basic`.
-- `body: JsonApiCreateResourceBody`
+  - The resource type. In most cases this is `file--file`.
+- `body: JsonApiCreateFileResourceBody`
   - **Required**
   - The body payload with `data`.
-  - ```ts
-    interface JsonApiCreateResourceBody {
-      data: {
-        type?: string
-        attributes?: Record<string, unknown>
-        relationships?: Record<string, JsonApiResourceBodyRelationship>
-      }
-    }
-    ```
+    - `type: string`: The resource type of the host entity. Example: `media--image`.
+    - `field: string`: The name of the file field on the host entity: Example: `field_media_image`.
+    - `filename: string`: The name of the file with extension: Example: `avatar.jpg`.
+    - `file: Buffer`: The file.
 - `options`
   - Optional
   - `params: JsonApiParams`: JSON:API params such as `filter`, `fields`, `include` or `sort`.
@@ -42,84 +37,35 @@ const resource = await drupal.createResource<T = JsonApiResource>(
 
 ## Examples
 
-- Create a `node--page` resource.
+To create a file resource, you use the name of the file field on the parent entity.
+
+Example: A `media--image` with a file field called `field_media_image`.
 
 ```ts
-const page = await drupal.createResource("node--page", {
-  data: {
-    attributes: {
-      title: "Page Title",
-      body: {
-        value: "<p>Content of body field</p>",
-        format: "full_html",
-      },
-    },
+const file = await drupal.createFileResource("file--file", {
+  attributes: {
+    type: "media--image", // <-- The type of the parent resource.
+    field: "field_media_image", // <-- The name of the field on the parent resource.
+    filename: "filename.jpg",
+    file: await fs.readFile("/path/to/file.jpg"),
   },
 })
 ```
 
-- Get a `node--article` resource with a taxonomy term.
+This will create a `file--file` resource.
+
+You can then use this to create a new `media--image` with a relationship to the `file--file`.
 
 ```ts
-const article = await drupal.createResource("node--article", {
+const media = await drupal.createResource<DrupalMedia>("media--image", {
   attributes: {
-    title: "Title of Article",
-    body: {
-      value: "<p>Content of body field</p>",
-      format: "full_html",
-    },
+    name: "Name for the media",
   },
   relationships: {
-    field_category: {
+    field_media_image: {
       data: {
-        type: "taxonomy_term--category",
-        id: "28ab9f26-927d-4e33-9510-b59a7ccdafe6",
-      },
-    },
-  },
-})
-```
-
-- Using filters.
-
-```ts
-const page = await drupal.createResource(
-  "node--page",
-  {
-    data: {
-      attributes: {
-        title: "Page Title",
-        body: {
-          value: "<p>Content of body field</p>",
-          format: "full_html",
-        },
-      },
-    },
-  },
-  {
-    params: {
-      "fields[node--page]": "title,path",
-    },
-  }
-)
-```
-
----
-
-## TypeScript
-
-Using `DrupalNode` for a node entity type.
-
-```ts
-import { DrupalNode } from "next-drupal"
-
-const page = await drupal.createResource<DrupalNode>("node--page", {
-  data: {
-    attributes: {
-      title: "Page Title",
-      body: {
-        value: "<p>Content of body field</p>",
-        format: "full_html",
+        type: "file--file",
+        id: file.id,
       },
     },
   },

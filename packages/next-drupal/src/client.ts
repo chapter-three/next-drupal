@@ -1118,7 +1118,7 @@ export class Experiment_DrupalClient {
     return response.end()
   }
 
-  async getMenu<T extends DrupalMenuLinkContent>(
+  async getMenu<T = DrupalMenuLinkContent>(
     name: string,
     options?: JsonApiWithLocaleOptions &
       JsonApiWithAuthOptions &
@@ -1205,7 +1205,7 @@ export class Experiment_DrupalClient {
       : {}
   }
 
-  async getView<T>(
+  async getView<T = JsonApiResource>(
     name: string,
     options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
   ): Promise<DrupalView<T>> {

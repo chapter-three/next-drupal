@@ -352,7 +352,7 @@ export class Experiment_DrupalClient {
     return options.deserialize ? this.deserialize(json) : json
   }
 
-  async createFileResource<T = JsonApiResource>(
+  async createFileResource<T = DrupalFile>(
     type: string,
     body: JsonApiCreateFileResourceBody,
     options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
@@ -363,12 +363,17 @@ export class Experiment_DrupalClient {
       ...options,
     }
 
+    const hostType = body?.data?.attributes?.type
+
     const apiPath = await this.getEntryForResourceType(
-      type,
+      hostType,
       options?.locale !== options?.defaultLocale ? options.locale : undefined
     )
 
-    const url = this.buildUrl(`${apiPath}/${body.data.type}`, options?.params)
+    const url = this.buildUrl(
+      `${apiPath}/${body.data.attributes.field}`,
+      options?.params
+    )
 
     this._debug(`Creating file resource for media of type ${type}.`)
     this._debug(url.toString())

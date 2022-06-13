@@ -132,7 +132,7 @@ export class Experiment_DrupalClient {
       cache = null,
       debug = false,
       frontPage = DEFAULT_FRONT_PAGE,
-      useDefaultResourceTypeEntry = false,
+      useDefaultResourceTypeEntry = true,
       headers = DEFAULT_HEADERS,
       logger = defaultLogger,
       withAuth = DEFAULT_WITH_AUTH,

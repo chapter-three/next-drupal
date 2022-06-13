@@ -92,6 +92,11 @@ module.exports = {
         destination: "/docs/reference/getresource",
         permanent: true,
       },
+      {
+        source: "/guides/typescript",
+        destination: "/docs/typescript",
+        permanent: true,
+      },
     ]
   },
 }

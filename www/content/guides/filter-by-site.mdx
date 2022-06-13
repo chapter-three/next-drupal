@@ -11,20 +11,24 @@ Note: This is available for Drupal **9.3.x** only. See the change record [here](
 
 If you have multiple Next.js sites built from one Drupal source, you can filter JSON:API resources by site using the site `machine_name`.
 
+---
+
 ## Collection
 
 You can filter resource collection using `FIELD_NAME.meta.drupal_internal__target_id`.
 
 ```tsx
-import { getResourceCollection } from "next-drupal"
 // Fetch all Article nodes where the entity reference field `field_sites` has value blog.
-const nodes = await getResourceCollection<DrupalNode[]>("node--article", {
-  params: {
-    filter: {
-      "field_sites.meta.drupal_internal__target_id": "blog", // highlight-line
+const nodes = await drupal.getResourceCollection<DrupalNode[]>(
+  "node--article",
+  {
+    params: {
+      filter: {
+        "field_sites.meta.drupal_internal__target_id": "blog", // highlight-line
+      },
     },
-  },
-})
+  }
+)
 ```
 
 <Callout>
@@ -40,7 +44,7 @@ In `getStaticProps` you can use:
 export async function getStaticProps(
   context
 ): Promise<GetStaticPropsResult<IndexPageProps>> {
-  const nodes = await getResourceCollectionFromContext<DrupalNode[]>(
+  const nodes = await drupal.getResourceCollectionFromContext<DrupalNode[]>(
     "node--article",
     context,
     {
@@ -62,19 +66,25 @@ export async function getStaticProps(
 }
 ```
 
+---
+
 ## Dynamic Routes
 
 In `getStaticPaths` you can filter by site by passing `params`:
 
 ```tsx
 export async function getStaticPaths(context): Promise<GetStaticPathsResult> {
-  const paths = await getPathsFromContext(["node--article"], context, {
-    params: {
-      filter: {
-        "field_sites.meta.drupal_internal__target_id": "blog",
+  const paths = await drupal.getStaticPathsFromContext(
+    ["node--article"],
+    context,
+    {
+      params: {
+        filter: {
+          "field_sites.meta.drupal_internal__target_id": "blog",
+        },
       },
-    },
-  })
+    }
+  )
 
   return {
     paths,

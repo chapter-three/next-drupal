@@ -2,16 +2,20 @@
 title: Authentication (Bearer)
 excerpt: Using Simple OAuth for Authentication
 weight: 120
-group: Preview Mode (DrupalClient)
+group: Preview Mode
 ---
 
 Before we can create an OAuth consumer, we need to create a new role and a user for OAuth scopes.
+
+---
 
 ## 1. Create Role
 
 1. Visit `/admin/people/roles`.
 2. Click on **+ Add role**.
 3. Fill in the **Role name**. Example: _Next.js Site_.
+
+---
 
 ## 2. Assign Permissions
 
@@ -29,9 +33,13 @@ You can safely skip this permission if you do not need to preview unpublished co
 
 </Callout>
 
+---
+
 ## 3. Create User
 
 Add a new user at `/admin/people/create` and assign it the role we created above.
+
+---
 
 ## 4. Generate keys
 
@@ -49,6 +57,8 @@ openssl genrsa -out private.key 2048
 openssl rsa -in private.key -pubout > public.key
 ```
 
+---
+
 ## 5. Create Consumer
 
 1. Visit _/admin/config/services/consumer/add_
@@ -63,6 +73,8 @@ openssl rsa -in private.key -pubout > public.key
 
 _Important: note the client id (uuid) and the secret. These are going to be used as environment variables for the Next.js site._
 
+---
+
 ## 6. Connect Drupal
 
 To connect the Next.js project to Drupal, we use [environment variables](https://nextjs.org/docs/basic-features/environment-variables).
@@ -70,18 +82,21 @@ To connect the Next.js project to Drupal, we use [environment variables](https:/
 Fill in the following variables in your `.env.local` file.
 
 ```txt title=.env.local
+# Authentication (Bearer)
 DRUPAL_CLIENT_ID=
 DRUPAL_CLIENT_SECRET=
 ```
+
+---
 
 ## 6. Update DrupalClient
 
 Update the `DrupalClient` to use the **Bearer** authentication header.
 
 ```ts title=lib/drupal.ts
-import { Experiment_DrupalClient as DrupalClient } from "next-drupal"
+import { DrupalClient } from "next-drupal"
 
-export const drupal = new Experiment_DrupalClient(
+export const drupal = new DrupalClient(
   process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
   {
     auth: {

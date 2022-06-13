@@ -9,6 +9,8 @@ You need to install the [JSON:API Search API](https://www.drupal.org/project/jso
 
 </Callout>
 
+---
+
 ## Installation
 
 1. Start by installing the [Search API](https://www.drupal.org/project/search_api) module. If you want faceted search, install the [Facets](https://www.drupal.org/project/facets) module as well.
@@ -28,9 +30,9 @@ For every index created, a **facet source** is available. You can use this sourc
 7. You can now make queries to your indexes via JSON:API.
 
 ```ts
-import { getSearchIndex } from "next-drupal"
+import { drupal } from "lib/drupal"
 
-const results = await getSearchIndex(indexName, {
+const results = await drupal.getSearchIndex(indexName, {
   params: {
     filter: { name_of_field: value },
   },
@@ -45,7 +47,9 @@ We recommend using an [API route](https://nextjs.org/docs/api-routes/introductio
 
 ```ts title=api/pages/[index].tsx
 import { NextApiRequest, NextApiResponse } from "next"
-import { DrupalNode, getSearchIndex } from "next-drupal"
+import { DrupalNode } from "next-drupal"
+
+import { drupal } from "lib/drupal"
 
 export default async function handler(
   request: NextApiRequest,
@@ -56,7 +60,10 @@ export default async function handler(
 
     const { index } = request.query
 
-    const results = await getSearchIndex<DrupalNode>(index as string, body)
+    const results = await drupal.getSearchIndex<DrupalNode>(
+      index as string,
+      body
+    )
 
     response.json(results)
   } catch (error) {

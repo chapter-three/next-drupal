@@ -48,6 +48,10 @@ export const docsConfig: DocsConfig = {
           title: "Preview Mode",
           href: "/docs/preview-mode",
         },
+        {
+          title: "TypeScript",
+          href: "/docs/typescript",
+        },
       ],
     },
     {

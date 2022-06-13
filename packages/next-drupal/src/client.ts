@@ -34,6 +34,7 @@ import type {
   DrupalClientAuthClientIdSecret,
   JsonApiCreateFileResourceBody,
   DrupalView,
+  DrupalFile,
 } from "./types"
 import { logger as defaultLogger } from "./logger"
 import { JsonApiErrors } from "./jsonapi-errors"

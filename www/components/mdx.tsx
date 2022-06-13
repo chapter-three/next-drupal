@@ -34,10 +34,10 @@ export const mdxComponents = {
   figcaption: (props) => <figcaption className="text-center" {...props} />,
   inlineCode: ({ children, ...props }) => (
     <code
-      className="font-mono text-sm font-medium text-blue-700 break-words"
+      className="font-mono text-sm font-medium text-gray-800 px-[0.2rem] py-[0.1rem] break-words bg-gray-300 bg-opacity-25 border rounded"
       {...props}
     >
-      `{children}`
+      {children}
     </code>
   ),
   pre: (props) => {

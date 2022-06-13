@@ -92,6 +92,11 @@ html {
   }
 }
 
+/* List */
+li ul {
+  margin: 0 !important;
+}
+
 /* Table */
 .main-content table {
   @apply p-0 w-full;

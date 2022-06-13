@@ -1,0 +1,40 @@
+---
+title: getEntryForResourceType
+excerpt: Get the JSON:API entry for a resource type.
+---
+
+```ts
+const url = await drupal.getEntryForResourceType(type, locale?): Promise<string>
+```
+
+- `type: string`
+  - **Required**
+  - The resource type. Example: `node--article`.
+- `locale: string`
+  - Optional
+  - The locale to fetch the index. Example: `es` or `fr`.
+
+---
+
+## Notes
+
+By default, when retrieving resources in `getResource` or `getResourceCollection`, the `DrupalClient` will infer the resource entry from the provided type.
+
+Example: if you provide `node--article`, `DrupalClient` will make a request to `http://example.com/jsonapi/node/article`.
+
+If you would like to force a fetch to retrieve the resource type, use the [`useDefaultResourceTypeEntry`](/docs/configuration#usedefaultresourcetypeentry) option.
+
+```ts
+const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  useDefaultResourceTypeEntry: true,
+})
+```
+
+---
+
+## Examples
+
+```ts
+// https://example.com/jsonapi/node/article.
+const url = await drupal.getEntryForResourceType(`node--article`)
+```

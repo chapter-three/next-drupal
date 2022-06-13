@@ -1,13 +1,105 @@
 ---
 title: Reference
-excerpt: Server API Reference for next-drupal
+excerpt: API Reference for DrupalClient
 ---
 
-<Callout>
+## getResource
 
-The following functions are meant to be called on the server (`getStaticPaths`, `getStaticProps` and `getServerSideProps`).
+Fetches a resource by ID (uuid).
 
-</Callout>
+```ts
+const resource = await drupal.getResource(
+  type,
+  uuid,
+  options?: {
+    deserialize,
+    locale,
+    defaultLocale
+  }
+)
+```
+
+- `type: string` (**Required**)
+  - The resource type. Example: `node--article`, `taxonomy_term--tags`, or `block_content--basic`.
+- `uuid: string` (**Required**)
+  - The id of the resource. Example: `15486935-24bf-4be7-b858-a5b2de78d09d`.
+- `options` (Optional)
+  - `deserialize: boolean`: Set to false to return the raw JSON:API response.
+  - `locale: string`: The locale to fetch the resource in.
+  - `defaultLocale: string`: The default locale of the site.
+
+#### Examples
+
+Get a page by uuid.
+
+```ts
+const node = await drupal.getResource(
+  "node--page",
+  "07464e9f-9221-4a4f-b7f2-01389408e6c8"
+)
+```
+
+Get the `es` translation for a page by uuid.
+
+```ts
+const node = await drupal.getResource(
+  "node--page",
+  "07464e9f-9221-4a4f-b7f2-01389408e6c8",
+  {
+    locale: "es",
+    defaultLocale: "en",
+  }
+)
+```
+
+Get the raw JSON:API response.
+
+```ts
+const { data, meta, links } = await drupal.getResource(
+  "node--page",
+  "07464e9f-9221-4a4f-b7f2-01389408e6c8",
+  {
+    deserialize: false,
+  }
+)
+```
+
+---
+
+## getResourceFromContext
+
+Returns a single resource in `getStaticProps` or `getServerSideProps`.
+
+```ts
+function getResourceFromContext(
+  type: string,
+  context: GetStaticPropsContext,
+  options?: {
+    prefix?: string
+    deserialize?: boolean
+    params?: JsonApiParams
+  }
+): Promise<any>
+```
+
+#### Examples
+
+Get a page node.
+
+```ts title=pages/[[...slug]].tsx
+import { getResourceFromContext } from "next-drupal"
+
+export async function getStaticProps(context) {
+  const node = await getResourceFromContext("node--page", context)
+
+  return {
+    props: {
+      node,
+    },
+    revalidate: 60,
+  }
+}
+```
 
 ## getPathsFromContext
 
@@ -84,83 +176,6 @@ export async function getStaticProps(context) {
 
   if (type === "node--article") {
     // Do something.
-  }
-}
-```
-
----
-
-## getResource
-
-Loads a resource by ID (uuid) in `getStaticProps` or `getServerSideProps`.
-
-```ts
-function getResource(
-  type: string,
-  uuid: string,
-  options?: {
-    deserialize?: boolean
-  } & JsonApiWithLocaleOptions
-): Promise<any>
-```
-
-#### Examples
-
-Get a page by uuid.
-
-```ts
-const node = await getResource(
-  "node--page",
-  "07464e9f-9221-4a4f-b7f2-01389408e6c8"
-)
-```
-
-Get the `es` translation for a page by uuid.
-
-```ts
-const node = await getResource(
-  "node--page",
-  "07464e9f-9221-4a4f-b7f2-01389408e6c8",
-  {
-    locale: "es",
-    defaultLocale: "en",
-  }
-)
-```
-
----
-
-## getResourceFromContext
-
-Returns a single resource in `getStaticProps` or `getServerSideProps`.
-
-```ts
-function getResourceFromContext(
-  type: string,
-  context: GetStaticPropsContext,
-  options?: {
-    prefix?: string
-    deserialize?: boolean
-    params?: JsonApiParams
-  }
-): Promise<any>
-```
-
-#### Examples
-
-Get a page node.
-
-```ts title=pages/[[...slug]].tsx
-import { getResourceFromContext } from "next-drupal"
-
-export async function getStaticProps(context) {
-  const node = await getResourceFromContext("node--page", context)
-
-  return {
-    props: {
-      node,
-    },
-    revalidate: 60,
   }
 }
 ```

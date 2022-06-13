@@ -1,0 +1,42 @@
+---
+title: translatePathFromContext
+excerpt: Fetch info about a Drupal path from getStaticProps or getServerSideProps context.
+---
+
+```ts
+const path = await drupal.translatePathFromContext(
+  context,
+  options?: {
+    withAuth,
+    pathPrefix,
+  }
+): Promise<DrupalTranslatedPath>
+```
+
+- `context: GetStaticPropsContext | GetServerSidePropsContext`
+  - **Required**
+  - The context from `getStaticProps` or `getServerSideProps`.
+- `options`
+  - Optional
+  - `withAuth: boolean | DrupalClientAuth`:
+    - Set the authentication method to use. See the [authentication docs](/docs/authentication).
+    - Set to `true` to use the authentication method configured on the client.
+  - `pathPrefix: string`: Set the pathPrefix if you're calling from a subdir. Example: for `/articles/[...slug].tsx`, use `pathPrefix: "/articles"`.
+
+---
+
+## Notes
+
+- The [Decoupled Router](https://drupal.org/project/decoupled_router) module is required.
+
+---
+
+## Examples
+
+- Get info about a path from `getStaticProps` context.
+
+```ts
+export async function getStaticProps(context) {
+  const path = await drupal.translatePathFromContext(context)
+}
+```

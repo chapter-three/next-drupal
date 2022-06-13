@@ -1,26 +1,22 @@
 ---
-title: Data Fetching
-excerpt: How to fetch JSON:API data from Drupal.
+title: Building Pages
+excerpt: How to build pages using JSON:API resources from Drupal.
 ---
 
 In Next.js, you fetch server-side data in either `getStaticProps` or `getServerSideProps`. Data is then fed to your pages for pre-rendering.
 
-next-drupal provides several functions to help you query JSON:API data from Drupal.
+The `DrupalClient` provides several functions to help you query JSON:API resources from Drupal.
 
 ## Basic Example
 
 Here's an example which uses `getResource` to fetch a `page` node by ID:
 
 ```tsx
-export async function getStaticProps() {
-  const node = await getResource(
-    "node--page",
-    "07464e9f-9221-4a4f-b7f2-01389408e6c8"
-  )
-}
+const node = await drupal.getResource(
+  "node--page",
+  "07464e9f-9221-4a4f-b7f2-01389408e6c8"
+)
 ```
-
----
 
 A full page would look like this:
 
@@ -37,7 +33,7 @@ export default function AboutPage({ node }) {
 
 export async function getStaticProps() {
   // Fetch the node from Drupal.
-  const node = await getResource(
+  const node = await drupal.getResource(
     "node--page",
     "07464e9f-9221-4a4f-b7f2-01389408e6c8"
   )
@@ -51,22 +47,22 @@ export async function getStaticProps() {
 }
 ```
 
+---
+
 ## Dynamic pages
 
-You can use Next.js [dynamic route](https://nextjs.org/docs/basic-features/pages#pages-with-dynamic-routes) to build static pages for every node (or any entity type).
+You can use Next.js [dynamic route](https://nextjs.org/docs/basic-features/pages#pages-with-dynamic-routes) to build static pages for Drupal entity types.
 
-Start by creating a page at `/pages/[...slug].tsx`, where `[...slug]` maps to the **path alias** for a node in Drupal.
+Start by creating a page at `/pages/[...slug].tsx`, where `[...slug]` maps to the **path alias** for an entity type (or content type) in Drupal.
 
 This means `/pages/[...slug].tsx` will handle all pages with the following aliases: `/about`, `/team`, `/another/path` ...etc.
 
-To build static pages for these nodes, there are two functions we need to implement:
+To build static pages, there are two functions we need to implement:
 
 1. `getStaticPaths`: to tell Next.js all the routes that we want to be rendered.
 2. `getStaticProps`: to fetch data for pages.
 
 ```tsx title=pages/[...slug].tsx
-import { getPathsFromContext, getResourceFromContext } from "next-drupal"
-
 export default function Page({ node }) {
   return (
     <article>
@@ -79,7 +75,7 @@ export default function Page({ node }) {
 export async function getStaticPaths(context) {
   // Build paths for all `node--page`.
   return {
-    paths: await getPathsFromContext("node--page", context), // highlight-line
+    paths: await drupal.getStaticPathsFromContext("node--page", context),
     fallback: false,
   }
 }
@@ -87,7 +83,7 @@ export async function getStaticPaths(context) {
 export async function getStaticProps(context) {
   // Fetch the node based on the context.
   // next-drupal automatically handles the slug value.
-  const node = await getResourceFromContext("node--page", context) // highlight-line
+  const node = await drupal.getResourceFromContext("node--page", context)
 
   return {
     props: {
@@ -97,17 +93,22 @@ export async function getStaticProps(context) {
 }
 ```
 
+---
+
 ## Advanced Example
 
 In the example above, we used `pages/[...slug].tsx` to build static pages for `node--page`.
 
-We can go a step further and handle all node types (or any entity type) in one page.
+We can go a step further and handle all node types (or any entity types) in one page.
 
-To do that, we're going to use `getResourceTypeFromContext` which returns the resource type based on `context`.
+To do that, we're going to use `translatePathFromContext` which returns info about the resource type based on `slug` value in `context`.
 
 ```tsx
 export async function getStaticProps(context) {
-  const type = await getResourceTypeFromContext(context)
+  const path = await drupal.translatePathFromContext(context)
+
+  // Get the resource type.
+  const type = path.jsonapi.resourceName
 
   if (type === "node--article") {
     // Build custom JSON:API query for article.
@@ -122,11 +123,6 @@ export async function getStaticProps(context) {
 Let's update `pages/[...slug].tsx` to handle both `node--page` and `node--article`.
 
 ```tsx title=pages/[...slug].tsx
-import {
-  getPathsFromContext,
-  getResourceFromContext,
-  getResourceTypeFromContext, // highlight-line
-} from "next-drupal"
 import { DrupalJsonApiParams } from "drupal-jsonapi-params"
 
 export default function Page({ node }) {
@@ -144,14 +140,21 @@ export default function Page({ node }) {
 export async function getStaticPaths(context) {
   // Build paths for all `node--page` and `node--article`.
   return {
-    paths: await getPathsFromContext(["node--page", "node--article"], context), // highlight-line
+    paths: await drupal.getStaticPathsFromContext(
+      ["node--page", "node--article"],
+      context
+    ),
     fallback: false,
   }
 }
 
 export async function getStaticProps(context) {
+  const path = await drupal.translatePathFromContext(context)
+
+  // Get the resource type.
+  const type = path.jsonapi.resourceName
+
   const params = new DrupalJsonApiParams()
-  const type = await getResourceTypeFromContext(context) // highlight-line
 
   // Fetch the title, path and body field for pages.
   if (type === "node--page") {
@@ -163,11 +166,9 @@ export async function getStaticProps(context) {
     params.addFields("node--article", ["title", "path", "body", "uid"])
   }
 
-  // highlight-start
-  const node = await getResourceFromContext(type, context, {
+  const node = await drupal.getResourceFromContext(type, context, {
     params: params.getQueryObject(),
   })
-  // highlight-end
 
   return {
     props: {

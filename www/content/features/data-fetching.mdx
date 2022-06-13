@@ -1,34 +1,41 @@
 ---
 title: Data Fetching
-excerpt: Fetch JSON:API data to build SSG, ISR and SSR pages.
-weight: 0
+excerpt: A powerful client to fetch JSON:API resources from Drupal.
+weight: 0.1
 ---
 
-```tsx title=pages/[...slug].tsx
-import { getPathsFromContext, getResourceFromContext } from "next-drupal"
+```tsx
+// Fetch an article.
+const article = await drupal.getResource(
+  "node--article",
+  "907034d4-ab35-4949-84e4-d2b7afed82df"
+)
+```
 
-export default function ArticleNodePage({ node }) {
-  return node ? (
-    <div>
-      <h1>{node.title}</h1>
-    </div>
-  ) : null
-}
+```ts
+// Fetch a collection of terms.
+const tags = await drupal.getResourceCollection("taxonomy_term--tags")
+```
 
-export async function getStaticPaths(context) {
-  return {
-    paths: await getPathsFromContext("node--article", context),
-    fallback: false,
-  }
-}
+```ts
+// Fetch a menu.
+const main = await drupal.getMenu("main")
+```
 
-export async function getStaticProps(context) {
-  const node = await getResourceFromContext("node--article", context)
+```ts
+// Fetch a view.
+const recentContent = await drupal.getView("content_recent--block")
+```
 
-  return {
-    props: {
-      node,
+```ts
+// Use filters.
+const sortedPublishArticles = await drupal.getResourceCollection(
+  "node--article",
+  {
+    params: {
+      "filter[status]": "1",
+      sorted: "-created",
     },
   }
-}
+)
 ```

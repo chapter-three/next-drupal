@@ -1,0 +1,54 @@
+---
+title: getView
+excerpt: Fetch a view from Drupal.
+---
+
+```ts
+const view = await drupal.getView<T = JsonApiResource>(
+  name,
+  options?: {
+    params,
+    withAuth,
+    deserialize,
+    locale,
+    defaultLocale,
+  }
+): Promise<DrupalView<T>>
+```
+
+- `name: string`
+  - **Required**
+  - The name of the view and the display id. Example: "articles--promoted".
+- `options`
+  - Optional
+  - `params: JsonApiParams`: JSON:API params such as `filter`, `fields`, `include` or `sort`.
+  - `withAuth: boolean | DrupalClientAuth`:
+    - Set the authentication method to use. See the [authentication docs](/docs/authentication).
+    - Set to `true` to use the authentication method configured on the client.
+  - `deserialize: boolean`: Set to false to return the raw JSON:API response.
+  - `locale: string`: The locale to fetch the view in.
+  - `defaultLocale: string`: The default locale of the site.
+
+---
+
+## Examples
+
+- Get a view named `articles` and display id `promoted`.
+
+```ts
+const view = await drupal.getView("articles--promoted")
+```
+
+---
+
+## TypeScript
+
+- Using `DrupalNode` for a node entity type.
+
+```ts
+import { DrupalNode } from "next-drupal"
+
+const view = await drupal.getView<DrupalNode>("articles--promoted")
+```
+
+See the [TypeScript docs](/docs/typescript) for more built-in types.

@@ -1,0 +1,35 @@
+---
+title: fetch
+excerpt: A wrapper for the polyfilled fetch.
+---
+
+```ts
+const response = await drupal.fetch(input, init?): Promise<Response>
+```
+
+- `input: RequestInfo`
+  - **Required**
+  - The url to fetch from.
+- `init: FetchOptions`
+  - Optional
+  - The fetch options with `withAuth`.
+  - If `withAuth` is set, `fetch` will fetch an `Authorization` header before making the request.
+
+---
+
+## Notes
+
+- To provide your own custom fetcher, see the [fetcher docs](/docs/fetcher).
+
+---
+
+## Examples
+
+```ts
+const url = drupal.buildUrl("/jsonapi/node/article", {
+  sort: "-created",
+  "fields[node--article]": "title,path",
+})
+
+const response = await drupal.fetch(url.toString())
+```

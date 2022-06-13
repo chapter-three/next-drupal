@@ -51,27 +51,6 @@ export const docsConfig: DocsConfig = {
       ],
     },
     {
-      title: "Customization",
-      items: [
-        {
-          title: "Authentication",
-          href: "/docs/auth",
-        },
-        {
-          title: "Fetcher",
-          href: "/docs/fetcher",
-        },
-        {
-          title: "Serializer",
-          href: "/docs/serializer",
-        },
-        {
-          title: "Caching",
-          href: "/docs/cache",
-        },
-      ],
-    },
-    {
       title: "Working with JSON:API",
       items: [
         {
@@ -110,52 +89,116 @@ export const docsConfig: DocsConfig = {
       ],
     },
     {
+      title: "Customization",
+      items: [
+        {
+          title: "Authentication",
+          href: "/docs/auth",
+        },
+        {
+          title: "Fetcher",
+          href: "/docs/fetcher",
+        },
+        {
+          title: "Serializer",
+          href: "/docs/serializer",
+        },
+        {
+          title: "Caching",
+          href: "/docs/cache",
+        },
+      ],
+    },
+    {
       title: "Reference",
       items: [
         {
-          title: "getPathsFromContext",
-          href: "/docs/reference#getpathsfromcontext",
-        },
-
-        {
-          title: "getResourceTypeFromContext",
-          href: "/docs/reference#getresourcetypefromcontext",
-        },
-        {
           title: "getResource",
-          href: "/docs/reference#getresource",
+          href: "/docs/reference/getresource",
         },
         {
           title: "getResourceFromContext",
-          href: "/docs/reference#getresourcefromcontext",
+          href: "/docs/reference/getresourcefromcontext",
         },
         {
           title: "getResourceByPath",
-          href: "/docs/reference#getresourcebypath",
+          href: "/docs/reference/getresourcebypath",
         },
         {
           title: "getResourceCollection",
-          href: "/docs/reference#getresourcecollection",
+          href: "/docs/reference/getresourcecollection",
         },
         {
           title: "getResourceCollectionFromContext",
-          href: "/docs/reference#getresourcecollectionfromcontext",
+          href: "/docs/reference/getresourcecollectionfromcontext",
         },
         {
-          title: "getMenu",
-          href: "/docs/reference#getmenu",
+          title: "createResource",
+          href: "/docs/reference/createresource",
         },
         {
-          title: "getView",
-          href: "/docs/reference#getview",
+          title: "createFileResource **",
+          href: "/docs/reference/createfileresource",
+        },
+        {
+          title: "updateResource",
+          href: "/docs/reference/updateresource",
+        },
+        {
+          title: "deleteResource",
+          href: "/docs/reference/deleteresource",
+        },
+        {
+          title: "getStaticPathsFromContext",
+          href: "/docs/reference/getstaticpathsfromcontext",
         },
         {
           title: "translatePath",
-          href: "/docs/reference#translatepath",
+          href: "/docs/reference/translatepath",
         },
         {
           title: "translatePathFromContext",
-          href: "/docs/reference#translatepathfromcontext",
+          href: "/docs/reference/translatepathfromcontext",
+        },
+        {
+          title: "getPathFromContext",
+          href: "/docs/reference/getpathfromcontext",
+        },
+        {
+          title: "getEntryForResourceType",
+          href: "/docs/reference/getentryforresourcetype",
+        },
+        {
+          title: "preview",
+          href: "/docs/reference/preview",
+        },
+        {
+          title: "getAccessToken",
+          href: "/docs/reference/getaccesstoken",
+        },
+        {
+          title: "getMenu",
+          href: "/docs/reference/getmenu",
+        },
+        {
+          title: "getView",
+          href: "/docs/reference/getview",
+        },
+        {
+          title: "getSearchIndex",
+          href: "/docs/reference/getsearch",
+        },
+        {
+          title: "buildUrl",
+          href: "/docs/reference/buildurl",
+        },
+        {
+          title: "fetch",
+          href: "/docs/reference/fetch",
+        },
+        {
+          title: "deserialize",
+          href: "/docs/reference/deserialize",
         },
       ],
     },

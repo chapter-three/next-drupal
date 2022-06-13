@@ -1,44 +1,43 @@
 ---
 title: Authentication
-excerpt: Password and Authorization Code Grant.
+excerpt: Support for Bearer, Basic and bring-your-own auth.
 weight: 4
 ---
 
-```ts title=pages/api/auth/[...nextauth].ts
-import NextAuth from "next-auth"
-import CredentialsProvider from "next-auth/providers/credentials"
+```ts
+// Bearer token.
+export const drupal = new Experiment_DrupalClient(
+  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+  {
+    auth: {
+      clientId: process.env.DRUPAL_CLIENT_ID,
+      clientSecret: process.env.DRUPAL_CLIENT_SECRET,
+    },
+  }
+)
+```
 
-export default NextAuth({
-  providers: [
-    CredentialsProvider({
-      name: "Credentials",
-      async authorize(credentials) {
-        const formData = new URLSearchParams()
-        formData.append("grant_type", "password")
-        formData.append("username", credentials.username)
-        formData.append("password", credentials.password)
+```ts
+// Basic.
+export const drupal = new DrupalClient(
+  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+  {
+    auth: {
+      username: process.env.DRUPAL_USERNAME,
+      password: process.env.DRUPAL_PASSWORD,
+    },
+  }
+)
+```
 
-        // Get access token from Drupal.
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/oauth/token`,
-          {
-            method: "POST",
-            body: formData,
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-          }
-        )
-
-        const data = await response.json()
-
-        if (response.ok && data?.access_token) {
-          return data
-        }
-
-        return null
-      },
-    }),
-  ],
-})
+```ts
+// Bring your own.
+export const drupal = new DrupalClient(
+  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+  {
+    auth: () => {
+      // Do something and return an Authorization header.
+    },
+  }
+)
 ```

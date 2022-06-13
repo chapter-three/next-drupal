@@ -16,9 +16,9 @@ This is the default authentication configured on the client.
 **This is used most of the time for fetching and building static pages.**
 
 ```ts title=lib/drupal.ts
-import { Experiment_DrupalClient as DrupalClient } from "next-drupal"
+import { Preview Mode DrupalClient } from "next-drupal"
 
-export const drupal = new Experiment_DrupalClient(
+export const drupal = new DrupalClient(
   process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
   {
     auth: // Configure the global auth here.
@@ -59,7 +59,7 @@ You need to enable the `simple_oauth` module on Drupal.
 
 ```ts title=lib/drupal.ts
 // Client
-export const drupal = new Experiment_DrupalClient(
+export const drupal = new DrupalClient(
   process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
   {
     auth: {

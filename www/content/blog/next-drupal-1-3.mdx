@@ -180,7 +180,7 @@ export const drupal = new DrupalClient(
 You can now provide your own fetcher using the [`fetcher`](/docs/client/configuration#fetcher) option. This replaces Next.js' polyfilled `fetch` for JSON:API calls.
 
 ```ts title=lib/drupal.ts
-import { Experiment_DrupalClient as DrupalClient } from "next-drupal"
+import { Preview Mode DrupalClient } from "next-drupal"
 import crossFetch from "cross-fetch"
 
 const fetcher = (url, options) => {
@@ -214,7 +214,7 @@ The `DrupalClient` has support for caching resources. You can provide your own c
 Here's an example on how you can use Redis to cache resources.
 
 ```ts title=lib/drupal.ts
-import { Experiment_DrupalClient as DrupalClient, DataCache } from "next-drupal"
+import { Preview Mode DrupalClient, DataCache } from "next-drupal"
 import Redis from "ioredis"
 
 const redis = new Redis(process.env.REDIS_URL)

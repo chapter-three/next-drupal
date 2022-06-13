@@ -87,6 +87,11 @@ module.exports = {
         destination: "/docs/pages",
         permanent: true,
       },
+      {
+        source: "/docs/reference",
+        destination: "/docs/reference/getresource",
+        permanent: true,
+      },
     ]
   },
 }

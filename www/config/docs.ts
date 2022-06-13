@@ -97,7 +97,7 @@ export const docsConfig: DocsConfig = {
       items: [
         {
           title: "Authentication",
-          href: "/docs/auth",
+          href: "/docs/authentication",
         },
         {
           title: "Fetcher",

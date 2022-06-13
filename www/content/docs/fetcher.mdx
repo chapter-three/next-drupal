@@ -3,11 +3,13 @@ title: Fetcher
 excerpt: Using a custom fetcher with DrupalClient.
 ---
 
-The `DrupalClient` uses Next.js polyfilled `fetch` as the default fetcher.
+The `DrupalClient` uses the polyfilled `fetch` from Next.js as the default fetcher.
 
 You can provide your own using the [`fetcher`](/docs/configuration#fetcher) option.
 
-### Example
+---
+
+## Example
 
 Here's how you can replace the default fetcher with [cross-fetch](https://github.com/lquixada/cross-fetch).
 
@@ -18,7 +20,7 @@ We're using **cross-fetch** instead of **node-fetch** because it is compatible w
 </Callout>
 
 ```ts title=lib/drupal.ts
-import { Experiment_DrupalClient as DrupalClient } from "next-drupal"
+import { DrupalClient } from "next-drupal"
 import crossFetch from "cross-fetch"
 
 // Create a custom fetcher.

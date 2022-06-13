@@ -127,6 +127,14 @@ article .table-container {
   overflow: auto;
 }
 
+.card + .card {
+  @apply mt-6;
+}
+
+.card p:last-child {
+  @apply mb-0;
+}
+
 /**
  * MIT License
  * Copyright (c) 2018 Sarah Drasner

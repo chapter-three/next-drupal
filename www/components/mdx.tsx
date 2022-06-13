@@ -4,7 +4,7 @@ import Image from "next/image"
 import { Callout } from "components/callout"
 import { Video } from "components/video"
 import { CodeBlock } from "components/code-block"
-import { ExampleCard } from "@/core/components/example-card"
+import { Card, CardHeading, CardBody } from "components/card"
 
 export const mdxComponents = {
   p: (props) => <p className="mb-6 leading-relaxed text-black" {...props} />,
@@ -74,5 +74,7 @@ export const mdxComponents = {
     </figure>
   ),
   Video,
-  ExampleCard,
+  Card,
+  CardHeading,
+  CardBody,
 }

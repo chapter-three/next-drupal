@@ -7,12 +7,14 @@ The `DrupalClient` uses [jsona](https://github.com/olosegres/jsona) as the defau
 
 You can provide your own using the [`serializer`](/docs/client/configuration#serializer) option.
 
+---
+
 ## Example
 
 Here's how you can replace the default serializer with [jsonapi-serializer](https://github.com/SeyZ/jsonapi-serializer).
 
 ```ts title=lib/drupal.ts
-import { Experiment_DrupalClient as DrupalClient } from "next-drupal"
+import { DrupalClient } from "next-drupal"
 import { Deserializer } from "jsonapi-serializer"
 
 // Create a custom serializer.

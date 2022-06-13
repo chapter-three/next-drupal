@@ -18,11 +18,13 @@ The `DrupalClient` ships with a `deleteResource` method for deleting JSON:API re
 Delete an article by id.
 
 ```ts
-const article = await drupal.deleteResource(
+const deleted = await drupal.deleteResource(
   "node--article",
   "a937dd34-5407-4fff-8594-fccaaa5bb72a" // <-- Article ID
 )
 ```
+
+See the API reference for [deleteResource](/docs/reference/deleteresource).
 
 ---
 
@@ -33,7 +35,7 @@ To make authenticated requests when deleting resources, use the `withAuth` optio
 See the [authentication docs](/docs/authentication) for the supported authentication methods.
 
 ```ts
-const article = await drupal.deleteResource(
+const deleted = await drupal.deleteResource(
   "node--article",
   "a937dd34-5407-4fff-8594-fccaaa5bb72a",
   // highlight-start

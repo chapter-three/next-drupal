@@ -8,7 +8,7 @@ excerpt: Initialization and options for DrupalClient.
 To create a new `DrupalClient`, use the following initialization:
 
 ```ts
-import { Experimental_DrupalClient as DrupalClient } from "next-drupal"
+import { DrupalClient } from "next-drupal"
 
 const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL)
 ```
@@ -173,7 +173,7 @@ Set whether the client should use authenticated requests by default. If set to `
 
 ### useDefaultResourceTypeEntry
 
-- **Default value**: `false`
+- **Default value**: `true`
 - **Required**: No
 
 By default, the client will make a request to JSON:API to retrieve the index.

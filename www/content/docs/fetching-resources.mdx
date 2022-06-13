@@ -7,7 +7,7 @@ The `DrupalClient` ships with helpers to fetch JSON:API data from Drupal.
 
 You can fetch a single resource, `getResource` or a collection of resources, `getResourceCollection`.
 
-Every helper methods:
+Every helper method:
 
 - Accepts a resource type: `node--article` or `taxonomy_term--tags`.
 - A `params` option for query params: `fields`, `include`, `filter`, ...etc
@@ -55,6 +55,8 @@ const block = await drupal.getResource(
 )
 ```
 
+See the API reference for [getResource](/docs/reference/getresource).
+
 ---
 
 ## getResourceFromContext
@@ -66,6 +68,8 @@ If you're using [internationalization](https://nextjs.org/docs/advanced-features
 ```ts
 const article = await drupal.getResourceFromContext("node--article", context)
 ```
+
+See the API reference for [getResourceFromContext](/docs/reference/getresourcefromcontext).
 
 ---
 
@@ -88,6 +92,8 @@ const articles = await drupal.getResourceCollection("node--article", {
 })
 ```
 
+See the API reference for [getResourceCollection](/docs/reference/getresourcecollection).
+
 ---
 
 ## getResourceCollectionFromContext
@@ -102,6 +108,8 @@ const articles = await drupal.getResourceCollectionFromContext(
   context
 )
 ```
+
+See the API reference for [getResourceCollectionFromContext](/docs/reference/getresourcecollectionfromcontext).
 
 ---
 
@@ -119,6 +127,8 @@ Fetch a menu by name
 const menu = await drupal.getMenu("main")
 ```
 
+See the API reference for [getMenu](/docs/reference/getmenu).
+
 ---
 
 ## getView
@@ -134,6 +144,8 @@ Fetch a view by name and display_id.
 ```ts
 const view = await drupal.getView("promoted_items--block_1")
 ```
+
+See the API reference for [getView](/docs/reference/getview).
 
 ---
 
@@ -155,28 +167,7 @@ const results = await drupal.getSearchIndex(indexName, {
 })
 ```
 
----
-
-## translatePath
-
-Fetch information about a path.
-
-```ts
-const path = await drupal.translatePath("/articles/slug-of-article")
-```
-
----
-
-## translatePathFromContext
-
-Fetch information about a path in `getStaticProps/getServerSideProps` with context.
-
-```ts
-const path = await drupal.translatePathFromContext(
-  "/articles/slug-of-article",
-  context
-)
-```
+See the API reference for [getSearchIndex](/docs/reference/getsearch).
 
 ---
 

@@ -3,11 +3,15 @@ title: TypeScript
 excerpt: Using built-in types with DrupalClient.
 ---
 
-Every helper methods for the `DrupalClient` has full TypeScript support.
+Every helper method for the `DrupalClient` has full TypeScript support.
 
 The `next-drupal` module ships with some default basic types you can use.
 
-## DrupalNode
+---
+
+## Built-in Types
+
+### DrupalNode
 
 ```ts
 export interface DrupalNode extends JsonApiResourceWithPath {
@@ -21,7 +25,9 @@ export interface DrupalNode extends JsonApiResourceWithPath {
 }
 ```
 
-## DrupalBlock
+---
+
+### DrupalBlock
 
 ```ts
 export interface DrupalBlock extends JsonApiResource {
@@ -29,7 +35,9 @@ export interface DrupalBlock extends JsonApiResource {
 }
 ```
 
-## DrupalMedia
+---
+
+### DrupalMedia
 
 ```ts
 export interface DrupalMedia extends JsonApiResource {
@@ -41,7 +49,9 @@ export interface DrupalMedia extends JsonApiResource {
 }
 ```
 
-## DrupalFile
+---
+
+### DrupalFile
 
 ```ts
 export interface DrupalFile extends JsonApiResource {
@@ -66,7 +76,9 @@ export interface DrupalFileMeta {
 }
 ```
 
-## DrupalTaxonomyTerm
+---
+
+### DrupalTaxonomyTerm
 
 ```ts
 export interface DrupalTaxonomyTerm extends JsonApiResourceWithPath {
@@ -79,7 +91,9 @@ export interface DrupalTaxonomyTerm extends JsonApiResourceWithPath {
 }
 ```
 
-## DrupalUser
+---
+
+### DrupalUser
 
 ```ts
 export interface DrupalUser extends JsonApiResourceWithPath {
@@ -91,7 +105,9 @@ export interface DrupalUser extends JsonApiResourceWithPath {
 }
 ```
 
-## DrupalView
+---
+
+### DrupalView
 
 ```ts
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -103,7 +119,9 @@ export interface DrupalView<T = Record<string, any>[]> {
 }
 ```
 
-## DrupalParagraph
+---
+
+### DrupalParagraph
 
 ```ts
 export interface DrupalParagraph extends JsonApiResource {
@@ -112,7 +130,9 @@ export interface DrupalParagraph extends JsonApiResource {
 }
 ```
 
-## PathAlias
+---
+
+### PathAlias
 
 ```ts
 export type PathAlias = {
@@ -122,7 +142,9 @@ export type PathAlias = {
 }
 ```
 
-## DrupalMenuLinkContent
+---
+
+### DrupalMenuLinkContent
 
 ```ts
 export interface DrupalMenuLinkContent {
@@ -147,7 +169,9 @@ export interface DrupalMenuLinkContent {
 }
 ```
 
-## DrupalTranslatedPath
+---
+
+### DrupalTranslatedPath
 
 ```ts
 export interface DrupalTranslatedPath {
@@ -175,5 +199,17 @@ export interface DrupalTranslatedPath {
     to: string
     status: string
   }[]
+}
+```
+
+---
+
+## Extending Types
+
+To extend the built-in types, create a file at `types/drupal.d.ts` and extend the types as follows.
+
+```ts title=types/drupal.d.ts
+interface Article extends DrupalNode {
+  field_foo: string
 }
 ```

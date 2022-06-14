@@ -14,6 +14,10 @@ export const guidesConfig: GuidesConfig = {
           href: "/guides/jsonapi-params",
         },
         {
+          title: "On-demand Revalidation",
+          href: "/guides/on-demand-revalidation",
+        },
+        {
           title: "TypeScript",
           href: "/guides/typescript",
         },
@@ -40,10 +44,6 @@ export const guidesConfig: GuidesConfig = {
         {
           title: "Search API",
           href: "/guides/search-api",
-        },
-        {
-          title: "On-demand Revalidation",
-          href: "/guides/on-demand-revalidation",
         },
         {
           title: "Filter by Site",

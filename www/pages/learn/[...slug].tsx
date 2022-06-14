@@ -10,7 +10,7 @@ import { Pager } from "components/pager"
 import { mdxComponents } from "components/mdx"
 import { Video } from "components/video"
 import { getTableOfContents, TableOfContents } from "next-mdx-toc"
-import { Toc } from "@/core/components/toc"
+import { Toc } from "components/toc"
 
 export interface TutorialPageProps {
   tutorial: Tutorial

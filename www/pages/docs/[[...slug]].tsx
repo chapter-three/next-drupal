@@ -23,7 +23,7 @@ export default function DocsPage({ doc, toc }: DocsPageProps) {
   return (
     <Layout title={doc.frontMatter.title} description={doc.frontMatter.excerpt}>
       <div className="container px-6 mx-auto md:gap-10 xl:gap-8 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-[250px_1fr] lg:grid xl:px-8">
-        <aside className="hidden col-span-2 py-10 pr-4 border-r xl:col-span-1 lg:flex">
+        <aside className="sticky top-0 hidden max-h-screen col-span-2 pt-10 pb-64 pr-4 overflow-auto border-r xl:col-span-1 lg:flex">
           <SidebarNav items={docsConfig.links} />
         </aside>
         <div className="items-start col-span-4 gap-12 pb-10 xl:col-span-1 xl:grid xl:grid-cols-3 xl:gap-18">

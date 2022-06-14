@@ -22,10 +22,6 @@ export const site: SiteConfig = {
       activePathNames: ["/guides/[...slug]"],
     },
     {
-      title: "Examples",
-      href: "/examples",
-    },
-    {
       title: "Blog",
       href: "/blog",
       activePathNames: ["/blog/[...slug]"],

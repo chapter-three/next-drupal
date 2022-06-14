@@ -5,7 +5,7 @@ An example showing how to use Redis to cache global resources such as menus and 
 ## Example
 
 ```ts
-import { Preview Mode DrupalClient, DataCache } from "next-drupal"
+import { DrupalClient, DataCache } from "next-drupal"
 import Redis from "ioredis"
 
 const redis = new Redis(process.env.REDIS_URL)

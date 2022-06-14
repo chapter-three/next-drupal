@@ -5,7 +5,7 @@ An example showing how to use basic auth for client authentication in Next.js fo
 ## Example
 
 ```ts
-import { Preview Mode DrupalClient } from "next-drupal"
+import { DrupalClient } from "next-drupal"
 
 export const drupal = new DrupalClient(
   process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,

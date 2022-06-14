@@ -20,6 +20,7 @@
   "blog": {
     "contentPath": "content/blog",
     "basePath": "/blog",
-    "sortBy": "created"
+    "sortBy": "created",
+    "sortOrder": "desc"
   }
 }

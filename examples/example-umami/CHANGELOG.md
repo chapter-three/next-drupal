@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-rc.2](https://github.com/chapter-three/next-drupal/compare/example-umami@1.1.0-rc.1...example-umami@1.1.0-rc.2) (2022-06-14)
+
+
+### Bug Fixes
+
+* **example-umami:** update createFileResource ([47132d9](https://github.com/chapter-three/next-drupal/commit/47132d9190c00a9de000a36912fa8fdf986b7c56))
+
+
+### Features
+
+* rename Experimental_DrupalClient to DrupalClient ([fc549ec](https://github.com/chapter-three/next-drupal/commit/fc549ecab94a5a1e67f38b4e951351365adbb1f5))
+
+
+
+
+
 # [1.1.0-rc.1](https://github.com/chapter-three/next-drupal/compare/example-umami@1.1.0-rc.0...example-umami@1.1.0-rc.1) (2022-06-10)
 
 **Note:** Version bump only for package example-umami

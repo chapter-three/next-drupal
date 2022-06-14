@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0-rc.2](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.4.0-rc.1...next-drupal@1.4.0-rc.2) (2022-06-14)
+
+
+### Bug Fixes
+
+* **client:** update types for getMenu and getView ([611f8fb](https://github.com/chapter-three/next-drupal/commit/611f8fb7ee4c7aef1ca652a1c15f6378e8cd576f))
+* **next-drupal:** import missing type ([d54015f](https://github.com/chapter-three/next-drupal/commit/d54015fe973137932e1d8d1e7eb666599cf128b2))
+* **next-drupal:** return null for path not found in translatePath ([63ccf81](https://github.com/chapter-three/next-drupal/commit/63ccf819018914ee59f2982fdef7fef02c6cd479))
+
+
+### Features
+
+* **next-drupal:** rename Experimental_DrupalClient to DrupalClient ([60e0451](https://github.com/chapter-three/next-drupal/commit/60e0451ee1300eabc05766c2b2f5bd06dceba68a))
+* **next-drupal:** useDefaultResourceTypeEntry is now true ([9356fe1](https://github.com/chapter-three/next-drupal/commit/9356fe1b3d46f53ee65dd6625df95b1fb5037c98))
+
+
+
+
+
 # [1.4.0-rc.1](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.4.0-rc.0...next-drupal@1.4.0-rc.1) (2022-06-10)
 
 

@@ -909,8 +909,9 @@ export class DrupalClient {
     })
 
     if (!response?.ok) {
-      await this.handleJsonApiErrors(response)
-
+      // Do not throw errors here.
+      // Otherwise next.js will catch error and throw a 500.
+      // We want a 404.
       return null
     }
 

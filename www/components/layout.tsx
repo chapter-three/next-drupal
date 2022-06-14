@@ -171,11 +171,11 @@ export function Layout({
               </button>
               <div className="flex items-center space-x-8">
                 <Link href="/" passHref>
-                  <a className="items-center flex-shrink hidden font-semibold sm:flex sm:text-lg">
+                  <a className="items-center flex-shrink hidden font-semibold sm:flex sm:text-lg lg:text-base xl:text-lg">
                     {site.name}
                   </a>
                 </Link>
-                <div className="flex-grow hidden grid-flow-col gap-6 mr-4 lg:grid lg:mr-4 lg:gap-6 auto-cols-max">
+                <div className="flex-grow hidden grid-flow-col gap-6 mr-4 lg:grid lg:mr-4 lg:gap-4 xl:gap-6 auto-cols-max">
                   {site.links.map((link) => {
                     const isActive =
                       pathname === link.href ||

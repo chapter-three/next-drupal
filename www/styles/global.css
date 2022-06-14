@@ -309,5 +309,5 @@ pre.is-highlighted:hover .token-line {
 }
 
 .DocSearch.DocSearch-Button {
-  @apply md:min-w-[200px] xl:min-w-[250px] md:bg-gray-100;
+  @apply md:min-w-[200px] lg:min-w-[120px] xl:min-w-[250px] md:bg-gray-100;
 }

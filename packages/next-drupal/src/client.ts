@@ -132,7 +132,7 @@ export class DrupalClient {
       cache = null,
       debug = false,
       frontPage = DEFAULT_FRONT_PAGE,
-      useDefaultResourceTypeEntry = true,
+      useDefaultResourceTypeEntry = false,
       headers = DEFAULT_HEADERS,
       logger = defaultLogger,
       withAuth = DEFAULT_WITH_AUTH,

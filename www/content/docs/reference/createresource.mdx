@@ -62,18 +62,20 @@ const page = await drupal.createResource("node--page", {
 
 ```ts
 const article = await drupal.createResource("node--article", {
-  attributes: {
-    title: "Title of Article",
-    body: {
-      value: "<p>Content of body field</p>",
-      format: "full_html",
+  data: {
+    attributes: {
+      title: "Title of Article",
+      body: {
+        value: "<p>Content of body field</p>",
+        format: "full_html",
+      },
     },
-  },
-  relationships: {
-    field_category: {
-      data: {
-        type: "taxonomy_term--category",
-        id: "28ab9f26-927d-4e33-9510-b59a7ccdafe6",
+    relationships: {
+      field_category: {
+        data: {
+          type: "taxonomy_term--category",
+          id: "28ab9f26-927d-4e33-9510-b59a7ccdafe6",
+        },
       },
     },
   },

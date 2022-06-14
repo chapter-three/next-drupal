@@ -21,11 +21,13 @@ Create an article with a title and a body.
 
 ```ts
 const article = await drupal.createResource("node--article", {
-  attributes: {
-    title: "Title of Article",
-    body: {
-      value: "<p>Content of body field</p>",
-      format: "full_html",
+  data: {
+    attributes: {
+      title: "Title of Article",
+      body: {
+        value: "<p>Content of body field</p>",
+        format: "full_html",
+      },
     },
   },
 })
@@ -37,23 +39,25 @@ Create an article with a media field.
 
 ```ts
 const article = await drupal.createResource("node--article", {
-  attributes: {
-    title: "Title of Article",
-    body: {
-      value: "<p>Content of body field</p>",
-      format: "full_html",
-    },
-  },
-  // highlight-start
-  relationships: {
-    field_media_image: {
-      data: {
-        type: "media--image",
-        id: media.id,
+  data: {
+    attributes: {
+      title: "Title of Article",
+      body: {
+        value: "<p>Content of body field</p>",
+        format: "full_html",
       },
     },
+    // highlight-start
+    relationships: {
+      field_media_image: {
+        data: {
+          type: "media--image",
+          id: media.id,
+        },
+      },
+    },
+    // highlight-end
   },
-  // highlight-end
 })
 ```
 
@@ -69,11 +73,13 @@ Example: A `media--image` with a file field called `field_media_image`.
 
 ```ts
 const file = await drupal.createFileResource("file--file", {
-  attributes: {
-    type: "media--image", // <-- The type of the parent resource.
-    field: "field_media_image", // <-- The name of the field on the parent resource.
-    filename: "filename.jpg",
-    file: await fs.readFile("/path/to/file.jpg"),
+  data: {
+    attributes: {
+      type: "media--image", // <-- The type of the parent resource.
+      field: "field_media_image", // <-- The name of the field on the parent resource.
+      filename: "filename.jpg",
+      file: await fs.readFile("/path/to/file.jpg"),
+    },
   },
 })
 ```
@@ -84,14 +90,16 @@ You can then use this to create a new `media--image` with a relationship to the 
 
 ```ts
 const media = await drupal.createResource<DrupalMedia>("media--image", {
-  attributes: {
-    name: "Name for the media",
-  },
-  relationships: {
-    field_media_image: {
-      data: {
-        type: "file--file",
-        id: file.id,
+  data: {
+    attributes: {
+      name: "Name for the media",
+    },
+    relationships: {
+      field_media_image: {
+        data: {
+          type: "file--file",
+          id: file.id,
+        },
       },
     },
   },
@@ -112,13 +120,15 @@ See the [authentication docs](/docs/authentication) for the supported authentica
 const article = await drupal.createResource(
   "node--article",
   {
-    attributes: {
-      title: "Title of Article",
-      body: {
-        value: "<p>Content of body field</p>",
-        format: "full_html",
+    data: {
+      attributes: {
+        title: "Title of Article",
+        body: {
+          value: "<p>Content of body field</p>",
+          format: "full_html",
+        },
       },
-    },
+    }
   },
   // highlight-start
   {

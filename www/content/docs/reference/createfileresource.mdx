@@ -43,11 +43,13 @@ Example: A `media--image` with a file field called `field_media_image`.
 
 ```ts
 const file = await drupal.createFileResource("file--file", {
-  attributes: {
-    type: "media--image", // <-- The type of the parent resource.
-    field: "field_media_image", // <-- The name of the field on the parent resource.
-    filename: "filename.jpg",
-    file: await fs.readFile("/path/to/file.jpg"),
+  data: {
+    attributes: {
+      type: "media--image", // <-- The type of the parent resource.
+      field: "field_media_image", // <-- The name of the field on the parent resource.
+      filename: "filename.jpg",
+      file: await fs.readFile("/path/to/file.jpg"),
+    },
   },
 })
 ```
@@ -58,14 +60,16 @@ You can then use this to create a new `media--image` with a relationship to the 
 
 ```ts
 const media = await drupal.createResource<DrupalMedia>("media--image", {
-  attributes: {
-    name: "Name for the media",
-  },
-  relationships: {
-    field_media_image: {
-      data: {
-        type: "file--file",
-        id: file.id,
+  data: {
+    attributes: {
+      name: "Name for the media",
+    },
+    relationships: {
+      field_media_image: {
+        data: {
+          type: "file--file",
+          id: file.id,
+        },
       },
     },
   },

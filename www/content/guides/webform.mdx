@@ -10,9 +10,13 @@ There are two ways to handle [Webform](http://drupal.org/project/webform) in Nex
 
 Both implementations use the [Webform REST](http://drupal.org/project/webform_rest) module.
 
+---
+
 ## Demo
 
 See [https://example-webform.next-drupal.org](https://example-webform.next-drupal.org).
+
+---
 
 ## Installation
 
@@ -21,6 +25,8 @@ See [https://example-webform.next-drupal.org](https://example-webform.next-drupa
 3. Select _POST_ for the **Methods**, _json_ for **Accepted request formats** and _cookie_ for **Authentication providers**
 4. **Save configuration**
 5. Next, visit `/admin/people/permissions` and give anonymous users the **Access POST on Webform Submit resource** permission.
+
+---
 
 ## Client Side
 
@@ -78,6 +84,8 @@ export default function ContactPage() {
 }
 ```
 
+---
+
 ## Server side
 
 We submit the form values to a custom API route first. The API route then submits the form to Drupal using the Webform REST module.
@@ -88,6 +96,7 @@ This is useful if we need to hide client IDs and secrets or our Drupal implement
 
 ```ts title=pages/api/contact.ts
 import { NextApiRequest, NextApiResponse } from "next"
+import { drupal } from "lib/drupal"
 
 export default async function handler(
   request: NextApiRequest,
@@ -95,21 +104,20 @@ export default async function handler(
 ) {
   try {
     if (request.method === "POST") {
+      const url = drupal.buildUrl("/webform_rest/submit")
+
       // Submit to Drupal.
-      const result = await fetch(
-        `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/webform_rest/submit`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            webform_id: "contact",
-            name: request.body.name,
-            email: request.body.email,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      const result = await drupal.fetch(url.toString(), {
+        method: "POST",
+        body: JSON.stringify({
+          webform_id: "contact",
+          name: request.body.name,
+          email: request.body.email,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
 
       if (!result.ok) {
         throw new Error()

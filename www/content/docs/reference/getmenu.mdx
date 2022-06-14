@@ -1,0 +1,63 @@
+---
+title: getMenu
+excerpt: Fetch a menu from Drupal.
+---
+
+```ts
+const resource = await drupal.getResource<T = DrupalMenuLinkContent>(
+  name,
+  options?: {
+    params,
+    withAuth,
+    deserialize,
+    locale,
+    defaultLocale,
+	withCache
+  }
+): Promise<{
+	items: T[]
+	tree: T[]
+}>
+```
+
+- `name: string`
+  - **Required**
+  - The name of the menu. Example: `main` or `footer`.
+- `options`
+  - Optional
+  - `params: JsonApiParams`: JSON:API params such as `filter`, `fields`, `include` or `sort`.
+  - `withAuth: boolean | DrupalClientAuth`:
+    - Set the authentication method to use. See the [authentication docs](/docs/authentication).
+    - Set to `true` to use the authentication method configured on the client.
+  - `deserialize: boolean`: Set to false to return the raw JSON:API response.
+  - `locale: string`: The locale to fetch the resource in.
+  - `defaultLocale: string`: The default locale of the site.
+  - `withCache: boolean`: Set `withCache` if you want to store and retrieve the menu from cache.
+  - `cacheKey: string`: The cache key to use.
+
+---
+
+## Notes
+
+- `getMenu` returns:
+  - `items`: An array of `DrupalMenuLinkContent`.
+  - `tree`: An array of `DrupalMenuLinkContent` with children nested to match the hierarchy from Drupal.
+
+---
+
+## Examples
+
+- Get the `main` menu.
+
+```ts
+const { menu, items } = await drupal.getMenu("main")
+```
+
+- Get the `main` menu using cache.
+
+```ts
+const menu = await drupal.getMenu("main", {
+  withCache: true,
+  cacheKey: "menu--main",
+})
+```

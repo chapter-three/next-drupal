@@ -37,4 +37,14 @@ export const site: SiteConfig = {
     contact: "https://www.chapterthree.com/contact",
     twitter: "shadcn",
   },
+  versions: [
+    {
+      version: "v1.4.0",
+      active: true,
+    },
+    {
+      version: "v1.0.0",
+      url: "https://v1.next-drupal.org",
+    },
+  ],
 }

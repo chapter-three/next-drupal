@@ -18,7 +18,7 @@ import type {
   DrupalTranslatedPath,
   DrupalMenuLinkContent,
   FetchOptions,
-  Experiment_DrupalClientOptions,
+  DrupalClientOptions,
   BaseUrl,
   JsonApiWithAuthOptions,
   PathPrefix,
@@ -34,6 +34,7 @@ import type {
   DrupalClientAuthClientIdSecret,
   JsonApiCreateFileResourceBody,
   DrupalView,
+  DrupalFile,
 } from "./types"
 import { logger as defaultLogger } from "./logger"
 import { JsonApiErrors } from "./jsonapi-errors"
@@ -52,7 +53,7 @@ const DEFAULT_HEADERS = {
 }
 
 function isBasicAuth(
-  auth: Experiment_DrupalClientOptions["auth"]
+  auth: DrupalClientOptions["auth"]
 ): auth is DrupalClientAuthUsernamePassword {
   return (
     (auth as DrupalClientAuthUsernamePassword)?.username !== undefined ||
@@ -61,13 +62,13 @@ function isBasicAuth(
 }
 
 function isAccessTokenAuth(
-  auth: Experiment_DrupalClientOptions["auth"]
+  auth: DrupalClientOptions["auth"]
 ): auth is DrupalClientAuthAccessToken {
   return (auth as DrupalClientAuthAccessToken)?.access_token !== undefined
 }
 
 function isClientIdSecretAuth(
-  auth: Experiment_DrupalClient["auth"]
+  auth: DrupalClient["auth"]
 ): auth is DrupalClientAuthClientIdSecret {
   return (
     (auth as DrupalClientAuthClientIdSecret)?.clientId !== undefined ||
@@ -75,52 +76,52 @@ function isClientIdSecretAuth(
   )
 }
 
-export class Experiment_DrupalClient {
+export class DrupalClient {
   baseUrl: BaseUrl
 
-  debug: Experiment_DrupalClientOptions["debug"]
+  debug: DrupalClientOptions["debug"]
 
-  frontPage: Experiment_DrupalClientOptions["frontPage"]
+  frontPage: DrupalClientOptions["frontPage"]
 
-  private serializer: Experiment_DrupalClientOptions["serializer"]
+  private serializer: DrupalClientOptions["serializer"]
 
-  private cache: Experiment_DrupalClientOptions["cache"]
+  private cache: DrupalClientOptions["cache"]
 
-  private throwJsonApiErrors?: Experiment_DrupalClientOptions["throwJsonApiErrors"]
+  private throwJsonApiErrors?: DrupalClientOptions["throwJsonApiErrors"]
 
-  private logger: Experiment_DrupalClientOptions["logger"]
+  private logger: DrupalClientOptions["logger"]
 
-  private fetcher?: Experiment_DrupalClientOptions["fetcher"]
+  private fetcher?: DrupalClientOptions["fetcher"]
 
-  private _headers?: Experiment_DrupalClientOptions["headers"]
+  private _headers?: DrupalClientOptions["headers"]
 
-  private _auth?: Experiment_DrupalClientOptions["auth"]
+  private _auth?: DrupalClientOptions["auth"]
 
-  private _apiPrefix: Experiment_DrupalClientOptions["apiPrefix"]
+  private _apiPrefix: DrupalClientOptions["apiPrefix"]
 
-  private useDefaultResourceTypeEntry?: Experiment_DrupalClientOptions["useDefaultResourceTypeEntry"]
+  private useDefaultResourceTypeEntry?: DrupalClientOptions["useDefaultResourceTypeEntry"]
 
   private _token?: AccessToken
 
-  private accessToken?: Experiment_DrupalClientOptions["accessToken"]
+  private accessToken?: DrupalClientOptions["accessToken"]
 
   private tokenExpiresOn?: number
 
-  private withAuth?: Experiment_DrupalClientOptions["withAuth"]
+  private withAuth?: DrupalClientOptions["withAuth"]
 
-  private previewSecret?: Experiment_DrupalClientOptions["previewSecret"]
+  private previewSecret?: DrupalClientOptions["previewSecret"]
 
-  private forceIframeSameSiteCookie?: Experiment_DrupalClientOptions["forceIframeSameSiteCookie"]
+  private forceIframeSameSiteCookie?: DrupalClientOptions["forceIframeSameSiteCookie"]
 
   /**
-   * Instantiates a new Experiment_DrupalClient.
+   * Instantiates a new DrupalClient.
    *
-   * const client = new Experiment_DrupalClient(baseUrl)
+   * const client = new DrupalClient(baseUrl)
    *
    * @param {baseUrl} baseUrl The baseUrl of your Drupal site. Do not add the /jsonapi suffix.
    * @param {options} options Options for the client. See Experiment_DrupalClientOptions.
    */
-  constructor(baseUrl: BaseUrl, options: Experiment_DrupalClientOptions = {}) {
+  constructor(baseUrl: BaseUrl, options: DrupalClientOptions = {}) {
     if (!baseUrl || typeof baseUrl !== "string") {
       throw new Error("The 'baseUrl' param is required.")
     }
@@ -168,7 +169,7 @@ export class Experiment_DrupalClient {
     this._debug("Debug mode is on.")
   }
 
-  set apiPrefix(apiPrefix: Experiment_DrupalClientOptions["apiPrefix"]) {
+  set apiPrefix(apiPrefix: DrupalClientOptions["apiPrefix"]) {
     this._apiPrefix = apiPrefix.charAt(0) === "/" ? apiPrefix : `/${apiPrefix}`
   }
 
@@ -176,7 +177,7 @@ export class Experiment_DrupalClient {
     return this._apiPrefix
   }
 
-  set auth(auth: Experiment_DrupalClientOptions["auth"]) {
+  set auth(auth: DrupalClientOptions["auth"]) {
     if (typeof auth === "object") {
       if (isBasicAuth(auth)) {
         if (!auth.username || !auth.password) {
@@ -205,7 +206,7 @@ export class Experiment_DrupalClient {
     this._auth = auth
   }
 
-  set headers(value: Experiment_DrupalClientOptions["headers"]) {
+  set headers(value: DrupalClientOptions["headers"]) {
     this._headers = value
   }
 
@@ -352,7 +353,7 @@ export class Experiment_DrupalClient {
     return options.deserialize ? this.deserialize(json) : json
   }
 
-  async createFileResource<T = JsonApiResource>(
+  async createFileResource<T = DrupalFile>(
     type: string,
     body: JsonApiCreateFileResourceBody,
     options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
@@ -363,12 +364,17 @@ export class Experiment_DrupalClient {
       ...options,
     }
 
+    const hostType = body?.data?.attributes?.type
+
     const apiPath = await this.getEntryForResourceType(
-      type,
+      hostType,
       options?.locale !== options?.defaultLocale ? options.locale : undefined
     )
 
-    const url = this.buildUrl(`${apiPath}/${body.data.type}`, options?.params)
+    const url = this.buildUrl(
+      `${apiPath}/${body.data.attributes.field}`,
+      options?.params
+    )
 
     this._debug(`Creating file resource for media of type ${type}.`)
     this._debug(url.toString())
@@ -903,8 +909,9 @@ export class Experiment_DrupalClient {
     })
 
     if (!response?.ok) {
-      await this.handleJsonApiErrors(response)
-
+      // Do not throw errors here.
+      // Otherwise next.js will catch error and throw a 500.
+      // We want a 404.
       return null
     }
 
@@ -1118,7 +1125,7 @@ export class Experiment_DrupalClient {
     return response.end()
   }
 
-  async getMenu<T extends DrupalMenuLinkContent>(
+  async getMenu<T = DrupalMenuLinkContent>(
     name: string,
     options?: JsonApiWithLocaleOptions &
       JsonApiWithAuthOptions &
@@ -1205,7 +1212,7 @@ export class Experiment_DrupalClient {
       : {}
   }
 
-  async getView<T>(
+  async getView<T = JsonApiResource>(
     name: string,
     options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
   ): Promise<DrupalView<T>> {

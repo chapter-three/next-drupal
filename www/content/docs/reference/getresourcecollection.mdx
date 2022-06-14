@@ -1,0 +1,72 @@
+---
+title: getResourceCollection
+excerpt: Fetch a collection of resources.
+---
+
+```ts
+const resource = await drupal.getResourceCollection<T = JsonApiResource[]>(
+  type,
+  options?: {
+    params,
+    withAuth,
+    deserialize,
+    locale,
+    defaultLocale,
+  }
+): Promise<T>
+```
+
+- `type: string`
+  - **Required**
+  - The resource type. Example: `node--article` or `user--user`.
+- `options`
+  - Optional
+  - `params: JsonApiParams`: JSON:API params such as `filter`, `fields`, `include` or `sort`.
+  - `withAuth: boolean | DrupalClientAuth`:
+    - Set the authentication method to use. See the [authentication docs](/docs/authentication).
+    - Set to `true` to use the authentication method configured on the client.
+  - `deserialize: boolean`: Set to false to return the raw JSON:API response.
+  - `locale: string`: The locale to fetch the resource in.
+  - `defaultLocale: string`: The default locale of the site.
+
+---
+
+## Examples
+
+- Get all articles.
+
+```ts
+const articles = await drupal.getResourceCollection("node--article")
+```
+
+- Using filters.
+
+```ts
+const publishedArticles = await drupal.getResourceCollection("node--article", {
+  params: {
+    "filter[status]": "1",
+  },
+})
+```
+
+- Get the raw JSON:API response.
+
+```ts
+const { data, meta, links } = await drupal.getResourceCollection("node--page", {
+  deserialize: false,
+})
+```
+
+---
+
+## TypeScript
+
+- Using `DrupalNode` for a node entity type.
+
+```ts
+import { DrupalNode } from "next-drupal"
+
+const nodes = await drupal.getResourceCollection<DrupalNode[]>("node--article")
+```
+
+See the [TypeScript docs](/docs/typescript) for more built-in types.

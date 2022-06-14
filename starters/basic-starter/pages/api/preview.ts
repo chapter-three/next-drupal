@@ -1,3 +1,10 @@
-import { DrupalPreview } from "next-drupal"
+import { NextApiRequest, NextApiResponse } from "next"
 
-export default DrupalPreview()
+import { drupal } from "lib/drupal"
+
+export default async function handler(
+  request: NextApiRequest,
+  response: NextApiResponse
+) {
+  return await drupal.preview(request, response)
+}

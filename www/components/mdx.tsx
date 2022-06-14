@@ -4,7 +4,7 @@ import Image from "next/image"
 import { Callout } from "components/callout"
 import { Video } from "components/video"
 import { CodeBlock } from "components/code-block"
-import { ExampleCard } from "@/core/components/example-card"
+import { Card, CardHeading, CardBody } from "components/card"
 
 export const mdxComponents = {
   p: (props) => <p className="mb-6 leading-relaxed text-black" {...props} />,
@@ -34,10 +34,10 @@ export const mdxComponents = {
   figcaption: (props) => <figcaption className="text-center" {...props} />,
   inlineCode: ({ children, ...props }) => (
     <code
-      className="font-mono text-sm font-medium text-blue-700 break-words"
+      className="font-mono text-sm font-medium text-gray-800 px-[0.2rem] py-[0.1rem] break-words bg-gray-300 bg-opacity-25 border rounded"
       {...props}
     >
-      `{children}`
+      {children}
     </code>
   ),
   pre: (props) => {
@@ -74,5 +74,7 @@ export const mdxComponents = {
     </figure>
   ),
   Video,
-  ExampleCard,
+  Card,
+  CardHeading,
+  CardBody,
 }

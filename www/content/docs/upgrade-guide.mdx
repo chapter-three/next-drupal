@@ -1,0 +1,74 @@
+---
+title: Upgrade Guide
+excerpt: Guide for upgrading your site to use DrupalClient.
+---
+
+<Callout icon="⚠️">
+
+The `DrupalClient` is an optional feature. If you're running a site using `next-drupal 1.2 or below`, you can safely upgrade your site without any breaking changes.
+
+</Callout>
+
+1. Upgrade to the latest version
+
+```sh
+yarn add next-drupal@latest
+```
+
+2. Create a new `DrupalClient` in `lib/drupal.ts`
+
+```ts title=lib/drupal.ts
+import { DrupalClient } from "next-drupal"
+
+export const drupal = new DrupalClient(
+  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+  {
+    frontPage: "/home",
+    previewSecret: process.env.DRUPAL_PREVIEW_SECRET,
+    auth: {
+      clientId: process.env.DRUPAL_CLIENT_ID,
+      clientSecret: process.env.DRUPAL_CLIENT_SECRET,
+    },
+  }
+)
+```
+
+3. Update helpers to use the `drupal` client.
+
+```diff
++ import { drupal } from "lib/drupal"
+
+
+- await getPathsFromContext()
++ await drupal.getStaticPathsFromContext()
+
+
+- await translatePathFromContext()
++ await drupal.translatePathFromContext()
+
+
+- await getResourceFromContext()
++ await drupal.getResourceFromContext()
+```
+
+4. Replace `pages/api/preview.ts` with the following:
+
+```diff
+- import { DrupalPreview } from "next-drupal"
+-
+- export default DrupalPreview()
+
++ import { drupal } from "lib/drupal"
++
++ export default async function (request, response) {
++  return await drupal.preview(request, response)
++ }
+```
+
+5. On the Drupal site, visit `/admin/people/permissions/anonymous` and assign the **Issue subrequests** permission to the **Anonymous user** role: <br /><br />
+   We do this because during the build phase, most of the requests for pages are anonymous requests. By assigning this permission, you can significantly decrease your site's build time. <br /><br />
+   If you would rather keep requests authenticated, you can use the [`withAuth`](/docs/client/configuration#withauth) options.
+
+6. Done. You are now ready to run your site using the new `DrupalClient`.
+
+If you see any bugs during the upgrade, feel free to create an issue on [GitHub](https://github.com/chapter-three/next-drupal).

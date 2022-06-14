@@ -1,0 +1,53 @@
+---
+title: preview
+excerpt: Handle preview mode for resources.
+---
+
+```ts
+await drupal.preview(request, response, options?: {
+  errorMessages?: {
+    secret,
+    slug,
+  }
+}): Promise<void>
+```
+
+- `request: NextApiRequest`
+  - **Required**
+  - The `request` from an API route.
+- `response: NextApiResponse`
+  - **Required**
+  - The `response` from an API route.
+- `options`
+  - Optional
+  - `errorMessages`:
+    - `secret`: The error message to display for an invalid secret.
+    - `slug`: The error message to display for an invalid slug.
+
+---
+
+## Notes
+
+- The `preview` method should be called in an API route.
+- Remember to set a `previewSecret` on the client.
+
+```ts title=lib/drupal.ts
+export const drupal = new DrupalClient(
+  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+  {
+    previewSecret: process.env.DRUPAL_PREVIEW_SECRET,
+  }
+)
+```
+
+---
+
+## Examples
+
+```ts title=pages/api/preview.ts
+import { drupal } from "lib/drupal"
+
+export default async function handler(req, res) {
+  return await drupal.preview(req, res)
+}
+```

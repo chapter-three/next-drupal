@@ -1,0 +1,18 @@
+uuid: 392fc58c-f64b-4fc0-aa1b-8e1180a57a6c
+langcode: en
+status: true
+dependencies:
+  module:
+    - next_extras
+third_party_settings:
+  next_extras:
+    revalidate: true
+    revalidate_paths: ''
+id: node.recipe
+site_resolver: site_selector
+configuration:
+  sites:
+    foodieland: foodieland
+    basic_starter: '0'
+    example_blog: '0'
+    example_marketing: '0'

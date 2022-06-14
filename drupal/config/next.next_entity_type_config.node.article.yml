@@ -6,7 +6,7 @@ dependencies:
     - next_extras
 third_party_settings:
   next_extras:
-    revalidate: false
+    revalidate: true
     revalidate_paths: ''
 id: node.article
 site_resolver: entity_reference_field

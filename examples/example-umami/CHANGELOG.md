@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-rc.1](https://github.com/chapter-three/next-drupal/compare/example-umami@1.1.0-rc.0...example-umami@1.1.0-rc.1) (2022-06-10)
+
+**Note:** Version bump only for package example-umami
+
+
+
+
+
+# [1.1.0-rc.0](https://github.com/chapter-three/next-drupal/compare/example-umami@1.1.0-alpha.0...example-umami@1.1.0-rc.0) (2022-06-06)
+
+
+### Bug Fixes
+
+* **example-umami:** update logo classes ([18b72da](https://github.com/chapter-three/next-drupal/commit/18b72da75be6ebfb5abf64ad52a7f4dd56d30b9c))
+* **next-drupal:** duh ([9d239c4](https://github.com/chapter-three/next-drupal/commit/9d239c49ae7fc5895e9a34176cf1d5657cd0aab9))
+
+
+### Features
+
+* **example-umami:** configure nprogress ([286bc69](https://github.com/chapter-three/next-drupal/commit/286bc69519545bc1dc646d6ad6db27ae98754676))
+* **example-umami:** update locale ([ca0f2a0](https://github.com/chapter-three/next-drupal/commit/ca0f2a051006fa8fb1e968e161181964c54b9f7a))
+
+
+
+
+
 # 1.1.0-alpha.0 (2022-06-02)
 
 

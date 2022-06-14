@@ -1,0 +1,19 @@
+uuid: d1093959-dc8c-4a67-90bf-a4ed72a57d40
+langcode: en
+status: true
+dependencies:
+  module:
+    - metatag
+    - paragraphs_library
+id: paragraphs_library_item.paragraphs_library_item.metatag
+field_name: metatag
+entity_type: paragraphs_library_item
+bundle: paragraphs_library_item
+label: 'Metatags (Hidden field for JSON support)'
+description: 'The computed meta tags for the entity.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: metatag_computed

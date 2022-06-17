@@ -13,7 +13,7 @@ export const cache: DataCache = {
   },
 }
 
-export const drupal = new Experiment_DrupalClient(
+export const drupal = new DrupalClient(
   process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
   {
     debug: true,

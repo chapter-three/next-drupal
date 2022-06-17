@@ -1,0 +1,193 @@
+---
+title: Fetching Resources (GET)
+excerpt: How to fetch JSON:API resources using DrupalClient.
+---
+
+The `DrupalClient` ships with helpers to fetch JSON:API data from Drupal.
+
+You can fetch a single resource, `getResource` or a collection of resources, `getResourceCollection`.
+
+Every helper method:
+
+- Accepts a resource type: `node--article` or `taxonomy_term--tags`.
+- A `params` option for query params: `fields`, `include`, `filter`, ...etc
+- A `withAuth` option for authentication. See the [authentication docs](/docs/authentication).
+- A `deserialize` option if you want to fetch raw JSON:API data.
+
+Here's what a call to fetch `node--article` resources would look like:
+
+```ts
+import { drupal } from "lib/drupal"
+
+const articles = await drupal.getResourceCollection("node--article", {
+  params: {
+    "fields[node--article]": "title,created", // Fetch the title and created fields only.
+    sort: "-created", // Sort the articles by created date in descending order.
+  },
+})
+```
+
+<Callout>
+
+If you're building complex query params, see the guide on how to use [Drupal JSON:API Params](/guides/jsonapi-params).
+
+</Callout>
+
+---
+
+## getResource
+
+Fetch an article by id.
+
+```ts
+const article = await drupal.getResource(
+  "node--article",
+  "dad82fe9-f2b7-463e-8c5f-02f73018d6cb"
+)
+```
+
+Fetch a block by id.
+
+```ts
+const block = await drupal.getResource(
+  "block_content--basic",
+  "687f74ec-e599-4f5c-8175-f24510c77e83"
+)
+```
+
+See the API reference for [getResource](/docs/reference/getresource).
+
+---
+
+## getResourceFromContext
+
+Fetch an article in `getStaticProps/getServerSideProps` with context.
+
+If you're using [internationalization](https://nextjs.org/docs/advanced-features/i18n-routing), this will automatically fetch the localized resource using the `locale` set in context.
+
+```ts
+const article = await drupal.getResourceFromContext("node--article", context)
+```
+
+See the API reference for [getResourceFromContext](/docs/reference/getresourcefromcontext).
+
+---
+
+## getResourceCollection
+
+Fetch all users
+
+```ts
+const users = await drupal.getResourceCollection("user--user")
+```
+
+Fetch all published articles sorted by date.
+
+```ts
+const articles = await drupal.getResourceCollection("node--article", {
+  params: {
+    "filter[status]": "1",
+    sort: "-created",
+  },
+})
+```
+
+See the API reference for [getResourceCollection](/docs/reference/getresourcecollection).
+
+---
+
+## getResourceCollectionFromContext
+
+Fetch articles in `getStaticProps/getServerSideProps` with context.
+
+If you're using [internationalization](https://nextjs.org/docs/advanced-features/i18n-routing), this will automatically fetch localized resources using the `locale` set in context.
+
+```ts
+const articles = await drupal.getResourceCollectionFromContext(
+  "node--article",
+  context
+)
+```
+
+See the API reference for [getResourceCollectionFromContext](/docs/reference/getresourcecollectionfromcontext).
+
+---
+
+## getMenu
+
+<Callout>
+
+You need to install the [JSON:API Menu Items](https://www.drupal.org/project/jsonapi_menu_items) module to use `getMenu`.
+
+</Callout>
+
+Fetch a menu by name
+
+```ts
+const menu = await drupal.getMenu("main")
+```
+
+See the API reference for [getMenu](/docs/reference/getmenu).
+
+---
+
+## getView
+
+<Callout>
+
+You need to install the [JSON:API Views](https://www.drupal.org/project/jsonapi_views) module to use `getView`.
+
+</Callout>
+
+Fetch a view by name and display_id.
+
+```ts
+const view = await drupal.getView("promoted_items--block_1")
+```
+
+See the API reference for [getView](/docs/reference/getview).
+
+---
+
+## getSearchIndex
+
+<Callout>
+
+You need to install the [JSON:API Search API](https://www.drupal.org/project/jsonapi_search_api) module to query your Search API indexes.
+
+</Callout>
+
+Fetch results from a Search API index.
+
+```ts
+const results = await drupal.getSearchIndex(indexName, {
+  params: {
+    filter: { name_of_field: value },
+  },
+})
+```
+
+See the API reference for [getSearchIndex](/docs/reference/getsearch).
+
+---
+
+## Authentication
+
+To make authenticated requests when fetching resources, use the `withAuth` option.
+
+See the [authentication docs](/docs/authentication) for the supported authentication methods.
+
+```ts
+const article = await drupal.getResourceCollection(
+  "node--article",
+  // highlight-start
+  {
+    withAuth: // <-- Your auth method here.
+  }
+  // highlight-end
+)
+```
+
+## More
+
+See the [Examples](/examples) section for data fetching examples.

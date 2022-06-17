@@ -1,0 +1,85 @@
+---
+title: Updating Resources (PATCH)
+excerpt: How to update JSON:API resources using DrupalClient.
+---
+
+<Callout icon="⚠️">
+
+The `updateResource` helper is available in `next-drupal ^1.4.0`.
+
+</Callout>
+
+The `DrupalClient` ships with a `updateResource` method for updating JSON:API resources.
+
+---
+
+## updateResource
+
+### Update Resource
+
+```ts
+const article = await drupal.updateResource(
+  "node--article",
+  "a937dd34-5407-4fff-8594-fccaaa5bb72a", // <-- Article ID
+  {
+    data: {
+      attributes: {
+        title: "Title of Article",
+      },
+    },
+  }
+)
+```
+
+### Update Resource with Relationships
+
+```ts
+const article = await drupal.updateResource(
+  "node--article",
+  "a937dd34-5407-4fff-8594-fccaaa5bb72a",
+  {
+    data: {
+      attributes: {
+        title: "Title of Article",
+      },
+      relationships: {
+        field_media_image: {
+          data: {
+            type: "media--image",
+            id: media.id,
+          },
+        },
+      },
+    },
+  }
+)
+```
+
+See the API reference for [updateResource](/docs/reference/updateresource).
+
+---
+
+## Authentication
+
+To make authenticated requests when updating resources, use the `withAuth` option.
+
+See the [authentication docs](/docs/authentication) for the supported authentication methods.
+
+```ts
+const article = await drupal.updateResource(
+  "node--article",
+  "a937dd34-5407-4fff-8594-fccaaa5bb72a",
+  {
+    data: {
+      attributes: {
+        title: "Title of Article",
+      },
+    },
+  },
+  // highlight-start
+  {
+    withAuth: // <-- Your auth method here.
+  }
+  // highlight-end
+)
+```

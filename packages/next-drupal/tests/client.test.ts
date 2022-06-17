@@ -1,6 +1,6 @@
 import { expect } from "@jest/globals"
 import { GetStaticPropsContext } from "next"
-import { Experiment_DrupalClient as DrupalClient } from "../src/client"
+import { DrupalClient } from "../src/client"
 import type {
   Serializer,
   DrupalNode,
@@ -1463,12 +1463,12 @@ describe("translatePath", () => {
     expect(path).toEqual(path2)
   })
 
-  test("it throws an error for path not found", async () => {
+  test("it returns null for path not found", async () => {
     const client = new DrupalClient(BASE_URL)
 
-    await expect(client.translatePath("/path-not-found")).rejects.toThrow(
-      "Unable to resolve path /path-not-found."
-    )
+    const path = await client.translatePath("/path-not-found")
+
+    expect(path).toBeNull()
   })
 
   test("it makes un-authenticated requests by default", async () => {
@@ -1527,7 +1527,7 @@ describe("translatePathFromContext", () => {
     expect(path).toMatchSnapshot()
   })
 
-  test("it throws an error for path not found", async () => {
+  test("it returns null for path not found", async () => {
     const client = new DrupalClient(BASE_URL)
 
     const context: GetStaticPropsContext = {
@@ -1536,9 +1536,9 @@ describe("translatePathFromContext", () => {
       },
     }
 
-    await expect(client.translatePathFromContext(context)).rejects.toThrow(
-      "Unable to resolve path /path-not-found."
-    )
+    const path = await client.translatePathFromContext(context)
+
+    expect(path).toBeNull()
   })
 
   test("it translates a path with pathPrefix", async () => {

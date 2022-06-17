@@ -31,7 +31,7 @@ export function FormArticle({ className, ...props }: FormArticleProps) {
 
       return setFormStatus({
         status: "error",
-        message: errors.map((error) => error.detail),
+        message: errors?.map((error) => error.detail),
       })
     }
 

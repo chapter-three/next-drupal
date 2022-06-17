@@ -7,7 +7,6 @@
 ## Demo
 
 - https://demo.next-drupal.org
-- https://cms-drupal.vercel.app
 
 ## Documentation
 
@@ -22,16 +21,18 @@ https://next-drupal.org
 A page with all "Article" nodes.
 
 ```tsx
-import { getResourceCollectionFromContext, DrupalNode } from "next-drupal"
+import { DrupalClient, DrupalNode } from "next-drupal"
+
+const drupal = new DrupalClient("https://drupal.org")
 
 interface BlogPageProps {
-  nodes: DrupalNode[]
+  articles: DrupalNode[]
 }
 
-export default function BlogPage({ nodes }: BlogPageProps) {
+export default function BlogPage({ articles }: BlogPageProps) {
   return (
     <div>
-      {nodes?.length
+      {articles?.length
         ? nodes.map((node) => (
             <div key={node.id}>
               <h1>{node.title}</h1>
@@ -45,15 +46,14 @@ export default function BlogPage({ nodes }: BlogPageProps) {
 export async function getStaticProps(
   context
 ): Promise<GetStaticPropsResult<BlogPageProps>> {
-  const nodes = await getResourceCollectionFromContext<DrupalNode[]>(
+  const articles = await drupal.getResourceCollectionFromContext<DrupalNode[]>(
     "node--article",
     context
   )
 
   return {
     props: {
-      nodes,
-      revalidate: 60,
+      articles,
     },
   }
 }

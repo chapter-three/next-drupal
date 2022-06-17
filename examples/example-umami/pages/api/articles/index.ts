@@ -62,11 +62,12 @@ export default async function handler(
     // createMediaFileResource is a helper to create file binaries for media.
     // See https://www.drupal.org/node/3024331.
     const file = await drupal.createFileResource<DrupalFile>(
-      "media--image",
+      "file--file",
       {
         data: {
-          type: "field_media_image",
           attributes: {
+            type: "media--image",
+            field: "field_media_image",
             filename: fields.image.newFilename,
             file: await fs.readFile(fields.image.filepath),
           },

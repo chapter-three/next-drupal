@@ -2,16 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  @variants responsive {
-    .scrollbar-none::-webkit-scrollbar {
-      display: none;
-    }
+@layer responsive {
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
 
-    .scrollbar-none {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 
@@ -94,6 +92,11 @@ html {
   }
 }
 
+/* List */
+li ul {
+  margin: 0 !important;
+}
+
 /* Table */
 .main-content table {
   @apply p-0 w-full;
@@ -122,6 +125,14 @@ html {
 }
 article .table-container {
   overflow: auto;
+}
+
+.card + .card {
+  @apply mt-6;
+}
+
+.card p:last-child {
+  @apply mb-0;
 }
 
 /**
@@ -298,5 +309,5 @@ pre.is-highlighted:hover .token-line {
 }
 
 .DocSearch.DocSearch-Button {
-  @apply md:min-w-[200px] xl:min-w-[300px] md:bg-gray-100;
+  @apply md:min-w-[200px] lg:min-w-[120px] xl:min-w-[250px] md:bg-gray-100;
 }

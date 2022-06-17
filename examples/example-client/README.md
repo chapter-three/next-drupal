@@ -5,7 +5,7 @@ An example showing how to use the new `DrupalClient`.
 ## Usage
 
 ```ts
-import { Experimental_DrupalClient as DrupalClient } from "next-drupal"
+import { DrupalClient } from "next-drupal"
 
 const drupal = new DrupalClient("https://example.com")
 ```

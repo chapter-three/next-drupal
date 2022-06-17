@@ -1,0 +1,138 @@
+---
+title: getResourceFromContext
+excerpt: Fetch a resource from getStaticProps or getServerSideProps context.
+---
+
+```ts
+const resource = await drupal.getResourceFromContext<T = JsonApiResource>(
+  input,
+  context,
+  options?: {
+    params,
+    withAuth,
+    deserialize,
+    locale,
+    defaultLocale,
+    pathPrefix,
+    isVersionable,
+  }
+): Promise<T>
+```
+
+- `input: string | DrupalTranslatedPath`
+  - **Required**
+  - The resource type `node--article` or the translated path from `translatePathFromContext`.
+- `context: GetStaticPropsContext | GetServerSidePropsContext`
+  - **Required**
+  - The context from `getStaticProps` or `getServerSideProps`.
+- `options`
+  - Optional
+  - `params: JsonApiParams`: JSON:API params such as `filter`, `fields`, `include` or `sort`.
+  - `withAuth: boolean | DrupalClientAuth`:
+    - Set the authentication method to use. See the [authentication docs](/docs/authentication).
+    - Set to `true` to use the authentication method configured on the client.
+  - `deserialize: boolean`: Set to false to return the raw JSON:API response.
+  - `locale: string`: The locale to fetch the resource in.
+  - `defaultLocale: string`: The default locale of the site.
+  - `pathPrefix: string`: Set the pathPrefix if you're calling from a subdir. Example: for `/articles/[...slug].tsx`, use `pathPrefix: "/articles"`.
+  - `isVersionable: boolean`: Set to true if you're fetching the revision for a resource. _Automatically set to true for node entity types_.
+
+---
+
+## Notes
+
+- The localized resource will be fetched based on the `locale` and `defaultLocale` values from `context`.
+
+- If you pass in a `DrupalTranslatedPath` for input, `getResourceFromContext` will take the `type` and `id` from the path and make a `getResource` call to Drupal.
+
+```ts
+export async function getStaticProps(context) {
+  const path = await drupal.translatePathFromContext(context)
+
+  const node = await drupal.getResourceFromContext(path, context)
+
+  return {
+    props: {
+      node,
+    },
+  }
+}
+```
+
+- If you pass in a `string` inout, such as `node--article`, `getResourceFromContext` will make a subrequest call to Drupal to translate the path and then fetch the resource.
+
+  You will need both the [Subrequests](https://drupal.org/project/subrequests) and [Decoupled Router](https://drupal.org/project/decoupled_router) modules.
+
+```ts
+export async function getStaticProps(context) {
+  const node = await drupal.getResourceFromContext("node--article", context)
+
+  return {
+    props: {
+      node,
+    },
+  }
+}
+```
+
+---
+
+## Examples
+
+- Fetch a resource from context.
+
+```ts title=pages/[[...slug]].tsx
+export async function getStaticProps(context) {
+  const node = await drupal.getResourceFromContext("node--page", context)
+
+  return {
+    props: {
+      node,
+    },
+  }
+}
+```
+
+- Fetch a resource from context in a sub directory.
+
+```ts title=pages/articles/[[...slug]].tsx
+export async function getStaticProps(context) {
+  const node = await drupal.getResourceFromContext("node--page", context, {
+    pathPrefix: "/articles",
+  })
+
+  return {
+    props: {
+      node,
+    },
+  }
+}
+```
+
+---
+
+## TypeScript
+
+- Using `DrupalNode` for a node entity type.
+
+```ts
+import { DrupalNode } from "next-drupal"
+
+const node = await drupal.getResourceFromContext<DrupalNode>(
+  "node--page",
+  context
+)
+```
+
+- Using `DrupalTaxonomyTerm` for a taxonomy term entity type.
+
+```ts
+import { DrupalTaxonomyTerm } from "next-drupal"
+
+const term = await drupal.getResourceFromContext<DrupalTaxonomyTerm>(
+  "taxonomy_term--tags",
+  context
+)
+```
+
+See the [TypeScript docs](/docs/typescript) for more built-in types.

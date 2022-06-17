@@ -25,11 +25,11 @@ export default function GuidesPage({ guide, toc }: GuidesPageProps) {
       title={guide.frontMatter.title}
       description={guide.frontMatter.excerpt}
     >
-      <div className="container px-6 mx-auto md:gap-10 xl:gap-10 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-4 lg:grid xl:px-8">
-        <aside className="hidden col-span-2 py-10 pr-4 border-r xl:col-span-1 lg:flex">
+      <div className="container px-6 mx-auto md:gap-10 xl:gap-8 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-[260px_1fr] lg:px-4 lg:grid xl:px-6">
+        <aside className="sticky top-0 hidden max-h-screen col-span-2 pt-10 pb-64 pl-2 pr-4 overflow-y-auto border-r xl:col-span-1 lg:flex">
           <SidebarNav items={guidesConfig.links} />
         </aside>
-        <div className="items-start col-span-4 gap-12 pb-10 xl:col-span-3 xl:grid xl:grid-cols-3 xl:gap-24">
+        <div className="items-start col-span-4 gap-12 pb-10 xl:col-span-1 xl:grid xl:grid-cols-3 xl:gap-18">
           <div className="col-span-2 pt-4 sm:pt-6 md:pt-10 GuideSearch-content main-content">
             <h1 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
               {guide.frontMatter.title}

@@ -6,7 +6,7 @@
 
 ## Demo
 
-- https://demo.next-drupal.org
+https://demo.next-drupal.org
 
 ## Documentation
 
@@ -20,16 +20,12 @@ https://next-drupal.org
 
 A page with all "Article" nodes.
 
-```tsx
-import { DrupalClient, DrupalNode } from "next-drupal"
+```jsx
+import { DrupalClient } from "next-drupal"
 
 const drupal = new DrupalClient("https://drupal.org")
 
-interface BlogPageProps {
-  articles: DrupalNode[]
-}
-
-export default function BlogPage({ articles }: BlogPageProps) {
+export default function BlogPage({ articles }) {
   return (
     <div>
       {articles?.length
@@ -43,10 +39,8 @@ export default function BlogPage({ articles }: BlogPageProps) {
   )
 }
 
-export async function getStaticProps(
-  context
-): Promise<GetStaticPropsResult<BlogPageProps>> {
-  const articles = await drupal.getResourceCollectionFromContext<DrupalNode[]>(
+export async function getStaticProps(context) {
+  const articles = await drupal.getResourceCollectionFromContext(
     "node--article",
     context
   )

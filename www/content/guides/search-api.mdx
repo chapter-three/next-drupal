@@ -85,6 +85,25 @@ const response = await fetch("/api/search/INDEX-NAME-HERE", {
 })
 ```
 
+## Localized Search Results
+
+Next.js API Routes have no context of the current locale. For localized search results, you should pass the `locale` and `defaultLocale` from the router.
+
+```tsx
+const router = useRouter()
+
+const response = await fetch("/api/search/INDEX-NAME-HERE", {
+  method: "POST",
+  body: JSON.stringify({
+    params: {
+      filter: { name_of_field: value },
+    },
+    locale: router.locale,
+    defaultLocale: router.defaultLocale,
+  }),
+})
+```
+
 ## Demo
 
 See [https://example-search-api.next-drupal.org](https://example-search-api.next-drupal.org).

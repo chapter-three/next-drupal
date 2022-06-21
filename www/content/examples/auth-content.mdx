@@ -1,0 +1,18 @@
+---
+title: Authenticated Content
+excerpt: Using the withAuth options for data fetching.
+---
+
+If you have content that requires authentication, say content accessible via a role and permision in Drupal, you can use the `withAuth` option in data fetching helpers.
+
+```tsx
+import { getSession } from "next-auth/react"
+
+const session = getSession(...)
+
+const articles = await drupal.getResourceCollection("node--article", {
+	// highlight-start
+	withAuth: session.accessToken
+	// highlight-end
+})
+```

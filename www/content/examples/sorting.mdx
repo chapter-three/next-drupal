@@ -1,0 +1,48 @@
+---
+title: Sorting
+excerpt: Sorting a collection of resources in ascending or descending order.
+---
+
+To fetch a collection of `node--article`, you use the `getResourceCollection` helper.
+
+```tsx
+const articles = await drupal.getResourceCollection("node--article")
+```
+
+If you need to sort the articles by `created` date, you can use the `sort` param.
+
+```tsx
+const articles = await drupal.getResourceCollection("node--article", {
+  // highlight-start
+  params: {
+    sort: "created",
+  },
+  // highlight-end
+})
+```
+
+**This will sort the `node--article` collection by the `created` field in _ASC_ order.**
+
+To sort by **DESC** order, you can use the minus sign (-) shortcut.
+
+```tsx
+const articles = await drupal.getResourceCollection("node--article", {
+  params: {
+    // highlight-start
+    sort: "-created",
+    // highlight-end
+  },
+})
+```
+
+You can also sort by multiple fields using a **comma-separated** list.
+
+```tsx
+const articles = await drupal.getResourceCollection("node--article", {
+  params: {
+    // highlight-start
+    sort: "-created,title",
+    // highlight-end
+  },
+})
+```

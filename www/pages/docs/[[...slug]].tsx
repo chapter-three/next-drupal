@@ -38,6 +38,7 @@ export default function DocsPage({ doc, toc }: DocsPageProps) {
             ) : null}
             <hr className="my-6" />
             {content}
+            <hr className="my-12" />
             <Pager links={docsConfig.links} />
           </div>
           <aside className="sticky top-0 hidden pt-10 xl:block">

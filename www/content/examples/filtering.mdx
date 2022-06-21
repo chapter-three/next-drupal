@@ -1,0 +1,35 @@
+---
+title: Filtering
+excerpt: Filtering a collection of resources.
+---
+
+To fetch a collection of `node--article`, you use the `getResourceCollection` helper.
+
+```tsx
+const articles = await drupal.getResourceCollection("node--article")
+```
+
+Let's say you want to fetch only the **published articles**. You can do so using a filter params on the `status` field.
+
+```tsx
+const articles = await drupal.getResourceCollection("node--article", {
+  // highlight-start
+  params: {
+    "filter[status]": "1",
+  },
+  // highlight-end
+})
+```
+
+You can combine multiple filters as follows:
+
+```tsx
+const articles = await drupal.getResourceCollection("node--article", {
+  params: {
+    // highlight-start
+    "filter[status]": "1",
+    "uid.id": "8cf4350a-2bfa-4cd1-8ff0-5a556401f74c",
+    // highlight-end
+  },
+})
+```

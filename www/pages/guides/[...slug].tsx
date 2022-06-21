@@ -35,12 +35,13 @@ export default function GuidesPage({ guide, toc }: GuidesPageProps) {
               {guide.frontMatter.title}
             </h1>
             {guide.frontMatter.excerpt ? (
-              <p className="mt-2 text-lg font-light text-gray-700 md:text-2xl">
+              <p className="mt-2 text-lg font-light text-gray-700 md:text-xl">
                 {guide.frontMatter.excerpt}
               </p>
             ) : null}
             <hr className="my-6" />
             {content}
+            <hr className="my-12" />
             <Pager links={guidesConfig.links} />
           </div>
           <aside className="sticky top-0 hidden pt-10 xl:block">

@@ -22,5 +22,9 @@
     "basePath": "/blog",
     "sortBy": "created",
     "sortOrder": "desc"
+  },
+  "example": {
+    "contentPath": "content/examples",
+    "basePath": "/examples"
   }
 }

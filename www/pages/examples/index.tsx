@@ -1,30 +1,29 @@
 import { getAllMdxNodes } from "next-mdx/server"
 import Link from "next/link"
 
-import { Guide } from "types"
-import { guidesConfig } from "config/guides"
+import { Example } from "types"
 import { Layout } from "components/layout"
 
-export interface GuidesPageProps {
-  guides: Guide[]
+export interface ExamplesPageProps {
+  examples: Example[]
 }
 
-export default function GuidesPage({ guides }: GuidesPageProps) {
+export default function ExamplesPage({ examples }: ExamplesPageProps) {
   return (
     <Layout
-      title="Guides"
-      description="Helpful guides for developing headless sites with Next.js and Drupal."
+      title="Examples"
+      description="Code examples for working with Next.js and Drupal JSON:API."
     >
-      <div className="container max-w-4xl px-6 py-12 mx-auto xl:px-8">
+      <div className="container max-w-6xl px-6 py-12 mx-auto xl:px-8">
         <h1 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
-          Guides
+          Examples
         </h1>
         <p className="mt-2 text-lg font-light text-gray-700 md:text-xl">
-          Helpful guides for developing headless sites with Next.js and Drupal.
+          Code examples for working with Next.js and Drupal JSON:API.
         </p>
         <hr className="py-6 mt-6" />
-        <div className="grid gap-10 sm:grid-cols-2">
-          {guides.map((guide) => (
+        <div className="grid gap-10 sm:grid-cols-3">
+          {examples.map((guide) => (
             <article
               key={guide.slug}
               className="relative block p-6 bg-white border border-gray-200 rounded-lg shadow-md group"
@@ -36,7 +35,7 @@ export default function GuidesPage({ guides }: GuidesPageProps) {
                   </Link>
                 </h2>
                 {guide.frontMatter.excerpt ? (
-                  <p className="my-4 text-gray-700">
+                  <p className="mt-2 text-gray-700">
                     {guide.frontMatter.excerpt}
                   </p>
                 ) : null}
@@ -44,7 +43,7 @@ export default function GuidesPage({ guides }: GuidesPageProps) {
               <Link href={guide.url} passHref>
                 <a className="text-sm text-blue-500 transition-colors">
                   <span className="absolute inset-0" />
-                  Read More →
+                  <span className="sr-only">Read More →</span>
                 </a>
               </Link>
             </article>
@@ -56,17 +55,9 @@ export default function GuidesPage({ guides }: GuidesPageProps) {
 }
 
 export async function getStaticProps(context) {
-  const guides = await getAllMdxNodes<Guide>("guide", context)
-
-  const titles = guidesConfig.links[0].items.map((link) => link.title)
-
   return {
     props: {
-      guides: guides.sort(
-        (a, b) =>
-          titles.indexOf(a.frontMatter.title) -
-          titles.indexOf(b.frontMatter.title)
-      ),
+      examples: await getAllMdxNodes<Example>("example", context),
     },
   }
 }

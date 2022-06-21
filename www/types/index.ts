@@ -32,6 +32,15 @@ export type Guide = MdxNode<{
   caption?: string
 }>
 
+export type Example = MdxNode<{
+  title?: string
+  date?: string
+  excerpt?: string
+  author?: string
+  image?: string
+  caption?: string
+}>
+
 export type Tutorial = MdxNode<{
   title: string
   excerpt?: string

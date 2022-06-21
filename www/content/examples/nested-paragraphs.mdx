@@ -1,0 +1,58 @@
+---
+title: Nested Paragraphs
+excerpt: How to fetch nested paragraphs using JSON:API.
+---
+
+Given the following content structure:
+
+**A `node--page` content type with a _paragraph entity reference_ field called `field_paragraphs`**.
+
+We can fetch the nested paragraphs using the following query params:
+
+```ts
+const page = await drupal.getResource(
+  "node--page",
+  "687f74ec-e599-4f5c-8175-f24510c77e83",
+  {
+    // highlight-start
+    params: {
+      include: "field_paragraphs",
+    },
+    // highlight-end
+  }
+)
+```
+
+If the `node--page` has two paragraphs, one `paragraph--hero` and one `paragraph--text`, the JSON:API data will include the fields from the paragraphs.
+
+Now let's say one of the paragraphs, `paragraph--cards`, has another entity reference field `field_items` for `paragraph--item`. You can fetch the nested paragraphs using the **dot notation**.
+
+```ts
+const page = await drupal.getResource(
+  "node--page",
+  "687f74ec-e599-4f5c-8175-f24510c77e83",
+  {
+    params: {
+      // highlight-start
+      include: "field_paragraphs.field_items",
+      // highlight-end
+    },
+  }
+)
+```
+
+You can fetch more nested fields like this (comma-separated):
+
+```ts
+const page = await drupal.getResource(
+  "node--page",
+  "687f74ec-e599-4f5c-8175-f24510c77e83",
+  {
+    params: {
+      // highlight-start
+      include: "field_paragraphs.field_items,field_paragraphs.field_image",
+      // highlight-end
+    },
+  }
+)
+```

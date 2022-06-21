@@ -77,56 +77,74 @@ export default function IndexPage({ features }: IndexPageProps) {
             Go headless without compromising features.
           </p>
           <div className="grid gap-6 pt-6 text-left sm:grid-cols-2 lg:pt-10 lg:grid-cols-3">
-            <div className="p-6 bg-white border rounded-md">
-              <h3 className="mb-2 font-bold">Seamless Editing</h3>
+            <div className="block p-6 bg-white border border-gray-200 rounded-lg shadow-md group">
+              <h3 className="mb-2 text-xl font-bold tracking-tight text-gray-900">
+                Seamless Editing
+              </h3>
               <p className="text-sm leading-normal text-gray-600">
                 Inline preview built-in to the editing interface.
               </p>
             </div>
-            <div className="p-6 bg-white border rounded-md">
-              <h3 className="mb-2 font-bold">Instant Publishing</h3>
+            <div className="block p-6 bg-white border border-gray-200 rounded-lg shadow-md group">
+              <h3 className="mb-2 text-xl font-bold tracking-tight text-gray-900">
+                Instant Publishing
+              </h3>
               <p className="text-sm leading-normal text-gray-600">
                 New content and updates are live instantly.
               </p>
             </div>
-            <div className="p-6 bg-white border rounded-md">
-              <h3 className="mb-2 font-bold">Multi-site</h3>
+            <div className="block p-6 bg-white border border-gray-200 rounded-lg shadow-md group">
+              <h3 className="mb-2 text-xl font-bold tracking-tight text-gray-900">
+                Multi-site
+              </h3>
               <p className="text-sm leading-normal text-gray-600">
                 Power multiple Next.js sites from one Drupal site.
               </p>
             </div>
-            <div className="p-6 bg-white border rounded-md">
-              <h3 className="mb-2 font-bold">Authentication</h3>
+            <div className="block p-6 bg-white border border-gray-200 rounded-lg shadow-md group">
+              <h3 className="mb-2 text-xl font-bold tracking-tight text-gray-900">
+                Authentication
+              </h3>
               <p className="text-sm leading-normal text-gray-600">
                 Authentication with support for roles and permissions.
               </p>
             </div>
-            <div className="p-6 bg-white border rounded-md">
-              <h3 className="mb-2 font-bold">Webforms</h3>
+            <div className="block p-6 bg-white border border-gray-200 rounded-lg shadow-md group">
+              <h3 className="mb-2 text-xl font-bold tracking-tight text-gray-900">
+                Webforms
+              </h3>
               <p className="text-sm leading-normal text-gray-600">
                 Built React forms backed by the Webform module.
               </p>
             </div>
-            <div className="p-6 bg-white border rounded-md">
-              <h3 className="mb-2 font-bold">Search API</h3>
+            <div className="block p-6 bg-white border border-gray-200 rounded-lg shadow-md group">
+              <h3 className="mb-2 text-xl font-bold tracking-tight text-gray-900">
+                Search API
+              </h3>
               <p className="text-sm leading-normal text-gray-600">
                 Support for decoupled faceted search powered by Search API.
               </p>
             </div>
-            <div className="p-6 bg-white border rounded-md">
-              <h3 className="mb-2 font-bold">Internationalization</h3>
+            <div className="block p-6 bg-white border border-gray-200 rounded-lg shadow-md group">
+              <h3 className="mb-2 text-xl font-bold tracking-tight text-gray-900">
+                Internationalization
+              </h3>
               <p className="text-sm leading-normal text-gray-600">
                 Built-in translation and Automatic Language detection.
               </p>
             </div>
-            <div className="p-6 bg-white border rounded-md">
-              <h3 className="mb-2 font-bold">Performance</h3>
+            <div className="block p-6 bg-white border border-gray-200 rounded-lg shadow-md group">
+              <h3 className="mb-2 text-xl font-bold tracking-tight text-gray-900">
+                Performance
+              </h3>
               <p className="text-sm leading-normal text-gray-600">
                 Deploy and scale your sites via content delivery networks.
               </p>
             </div>
-            <div className="p-6 bg-white border rounded-md">
-              <h3 className="mb-2 font-bold">Security</h3>
+            <div className="block p-6 bg-white border border-gray-200 rounded-lg shadow-md group">
+              <h3 className="mb-2 text-xl font-bold tracking-tight text-gray-900">
+                Security
+              </h3>
               <p className="text-sm leading-normal text-gray-600">
                 Protect your site from attacks by separating code from the
                 interface.

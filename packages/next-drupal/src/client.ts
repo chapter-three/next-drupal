@@ -35,6 +35,7 @@ import type {
   JsonApiCreateFileResourceBody,
   DrupalView,
   DrupalFile,
+  ResourcePreviewData,
 } from "./types"
 import { logger as defaultLogger } from "./logger"
 import { JsonApiErrors } from "./jsonapi-errors"
@@ -529,7 +530,7 @@ export class DrupalClient {
 
   async getResourceFromContext<T extends JsonApiResource>(
     input: string | DrupalTranslatedPath,
-    context: GetStaticPropsContext,
+    context: GetStaticPropsContext<undefined, ResourcePreviewData>,
     options?: {
       pathPrefix?: PathPrefix
       isVersionable?: boolean
@@ -538,7 +539,7 @@ export class DrupalClient {
   ): Promise<T> {
     const type = typeof input === "string" ? input : input.jsonapi.resourceName
 
-    const previewData = context.previewData as { resourceVersion?: string }
+    const previewData = context.previewData
 
     options = {
       // Add support for revisions for node by default.
@@ -561,6 +562,30 @@ export class DrupalClient {
         resourceVersion: previewData?.resourceVersion,
         ...options?.params,
       },
+    }
+
+    if (previewData.resourceInPreview) {
+      const url = this.buildUrl(previewData.resourcePreviewUrl, options.params)
+
+      this._debug(
+        `Fetching resource ${previewData.resourceName} with id ${previewData.resourceId}.`
+      )
+      this._debug(url.toString())
+
+      const response = await this.fetch(url.toString(), {
+        withAuth: {
+          username: "admin",
+          password: "admin",
+        },
+      })
+
+      if (!response?.ok) {
+        await this.handleJsonApiErrors(response)
+      }
+
+      const json = await response.json()
+
+      return options.deserialize ? this.deserialize(json) : json
     }
 
     if (typeof input !== "string") {
@@ -921,7 +946,7 @@ export class DrupalClient {
   }
 
   async translatePathFromContext(
-    context: GetStaticPropsContext,
+    context: GetStaticPropsContext<undefined, ResourcePreviewData>,
     options?: {
       pathPrefix?: PathPrefix
     } & JsonApiWithAuthOptions
@@ -931,6 +956,32 @@ export class DrupalClient {
       withAuth: this.withAuth,
       ...options,
     }
+
+    // Return a temporary preview path.
+    if (context.previewData.resourceInPreview) {
+      return {
+        resolved: "",
+        isHomePath: false,
+        entity: {
+          id: context.previewData.resourceId,
+          canonical: "",
+          type: "",
+          bundle: "",
+          langcode: "",
+          uuid: "",
+        },
+        jsonapi: {
+          individual: this.buildUrl(
+            context.previewData.resourcePreviewUrl
+          ).toString(),
+          resourceName: context.previewData.resourceName,
+          pathPrefix: this.apiPrefix,
+          basePath: this.apiPrefix,
+          entryPoint: "",
+        },
+      }
+    }
+
     const path = this.getPathFromContext(context, {
       pathPrefix: options.pathPrefix,
     })
@@ -1045,8 +1096,17 @@ export class DrupalClient {
     response?: NextApiResponse,
     options?: PreviewOptions
   ) {
-    const { slug, resourceVersion, secret, locale, defaultLocale } =
-      request.query
+    const {
+      slug,
+      resourceVersion,
+      secret,
+      locale,
+      defaultLocale,
+      resourceInPreview,
+      resourcePreviewUrl,
+      resourceName,
+      resourceId,
+    } = request.query
 
     if (secret !== this.previewSecret) {
       return response
@@ -1054,7 +1114,7 @@ export class DrupalClient {
         .json(options?.errorMessages.secret || "Invalid preview secret.")
     }
 
-    if (!slug) {
+    if (!resourceInPreview && !slug) {
       return response
         .status(401)
         .end(options?.errorMessages.slug || "Invalid slug.")
@@ -1075,29 +1135,36 @@ export class DrupalClient {
       }
     }
 
-    const entity = await this.getResourceByPath(slug as string, {
-      withAuth: true,
-      ..._options,
-    })
+    let url = `/preview-${resourceName}-${resourceId}`
 
-    const missingEntityErrorMessage = `The entity with slug ${slug} coud not be found. If the entity exists on your Drupal site, make sure the proper permissions are configured so that Next.js can access it.`
-    const missingPathAliasErrorMessage = `The path alias is missing for entity with slug ${slug}.`
+    // Handle entity Drupal preview mode.
 
-    if (!entity) {
-      this.throwError(new Error(missingEntityErrorMessage))
+    // If we have a slug and we're not in preview, resolve the entity and redirect to entity.
+    if (!resourceInPreview && slug) {
+      const entity = await this.getResourceByPath(slug as string, {
+        withAuth: true,
+        ..._options,
+      })
 
-      return response.status(404).end(missingEntityErrorMessage)
+      const missingEntityErrorMessage = `The entity with slug ${slug} coud not be found. If the entity exists on your Drupal site, make sure the proper permissions are configured so that Next.js can access it.`
+      const missingPathAliasErrorMessage = `The path alias is missing for entity with slug ${slug}.`
+
+      if (!entity) {
+        this.throwError(new Error(missingEntityErrorMessage))
+
+        return response.status(404).end(missingEntityErrorMessage)
+      }
+
+      if (!entity?.path?.alias) {
+        this.throwError(new Error(missingPathAliasErrorMessage))
+
+        return response.status(404).end(missingPathAliasErrorMessage)
+      }
+
+      url = entity.default_langcode
+        ? entity?.path.alias
+        : `/${entity.path.langcode}${entity.path.alias}`
     }
-
-    if (!entity?.path?.alias) {
-      this.throwError(new Error(missingPathAliasErrorMessage))
-
-      return response.status(404).end(missingPathAliasErrorMessage)
-    }
-
-    const url = entity.default_langcode
-      ? entity?.path.alias
-      : `/${entity.path.langcode}${entity.path.alias}`
 
     if (!url) {
       return response
@@ -1107,6 +1174,10 @@ export class DrupalClient {
 
     response.setPreviewData({
       resourceVersion,
+      resourceInPreview,
+      resourceName,
+      resourceId,
+      resourcePreviewUrl,
     })
 
     // Fix issue with cookie.

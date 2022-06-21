@@ -486,3 +486,11 @@ export interface DrupalView<T = Record<string, any>[]> {
   meta: JsonApiResponse["meta"]
   links: JsonApiResponse["links"]
 }
+
+export interface ResourcePreviewData {
+  resourceVersion: string
+  resourceInPreview: boolean
+  resourceName: string
+  resourceId: string
+  resourcePreviewUrl?: string
+}

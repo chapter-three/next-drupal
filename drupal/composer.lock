@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca520b47a9b3fc1f60abb7dd12869891",
+    "content-hash": "7ad8046f69167e068e55ccebe75905d5",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3365,6 +3365,50 @@
             ],
             "support": {
                 "source": "https://git.drupalcode.org/project/jsonapi_menu_items"
+            }
+        },
+        {
+            "name": "drupal/jsonapi_node_preview",
+            "version": "1.0.0-beta2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/jsonapi_node_preview.git",
+                "reference": "1.0.0-beta2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/jsonapi_node_preview-1.0.0-beta2.zip",
+                "reference": "1.0.0-beta2",
+                "shasum": "d339c7cdb36ea6acf61367f87ff5d7bd10873a28"
+            },
+            "require": {
+                "drupal/core": ">=9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.0-beta2",
+                    "datestamp": "1651613908",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "alberto-silva",
+                    "homepage": "https://www.drupal.org/user/1194228"
+                }
+            ],
+            "description": "Exposes node previews in JSON:API.",
+            "homepage": "https://www.drupal.org/project/jsonapi_node_preview",
+            "support": {
+                "source": "https://git.drupalcode.org/project/jsonapi_node_preview"
             }
         },
         {
@@ -14116,6 +14160,7 @@
         "drupal/gin": 10,
         "drupal/gin_toolbar": 10,
         "drupal/inline_entity_form": 5,
+        "drupal/jsonapi_node_preview": 10,
         "drupal/jsonapi_schema": 10,
         "drupal/jsonapi_search_api": 5,
         "drupal/next": 20

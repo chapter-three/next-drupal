@@ -7,8 +7,8 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
 use Drupal\Core\TypedData\TranslatableInterface;
 use Drupal\Core\Url;
-use Drupal\jsonapi\JsonApiResource\ResourceObject;
-use Drupal\jsonapi\ResourceType\ResourceType;
+use Drupal\jsonapi\ResourceType\ResourceTypeRepositoryInterface;
+use Drupal\jsonapi\Routing\Routes;
 
 /**
  * Defines the next_site config entity.
@@ -130,10 +130,30 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
    * {@inheritdoc}
    */
   public function getPreviewUrlForEntity(EntityInterface $entity): Url {
+    $is_preview = isset($entity->in_preview) && $entity->in_preview;
     $query = [
       'secret' => $this->preview_secret,
-      'slug' => $entity->toUrl()->toString(),
+      'resourceInPreview' => (bool) $is_preview,
     ];
+
+    // Add info about the resource type to the query.
+    // This can be used on the Next.js site to resolve the entity.
+    /** @var ResourceTypeRepositoryInterface $jsonapi_resource_repository */
+    $jsonapi_resource_repository = \Drupal::service('jsonapi.resource_type.repository');
+    $resource_type = $jsonapi_resource_repository->get($entity->getEntityTypeId(), $entity->bundle());
+    $query['resourceName'] = $resource_type->getTypeName();
+    $query['resourceId'] = $entity->uuid();
+
+    // Add the route preview.
+    $url = Url::fromRoute(Routes::getRouteName($resource_type, "individual.preview"), ['node_preview' => $entity->uuid()]);
+    $query['resourcePreviewUrl'] = $url->toString();
+
+    // In preview mode, the entity has no url.
+    // We cannot use url to resolve the entity on the Next.js site.
+    // Instead we send the resource type and id.
+    if (!$is_preview) {
+      $query['slug'] = $entity->toUrl()->toString();
+    }
 
     // Add the locale to the query.
     if ($entity instanceof TranslatableInterface) {
@@ -178,8 +198,10 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
    * {@inheritdoc}
    */
   public function getLiveUrlForEntity(EntityInterface $entity): ?Url {
+    $is_preview = isset($entity->in_preview) && $entity->in_preview;
+
     // Check if entity is published.
-    if ($entity instanceof EntityPublishedInterface && !$entity->isPublished()) {
+    if ($entity instanceof EntityPublishedInterface && !$entity->isPublished() || $is_preview) {
       return NULL;
     }
 

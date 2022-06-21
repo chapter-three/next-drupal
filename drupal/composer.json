@@ -38,6 +38,7 @@
     "drupal/inline_entity_form": "^1.0@RC",
     "drupal/jsonapi_extras": "^3.20",
     "drupal/jsonapi_menu_items": "^1.2",
+    "drupal/jsonapi_node_preview": "^1.0@beta",
     "drupal/jsonapi_schema": "^1.0@beta",
     "drupal/jsonapi_search_api": "^1.0@RC",
     "drupal/jsonapi_views": "^1.0",

@@ -18,6 +18,10 @@ DRUPAL_CLIENT_SECRET=
 # Authentication (Basic)
 DRUPAL_USERNAME=
 DRUPAL_PASSWORD=
+
+# Optional
+DRUPAL_SITE_ID=
+DRUPAL_FRONT_PAGE=
 ```
 
 ---
@@ -84,5 +88,20 @@ const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
     username: process.env.DRUPAL_USERNAME,
     password: process.env.DRUPAL_PASSWORD,
   },
+})
+```
+
+## Optional
+
+These environment variables are **optional** and **not required as of `next-drupal 1.4.0`**.
+
+| Name                | Description                                                          |
+| ------------------- | :------------------------------------------------------------------- |
+| `DRUPAL_SITE_ID`    | The site id of the Next.js site on Drupal. Example: `marketing_site` |
+| `DRUPAL_FRONT_PAGE` | The path to the front page: Example: `/front`                        |
+
+```ts
+const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  frontPage: process.env.DRUPAL_FRONT_PAGE,
 })
 ```

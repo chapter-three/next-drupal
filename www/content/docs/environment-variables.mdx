@@ -95,12 +95,27 @@ const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
 
 These environment variables are **optional** and **not required as of `next-drupal 1.4.0`**.
 
-| Name                | Description                                                          |
-| ------------------- | :------------------------------------------------------------------- |
-| `DRUPAL_SITE_ID`    | The site id of the Next.js site on Drupal. Example: `marketing_site` |
-| `DRUPAL_FRONT_PAGE` | The path to the front page: Example: `/front`                        |
+| Name                | Description                                                                                                                                     |
+| ------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DRUPAL_SITE_ID`    | The site id of the Next.js site on Drupal. Example: `marketing_site`. See the [Filter by site](/guides/filter-by-site) guide for usage example. |
+| `DRUPAL_FRONT_PAGE` | The path to the front page: Example: `/front`                                                                                                   |
 
-```ts
+```ts title=DRUPAL_SITE_ID
+// Fetch all articles with DRUPAL_SITE_ID in field_sites.
+const nodes = await drupal.getResourceCollection<DrupalNode[]>(
+  "node--article",
+  {
+    params: {
+      filter: {
+        "field_sites.meta.drupal_internal__target_id":
+          process.env.DRUPAL_SITE_ID,
+      },
+    },
+  }
+)
+```
+
+```ts title=DRUPAL_FRONT_PAGE
 const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
   frontPage: process.env.DRUPAL_FRONT_PAGE,
 })

@@ -51,19 +51,29 @@ class NextSiteEntityController extends ControllerBase {
     $build = [];
 
     $variables = [
+      'required_variables' => '# Required',
       'NEXT_PUBLIC_DRUPAL_BASE_URL' => $this->request->getSchemeAndHttpHost(),
       'NEXT_IMAGE_DOMAIN' => $this->request->getHost(),
-      'DRUPAL_SITE_ID' => $next_site->id(),
-      'DRUPAL_FRONT_PAGE' => $this->config('system.site')->get('page.front'),
     ];
 
     if ($secret = $next_site->getPreviewSecret()) {
       $variables += [
+        'preview_variables' => '# Required for Preview Mode',
         'DRUPAL_PREVIEW_SECRET' => $secret,
-        'DRUPAL_CLIENT_ID' => 'Retrieve this from /admin/config/services/consumer',
-        'DRUPAL_CLIENT_SECRET' => 'Retrieve this from /admin/config/services/consumer',
       ];
     }
+
+    $variables += [
+      'authentication_bearer' => '# Authentication (Bearer)',
+      'DRUPAL_CLIENT_ID' => 'Retrieve this from /admin/config/services/consumer',
+      'DRUPAL_CLIENT_SECRET' => 'Retrieve this from /admin/config/services/consumer',
+    ];
+
+    $variables += [
+      'optional_variables' => '# Optional',
+      'DRUPAL_SITE_ID' => $next_site->id(),
+      'DRUPAL_FRONT_PAGE' => $this->config('system.site')->get('page.front'),
+    ];
 
     $build['container'] = [
       '#title' => $this->t('Environment variables'),
@@ -71,10 +81,15 @@ class NextSiteEntityController extends ControllerBase {
       '#title_display' => 'invisible',
     ];
 
+    $build['container']['heading'] = [
+      '#type' => 'inline_template',
+      '#template' => '# See https://next-drupal.org/docs/environment-variables<br/>',
+    ];
+
     foreach ($variables as $name => $value) {
       $build['container'][$name] = [
         '#type' => 'inline_template',
-        '#template' => '{{ name }}={{ value }}<br/>',
+        '#template' => "{% if value starts with '#' %} <br />{{ value }} {% else %} {{ name }}={{ value }}{% endif %}<br/>",
         '#context' => [
           'name' => $name,
           'value' => $value,
@@ -85,7 +100,9 @@ class NextSiteEntityController extends ControllerBase {
     $build['description'] = [
       '#type' => 'html_tag',
       '#tag' => 'p',
-      '#value' => $this->t('Copy and paste these values in your <em>.env</em> or <em>.env.local</em> files.'),
+      '#value' => $this->t('Copy and paste these values in your <code>.env</code> or <code>.env.local</code> files. To learn more about required and optional environment variables, refer to the <a href=":url" target="_blank">documentation</a>.', [
+        ':url' => 'https://next-drupal.org/docs/environment-variables',
+      ]),
     ];
 
     $build['actions'] = [

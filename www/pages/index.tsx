@@ -48,9 +48,13 @@ export default function IndexPage({ features }: IndexPageProps) {
                 Get Started
               </a>
             </Link>
-            <Link href="/docs" passHref>
-              <a className="w-2/3 px-8 py-2 mt-4 font-semibold text-center text-black transition-all bg-white border-2 border-black rounded-md sm:w-auto sm:mt-0 sm:ml-4 hover:bg-gray-100 hover:text-black">
-                Read the docs
+            <Link href="https://demo.next-drupal.org" passHref>
+              <a
+                className="w-2/3 px-8 py-2 mt-4 font-semibold text-center text-black transition-all bg-white border-2 border-black rounded-md sm:w-auto sm:mt-0 sm:ml-4 hover:bg-gray-100 hover:text-black"
+                target="_blank"
+                rel="nofollow noreferrer"
+              >
+                See a demo
               </a>
             </Link>
           </div>

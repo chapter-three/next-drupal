@@ -27,7 +27,6 @@
     "drupal/core-recommended": "^9",
     "drupal/ctools": "^3.6",
     "drupal/decoupled_router": "2.x-dev@dev",
-    "drupal/default_content": "^2.0@alpha",
     "drupal/entity_reference_revisions": "^1.9",
     "drupal/entity_usage": "^2.0@beta",
     "drupal/facets": "^2.0",

@@ -1,0 +1,39 @@
+---
+title: deleteResource
+excerpt: Delete a resource.
+---
+
+```ts
+const deleted = await drupal.deleteResource(
+  type,
+  uuid,
+  options?: {
+    withAuth,
+  }
+): Promise<boolean>
+```
+
+- `type: string`
+  - **Required**
+  - The resource type. Example: `node--article`, `taxonomy_term--tags`, or `block_content--basic`.
+- `uuid: string`
+  - **Required**
+  - The resource id. Example `a50ffee7-ba94-46c9-9705-f9f8f440db94`.
+- `options`
+  - Optional
+  - `withAuth: boolean | DrupalClientAuth`:
+    - Set the authentication method to use. See the [authentication docs](/docs/authentication).
+    - Set to `true` to use the authentication method configured on the client.
+
+---
+
+## Examples
+
+- Delete a `node--page` resource.
+
+```ts
+const isDeleted = await drupal.deleteResource(
+  "node--page",
+  "a50ffee7-ba94-46c9-9705-f9f8f440db94"
+)
+```

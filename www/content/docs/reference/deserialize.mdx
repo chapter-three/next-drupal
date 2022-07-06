@@ -1,0 +1,38 @@
+---
+title: deserialize
+excerpt: A helper for deserializing JSON:API resources.
+---
+
+```ts
+const resource = drupal.deserialize(body, options?)
+```
+
+- `body: JsonApiResponse`
+  - **Required**
+  - The raw JSON:API response.
+- `body`
+  - Optional
+  - Options for the deserializer.
+
+---
+
+## Notes
+
+- To provide your own custom deserializer, see the [deserializer docs](/docs/deserializer).
+
+---
+
+## Examples
+
+```ts
+const url = drupal.buildUrl("/jsonapi/node/article", {
+  sort: "-created",
+  "fields[node--article]": "title,path",
+})
+
+const response = await drupal.fetch(url.toString())
+
+const json = await response.json()
+
+const resource = drupal.deserialize(json)
+```

@@ -1,0 +1,20 @@
+uuid: 4b6cc22f-4612-4465-a4ef-d85cae88a638
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.property_location
+  module:
+    - text
+id: taxonomy_term.property_location.description
+field_name: description
+entity_type: taxonomy_term
+bundle: property_location
+label: Description
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

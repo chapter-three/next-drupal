@@ -1,0 +1,48 @@
+---
+title: Fetcher
+excerpt: Using a custom fetcher with DrupalClient.
+---
+
+The `DrupalClient` uses the polyfilled `fetch` from Next.js as the default fetcher.
+
+You can provide your own using the [`fetcher`](/docs/configuration#fetcher) option.
+
+---
+
+## Example
+
+Here's how you can replace the default fetcher with [cross-fetch](https://github.com/lquixada/cross-fetch).
+
+<Callout>
+
+We're using **cross-fetch** instead of **node-fetch** because it is compatible with the built-in fetch and uses the same signature.
+
+</Callout>
+
+```ts title=lib/drupal.ts
+import { DrupalClient } from "next-drupal"
+import crossFetch from "cross-fetch"
+
+// Create a custom fetcher.
+const customFetcher = (url, options) => {
+  const { withAuth, ...opts } = options
+
+  if (withAuth) {
+    // Make additional requests to fetch a bearer token
+    // Or any other Authorization headers.
+  }
+
+  return crossFetch(url, {
+    ...opts,
+    // Pass in additional options. Example: agent.
+  })
+}
+
+// Pass the custom fetcher to the client.
+export const drupal = new DrupalClient(
+  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+  {
+    fetcher: customFetcher,
+  }
+)
+```

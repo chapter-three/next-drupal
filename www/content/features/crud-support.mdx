@@ -1,0 +1,41 @@
+---
+title: CRUD Support
+excerpt: Creating, updating and deleting JSON:API resources.
+weight: 0.2
+---
+
+```ts
+// Create an article.
+const article = await drupal.createResource("node--article", {
+  attributes: {
+    title: "Title of Article",
+    body: {
+      value: "<p>Content of body field</p>",
+      format: "full_html",
+    },
+  },
+})
+```
+
+```ts
+// Update article.
+const article = await drupal.updateResource(
+  "node--article",
+  "a937dd34-5407-4fff-8594-fccaaa5bb72a",
+  {
+    data: {
+      attributes: {
+        title: "Title of Article",
+      },
+    },
+  }
+)
+```
+
+```ts
+// Delete article.
+const deleted = await drupal.deleteResource(
+  "node--article",
+  "a937dd34-5407-4fff-8594-fccaaa5bb72a"
+)
+```

@@ -1,0 +1,23 @@
+uuid: b65ffca5-f41b-4e43-aad0-767482e5e453
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_site
+    - node.type.landing_page
+id: node.landing_page.field_site
+field_name: field_site
+entity_type: node
+bundle: landing_page
+label: Site
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:next_site'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: entity_reference

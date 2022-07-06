@@ -3,6 +3,80 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.4.0-rc.2...next-drupal@1.4.0) (2022-06-14)
+
+**Note:** Version bump only for package next-drupal
+
+
+
+
+
+# [1.4.0-rc.2](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.4.0-rc.1...next-drupal@1.4.0-rc.2) (2022-06-14)
+
+
+### Bug Fixes
+
+* **client:** update types for getMenu and getView ([611f8fb](https://github.com/chapter-three/next-drupal/commit/611f8fb7ee4c7aef1ca652a1c15f6378e8cd576f))
+* **next-drupal:** import missing type ([d54015f](https://github.com/chapter-three/next-drupal/commit/d54015fe973137932e1d8d1e7eb666599cf128b2))
+* **next-drupal:** return null for path not found in translatePath ([63ccf81](https://github.com/chapter-three/next-drupal/commit/63ccf819018914ee59f2982fdef7fef02c6cd479))
+
+
+### Features
+
+* **next-drupal:** rename Experimental_DrupalClient to DrupalClient ([60e0451](https://github.com/chapter-three/next-drupal/commit/60e0451ee1300eabc05766c2b2f5bd06dceba68a))
+* **next-drupal:** useDefaultResourceTypeEntry is now true ([9356fe1](https://github.com/chapter-three/next-drupal/commit/9356fe1b3d46f53ee65dd6625df95b1fb5037c98))
+
+
+
+
+
+# [1.4.0-rc.1](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.4.0-rc.0...next-drupal@1.4.0-rc.1) (2022-06-10)
+
+
+### Bug Fixes
+
+* **next-drupal:** remove fix for localized resources ([abcea72](https://github.com/chapter-three/next-drupal/commit/abcea720fbb9ae1924681ea5b1242869856ea665))
+
+
+
+
+
+# [1.4.0-rc.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.4.0-alpha.0...next-drupal@1.4.0-rc.0) (2022-06-06)
+
+
+### Bug Fixes
+
+* **next-drupal:** update response type for client.getView ([13bbac2](https://github.com/chapter-three/next-drupal/commit/13bbac26097f3e24f0f90b9f25560bfe7ce946b3))
+
+
+
+
+
+# [1.4.0-alpha.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.3.2...next-drupal@1.4.0-alpha.0) (2022-06-02)
+
+
+### Bug Fixes
+
+* **next-drupal:** update handling for string errors ([a4d3d38](https://github.com/chapter-three/next-drupal/commit/a4d3d3806637b17868e8d21fe1f383636a9c47d1))
+* **next-drupal:** update message handling in jsonapi-errors ([f9a281a](https://github.com/chapter-three/next-drupal/commit/f9a281ab51d4abcf865672fd3a9ed07c6f7feb3a))
+* **next-drupal:** update missing opts from access token ([b166ef0](https://github.com/chapter-three/next-drupal/commit/b166ef09d2c8201a3a5f6d771eb23f6f330c7916))
+* **next-drupal:** update translatePath handling ([fa3e864](https://github.com/chapter-three/next-drupal/commit/fa3e864fda741e22c9aeb2a0167a4a0cbcfeb733))
+
+
+### Features
+
+* **next-drupal:** add createResource, updateResource and deleteResource helpers ([5200824](https://github.com/chapter-three/next-drupal/commit/52008242ca7199991f88824614ffacef0b2faf77))
+* **next-drupal:** allow auth to accept an access token ([d7fade0](https://github.com/chapter-three/next-drupal/commit/d7fade049cdbaaf13b7af0fab91b86460577e286))
+* **next-drupal:** allow client to accept username and password for auth ([cff5ded](https://github.com/chapter-three/next-drupal/commit/cff5ded1da270db85a278e0e04f81a6551351620))
+* **next-drupal:** createResource, updateResource and deleteResource are auth'd by default ([205fb12](https://github.com/chapter-three/next-drupal/commit/205fb122065740da5a123777a55120959a21f9ad))
+* **next-drupal:** introduce throwJsonApiErrors option ([#196](https://github.com/chapter-three/next-drupal/issues/196)) ([18690e1](https://github.com/chapter-three/next-drupal/commit/18690e10a829104068693b93fa84e5987d59de21))
+* **next-drupal:** rename createMediaFileResource to createFileResource ([e4901e4](https://github.com/chapter-three/next-drupal/commit/e4901e4e0fa5d32d45032a8f0ec166d0d1253222))
+* **next-drupal:** update error handling ([c0ddc9c](https://github.com/chapter-three/next-drupal/commit/c0ddc9c6dd5a18f07e7981311df347367ff593d2))
+
+
+
+
+
 ## [1.3.2](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.3.1...next-drupal@1.3.2) (2022-05-02)
 
 

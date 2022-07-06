@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        drupal: ["8.9", "9.2"]
+        drupal: ["8.9", "9.2", "9.3", "9.4"]
     name: Drupal ${{ matrix.drupal }}
     services:
       mysql:
@@ -52,6 +52,7 @@ jobs:
           composer config preferred-install dist
           composer config repositories.0 path $GITHUB_WORKSPACE
           composer config repositories.1 composer https://packages.drupal.org/8
+          composer config allow-plugins true -n
           COMPOSER_MEMORY_LIMIT=-1 composer require drupal/core-dev:${{ matrix.drupal }} --no-suggest
       - name: Add phpspec/prophecy-phpunit
         run: |

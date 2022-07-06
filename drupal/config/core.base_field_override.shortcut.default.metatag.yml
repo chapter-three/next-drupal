@@ -1,0 +1,20 @@
+uuid: 9a01dfe2-ac7f-4045-b838-8d6e0867caf0
+langcode: en
+status: true
+dependencies:
+  config:
+    - shortcut.set.default
+  module:
+    - metatag
+id: shortcut.default.metatag
+field_name: metatag
+entity_type: shortcut
+bundle: default
+label: 'Metatags (Hidden field for JSON support)'
+description: 'The computed meta tags for the entity.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: metatag_computed

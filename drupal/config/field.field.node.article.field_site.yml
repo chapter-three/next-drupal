@@ -11,7 +11,7 @@ entity_type: node
 bundle: article
 label: Site
 description: ''
-required: true
+required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''

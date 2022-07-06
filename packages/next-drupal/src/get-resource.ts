@@ -62,9 +62,9 @@ export async function getResourceFromContext<T extends JsonApiResource>(
   // TODO: Figure out if we want this behavior.
   // For now this causes a bug where a non-i18n sites builds (ISR) pages for
   // localized pages.
-  if (!context.locale && !resource?.default_langcode) {
-    return null
-  }
+  // if (!context.locale && !resource?.default_langcode) {
+  //   return null
+  // }
 
   return resource
 }

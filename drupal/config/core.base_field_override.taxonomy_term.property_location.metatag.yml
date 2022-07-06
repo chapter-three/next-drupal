@@ -1,0 +1,20 @@
+uuid: 4448a835-1eb2-4c9a-a59b-7ef212608809
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.property_location
+  module:
+    - metatag
+id: taxonomy_term.property_location.metatag
+field_name: metatag
+entity_type: taxonomy_term
+bundle: property_location
+label: 'Metatags (Hidden field for JSON support)'
+description: 'The computed meta tags for the entity.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: metatag_computed

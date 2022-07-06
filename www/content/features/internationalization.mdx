@@ -4,11 +4,9 @@ excerpt: Built-in support for translation and language detection.
 weight: 3
 ---
 
-```tsx title=Resource
-import { getResource } from "next-drupal"
-
+```ts
 // Get the `es` translation for a page by uuid.
-const node = await getResource(
+const page = await drupal.getResource(
   "node--page",
   "07464e9f-9221-4a4f-b7f2-01389408e6c8",
   {
@@ -18,17 +16,18 @@ const node = await getResource(
 )
 ```
 
-```tsx title=Menu
-import { getMenu } from "next-drupal"
+```ts
+// Fetch a collection of translated articles.
+const articles = await drupal.getResourceCollection("node--article", {
+  locale: "es",
+  defaultLocale: "en",
+})
+```
 
-export async function getStaticProps(context) {
-  // Get translated menu from context.
-  const menu = await getMenu("main", context)
-
-  return {
-    props: {
-      menu,
-    },
-  }
-}
+```ts
+// Fetch translated menu items.
+const main = await drupal.getMenu("main", {
+  locale: "es",
+  defaultLocale: "en",
+})
 ```

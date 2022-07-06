@@ -1,0 +1,54 @@
+---
+title: getSearchIndex
+excerpt: Fetch a Search API index.
+---
+
+```ts
+const resources = await drupal.getSearchIndex<T = JsonApiResource[]>(
+  name,
+  options?: {
+    params,
+    withAuth,
+    deserialize,
+    locale,
+    defaultLocale,
+  }
+): Promise<T>
+```
+
+- `name: string`
+  - **Required**
+  - The name of the search index.
+- `options`
+  - Optional
+  - `params: JsonApiParams`: JSON:API params such as `filter`, `fields`, `include` or `sort`.
+  - `withAuth: boolean | DrupalClientAuth`:
+    - Set the authentication method to use. See the [authentication docs](/docs/authentication).
+    - Set to `true` to use the authentication method configured on the client.
+  - `deserialize: boolean`: Set to false to return the raw JSON:API response.
+  - `locale: string`: The locale to fetch the view in.
+  - `defaultLocale: string`: The default locale of the site.
+
+---
+
+## Examples
+
+- Get search results from an index named `articles`.
+
+```ts
+const results = await drupal.getSearchIndex("articles")
+```
+
+---
+
+## TypeScript
+
+- Using `DrupalNode` for a node entity type.
+
+```ts
+import { DrupalNode } from "next-drupal"
+
+const results = await drupal.getSearchIndex<DrupalNode>("articles")
+```
+
+See the [TypeScript docs](/docs/typescript) for more built-in types.

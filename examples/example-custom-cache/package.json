@@ -1,6 +1,6 @@
 {
   "name": "example-custom-cache",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -16,7 +16,7 @@
   "dependencies": {
     "ioredis": "^5.0.4",
     "next": "^12.1.0",
-    "next-drupal": "^1.3.2",
+    "next-drupal": "^1.4.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

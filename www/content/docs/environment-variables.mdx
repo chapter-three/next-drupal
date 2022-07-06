@@ -7,34 +7,82 @@ excerpt: Configuration variables for Next.js and Drupal.
 # Required
 NEXT_PUBLIC_DRUPAL_BASE_URL=http://localhost:8080
 NEXT_IMAGE_DOMAIN=localhost
+
+# Required for Preview Mode
 DRUPAL_PREVIEW_SECRET=
+
+# Authentication (Bearer)
 DRUPAL_CLIENT_ID=
 DRUPAL_CLIENT_SECRET=
 
-# Optional
-DRUPAL_SITE_ID=
-DRUPAL_FRONT_PAGE=/home
-DRUPAL_JSONAPI_PREFIX=/jsonapi
+# Authentication (Basic)
+DRUPAL_USERNAME=
+DRUPAL_PASSWORD=
 ```
+
+---
 
 ## Required
 
-These environment variables are required for fetching data from the Drupal site.
+These environment variables are required for initializing a new `DrupalClient`.
 
 | Name                          | Description                                                                                                                |
 | ----------------------------- | :------------------------------------------------------------------------------------------------------------------------- |
 | `NEXT_PUBLIC_DRUPAL_BASE_URL` | The base url for your Drupal site. Example: `https://drupal.org`                                                           |
 | `NEXT_IMAGE_DOMAIN`           | The domain name for [next/image](https://nextjs.org/docs/basic-features/image-optimization#domains). Example: `drupal.org` |
-| `DRUPAL_PREVIEW_SECRET`       | The secret for [preview mode](https://nextjs.org/docs/advanced-features/preview-mode). Example: `6SZy9xkdtR`               |
-| `DRUPAL_CLIENT_ID`            | The OAuth client id. Example: `a53b1d17-6b23-478d-8649-9aee63974c80`                                                       |
-| `DRUPAL_CLIENT_SECRET`        | The OAuth client secret. Example: `3#9h$2DU#8qKb6&`                                                                        |
 
-## Optional
+```ts
+const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL)
+```
 
-Environment variables you can use to customize the Next.js site.
+---
 
-| Name                    | Description                                                 |
-| ----------------------- | :---------------------------------------------------------- |
-| `DRUPAL_SITE_ID`        | The site id for the Next.js site. Example: `marketing_site` |
-| `DRUPAL_FRONT_PAGE`     | The path for the Drupal front page. Example: `/home`        |
-| `DRUPAL_JSONAPI_PREFIX` | The JSON:API prefix. Example: `/jsonapi`                    |
+## Preview Mode
+
+Environment variables required for preview mode.
+
+| Name                    | Description                                                              |
+| ----------------------- | :----------------------------------------------------------------------- |
+| `DRUPAL_PREVIEW_SECRET` | The secret for [preview mode](/docs/preview-mode). Example: `6SZy9xkdtR` |
+
+```ts
+const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  previewSecret: process.env.DRUPAL_PREVIEW_SECRET,
+})
+```
+
+---
+
+## Authentication (Bearer)
+
+| Name                   | Description                                                          |
+| ---------------------- | :------------------------------------------------------------------- |
+| `DRUPAL_CLIENT_ID`     | The OAuth client id. Example: `a53b1d17-6b23-478d-8649-9aee63974c80` |
+| `DRUPAL_CLIENT_SECRET` | The OAuth client secret. Example: `3#9h$2DU#8qKb6&`                  |
+
+```ts
+const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  auth: {
+    clientId: process.env.DRUPAL_CLIENT_ID,
+    clientSecret: process.env.DRUPAL_CLIENT_SECRET,
+  },
+})
+```
+
+---
+
+## Authentication (Basic)
+
+| Name              | Description                              |
+| ----------------- | :--------------------------------------- |
+| `DRUPAL_USERNAME` | The Drupal username. Example: `admin`    |
+| `DRUPAL_PASSWORD` | The Drupal password. Example: `password` |
+
+```ts
+const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  auth: {
+    username: process.env.DRUPAL_USERNAME,
+    password: process.env.DRUPAL_PASSWORD,
+  },
+})
+```

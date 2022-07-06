@@ -1,4 +1,4 @@
-uuid: a04e5b82-b2f0-42ec-86f2-58e65c409e7b
+uuid: 578812bc-96f9-4810-85a9-5a4f1a01e74f
 langcode: en
 status: true
 dependencies:
@@ -9,8 +9,6 @@ third_party_settings:
     revalidate: true
     revalidate_paths: ''
 id: node.landing_page
-site_resolver: site_selector
+site_resolver: entity_reference_field
 configuration:
-  sites:
-    example_marketing: example_marketing
-    example_blog: '0'
+  field_name: field_site

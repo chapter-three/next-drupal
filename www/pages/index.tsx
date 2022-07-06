@@ -48,9 +48,13 @@ export default function IndexPage({ features }: IndexPageProps) {
                 Get Started
               </a>
             </Link>
-            <Link href="/docs" passHref>
-              <a className="w-2/3 px-8 py-2 mt-4 font-semibold text-center text-black transition-all bg-white border-2 border-black rounded-md sm:w-auto sm:mt-0 sm:ml-4 hover:bg-gray-100 hover:text-black">
-                Read the docs
+            <Link href="https://demo.next-drupal.org" passHref>
+              <a
+                className="w-2/3 px-8 py-2 mt-4 font-semibold text-center text-black transition-all bg-white border-2 border-black rounded-md sm:w-auto sm:mt-0 sm:ml-4 hover:bg-gray-100 hover:text-black"
+                target="_blank"
+                rel="nofollow noreferrer"
+              >
+                See a demo
               </a>
             </Link>
           </div>
@@ -58,6 +62,7 @@ export default function IndexPage({ features }: IndexPageProps) {
             controls
             muted
             autoPlay
+            loop
             className="w-full overflow-hidden border-2 border-black rounded-md shadow-2xl aspect-video"
           >
             <source src="/videos/next-drupal-promo.mp4" type="video/mp4" />
@@ -140,7 +145,7 @@ export default function IndexPage({ features }: IndexPageProps) {
             Out-of-the-box tooling for the best developer experience
           </h2>
           <p className="mx-auto mt-4 text-lg text-center text-gray-700 leading-1 md:px-16 lg:leading-normal lg:text-2xl">
-            Build all the features you need. Faster.
+            A powerful client for working with JSON:API.
           </p>
         </div>
         <div className="container max-w-5xl grid-cols-2 gap-6 mx-auto mt-10 md:grid">

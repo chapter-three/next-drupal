@@ -3,6 +3,49 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/chapter-three/next-drupal/compare/www@1.7.0-rc.0...www@1.7.0) (2022-06-14)
+
+**Note:** Version bump only for package www
+
+
+
+
+
+# [1.7.0-rc.0](https://github.com/chapter-three/next-drupal/compare/www@1.7.0-alpha.0...www@1.7.0-rc.0) (2022-06-14)
+
+
+### Bug Fixes
+
+* **www:** update docs sidebar scroll ([03497ee](https://github.com/chapter-three/next-drupal/commit/03497ee27057c795a8bcef5e209ec113a6faca5d))
+* **www:** update responsive styles ([e6c55d5](https://github.com/chapter-three/next-drupal/commit/e6c55d52eff9ccf03d48738ccd64ed862e6b49f8))
+* **www:** update sidebar width ([4ba259d](https://github.com/chapter-three/next-drupal/commit/4ba259d5d26dc428eac442216e60ac19e7a1c4c8))
+* **www:** update styles for sidebar ([ef05314](https://github.com/chapter-three/next-drupal/commit/ef053145d0c3d3189bd20bd34d815315f1b62d14))
+
+
+### Features
+
+* rename Experimental_DrupalClient to DrupalClient ([fc549ec](https://github.com/chapter-three/next-drupal/commit/fc549ecab94a5a1e67f38b4e951351365adbb1f5))
+
+
+
+
+
+# [1.7.0-alpha.0](https://github.com/chapter-three/next-drupal/compare/www@1.6.0...www@1.7.0-alpha.0) (2022-06-02)
+
+
+### Bug Fixes
+
+* **www:** update active links for learn section ([7f87708](https://github.com/chapter-three/next-drupal/commit/7f8770882f853cb59986d1e912709304a149b77c))
+
+
+### Features
+
+* **www:** restructure site and add guides ([067788d](https://github.com/chapter-three/next-drupal/commit/067788d55d834605efae37aaf848a68b50e5a52d))
+
+
+
+
+
 # [1.6.0](https://github.com/chapter-three/next-drupal/compare/www@1.5.0...www@1.6.0) (2022-05-02)
 
 

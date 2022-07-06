@@ -5,7 +5,7 @@ An example showing how to use a custom fetch adapter in Next.js for Drupal.
 ## Example
 
 ```ts
-import { Experiment_DrupalClient as DrupalClient } from "next-drupal"
+import { DrupalClient } from "next-drupal"
 import crossFetch from "cross-fetch"
 
 const fetcher = (url, options) => {

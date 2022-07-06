@@ -10,6 +10,8 @@ dependencies:
     - paragraphs.paragraphs_type.feature
     - paragraphs.paragraphs_type.from_library
     - paragraphs.paragraphs_type.hero
+    - paragraphs.paragraphs_type.page_header
+    - paragraphs.paragraphs_type.video
     - paragraphs.paragraphs_type.view
   module:
     - entity_reference_revisions
@@ -27,36 +29,44 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
+      page_header: page_header
       hero: hero
       feature: feature
       cards: cards
       faq: faq
       view: view
       from_library: from_library
+      video: video
     negate: 0
     target_bundles_drag_drop:
       card:
-        weight: -12
+        weight: -14
         enabled: false
       cards:
-        weight: -15
-        enabled: true
-      collapsible:
-        weight: -11
-        enabled: false
-      faq:
-        weight: -14
-        enabled: true
-      feature:
-        weight: -16
-        enabled: true
-      from_library:
-        weight: -10
-        enabled: true
-      hero:
         weight: -17
         enabled: true
-      view:
+      collapsible:
         weight: -13
+        enabled: false
+      faq:
+        weight: -16
+        enabled: true
+      feature:
+        weight: -18
+        enabled: true
+      from_library:
+        weight: -12
+        enabled: true
+      hero:
+        weight: -19
+        enabled: true
+      page_header:
+        weight: -20
+        enabled: true
+      video:
+        weight: 19
+        enabled: true
+      view:
+        weight: -15
         enabled: true
 field_type: entity_reference_revisions

@@ -1,4 +1,4 @@
-export type Experiment_DrupalClientOptions = {
+export type DrupalClientOptions = {
   /**
    * Set the JSON:API prefix.
    *
@@ -67,6 +67,17 @@ export type Experiment_DrupalClientOptions = {
    * [Documentation](https://next-drupal.org/docs/client/configuration#cache)
    */
   cache?: DataCache
+
+  /**
+   * If set to true, JSON:API errors are thrown in non-production environments. The errors are shown in the Next.js overlay.
+   *
+   * **Default value**: `true`
+   * **Required**: *No*
+   *
+   * [Documentation](https://next-drupal.org/docs/client/configuration#throwjsonapierrors)
+   */
+  throwJsonApiErrors?: boolean
+
   /**
    * Override the default logger. You can use this to send logs to a third-party service.
    *
@@ -82,9 +93,7 @@ export type Experiment_DrupalClientOptions = {
    *
    * [Documentation](https://next-drupal.org/docs/client/configuration#auth)
    */
-  auth?:
-    | { clientId: string; clientSecret: string; url?: string }
-    | (() => string)
+  auth?: DrupalClientAuth
 
   /**
    * Set whether the client should use authenticated requests by default.
@@ -137,6 +146,26 @@ export type Experiment_DrupalClientOptions = {
   forceIframeSameSiteCookie?: boolean
 }
 
+export type DrupalClientAuth =
+  | DrupalClientAuthClientIdSecret
+  | DrupalClientAuthUsernamePassword
+  | DrupalClientAuthAccessToken
+  | (() => string)
+  | string
+
+export interface DrupalClientAuthUsernamePassword {
+  username: string
+  password: string
+}
+
+export interface DrupalClientAuthClientIdSecret {
+  clientId: string
+  clientSecret: string
+  url?: string
+}
+
+export type DrupalClientAuthAccessToken = AccessToken
+
 export interface Logger {
   log(message): void
 
@@ -180,7 +209,7 @@ export type JsonApiWithLocaleOptions = JsonApiOptions &
   )
 
 export type JsonApiWithAuthOptions = {
-  withAuth?: boolean
+  withAuth?: boolean | DrupalClientAuth
 }
 
 export type JsonApiWithCacheOptions = {
@@ -223,6 +252,42 @@ export interface JsonApiResponse extends Record<string, any> {
   included?: Record<string, any>[]
 }
 
+export interface JsonApiResourceBodyRelationship {
+  data: {
+    type: string
+    id: string
+  }
+}
+
+export interface JsonApiCreateResourceBody {
+  data: {
+    type?: string
+    attributes?: Record<string, any>
+    relationships?: Record<string, JsonApiResourceBodyRelationship>
+  }
+}
+
+export interface JsonApiCreateFileResourceBody {
+  data: {
+    type?: string
+    attributes: {
+      type: string
+      field: string
+      filename: string
+      file: Buffer
+    }
+  }
+}
+
+export interface JsonApiUpdateResourceBody {
+  data: {
+    type?: string
+    id?: string
+    attributes?: Record<string, any>
+    relationships?: Record<string, JsonApiResourceBodyRelationship>
+  }
+}
+
 export interface JsonApiSearchApiResponse extends JsonApiResponse {
   meta: JsonApiResponse["meta"] & {
     facets?: DrupalSearchApiFacet[]
@@ -247,7 +312,7 @@ export interface DataCache {
 }
 
 export interface FetchOptions extends RequestInit {
-  withAuth?: boolean
+  withAuth?: boolean | DrupalClientAuth
 }
 
 export interface DrupalSearchApiFacet {
@@ -317,6 +382,7 @@ export type AccessToken = {
   token_type: string
   expires_in: number
   access_token: string
+  refresh_token?: string
 }
 
 export type PathAlias = {
@@ -417,8 +483,6 @@ export interface DrupalUser extends JsonApiResourceWithPath {
 export interface DrupalView<T = Record<string, any>[]> {
   id: string
   results: T
-  meta: {
-    count?: number
-    [key: string]: any
-  }
+  meta: JsonApiResponse["meta"]
+  links: JsonApiResponse["links"]
 }

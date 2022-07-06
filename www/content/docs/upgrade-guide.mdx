@@ -33,6 +33,31 @@ export const drupal = new DrupalClient(
 )
 ```
 
+By default, all requests made to Drupal by `DrupalClient` are un-authenticated. See _Step 5_ below on how to configure permissions for un-authenticated calls.
+
+To make authenticated requests, you opt-in on a [method-basis](/docs/authentication#method-authentication).
+
+If you want to have all requests authenticated, you can use the [`withAuth`](/docs/configuration#withauth) option on the `DrupalClient`:
+
+```ts
+import { DrupalClient } from "next-drupal"
+
+export const drupal = new DrupalClient(
+  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+  {
+    frontPage: "/home",
+    previewSecret: process.env.DRUPAL_PREVIEW_SECRET,
+    auth: {
+      clientId: process.env.DRUPAL_CLIENT_ID,
+      clientSecret: process.env.DRUPAL_CLIENT_SECRET,
+    },
+    // highlight-start
+    withAuth: true,
+    // highlight-end
+  }
+)
+```
+
 3. Update helpers to use the `drupal` client.
 
 ```diff

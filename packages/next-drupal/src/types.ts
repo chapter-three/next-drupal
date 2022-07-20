@@ -244,7 +244,7 @@ export interface JsonApiResponse extends Record<string, any> {
   }
   data: Record<string, any>[]
   errors: JsonApiError[]
-  meta: {
+  meta?: {
     count: number
     [key: string]: any
   }

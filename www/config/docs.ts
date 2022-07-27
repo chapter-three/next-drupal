@@ -27,6 +27,10 @@ export const docsConfig: DocsConfig = {
           href: "https://github.com/chapter-three/next-drupal/blob/main/CHANGELOG.md",
           external: true,
         },
+        {
+          title: "Known Issues",
+          href: "/docs/known-issues",
+        },
       ],
     },
     {

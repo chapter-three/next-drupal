@@ -5,16 +5,42 @@ weight: 140
 group: Preview Mode
 ---
 
-<Callout>
-
-If you're using the Basic Starter, preview routes are already configure for you.
-
-</Callout>
-
 To implement preview mode:
 
-1. Set a `previewSecret` on the `DrupalClient`. This is the same secret used when creating your site on Drupal.
-2. Implement preview mode using two API routes.
+1. In your Next.js project, configure the `DRUPAL_PREVIEW_SECRET` in your `.env.local` file. This is the same secret used when creating your Next.js site on Drupal.
+
+```txt title=.env.local
+# Required for Preview Mode
+DRUPAL_PREVIEW_SECRET=secret
+```
+
+2. Set the `previewSecret` on the `DrupalClient`.
+
+```ts title=lib/drupal.ts
+import { DrupalClient } from "next-drupal"
+
+export const drupal = new DrupalClient(
+  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+  {
+    frontPage: "/home",
+    // highlight-start
+    previewSecret: process.env.DRUPAL_PREVIEW_SECRET,
+    // highlight-end
+    auth: {
+      clientId: process.env.DRUPAL_CLIENT_ID,
+      clientSecret: process.env.DRUPAL_CLIENT_SECRET,
+    },
+  }
+)
+```
+
+3. Implement preview mode using two API routes.
+
+<Callout>
+
+If you're using the Basic Starter, preview routes are already created for you.
+
+</Callout>
 
 ```ts title=pages/api/preview.ts
 import { NextApiRequest, NextApiResponse } from "next"

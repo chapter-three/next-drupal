@@ -3,6 +3,12 @@ title: getMenu
 excerpt: Fetch a menu from Drupal.
 ---
 
+<Callout icon="⚠️">
+
+You need to install the [JSON:API Menu Items](https://www.drupal.org/project/jsonapi_menu_items) module to use `getMenu`.
+
+</Callout>
+
 ```ts
 const resource = await drupal.getResource<T = DrupalMenuLinkContent>(
   name,

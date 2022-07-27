@@ -18,7 +18,7 @@ export default async function handler(
   }
 
   try {
-    await response.unstable_revalidate(slug)
+    await response.revalidate(slug)
 
     return response.json({})
   } catch (error) {

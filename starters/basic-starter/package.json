@@ -12,10 +12,11 @@
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.2",
-    "next": "^12.1.4",
+    "next": "^12.2.3",
     "next-drupal": "^1.4.0",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "sharp": "^0.30.7"
   },
   "devDependencies": {
     "@types/node": "^17.0.23",

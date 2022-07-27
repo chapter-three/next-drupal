@@ -20,7 +20,7 @@
     "formidable": "^3.2.4",
     "html-react-parser": "^1.4.14",
     "jwt-decode": "^3.1.2",
-    "next": "^12.1.4",
+    "next": "^12.2.3",
     "next-auth": "^4.3.4",
     "next-drupal": "^1.4.0",
     "next-i18next": "^11.0.0",

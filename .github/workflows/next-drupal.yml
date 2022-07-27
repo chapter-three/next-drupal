@@ -5,13 +5,6 @@ on:
     branches:
       - main
 
-env:
-  DRUPAL_BASE_URL: ${{ secrets.DRUPAL_BASE_URL }}
-  DRUPAL_USERNAME: ${{ secrets.DRUPAL_USERNAME }}
-  DRUPAL_PASSWORD: ${{ secrets.DRUPAL_PASSWORD }}
-  DRUPAL_CLIENT_ID: ${{ secrets.DRUPAL_CLIENT_ID }}
-  DRUPAL_CLIENT_SECRET: ${{ secrets.DRUPAL_CLIENT_SECRET }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,3 +14,9 @@ jobs:
         run: yarn
       - name: Run tests
         run: yarn test
+        env:
+          DRUPAL_BASE_URL: ${{ secrets.DRUPAL_BASE_URL }}
+          DRUPAL_USERNAME: ${{ secrets.DRUPAL_USERNAME }}
+          DRUPAL_PASSWORD: ${{ secrets.DRUPAL_PASSWORD }}
+          DRUPAL_CLIENT_ID: ${{ secrets.DRUPAL_CLIENT_ID }}
+          DRUPAL_CLIENT_SECRET: ${{ secrets.DRUPAL_CLIENT_SECRET }}

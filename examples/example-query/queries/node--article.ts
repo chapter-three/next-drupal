@@ -4,6 +4,7 @@ import { QueryData, QueryOpts, QueryParams } from "@next-drupal/query"
 import { drupal } from "lib/drupal"
 import { queries } from "queries"
 import { absoluteUrl, formatDate } from "lib/utils"
+import { ArticlesRelated } from "queries/articles--related"
 
 export type NodeArticle = {
   id: string
@@ -17,6 +18,7 @@ export type NodeArticle = {
     alt: string
   }
   body: string
+  relatedArticles: ArticlesRelated
 }
 
 export const params: QueryParams<null> = () => {
@@ -46,5 +48,10 @@ export const data: QueryData<DataOpts, NodeArticle> = async (
       alt: node.field_image.resourceIdObjMeta.alt,
     },
     body: node.body?.processed,
+    relatedArticles: await queries.getData("articles--related", {
+      excludeIds: [opts?.id],
+      page: 0,
+      limit: 3,
+    }),
   }
 }

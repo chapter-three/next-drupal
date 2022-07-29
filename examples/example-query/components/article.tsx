@@ -1,5 +1,6 @@
 import Head from "next/head"
 import Image from "next/image"
+import Link from "next/link"
 
 import { NodeArticle } from "queries/node--article"
 
@@ -38,12 +39,26 @@ export function Article({ article, ...props }: ArticleProps) {
             />
           </figure>
         )}
-        {article.body && (
-          <div
-            dangerouslySetInnerHTML={{ __html: article.body }}
-            className="mt-6 font-serif text-xl leading-loose prose"
-          />
-        )}
+        <div className="font-serif prose prose-xl">
+          {article.body && (
+            <div
+              dangerouslySetInnerHTML={{ __html: article.body }}
+              className="mt-6"
+            />
+          )}
+          {article.relatedArticles?.length ? (
+            <div>
+              <h2>Related Articles</h2>
+              {article.relatedArticles.map((article) => (
+                <li key={article.id}>
+                  <Link href={article.url} passHref>
+                    <a>{article.title}</a>
+                  </Link>
+                </li>
+              ))}
+            </div>
+          ) : null}
+        </div>
       </article>
     </>
   )

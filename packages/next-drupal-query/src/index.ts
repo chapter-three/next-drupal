@@ -3,6 +3,8 @@ import { DrupalJsonApiParams } from "drupal-jsonapi-params"
 import { GetServerSidePropsContext, GetStaticPathsContext } from "next"
 import type { RequireAllOrNone, ConditionalKeys } from "type-fest"
 
+// Note: some generic are explicitly not typed here to force definition.
+
 const paramBuilder = new DrupalJsonApiParams()
 
 type ViewWithFilters<T, F> = {
@@ -10,7 +12,7 @@ type ViewWithFilters<T, F> = {
   items?: T
   filters?: F
   nextPage?: number
-  opts: QueryParamsOptsWithPagination<null>
+  opts: QueryOptsWithPagination<null>
 }
 
 /**
@@ -25,16 +27,7 @@ export type View<T, F> = F extends null
   ? Omit<ViewWithFilters<T, F>, "filters">
   : ViewWithFilters<T, F>
 
-export type QueryOpts<O> = O & {
-  context?: GetStaticPathsContext | GetServerSidePropsContext
-}
-
-// Generic params are explicitly not typed here to force definition.
-export type QueryParams<O> = (opts?: O) => DrupalJsonApiParams
-
-export type QueryData<O, R> = (opts?: O) => Promise<R>
-
-type QueryParamsOptsPaginated = RequireAllOrNone<
+type QueryOptsPaginated = RequireAllOrNone<
   {
     page: number
     limit: number
@@ -45,14 +38,77 @@ type QueryParamsOptsPaginated = RequireAllOrNone<
 }
 
 /**
- * @template O The type for the params options. Use `null` if the query does not use any additional options.
+ * Use this type helper to define options for query params.
+ *
+ * @template Options The type definition for the options. Use null if no additional options.
+ *
+ * @example
+ * type ParamOpts = QueryOpts<{
+ *    id: string
+ * }>
+ *
+ * export const params: QueryParams<ParamOpts> = () => {}
+ */
+export type QueryOpts<Options> = Options & {
+  context?: GetStaticPathsContext | GetServerSidePropsContext
+}
+
+/**
+ * Use this type helper to define **paginated** options for query params.
+ *
+ * @template Options The type definition for the options. Use null if no additional options.
  *
  * @example
  * type ParamOpts = PaginatedQueryParamsOpts<{ type: string }>
+ *
+ * export const params: QueryParams<ParamOpts> = () => {}
  */
-export type QueryParamsOptsWithPagination<O> = O extends null
-  ? QueryParamsOptsPaginated
-  : O & QueryParamsOptsPaginated
+export type QueryOptsWithPagination<Options> = Options extends null
+  ? QueryOptsPaginated
+  : Options & QueryOptsPaginated
+
+/**
+ * Use this type helper to define options for query params.
+ *
+ * @template Options The type definition for the options. Use null if no additional options.
+ *
+ * @example
+ *
+ * type ParamOpts = QueryOpts<{
+ *    id: string
+ * }>
+ *
+ * export const params: QueryParams<ParamOpts> = () => {}
+ */
+export type QueryParams<
+  Options extends QueryOpts<null> | QueryOptsWithPagination<null>
+> = (opts?: Options) => DrupalJsonApiParams
+
+/**
+ * Use this type helper to define options and return type for query data.
+ *
+ * @template Options The type definition for the options. Use null if no additional options.
+ * @template Return The return type for the data loader.
+ *
+ * @example
+ *
+ * type ParamOpts = QueryOpts<{
+ *    id: string
+ * }>
+ *
+ * type Article = {
+ *    id: string
+ *    title: string
+ * }
+ *
+ * export const data: QueryData<ParamOpts, Article> = async (): Promise<Article> => {
+ *    return {
+ *        id: "",
+ *        title: "",
+ *    }
+ * }
+ */
+export type QueryData<Options, Return> = (opts?: Options) => Promise<Return>
 
 type Queries<Q> = Record<
   keyof Q,
@@ -86,7 +142,7 @@ export type QueryDataReturn<
 
 export function withPagination(
   params: DrupalJsonApiParams,
-  opts: QueryParamsOptsWithPagination<unknown>
+  opts: QueryOptsWithPagination<unknown>
 ) {
   if (!opts) {
     return params

@@ -2,22 +2,25 @@ import Image from "next/image"
 import Link from "next/link"
 
 export interface CardProps {
-  heading: string
+  title: string
   url?: string
-  imageUrl: string
+  image: {
+    url: string
+    alt: string
+  }
   date: string
 }
 
-export function Card({ heading, url, imageUrl, date }: CardProps) {
+export function Card({ title: heading, url, image, date }: CardProps) {
   return (
     <div className="relative bg-white border border-gray-200 rounded-lg shadow-md group">
-      {imageUrl && (
+      {image && (
         <Image
-          src={imageUrl}
+          src={image.url}
           width={350}
           height={250}
           layout="responsive"
-          alt={heading}
+          alt={image.alt}
         />
       )}
       <div className="p-5">

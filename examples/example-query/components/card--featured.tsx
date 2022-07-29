@@ -8,20 +8,20 @@ export interface CardFeaturedProps extends CardProps {
 }
 
 export function CardFeatured({
-  heading,
+  title: heading,
   url,
-  imageUrl,
+  image,
   date,
 }: CardFeaturedProps) {
   return (
     <div className="relative bg-white border border-gray-200 rounded-lg shadow-md group">
-      {imageUrl && (
+      {image && (
         <Image
-          src={imageUrl}
+          src={image.url}
           width={900}
           height={350}
           layout="responsive"
-          alt={heading}
+          alt={image.alt}
         />
       )}
       <div className="flex flex-col items-start p-5 space-y-4">

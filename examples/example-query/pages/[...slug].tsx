@@ -1,21 +1,18 @@
 import * as React from "react"
-import { GetStaticPathsResult, GetStaticPropsResult } from "next"
-import Head from "next/head"
+import { GetStaticPathsResult } from "next"
 
 import { drupal } from "lib/drupal"
-import { queries } from "lib/queries"
-
+import { queries } from "queries"
+import { NodeArticle } from "queries/node--article"
+import { NodePage } from "queries/node--page"
 import { Layout } from "components/layout"
 import { Article } from "components/article"
 import { Page } from "components/page"
 
-const dataIds = queries.getDataIds()
-type ResourceType = typeof dataIds[number]
-
-const RESOURCE_TYPES: ResourceType[] = ["node--article", "node--page"]
+const RESOURCE_TYPES = ["node--article", "node--page"] as const
 
 interface ResourcePageProps {
-  resource: Article | Page
+  resource: NodeArticle | NodePage
 }
 
 export default function ResourcePage({ resource }: ResourcePageProps) {
@@ -23,26 +20,23 @@ export default function ResourcePage({ resource }: ResourcePageProps) {
 
   return (
     <Layout>
-      <Head>
-        <title>{resource.title}</title>
-        <meta name="description" content="A Next.js site powered by Drupal." />
-      </Head>
-      {resource.type === "page" && <Page page={resource} />}
-      {resource.type === "article" && <Article article={resource} />}
+      {resource.type === "node--page" && <Page page={resource} />}
+      {resource.type === "node--article" && <Article article={resource} />}
     </Layout>
   )
 }
 
 export async function getStaticPaths(context): Promise<GetStaticPathsResult> {
   return {
-    paths: await drupal.getStaticPathsFromContext(RESOURCE_TYPES, context),
+    paths: await drupal.getStaticPathsFromContext(
+      Array.from(RESOURCE_TYPES),
+      context
+    ),
     fallback: "blocking",
   }
 }
 
-export async function getStaticProps(
-  context
-): Promise<GetStaticPropsResult<ResourcePageProps>> {
+export async function getStaticProps(context) {
   const path = await drupal.translatePathFromContext(context)
 
   if (!path) {
@@ -51,13 +45,18 @@ export async function getStaticProps(
     }
   }
 
-  const resource = (await queries.getData(
-    path.jsonapi.resourceName as ResourceType,
-    {
-      context,
-      id: path.entity.uuid,
+  const type = path.jsonapi.resourceName as typeof RESOURCE_TYPES[number]
+
+  if (!RESOURCE_TYPES.includes(type)) {
+    return {
+      notFound: true,
     }
-  )) as ResourcePageProps["resource"]
+  }
+
+  const resource = await queries.getData(type, {
+    context,
+    id: path.entity.uuid,
+  })
 
   if (!resource) {
     throw new Error(`Failed to fetch resource: ${path.jsonapi.individual}`)

@@ -2,18 +2,16 @@ import { DrupalNode } from "next-drupal"
 import {
   QueryData,
   QueryParams,
-  QueryParamsOptsWithPagination,
+  QueryOptsWithPagination,
   withPagination,
 } from "@next-drupal/query"
 
 import { drupal } from "lib/drupal"
-import { queries } from "lib/queries"
+import { queries } from "queries"
 import { absoluteUrl, formatDate } from "lib/utils"
-import { CardProps } from "components/card"
+import { NodeArticleTeaser } from "queries/node--article--teaser"
 
-export type ArticlesPublished = CardProps[]
-
-type ParamOpts = QueryParamsOptsWithPagination<null>
+type ParamOpts = QueryOptsWithPagination<null>
 
 export const params: QueryParams<ParamOpts> = (opts) => {
   const params = queries
@@ -24,7 +22,9 @@ export const params: QueryParams<ParamOpts> = (opts) => {
   return withPagination(params, opts)
 }
 
-export const data: QueryData<ParamOpts, ArticlesPublished> = async (opts) => {
+export const data: QueryData<ParamOpts, NodeArticleTeaser[]> = async (
+  opts
+): Promise<NodeArticleTeaser[]> => {
   const nodes = await drupal.getResourceCollection<DrupalNode[]>(
     "node--article",
     {
@@ -33,9 +33,14 @@ export const data: QueryData<ParamOpts, ArticlesPublished> = async (opts) => {
   )
 
   return nodes.map((node) => ({
-    heading: node.title,
+    type: "node--article",
+    id: node.id,
+    title: node.title,
     url: node.path.alias,
-    imageUrl: absoluteUrl(node.field_image.uri.url),
     date: formatDate(node.created),
+    image: {
+      url: absoluteUrl(node.field_image.uri.url),
+      alt: node.field_image.resourceIdObjMeta.alt,
+    },
   }))
 }

@@ -1,17 +1,16 @@
 import Head from "next/head"
-import { GetStaticPropsResult } from "next"
+import { InferGetStaticPropsType } from "next"
 
-import { queries } from "lib/queries"
+import { queries } from "queries"
 import { Layout } from "components/layout"
-import { Card, CardProps } from "components/card"
 import { CardFeatured } from "components/card--featured"
+import { Card } from "components/card"
 
-interface IndexPageProps {
-  articles: CardProps[]
-}
-
-export default function IndexPage({ articles }: IndexPageProps) {
+export default function IndexPage({
+  articles,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   const [firstArticle, ...otherArticles] = articles
+
   return (
     <Layout>
       <Head>
@@ -41,9 +40,7 @@ export default function IndexPage({ articles }: IndexPageProps) {
   )
 }
 
-export async function getStaticProps(): Promise<
-  GetStaticPropsResult<IndexPageProps>
-> {
+export async function getStaticProps() {
   return {
     props: {
       articles: await queries.getData("articles--published"),

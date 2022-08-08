@@ -2,10 +2,10 @@ import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 
-import { NodeArticle } from "queries/node--article"
+import { Article } from "types"
 
 interface ArticleProps {
-  article: NodeArticle
+  article: Article
 }
 
 export function Article({ article, ...props }: ArticleProps) {

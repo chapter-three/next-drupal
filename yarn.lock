@@ -3118,12 +3118,21 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@17.0.2", "@types/react@^17.0.0", "@types/react@^17.0.43":
+"@types/react@*", "@types/react@17.0.2", "@types/react@^17.0.0":
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.2.tgz#3de24c4efef902dd9795a49c75f760cbe4f7a5a8"
   integrity sha512-Xt40xQsrkdvjn1EyWe1Bc0dJLcil/9x2vAuW7ya+PuQip4UYUaXyhzWmAbwRsdMgwOFHpfp7/FFZebDU6Y8VHA==
   dependencies:
     "@types/prop-types" "*"
+    csstype "^3.0.2"
+
+"@types/react@^17.0.43":
+  version "17.0.48"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.48.tgz#a4532a8b91d7b27b8768b6fc0c3bccb760d15a6c"
+  integrity sha512-zJ6IYlJ8cYYxiJfUaZOQee4lh99mFihBoqkOSEGV+dFi9leROW6+PgstzQ+w3gWTnUfskALtQPGHK6dYmPj+2A==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/scheduler" "*"
     csstype "^3.0.2"
 
 "@types/resolve@1.17.1":
@@ -3132,6 +3141,11 @@
   integrity sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==
   dependencies:
     "@types/node" "*"
+
+"@types/scheduler@*":
+  version "0.16.2"
+  resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.2.tgz#1a62f89525723dde24ba1b01b092bf5df8ad4d39"
+  integrity sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==
 
 "@types/sinonjs__fake-timers@8.1.1":
   version "8.1.1"
@@ -4423,6 +4437,11 @@ clone@~0.1.9:
   version "0.1.19"
   resolved "https://registry.yarnpkg.com/clone/-/clone-0.1.19.tgz#613fb68639b26a494ac53253e15b1a6bd88ada85"
   integrity sha512-IO78I0y6JcSpEPHzK4obKdsL7E7oLdRVDVOLwr2Hkbjsb+Eoz0dxW6tef0WizoKu0gLC4oZSZuEF4U2K6w1WQw==
+
+clsx@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.2.1.tgz#0ddc4a20a549b59c93a4116bb26f5294ca17dc12"
+  integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
 
 cluster-key-slot@^1.1.0:
   version "1.1.0"

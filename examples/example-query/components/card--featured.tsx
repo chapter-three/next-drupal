@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { CardProps } from "components/card"
+import { MediaImage } from "./media--image"
 
 export interface CardFeaturedProps extends CardProps {
   text?: string
@@ -10,20 +11,12 @@ export interface CardFeaturedProps extends CardProps {
 export function CardFeatured({
   title: heading,
   url,
-  image,
+  media,
   date,
 }: CardFeaturedProps) {
   return (
     <div className="relative bg-white border border-gray-200 rounded-lg shadow-md group">
-      {image && (
-        <Image
-          src={image.url}
-          width={900}
-          height={350}
-          layout="responsive"
-          alt={image.alt}
-        />
-      )}
+      <MediaImage media={media} />
       <div className="flex flex-col items-start p-5 space-y-4">
         <div>
           <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">

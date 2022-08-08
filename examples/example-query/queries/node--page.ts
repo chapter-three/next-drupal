@@ -1,17 +1,14 @@
-import { DrupalNode } from "next-drupal"
+import {
+  QueryData,
+  QueryFormatter,
+  QueryOpts,
+  QueryParams,
+} from "@next-drupal/query"
 
-import { QueryData, QueryOpts, QueryParams } from "@next-drupal/query"
-
+import { Page } from "types"
+import { DrupalNodePage } from "types/drupal"
 import { drupal } from "lib/drupal"
 import { queries } from "queries"
-
-export type NodePage = {
-  id: string
-  status: boolean
-  type: "node--page"
-  title: string
-  body?: string
-}
 
 export const params: QueryParams<null> = () => {
   return queries
@@ -23,18 +20,20 @@ type DataOpts = QueryOpts<{
   id: string
 }>
 
-export const data: QueryData<DataOpts, NodePage> = async (
+export const data: QueryData<DataOpts, DrupalNodePage> = async (
   opts
-): Promise<NodePage> => {
-  const node = await drupal.getResource<DrupalNode>("node--page", opts?.id, {
+): Promise<DrupalNodePage> => {
+  return await drupal.getResource<DrupalNodePage>("node--page", opts?.id, {
     params: params().getQueryObject(),
   })
+}
 
+export const formatter: QueryFormatter<DrupalNodePage, Page> = (node) => {
   return {
-    type: "node--page",
+    type: "page",
     id: node.id,
     status: node.status,
     title: node.title,
-    body: node.body?.processed,
+    content: node.body?.processed,
   }
 }

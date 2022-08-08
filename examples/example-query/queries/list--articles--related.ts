@@ -1,14 +1,15 @@
-import { DrupalNode } from "next-drupal"
 import {
   QueryData,
   QueryParams,
   QueryOptsWithPagination,
   withPagination,
+  QueryFormatter,
 } from "@next-drupal/query"
 
+import { ArticleRelated } from "types"
+import { DrupalNodeArticle } from "types/drupal"
 import { drupal } from "lib/drupal"
 import { queries } from "queries"
-import { NodeArticle } from "queries/node--article"
 
 type ParamOpts = QueryOptsWithPagination<{
   excludeIds?: string[]
@@ -28,22 +29,23 @@ export const params: QueryParams<ParamOpts> = (opts) => {
   return withPagination(params, opts)
 }
 
-export type ArticlesRelated = (Pick<NodeArticle, "id" | "type" | "title"> & {
-  url: string
-})[]
-
-export const data: QueryData<ParamOpts, ArticlesRelated> = async (
+export const data: QueryData<ParamOpts, DrupalNodeArticle[]> = async (
   opts
-): Promise<ArticlesRelated> => {
-  const nodes = await drupal.getResourceCollection<DrupalNode[]>(
+): Promise<DrupalNodeArticle[]> => {
+  return await drupal.getResourceCollection<DrupalNodeArticle[]>(
     "node--article",
     {
       params: params(opts).getQueryObject(),
     }
   )
+}
 
+export const formatter: QueryFormatter<
+  DrupalNodeArticle[],
+  ArticleRelated[]
+> = (nodes) => {
   return nodes.map((node) => ({
-    type: "node--article",
+    type: "article",
     id: node.id,
     title: node.title,
     url: node.path.alias,

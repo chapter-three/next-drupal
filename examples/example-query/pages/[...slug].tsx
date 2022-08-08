@@ -1,27 +1,33 @@
 import * as React from "react"
 import { GetStaticPathsResult } from "next"
 
+import { Resource } from "types"
 import { drupal } from "lib/drupal"
 import { queries } from "queries"
-import { NodeArticle } from "queries/node--article"
-import { NodePage } from "queries/node--page"
-import { Layout } from "components/layout"
+import { Layout, LayoutProps } from "components/layout"
 import { Article } from "components/article"
+import { LandingPage } from "components/landing-page"
 import { Page } from "components/page"
 
-const RESOURCE_TYPES = ["node--article", "node--page"] as const
+const RESOURCE_TYPES = [
+  "node--article",
+  "node--page",
+  "node--landing_page",
+] as const
 
 interface ResourcePageProps {
-  resource: NodeArticle | NodePage
+  menu: LayoutProps["menu"]
+  resource: Resource
 }
 
-export default function ResourcePage({ resource }: ResourcePageProps) {
+export default function ResourcePage({ menu, resource }: ResourcePageProps) {
   if (!resource) return null
 
   return (
-    <Layout>
-      {resource.type === "node--page" && <Page page={resource} />}
-      {resource.type === "node--article" && <Article article={resource} />}
+    <Layout menu={menu}>
+      {resource.type === "page" && <Page page={resource} />}
+      {resource.type === "article" && <Article article={resource} />}
+      {resource.type === "landing-page" && <LandingPage page={resource} />}
     </Layout>
   )
 }
@@ -64,7 +70,7 @@ export async function getStaticProps(context) {
 
   // If we're not in preview mode and the resource is not published,
   // Return page not found.
-  if (!context.preview && resource?.status === false) {
+  if (!context.preview && "status" in resource && resource?.status === false) {
     return {
       notFound: true,
     }
@@ -72,6 +78,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
+      menu: await queries.getData("menu--main"),
       resource,
     },
   }

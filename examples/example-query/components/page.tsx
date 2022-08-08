@@ -1,9 +1,8 @@
 import Head from "next/head"
-
-import { NodePage } from "queries/node--page"
+import { Page } from "types"
 
 interface PageProps {
-  page: NodePage
+  page: Page
 }
 
 export function Page({ page, ...props }: PageProps) {
@@ -14,9 +13,9 @@ export function Page({ page, ...props }: PageProps) {
       </Head>
       <article {...props}>
         <h1 className="mb-4 text-6xl font-black leading-tight">{page.title}</h1>
-        {page.body && (
+        {page.content && (
           <div
-            dangerouslySetInnerHTML={{ __html: page.body }}
+            dangerouslySetInnerHTML={{ __html: page.content }}
             className="mt-6 font-serif text-xl leading-loose prose"
           />
         )}

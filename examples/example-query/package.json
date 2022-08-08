@@ -13,6 +13,7 @@
     "@next-drupal/query": "^0.1.0",
     "@tailwindcss/forms": "^0.4.0",
     "@tailwindcss/typography": "^0.5.1",
+    "clsx": "^1.2.1",
     "next": "^12.2.3",
     "next-drupal": "^1.4.1",
     "react": "^17.0.2",

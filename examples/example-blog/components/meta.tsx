@@ -35,7 +35,7 @@ export function Meta({ title, tags }: MetaProps) {
         })
       ) : (
         <>
-          <title>{title} | Next.js for Drupal</title>
+          <title>{`${title} | Next.js for Drupal`}</title>
           <meta
             name="description"
             content="A Next.js blog powered by a Drupal backend."

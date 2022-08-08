@@ -110,18 +110,21 @@ export type QueryParams<
  */
 export type QueryData<Options, Return> = (opts?: Options) => Promise<Return>
 
+export type QueryFormatter<Input, Output> = (input: Input) => Output
+
 type Queries<Q> = Record<
   keyof Q,
   {
-    params: (opts: unknown) => DrupalJsonApiParams
+    params?: (opts: unknown) => DrupalJsonApiParams
     data?: (opts: unknown) => unknown
+    formatter?: (input) => unknown
   }
 >
 
 export type QueryTypeOf<
   Q extends Queries<Q>,
   T extends keyof Q,
-  F extends "params" | "data"
+  F extends "params" | "data" | "formatter"
 > = Q[T][F]
 
 export type QueryId<Q = null> = keyof Q
@@ -135,10 +138,20 @@ export type QueryDataOpts<Q extends Queries<Q>, T extends keyof Q> = Parameters<
   Q[T]["data"]
 >[0]
 
+export type QueryFormatterInput<
+  Q extends Queries<Q>,
+  T extends keyof Q
+> = Parameters<Q[T]["formatter"]>[0]
+
 export type QueryDataReturn<
   Q extends Queries<Q>,
   T extends keyof Q
 > = ReturnType<QueryTypeOf<Q, T, "data">>
+
+export type QueryFormatterReturn<
+  Q extends Queries<Q>,
+  T extends keyof Q
+> = ReturnType<QueryTypeOf<Q, T, "formatter">>
 
 export function withPagination(
   params: DrupalJsonApiParams,
@@ -186,6 +199,94 @@ export function massageRouteQuery(query) {
 }
 
 export function createQueries<Q extends Readonly<Queries<Q>>>(queries: Q) {
+  const getRawData = async <
+    T extends ConditionalKeys<Q, { data }>,
+    O extends QueryDataOpts<Q, T>
+  >(
+    id: T,
+    opts: O = null
+  ): Promise<QueryDataReturn<typeof queries, T>> => {
+    if (typeof window !== "undefined") {
+      throw new Error(
+        "You should not call getQueryData on the client. This is a server-only call."
+      )
+    }
+
+    const query = queries?.[id]
+
+    if (!query) {
+      throw new Error(`Query with id '${id as string}' not found.`)
+    }
+
+    if (!query["data"]) {
+      throw new Error(`No data defined for query with id '${id as string}'.`)
+    }
+
+    opts = massageRouteQuery(opts)
+
+    if (
+      typeof query["defaultOpts"] !== undefined &&
+      typeof opts !== undefined
+    ) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      opts = deepmerge(query["defaultOpts"], opts as any) as any
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (await query["data"](opts as any)) as any
+  }
+
+  const formatData = <
+    T extends ConditionalKeys<Q, { formatter }>,
+    Input extends QueryFormatterInput<Q, T>
+  >(
+    id: T,
+    input: Input
+  ): QueryFormatterReturn<typeof queries, T> => {
+    if (typeof window !== "undefined") {
+      throw new Error(
+        "You should not call getQueryData on the client. This is a server-only call."
+      )
+    }
+
+    const query = queries?.[id]
+
+    if (!query) {
+      throw new Error(`Query with id '${id as string}' not found.`)
+    }
+
+    if (!query["formatter"]) {
+      throw new Error(
+        `No formatter defined for query with id '${id as string}'.`
+      )
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return query["formatter"](input) as any
+  }
+
+  async function getData<
+    T extends ConditionalKeys<Q, { formatter; data }>,
+    O extends QueryDataOpts<Q, T>
+  >(id: T, opts?: O): Promise<QueryFormatterReturn<Q, T>>
+
+  async function getData<
+    T extends ConditionalKeys<Q, { data }>,
+    O extends QueryDataOpts<Q, T>
+  >(id: T, opts?: O): Promise<QueryDataReturn<Q, T>>
+
+  async function getData(id, opts = null) {
+    const rawData = await getRawData(id, opts)
+
+    const query = queries?.[id]
+
+    if (!query["formatter"]) {
+      return rawData
+    }
+
+    return formatData(id, rawData)
+  }
+
   return {
     getDataIds: <T extends ConditionalKeys<Q, { data }>>(): T[] => {
       const ids = []
@@ -232,41 +333,8 @@ export function createQueries<Q extends Readonly<Queries<Q>>>(queries: Q) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return query["params"](opts as any)
     },
-    getData: async <
-      T extends ConditionalKeys<Q, { data }>,
-      O extends QueryDataOpts<Q, T>
-    >(
-      id: T,
-      opts: O = null
-    ): Promise<QueryDataReturn<typeof queries, T>> => {
-      if (typeof window !== "undefined") {
-        throw new Error(
-          "You should not call getQueryData on the client. This is a server-only call."
-        )
-      }
-
-      const query = queries?.[id]
-
-      if (!query) {
-        throw new Error(`Query with id '${id as string}' not found.`)
-      }
-
-      if (!query["data"]) {
-        throw new Error(`No data defined for query with id '${id as string}'.`)
-      }
-
-      opts = massageRouteQuery(opts)
-
-      if (
-        typeof query["defaultOpts"] !== undefined &&
-        typeof opts !== undefined
-      ) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        opts = deepmerge(query["defaultOpts"], opts as any) as any
-      }
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return (await query["data"](opts as any)) as any
-    },
+    getRawData,
+    getData,
+    formatData,
   }
 }

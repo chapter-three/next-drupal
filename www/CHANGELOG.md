@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/chapter-three/next-drupal/compare/www@1.8.0...www@1.9.0) (2022-08-09)
+
+
+### Features
+
+* **www:** move front page promo video to YouTube ([e435e86](https://github.com/chapter-three/next-drupal/commit/e435e86971e2ed1216cc26f0e044120823c7b03f))
+
+
+
+
+
 # [1.8.0](https://github.com/chapter-three/next-drupal/compare/www@1.7.0...www@1.8.0) (2022-07-29)
 
 

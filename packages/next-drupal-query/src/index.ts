@@ -7,25 +7,25 @@ import type { RequireAllOrNone, ConditionalKeys } from "type-fest"
 
 const paramBuilder = new DrupalJsonApiParams()
 
-type ViewWithFilters<T, F> = {
+type ViewWithFilters<Items, Filters = null, Options = null> = {
   id: string
-  items?: T
-  filters?: F
+  items?: Items
+  filters?: Filters
   nextPage?: number
-  opts: QueryOptsWithPagination<null>
+  opts?: QueryOptsWithPagination<Options>
 }
 
 /**
- * @template T The items type for this view.
- * @template F The filters type for the view. Use `null` for no filters.
+ * @template Items The items type for this view.
+ * @template Filters The filters type for the view. Use `null` for no filters.
  *
  * @example
  * type ViewWithFilters = View<DrupalNode[], { from: number, to: number }>
  * type ViewWithoutFilters = View<DrupalTaxonomyTerm[], null>
  */
-export type View<T, F> = F extends null
-  ? Omit<ViewWithFilters<T, F>, "filters">
-  : ViewWithFilters<T, F>
+export type View<Items, Filters = null, Options = null> = Filters extends null
+  ? Omit<ViewWithFilters<Items, Filters, Options>, "filters">
+  : ViewWithFilters<Items, Filters, Options>
 
 type QueryOptsPaginated = RequireAllOrNone<
   {

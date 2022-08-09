@@ -1,4 +1,4 @@
-import { QueryFormatter, QueryParams } from "@next-drupal/query"
+import { QueryFormatter, QueryParams } from "next-drupal-query"
 
 import { ArticleTeaser } from "types"
 import { DrupalNodeArticle } from "types/drupal"

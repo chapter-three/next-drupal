@@ -4,7 +4,7 @@ import {
   QueryOptsWithPagination,
   withPagination,
   QueryFormatter,
-} from "@next-drupal/query"
+} from "next-drupal-query"
 
 import { ArticleRelated } from "types"
 import { DrupalNodeArticle } from "types/drupal"

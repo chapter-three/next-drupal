@@ -1,4 +1,4 @@
-import { QueryFormatter } from "@next-drupal/query"
+import { QueryFormatter } from "next-drupal-query"
 
 import { SectionText } from "types"
 import { DrupalParagraphText } from "types/drupal"

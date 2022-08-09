@@ -3,7 +3,7 @@ import {
   QueryFormatter,
   QueryOpts,
   QueryParams,
-} from "@next-drupal/query"
+} from "next-drupal-query"
 
 import { LandingPage } from "types"
 import { drupal } from "lib/drupal"

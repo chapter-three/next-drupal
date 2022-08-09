@@ -1,4 +1,4 @@
-import { QueryData, QueryFormatter, QueryParams } from "@next-drupal/query"
+import { QueryData, QueryFormatter, QueryParams } from "next-drupal-query"
 import { drupal } from "lib/drupal"
 import { DrupalMenuLinkContent } from "next-drupal"
 import { MenuLink } from "types"

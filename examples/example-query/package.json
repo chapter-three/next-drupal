@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@next-drupal/query": "^0.1.0",
+    "next-drupal-query": "^0.1.0",
     "@tailwindcss/forms": "^0.4.0",
     "@tailwindcss/typography": "^0.5.1",
     "clsx": "^1.2.1",

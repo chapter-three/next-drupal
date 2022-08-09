@@ -1,4 +1,4 @@
-import { createQueries } from "@next-drupal/query"
+import { createQueries } from "next-drupal-query"
 
 import * as MenuMain from "queries/menu--main"
 import * as NodeArticle from "queries/node--article"

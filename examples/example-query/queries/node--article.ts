@@ -3,7 +3,7 @@ import {
   QueryFormatter,
   QueryOpts,
   QueryParams,
-} from "@next-drupal/query"
+} from "next-drupal-query"
 
 import { Article, ArticleRelated } from "types"
 import { DrupalNodeArticle } from "types/drupal"

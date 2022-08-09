@@ -3,7 +3,7 @@ import {
   QueryFormatter,
   QueryOpts,
   QueryParams,
-} from "@next-drupal/query"
+} from "next-drupal-query"
 
 import { Page } from "types"
 import { DrupalNodePage } from "types/drupal"

@@ -1,4 +1,4 @@
-import { QueryFormatter } from "@next-drupal/query"
+import { QueryFormatter } from "next-drupal-query"
 
 import { MediaImage } from "types"
 import { DrupalMediaImage } from "types/drupal"

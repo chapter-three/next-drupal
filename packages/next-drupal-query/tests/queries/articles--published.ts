@@ -3,7 +3,7 @@ import {
   QueryParams,
   QueryOptsWithPagination,
   withPagination,
-} from "@next-drupal/query"
+} from "next-drupal-query"
 import { queries } from "."
 
 export type NodeArticleTeaser = {

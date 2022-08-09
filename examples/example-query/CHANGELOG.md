@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/chapter-three/next-drupal/compare/example-query@0.2.0...example-query@0.2.1) (2022-08-09)
+
+**Note:** Version bump only for package example-query
+
+
+
+
+
 # [0.2.0](https://github.com/chapter-three/next-drupal/compare/example-query@0.1.0...example-query@0.2.0) (2022-08-09)
 
 

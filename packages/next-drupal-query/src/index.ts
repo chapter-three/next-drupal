@@ -47,7 +47,7 @@ type QueryOptsPaginated = RequireAllOrNone<
  *    id: string
  * }>
  *
- * export const params: QueryParams<ParamOpts> = () => {}
+ * export const params: QueryParams<ParamOpts> = (opts) => {}
  */
 export type QueryOpts<Options> = Options & {
   context?: GetStaticPathsContext | GetServerSidePropsContext
@@ -75,14 +75,17 @@ export type QueryOptsWithPagination<Options> = Options extends null
  * @example
  *
  * type ParamOpts = QueryOpts<{
- *    id: string
+ *   sortBy: string
+ *   sortOrder: "ASC" | "DESC"
  * }>
  *
- * export const params: QueryParams<ParamOpts> = () => {}
+ * export const params: QueryParams<ParamOpts> = (opts) => {
+ *   return queries.getParams()
+ *     .addFields("node--article", ["title", "path", "status"])
+ *     .addSort(opts.sortBy, opts.sortOrder)
+ * }
  */
-export type QueryParams<
-  Options extends QueryOpts<null> | QueryOptsWithPagination<null>
-> = (opts?: Options) => DrupalJsonApiParams
+export type QueryParams<Options> = (opts?: Options) => DrupalJsonApiParams
 
 /**
  * Use this type helper to define options and return type for query data.
@@ -92,24 +95,81 @@ export type QueryParams<
  *
  * @example
  *
- * type ParamOpts = QueryOpts<{
- *    id: string
+ * type DataOpts = QueryOpts<{
+ *   id: string
  * }>
  *
- * type Article = {
- *    id: string
- *    title: string
+ * type DrupalNodeArticle = {
+ *   id: string
+ *   title: string
+ *   field_author: string
  * }
  *
- * export const data: QueryData<ParamOpts, Article> = async (): Promise<Article> => {
- *    return {
- *        id: "",
- *        title: "",
- *    }
+ * export const data: QueryData<ParamOpts, DrupalNodeArticle> = async (opts): Promise<DrupalNodeArticle> => {
+ *   return await drupal.getResource<DrupalNodeArticle>("node--article", opts.id)
  * }
  */
 export type QueryData<Options, Return> = (opts?: Options) => Promise<Return>
 
+/**
+ * Use this type helper to define placeholder data for a query..
+ *
+ * @template Options The type definition for the options. Use null if no additional options.
+ * @template Return The return type for the placeholder data.
+ *
+ * @example
+ *
+ * type DataOpts = QueryOpts<{
+ *   id: string
+ * }>
+ *
+ * type Article = {
+ *   id: string
+ *   title: string
+ *   author: string
+ * }
+ *
+ * export const placeholder: QueryPlaceholderData<ParamOpts, Article> = async (opts): Promise<DrupalNodeArticle> => {
+ *   return {
+ *     id: opts.id,
+ *     title: faker.lorem.sentence(),
+ *     author: faker.name.fullName()
+ *   }
+ * }
+ */
+export type QueryPlaceholderData<Options, Return> = (
+  opts?: Options
+) => Promise<Return>
+
+/**
+ * Use this type helper to define a query formatter. A formatter takes in input and outputs formatted data.
+ *
+ * @template Input The type definition for the input.
+ * @template Output The type definition for the output.
+ *
+ * @example
+ *
+ * type DrupalNodeArticle = {
+ *   id: string
+ *   title: string
+ *   field_author: string
+ * }
+ *
+ * type Article = {
+ *   id: string
+ *   title: string
+ *   author: string
+ * }
+ *
+ * // This formatter accepts a `DrupalNodeArticle` and outputs an `Article`.
+ * export const formatter: QueryFormatter<DrupalNodeArticle, Article> = (node): Article => {
+ *   return {
+ *     id: node.id,
+ *     title: node.title,
+ *     author: node.field_author
+ *   }
+ * }
+ */
 export type QueryFormatter<Input, Output> = (input: Input) => Output
 
 type Queries<Q> = Record<
@@ -117,41 +177,48 @@ type Queries<Q> = Record<
   {
     params?: (opts: unknown) => DrupalJsonApiParams
     data?: (opts: unknown) => unknown
+    placeholder?: (opts: unknown) => unknown
     formatter?: (input) => unknown
   }
 >
 
-export type QueryTypeOf<
+type QueryTypeOf<
   Q extends Queries<Q>,
   T extends keyof Q,
-  F extends "params" | "data" | "formatter"
+  F extends "params" | "data" | "formatter" | "placeholder"
 > = Q[T][F]
 
-export type QueryId<Q = null> = keyof Q
+// type QueryId<Q = null> = keyof Q
 
-export type QueryParamsOpts<
-  Q extends Queries<Q>,
-  T extends keyof Q
-> = Parameters<QueryTypeOf<Q, T, "params">>[0]
+type QueryParamsOpts<Q extends Queries<Q>, T extends keyof Q> = Parameters<
+  QueryTypeOf<Q, T, "params">
+>[0]
 
-export type QueryDataOpts<Q extends Queries<Q>, T extends keyof Q> = Parameters<
+type QueryDataOpts<Q extends Queries<Q>, T extends keyof Q> = Parameters<
   Q[T]["data"]
 >[0]
 
-export type QueryFormatterInput<
+type QueryPlaceholderDataOpts<
   Q extends Queries<Q>,
   T extends keyof Q
-> = Parameters<Q[T]["formatter"]>[0]
+> = Parameters<Q[T]["placeholder"]>[0]
 
-export type QueryDataReturn<
-  Q extends Queries<Q>,
-  T extends keyof Q
-> = ReturnType<QueryTypeOf<Q, T, "data">>
+type QueryFormatterInput<Q extends Queries<Q>, T extends keyof Q> = Parameters<
+  Q[T]["formatter"]
+>[0]
 
-export type QueryFormatterReturn<
+type QueryDataReturn<Q extends Queries<Q>, T extends keyof Q> = ReturnType<
+  QueryTypeOf<Q, T, "data">
+>
+
+type QueryPlaceholderDataReturn<
   Q extends Queries<Q>,
   T extends keyof Q
-> = ReturnType<QueryTypeOf<Q, T, "formatter">>
+> = ReturnType<QueryTypeOf<Q, T, "placeholder">>
+
+type QueryFormatterReturn<Q extends Queries<Q>, T extends keyof Q> = ReturnType<
+  QueryTypeOf<Q, T, "formatter">
+>
 
 export function withPagination(
   params: DrupalJsonApiParams,
@@ -236,6 +303,29 @@ export function createQueries<Q extends Readonly<Queries<Q>>>(queries: Q) {
     return (await query["data"](opts as any)) as any
   }
 
+  const getPlaceholderData = async <
+    T extends ConditionalKeys<Q, { data }>,
+    O extends QueryPlaceholderDataOpts<Q, T>
+  >(
+    id: T,
+    opts: O = null
+  ): Promise<QueryPlaceholderDataReturn<typeof queries, T>> => {
+    if (typeof window !== "undefined") {
+      throw new Error(
+        "You should not call getPlaceholderData on the client. This is a server-only call."
+      )
+    }
+
+    const query = queries?.[id]
+
+    if (!query) {
+      throw new Error(`Query with id '${id as string}' not found.`)
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (await query["placeholder"](opts as any)) as any
+  }
+
   const formatData = <
     T extends ConditionalKeys<Q, { formatter }>,
     Input extends QueryFormatterInput<Q, T>
@@ -275,16 +365,32 @@ export function createQueries<Q extends Readonly<Queries<Q>>>(queries: Q) {
     O extends QueryDataOpts<Q, T>
   >(id: T, opts?: O): Promise<QueryDataReturn<Q, T>>
 
-  async function getData(id, opts = null) {
-    const rawData = await getRawData(id, opts)
+  async function getData<
+    T extends ConditionalKeys<Q, { placeholder }>,
+    O extends QueryPlaceholderDataOpts<Q, T>
+  >(id: T, opts?: O): Promise<QueryPlaceholderDataReturn<Q, T>>
 
+  async function getData(id, opts = null) {
     const query = queries?.[id]
 
-    if (!query["formatter"]) {
-      return rawData
+    if (!query) {
+      throw new Error(`Query with id '${id as string}' not found.`)
     }
 
-    return formatData(id, rawData)
+    // Try to get the raw data if defined.
+    if (query["data"]) {
+      const rawData = await getRawData(id, opts)
+
+      // Format the data using the query formatter.
+      return query["formatter"] ? formatData(id, rawData) : rawData
+    }
+
+    // Otherwise fallback to placeholder.
+    if (query["placeholder"]) {
+      return await getPlaceholderData(id, opts)
+    }
+
+    throw new Error(`No data or placeholder defined for query with id '${id}'.`)
   }
 
   return {
@@ -304,7 +410,10 @@ export function createQueries<Q extends Readonly<Queries<Q>>>(queries: Q) {
       }
       return ids
     },
-    getParams: <T extends keyof Q, O extends QueryParamsOpts<Q, T>>(
+    getParams: <
+      T extends ConditionalKeys<Q, { params }>,
+      O extends QueryParamsOpts<Q, T>
+    >(
       id: T = null,
       opts: O = null
     ) => {
@@ -334,6 +443,7 @@ export function createQueries<Q extends Readonly<Queries<Q>>>(queries: Q) {
       return query["params"](opts as any)
     },
     getRawData,
+    getPlaceholderData,
     getData,
     formatData,
   }

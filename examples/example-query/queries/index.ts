@@ -1,6 +1,6 @@
 import { createQueries } from "next-drupal-query"
 
-import * as MenuMain from "queries/menu--main"
+import * as Menu from "queries/menu"
 import * as NodeArticle from "queries/node--article"
 import * as NodeArticleTeaser from "queries/node--article--teaser"
 import * as NodePage from "queries/node--page"
@@ -15,7 +15,7 @@ import * as ListArticlesRelated from "queries/list--articles--related"
 
 export const queries = createQueries({
   // Menu
-  "menu--main": MenuMain,
+  menu: Menu,
 
   // Content
   "node--article": NodeArticle,

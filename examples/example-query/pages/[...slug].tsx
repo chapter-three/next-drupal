@@ -78,7 +78,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      menu: await queries.getData("menu--main"),
+      menu: await queries.getData("menu", { name: "main" }),
       resource,
     },
   }

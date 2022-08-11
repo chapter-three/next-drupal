@@ -1,24 +1,10 @@
-import {
-  QueryData,
-  QueryOpts,
-  QueryOptsWithPagination,
-  QueryParams,
-} from "../../src"
-import { queries } from "."
+import { QueryData, QueryOpts } from "../../src"
 
 export type NodeArticle = {
   id: string
   type: "node--article"
   title: string
   author: string
-}
-
-type ParamOpts = QueryOptsWithPagination<{
-  id: number
-}>
-
-export const params: QueryParams<ParamOpts> = (opts) => {
-  return queries.getParams().addInclude(["field_image", "uid"])
 }
 
 type DataOpts = QueryOpts<{
@@ -30,7 +16,7 @@ export const data: QueryData<DataOpts, NodeArticle> = async (
 ): Promise<NodeArticle> => {
   return {
     type: "node--article",
-    id: "id",
+    id: opts?.id || "2",
     title: "Title of Article",
     author: "shadcn",
   }

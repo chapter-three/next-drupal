@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/chapter-three/next-drupal/compare/next-drupal-query@0.2.1...next-drupal-query@0.3.0) (2022-08-11)
+
+
+### Features
+
+* **next-drupal-query:** implement placeholder data for queries ([b41a2d6](https://github.com/chapter-three/next-drupal/commit/b41a2d6cc990504be66c44cda92def5eef7bc867))
+
+
+
+
+
 ## [0.2.1](https://github.com/chapter-three/next-drupal/compare/next-drupal-query@0.2.0...next-drupal-query@0.2.1) (2022-08-09)
 
 **Note:** Version bump only for package next-drupal-query

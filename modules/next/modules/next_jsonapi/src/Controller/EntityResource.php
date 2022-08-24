@@ -68,7 +68,7 @@ class EntityResource extends JsonApiEntityResource {
    */
   protected function getJsonApiParams(Request $request, ResourceType $resource_type) {
     $params = parent::getJsonApiParams($request, $resource_type);
-    if (!$request->query->has('fields')) {
+    if (!$request->query->has('fields') || $request->query->has('page')) {
       return $params;
     }
 

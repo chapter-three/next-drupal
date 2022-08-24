@@ -10,12 +10,14 @@ import { DrupalNodeArticle } from "types/drupal"
 import { drupal } from "lib/drupal"
 import { queries } from "queries"
 import { absoluteUrl, formatDate } from "lib/utils"
+import { DrupalTranslatedPath } from "next-drupal"
 
 export const params: QueryParams<null> = () => {
   return queries.getParams().addInclude(["field_image", "uid"])
 }
 
 type DataOpts = QueryOpts<{
+  path: DrupalTranslatedPath
   id: string
 }>
 
@@ -26,14 +28,15 @@ type NodeArticleData = {
 
 export const data: QueryData<DataOpts, NodeArticleData> = async (opts) => {
   return {
-    node: await drupal.getResource<DrupalNodeArticle>(
-      "node--article",
-      opts?.id,
+    node: await drupal.getResourceFromContext<DrupalNodeArticle>(
+      opts.path,
+      opts.context,
       {
         params: params().getQueryObject(),
       }
     ),
     relatedArticles: await queries.getData("list--articles--related", {
+      context: opts.context,
       excludeIds: [opts?.id],
       page: 0,
       limit: 3,

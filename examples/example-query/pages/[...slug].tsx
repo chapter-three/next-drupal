@@ -61,6 +61,7 @@ export async function getStaticProps(context) {
 
   const resource = await queries.getData(type, {
     context,
+    path,
     id: path.entity.uuid,
   })
 

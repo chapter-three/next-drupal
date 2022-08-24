@@ -4,6 +4,7 @@ import {
   QueryOpts,
   QueryParams,
 } from "next-drupal-query"
+import { DrupalTranslatedPath } from "next-drupal"
 
 import { LandingPage } from "types"
 import { drupal } from "lib/drupal"
@@ -22,15 +23,16 @@ export const params: QueryParams<null> = () => {
 }
 
 type DataOpts = QueryOpts<{
+  path: DrupalTranslatedPath
   id: string
 }>
 
 export const data: QueryData<DataOpts, DrupalNodeLandingPage> = async (
   opts
 ) => {
-  return await drupal.getResource<DrupalNodeLandingPage>(
-    "node--landing_page",
-    opts?.id,
+  return await drupal.getResourceFromContext<DrupalNodeLandingPage>(
+    opts.path,
+    opts.context,
     {
       params: params().getQueryObject(),
     }

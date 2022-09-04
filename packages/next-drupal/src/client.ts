@@ -25,7 +25,6 @@ import type {
   JsonApiResourceWithPath,
   PathAlias,
   PreviewOptions,
-  GetResourcePreviewUrlOptions,
   JsonApiWithCacheOptions,
   JsonApiCreateResourceBody,
   JsonApiUpdateResourceBody,
@@ -104,6 +103,8 @@ export class DrupalClient {
   private _token?: AccessToken
 
   private accessToken?: DrupalClientOptions["accessToken"]
+
+  private accessTokenScope?: DrupalClientOptions["accessTokenScope"]
 
   private tokenExpiresOn?: number
 
@@ -538,7 +539,9 @@ export class DrupalClient {
   ): Promise<T> {
     const type = typeof input === "string" ? input : input.jsonapi.resourceName
 
-    const previewData = context.previewData as { resourceVersion?: string }
+    const previewData = context.previewData as {
+      resourceVersion?: string
+    }
 
     options = {
       // Add support for revisions for node by default.
@@ -546,7 +549,7 @@ export class DrupalClient {
       isVersionable: /^node--/.test(type),
       deserialize: true,
       pathPrefix: "/",
-      withAuth: this.withAuth,
+      withAuth: this.getAuthFromContextAndOptions(context, options),
       params: {},
       ...options,
     }
@@ -556,7 +559,7 @@ export class DrupalClient {
       isVersionable: options.isVersionable,
       locale: context.locale,
       defaultLocale: context.defaultLocale,
-      withAuth: context.preview || options?.withAuth,
+      withAuth: options?.withAuth,
       params: {
         resourceVersion: previewData?.resourceVersion,
         ...options?.params,
@@ -757,7 +760,6 @@ export class DrupalClient {
       JsonApiWithAuthOptions
   ): Promise<T> {
     options = {
-      withAuth: this.withAuth,
       deserialize: true,
       ...options,
     }
@@ -766,7 +768,7 @@ export class DrupalClient {
       ...options,
       locale: context.locale,
       defaultLocale: context.defaultLocale,
-      withAuth: context.preview || options.withAuth,
+      withAuth: this.getAuthFromContextAndOptions(context, options),
     })
   }
 
@@ -928,18 +930,15 @@ export class DrupalClient {
   ): Promise<DrupalTranslatedPath> {
     options = {
       pathPrefix: "/",
-      withAuth: this.withAuth,
       ...options,
     }
     const path = this.getPathFromContext(context, {
       pathPrefix: options.pathPrefix,
     })
 
-    const response = await this.translatePath(path, {
-      withAuth: context.preview || options.withAuth,
+    return await this.translatePath(path, {
+      withAuth: this.getAuthFromContextAndOptions(context, options),
     })
-
-    return response
   }
 
   getPathFromContext(
@@ -1045,84 +1044,57 @@ export class DrupalClient {
     response?: NextApiResponse,
     options?: PreviewOptions
   ) {
-    const { slug, resourceVersion, secret, locale, defaultLocale } =
-      request.query
+    const { slug, resourceVersion, plugin } = request.query
 
-    if (secret !== this.previewSecret) {
-      return response
-        .status(401)
-        .json(options?.errorMessages.secret || "Invalid preview secret.")
-    }
+    try {
+      // Always clear preview data to handle different scopes.
+      response.clearPreviewData()
 
-    if (!slug) {
-      return response
-        .status(401)
-        .end(options?.errorMessages.slug || "Invalid slug.")
-    }
-
-    let _options: GetResourcePreviewUrlOptions = {
-      isVersionable: !!resourceVersion,
-    }
-
-    if (locale && defaultLocale) {
-      // Fix for und locale.
-      const _locale = locale === "und" ? defaultLocale : locale
-
-      _options = {
-        ..._options,
-        locale: _locale as string,
-        defaultLocale: defaultLocale as string,
-      }
-    }
-
-    const entity = await this.getResourceByPath(slug as string, {
-      withAuth: true,
-      ..._options,
-    })
-
-    const missingEntityErrorMessage = `The entity with slug ${slug} coud not be found. If the entity exists on your Drupal site, make sure the proper permissions are configured so that Next.js can access it.`
-    const missingPathAliasErrorMessage = `The path alias is missing for entity with slug ${slug}.`
-
-    if (!entity) {
-      this.throwError(new Error(missingEntityErrorMessage))
-
-      return response.status(404).end(missingEntityErrorMessage)
-    }
-
-    if (!entity?.path?.alias) {
-      this.throwError(new Error(missingPathAliasErrorMessage))
-
-      return response.status(404).end(missingPathAliasErrorMessage)
-    }
-
-    const url = entity.default_langcode
-      ? entity?.path.alias
-      : `/${entity.path.langcode}${entity.path.alias}`
-
-    if (!url) {
-      return response
-        .status(404)
-        .end(options?.errorMessages.slug || "Invalid slug")
-    }
-
-    response.setPreviewData({
-      resourceVersion,
-    })
-
-    // Fix issue with cookie.
-    // See https://github.com/vercel/next.js/discussions/32238.
-    // See https://github.com/vercel/next.js/blob/d895a50abbc8f91726daa2d7ebc22c58f58aabbb/packages/next/server/api-utils/node.ts#L504.
-    if (this.forceIframeSameSiteCookie) {
-      const previous = response.getHeader("Set-Cookie") as string[]
-      previous.forEach((cookie, index) => {
-        previous[index] = cookie.replace("SameSite=Lax", "SameSite=None;Secure")
+      // Validate the preview url.
+      const validateUrl = this.buildUrl("/next/preview-url")
+      const result = await this.fetch(validateUrl.toString(), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(request.query),
       })
-      response.setHeader(`Set-Cookie`, previous)
+
+      if (!result.ok) {
+        response.statusCode = result.status
+
+        return response.json(await result.json())
+      }
+
+      const validationPayload = await result.json()
+
+      response.setPreviewData({
+        resourceVersion,
+        plugin,
+        ...validationPayload,
+      })
+
+      // Fix issue with cookie.
+      // See https://github.com/vercel/next.js/discussions/32238.
+      // See https://github.com/vercel/next.js/blob/d895a50abbc8f91726daa2d7ebc22c58f58aabbb/packages/next/server/api-utils/node.ts#L504.
+      if (this.forceIframeSameSiteCookie) {
+        const previous = response.getHeader("Set-Cookie") as string[]
+        previous.forEach((cookie, index) => {
+          previous[index] = cookie.replace(
+            "SameSite=Lax",
+            "SameSite=None;Secure"
+          )
+        })
+        response.setHeader(`Set-Cookie`, previous)
+      }
+
+      // We can safely redirect to the slug since this has been validated on the server.
+      response.writeHead(307, { Location: slug })
+
+      return response.end()
+    } catch (error) {
+      return response.status(422).end()
     }
-
-    response.writeHead(307, { Location: url })
-
-    return response.end()
   }
 
   async getMenu<T = DrupalMenuLinkContent>(
@@ -1320,12 +1292,10 @@ export class DrupalClient {
     return url
   }
 
-  async getAccessToken(opts?: {
-    clientId: string
-    clientSecret: string
-    url?: string
-  }): Promise<AccessToken> {
-    if (this.accessToken) {
+  async getAccessToken(
+    opts?: DrupalClientAuthClientIdSecret
+  ): Promise<AccessToken> {
+    if (this.accessToken && this.accessTokenScope === opts?.scope) {
       return this.accessToken
     }
 
@@ -1350,7 +1320,11 @@ export class DrupalClient {
     const clientSecret = opts?.clientSecret || this._auth.clientSecret
     const url = this.buildUrl(opts?.url || this._auth.url || DEFAULT_AUTH_URL)
 
-    if (this._token && Date.now() < this.tokenExpiresOn) {
+    if (
+      this.accessTokenScope === opts?.scope &&
+      this._token &&
+      Date.now() < this.tokenExpiresOn
+    ) {
       this._debug(`Using existing access token.`)
       return this._token
     }
@@ -1359,13 +1333,21 @@ export class DrupalClient {
 
     const basic = Buffer.from(`${clientId}:${clientSecret}`).toString("base64")
 
+    let body = `grant_type=client_credentials`
+
+    if (opts?.scope) {
+      body = `${body}&scope=${opts.scope}`
+
+      this._debug(`Using scope: ${opts.scope}`)
+    }
+
     const response = await fetch(url.toString(), {
       method: "POST",
       headers: {
         Authorization: `Basic ${basic}`,
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: `grant_type=client_credentials`,
+      body,
     })
 
     if (!response?.ok) {
@@ -1377,6 +1359,8 @@ export class DrupalClient {
     this._debug(result)
 
     this.token = result
+
+    this.accessTokenScope = opts?.scope
 
     return result
   }
@@ -1442,5 +1426,49 @@ export class DrupalClient {
       const errors = await this.getErrorsFromResponse(response)
       throw new JsonApiErrors(errors, response.status)
     }
+  }
+
+  private getAuthFromContextAndOptions(
+    context: GetStaticPropsContext,
+    options: JsonApiWithAuthOptions
+  ) {
+    // If not in preview or withAuth is provided, use that.
+    if (!context.preview) {
+      // If we have provided an auth, use that.
+      if (typeof options?.withAuth !== "undefined") {
+        return options.withAuth
+      }
+
+      // Otherwise we fallback to the global auth.
+      return this.withAuth
+    }
+
+    // If no plugin is provided, return.
+    const plugin = context.previewData?.["plugin"]
+    if (!plugin) {
+      return null
+    }
+
+    let withAuth = this._auth
+
+    if (plugin === "simple_oauth") {
+      // If we are using a client id and secret auth, pass the scope.
+      if (isClientIdSecretAuth(withAuth) && context.previewData?.["scope"]) {
+        withAuth = {
+          ...withAuth,
+          scope: context.previewData?.["scope"],
+        }
+      }
+    }
+
+    if (plugin === "jwt") {
+      const accessToken = context.previewData?.["access_token"]
+
+      if (accessToken) {
+        return `Bearer ${accessToken}`
+      }
+    }
+
+    return withAuth
   }
 }

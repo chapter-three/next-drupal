@@ -2,12 +2,12 @@ import { DrupalClient } from "../src/client"
 
 // Run all tests against this env until we configure CI to setup a Drupal instance.
 // TODO: Bootstrap and expose the /drupal env for testing.
-export const BASE_URL = process.env.DRUPAL_BASE_URL
+export const BASE_URL = process.env["DRUPAL_BASE_URL"] as string
 
-const client = new DrupalClient(process.env.DRUPAL_BASE_URL, {
+const client = new DrupalClient(BASE_URL, {
   auth: {
-    clientId: process.env.DRUPAL_CLIENT_ID,
-    clientSecret: process.env.DRUPAL_CLIENT_SECRET,
+    clientId: process.env["DRUPAL_CLIENT_ID"] as string,
+    clientSecret: process.env["DRUPAL_CLIENT_SECRET"] as string,
   },
 })
 

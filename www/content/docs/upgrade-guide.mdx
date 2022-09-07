@@ -11,6 +11,12 @@ excerpt: Guide for upgrading your site to use DrupalClient.
 composer require drupal/next
 ```
 
+2. Run updates:
+
+```sh
+drush updb
+```
+
 2. Edit the Next.js user and assign all roles that can be used as a scope. The granted roles will be filtered based on roles assigned to the current user.
 
 3. Upgrade the `next-drupal` package to `1.5.0`. See the upgrade guide below.

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/chapter-three/next-drupal/compare/example-query@0.3.0...example-query@0.3.1) (2022-09-07)
+
+
+### Bug Fixes
+
+* **example-query:** use context for fetching content ([99bf2b6](https://github.com/chapter-three/next-drupal/commit/99bf2b6afaf55d5955d03971d186b7da42ce8f35))
+
+
+
+
+
 # [0.3.0](https://github.com/chapter-three/next-drupal/compare/example-query@0.2.1...example-query@0.3.0) (2022-08-11)
 
 

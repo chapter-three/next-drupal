@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.1](https://github.com/chapter-three/next-drupal/compare/www@1.9.0...www@1.9.1) (2022-09-07)
+
+
+### Bug Fixes
+
+* **www:** add published field to blog ([fab6433](https://github.com/chapter-three/next-drupal/commit/fab643356c5530eaec1b4b74a378dd003725a73b))
+
+
+
+
+
 # [1.9.0](https://github.com/chapter-three/next-drupal/compare/www@1.8.0...www@1.9.0) (2022-08-09)
 
 

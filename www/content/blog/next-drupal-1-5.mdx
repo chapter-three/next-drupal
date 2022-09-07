@@ -1,0 +1,40 @@
+---
+title: Next-Drupal 1.5 and Next 1.3
+author: shadcn
+date: September 07, 2022
+created: "2022-09-07"
+excerpt: Next-Drupal 1.5 and Next 1.3 for Drupal ships with preview url generators.
+---
+
+In this release of Next 1.3, the Drupal module, and Next-Drupal 1.5, we're introducing _Preview URL Generators_.
+
+## Preview URL Generators
+
+Preview URL Generators are used for generating URLs for preview mode with encrypted secrets.
+
+<Img
+  src="/images/preview-mode-encrypted-secrets.png"
+  width="800"
+  height="240"
+/>
+
+Compared to the preview secrets used in previous releases, the new secrets are:
+
+- Generated per requests
+- Encrypted and not re-usabled
+- Scoped to the current URL and user
+- With expiration dates
+- Validated by Drupal (no client validation)
+- Pluggable (bring your own secret generator)
+
+Upgrading to Next 1.3 is easy. See the upgrade guide [here](/docs/upgrade-guide).
+
+Note: You should also upgrade to the latest `next-drupal` to use the new encrypted secrets.
+
+## JSON Web Tokens
+
+We are also introducing a new module, **Next.js JWT**, for using JSON Web Tokens for authentication.
+
+Next.js JWT ships with a Preview URL generator that enables user-level access control for more granularity.
+
+Next.js JWT ships as **experimental** in Next 1.3.

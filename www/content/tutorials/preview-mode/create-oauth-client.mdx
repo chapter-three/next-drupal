@@ -1,11 +1,17 @@
 ---
-title: Authentication (Bearer)
-excerpt: Using Simple OAuth for Authentication
-weight: 120
+title: Create OAuth Client
+excerpt: Setup an OAuth client to be used for authenticated content.
+weight: 110
 group: Preview Mode
 ---
 
 Before we can create an OAuth consumer, we need to create a new role and a user for OAuth scopes.
+
+<Callout>
+
+As from `next-drupal 1.5`, user roles are used for OAuth scopes. The scopes are automatically handled for the preview based on the currently logged in user.
+
+</Callout>
 
 ---
 
@@ -29,7 +35,19 @@ Next, assign the following permissions to the newly created role.
 
 We are assigning the _Bypass content access control_ permission to allow Next.js to access unpublished content and revisions.
 
-You can safely skip this permission if you do not need to preview unpublished content.
+This scope is only going to be used when making authenticated requests from Next.js to Drupal.
+
+```ts
+const articles = await drupal.getResource(
+  "node--article",
+  "dad82fe9-f2b7-463e-8c5f-02f73018d6cb",
+  // highlight-start
+  {
+    withAuth: true,
+  }
+  // highlight-end
+)
+```
 
 </Callout>
 
@@ -37,7 +55,7 @@ You can safely skip this permission if you do not need to preview unpublished co
 
 ## 3. Create User
 
-Add a new user at `/admin/people/create` and assign it the role we created above.
+Add a new user at `/admin/people/create` and **assign them all the roles that are going to be used for scopes, including the administrator role and the role we created above**.
 
 ---
 

@@ -119,5 +119,4 @@ class NextSettingsManager implements NextSettingsManagerInterface {
     return (boolean) $this->get('debug');
   }
 
-
 }

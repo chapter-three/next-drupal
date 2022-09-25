@@ -1,18 +1,14 @@
 <?php
 
-namespace Drupal\next\EventSubscriber;
+namespace Drupal\next_tests\EventSubscriber;
 
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\next\Event\EntityActionEvent;
 use Drupal\next\Event\EntityEvents;
-use Drupal\next\NextSettingsManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Defines an event subscriber for entity action events.
- *
- * @see \Drupal\next\Event\EntityActionEvent
- * @see \Drupal\next\EntityEventDispatcher
  */
 class EntityActionEventSubscriber implements EventSubscriberInterface {
 
@@ -24,23 +20,13 @@ class EntityActionEventSubscriber implements EventSubscriberInterface {
   protected LoggerChannelInterface $logger;
 
   /**
-   * The next settings manager.
-   *
-   * @var \Drupal\next\NextSettingsManagerInterface
-   */
-  protected NextSettingsManagerInterface $nextSettingsManager;
-
-  /**
    * EntityActionEventSubscriber constructor.
    *
-   * @param \Drupal\next\NextSettingsManagerInterface $next_settings_manager
-   *   The next settings manager.
    * @param \Drupal\Core\Logger\LoggerChannelInterface $logger
    *   The logger channel.
    */
-  public function __construct(NextSettingsManagerInterface $next_settings_manager, LoggerChannelInterface $logger) {
+  public function __construct(LoggerChannelInterface $logger) {
     $this->logger = $logger;
-    $this->nextSettingsManager = $next_settings_manager;
   }
 
   /**
@@ -58,14 +44,10 @@ class EntityActionEventSubscriber implements EventSubscriberInterface {
    *   The event.
    */
   public function onAction(EntityActionEvent $event) {
-    if (!$this->nextSettingsManager->isDebug()) {
-      return;
-    }
-
-    $this->logger->notice('@type: %action action event dispatched for the entity %entity.', [
-      '%action' => $event->getAction(),
-      '%entity' => $event->getEntity()->label(),
-      '@type' => $event->getEntity()->getEntityTypeId(),
+    $this->logger->notice('Event @event dispatched for entity @label and action @action.', [
+      '@event' => EntityEvents::ENTITY_ACTION,
+      '@label' => $event->getEntity()->label(),
+      '@action' => $event->getAction(),
     ]);
   }
 

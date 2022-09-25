@@ -6,6 +6,8 @@
  */
 
 use Drupal\content_moderation\EntityOperations;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\next\Event\EntityActionEventInterface;
 
 /**
  * Implements hook_decoupled_router_info_alter().
@@ -58,4 +60,38 @@ function next_next_site_preview_alter(array &$preview, array $context) {
     $build['content_moderation_control']['#weight'] = -100;
     $preview['content_moderation_control'] = $build['content_moderation_control'];
   }
+}
+
+
+/**
+ * Implements hook_entity_insert().
+ */
+function next_entity_insert(EntityInterface $entity) {
+  drupal_register_shutdown_function('_next_dispatch_entity_action_event', $entity, EntityActionEventInterface::INSERT_ACTION);
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function next_entity_update(EntityInterface $entity) {
+  drupal_register_shutdown_function('_next_dispatch_entity_action_event', $entity, EntityActionEventInterface::UPDATE_ACTION);
+}
+
+/**
+ * Implements hook_entity_predelete().
+ */
+function next_entity_predelete(EntityInterface $entity) {
+  drupal_register_shutdown_function('_next_dispatch_entity_action_event', $entity, EntityActionEventInterface::DELETE_ACTION);
+}
+
+/**
+ * Shutdown callback for dispatching entity events.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity.
+ * @param string $action
+ *   The action.
+ */
+function _next_dispatch_entity_action_event(EntityInterface $entity, string $action) {
+  \Drupal::service('next.entity_event_dispatcher')->dispatch($entity, $action);
 }

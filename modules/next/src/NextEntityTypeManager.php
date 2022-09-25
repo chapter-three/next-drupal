@@ -102,4 +102,17 @@ class NextEntityTypeManager implements NextEntityTypeManagerInterface {
     return $entity->getEntityType()->isRevisionable();
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getSitesForEntity(EntityInterface $entity): array {
+    $next_entity_type_config = $this->getConfigForEntityType($entity->getEntityTypeId(), $entity->bundle());
+
+    if (!$next_entity_type_config) {
+      return [];
+    }
+
+    return $next_entity_type_config->getSiteResolver()->getSitesForEntity($entity);
+  }
+
 }

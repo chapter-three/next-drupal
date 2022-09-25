@@ -112,4 +112,12 @@ class NextSettingsManager implements NextSettingsManagerInterface {
     }
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function isDebug(): bool {
+    return (boolean) $this->get('debug');
+  }
+
+
 }

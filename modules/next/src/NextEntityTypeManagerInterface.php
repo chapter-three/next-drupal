@@ -55,4 +55,15 @@ interface NextEntityTypeManagerInterface {
    */
   public function isEntityRevisionable(EntityInterface $entity): bool;
 
+  /**
+   * Returns an array of sites for the given entity.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity.
+   *
+   * @return \Drupal\next\Entity\NextSiteInterface[]
+   *   An array of next sites.
+   */
+  public function getSitesForEntity(EntityInterface $entity): array;
+
 }

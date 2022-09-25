@@ -162,6 +162,19 @@ class NextSettingsForm extends ConfigFormBase {
       }
     }
 
+    $form['development'] = [
+      '#title' => $this->t('Development'),
+      '#type' => 'details',
+      '#group' => 'settings',
+    ];
+
+    $form['development']['debug'] = [
+      '#title' => $this->t('Enable debug mode'),
+      '#description' => $this->t('Logs additional information during development.'),
+      '#type' => 'checkbox',
+      '#default_value' => $config->get('debug'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -243,6 +256,7 @@ class NextSettingsForm extends ConfigFormBase {
       ->set('site_previewer_configuration', $form_state->getValue('site_previewer_configuration'))
       ->set('preview_url_generator', $form_state->getValue('preview_url_generator'))
       ->set('preview_url_generator_configuration', $form_state->getValue('preview_url_generator_configuration'))
+      ->set('debug', $form_state->getValue('debug'))
       ->save();
   }
 

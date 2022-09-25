@@ -62,6 +62,8 @@ next.settings:
       label: "Preview URL generator"
     preview_url_generator_configuration:
       type: next.preview_url_generator.configuration.[%parent.preview_url_generator]
+    debug:
+      type: boolean
 
 next.site_previewer.configuration.iframe:
   type: mapping

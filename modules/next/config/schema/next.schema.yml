@@ -17,6 +17,13 @@ next.next_site.*:
     preview_secret:
       type: string
       label: "Preview secret"
+    revalidate_url:
+      type: string
+      label: "Revalidate URL"
+    revalidate_secret:
+      type: string
+      label: "Revalidate secret"
+
 
 next.next_entity_type_config.*:
   type: config_entity

@@ -1345,6 +1345,7 @@ export class DrupalClient {
       method: "POST",
       headers: {
         Authorization: `Basic ${basic}`,
+        Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body,

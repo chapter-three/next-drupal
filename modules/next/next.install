@@ -5,6 +5,8 @@
  * Installation and update hooks for next.
  */
 
+use Drupal\Core\Field\BaseFieldDefinition;
+
 /**
  * Set simple_oauth as the preview url generator.
  */
@@ -16,4 +18,44 @@ function next_update_9101() {
       'secret_expiration' => 30,
     ])
     ->save();
+}
+
+/**
+ * Add the revalidate_url and revalidate_secret to next_site.
+ */
+function next_update_9102() {
+  $entity_definition_update = \Drupal::entityDefinitionUpdateManager();
+
+  $storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('Revalidate URL'))
+    ->setRequired(TRUE);
+  $entity_definition_update->installFieldStorageDefinition('revalidate_url', 'next_site', 'next_site', $storage_definition);
+
+  $storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('Revalidate secret'))
+    ->setRequired(TRUE);
+  $entity_definition_update->installFieldStorageDefinition('revalidate_secret', 'next_site', 'next_site', $storage_definition);
+}
+
+/**
+ * Sets a revalidate url and secret for all Next.js sites.
+ */
+function next_update_9103() {
+  /** @var \Drupal\next\Entity\NextSiteInterface[] $sites */
+  $sites = \Drupal::entityTypeManager()->getStorage('next_site')->loadMultiple();
+  foreach ($sites as $site) {
+    $base_url = $site->getBaseUrl();
+
+    // Set a revalidate url.
+    if (!$site->getRevalidateUrl()) {
+      $site->setRevalidateUrl("$base_url/api/revalidate");
+    }
+
+    // Set a secret based on the preview secret for backward compatibility.
+    if (!$site->getRevalidateSecret() && ($secret = $site->getPreviewSecret())) {
+      $site->setRevalidateSecret($secret);
+    }
+
+    $site->save();
+  }
 }

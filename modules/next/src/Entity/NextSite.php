@@ -47,6 +47,8 @@ use Drupal\Core\Url;
  *     "base_url",
  *     "preview_url",
  *     "preview_secret",
+ *     "revalidate_url",
+ *     "revalidate_secret",
  *   },
  *   links = {
  *     "add-form" = "/admin/config/services/next/sites/add",
@@ -80,6 +82,20 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
    * @var string
    */
   protected $preview_secret;
+
+  /**
+   * The revalidate url.
+   *
+   * @var string
+   */
+  protected $revalidate_url;
+
+  /**
+   * The revalidate secret.
+   *
+   * @var string
+   */
+  protected $revalidate_secret;
 
   /**
    * {@inheritdoc}
@@ -123,6 +139,36 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
    */
   public function setPreviewSecret(string $preview_secret): NextSiteInterface {
     $this->set('preview_secret', $preview_secret);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRevalidateUrl(): ?string {
+    return $this->revalidate_url;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setRevalidateUrl(string $revalidate_url): NextSiteInterface {
+    $this->set('revalidate_url', $revalidate_url);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRevalidateSecret(): ?string {
+    return $this->revalidate_secret;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setRevalidateSecret(string $revalidate_secret): NextSiteInterface {
+    $this->set('revalidate_secret', $revalidate_secret);
     return $this;
   }
 

@@ -141,6 +141,7 @@ describe("auth", () => {
       `${BASE_URL}/oauth/token`,
       expect.objectContaining({
         headers: {
+          Accept: "application/json",
           Authorization: `Basic ${basic}`,
           "Content-Type": "application/x-www-form-urlencoded",
         },

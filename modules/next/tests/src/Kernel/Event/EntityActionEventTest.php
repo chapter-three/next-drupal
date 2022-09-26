@@ -5,15 +5,15 @@ namespace Drupal\Tests\next\Kernel\Event;
 use Drupal\Core\Database\Database;
 use Drupal\dblog\Controller\DbLogController;
 use Drupal\KernelTests\KernelTestBase;
-use Drupal\next\Entity\NextEntityTypeConfig;
-use Drupal\next\Entity\NextSite;
-use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
+use Drupal\Tests\node\Traits\NodeCreationTrait;
 
 /**
  * Tests the EntityActionEvent.
  */
 class EntityActionEventTest extends KernelTestBase {
+
+  use NodeCreationTrait;
 
   /**
    * {@inheritdoc}
@@ -48,47 +48,25 @@ class EntityActionEventTest extends KernelTestBase {
       'label' => 'Page',
     ]);
     $page_type->save();
-
-    // Create NextSite entities.
-    $blog = NextSite::create([
-      'label' => 'Blog',
-      'id' => 'blog',
-      'base_url' => 'https://blog.com',
-      'preview_url' => 'https://blog.com/api/preview',
-      'preview_secret' => 'one',
-    ]);
-    $blog->save();
-
-    // Create entity type config.
-    $entity_type_config = NextEntityTypeConfig::create([
-      'id' => 'node.page',
-      'site_resolver' => 'site_selector',
-      'configuration' => [
-        'sites' => [
-          'blog' => 'blog',
-        ],
-      ],
-    ]);
-    $entity_type_config->save();
   }
 
   /**
    * Test entity action events.
    */
   public function testEntityActionEvents() {
-    $page = Node::create([
-      'title' => 'A page',
-      'type' => 'page',
-    ]);
+    $page = $this->createNode(['type' => 'page', 'title' => 'A page']);
 
+    // Insert.
     $page->save();
     _drupal_shutdown_function();
     $this->assertLogsContains("Event next.entity.action dispatched for entity A page and action insert.");
 
+    // Update.
     $page->set('title', 'A page updated')->save();
     _drupal_shutdown_function();
     $this->assertLogsContains("Event next.entity.action dispatched for entity A page updated and action update.");
 
+    // Delete.
     $page->delete();
     _drupal_shutdown_function();
     $this->assertLogsContains("Event next.entity.action dispatched for entity A page updated and action delete.");

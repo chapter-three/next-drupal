@@ -1341,10 +1341,11 @@ export class DrupalClient {
       this._debug(`Using scope: ${opts.scope}`)
     }
 
-    const response = await fetch(url.toString(), {
+    const response = await this.fetch(url.toString(), {
       method: "POST",
       headers: {
         Authorization: `Basic ${basic}`,
+        Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body,

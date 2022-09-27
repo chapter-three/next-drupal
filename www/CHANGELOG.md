@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.1](https://github.com/chapter-three/next-drupal/compare/www@1.9.0...www@1.9.1) (2022-09-07)
+
+
+### Bug Fixes
+
+* **www:** add published field to blog ([fab6433](https://github.com/chapter-three/next-drupal/commit/fab643356c5530eaec1b4b74a378dd003725a73b))
+
+
+
+
+
+# [1.9.0](https://github.com/chapter-three/next-drupal/compare/www@1.8.0...www@1.9.0) (2022-08-09)
+
+
+### Features
+
+* **www:** move front page promo video to YouTube ([e435e86](https://github.com/chapter-three/next-drupal/commit/e435e86971e2ed1216cc26f0e044120823c7b03f))
+
+
+
+
+
+# [1.8.0](https://github.com/chapter-three/next-drupal/compare/www@1.7.0...www@1.8.0) (2022-07-29)
+
+
+### Features
+
+* **www:** add link to demo on home page ([ab5d112](https://github.com/chapter-three/next-drupal/commit/ab5d11215b0c376c58daa0324136a0a307c3a461))
+
+
+
+
+
 # [1.7.0](https://github.com/chapter-three/next-drupal/compare/www@1.7.0-rc.0...www@1.7.0) (2022-06-14)
 
 **Note:** Version bump only for package www

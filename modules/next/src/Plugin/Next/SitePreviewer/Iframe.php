@@ -10,6 +10,7 @@ use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Url;
 use Drupal\next\Form\IframeSitePreviewerSwitcherForm;
 use Drupal\next\Plugin\ConfigurableSitePreviewerBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -161,6 +162,8 @@ class Iframe extends ConfigurableSitePreviewerBase implements ContainerFactoryPl
       $build['form'] = $this->formBuilder->getForm(IframeSitePreviewerSwitcherForm::class, $entity, $sites, $site->id());
     }
 
+    $preview_url = $site->getPreviewUrlForEntity($entity);
+
     $build['toolbar'] = [
       '#prefix' => '<div class="next-site-preview-toolbar">',
       '#suffix' => '</div>',
@@ -190,25 +193,22 @@ class Iframe extends ConfigurableSitePreviewerBase implements ContainerFactoryPl
           ],
         ]
       ];
-
-      if ($live_url = $site->getLiveUrlForEntity($entity)) {
-        $build['toolbar']['links']['#links']['live_link'] = [
-          'title' => $this->t('View on @label', [
-            '@label' => $site->label(),
-          ]),
-          'url' => $live_url,
-          'attributes' => [
-            'class' => [
-              'button',
-              'button--small',
-              'button--primary',
-            ],
-            'target' => '_blank',
-            'rel' => 'nofollow',
-          ],
-        ];
-      }
     }
+
+    // Always show a live link.
+    $build['toolbar']['links']['#links']['live_link'] = [
+      'title' => $this->t('View'),
+      'url' => $preview_url,
+      'attributes' => [
+        'class' => [
+          'button',
+          'button--small',
+          'button--primary',
+        ],
+        'target' => '_blank',
+        'rel' => 'nofollow',
+      ],
+    ];
 
     // Handle revisions.
     if ($entity instanceof RevisionableInterface && !$entity->isDefaultRevision()) {
@@ -230,7 +230,7 @@ class Iframe extends ConfigurableSitePreviewerBase implements ContainerFactoryPl
       '#prefix' => '<div class="next-site-preview-container">',
       '#suffix' => '</div>',
       '#attributes' => [
-        'src' => $site->getPreviewUrlForEntity($entity)->toString(),
+        'src' => $preview_url->toString(),
         'frameborder' => 0,
         'scrolling' => FALSE,
         'allowtransparency' => TRUE,
@@ -252,9 +252,9 @@ class Iframe extends ConfigurableSitePreviewerBase implements ContainerFactoryPl
       ],
     ];
 
-    $build['#cache']['contexts'] = $entity->getCacheContexts();
-    $build['#cache']['tags'] = $entity->getCacheTags();
-    $build['#cache']['max-age'] = $entity->getCacheMaxAge();
+    // We want a new preview url for each request.
+    // Do not cache the iframe.
+    $build['#cache']['max-age'] = 0;
 
     return $build;
   }

@@ -18,6 +18,7 @@ export type Doc = MdxNode<{
 
 export type Blog = MdxNode<{
   title: string
+  published: boolean
   excerpt?: string
   date?: string
   author?: string

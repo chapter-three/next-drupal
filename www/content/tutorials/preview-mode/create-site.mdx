@@ -11,23 +11,15 @@ Start by creating a Next.js site so that we can render the preview on Drupal.
 2. Click **Add Next.js site**.
 3. Fill in the following values:
 
-- **Label**: `Next.js site`
+- **Label**: `Next.js`
 - **Base URL**: `http://localhost:3000`
 - **Preview URL**: `http://localhost:3000/api/preview`
 - **Preview secret**: `secret`
 
-4. Click **Save**
-
 <Callout>
 
-The **Preview secret** can be any string. This is the secret to you will use for the `DRUPAL_PREVIEW_SECRET` [environment variable](/docs/environment-variables#preview-mode).
+As from `next-drupal 1.5`, encrypted secrets are automatically generated and validated by the Next module.
 
 </Callout>
 
-<Img
-  src="/images/next-drupal-create-next-site.jpg"
-  width="600"
-  height="380"
-  layout="responsive"
-  mb="8"
-/>
+4. Click **Save**

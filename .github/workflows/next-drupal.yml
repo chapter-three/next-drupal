@@ -12,7 +12,7 @@ jobs:
       - name: Install modules
         run: yarn
       - name: Run tests
-        run: yarn test
+        run: yarn test packages/next-drupal
         env:
           DRUPAL_BASE_URL: ${{ secrets.DRUPAL_BASE_URL }}
           DRUPAL_USERNAME: ${{ secrets.DRUPAL_USERNAME }}

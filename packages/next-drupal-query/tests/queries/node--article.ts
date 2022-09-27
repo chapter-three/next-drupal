@@ -3,7 +3,7 @@ import {
   QueryOpts,
   QueryOptsWithPagination,
   QueryParams,
-} from "@next-drupal/query"
+} from "../../src"
 import { queries } from "."
 
 export type NodeArticle = {
@@ -17,7 +17,7 @@ type ParamOpts = QueryOptsWithPagination<{
   id: number
 }>
 
-export const params: QueryParams = (opts: ParamOpts) => {
+export const params: QueryParams<ParamOpts> = (opts) => {
   return queries.getParams().addInclude(["field_image", "uid"])
 }
 
@@ -25,7 +25,9 @@ type DataOpts = QueryOpts<{
   id: string
 }>
 
-export const data: QueryData = async (opts: DataOpts): Promise<NodeArticle> => {
+export const data: QueryData<DataOpts, NodeArticle> = async (
+  opts
+): Promise<NodeArticle> => {
   return {
     type: "node--article",
     id: "id",

@@ -61,6 +61,7 @@ export async function getStaticProps(context) {
 
   const resource = await queries.getData(type, {
     context,
+    path,
     id: path.entity.uuid,
   })
 
@@ -78,7 +79,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      menu: await queries.getData("menu--main"),
+      menu: await queries.getData("menu", { name: "main" }),
       resource,
     },
   }

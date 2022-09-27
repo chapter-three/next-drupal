@@ -3,7 +3,8 @@ import {
   QueryFormatter,
   QueryOpts,
   QueryParams,
-} from "@next-drupal/query"
+} from "next-drupal-query"
+import { DrupalTranslatedPath } from "next-drupal"
 
 import { Page } from "types"
 import { DrupalNodePage } from "types/drupal"
@@ -17,15 +18,20 @@ export const params: QueryParams<null> = () => {
 }
 
 type DataOpts = QueryOpts<{
+  path: DrupalTranslatedPath
   id: string
 }>
 
 export const data: QueryData<DataOpts, DrupalNodePage> = async (
   opts
 ): Promise<DrupalNodePage> => {
-  return await drupal.getResource<DrupalNodePage>("node--page", opts?.id, {
-    params: params().getQueryObject(),
-  })
+  return await drupal.getResourceFromContext<DrupalNodePage>(
+    opts.path,
+    opts.context,
+    {
+      params: params().getQueryObject(),
+    }
+  )
 }
 
 export const formatter: QueryFormatter<DrupalNodePage, Page> = (node) => {

@@ -23,7 +23,7 @@ export default function IndexPage({
       </Head>
       <div>
         <h1 className="mb-10 text-6xl font-black">Latest Articles.</h1>
-        {otherArticles?.length ? (
+        {articles?.length ? (
           <div className="grid gap-8">
             <CardFeatured
               title={firstArticle.title}
@@ -66,7 +66,7 @@ export default function IndexPage({
 export async function getStaticProps() {
   return {
     props: {
-      menu: await queries.getData("menu--main"),
+      menu: await queries.getData("menu", { name: "main" }),
       articles: await queries.getData("list--articles--published"),
     },
   }

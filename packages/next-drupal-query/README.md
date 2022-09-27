@@ -1,3 +1,3 @@
-# @next-drupal/query
+# next-drupal-query
 
 Intentionally blank page - @shadcn

@@ -4,7 +4,8 @@ import {
   QueryOptsWithPagination,
   withPagination,
   QueryFormatter,
-} from "@next-drupal/query"
+  QueryOpts,
+} from "next-drupal-query"
 
 import { ArticleRelated } from "types"
 import { DrupalNodeArticle } from "types/drupal"
@@ -29,13 +30,18 @@ export const params: QueryParams<ParamOpts> = (opts) => {
   return withPagination(params, opts)
 }
 
-export const data: QueryData<ParamOpts, DrupalNodeArticle[]> = async (
+type DataOpts = QueryOpts<{
+  excludeIds?: string[]
+}>
+
+export const data: QueryData<DataOpts, DrupalNodeArticle[]> = async (
   opts
 ): Promise<DrupalNodeArticle[]> => {
-  return await drupal.getResourceCollection<DrupalNodeArticle[]>(
+  return await drupal.getResourceCollectionFromContext<DrupalNodeArticle[]>(
     "node--article",
+    opts.context,
     {
-      params: params(opts).getQueryObject(),
+      params: params({ excludeIds: opts.excludeIds }).getQueryObject(),
     }
   )
 }

@@ -1,4 +1,4 @@
-import { QueryFormatter } from "@next-drupal/query"
+import { QueryFormatter } from "next-drupal-query"
 
 import { SectionCard } from "types"
 import { queries } from "queries"

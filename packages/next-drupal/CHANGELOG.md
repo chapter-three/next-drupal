@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.4.1...next-drupal@1.5.0) (2022-09-07)
+
+
+### Features
+
+* **next:** implement preview url generator plugins ([64a4d3a](https://github.com/chapter-three/next-drupal/commit/64a4d3a6b5efe5118d6e9c7da0ef0c2653a91187))
+
+
+
+
+
 ## [1.4.1](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.4.0...next-drupal@1.4.1) (2022-07-29)
 
 **Note:** Version bump only for package next-drupal

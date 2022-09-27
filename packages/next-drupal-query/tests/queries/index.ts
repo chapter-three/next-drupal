@@ -1,28 +1,25 @@
-import * as NodeArticle from "./node--article"
-import * as ArticlesPublished from "./articles--published"
+import * as ParamsOnly from "./params-only"
+import * as ParamsWithOpts from "./params-with-opts"
+import * as ParamsNested from "./params-nested"
+import * as DataOnly from "./data-only"
+import * as DataWithOpts from "./data-with-opts"
+import * as PlaceholderOnly from "./placeholder-only"
+import * as PlaceholderWithOpts from "./placeholder-with-opts"
+import * as DataWithPlaceholder from "./data-with-placeholder"
+import * as FormatterOnly from "./formatter-only"
+import * as DataWithFormatter from "./data-with-formatter"
 
-import { createQueries, QueryOpts, QueryParams } from "../../src"
-import { DrupalJsonApiParams } from "drupal-jsonapi-params"
+import { createQueries } from "../../src"
 
-const q = {
-  "node--article": NodeArticle,
-  "articles--published": ArticlesPublished,
-}
-
-export const queries = createQueries(q)
-
-queries.getParams("node--article", {
-  foo: "bar",
+export const queries = createQueries({
+  "params-only": ParamsOnly,
+  "params-with-opts": ParamsWithOpts,
+  "params-nested": ParamsNested,
+  "data-only": DataOnly,
+  "data-with-opts": DataWithOpts,
+  "placeholder-only": PlaceholderOnly,
+  "placeholder-with-opts": PlaceholderWithOpts,
+  "data-with-placeholder": DataWithPlaceholder,
+  "formatter-only": FormatterOnly,
+  "data-with-formatter": DataWithFormatter,
 })
-
-queries.getData("node--article", {})
-
-type ParamOpts = QueryOpts<{
-  id: number
-}>
-
-export const params = (opts: ParamOpts) => {
-  return queries.getParams().addInclude(["field_image", "uid"])
-}
-
-type P = Parameters<typeof params>[0]

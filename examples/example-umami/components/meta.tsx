@@ -20,7 +20,7 @@ export function Meta({ title, description }: MetaProps) {
         href={absoluteURL(router.asPath !== "/" ? router.asPath : "")}
       />
       <title>
-        {title} | {siteConfig.name}
+        {`${title} | ${siteConfig.name}`}
       </title>
       <meta name="description" content={description || siteConfig.slogan} />
       <meta

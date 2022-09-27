@@ -58,15 +58,16 @@ export default function IndexPage({ features }: IndexPageProps) {
               </a>
             </Link>
           </div>
-          <video
-            controls
-            muted
-            autoPlay
-            loop
-            className="w-full overflow-hidden border-2 border-black rounded-md shadow-2xl aspect-video"
-          >
-            <source src="/videos/next-drupal-promo.mp4" type="video/mp4" />
-          </video>
+          <div className="overflow-hidden border-2 border-black rounded-md shadow-2xl aspect-w-16 aspect-h-9">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/dn2PSAcG71Y?controls=0"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full"
+            />
+          </div>
         </div>
       </section>
       <section className="px-6 py-6 md:py-12 lg:py-20">

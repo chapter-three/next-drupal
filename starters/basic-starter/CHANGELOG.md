@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.1](https://github.com/chapter-three/next-drupal/compare/basic-starter@1.7.0...basic-starter@1.7.1) (2022-09-07)
+
+**Note:** Version bump only for package basic-starter
+
+
+
+
+
+# [1.7.0](https://github.com/chapter-three/next-drupal/compare/basic-starter@1.6.0...basic-starter@1.7.0) (2022-07-29)
+
+
+### Features
+
+* **basic-starter:** add type to next.config.js ([c1db60d](https://github.com/chapter-three/next-drupal/commit/c1db60d460ec2c0b2f3149d455e8c1b4bcc4a080))
+* **basic-starter:** fix jsonapi params to work with vanilla drupal ([258019f](https://github.com/chapter-three/next-drupal/commit/258019f5bc0fa34e3ce3a824f99b28ea60b5ad30))
+* **basic-starter:** update the example env variables ([1ed83da](https://github.com/chapter-three/next-drupal/commit/1ed83da4c0ec6ef3f0487f43faf1d8a4fdb29858))
+
+
+
+
+
 # [1.6.0](https://github.com/chapter-three/next-drupal/compare/basic-starter@1.6.0-rc.0...basic-starter@1.6.0) (2022-06-14)
 
 **Note:** Version bump only for package basic-starter

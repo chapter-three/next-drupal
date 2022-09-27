@@ -59,11 +59,7 @@ class NextEntityTypeConfigForm extends EntityForm {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('entity_type.manager'),
-      $container->get('entity_type.bundle.info'),
-      $container->get('plugin.manager.next.site_resolver')
-    );
+    return new static($container->get('entity_type.manager'), $container->get('entity_type.bundle.info'), $container->get('plugin.manager.next.site_resolver'));
   }
 
   /**
@@ -86,21 +82,33 @@ class NextEntityTypeConfigForm extends EntityForm {
       '#submit' => ['::submitId'],
       '#executes_submit_callback' => TRUE,
       '#ajax' => [
-        'callback' => '::ajaxReplaceSiteResolverForm',
-        'wrapper' => 'site-resolver',
+        'callback' => '::ajaxReplaceSettingsForm',
+        'wrapper' => 'settings-container',
         'method' => 'replace',
       ],
     ];
 
-    $form['site_resolver_container'] = [
+    $form['settings_container'] = [
       '#type' => 'container',
-      '#prefix' => '<div id="site-resolver">',
+      '#prefix' => '<div id="settings-container">',
       '#suffix' => '</div>',
     ];
 
     if ($entity->id()) {
-      $form['site_resolver_container']['site_resolver'] = [
-        '#title' => $this->t('Site resolver'),
+      $form['settings_container']['settings'] = [
+        '#type' => 'vertical_tabs',
+        '#title' => $this->t('Settings'),
+      ];
+
+      $form['preview_mode'] = [
+        '#title' => $this->t('Preview Mode'),
+        '#description' => $this->t('Configure preview mode the entity type.'),
+        '#type' => 'details',
+        '#group' => 'settings',
+      ];
+
+      $form['preview_mode']['site_resolver'] = [
+        '#title' => $this->t('Plugin'),
         '#description' => $this->t('Select a plugin to use for resolving the preview site for this entity type.'),
         '#type' => 'select',
         '#options' => array_column($this->siteResolverManager->getDefinitions(), 'label', 'id'),
@@ -116,24 +124,66 @@ class NextEntityTypeConfigForm extends EntityForm {
           'method' => 'replace',
         ],
       ];
-    }
 
-    $form['site_resolver_settings_container'] = [
-      '#type' => 'container',
-      '#prefix' => '<div id="site-resolver-settings">',
-      '#suffix' => '</div>',
-    ];
-
-    $site_resolver = $entity->getSiteResolver();
-    if ($site_resolver instanceof ConfigurableSiteResolverInterface) {
-      $form['site_resolver_settings_container']['settings'] = [
-        '#title' => $this->t('Site resolver configuration'),
-        '#type' => 'fieldset',
-        '#description' => $site_resolver->getDescription(),
+      $form['preview_mode']['site_resolver_settings_container'] = [
+        '#type' => 'container',
+        '#prefix' => '<div id="site-resolver-settings">',
+        '#suffix' => '</div>',
       ];
-      $form['configuration'] = [];
-      $subform_state = SubformState::createForSubform($form['configuration'], $form, $form_state);
-      $form['site_resolver_settings_container']['settings']['configuration'] = $site_resolver->buildConfigurationForm($form['configuration'], $subform_state);
+
+      $site_resolver = $entity->getSiteResolver();
+      if ($site_resolver instanceof ConfigurableSiteResolverInterface) {
+        $form['configuration'] = [];
+        $subform_state = SubformState::createForSubform($form['configuration'], $form, $form_state);
+        $form['preview_mode']['site_resolver_settings_container']['configuration'] = $site_resolver->buildConfigurationForm($form['configuration'], $subform_state);
+      }
+
+      $form['revalidation'] = [
+        '#title' => $this->t('On-demand Revalidation'),
+        '#description' => $this->t('Configure on-demand revalidation for the entity type.'),
+        '#type' => 'details',
+        '#group' => 'settings',
+      ];
+
+      $form['revalidation']['revalidate'] = [
+        '#title' => $this->t('Enable on-demand revalidation'),
+        '#type' => 'checkbox',
+        '#default_value' => $entity->getRevalidate(),
+      ];
+
+      $form['revalidation']['container'] = [
+        '#type' => 'container',
+        '#states' => [
+          'visible' => [
+            ':input[name="revalidation[revalidate]"]' => ['checked' => TRUE],
+          ],
+        ],
+      ];
+
+      $form['revalidation']['container']['revalidate_page'] = [
+        '#title' => $this->t('Revalidate page'),
+        '#type' => 'checkbox',
+        '#default_value' => $entity->getRevalidatePage(),
+        '#states' => [
+          'visible' => [
+            ':input[name="revalidate"]' => ['checked' => TRUE],
+          ],
+        ],
+      ];
+
+      $form['revalidation']['container']['revalidate_paths'] = [
+        '#type' => 'textarea',
+        '#title' => $this->t('Additional paths'),
+        '#description' => $this->t('Additional paths to revalidate on entity update. Enter one path per line. Example %example.', [
+          '%example' => '/blog',
+        ]),
+        '#default_value' => $entity->getRevalidatePaths(),
+        '#states' => [
+          'visible' => [
+            ':input[name="revalidate"]' => ['checked' => TRUE],
+          ],
+        ],
+      ];
     }
 
     return $form;
@@ -150,8 +200,8 @@ class NextEntityTypeConfigForm extends EntityForm {
   /**
    * Handles switching the id selector.
    */
-  public function ajaxReplaceSiteResolverForm($form, FormStateInterface $form_state) {
-    return $form['site_resolver_container'];
+  public function ajaxReplaceSettingsForm($form, FormStateInterface $form_state) {
+    return $form['settings_container'];
   }
 
   /**
@@ -166,7 +216,7 @@ class NextEntityTypeConfigForm extends EntityForm {
    * Handles switching the site resolver selector.
    */
   public function ajaxReplaceSiteResolverSettingsForm($form, FormStateInterface $form_state) {
-    return $form['site_resolver_settings_container'];
+    return $form['preview']['site_resolver_settings_container'];
   }
 
   /**

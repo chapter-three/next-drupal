@@ -3,6 +3,7 @@
 namespace Drupal\next\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\next\Plugin\SiteResolverInterface;
 use Drupal\next\SiteResolverPluginCollection;
 
@@ -44,6 +45,9 @@ use Drupal\next\SiteResolverPluginCollection;
  *     "id",
  *     "site_resolver",
  *     "configuration",
+ *     "revalidate",
+ *     "revalidate_page",
+ *     "revalidate_paths",
  *   },
  *   links = {
  *     "add-form" = "/admin/config/services/next/entity-types/add",
@@ -75,6 +79,27 @@ class NextEntityTypeConfig extends ConfigEntityBase implements NextEntityTypeCon
    * @var array
    */
   protected $configuration = [];
+
+  /**
+   * The revalidate value.
+   *
+   * @var bool
+   */
+  protected $revalidate;
+
+  /**
+   * The revalidate_page value.
+   *
+   * @var bool
+   */
+  protected $revalidate_page;
+
+  /**
+   * The paths to revalidate.
+   *
+   * @var string
+   */
+  protected $revalidate_paths;
 
   /**
    * The plugin collection that stores site_resolver plugins.
@@ -122,6 +147,51 @@ class NextEntityTypeConfig extends ConfigEntityBase implements NextEntityTypeCon
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function getRevalidate(): bool {
+    return $this->revalidate === TRUE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setRevalidate(bool $revalidate): NextEntityTypeConfigInterface {
+    $this->revalidate = $revalidate;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRevalidatePage(): bool {
+    return $this->revalidate_page === TRUE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setRevalidatePage(bool $revalidate_page): NextEntityTypeConfigInterface {
+    $this->revalidate_page = $revalidate_page;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRevalidatePaths(): ?string {
+    return $this->revalidate_paths;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setRevalidatePaths(string $revalidate_paths): NextEntityTypeConfigInterface {
+    $this->revalidate_paths = $revalidate_paths;
+    return $this;
+  }
+
+  /**
    * Encapsulates the creation of the LazyPluginCollection.
    *
    * @return \Drupal\Component\Plugin\LazyPluginCollection
@@ -149,6 +219,23 @@ class NextEntityTypeConfig extends ConfigEntityBase implements NextEntityTypeCon
    */
   protected function siteResolverPluginManager() {
     return \Drupal::service('plugin.manager.next.site_resolver');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRevalidatePathsForEntity(EntityInterface $entity): array {
+    $paths = [];
+
+    if ($this->revalidate_page) {
+      $paths[] = $entity->toUrl()->toString();
+    }
+
+    if ($this->revalidate_paths) {
+      $paths = array_merge($paths, array_map('trim', explode("\n", $this->revalidate_paths)));
+    }
+
+    return $paths;
   }
 
 }

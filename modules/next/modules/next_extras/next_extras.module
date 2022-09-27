@@ -39,25 +39,26 @@ function next_extras_form_next_entity_type_config_edit_form_alter(&$form, FormSt
   $form['experimental'] = [
     '#type' => 'details',
     '#title' => t('Experimental'),
+    '#group' => 'settings',
   ];
 
   $form['experimental']['messages'] = [
     '#theme' => 'status_messages',
     '#message_list' => [
       MessengerInterface::TYPE_WARNING => [
-        t('Experimental features are not production-ready and may change in future releases. Use at your own risk.'),
+        t('DEPRECATED: Use config under On-demand Revalidation.'),
       ],
     ],
   ];
 
-  $form['experimental']['revalidate'] = [
+  $form['experimental']['revalidate_deprecated'] = [
     '#type' => 'checkbox',
     '#title' => t('Revalidate'),
     '#description' => t('If checked, a request will be made to the Next.js site for revalidation when the entity is updated.'),
     '#default_value' => $entity->getThirdPartySetting('next_extras', 'revalidate'),
   ];
 
-  $form['experimental']['revalidate_paths'] = [
+  $form['experimental']['revalidate_paths_deprecated'] = [
     '#type' => 'textarea',
     '#title' => t('Paths'),
     '#description' => t('Additional paths to revalidate on entity update. Enter one path per line. Example %example.', [
@@ -66,7 +67,7 @@ function next_extras_form_next_entity_type_config_edit_form_alter(&$form, FormSt
     '#default_value' => $entity->getThirdPartySetting('next_extras', 'revalidate_paths'),
     '#states' => [
       'visible' => [
-        ':input[name="revalidate"]' => ['checked' => TRUE],
+        ':input[name="revalidate_deprecated"]' => ['checked' => TRUE],
       ],
     ],
   ];
@@ -78,8 +79,8 @@ function next_extras_form_next_entity_type_config_edit_form_alter(&$form, FormSt
  * Callback for entity_builders for next_entity_type_config_edit_form.
  */
 function next_extras_form_next_entity_type_config_edit_form_builder($entity_type, NextEntityTypeConfigInterface $entity, &$form, FormStateInterface $form_state) {
-  $entity->setThirdPartySetting('next_extras', 'revalidate', (bool) $form_state->getValue('revalidate'));
-  $entity->setThirdPartySetting('next_extras', 'revalidate_paths', $form_state->getValue('revalidate_paths'));
+  $entity->setThirdPartySetting('next_extras', 'revalidate', (bool) $form_state->getValue('revalidate_deprecated'));
+  $entity->setThirdPartySetting('next_extras', 'revalidate_paths', $form_state->getValue('revalidate_paths_deprecated'));
 }
 
 /**

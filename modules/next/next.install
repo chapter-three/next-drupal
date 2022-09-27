@@ -27,13 +27,11 @@ function next_update_9102() {
   $entity_definition_update = \Drupal::entityDefinitionUpdateManager();
 
   $storage_definition = BaseFieldDefinition::create('string')
-    ->setLabel(t('Revalidate URL'))
-    ->setRequired(TRUE);
+    ->setLabel(t('Revalidate URL'));
   $entity_definition_update->installFieldStorageDefinition('revalidate_url', 'next_site', 'next_site', $storage_definition);
 
   $storage_definition = BaseFieldDefinition::create('string')
-    ->setLabel(t('Revalidate secret'))
-    ->setRequired(TRUE);
+    ->setLabel(t('Revalidate secret'));
   $entity_definition_update->installFieldStorageDefinition('revalidate_secret', 'next_site', 'next_site', $storage_definition);
 }
 
@@ -57,5 +55,47 @@ function next_update_9103() {
     }
 
     $site->save();
+  }
+}
+
+
+/**
+ * Add the revalidate, revalidate_page and revalidate_paths to next_entity_type_config.
+ */
+function next_update_9104() {
+  $entity_definition_update = \Drupal::entityDefinitionUpdateManager();
+
+  $storage_definition = BaseFieldDefinition::create('boolean')
+    ->setLabel(t('Revalidate'));
+  $entity_definition_update->installFieldStorageDefinition('revalidate', 'next_entity_type_config', 'next_entity_type_config', $storage_definition);
+
+  $storage_definition = BaseFieldDefinition::create('boolean')
+    ->setLabel(t('Revalidate page'));
+  $entity_definition_update->installFieldStorageDefinition('revalidate_page', 'next_entity_type_config', 'next_entity_type_config', $storage_definition);
+
+  $storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('Revalidate paths'));
+  $entity_definition_update->installFieldStorageDefinition('revalidate_paths', 'next_entity_type_config', 'next_entity_type_config', $storage_definition);
+}
+
+/**
+ * Update revalidate paths from next_extras.
+ */
+function next_update_9105() {
+  /** @var \Drupal\next\Entity\NextEntityTypeConfigInterface[] $next_entity_type_configs */
+  $next_entity_type_configs = \Drupal::entityTypeManager()->getStorage('next_entity_type_config')->loadMultiple();
+
+  foreach ($next_entity_type_configs as $next_entity_type_config) {
+    // Enable revalidation if it was set before.
+    $revalidate = (bool) $next_entity_type_config->getThirdPartySetting('next_extras', 'revalidate');
+    $next_entity_type_config->setRevalidate($revalidate);
+    $next_entity_type_config->setRevalidatePage($revalidate);
+
+    // Update paths from revalidation.
+    if ($revalidate_paths = $next_entity_type_config->getThirdPartySetting('next_extras', 'revalidate_paths')) {
+      $next_entity_type_config->setRevalidatePaths($revalidate_paths);
+    }
+
+    $next_entity_type_config->save();
   }
 }

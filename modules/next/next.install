@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Installation and update hooks for next.
+ */
+
+/**
+ * Set simple_oauth as the preview url generator.
+ */
+function next_update_9101() {
+  /** @var \Drupal\Core\Config\Config $config */
+  $config = \Drupal::configFactory()->getEditable('next.settings');
+  $config->set('preview_url_generator', 'simple_oauth')
+    ->set('preview_url_generator_configuration', [
+      'secret_expiration' => 30,
+    ])
+    ->save();
+}

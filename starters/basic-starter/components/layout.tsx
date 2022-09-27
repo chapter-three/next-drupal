@@ -14,6 +14,11 @@ export function Layout({ children }) {
                 Next.js for Drupal
               </a>
             </Link>
+            <Link href="https://next-drupal.org/docs" passHref>
+              <a target="_blank" rel="external" className="hover:text-blue-600">
+                Read the docs
+              </a>
+            </Link>
           </div>
         </header>
         <main className="container py-10 mx-auto">{children}</main>

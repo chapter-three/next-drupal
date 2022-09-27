@@ -3,6 +3,12 @@ title: getView
 excerpt: Fetch a view from Drupal.
 ---
 
+<Callout icon="⚠️">
+
+You need to install the [JSON:API Views](https://www.drupal.org/project/jsonapi_views) module to use `getView`.
+
+</Callout>
+
 ```ts
 const view = await drupal.getView<T = JsonApiResource>(
   name,

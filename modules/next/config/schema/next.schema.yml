@@ -57,6 +57,11 @@ next.settings:
       label: "Site previewer"
     site_previewer_configuration:
       type: next.site_previewer.configuration.[%parent.site_previewer]
+    preview_url_generator:
+      type: string
+      label: "Preview URL generator"
+    preview_url_generator_configuration:
+      type: next.preview_url_generator.configuration.[%parent.preview_url_generator]
 
 next.site_previewer.configuration.iframe:
   type: mapping
@@ -70,3 +75,10 @@ next.site_previewer.configuration.iframe:
     sync_route_skip_routes:
       type: string
       label: "Sync route skip pages"
+
+next.preview_url_generator.configuration.simple_oauth:
+  type: mapping
+  mapping:
+    secret_expiration:
+      type: integer
+      label: "Secret expiration"

@@ -77,6 +77,9 @@ yarn-error.log
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# phpstorm editor
+.idea/
+
 # NPM lock files
 package-lock.json
 
@@ -91,3 +94,4 @@ examples/certificates/*
 drupal/web/sites/default/settings.local.php
 .next
 drupal/web/phpunit.xml
+keys

@@ -7,7 +7,9 @@ use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\SubformState;
 use Drupal\next\Plugin\ConfigurableSitePreviewerInterface;
+use Drupal\next\Plugin\ConfigurablePreviewUrlGeneratorInterface;
 use Drupal\next\Plugin\SitePreviewerManagerInterface;
+use Drupal\next\Plugin\PreviewUrlGeneratorManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -23,26 +25,38 @@ class NextSettingsForm extends ConfigFormBase {
   protected $sitePreviewerManager;
 
   /**
+   * The preview url generator manager.
+   *
+   * @var \Drupal\next\Plugin\PreviewUrlGeneratorManagerInterface
+   */
+  protected PreviewUrlGeneratorManagerInterface $previewUrlGeneratorManager;
+
+  /**
    * NextSettingsForm constructor.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory service.
    * @param \Drupal\next\Plugin\SitePreviewerManagerInterface $site_previewer_manager
    *   The site previewer manager.
+   * @param \Drupal\next\Plugin\PreviewUrlGeneratorManagerInterface $preview_url_generator_manager
+   *   The preview url generator manager.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, SitePreviewerManagerInterface $site_previewer_manager) {
+  public function __construct(ConfigFactoryInterface $config_factory, SitePreviewerManagerInterface $site_previewer_manager, PreviewUrlGeneratorManagerInterface $preview_url_generator_manager = NULL) {
+    if (!$preview_url_generator_manager) {
+      @trigger_error('Calling NextSettingsForm::__construct() without the $preview_url_generator_manager argument is deprecated in next:1.3.0. The $preview_url_generator_manager argument will be required in next:2.0.0. See https://www.drupal.org/project/next/releases/1.3.0', E_USER_DEPRECATED);
+      $preview_url_generator_manager = \Drupal::service('plugin.manager.next.preview_url_generator');
+    }
+
     parent::__construct($config_factory);
     $this->sitePreviewerManager = $site_previewer_manager;
+    $this->previewUrlGeneratorManager = $preview_url_generator_manager;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('config.factory'),
-      $container->get('plugin.manager.next.site_previewer')
-    );
+    return new static($container->get('config.factory'), $container->get('plugin.manager.next.site_previewer'), $container->get('plugin.manager.next.preview_url_generator'));
   }
 
   /**
@@ -65,13 +79,57 @@ class NextSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('next.settings');
 
+    $form['settings'] = [
+      '#type' => 'vertical_tabs',
+      '#title' => $this->t('Settings'),
+    ];
+
+    $form['preview_url_generator_container'] = [
+      '#title' => $this->t('Preview URL'),
+      '#type' => 'details',
+      '#group' => 'settings',
+    ];
+
+    $form['preview_url_generator_container']['preview_url_generator'] = [
+      '#title' => $this->t('Plugin'),
+      '#description' => $this->t('Select a plugin to use for the preview URL generator.'),
+      '#type' => 'select',
+      '#options' => array_column($this->previewUrlGeneratorManager->getDefinitions(), 'label', 'id'),
+      '#default_value' => $config->get('preview_url_generator'),
+      '#required' => TRUE,
+      '#limit_validation_errors' => [['preview_url_generator']],
+      '#submit' => ['::submitPreviewUrlGenerator'],
+      '#executes_submit_callback' => TRUE,
+      '#ajax' => [
+        'callback' => '::ajaxReplacePreviewUrlGeneratorSettingsForm',
+        'wrapper' => 'preview-url-generator-settings',
+        'method' => 'replace',
+      ],
+    ];
+
+    $form['preview_url_generator_container']['settings_container'] = [
+      '#type' => 'container',
+      '#prefix' => '<div id="preview-url-generator-settings">',
+      '#suffix' => '</div>',
+    ];
+
+    if (($preview_url_generator_id = $form_state->getValue('preview_url_generator')) || ($preview_url_generator_id = $config->get('preview_url_generator'))) {
+      $preview_url_generator = $this->previewUrlGeneratorManager->createInstance($preview_url_generator_id, $config->get('preview_url_generator_configuration') ?: []);
+      if ($preview_url_generator instanceof ConfigurablePreviewUrlGeneratorInterface) {
+        $subform_state = SubformState::createForSubform($form['preview_url_generator_container']['settings_container'], $form, $form_state);
+        $form['preview_url_generator_container']['settings_container']['preview_url_generator_configuration'] = $preview_url_generator->buildConfigurationForm($form['preview_url_generator_container']['settings_container'], $subform_state);
+        $form['preview_url_generator_container']['settings_container']['preview_url_generator_configuration']['#tree'] = TRUE;
+      }
+    }
+
     $form['site_previewer_container'] = [
       '#title' => $this->t('Site previewer'),
-      '#type' => 'fieldset',
+      '#type' => 'details',
+      '#group' => 'settings',
     ];
 
     $form['site_previewer_container']['site_previewer'] = [
-      '#title' => $this->t('Site previewer'),
+      '#title' => $this->t('Plugin'),
       '#description' => $this->t('Select a plugin to use for the site preview.'),
       '#type' => 'select',
       '#options' => array_column($this->sitePreviewerManager->getDefinitions(), 'label', 'id'),
@@ -122,6 +180,20 @@ class NextSettingsForm extends ConfigFormBase {
   }
 
   /**
+   * Handles submit call when preview_url_generator is selected.
+   */
+  public function submitPreviewUrlGenerator(array $form, FormStateInterface $form_state) {
+    $form_state->setRebuild();
+  }
+
+  /**
+   * Handles switching the preview_url_generator selector.
+   */
+  public function ajaxReplacePreviewUrlGeneratorSettingsForm($form, FormStateInterface $form_state) {
+    return $form['preview_url_generator_container']['settings_container'];
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
@@ -132,6 +204,14 @@ class NextSettingsForm extends ConfigFormBase {
       if ($site_previewer instanceof ConfigurableSitePreviewerInterface) {
         $subform_state = SubformState::createForSubform($form['site_previewer_configuration'], $form, $form_state);
         $site_previewer->validateConfigurationForm($form, $subform_state);
+      }
+    }
+
+    if ($preview_url_generator_id = $form_state->getValue('preview_url_generator')) {
+      $preview_url_generator = $this->previewUrlGeneratorManager->createInstance($preview_url_generator_id);
+      if ($preview_url_generator instanceof ConfigurablePreviewUrlGeneratorInterface && isset($form['preview_url_generator_container']['settings_container'])) {
+        $subform_state = SubformState::createForSubform($form['preview_url_generator_container']['settings_container'], $form, $form_state);
+        $preview_url_generator->validateConfigurationForm($form, $subform_state);
       }
     }
   }
@@ -150,9 +230,19 @@ class NextSettingsForm extends ConfigFormBase {
       }
     }
 
+    if ($preview_url_generator_id = $form_state->getValue('preview_url_generator')) {
+      $preview_url_generator = $this->previewUrlGeneratorManager->createInstance($preview_url_generator_id);
+      if ($preview_url_generator instanceof ConfigurablePreviewUrlGeneratorInterface) {
+        $subform_state = SubformState::createForSubform($form['preview_url_generator_container']['settings_container'], $form, $form_state);
+        $preview_url_generator->submitConfigurationForm($form, $subform_state);
+      }
+    }
+
     $this->config('next.settings')
       ->set('site_previewer', $form_state->getValue('site_previewer'))
       ->set('site_previewer_configuration', $form_state->getValue('site_previewer_configuration'))
+      ->set('preview_url_generator', $form_state->getValue('preview_url_generator'))
+      ->set('preview_url_generator_configuration', $form_state->getValue('preview_url_generator_configuration'))
       ->save();
   }
 

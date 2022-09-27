@@ -8,6 +8,24 @@
 use Drupal\content_moderation\EntityOperations;
 
 /**
+ * Implements hook_decoupled_router_info_alter().
+ */
+function next_decoupled_router_info_alter(array &$output, array $context) {
+  if (!isset($output['entity']['canonical'])) {
+    return;
+  }
+
+  // If this entity has a canonical url, add the relative url to the output.
+  // This saves an extra trip to JSON:API to fetch the path alias.
+  /** @var \Drupal\Core\Entity\EntityInterface $entity */
+  $entity = $context['entity'];
+  $path = $entity->toUrl()->toString(TRUE);
+  if ($path) {
+    $output['entity']['path'] = $path->getGeneratedUrl();
+  }
+}
+
+/**
  * Implements hook_next_site_preview_alter().
  */
 function next_next_site_preview_alter(array &$preview, array $context) {

@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        drupal: ["8.9", "9.2", "9.3"]
+        drupal: ["8.9", "9.2", "9.3", "9.4"]
     name: Drupal ${{ matrix.drupal }}
     services:
       mysql:
@@ -43,7 +43,7 @@ jobs:
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
       - name: Setup Drupal
         run: |
-          COMPOSER_MEMORY_LIMIT=-1 composer create-project drupal/recommended-project:${{ matrix.drupal }} ~/drupal --no-interaction
+          COMPOSER_MEMORY_LIMIT=-1 composer create-project drupal/recommended-project:${{ matrix.drupal }} ~/drupal --no-interaction --no-install
           cd ~/drupal
           composer config extra.enable-patching true
           composer config extra.compile-mode all
@@ -52,7 +52,9 @@ jobs:
           composer config preferred-install dist
           composer config repositories.0 path $GITHUB_WORKSPACE
           composer config repositories.1 composer https://packages.drupal.org/8
-          COMPOSER_MEMORY_LIMIT=-1 composer require drupal/core-dev:${{ matrix.drupal }} --no-suggest
+          composer config allow-plugins true -n
+          COMPOSER_MEMORY_LIMIT=-1 composer require drupal/core-dev:${{ matrix.drupal }} --no-suggest --no-install
+          composer install
       - name: Add phpspec/prophecy-phpunit
         run: |
           cd ~/drupal

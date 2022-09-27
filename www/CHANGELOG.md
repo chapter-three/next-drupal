@@ -3,6 +3,66 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.1](https://github.com/chapter-three/next-drupal/compare/www@1.9.0...www@1.9.1) (2022-09-07)
+
+
+### Bug Fixes
+
+* **www:** add published field to blog ([fab6433](https://github.com/chapter-three/next-drupal/commit/fab643356c5530eaec1b4b74a378dd003725a73b))
+
+
+
+
+
+# [1.9.0](https://github.com/chapter-three/next-drupal/compare/www@1.8.0...www@1.9.0) (2022-08-09)
+
+
+### Features
+
+* **www:** move front page promo video to YouTube ([e435e86](https://github.com/chapter-three/next-drupal/commit/e435e86971e2ed1216cc26f0e044120823c7b03f))
+
+
+
+
+
+# [1.8.0](https://github.com/chapter-three/next-drupal/compare/www@1.7.0...www@1.8.0) (2022-07-29)
+
+
+### Features
+
+* **www:** add link to demo on home page ([ab5d112](https://github.com/chapter-three/next-drupal/commit/ab5d11215b0c376c58daa0324136a0a307c3a461))
+
+
+
+
+
+# [1.7.0](https://github.com/chapter-three/next-drupal/compare/www@1.7.0-rc.0...www@1.7.0) (2022-06-14)
+
+**Note:** Version bump only for package www
+
+
+
+
+
+# [1.7.0-rc.0](https://github.com/chapter-three/next-drupal/compare/www@1.7.0-alpha.0...www@1.7.0-rc.0) (2022-06-14)
+
+
+### Bug Fixes
+
+* **www:** update docs sidebar scroll ([03497ee](https://github.com/chapter-three/next-drupal/commit/03497ee27057c795a8bcef5e209ec113a6faca5d))
+* **www:** update responsive styles ([e6c55d5](https://github.com/chapter-three/next-drupal/commit/e6c55d52eff9ccf03d48738ccd64ed862e6b49f8))
+* **www:** update sidebar width ([4ba259d](https://github.com/chapter-three/next-drupal/commit/4ba259d5d26dc428eac442216e60ac19e7a1c4c8))
+* **www:** update styles for sidebar ([ef05314](https://github.com/chapter-three/next-drupal/commit/ef053145d0c3d3189bd20bd34d815315f1b62d14))
+
+
+### Features
+
+* rename Experimental_DrupalClient to DrupalClient ([fc549ec](https://github.com/chapter-three/next-drupal/commit/fc549ecab94a5a1e67f38b4e951351365adbb1f5))
+
+
+
+
+
 # [1.7.0-alpha.0](https://github.com/chapter-three/next-drupal/compare/www@1.6.0...www@1.7.0-alpha.0) (2022-06-02)
 
 

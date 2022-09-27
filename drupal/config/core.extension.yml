@@ -19,7 +19,6 @@ module:
   datetime: 0
   dblog: 0
   decoupled_router: 0
-  default_content: 0
   dynamic_page_cache: 0
   editor: 0
   entity_reference_revisions: 0
@@ -52,6 +51,7 @@ module:
   menu_ui: 0
   metatag: 0
   metatag_open_graph: 0
+  mysql: 0
   next: 0
   next_extras: 0
   next_jsonapi: 0

@@ -48,21 +48,26 @@ export default function IndexPage({ features }: IndexPageProps) {
                 Get Started
               </a>
             </Link>
-            <Link href="/docs" passHref>
-              <a className="w-2/3 px-8 py-2 mt-4 font-semibold text-center text-black transition-all bg-white border-2 border-black rounded-md sm:w-auto sm:mt-0 sm:ml-4 hover:bg-gray-100 hover:text-black">
-                Read the docs
+            <Link href="https://demo.next-drupal.org" passHref>
+              <a
+                className="w-2/3 px-8 py-2 mt-4 font-semibold text-center text-black transition-all bg-white border-2 border-black rounded-md sm:w-auto sm:mt-0 sm:ml-4 hover:bg-gray-100 hover:text-black"
+                target="_blank"
+                rel="nofollow noreferrer"
+              >
+                See a demo
               </a>
             </Link>
           </div>
-          <video
-            controls
-            muted
-            autoPlay
-            loop
-            className="w-full overflow-hidden border-2 border-black rounded-md shadow-2xl aspect-video"
-          >
-            <source src="/videos/next-drupal-promo.mp4" type="video/mp4" />
-          </video>
+          <div className="overflow-hidden border-2 border-black rounded-md shadow-2xl aspect-w-16 aspect-h-9">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/dn2PSAcG71Y?controls=0"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full"
+            />
+          </div>
         </div>
       </section>
       <section className="px-6 py-6 md:py-12 lg:py-20">

@@ -1,7 +1,7 @@
 <div align="center">
   <img width="100%" alt="Next.js for drupal" src="https://next-drupal.org/images/meta.jpg" />
   <h1>Next.js for Drupal</h1>
-  <h3 align="center">Next-generation front end for your Drupal site.</h3>
+  <h3 align="center">Next-generation front-end for your Drupal site.</h3>
 </div>
 
 ## Demo
@@ -56,3 +56,7 @@ export async function getStaticProps(context) {
 ## Supporting organizations
 
 Development sponsored by [Chapter Three](https://chapterthree.com)
+
+## Contributing
+
+If you're interested in contributing to Next.js for Drupal, please read the [contributing guidelines](https://github.com/chapter-three/next-drupal/blob/main/CONTRIBUTING.md) before submitting a pull request.

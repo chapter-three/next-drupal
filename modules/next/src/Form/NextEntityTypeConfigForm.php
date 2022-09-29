@@ -9,7 +9,9 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\SubformState;
+use Drupal\next\Plugin\ConfigurableRevalidatorInterface;
 use Drupal\next\Plugin\ConfigurableSiteResolverInterface;
+use Drupal\next\Plugin\RevalidatorManagerInterface;
 use Drupal\next\Plugin\SiteResolverManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -40,6 +42,13 @@ class NextEntityTypeConfigForm extends EntityForm {
   protected $entityTypeBundleInfo;
 
   /**
+   * The revalidator manager.
+   *
+   * @var \Drupal\next\Plugin\RevalidatorManagerInterface
+   */
+  protected $revalidatorManager;
+
+  /**
    * NextEntityTypeConfigForm constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
@@ -48,18 +57,26 @@ class NextEntityTypeConfigForm extends EntityForm {
    *   The entity type bundle info.
    * @param \Drupal\next\Plugin\SiteResolverManagerInterface $site_resolver_manager
    *   The site resolver manager.
+   * @param \Drupal\next\Plugin\RevalidatorManagerInterface $revalidator_manager
+   *   The revalidator manager.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, EntityTypeBundleInfoInterface $entity_type_bundle_info, SiteResolverManagerInterface $site_resolver_manager) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, EntityTypeBundleInfoInterface $entity_type_bundle_info, SiteResolverManagerInterface $site_resolver_manager, RevalidatorManagerInterface $revalidator_manager = NULL) {
+    if (!$revalidator_manager) {
+      @trigger_error('Calling NextEntityTypeConfigForm::__construct() without the $revalidator_manager argument is deprecated in next:1.4.0. The $revalidator_manager argument will be required in next:2.0.0. See https://www.drupal.org/project/next/releases/1.4.0', E_USER_DEPRECATED);
+      $revalidator_manager = \Drupal::service('plugin.manager.next.revalidator');
+    }
+
     $this->entityTypeManager = $entity_type_manager;
     $this->entityTypeBundleInfo = $entity_type_bundle_info;
     $this->siteResolverManager = $site_resolver_manager;
+    $this->revalidatorManager = $revalidator_manager;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('entity_type.manager'), $container->get('entity_type.bundle.info'), $container->get('plugin.manager.next.site_resolver'));
+    return new static($container->get('entity_type.manager'), $container->get('entity_type.bundle.info'), $container->get('plugin.manager.next.site_resolver'), $container->get('plugin.manager.next.revalidator'));
   }
 
   /**
@@ -145,45 +162,35 @@ class NextEntityTypeConfigForm extends EntityForm {
         '#group' => 'settings',
       ];
 
-      $form['revalidation']['revalidate'] = [
-        '#title' => $this->t('Enable on-demand revalidation'),
-        '#type' => 'checkbox',
-        '#default_value' => $entity->getRevalidate(),
+      $form['revalidation']['revalidator'] = [
+        '#title' => $this->t('Plugin'),
+        '#description' => $this->t('Select a plugin to use for on-demand revalidation.'),
+        '#type' => 'select',
+        '#options' => array_merge(['' => $this->t('None')], array_column($this->revalidatorManager->getDefinitions(), 'label', 'id')),
+        '#default_value' => $entity->getRevalidator() ? $entity->getRevalidator()
+          ->getId() : NULL,
+        '#limit_validation_errors' => [['revalidator']],
+        '#submit' => ['::submitRevalidator'],
+        '#executes_submit_callback' => TRUE,
+        '#ajax' => [
+          'callback' => '::ajaxReplaceRevalidatorSettingsForm',
+          'wrapper' => 'revalidator-settings',
+          'method' => 'replace',
+        ],
       ];
 
-      $form['revalidation']['container'] = [
+      $form['revalidation']['revalidator_settings_container'] = [
         '#type' => 'container',
-        '#states' => [
-          'visible' => [
-            ':input[name="revalidation[revalidate]"]' => ['checked' => TRUE],
-          ],
-        ],
+        '#prefix' => '<div id="revalidator-settings">',
+        '#suffix' => '</div>',
       ];
 
-      $form['revalidation']['container']['revalidate_page'] = [
-        '#title' => $this->t('Revalidate page'),
-        '#type' => 'checkbox',
-        '#default_value' => $entity->getRevalidatePage(),
-        '#states' => [
-          'visible' => [
-            ':input[name="revalidate"]' => ['checked' => TRUE],
-          ],
-        ],
-      ];
-
-      $form['revalidation']['container']['revalidate_paths'] = [
-        '#type' => 'textarea',
-        '#title' => $this->t('Additional paths'),
-        '#description' => $this->t('Additional paths to revalidate on entity update. Enter one path per line. Example %example.', [
-          '%example' => '/blog',
-        ]),
-        '#default_value' => $entity->getRevalidatePaths(),
-        '#states' => [
-          'visible' => [
-            ':input[name="revalidate"]' => ['checked' => TRUE],
-          ],
-        ],
-      ];
+      $revalidator = $entity->getRevalidator();
+      if ($revalidator instanceof ConfigurableRevalidatorInterface) {
+        $form['revalidator_configuration'] = [];
+        $subform_state = SubformState::createForSubform($form['revalidator_configuration'], $form, $form_state);
+        $form['revalidation']['revalidator_settings_container']['revalidator_configuration'] = $revalidator->buildConfigurationForm($form['revalidator_configuration'], $subform_state);
+      }
     }
 
     return $form;
@@ -216,7 +223,22 @@ class NextEntityTypeConfigForm extends EntityForm {
    * Handles switching the site resolver selector.
    */
   public function ajaxReplaceSiteResolverSettingsForm($form, FormStateInterface $form_state) {
-    return $form['preview']['site_resolver_settings_container'];
+    return $form['preview_mode']['site_resolver_settings_container'];
+  }
+
+  /**
+   * Handles submit call when revalidator is selected.
+   */
+  public function submitRevalidator(array $form, FormStateInterface $form_state) {
+    $this->entity = $this->buildEntity($form, $form_state);
+    $form_state->setRebuild();
+  }
+
+  /**
+   * Handles switching the revalidator selector.
+   */
+  public function ajaxReplaceRevalidatorSettingsForm($form, FormStateInterface $form_state) {
+    return $form['revalidation']['revalidator_settings_container'];
   }
 
   /**
@@ -238,6 +260,11 @@ class NextEntityTypeConfigForm extends EntityForm {
     if ($site_resolver instanceof ConfigurableSiteResolverInterface) {
       $site_resolver->validateConfigurationForm($form, $form_state);
     }
+
+    $revalidator = $entity->getRevalidator();
+    if ($revalidator instanceof ConfigurableRevalidatorInterface) {
+      $revalidator->validateConfigurationForm($form, $form_state);
+    }
   }
 
   /**
@@ -249,9 +276,15 @@ class NextEntityTypeConfigForm extends EntityForm {
     /** @var \Drupal\next\Entity\NextEntityTypeConfigInterface $entity */
     $entity = $this->entity;
     $site_resolver = $entity->getSiteResolver();
+    $revalidator = $entity->getRevalidator();
 
     if ($site_resolver instanceof ConfigurableSiteResolverInterface) {
       $site_resolver->submitConfigurationForm($form, $form_state);
+    }
+
+    if ($revalidator instanceof ConfigurableRevalidatorInterface) {
+      $revalidator->submitConfigurationForm($form, $form_state);
+      $this->entity->getRevalidatorPluginCollection()->addInstanceId($revalidator->getId(), $revalidator->getConfiguration());
     }
 
     $entity->save();

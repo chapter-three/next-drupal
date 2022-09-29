@@ -5,8 +5,6 @@ namespace Drupal\Tests\next\Kernel\Plugin;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\next\Entity\NextEntityTypeConfig;
 use Drupal\next\Entity\NextSite;
-use Drupal\node\Entity\Node;
-use Drupal\path_alias\Entity\PathAlias;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 
 /**
@@ -48,75 +46,120 @@ class NextEntityTypeConfigTest extends KernelTestBase {
   }
 
   /**
-   * Tests.
+   * Tests the site resolver.
    *
    * @coversClass \Drupal\next\Entity\NextEntityTypeConfig
    */
-  public function test() {
+  public function testSiteResolver() {
+    $blog_site = NextSite::create([
+      'id' => 'blog'
+    ]);
+    $blog_site->save();
+
     // Create entity type config.
+    /** @var \Drupal\next\Entity\NextEntityTypeConfigInterface $entity_type_config */
     $entity_type_config = NextEntityTypeConfig::create([
       'id' => 'node.page',
       'site_resolver' => 'site_selector',
       'configuration' => [
         'sites' => [
           'blog' => 'blog',
-          'marketing' => 'marketing',
         ],
       ],
     ]);
     $entity_type_config->save();
 
-    $this->assertSame('site_selector', $entity_type_config->getSiteResolver()
-      ->getId());
-    $this->assertFalse($entity_type_config->getRevalidate());
-    $this->assertFalse($entity_type_config->getRevalidatePage());
+    $site_resolver = $entity_type_config->getSiteResolver();
+    $this->assertSame('site_selector', $site_resolver->getId());
+    $this->assertSame([
+      'sites' => [
+        'blog' => 'blog',
+      ],
+    ], $entity_type_config->getConfiguration());
+    $this->assertSame([
+      'sites' => [
+        'blog' => 'blog',
+      ],
+    ], $entity_type_config->getSiteResolverConfiguration());
+    $page = $this->createNode(['type' => 'page']);
+    $page->save();
+    $this->assertSame(['blog'], array_keys($site_resolver->getSitesForEntity($page)));
 
-    $entity_type_config->setRevalidate(TRUE);
-    $this->assertTrue($entity_type_config->getRevalidate());
+    $entity_type_config->setSiteResolverConfiguration('site_selector', [
+      'sites' => [
+        'blog' => 'blog',
+        'marketing' => 'marketing',
+      ],
+    ])->save();
+    $this->assertSame([
+      'sites' => [
+        'blog' => 'blog',
+        'marketing' => 'marketing',
+      ],
+    ], $entity_type_config->getSiteResolverConfiguration());
+    $this->assertSame(['blog'], array_keys($site_resolver->getSitesForEntity($page)));
+
+    NextSite::create([
+      'id' => 'marketing',
+    ])->save();
+    $this->assertSame(['blog', 'marketing'], array_keys($site_resolver->getSitesForEntity($page)));
   }
 
   /**
-   * Tests revalidate paths.
+   * Tests the revalidator plugin.
+   *
+   * @covers ::getRevalidator
+   * @covers ::setRevalidator
+   * @covers ::getRevalidatorConfiguration
+   * @covers ::setRevalidatorConfiguration
+   * @covers ::getRevalidatorPluginCollection
    */
-  public function testGetRevalidatePathsForEntity() {
-    $page = $this->createNode();
-    $page->save();
+  public function testRevalidator() {
+    $blog_site = NextSite::create([
+      'id' => 'blog'
+    ]);
+    $blog_site->save();
 
+    // Create entity type config.
+    /** @var \Drupal\next\Entity\NextEntityTypeConfigInterface $entity_type_config */
     $entity_type_config = NextEntityTypeConfig::create([
       'id' => 'node.page',
       'site_resolver' => 'site_selector',
       'configuration' => [
         'sites' => [
           'blog' => 'blog',
-          'marketing' => 'marketing',
         ],
       ],
     ]);
     $entity_type_config->save();
+    $this->assertNull($entity_type_config->getRevalidator());
 
-    $this->assertEmpty($entity_type_config->getRevalidatePathsForEntity($page));
+    $entity_type_config->setRevalidator('path')->save();
 
-    $entity_type_config->setRevalidatePaths("/\r\n/pages\r\n/about")->save();
-    $this->assertSame([
-      '/',
-      '/pages',
-      '/about',
-    ], $entity_type_config->getRevalidatePathsForEntity($page));
+    $revalidator = $entity_type_config->getRevalidator();
+    $this->assertSame('path', $revalidator->getId());
 
-    $entity_type_config->setRevalidatePaths("/\n/pages\n/about")->save();
-    $this->assertSame([
-      '/',
-      '/pages',
-      '/about',
-    ], $entity_type_config->getRevalidatePathsForEntity($page));
+    $page = $this->createNode();
+    $page->save();
 
-    $entity_type_config->setRevalidatePage(TRUE)->save();
-    $this->assertSame([
-      '/node/1',
-      '/',
-      '/pages',
-      '/about',
-    ], $entity_type_config->getRevalidatePathsForEntity($page));
+    $this->assertEmpty($revalidator->getPathsForEntity($page));
+
+    $entity_type_config->setRevalidatorConfiguration('path', [
+      'revalidate_page' => 1,
+    ])->save();
+
+    $this->assertSame(['/node/1'], $revalidator->getPathsForEntity($page));
+
+    $entity_type_config->setRevalidatorConfiguration('path', [
+      'additional_paths' => "/\n/about",
+    ])->save();
+    $this->assertSame(['/', '/about'], $revalidator->getPathsForEntity($page));
+
+    $entity_type_config->setRevalidatorConfiguration('path', [
+      'revalidate_page' => 1,
+      'additional_paths' => "/\n/about",
+    ])->save();
+    $this->assertSame(['/node/1', '/', '/about'], $revalidator->getPathsForEntity($page));
   }
 
 }

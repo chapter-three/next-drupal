@@ -5,7 +5,10 @@ namespace Drupal\next\Entity;
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityWithPluginCollectionInterface;
+use Drupal\next\Plugin\RevalidatorInterface;
 use Drupal\next\Plugin\SiteResolverInterface;
+use Drupal\next\RevalidatorPluginCollection;
+use Drupal\next\SiteResolverPluginCollection;
 
 /**
  * Provides an interface for next_entity_type_config entity definitions.
@@ -32,6 +35,25 @@ interface NextEntityTypeConfigInterface extends ConfigEntityInterface, EntityWit
   public function setSiteResolver(string $plugin_id): self;
 
   /**
+   * Returns the revalidator plugin.
+   *
+   * @return \Drupal\next\Plugin\Next\Revalidator\|null
+   *   The revalidator plugin used by this entity.
+   */
+  public function getRevalidator(): ?RevalidatorInterface;
+
+  /**
+   * Sets the revalidator plugin.
+   *
+   * @param string $plugin_id
+   *   The revalidator plugin ID.
+   *
+   * @return \Drupal\next\Entity\NextEntityTypeConfigInterface
+   *   The next_entity_type_config entity.
+   */
+  public function setRevalidator(string $plugin_id): self;
+
+  /**
    * Returns the config for the next_entity_type_config.
    *
    * @return array
@@ -51,71 +73,61 @@ interface NextEntityTypeConfigInterface extends ConfigEntityInterface, EntityWit
   public function setConfiguration(array $configuration): self;
 
   /**
-   * Returns the value for revalidate.
-   *
-   * @return bool
-   *   TRUE if should revalidate. FALSE otherwise.
-   */
-  public function getRevalidate(): bool;
-
-  /**
-   * Sets the value for revalidate.
-   *
-   * @param bool $revalidate
-   *   The value for revalidate.
-   *
-   * @return \Drupal\next\Entity\NextEntityTypeConfigInterface
-   *   The next_entity_type_config entity.
-   */
-  public function setRevalidate(bool $revalidate): self;
-
-  /**
-   * Returns the value for revalidate_page.
-   *
-   * @return bool
-   *   TRUE if should revalidate page. FALSE otherwise.
-   */
-  public function getRevalidatePage(): bool;
-
-  /**
-   * Sets the value for revalidate_page.
-   *
-   * @param bool $revalidate_page
-   *   The value for revalidate_page.
-   *
-   * @return \Drupal\next\Entity\NextEntityTypeConfigInterface
-   *   The next_entity_type_config entity.
-   */
-  public function setRevalidatePage(bool $revalidate_page): self;
-
-  /**
-   * Returns the value for revalidate_paths.
-   *
-   * @return string|null
-   *   Paths to revalidate.
-   */
-  public function getRevalidatePaths(): ?string;
-
-  /**
-   * Sets the value for revalidate_paths.
-   *
-   * @param string $revalidate_paths
-   *   Paths to revalidate.
-   *
-   * @return \Drupal\next\Entity\NextEntityTypeConfigInterface
-   *   The next_entity_type_config entity.
-   */
-  public function setRevalidatePaths(string $revalidate_paths): self;
-
-  /**
-   * Returns an array of paths to revalidate for an entity.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The entity.
+   * Returns the config for the site resolver.
    *
    * @return array
-   *   The array of paths to revalidate for the given entity.
+   *   The config for the site resolver.
    */
-  public function getRevalidatePathsForEntity(EntityInterface $entity): array;
+  public function getSiteResolverConfiguration();
+
+  /**
+   * Sets the configuration for the site resolver.
+   *
+   * @param string $id
+   *   The plugin id.
+   * @param array $configuration
+   *   A configuration array.
+   *
+   * @return \Drupal\next\Entity\NextEntityTypeConfigInterface
+   *   The next_entity_type_config entity.
+   */
+  public function setSiteResolverConfiguration(string $id, array $configuration): self;
+
+  /**
+   * Returns the config for the next_entity_type_config.
+   *
+   * @return array
+   *   The config for the next_entity_type_config.
+   */
+  public function getRevalidatorConfiguration();
+
+  /**
+   * Sets the configuration or the next_entity_type_config.
+   *
+   * @param string $id
+   *   The plugin id.
+   * @param array $configuration
+   *   A configuration array.
+   *
+   * @return \Drupal\next\Entity\NextEntityTypeConfigInterface
+   *   The next_entity_type_config entity.
+   */
+  public function setRevalidatorConfiguration(string $id, array $configuration): self;
+
+  /**
+   * Encapsulates the creation of the LazyPluginCollection.
+   *
+   * @return \Drupal\Component\Plugin\LazyPluginCollection
+   *   The plugin collection.
+   */
+  public function getRevalidatorPluginCollection();
+
+  /**
+   * Encapsulates the creation of the LazyPluginCollection.
+   *
+   * @return \Drupal\Component\Plugin\LazyPluginCollection
+   *   The plugin collection.
+   */
+  public function getPluginCollection();
 
 }

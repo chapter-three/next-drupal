@@ -34,14 +34,15 @@ interface RevalidatorInterface {
   public function getDescription(): string;
 
   /**
-   * Returns an array of paths to revalidate for the given entity.
+   * Revalidates an entity.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity.
-   *
-   * @return array
-   *   An array of paths.
+   * @param \Drupal\next\Entity\NextSiteInterface[] $sites
+   *   The sites for the entity.
+   * @param string $action
+   *   The action.
    */
-  public function getPathsForEntity(EntityInterface $entity): array;
+  public function revalidate(EntityInterface $entity, array $sites, string $action);
 
 }

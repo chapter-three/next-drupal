@@ -3,7 +3,6 @@
 namespace Drupal\next;
 
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\next\Entity\NextEntityTypeConfigInterface;

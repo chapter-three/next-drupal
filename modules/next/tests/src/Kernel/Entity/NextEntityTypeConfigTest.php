@@ -149,17 +149,6 @@ class NextEntityTypeConfigTest extends KernelTestBase {
     ])->save();
 
     $this->assertSame(['/node/1'], $revalidator->getPathsForEntity($page));
-
-    $entity_type_config->setRevalidatorConfiguration('path', [
-      'additional_paths' => "/\n/about",
-    ])->save();
-    $this->assertSame(['/', '/about'], $revalidator->getPathsForEntity($page));
-
-    $entity_type_config->setRevalidatorConfiguration('path', [
-      'revalidate_page' => 1,
-      'additional_paths' => "/\n/about",
-    ])->save();
-    $this->assertSame(['/node/1', '/', '/about'], $revalidator->getPathsForEntity($page));
   }
 
 }

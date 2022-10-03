@@ -54,6 +54,11 @@ services:
     arguments: ['@next.settings.manager', '@logger.channel.next']
     tags:
       - { name: event_subscriber }
+  next.entity_action_event_revalidate_subscriber:
+    class: Drupal\next\EventSubscriber\EntityActionEventRevalidateSubscriber
+    arguments: ['@next.entity_type.manager']
+    tags:
+      - { name: event_subscriber }
   logger.channel.next:
     parent: logger.channel_base
     arguments: [ 'next' ]

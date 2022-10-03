@@ -85,15 +85,25 @@ class Path extends ConfigurableRevalidatorBase implements RevalidatorInterface {
             throw new \Exception('No revalidate url set.');
           }
 
-          $this->logger->notice('Revalidating page at %url', [
-            '%url' => $revalidate_url,
-          ]);
-
-          $response = $this->httpClient->get($revalidate_url);
-          if ($response->getStatusCode() === Response::HTTP_OK) {
-            $this->logger->notice('Successfully revalidated page at %url', [
-              '%url' => $revalidate_url,
+          if ($this->nextSettingsManager->isDebug()) {
+            $this->logger->notice('(@action): Revalidating path %path for the site %site. URL: %url', [
+              '@action' => $action,
+              '%path' => $path,
+              '%site' => $site->label(),
+              '%url' => $revalidate_url->toString(),
             ]);
+          }
+
+          $response = $this->httpClient->get($revalidate_url->toString());
+          if ($response->getStatusCode() === Response::HTTP_OK) {
+            if ($this->nextSettingsManager->isDebug()) {
+              $this->logger->notice('(@action): Successfully revalidated path %path for the site %site. URL: %url', [
+                '@action' => $action,
+                '%path' => $path,
+                '%site' => $site->label(),
+                '%url' => $revalidate_url->toString(),
+              ]);
+            }
           }
         }
         catch (RequestException $exception) {

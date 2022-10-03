@@ -84,39 +84,6 @@ function next_extras_form_next_entity_type_config_edit_form_builder($entity_type
 }
 
 /**
- * Implements hook_entity_insert().
- */
-function next_extras_entity_insert(EntityInterface $entity) {
-  $paths = \Drupal::service('next_extras.cache_invalidator')->getPathsToInvalidate($entity);
-
-  drupal_register_shutdown_function('_next_extras_invalidate_entity_cache', $entity, $paths);
-}
-
-/**
- * Implements hook_entity_update().
- */
-function next_extras_entity_update(EntityInterface $entity) {
-  $paths = \Drupal::service('next_extras.cache_invalidator')->getPathsToInvalidate($entity);
-
-  drupal_register_shutdown_function('_next_extras_invalidate_entity_cache', $entity, $paths);
-}
-
-/**
- * Implements hook_entity_predelete().
- */
-function next_extras_entity_predelete(EntityInterface $entity) {
-  // Assumes only entity with canonical link have equivalent page on Next sites.
-  // TODO: Refactor this to the NextEntityTypeManager service?
-  if (!$entity->hasLinkTemplate('canonical')) {
-    return;
-  }
-
-  $paths = \Drupal::service('next_extras.cache_invalidator')->getPathsToInvalidate($entity);
-
-  drupal_register_shutdown_function('_next_extras_invalidate_entity_cache', $entity, $paths);
-}
-
-/**
  * Shutdown callback for invalidating entity cache.
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
@@ -125,6 +92,7 @@ function next_extras_entity_predelete(EntityInterface $entity) {
  *   An array of paths to revalidate.
  */
 function _next_extras_invalidate_entity_cache(EntityInterface $entity, array $paths) {
+  @trigger_error(__FUNCTION__ . '() is deprecated in next:1.4.0 and is removed from next:1.5.0. https://www.drupal.org/project/next/releases/1.4.0', E_USER_DEPRECATED);
   /** @var \Drupal\next_extras\NextCacheInvalidator $next_cache_invalidator */
   $next_cache_invalidator = \Drupal::service('next_extras.cache_invalidator');
 

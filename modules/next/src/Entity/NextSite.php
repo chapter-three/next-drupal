@@ -259,4 +259,27 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
     return Url::fromUri("{$this->base_url}{$entity->toUrl()->toString()}");
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getRevalidateUrlForPath(string $path): ?Url {
+    $revalidate_url = $this->getRevalidateUrl();
+
+    if (!$revalidate_url) {
+      return NULL;
+    }
+
+    $query = [
+      'slug' => $path,
+    ];
+
+    if ($secret = $this->getRevalidateSecret()) {
+      $query['secret'] = $secret;
+    }
+
+    return Url::fromUri($this->getRevalidateUrl(), [
+      'query' => $query,
+    ]);
+  }
+
 }

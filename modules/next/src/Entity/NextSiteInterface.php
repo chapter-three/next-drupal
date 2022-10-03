@@ -128,4 +128,15 @@ interface NextSiteInterface extends ConfigEntityInterface {
    */
   public function setRevalidateSecret(string $revalidate_secret): self;
 
+  /**
+   * Returns the revalidate url for given path.
+   *
+   * @param string $path
+   *   The path.
+   *
+   * @return \Drupal\Core\Url|null
+   *   The revalidate url.
+   */
+  public function getRevalidateUrlForPath(string $path): ?Url;
+
 }

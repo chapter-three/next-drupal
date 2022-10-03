@@ -60,4 +60,26 @@ class NextSiteTest extends KernelTestBase {
     $this->assertSame('xxxxxx', $marketing->getRevalidateSecret());
   }
 
+  /**
+   * @covers ::getRevalidateUrlForPath
+   */
+  public function testGetRevalidateUrlForPath() {
+    $marketing = NextSite::create([
+      'label' => 'Marketing',
+      'id' => 'marketing',
+      'base_url' => 'https://marketing.com',
+      'preview_url' => 'https://marketing.com/api/preview',
+      'preview_secret' => 'two',
+    ]);
+    $marketing->save();
+
+    $this->assertNull($marketing->getRevalidateUrlForPath('/foo'));
+
+    $marketing->setRevalidateUrl('http://example.com/api/revalidate');
+    $this->assertSame('http://example.com/api/revalidate?slug=/foo', $marketing->getRevalidateUrlForPath('/foo')->toString());
+
+    $marketing->setRevalidateSecret('12345');
+    $this->assertSame('http://example.com/api/revalidate?slug=/foo&secret=12345', $marketing->getRevalidateUrlForPath('/foo')->toString());
+  }
+
 }

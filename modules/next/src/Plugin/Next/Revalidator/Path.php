@@ -7,6 +7,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\next\Annotation\Revalidator;
 use Drupal\next\Plugin\ConfigurableRevalidatorBase;
 use Drupal\next\Plugin\RevalidatorInterface;
+use GuzzleHttp\Exception\RequestException;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Provides a revalidator for paths.
@@ -63,14 +65,63 @@ class Path extends ConfigurableRevalidatorBase implements RevalidatorInterface {
   /**
    * {@inheritdoc}
    */
+  public function revalidate(EntityInterface $entity, array $sites, string $action) {
+    if (!count($sites)) {
+      return NULL;
+    }
+
+    $paths = $this->getPathsForEntity($entity);
+
+    if (!count($paths)) {
+      return NULL;
+    }
+
+    foreach ($paths as $path) {
+      foreach ($sites as $site) {
+        try {
+          $revalidate_url = $site->getRevalidateUrlForPath($path);
+
+          if (!$revalidate_url) {
+            throw new \Exception('No revalidate url set.');
+          }
+
+          $this->logger->notice('Revalidating page at %url', [
+            '%url' => $revalidate_url,
+          ]);
+
+          $response = $this->httpClient->get($revalidate_url);
+          if ($response->getStatusCode() === Response::HTTP_OK) {
+            $this->logger->notice('Successfully revalidated page at %url', [
+              '%url' => $revalidate_url,
+            ]);
+          }
+        }
+        catch (RequestException $exception) {
+          watchdog_exception('next', $exception);
+        }
+      }
+    }
+  }
+
+  /**
+   * Returns an array of paths to revalidate for the given entity.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity.
+   *
+   * @return array
+   *   An array of paths.
+   *
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   */
   public function getPathsForEntity(EntityInterface $entity): array {
     $paths = [];
 
-    if ($this->configuration['revalidate_page']) {
+    if (!empty($this->configuration['revalidate_page']) && $entity->hasLinkTemplate('canonical')) {
       $paths[] = $entity->toUrl()->toString();
     }
 
-    if ($this->configuration['additional_paths']) {
+    if (!empty($this->configuration['additional_paths'])) {
       $paths = array_merge($paths, array_map('trim', explode("\n", $this->configuration['additional_paths'])));
     }
 

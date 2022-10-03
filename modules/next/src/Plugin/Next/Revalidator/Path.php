@@ -106,7 +106,7 @@ class Path extends ConfigurableRevalidatorBase implements RevalidatorInterface {
             }
           }
         }
-        catch (RequestException $exception) {
+        catch (\Exception $exception) {
           watchdog_exception('next', $exception);
         }
       }

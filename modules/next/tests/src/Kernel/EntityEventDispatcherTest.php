@@ -46,19 +46,19 @@ class EntityEventDispatcherTest extends KernelTestBase {
     $this->container->set('next.entity_event_dispatcher', $entity_event_dispatcher->reveal());
 
     $entity = Argument::type(EntityInterface::class);
-    $entity_event_dispatcher->dispatch($entity, 'insert')->shouldBeCalled();
+    $entity_event_dispatcher->dispatch($entity, 'insert', [])->shouldBeCalled();
 
     // Insert.
     $page = $this->createNode(['type' => 'page']);
     _drupal_shutdown_function();
 
     // Update.
-    $entity_event_dispatcher->dispatch($entity, 'update')->shouldBeCalled();
+    $entity_event_dispatcher->dispatch($entity, 'update', [])->shouldBeCalled();
     $page->save();
     _drupal_shutdown_function();
 
     // Delete.
-    $entity_event_dispatcher->dispatch($entity, 'delete')->shouldBeCalled();
+    $entity_event_dispatcher->dispatch($entity, 'delete', ['original_path' => '/node/1'])->shouldBeCalled();
     $page->delete();
     _drupal_shutdown_function();
   }

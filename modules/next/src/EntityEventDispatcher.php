@@ -42,10 +42,10 @@ class EntityEventDispatcher implements EntityEventDispatcherInterface {
   /**
    * {@inheritdoc}
    */
-  public function dispatch(EntityInterface $entity, string $action) {
+  public function dispatch(EntityInterface $entity, string $action, array $meta = []) {
     $sites = $this->nextEntityTypeManager->getSitesForEntity($entity);
 
-    $event = new EntityActionEvent($entity, $sites, $action);
+    $event = new EntityActionEvent($entity, $sites, $action, $meta);
 
     $this->eventDispatcher->dispatch($event, EntityEvents::ENTITY_ACTION);
   }

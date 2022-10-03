@@ -7,7 +7,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\next\Annotation\Revalidator;
 use Drupal\next\Plugin\ConfigurableRevalidatorBase;
 use Drupal\next\Plugin\RevalidatorInterface;
-use GuzzleHttp\Exception\RequestException;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -20,6 +19,8 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class Path extends ConfigurableRevalidatorBase implements RevalidatorInterface {
+
+  const ORIGINAL_PATH = 'original_path';
 
   /**
    * {@inheritdoc}
@@ -65,12 +66,12 @@ class Path extends ConfigurableRevalidatorBase implements RevalidatorInterface {
   /**
    * {@inheritdoc}
    */
-  public function revalidate(EntityInterface $entity, array $sites, string $action) {
+  public function revalidate(EntityInterface $entity, array $sites, string $action, array $meta = []) {
     if (!count($sites)) {
       return NULL;
     }
 
-    $paths = $this->getPathsForEntity($entity);
+    $paths = $this->getPathsForEntity($entity, $meta[static::ORIGINAL_PATH] ?? NULL);
 
     if (!count($paths)) {
       return NULL;
@@ -118,17 +119,24 @@ class Path extends ConfigurableRevalidatorBase implements RevalidatorInterface {
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity.
+   * @param string|null $default_page_path
+   *   The default page path to use for this entity.
    *
    * @return array
    *   An array of paths.
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function getPathsForEntity(EntityInterface $entity): array {
+  public function getPathsForEntity(EntityInterface $entity, string $default_page_path = NULL): array {
     $paths = [];
 
-    if (!empty($this->configuration['revalidate_page']) && $entity->hasLinkTemplate('canonical')) {
-      $paths[] = $entity->toUrl()->toString();
+    if (!empty($this->configuration['revalidate_page'])) {
+      if ($default_page_path) {
+        $paths[] = $default_page_path;
+      }
+      elseif ($entity->hasLinkTemplate('canonical')) {
+        $paths[] = $entity->toUrl()->toString();
+      }
     }
 
     if (!empty($this->configuration['additional_paths'])) {

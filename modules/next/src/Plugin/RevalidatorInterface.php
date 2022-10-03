@@ -42,7 +42,9 @@ interface RevalidatorInterface {
    *   The sites for the entity.
    * @param string $action
    *   The action.
+   * @param array $meta
+   *   An array of additional meta data for context.
    */
-  public function revalidate(EntityInterface $entity, array $sites, string $action);
+  public function revalidate(EntityInterface $entity, array $sites, string $action, array $meta = []);
 
 }

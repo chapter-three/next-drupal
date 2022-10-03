@@ -2,11 +2,9 @@
 
 namespace Drupal\next\EventSubscriber;
 
-use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\next\Event\EntityActionEvent;
 use Drupal\next\Event\EntityEvents;
 use Drupal\next\NextEntityTypeManagerInterface;
-use Drupal\next\NextSettingsManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -60,7 +58,7 @@ class EntityActionEventRevalidateSubscriber implements EventSubscriberInterface 
       return;
     }
 
-    $revalidator->revalidate($event->getEntity(), $event->getSites(), $event->getAction());
+    $revalidator->revalidate($event->getEntity(), $event->getSites(), $event->getAction(), $event->getMeta());
   }
 
 }

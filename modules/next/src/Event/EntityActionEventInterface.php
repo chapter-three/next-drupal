@@ -48,4 +48,12 @@ interface EntityActionEventInterface {
    */
   public function getAction(): string;
 
+  /**
+   * Gets the event meta data.
+   *
+   * @return array
+   *   The event meta data.
+   */
+  public function getMeta(): array;
+
 }

@@ -16,7 +16,9 @@ interface EntityEventDispatcherInterface {
    *   The entity.
    * @param string $action
    *   The action.
+   * @param array $meta
+   *   An array of meta data.
    */
-  public function dispatch(EntityInterface $entity, string $action);
+  public function dispatch(EntityInterface $entity, string $action, array $meta = []);
 
 }

@@ -34,6 +34,13 @@ class EntityActionEvent extends Event implements EntityActionEventInterface {
   protected string $action;
 
   /**
+   * Additional meta data for the event.
+   *
+   * @var array|null
+   */
+  protected ?array $meta;
+
+  /**
    * EntityActionEvent constructor.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
@@ -42,11 +49,14 @@ class EntityActionEvent extends Event implements EntityActionEventInterface {
    *   The sites for the entity.
    * @param string $action
    *   The action.
+   * @param array $meta
+   *   Additional meta data for the event.
    */
-  public function __construct(EntityInterface $entity, array $sites, string $action) {
+  public function __construct(EntityInterface $entity, array $sites, string $action, array $meta = []) {
     $this->entity = $entity;
     $this->sites = $sites;
     $this->action = $action;
+    $this->meta = $meta;
   }
 
   /**
@@ -68,6 +78,13 @@ class EntityActionEvent extends Event implements EntityActionEventInterface {
    */
   public function getAction(): string {
     return $this->action;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMeta(): array {
+    return $this->meta;
   }
 
 }

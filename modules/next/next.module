@@ -8,6 +8,7 @@
 use Drupal\content_moderation\EntityOperations;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\next\Event\EntityActionEventInterface;
+use Drupal\next\Plugin\Next\Revalidator\Path;
 
 /**
  * Implements hook_decoupled_router_info_alter().
@@ -81,7 +82,14 @@ function next_entity_update(EntityInterface $entity) {
  * Implements hook_entity_predelete().
  */
 function next_entity_predelete(EntityInterface $entity) {
-  drupal_register_shutdown_function('_next_dispatch_entity_action_event', $entity, EntityActionEventInterface::DELETE_ACTION);
+  $meta = [];
+
+  // Add the entity url to meta so that it is available post shutdown.
+  if ($entity->hasLinkTemplate('canonical')) {
+    $meta[Path::ORIGINAL_PATH] = $entity->toUrl()->toString();
+  }
+
+  drupal_register_shutdown_function('_next_dispatch_entity_action_event', $entity, EntityActionEventInterface::DELETE_ACTION, $meta);
 }
 
 /**
@@ -91,7 +99,9 @@ function next_entity_predelete(EntityInterface $entity) {
  *   The entity.
  * @param string $action
  *   The action.
+ * @param array|null $meta
+ *   An array of meta data.
  */
-function _next_dispatch_entity_action_event(EntityInterface $entity, string $action) {
-  \Drupal::service('next.entity_event_dispatcher')->dispatch($entity, $action);
+function _next_dispatch_entity_action_event(EntityInterface $entity, string $action, array $meta = []) {
+  \Drupal::service('next.entity_event_dispatcher')->dispatch($entity, $action, $meta);
 }

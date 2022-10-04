@@ -94,3 +94,13 @@ function next_update_9105() {
     }
   }
 }
+
+/**
+ * Configure debug settings.
+ */
+function next_update_9106() {
+  /** @var \Drupal\Core\Config\Config $config */
+  $config = \Drupal::configFactory()->getEditable('next.settings');
+  $config->set('debug', FALSE)
+    ->save();
+}

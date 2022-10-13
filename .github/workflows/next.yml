@@ -12,7 +12,7 @@ jobs:
       matrix:
         php: ["7.4", "8.0", "8.1"]
         drupal: ["9.2", "9.3", "9.4"]
-    name: Drupal ${{ matrix.drupal }}
+    name: Drupal ${{ matrix.drupal }} - PHP ${{ matrix.php }}
     services:
       mysql:
         image: mysql:5.7

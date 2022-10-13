@@ -128,10 +128,8 @@ class NextEntityTypeConfigForm extends EntityForm {
         '#title' => $this->t('Plugin'),
         '#description' => $this->t('Select a plugin to use for resolving the preview site for this entity type.'),
         '#type' => 'select',
-        '#options' => array_column($this->siteResolverManager->getDefinitions(), 'label', 'id'),
-        '#default_value' => $entity->getSiteResolver() ? $entity->getSiteResolver()
-          ->getId() : NULL,
-        '#required' => TRUE,
+        '#options' => array_merge(['' => $this->t('None')], array_column($this->siteResolverManager->getDefinitions(), 'label', 'id')),
+        '#default_value' => $entity->getSiteResolver() ? $entity->getSiteResolver()->getId() : NULL,
         '#limit_validation_errors' => [['site_resolver']],
         '#submit' => ['::submitSiteResolver'],
         '#executes_submit_callback' => TRUE,

@@ -7,6 +7,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\next\NextSettingsManagerInterface;
 use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -17,23 +18,23 @@ abstract class RevalidatorBase extends PluginBase implements RevalidatorInterfac
   /**
    * The http client.
    *
-   * @var \GuzzleHttp\Client
+   * @var \GuzzleHttp\ClientInterface
    */
-  protected $httpClient;
+  protected ClientInterface $httpClient;
 
   /**
    * The logger.
    *
    * @var \Drupal\Core\Logger\LoggerChannelInterface
    */
-  protected $logger;
+  protected LoggerChannelInterface $logger;
 
   /**
    * The next settings manager.
    *
    * @var \Drupal\next\NextSettingsManagerInterface
    */
-  protected $nextSettingsManager;
+  protected NextSettingsManagerInterface $nextSettingsManager;
 
   /**
    * RevalidatorBase constructor.
@@ -46,12 +47,12 @@ abstract class RevalidatorBase extends PluginBase implements RevalidatorInterfac
    *   The plugin implementation definition.
    * @param \Drupal\next\NextSettingsManagerInterface $next_settings_manager
    *   The next settings manager.
-   * @param \GuzzleHttp\Client $http_client
+   * @param \GuzzleHttp\ClientInterface $http_client
    *   The http client.
    * @param \Drupal\Core\Logger\LoggerChannelInterface $logger
    *   The logger.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, NextSettingsManagerInterface $next_settings_manager, Client $http_client, LoggerChannelInterface $logger) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, NextSettingsManagerInterface $next_settings_manager, ClientInterface $http_client, LoggerChannelInterface $logger) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->httpClient = $http_client;
     $this->logger = $logger;

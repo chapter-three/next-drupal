@@ -33,12 +33,34 @@ interface EntityActionEventInterface {
   public function getEntity(): EntityInterface;
 
   /**
+   * Sets the entity for the action.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity.
+   *
+   * @return \Drupal\next\Event\EntityActionEventInterface
+   *   The event entity.
+   */
+  public function setEntity(EntityInterface $entity): self;
+
+  /**
    * Get the sites for the entity.
    *
    * @return \Drupal\next\Entity\NextSiteInterface[]
    *   The sites for the entity.
    */
   public function getSites(): array;
+
+  /**
+   * Sets the sites.
+   *
+   * @param \Drupal\next\Entity\NextSiteInterface[] $sites
+   *   An array of next_site entities.
+   *
+   * @return \Drupal\next\Event\EntityActionEventInterface
+   *   The event entity.
+   */
+  public function setSites(array $sites): self;
 
   /**
    * Get the action for the entity.
@@ -49,11 +71,33 @@ interface EntityActionEventInterface {
   public function getAction(): string;
 
   /**
-   * Gets the event meta data.
+   * Sets the action.
    *
-   * @return array
-   *   The event meta data.
+   * @param string $action
+   *   The action.
+   *
+   * @return \Drupal\next\Event\EntityActionEventInterface
+   *   The event entity.
    */
-  public function getMeta(): array;
+  public function setAction(string $action): self;
+
+  /**
+   * Gets the url for the entity.
+   *
+   * @return string|null
+   *   The entity url.
+   */
+  public function getEntityUrl(): ?string;
+
+  /**
+   * Sets the url for the entity.
+   *
+   * @param string $url
+   *   The entity url.
+   *
+   * @return \Drupal\next\Event\EntityActionEventInterface
+   *   The event entity.
+   */
+  public function setEntityUrl(string $url): self;
 
 }

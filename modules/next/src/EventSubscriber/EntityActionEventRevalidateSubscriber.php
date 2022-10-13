@@ -4,8 +4,6 @@ namespace Drupal\next\EventSubscriber;
 
 use Drupal\next\Event\EntityActionEvent;
 use Drupal\next\Event\EntityEvents;
-use Drupal\next\NextEntityTypeManagerInterface;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Defines an event subscriber for revalidating entity.
@@ -13,24 +11,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * @see \Drupal\next\Event\EntityActionEvent
  * @see \Drupal\next\EntityEventDispatcher
  */
-class EntityActionEventRevalidateSubscriber implements EventSubscriberInterface {
-
-  /**
-   * The next entity type manager.
-   *
-   * @var \Drupal\next\NextEntityTypeManagerInterface
-   */
-  protected $nextEntityTypeManager;
-
-  /**
-   * EntityActionEventSubscriber constructor.
-   *
-   * @param \Drupal\next\NextEntityTypeManagerInterface $next_entity_type_manager
-   *   The next entity type manager.
-   */
-  public function __construct(NextEntityTypeManagerInterface $next_entity_type_manager) {
-    $this->nextEntityTypeManager = $next_entity_type_manager;
-  }
+class EntityActionEventRevalidateSubscriber extends EntityActionEventSubscriberBase {
 
   /**
    * {@inheritdoc}
@@ -41,24 +22,17 @@ class EntityActionEventRevalidateSubscriber implements EventSubscriberInterface 
   }
 
   /**
-   * Logs the event.
+   * Revalidates the entity.
    *
    * @param \Drupal\next\Event\EntityActionEvent $event
    *   The event.
    */
   public function onAction(EntityActionEvent $event) {
-    $entity = $event->getEntity();
-    $next_entity_type_config = $this->nextEntityTypeManager->getConfigForEntityType($entity->getEntityTypeId(), $entity->bundle());
-    if (!$next_entity_type_config) {
-      return;
+    if ($revalidator = $this->nextEntityTypeManager->getRevalidator($event->getEntity())) {
+      $revalidator->revalidate($event);
     }
 
-    $revalidator = $next_entity_type_config->getRevalidator();
-    if (!$revalidator) {
-      return;
-    }
-
-    $revalidator->revalidate($event->getEntity(), $event->getSites(), $event->getAction(), $event->getMeta());
+    return NULL;
   }
 
 }

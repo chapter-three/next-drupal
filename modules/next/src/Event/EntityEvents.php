@@ -20,4 +20,12 @@ final class EntityEvents {
    */
   public const ENTITY_ACTION = 'next.entity.action';
 
+  /**
+   * Name of the event fired when an entity is revalidated.
+   *
+   * @see \Drupal\next\Event\EntityRevalidatedEvent
+   * @see \Drupal\next\EventSubscriber\EntityActionEventRevalidateSubscriber::onAction()
+   */
+  public const ENTITY_REVALIDATED = 'next.entity.revalidated';
+
 }

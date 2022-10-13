@@ -2,9 +2,9 @@
 
 namespace Drupal\next\Plugin\Next\Revalidator;
 
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\next\Annotation\Revalidator;
+use Drupal\next\Event\EntityActionEvent;
 use Drupal\next\Plugin\ConfigurableRevalidatorBase;
 use Drupal\next\Plugin\RevalidatorInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,8 +19,6 @@ use Symfony\Component\HttpFoundation\Response;
  * )
  */
 class Path extends ConfigurableRevalidatorBase implements RevalidatorInterface {
-
-  const ORIGINAL_PATH = 'original_path';
 
   /**
    * {@inheritdoc}
@@ -66,15 +64,24 @@ class Path extends ConfigurableRevalidatorBase implements RevalidatorInterface {
   /**
    * {@inheritdoc}
    */
-  public function revalidate(EntityInterface $entity, array $sites, string $action, array $meta = []) {
+  public function revalidate(EntityActionEvent $event): bool {
+    $revalidated = FALSE;
+
+    $sites = $event->getSites();
     if (!count($sites)) {
-      return NULL;
+      return FALSE;
     }
 
-    $paths = $this->getPathsForEntity($entity, $meta[static::ORIGINAL_PATH] ?? NULL);
+    $paths = [];
+    if (!empty($this->configuration['revalidate_page'])) {
+      $paths[] = $event->getEntityUrl();
+    }
+    if (!empty($this->configuration['additional_paths'])) {
+      $paths = array_merge($paths, array_map('trim', explode("\n", $this->configuration['additional_paths'])));
+    }
 
     if (!count($paths)) {
-      return NULL;
+      return FALSE;
     }
 
     foreach ($paths as $path) {
@@ -88,62 +95,35 @@ class Path extends ConfigurableRevalidatorBase implements RevalidatorInterface {
 
           if ($this->nextSettingsManager->isDebug()) {
             $this->logger->notice('(@action): Revalidating path %path for the site %site. URL: %url', [
-              '@action' => $action,
+              '@action' => $event->getAction(),
               '%path' => $path,
               '%site' => $site->label(),
               '%url' => $revalidate_url->toString(),
             ]);
           }
 
-          $response = $this->httpClient->get($revalidate_url->toString());
-          if ($response->getStatusCode() === Response::HTTP_OK) {
+          $response = $this->httpClient->request('GET', $revalidate_url->toString());
+          if ($response && $response->getStatusCode() === Response::HTTP_OK) {
             if ($this->nextSettingsManager->isDebug()) {
               $this->logger->notice('(@action): Successfully revalidated path %path for the site %site. URL: %url', [
-                '@action' => $action,
+                '@action' => $event->getAction(),
                 '%path' => $path,
                 '%site' => $site->label(),
                 '%url' => $revalidate_url->toString(),
               ]);
             }
+
+            $revalidated = TRUE;
           }
         }
         catch (\Exception $exception) {
           watchdog_exception('next', $exception);
+          $revalidated = FALSE;
         }
       }
     }
-  }
 
-  /**
-   * Returns an array of paths to revalidate for the given entity.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The entity.
-   * @param string|null $default_page_path
-   *   The default page path to use for this entity.
-   *
-   * @return array
-   *   An array of paths.
-   *
-   * @throws \Drupal\Core\Entity\EntityMalformedException
-   */
-  public function getPathsForEntity(EntityInterface $entity, string $default_page_path = NULL): array {
-    $paths = [];
-
-    if (!empty($this->configuration['revalidate_page'])) {
-      if ($default_page_path) {
-        $paths[] = $default_page_path;
-      }
-      elseif ($entity->hasLinkTemplate('canonical')) {
-        $paths[] = $entity->toUrl()->toString();
-      }
-    }
-
-    if (!empty($this->configuration['additional_paths'])) {
-      $paths = array_merge($paths, array_map('trim', explode("\n", $this->configuration['additional_paths'])));
-    }
-
-    return $paths;
+    return $revalidated;
   }
 
 }

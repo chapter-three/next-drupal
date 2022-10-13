@@ -7,8 +7,9 @@
 
 use Drupal\content_moderation\EntityOperations;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\next\Event\EntityActionEvent;
 use Drupal\next\Event\EntityActionEventInterface;
-use Drupal\next\Plugin\Next\Revalidator\Path;
+use Drupal\next\Event\EntityEvents;
 
 /**
  * Implements hook_decoupled_router_info_alter().
@@ -63,45 +64,36 @@ function next_next_site_preview_alter(array &$preview, array $context) {
   }
 }
 
-
 /**
  * Implements hook_entity_insert().
  */
 function next_entity_insert(EntityInterface $entity) {
-  drupal_register_shutdown_function('_next_dispatch_entity_action_event', $entity, EntityActionEventInterface::INSERT_ACTION);
+  $event = EntityActionEvent::createFromEntity($entity, EntityActionEventInterface::INSERT_ACTION);
+  drupal_register_shutdown_function('_next_dispatch_entity_action_event', $event);
 }
 
 /**
  * Implements hook_entity_update().
  */
 function next_entity_update(EntityInterface $entity) {
-  drupal_register_shutdown_function('_next_dispatch_entity_action_event', $entity, EntityActionEventInterface::UPDATE_ACTION);
+  $event = EntityActionEvent::createFromEntity($entity, EntityActionEventInterface::UPDATE_ACTION);
+  drupal_register_shutdown_function('_next_dispatch_entity_action_event', $event);
 }
 
 /**
  * Implements hook_entity_predelete().
  */
 function next_entity_predelete(EntityInterface $entity) {
-  $meta = [];
-
-  // Add the entity url to meta so that it is available post shutdown.
-  if ($entity->hasLinkTemplate('canonical')) {
-    $meta[Path::ORIGINAL_PATH] = $entity->toUrl()->toString();
-  }
-
-  drupal_register_shutdown_function('_next_dispatch_entity_action_event', $entity, EntityActionEventInterface::DELETE_ACTION, $meta);
+  $event = EntityActionEvent::createFromEntity($entity, EntityActionEventInterface::DELETE_ACTION);
+  drupal_register_shutdown_function('_next_dispatch_entity_action_event', $event);
 }
 
 /**
- * Shutdown callback for dispatching entity events.
+ * Helper to dispatch an entity action event.
  *
- * @param \Drupal\Core\Entity\EntityInterface $entity
- *   The entity.
- * @param string $action
- *   The action.
- * @param array|null $meta
- *   An array of meta data.
+ * @param \Drupal\next\Event\EntityActionEventInterface $event
+ *   The entity action event.
  */
-function _next_dispatch_entity_action_event(EntityInterface $entity, string $action, array $meta = []) {
-  \Drupal::service('next.entity_event_dispatcher')->dispatch($entity, $action, $meta);
+function _next_dispatch_entity_action_event(EntityActionEventInterface $event) {
+  \Drupal::service('event_dispatcher')->dispatch($event, EntityEvents::ENTITY_ACTION);
 }

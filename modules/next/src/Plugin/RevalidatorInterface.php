@@ -3,6 +3,7 @@
 namespace Drupal\next\Plugin;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\next\Event\EntityActionEvent;
 
 /**
  * Defines an interface for the revalidator plugin.
@@ -36,15 +37,12 @@ interface RevalidatorInterface {
   /**
    * Revalidates an entity.
    *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The entity.
-   * @param \Drupal\next\Entity\NextSiteInterface[] $sites
-   *   The sites for the entity.
-   * @param string $action
-   *   The action.
-   * @param array $meta
-   *   An array of additional meta data for context.
+   * @param \Drupal\next\Event\EntityActionEvent $event
+   *   The entity action event.
+   *
+   * @return bool
+   *   TRUE if the entity was revalidated. FALSE otherwise.
    */
-  public function revalidate(EntityInterface $entity, array $sites, string $action, array $meta = []);
+  public function revalidate(EntityActionEvent $event): bool;
 
 }

@@ -31,9 +31,7 @@ export default function GuidesPage({ guides }: GuidesPageProps) {
             >
               <div>
                 <h2 className="mb-2 text-xl font-bold tracking-tight text-gray-900 group-hover:text-primary">
-                  <Link href={guide.url} passHref>
-                    <a>{guide.frontMatter.title}</a>
-                  </Link>
+                  <a>{guide.frontMatter.title}</a>
                 </h2>
                 {guide.frontMatter.excerpt ? (
                   <p className="my-4 text-gray-700">
@@ -41,12 +39,38 @@ export default function GuidesPage({ guides }: GuidesPageProps) {
                   </p>
                 ) : null}
               </div>
-              <Link href={guide.url} passHref>
-                <a className="text-sm text-blue-500 transition-colors">
-                  <span className="absolute inset-0" />
-                  Read More →
-                </a>
-              </Link>
+              {guide.frontMatter.externalUrl ? (
+                <Link href={guide.frontMatter.externalUrl} passHref>
+                  <a
+                    className="text-sm text-blue-500 transition-colors"
+                    target="_blank"
+                    rel="nofollow"
+                  >
+                    <span className="absolute inset-0" />
+                    <div className="flex items-center">
+                      Read More{" "}
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="w-3 h-3 ml-2"
+                      >
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3" />
+                      </svg>
+                    </div>
+                  </a>
+                </Link>
+              ) : (
+                <Link href={guide.url} passHref>
+                  <a className="text-sm text-blue-500 transition-colors">
+                    <span className="absolute inset-0" />
+                    Read More →
+                  </a>
+                </Link>
+              )}
             </article>
           ))}
         </div>

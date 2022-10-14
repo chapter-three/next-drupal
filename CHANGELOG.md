@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.0
+https://next-drupal.org/blog/next-drupal-1-5
+
+* **next-drupal:** Added support for Preview URL Generators
+
 ## 1.4.0
 
 https://next-drupal.org/blog/next-drupal-1-4

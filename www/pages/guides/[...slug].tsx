@@ -30,7 +30,7 @@ export default function GuidesPage({ guide, toc }: GuidesPageProps) {
           <SidebarNav items={guidesConfig.links} />
         </aside>
         <div className="items-start col-span-4 gap-12 pb-10 xl:col-span-1 xl:grid xl:grid-cols-3 xl:gap-18">
-          <div className="col-span-2 pt-4 sm:pt-6 md:pt-10 GuideSearch-content main-content">
+          <div className="col-span-2 pt-4 sm:pt-6 md:pt-10 DocSearch-content main-content">
             <h1 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
               {guide.frontMatter.title}
             </h1>

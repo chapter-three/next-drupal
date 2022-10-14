@@ -39,7 +39,7 @@ export const site: SiteConfig = {
   },
   versions: [
     {
-      version: "v1.4.0",
+      version: "v1.5.0",
       active: true,
     },
     {

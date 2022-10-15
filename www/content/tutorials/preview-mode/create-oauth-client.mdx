@@ -65,10 +65,11 @@ Generate a pair of keys to encrypt the tokens. Store them outside of your docume
 
 1. Visit `/admin/config/people/simple_oauth`
 2. Click **Generate keys** to generate encryption keys for tokens
-3. Fill in **Directory for the keys**.
-4. Click **Generate**.
+3. Fill in **Directory for the keys**. For example a relative path like `../`
+4. Click **Generate**
+5. Click **Save configuration**
 
-You can also use `openssl` to generate keys:
+You can also use `openssl` to generate keys in the directory you used above:
 
 ```
 openssl genrsa -out private.key 2048

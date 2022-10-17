@@ -79,7 +79,7 @@ class EntityResourceTest extends KernelTestBase {
   /**
    * Tests the page limit.
    *
-   * @covers ::getJsonApiParams()
+   * @covers ::getJsonApiParams
    */
   public function testPageLimit() {
     /** @var \Drupal\next_jsonapi\Controller\EntityResource $entity_resource */

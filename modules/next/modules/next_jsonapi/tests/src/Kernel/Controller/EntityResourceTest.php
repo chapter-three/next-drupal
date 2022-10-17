@@ -106,6 +106,17 @@ class EntityResourceTest extends KernelTestBase {
     $data = $response->getResponseData()->getData();
     $this->assertSame(10, $data->count());
 
+    // With page limit over size max.
+    $request = Request::create('/jsonapi/node/article');
+    $request->query = new ParameterBag([
+      'page' => [
+        'limit' => 100,
+      ],
+    ]);
+    $response = $entity_resource->getCollection($resource_type, $request);
+    $data = $response->getResponseData()->getData();
+    $this->assertSame(50, $data->count());
+
     // With page limit and offset.
     $request = Request::create('/jsonapi/node/article');
     $request->query = new ParameterBag([
@@ -166,7 +177,7 @@ class EntityResourceTest extends KernelTestBase {
     ]);
     $response = $entity_resource->getCollection($resource_type, $request);
     $data = $response->getResponseData()->getData();
-    $this->assertSame(80, $data->count());
+    $this->assertSame(60, $data->count());
   }
 
 }

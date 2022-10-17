@@ -94,7 +94,7 @@ class EntityResource extends JsonApiEntityResource {
     $max = $this->maxSize;
 
     // Fallback to page[limit] if set.
-    if (($page = $request->query->get('page')) && isset($page['limit'])) {
+    if (($page = $request->query->get('page')) && isset($page['limit']) && $page['limit'] < $max) {
       $max = $page['limit'];
     }
 

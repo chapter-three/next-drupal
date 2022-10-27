@@ -3,6 +3,52 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.3](https://github.com/chapter-three/next-drupal/compare/example-marketing@1.4.2...example-marketing@1.4.3) (2022-09-07)
+
+**Note:** Version bump only for package example-marketing
+
+
+
+
+
+## [1.4.2](https://github.com/chapter-three/next-drupal/compare/example-marketing@1.4.1...example-marketing@1.4.2) (2022-08-09)
+
+
+### Bug Fixes
+
+* Warning title element received an array with more than 1 element ([910ca41](https://github.com/chapter-three/next-drupal/commit/910ca41ca230e5948fbe9d880bed04232d004306))
+
+
+
+
+
+## [1.4.1](https://github.com/chapter-three/next-drupal/compare/example-marketing@1.4.0...example-marketing@1.4.1) (2022-07-29)
+
+**Note:** Version bump only for package example-marketing
+
+
+
+
+
+# [1.4.0](https://github.com/chapter-three/next-drupal/compare/example-marketing@1.4.0-rc.0...example-marketing@1.4.0) (2022-06-14)
+
+**Note:** Version bump only for package example-marketing
+
+
+
+
+
+# [1.4.0-rc.0](https://github.com/chapter-three/next-drupal/compare/example-marketing@1.3.3-rc.1...example-marketing@1.4.0-rc.0) (2022-06-14)
+
+
+### Features
+
+* rename Experimental_DrupalClient to DrupalClient ([fc549ec](https://github.com/chapter-three/next-drupal/commit/fc549ecab94a5a1e67f38b4e951351365adbb1f5))
+
+
+
+
+
 ## [1.3.3-rc.1](https://github.com/chapter-three/next-drupal/compare/example-marketing@1.3.3-rc.0...example-marketing@1.3.3-rc.1) (2022-06-10)
 
 **Note:** Version bump only for package example-marketing

@@ -1,0 +1,69 @@
+---
+title: Page Limit
+excerpt: How to request more than 50 JSON:API resources.
+---
+
+JSON:API has a hard limit of 50 resources per page. You can read more about this decision [here](https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/pagination#s--cant-i-set-a-page-limit-higher-than-50).
+
+When building a decoupled site with Next.js, there are some cases, example in `getStaticPaths`, where you might want to fetch more than 50 resources.
+
+We added a spec-compliant override to bypass this limit in next-drupal.
+
+<Callout icon="⚠️">
+
+Tip: If you have a site with a large number of pages, consider using on-demand generation using `fallback: blocking` instead of increasing the page limit.
+
+</Callout>
+
+## Configuration
+
+To override the page max size, set the following `parameter` in your Drupal `settings.yml` file and clear caches.
+
+```yaml
+parameters:
+  next_jsonapi.size_max: 100 // Set your max limit here.
+```
+
+You should now be able to request up to 100 resources **using the `path` field as the first field in sparse fieldsets**.
+
+## Examples
+
+The following will return 50 items (JSON:API hard limit - No override):
+
+```ts
+const articles = await drupal.getResourceCollection("node--article")
+```
+
+The following will return 10 items (No override):
+
+```ts
+const articles = await drupal.getResourceCollection("node--article", {
+  "page[limit]": 10,
+})
+```
+
+The following will return 100 items (Overridden using `path`):
+
+```ts
+const articles = await drupal.getResourceCollection("node--article", {
+  "field[node--article]": "path,title",
+})
+```
+
+The following will return 60 items (Overridden using `path`):
+
+```ts
+const articles = await drupal.getResourceCollection("node--article", {
+  "field[node--article]": "path,title",
+  "page[limit]": 60,
+})
+```
+
+The following will return 100 items (`next_jsonapi.max_size` hard limit - Overridden using `path`):
+
+```ts
+const articles = await drupal.getResourceCollection("node--article", {
+  "field[node--article]": "path,title",
+  "page[limit]": 999,
+})
+```

@@ -1,0 +1,117 @@
+---
+title: Umami Demo
+excerpt: How to run the Umami demo on your local.
+---
+
+## Drupal
+
+1. Create a new Drupal project
+
+```bash
+composer create-project drupal/recommended-project umami
+```
+
+2. Edit `composer.json` file and add the following patches under `extra`.
+
+```json
+"extra": {
+    "patches": {
+        "drupal/subrequests": {
+            "Get same results on different request": "https://www.drupal.org/files/issues/2019-07-18/change_request_type-63049395-09.patch"
+        },
+        "drupal/decoupled_router": {
+            "Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2021-05-05/3111456-34.patch"
+        }
+    },
+}
+```
+
+3. Add dependencies
+
+```bash
+composer require drupal/next drupal/jsonapi_menu_items drupal/jsonapi_views 'drupal/jsonapi_resources:^1.0@beta'
+```
+
+4. Install Drupal. Make sure you select **Demo: Umami Food Magazine (Experimental)** as the installation profile.
+
+   For a quick installation, you may also use the `quick-start` command:
+
+```bash
+php -d memory_limit=256M ./web/core/scripts/drupal quick-start demo_umami
+```
+
+4. Enable the following modules:
+
+- Next
+- Next JSON:API
+- JSON:API Menu Items
+- JSON:API Views
+
+---
+
+## Next.js
+
+1. Grab a copy of the Next.js code:
+
+```bash
+git clone https://github.com/chapter-three/next-example-umami
+```
+
+2. Install dependencies
+
+```
+yarn install
+```
+
+3. Copy `.env.example` to `.env.local` and update the values to point to your Drupal site:
+
+```
+NEXT_PUBLIC_DRUPAL_BASE_URL=http://drupal.test
+NEXT_IMAGE_DOMAIN=drupal.test
+```
+
+4. Start the development server
+
+```
+yarn dev
+```
+
+5. Visit `http://localhost:3000` to see the Next.js site.
+
+---
+
+## How to enable authentication
+
+We use the [simple_oauth](https://drupal.org/project/simple_oauth) module for authentication.
+
+1. Visit `/admin/config/people/simple_oauth`.
+2. Click on **Generate Keys**.
+3. Enter `sites/default/files` for **Directory for the keys** and click **Generate**.
+4. Visit `/admin/config/services/consumer` and edit the default client.
+5. Enter `weDKc7PD845kq49JfPeYmsZ48e`under **New Secret** and **Save**.
+6. Update your `.env.local` with the following:
+
+```diff
+# Required
+NEXT_PUBLIC_DRUPAL_BASE_URL=http://localhost:8888
+NEXT_IMAGE_DOMAIN=localhost
+
++ # Authentication (Bearer)
++ NEXTAUTH_SECRET=zdauNuBL7lLAHT9zIpxExCThVHSSOfIwouGOhr5cjWQ
++ NEXTAUTH_URL=http://localhost:3000
++ DRUPAL_CLIENT_ID=YOUR_DEFAULT_CLIENT_UUID_HERE
++ DRUPAL_CLIENT_SECRET=weDKc7PD845kq49JfPeYmsZ48e
+```
+
+7. Restart the Next.js development server.
+8. If you visit `http://localhost:3000/login`, you should now be able to login with the Drupal admin username and password.
+
+---
+
+## How to enable JSON:API Write Operations
+
+1. Visit `/admin/config/services/jsonapi`
+2. Under **Allowed Operations**, select **Accept all JSON:API create, read, update, and delete operations.**.
+3. **Save configuration**
+
+You can now visit `http://localhost:3000/articles/new` to create a new article.

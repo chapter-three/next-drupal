@@ -3,6 +3,49 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.3](https://github.com/chapter-three/next-drupal/compare/example-blog@1.3.2...example-blog@1.3.3) (2022-09-07)
+
+**Note:** Version bump only for package example-blog
+
+
+
+
+
+## [1.3.2](https://github.com/chapter-three/next-drupal/compare/example-blog@1.3.1...example-blog@1.3.2) (2022-08-09)
+
+
+### Bug Fixes
+
+* Warning title element received an array with more than 1 element ([910ca41](https://github.com/chapter-three/next-drupal/commit/910ca41ca230e5948fbe9d880bed04232d004306))
+
+
+
+
+
+## [1.3.1](https://github.com/chapter-three/next-drupal/compare/example-blog@1.3.0...example-blog@1.3.1) (2022-07-29)
+
+**Note:** Version bump only for package example-blog
+
+
+
+
+
+# [1.3.0](https://github.com/chapter-three/next-drupal/compare/example-blog@1.2.3-rc.2...example-blog@1.3.0) (2022-06-14)
+
+**Note:** Version bump only for package example-blog
+
+
+
+
+
+## [1.2.3-rc.2](https://github.com/chapter-three/next-drupal/compare/example-blog@1.2.3-rc.1...example-blog@1.2.3-rc.2) (2022-06-14)
+
+**Note:** Version bump only for package example-blog
+
+
+
+
+
 ## [1.2.3-rc.1](https://github.com/chapter-three/next-drupal/compare/example-blog@1.2.3-rc.0...example-blog@1.2.3-rc.1) (2022-06-10)
 
 **Note:** Version bump only for package example-blog

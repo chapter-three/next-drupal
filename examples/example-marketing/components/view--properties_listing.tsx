@@ -1,5 +1,5 @@
 import React from "react"
-import { useQuery, useQueryClient } from "react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
 import { deserialize } from "next-drupal"
 import classNames from "classnames"

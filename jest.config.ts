@@ -13,6 +13,11 @@ const config: Config.InitialOptions = {
     "/.cache/",
     "/drupal/",
   ],
+  globals: {
+    "ts-jest": {
+      isolatedModules: true,
+    },
+  },
 }
 
 export default config

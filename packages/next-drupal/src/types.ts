@@ -136,6 +136,11 @@ export type DrupalClientOptions = {
   accessToken?: AccessToken
 
   /**
+   * The scope used for the current access token.
+   */
+  accessTokenScope?: string
+
+  /**
    * If set to true, the preview cookie will be set with SameSite=None,Secure.
    *
    * * **Default value**: `false`
@@ -162,6 +167,7 @@ export interface DrupalClientAuthClientIdSecret {
   clientId: string
   clientSecret: string
   url?: string
+  scope?: string
 }
 
 export type DrupalClientAuthAccessToken = AccessToken
@@ -340,6 +346,7 @@ export interface DrupalTranslatedPath {
     id: string
     uuid: string
     langcode?: string
+    path?: string
   }
   label?: string
   jsonapi?: {

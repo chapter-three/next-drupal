@@ -141,6 +141,7 @@ describe("auth", () => {
       `${BASE_URL}/oauth/token`,
       expect.objectContaining({
         headers: {
+          Accept: "application/json",
           Authorization: `Basic ${basic}`,
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -401,7 +402,7 @@ describe("fetch", () => {
 
     const getAccessTokenSpy = jest
       .spyOn(client, "getAccessToken")
-      .mockImplementation(() => null)
+      .mockImplementation()
 
     await client.fetch(url.toString(), {
       withAuth: true,
@@ -983,7 +984,7 @@ describe("getResource", () => {
           Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
         ) as jest.Mock
       )
-    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
+    jest.spyOn(client, "getAccessToken").mockImplementation()
 
     await client.getResource(
       "node--recipe",
@@ -1376,7 +1377,7 @@ describe("getResourceFromContext", () => {
           Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
         ) as jest.Mock
       )
-    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
+    jest.spyOn(client, "getAccessToken").mockImplementation()
 
     const context: GetStaticPropsContext = {
       params: {
@@ -1408,10 +1409,14 @@ describe("getResourceFromContext", () => {
           Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
         ) as jest.Mock
       )
-    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
+    jest.spyOn(client, "getAccessToken").mockImplementation()
 
     const context: GetStaticPropsContext = {
       preview: true,
+      previewData: {
+        plugin: "simple_oauth",
+        scope: "editor",
+      },
       params: {
         slug: ["recipes", "deep-mediterranean-quiche"],
       },
@@ -1422,7 +1427,7 @@ describe("getResourceFromContext", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: true,
+        withAuth: `Bearer sample-token`,
       })
     )
   })
@@ -1497,7 +1502,7 @@ describe("translatePath", () => {
           Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
         ) as jest.Mock
       )
-    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
+    jest.spyOn(client, "getAccessToken").mockImplementation()
 
     await client.translatePath("recipes/deep-mediterranean-quiche", {
       withAuth: true,
@@ -1594,7 +1599,7 @@ describe("translatePathFromContext", () => {
           Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
         ) as jest.Mock
       )
-    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
+    jest.spyOn(client, "getAccessToken").mockImplementation()
 
     const context: GetStaticPropsContext = {
       params: {
@@ -1702,7 +1707,7 @@ describe("getResourceCollection", () => {
           Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
         ) as jest.Mock
       )
-    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
+    jest.spyOn(client, "getAccessToken").mockImplementation()
 
     await client.getResourceCollection("node--recipe", {
       withAuth: true,
@@ -1851,7 +1856,7 @@ describe("getResourceCollectionFromContext", () => {
           Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
         ) as jest.Mock
       )
-    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
+    jest.spyOn(client, "getAccessToken").mockImplementation()
 
     const context: GetStaticPropsContext = {
       locale: "en",
@@ -1945,7 +1950,7 @@ describe("getStaticPathsFromContext", () => {
           Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
         ) as jest.Mock
       )
-    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
+    jest.spyOn(client, "getAccessToken").mockImplementation()
 
     await client.getStaticPathsFromContext(
       "node--article",
@@ -2147,7 +2152,7 @@ describe("getMenu", () => {
           Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
         ) as jest.Mock
       )
-    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
+    jest.spyOn(client, "getAccessToken").mockImplementation()
 
     await client.getMenu("main", { withAuth: true })
 
@@ -2238,7 +2243,7 @@ describe("getView", () => {
           Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
         ) as jest.Mock
       )
-    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
+    jest.spyOn(client, "getAccessToken").mockImplementation()
 
     await client.getView("featured_articles--page_1", { withAuth: true })
 
@@ -2348,7 +2353,7 @@ describe("getSearchIndex", () => {
           Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
         ) as jest.Mock
       )
-    jest.spyOn(client, "getAccessToken").mockImplementation(() => null)
+    jest.spyOn(client, "getAccessToken").mockImplementation()
 
     await client.getSearchIndex("recipes", {
       withAuth: true,
@@ -2358,6 +2363,280 @@ describe("getSearchIndex", () => {
       expect.anything(),
       expect.objectContaining({
         withAuth: true,
+      })
+    )
+  })
+})
+
+describe("getAuthFromContextAndOptions", () => {
+  test("if NOT in preview and withAuth option is provided, it should use the withAuth option", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      auth: {
+        clientId: "7795065e-8ad0-45eb-a64d-73d9f3a5e943",
+        clientSecret: "d92Fm^ds",
+      },
+    })
+    const fetchSpy = jest
+      .spyOn(global, "fetch")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+        ) as jest.Mock
+      )
+    jest.spyOn(client, "getAccessToken").mockImplementation()
+
+    await client.getResourceFromContext(
+      "node--article",
+      {
+        preview: false,
+      },
+      {
+        withAuth: true,
+      }
+    )
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: true,
+      })
+    )
+
+    await client.getResourceFromContext(
+      "node--article",
+      {
+        preview: false,
+      },
+      {
+        withAuth: {
+          clientId: "foo",
+          clientSecret: "bar",
+          scope: "baz",
+        },
+      }
+    )
+
+    expect(fetchSpy).toHaveBeenLastCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: {
+          clientId: "foo",
+          clientSecret: "bar",
+          scope: "baz",
+        },
+      })
+    )
+  })
+
+  test("if NOT in preview and no withAuth option provided, it should fallback to the global auth", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      auth: {
+        clientId: "7795065e-8ad0-45eb-a64d-73d9f3a5e943",
+        clientSecret: "d92Fm^ds",
+      },
+    })
+    const fetchSpy = jest
+      .spyOn(global, "fetch")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+        ) as jest.Mock
+      )
+
+    await client.getResourceFromContext("node--article", {
+      preview: false,
+    })
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: false,
+      })
+    )
+
+    const client2 = new DrupalClient(BASE_URL, {
+      auth: {
+        clientId: "7795065e-8ad0-45eb-a64d-73d9f3a5e943",
+        clientSecret: "d92Fm^ds",
+      },
+      withAuth: true,
+    })
+    jest.spyOn(client2, "getAccessToken").mockImplementation()
+
+    await client2.getResourceFromContext("node--article", {
+      preview: false,
+    })
+
+    expect(fetchSpy).toHaveBeenLastCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: true,
+      })
+    )
+  })
+
+  test("if in preview, it should NOT use the global auth", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      auth: {
+        clientId: "7795065e-8ad0-45eb-a64d-73d9f3a5e943",
+        clientSecret: "d92Fm^ds",
+      },
+      withAuth: true,
+    })
+    const fetchSpy = jest
+      .spyOn(global, "fetch")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+        ) as jest.Mock
+      )
+
+    await client.getResourceFromContext("node--article", {
+      preview: true,
+    })
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: null,
+      })
+    )
+  })
+
+  test("if in preview and using the simple_oauth plugin, it should use the scope from context", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      auth: {
+        clientId: "7795065e-8ad0-45eb-a64d-73d9f3a5e943",
+        clientSecret: "d92Fm^ds",
+      },
+    })
+    const fetchSpy = jest
+      .spyOn(global, "fetch")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+        ) as jest.Mock
+      )
+
+    await client.getResourceFromContext("node--article", {
+      preview: true,
+      previewData: {
+        plugin: "simple_oauth",
+        scope: "editor",
+      },
+    })
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: {
+          clientId: "7795065e-8ad0-45eb-a64d-73d9f3a5e943",
+          clientSecret: "d92Fm^ds",
+          scope: "editor",
+          url: "/oauth/token",
+        },
+      })
+    )
+  })
+
+  test("if in preview and using the simple_oauth plugin, tt should use the scope from context even with global withAuth", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      auth: {
+        clientId: "7795065e-8ad0-45eb-a64d-73d9f3a5e943",
+        clientSecret: "d92Fm^ds",
+        scope: "administrator",
+      },
+      withAuth: true,
+    })
+    const fetchSpy = jest
+      .spyOn(global, "fetch")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+        ) as jest.Mock
+      )
+
+    await client.getResourceFromContext("node--article", {
+      preview: true,
+      previewData: {
+        plugin: "simple_oauth",
+        scope: "editor",
+      },
+    })
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: {
+          clientId: "7795065e-8ad0-45eb-a64d-73d9f3a5e943",
+          clientSecret: "d92Fm^ds",
+          scope: "editor",
+          url: "/oauth/token",
+        },
+      })
+    )
+  })
+
+  test("if in preview and using the jwt plugin, it should use the access_token from context", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      auth: {
+        clientId: "7795065e-8ad0-45eb-a64d-73d9f3a5e943",
+        clientSecret: "d92Fm^ds",
+      },
+    })
+    const fetchSpy = jest
+      .spyOn(global, "fetch")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+        ) as jest.Mock
+      )
+
+    await client.getResourceFromContext("node--article", {
+      preview: true,
+      previewData: {
+        plugin: "jwt",
+        access_token: "example-token",
+      },
+    })
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: `Bearer example-token`,
+      })
+    )
+  })
+
+  test("if in preview and using the jwt plugin, t should use the access token from context even with global withAuth", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      auth: {
+        clientId: "7795065e-8ad0-45eb-a64d-73d9f3a5e943",
+        clientSecret: "d92Fm^ds",
+        scope: "administrator",
+      },
+      withAuth: true,
+    })
+    const fetchSpy = jest
+      .spyOn(global, "fetch")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+        ) as jest.Mock
+      )
+
+    await client.getResourceFromContext("node--article", {
+      preview: true,
+      previewData: {
+        plugin: "jwt",
+        access_token: "example-token",
+      },
+    })
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        withAuth: `Bearer example-token`,
       })
     )
   })

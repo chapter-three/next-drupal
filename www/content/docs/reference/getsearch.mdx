@@ -3,6 +3,12 @@ title: getSearchIndex
 excerpt: Fetch a Search API index.
 ---
 
+<Callout icon="⚠️">
+
+You need to install the [JSON:API Search API](https://www.drupal.org/project/jsonapi_search_api) module to use `getSearchIndex`.
+
+</Callout>
+
 ```ts
 const resources = await drupal.getSearchIndex<T = JsonApiResource[]>(
   name,

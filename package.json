@@ -61,7 +61,7 @@
     "eslint-plugin-cypress": "^2.11.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
-    "faker": "^5.4.0",
+    "faker": "^6.6.6",
     "husky": "^4.2.5",
     "isomorphic-fetch": "^3.0.0",
     "jest": "^27.5.1",

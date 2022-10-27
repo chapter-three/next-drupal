@@ -84,9 +84,22 @@ class EntityResource extends JsonApiEntityResource {
       return $params;
     }
 
-    if ($sparse_fieldset[$resource_type->getTypeName()][0] === 'path') {
-      $params[OffsetPage::KEY_NAME] = new OffsetPage(OffsetPage::DEFAULT_OFFSET, $this->maxSize);
+    // We expect the first field to be path.
+    // This is spec-compatible.
+    if ($sparse_fieldset[$resource_type->getTypeName()][0] !== 'path') {
+      return $params;
     }
+
+    // Default to parameters.next_jsonapi.size_max.
+    $max = $this->maxSize;
+
+    // Fallback to page[limit] if set.
+    if (($page = $request->query->get('page')) && isset($page['limit']) && $page['limit'] < $max) {
+      $max = $page['limit'];
+    }
+
+    $params[OffsetPage::KEY_NAME] = new OffsetPage(OffsetPage::DEFAULT_OFFSET, $max);
+
     return $params;
   }
 

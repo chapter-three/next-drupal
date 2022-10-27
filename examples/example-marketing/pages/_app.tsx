@@ -1,7 +1,6 @@
 import * as React from "react"
 import Router from "next/router"
-import { QueryClient, QueryClientProvider } from "react-query"
-import { Hydrate } from "react-query/hydration"
+import { QueryClient, QueryClientProvider, Hydrate } from "@tanstack/react-query"
 import NProgress from "nprogress"
 import { syncDrupalPreviewRoutes } from "next-drupal"
 import "nprogress/nprogress.css"

@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.5.0
+https://next-drupal.org/blog/next-drupal-1-5
+
+* **next-drupal:** Added support for Preview URL Generators
+
+## 1.4.0
+
+https://next-drupal.org/blog/next-drupal-1-4
+
+* **next-drupal:** stable `DrupalClient` (https://next-drupal.org/docs/client)
+* **next-drupal:** write operations for JSON:API
+
 ## 1.3.2
 
 ### Bug Fixes

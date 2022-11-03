@@ -1,5 +1,6 @@
 import Script from "next/script"
 import { DefaultSeo } from "next-seo"
+import { Analytics } from "@vercel/analytics/react"
 
 import { site } from "config/site"
 
@@ -42,6 +43,7 @@ export default function App({ Component, pageProps }) {
         }}
       />
       <Component {...pageProps} />
+      <Analytics />
     </>
   )
 }

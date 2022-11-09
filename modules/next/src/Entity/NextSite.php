@@ -194,7 +194,9 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
         ->getId();
     }
 
-    $query['resourceVersion'] = $resource_version;
+    if ($resource_version) {
+      $query['resourceVersion'] = $resource_version;
+    }
 
     $preview_url->setOption('query', $query);
 

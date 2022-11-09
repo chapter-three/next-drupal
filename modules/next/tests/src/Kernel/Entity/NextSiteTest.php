@@ -2,21 +2,14 @@
 
 namespace Drupal\Tests\next\Kernel\Entity;
 
-use Drupal\Component\Serialization\Json;
 use Drupal\KernelTests\KernelTestBase;
-use Drupal\next\Controller\NextPreviewUrlController;
 use Drupal\next\Entity\NextSite;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 use Drupal\user\Entity\User;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Tests the NextSite entity.
-namespace Drupal\Tests\next\Kernel\Plugin;
-
-use Drupal\KernelTests\KernelTestBase;
-use Drupal\next\Entity\NextSite;
 
 /**
  * Tests the next_site entity.
@@ -84,10 +77,7 @@ class NextSiteTest extends KernelTestBase {
     $preview_url = $this->nextSite->getPreviewUrlForEntity($node);
     $query = $preview_url->getOption('query');
     $this->assertSame('rel:latest-version', $query['resourceVersion']);
-  /**
-   * {@inheritdoc}
-   */
-  protected static $modules = ['next'];
+  }
 
   /**
    * @covers ::getBaseUrl

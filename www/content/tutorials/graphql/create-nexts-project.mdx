@@ -1,0 +1,46 @@
+---
+title: Create Next.js project
+excerpt: Create a new Next.js project using the starter
+weight: 60
+group: Quick Start (GraphQL)
+---
+
+Now that we have completed the Drupal configuration, we can create our Next.js project.
+
+We are going to use the [GraphQL starter](https://github.com/chapter-three/next-drupal/tree/master/starters/graphql-starter).
+
+---
+
+## Create Project
+
+Run the following command to create a new Next.js project:
+
+```sh
+npx create-next-app -e https://github.com/chapter-three/next-drupal-graphql-starter
+```
+
+---
+
+## Connect Drupal
+
+To connect the Next.js project to Drupal, we use [environment variables](https://nextjs.org/docs/basic-features/environment-variables).
+
+1. Copy `.env.example` to `.env.local`.
+2. Fill in the following **Environment variables**:
+
+```txt title=.env.local
+NEXT_PUBLIC_DRUPAL_BASE_URL=http://example.com
+NEXT_IMAGE_DOMAIN=example
+
+# Authentication
+DRUPAL_CLIENT_ID=
+DRUPAL_CLIENT_SECRET=
+```
+
+---
+
+## Start Development Server
+
+To start the Next.js development server, run `npm run dev` or `yarn dev`. This starts the development server on `http://localhost:3000`.
+
+Visit [http://localhost:3000](http://localhost:3000) to view the site.

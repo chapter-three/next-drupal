@@ -1,0 +1,33 @@
+---
+title: GraphQL
+excerpt: Use DrupalClient with GraphQL and GraphQL Compose
+weight: 9
+---
+
+```ts
+const data = await query({
+  query: `
+      query {
+        nodeArticles(first: 10) {
+          nodes {
+            id
+            title
+            path
+            author {
+              displayName
+            }
+            body {
+              processed
+            }
+            created
+            image {
+              width
+              url
+              height
+            }
+          }
+        }
+      }
+    `,
+})
+```

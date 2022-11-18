@@ -98,6 +98,8 @@ export class DrupalClient {
 
   private _apiPrefix: DrupalClientOptions["apiPrefix"]
 
+  private _defaultLocale: DrupalClientOptions["defaultLocale"]
+
   private useDefaultResourceTypeEntry?: DrupalClientOptions["useDefaultResourceTypeEntry"]
 
   private _token?: AccessToken
@@ -137,6 +139,7 @@ export class DrupalClient {
       headers = DEFAULT_HEADERS,
       logger = defaultLogger,
       withAuth = DEFAULT_WITH_AUTH,
+      defaultLocale = null,
       fetcher,
       auth,
       previewSecret,
@@ -147,6 +150,7 @@ export class DrupalClient {
 
     this.baseUrl = baseUrl
     this.apiPrefix = apiPrefix
+    this._defaultLocale = defaultLocale
     this.serializer = serializer
     this.frontPage = frontPage
     this.debug = debug
@@ -176,6 +180,10 @@ export class DrupalClient {
 
   get apiPrefix() {
     return this._apiPrefix
+  }
+
+  get defaultLocale() {
+    return this._defaultLocale
   }
 
   set auth(auth: DrupalClientOptions["auth"]) {
@@ -902,9 +910,14 @@ export class DrupalClient {
       ...options,
     }
 
-    const url = this.buildUrl("/router/translate-path", {
-      path,
-    })
+    const url = this.buildUrl(
+      this.defaultLocale
+        ? `/${this.defaultLocale}/router/translate-path`
+        : "/router/translate-path",
+      {
+        path,
+      }
+    )
 
     const response = await this.fetch(url.toString(), {
       withAuth: options.withAuth,
@@ -981,8 +994,9 @@ export class DrupalClient {
   }
 
   async getIndex(locale?: Locale): Promise<JsonApiResponse> {
+    const localePrefix = locale || this.defaultLocale
     const url = this.buildUrl(
-      locale ? `/${locale}${this.apiPrefix}` : this.apiPrefix
+      localePrefix ? `/${localePrefix}${this.apiPrefix}` : this.apiPrefix
     )
 
     try {

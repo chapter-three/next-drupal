@@ -9,6 +9,8 @@ export type DrupalClientOptions = {
    */
   apiPrefix?: string
 
+  defaultLocale?: string
+
   /**
    * Set debug to true to enable debug messages.
    *

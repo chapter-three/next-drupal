@@ -45,9 +45,18 @@ class NextSiteForm extends EntityForm {
       '#required' => TRUE,
     ];
 
+    $form['settings'] = [
+      '#type' => 'vertical_tabs',
+      '#title' => $this->t('Settings'),
+    ];
+
     $form['preview'] = [
-      '#title' => $this->t('Preview'),
-      '#type' => 'fieldset',
+      '#title' => $this->t('Preview Mode'),
+      '#description' => $this->t('Preview mode allows editors to preview content on the site. You can read more on the <a href=":uri" target="_blank">Next.js documentation</a>.', [
+        ':uri' => 'https://nextjs.org/docs/advanced-features/preview-mode',
+      ]),
+      '#type' => 'details',
+      '#group' => 'settings',
     ];
 
     $form['preview']['preview_url'] = [
@@ -62,6 +71,29 @@ class NextSiteForm extends EntityForm {
       '#title' => $this->t('Preview secret'),
       '#description' => $this->t('Enter a secret for the site preview. This is the same value used for <em>DRUPAL_PREVIEW_SECRET</em>.'),
       '#default_value' => $entity->getPreviewSecret(),
+    ];
+
+    $form['revalidation'] = [
+      '#title' => $this->t('On-demand Revalidation'),
+      '#description' => $this->t('On-demand revalidation updates your pages when content is updated on your Drupal site. You can read more on the <a href=":uri" target="_blank">Next.js documentation</a>.', [
+        ':uri' => 'https://nextjs.org/docs/advanced-features/preview-mode',
+      ]),
+      '#type' => 'details',
+      '#group' => 'settings',
+    ];
+
+    $form['revalidation']['revalidate_url'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Revalidate URL'),
+      '#description' => $this->t('Enter the revalidate URL. Example: <em>https://example.com/api/revalidate</em>.'),
+      '#default_value' => $entity->getRevalidateUrl(),
+    ];
+
+    $form['revalidation']['revalidate_secret'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Revalidate secret'),
+      '#description' => $this->t('Enter a secret for the site revalidate. This is the same value used for <em>DRUPAL_REVALIDATE_SECRET</em>.'),
+      '#default_value' => $entity->getRevalidateSecret(),
     ];
 
     return $form;

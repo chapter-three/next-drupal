@@ -65,6 +65,11 @@ jobs:
         run: cp -R ../next-drupal/modules/next ~/drupal/web/modules/next
       - name: Run php built-in server
         run: php -S 127.0.0.1:8080 -t ~/drupal/web &
+      - name: Run phpcs
+        run: |
+          cd ~/drupal/web
+          cp modules/next/phpcs.xml.dist .
+          ../vendor/bin/phpcs --standard=./phpcs.xml.dist modules/next -p -s -n --colors
       - name: Run PHPUnit
         run: |
           cd ~/drupal/web

@@ -9,9 +9,6 @@ use Drupal\Tests\user\Traits\UserCreationTrait;
 use Drupal\user\Entity\User;
 
 /**
- * Tests the NextSite entity.
-
-/**
  * Tests the next_site entity.
  *
  * @coversDefaultClass \Drupal\next\Entity\NextSite

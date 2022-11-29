@@ -1,3 +1,4 @@
+// This is based on the work done by the next-auth team.
 const fs = require("fs")
 const path = require("path")
 const core = require("@actions/core")

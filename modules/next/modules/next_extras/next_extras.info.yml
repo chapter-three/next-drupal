@@ -1,7 +1,7 @@
 name: Next.js Extras (Experimental)
 description: Adds extra (mostly experiemental) functionality to Next.js module
 type: module
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^9 || ^10
 package: Web services
 dependencies:
   - next:next

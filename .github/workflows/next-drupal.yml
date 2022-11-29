@@ -22,7 +22,7 @@ jobs:
           DRUPAL_CLIENT_SECRET: ${{ secrets.DRUPAL_CLIENT_SECRET }}
   release-pr:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request' }}
+    if: ${{ github.event_name == 'pull_request_target' }}
     needs: test
     environment: Preview
     steps:

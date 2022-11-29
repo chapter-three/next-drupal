@@ -225,10 +225,15 @@ class SimpleOauthPreviewUrlGeneratorTest extends KernelTestBase {
         "The provided secret has expired.",
       ],
       [
-        $query,
+        [
+          'slug' => '/node/1',
+          'timestamp' => strtotime('60 seconds'),
+          'scope' => 'llama',
+          'secret' => 'secret',
+        ],
         "",
         TRUE,
-      ]
+      ],
     ];
   }
 

@@ -12,17 +12,12 @@ jobs:
     steps:
       - name: Init
         uses: actions/checkout@v3
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2.2.4
-        with:
-          version: 7.5.1
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: "pnpm"
       - name: Install dependencies
-        run: pnpm install
+        run: yarn install
       - name: Determine version
         uses: ./.github/version-pr
         id: determine-version
@@ -32,7 +27,7 @@ jobs:
         run: |
           cd packages/next-drupal
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
-          pnpm publish --no-git-checks --access public --tag experimental
+          yarn publish --no-git-checks --access public --tag experimental
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Comment version on PR

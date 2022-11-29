@@ -9,6 +9,9 @@ export type DrupalClientOptions = {
    */
   apiPrefix?: string
 
+  /**
+   * Set the default locale to use for the client.
+   */
   defaultLocale?: string
 
   /**

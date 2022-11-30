@@ -17,6 +17,13 @@ next.next_site.*:
     preview_secret:
       type: string
       label: "Preview secret"
+    revalidate_url:
+      type: string
+      label: "Revalidate URL"
+    revalidate_secret:
+      type: string
+      label: "Revalidate secret"
+
 
 next.next_entity_type_config.*:
   type: config_entity
@@ -30,6 +37,11 @@ next.next_entity_type_config.*:
       label: "Site resolver"
     configuration:
       type: next.site_resolver.configuration.[%parent.site_resolver]
+    revalidator:
+      type: string
+      label: "Revalidator"
+    revalidator_configuration:
+      type: next.revalidator.configuration.[%parent.revalidator]
 
 next.site_resolver.configuration.site_selector:
   type: mapping
@@ -48,6 +60,20 @@ next.site_resolver.configuration.entity_reference_field:
       type: string
       label: "Field name"
 
+next.revalidator.configuration.*:
+  type: mapping
+  label: 'Revalidator configuration'
+
+next.revalidator.configuration.path:
+  type: mapping
+  mapping:
+    revalidate_page:
+      type: boolean
+      label: "Revalidate page"
+    additional_paths:
+      type: string
+      label: "Additional paths"
+
 next.settings:
   type: config_object
   label: "Next settings"
@@ -62,6 +88,8 @@ next.settings:
       label: "Preview URL generator"
     preview_url_generator_configuration:
       type: next.preview_url_generator.configuration.[%parent.preview_url_generator]
+    debug:
+      type: boolean
 
 next.site_previewer.configuration.iframe:
   type: mapping

@@ -31,6 +31,7 @@ export type Guide = MdxNode<{
   author?: string
   image?: string
   caption?: string
+  externalUrl?: string
 }>
 
 export type Tutorial = MdxNode<{

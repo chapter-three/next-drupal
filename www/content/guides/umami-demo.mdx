@@ -32,24 +32,15 @@ composer create-project drupal/recommended-project umami
 composer require drupal/next drupal/jsonapi_menu_items drupal/jsonapi_views 'drupal/jsonapi_resources:^1.0@beta'
 ```
 
-4. Run the Drupal quickstart
+4. Install Drupal. Make sure you select **Demo: Umami Food Magazine (Experimental)** as the installation profile.
+
+   For a quick installation, you may also use the `quick-start` command:
 
 ```bash
 php -d memory_limit=256M ./web/core/scripts/drupal quick-start demo_umami
 ```
 
-You should see the following:
-
-```bash
-Congratulations, you installed Drupal!
-Username: admin
-Password: rtWb8st3mVLtUCOF
-Drupal development server started: <http://127.0.0.1:8888>
-```
-
-**Note the username and password.**
-
-4. Login and enable the following modules:
+4. Enable the following modules:
 
 - Next
 - Next JSON:API

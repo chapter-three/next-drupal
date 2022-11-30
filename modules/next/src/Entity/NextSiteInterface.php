@@ -90,4 +90,53 @@ interface NextSiteInterface extends ConfigEntityInterface {
    */
   public function getLiveUrlForEntity(EntityInterface $entity): ?Url;
 
+  /**
+   * Returns the revalidate_url for the next_site.
+   *
+   * @return string
+   *   The revalidate_url for the next_site.
+   */
+  public function getRevalidateUrl(): ?string;
+
+  /**
+   * Sets the revalidate_url for the next_site.
+   *
+   * @param string $revalidate_url
+   *   The revalidate_url.
+   *
+   * @return \Drupal\next\Entity\NextSiteInterface
+   *   The next_site entity.
+   */
+  public function setRevalidateUrl(string $revalidate_url): self;
+
+  /**
+   * Returns the revalidate_secret for the next_site.
+   *
+   * @return string
+   *   The revalidate_secret for the next_site.
+   */
+  public function getRevalidateSecret(): ?string;
+
+  /**
+   * Sets the revalidate_secret for the next_site.
+   *
+   * @param string $revalidate_secret
+   *   The revalidate_secret.
+   *
+   * @return \Drupal\next\Entity\NextSiteInterface
+   *   The next_site entity.
+   */
+  public function setRevalidateSecret(string $revalidate_secret): self;
+
+  /**
+   * Returns the revalidate url for given path.
+   *
+   * @param string $path
+   *   The path.
+   *
+   * @return \Drupal\Core\Url|null
+   *   The revalidate url.
+   */
+  public function getRevalidateUrlForPath(string $path): ?Url;
+
 }

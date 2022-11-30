@@ -4,6 +4,10 @@ export const tutorialsConfig = [
     items: [],
   },
   {
+    title: "Quick Start (GraphQL)",
+    items: [],
+  },
+  {
     title: "Preview Mode",
     items: [],
   },

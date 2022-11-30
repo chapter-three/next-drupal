@@ -10,8 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        drupal: ["8.9", "9.2", "9.3", "9.4"]
-    name: Drupal ${{ matrix.drupal }}
+        php: ["8.0", "8.1"]
+        drupal: ["9.3", "9.4"]
+    name: Drupal ${{ matrix.drupal }} - PHP ${{ matrix.php }}
     services:
       mysql:
         image: mysql:5.7
@@ -25,7 +26,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, bcmath, soap, intl, gd, exif, iconv
           coverage: none
           tools: composer:v2
@@ -64,6 +65,11 @@ jobs:
         run: cp -R ../next-drupal/modules/next ~/drupal/web/modules/next
       - name: Run php built-in server
         run: php -S 127.0.0.1:8080 -t ~/drupal/web &
+      - name: Run phpcs
+        run: |
+          cd ~/drupal/web
+          cp modules/next/phpcs.xml.dist .
+          ../vendor/bin/phpcs --standard=./phpcs.xml.dist modules/next -p -s -n --colors
       - name: Run PHPUnit
         run: |
           cd ~/drupal/web

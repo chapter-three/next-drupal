@@ -18,25 +18,29 @@
   "require": {
     "composer/installers": "^1.7",
     "cweagans/composer-patches": "^1.6.5",
-    "drupal/admin_toolbar": "^3.1",
+    "drupal/admin_toolbar": "^3.2",
+    "drupal/commerce": "^2.32",
     "drupal/config_inspector": "^2.1",
     "drupal/config_pages": "^2.9",
     "drupal/console": "^1.0.2",
     "drupal/consumer_image_styles": "^4.0",
-    "drupal/consumers": "^1.12",
+    "drupal/consumers": "^1.14",
     "drupal/core-composer-scaffold": "^9",
     "drupal/core-project-message": "^9",
     "drupal/core-recommended": "^9",
-    "drupal/ctools": "^3.6",
+    "drupal/ctools": "^4.0",
     "drupal/decoupled_router": "2.x-dev@dev",
+    "drupal/devel": "^5.0",
     "drupal/entity_reference_revisions": "^1.9",
     "drupal/entity_usage": "^2.0@beta",
     "drupal/facets": "^2.0",
-    "drupal/field_group": "^3.1",
+    "drupal/field_group": "^3.4",
     "drupal/field_permissions": "^1.2",
     "drupal/gin": "^3.0@beta",
     "drupal/gin_login": "^1.2",
     "drupal/gin_toolbar": "^1.0@beta",
+    "drupal/graphql": "4.x-dev@dev",
+    "drupal/graphql_compose": "^1.0@beta",
     "drupal/inline_entity_form": "^1.0@RC",
     "drupal/jsonapi_extras": "^3.20",
     "drupal/jsonapi_menu_items": "^1.2",
@@ -44,21 +48,22 @@
     "drupal/jsonapi_search_api": "^1.0@RC",
     "drupal/jsonapi_views": "^1.0",
     "drupal/jwt": "^1.0",
-    "drupal/key": "^1.15",
-    "drupal/metatag": "^1.21",
+    "drupal/key": "^1.16",
+    "drupal/metatag": "^1.22",
     "drupal/next": "1.0.x-dev",
     "drupal/openapi": "^2.0",
     "drupal/openapi_jsonapi": "^3.0",
-    "drupal/paragraphs": "^1.13",
+    "drupal/paragraphs": "^1.15",
     "drupal/pathauto": "^1.9",
     "drupal/preview_link": "^1.7",
-    "drupal/search_api": "^1.23",
+    "drupal/search_api": "^1.28",
     "drupal/simple_oauth": "^5.2",
     "drupal/subrequests": "^3.0",
     "drupal/tca": "^3.0",
     "drupal/webform": "^6.1",
     "drupal/webform_rest": "^4.0",
-    "drush/drush": "^11.0",
+    "drush/drush": "^11.3",
+    "twig/twig": "2.15.2",
     "vlucas/phpdotenv": "^4.0",
     "webflo/drupal-finder": "^1.0.0",
     "zaporylie/composer-drupal-optimizations": "^1.0"
@@ -76,7 +81,7 @@
     "preferred-install": "dist",
     "sort-packages": true,
     "platform": {
-        "php": "7.4"
+      "php": "7.4"
     },
     "allow-plugins": {
       "composer/installers": true,
@@ -120,12 +125,12 @@
         "pantheon-systems/drupal-integrations"
       ],
       "locations": {
-          "web-root": "./web"
+        "web-root": "./web"
       },
       "file-mapping": {
-          "[project-root]/.editorconfig": false,
-          "[project-root]/pantheon.upstream.yml": false,
-          "[project-root]/.gitattributes": false
+        "[project-root]/.editorconfig": false,
+        "[project-root]/pantheon.upstream.yml": false,
+        "[project-root]/.gitattributes": false
       }
     },
     "installer-paths": {
@@ -149,11 +154,14 @@
       ]
     },
     "patches": {
+      "drupal/jsonapi_extras": {
+        "Invalid output JSON schema in UrlLinkEnhancer": "https://www.drupal.org/files/issues/2022-09-08/3232279-12.patch"
+      },
       "drupal/subrequests": {
         "Get same results on different request": "https://www.drupal.org/files/issues/2019-07-18/change_request_type-63049395-09.patch"
       },
       "drupal/decoupled_router": {
-          "Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2021-05-05/3111456-34.patch"
+        "Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2021-05-05/3111456-34.patch"
       },
       "drupal/metatag": {
         "Support JSON API, REST, GraphQL and custom normalizations": "https://www.drupal.org/files/issues/2022-10-03/metatag-data-type-support-2945817-152_0.patch"

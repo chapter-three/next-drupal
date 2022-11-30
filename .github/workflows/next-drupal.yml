@@ -1,15 +1,17 @@
 name: next-drupal
 on:
   push:
-  pull_request_target:
-    types: [opened, synchronize, edited]
     branches: [main]
+  pull_request:
+    types: [opened, reopened, synchronize, labeled, edited]
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Install modules
         run: yarn
       - name: Run tests
@@ -22,12 +24,14 @@ jobs:
           DRUPAL_CLIENT_SECRET: ${{ secrets.DRUPAL_CLIENT_SECRET }}
   release-pr:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request_target' }}
+    if: ${{ github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'release-pr') }}
     needs: test
     environment: Preview
     steps:
       - name: Init
         uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Setup Node
         uses: actions/setup-node@v3
         with:

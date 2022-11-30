@@ -3,10 +3,11 @@
 namespace Drupal\next;
 
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\next\Entity\NextEntityTypeConfigInterface;
+use Drupal\next\Plugin\RevalidatorInterface;
+use Drupal\next\Plugin\SiteResolverInterface;
 use Drupal\node\NodeInterface;
 
 /**
@@ -100,6 +101,40 @@ class NextEntityTypeManager implements NextEntityTypeManagerInterface {
     }
 
     return $entity->getEntityType()->isRevisionable();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSitesForEntity(EntityInterface $entity): array {
+    $site_resolver = $this->getSiteResolver($entity);
+    if (!$site_resolver) {
+      return [];
+    }
+
+    return $site_resolver->getSitesForEntity($entity);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSiteResolver(EntityInterface $entity): ?SiteResolverInterface {
+    if ($next_entity_type_config = $this->getConfigForEntityType($entity->getEntityTypeId(), $entity->bundle())) {
+      return $next_entity_type_config->getSiteResolver();
+    }
+
+    return NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRevalidator(EntityInterface $entity): ?RevalidatorInterface {
+    if ($next_entity_type_config = $this->getConfigForEntityType($entity->getEntityTypeId(), $entity->bundle())) {
+      return $next_entity_type_config->getRevalidator();
+    }
+
+    return NULL;
   }
 
 }

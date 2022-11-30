@@ -1,0 +1,40 @@
+---
+title: Next 1.4
+author: shadcn
+date: November 10, 2022
+created: "2022-11-10"
+excerpt: Announcing GraphQL support using DrupalClient and GraphQL Compose.
+published: true
+---
+
+One of the [most requested features](https://www.chapterthree.com/blog/nextjs-drupal-and-graphql-how-to-use-graphql-next-drupal) of Next.js for Drupal has been GraphQL support.
+
+When we started working on Next.js for Drupal, GraphQL for Drupal was in between releases. We started looking into supporting GraphQL but version 4 shipped without schema definitions and onboarding took some learning.
+
+We've been following the work done by the GraphQL team closely. A few months ago, [jmolivas](https://twitter.com/jmolivas) announced GraphQL Compose, _a GraphQL spec compliant schema generation for the GraphQL module v4.x_.
+
+This is exactly what we've been waiting for.
+
+Today, we are announcing `next 1.4` with support for GraphQL using GraphQL Compose.
+
+```sh
+composer require 'drupal/next:^1.4' 'drupal/graphql:^4.4' 'drupal/graphql_compose:^1.0@beta'
+```
+
+All the features of Next.js, including Preview Mode, work out of the box.
+
+---
+
+## GraphQL Starter
+
+We built a new Next.js starter for GraphQL. Check it out:
+
+```sh
+npx create-next-app -e https://github.com/chapter-three/next-drupal-graphql-starter
+```
+
+---
+
+## Getting Started
+
+The Quick Start section now includes guides for configuring GraphQL for Next.js. You can see the guide [here](/learn/graphql).

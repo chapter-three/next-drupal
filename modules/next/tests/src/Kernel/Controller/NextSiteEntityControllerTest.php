@@ -38,7 +38,9 @@ class NextSiteEntityControllerTest extends KernelTestBase {
       'id' => 'blog',
       'base_url' => 'https://blog.com',
       'preview_url' => 'https://blog.com/api/preview',
-      'preview_secret' => 'one'
+      'preview_secret' => 'one',
+      'revalidate_url' => 'https://blog.com/api/revalidate',
+      'revalidate_secret' => 'two',
     ]);
     $this->nextSite->save();
   }
@@ -52,9 +54,8 @@ class NextSiteEntityControllerTest extends KernelTestBase {
 
     $this->assertEquals(\Drupal::requestStack()->getCurrentRequest()->getSchemeAndHttpHost(), $build['container']['NEXT_PUBLIC_DRUPAL_BASE_URL']['#context']['value']);
     $this->assertEquals(\Drupal::requestStack()->getCurrentRequest()->getHost(), $build['container']['NEXT_IMAGE_DOMAIN']['#context']['value']);
-    $this->assertEquals($this->nextSite->id(), $build['container']['DRUPAL_SITE_ID']['#context']['value']);
     $this->assertEquals($this->nextSite->getPreviewSecret(), $build['container']['DRUPAL_PREVIEW_SECRET']['#context']['value']);
-    $this->assertEquals(\Drupal::configFactory()->get('system.site')->get('page.front'), $build['container']['DRUPAL_FRONT_PAGE']['#context']['value']);
+    $this->assertEquals($this->nextSite->getRevalidateSecret(), $build['container']['DRUPAL_REVALIDATE_SECRET']['#context']['value']);
   }
 
   /**

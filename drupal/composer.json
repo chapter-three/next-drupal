@@ -19,6 +19,7 @@
     "composer/installers": "^1.7",
     "cweagans/composer-patches": "^1.6.5",
     "drupal/admin_toolbar": "^3.2",
+    "drupal/commerce": "^2.32",
     "drupal/config_inspector": "^2.1",
     "drupal/config_pages": "^2.9",
     "drupal/console": "^1.0.2",
@@ -153,6 +154,9 @@
       ]
     },
     "patches": {
+      "drupal/jsonapi_extras": {
+        "Invalid output JSON schema in UrlLinkEnhancer": "https://www.drupal.org/files/issues/2022-09-08/3232279-12.patch"
+      },
       "drupal/subrequests": {
         "Get same results on different request": "https://www.drupal.org/files/issues/2019-07-18/change_request_type-63049395-09.patch"
       },

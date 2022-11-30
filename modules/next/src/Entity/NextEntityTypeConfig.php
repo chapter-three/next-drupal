@@ -3,13 +3,14 @@
 namespace Drupal\next\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\next\Plugin\RevalidatorInterface;
 use Drupal\next\Plugin\SiteResolverInterface;
+use Drupal\next\RevalidatorPluginCollection;
 use Drupal\next\SiteResolverPluginCollection;
 
 /**
  * Defines the next_entity_type config entity.
- *
- * TODO: Use EntityWithPluginCollectionInterface?
  *
  * @ConfigEntityType(
  *   id = "next_entity_type_config",
@@ -44,6 +45,8 @@ use Drupal\next\SiteResolverPluginCollection;
  *     "id",
  *     "site_resolver",
  *     "configuration",
+ *     "revalidator",
+ *     "revalidator_configuration"
  *   },
  *   links = {
  *     "add-form" = "/admin/config/services/next/entity-types/add",
@@ -70,11 +73,25 @@ class NextEntityTypeConfig extends ConfigEntityBase implements NextEntityTypeCon
   protected $site_resolver;
 
   /**
-   * The configuration of the action.
+   * The configuration of the site_resolver plugin.
    *
    * @var array
    */
   protected $configuration = [];
+
+  /**
+   * The revalidator.
+   *
+   * @var string
+   */
+  protected $revalidator;
+
+  /**
+   * The configuration of the revalidator plugin.
+   *
+   * @var array
+   */
+  protected $revalidator_configuration = [];
 
   /**
    * The plugin collection that stores site_resolver plugins.
@@ -82,6 +99,13 @@ class NextEntityTypeConfig extends ConfigEntityBase implements NextEntityTypeCon
    * @var \Drupal\next\SiteResolverPluginCollection
    */
   protected $pluginCollection;
+
+  /**
+   * The plugin collection that stores revalidator plugins.
+   *
+   * @var \Drupal\next\SiteResolverPluginCollection
+   */
+  protected $revalidatorPluginCollection;
 
   /**
    * {@inheritdoc}
@@ -109,6 +133,22 @@ class NextEntityTypeConfig extends ConfigEntityBase implements NextEntityTypeCon
   /**
    * {@inheritdoc}
    */
+  public function getRevalidator(): ?RevalidatorInterface {
+    return $this->revalidator ? $this->getRevalidatorPluginCollection()->get($this->revalidator) : NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setRevalidator(string $plugin_id): NextEntityTypeConfigInterface {
+    $this->revalidator = $plugin_id;
+    $this->getRevalidatorPluginCollection()->addInstanceID($plugin_id);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getConfiguration() {
     return $this->configuration;
   }
@@ -122,13 +162,54 @@ class NextEntityTypeConfig extends ConfigEntityBase implements NextEntityTypeCon
   }
 
   /**
-   * Encapsulates the creation of the LazyPluginCollection.
-   *
-   * @return \Drupal\Component\Plugin\LazyPluginCollection
-   *   The plugin collection.
+   * {@inheritdoc}
    */
-  protected function getPluginCollection() {
-    if (!$this->pluginCollection && $this->site_resolver) {
+  public function getSiteResolverConfiguration() {
+    return $this->getPluginCollection()->getConfiguration();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setSiteResolverConfiguration(string $id, array $configuration): NextEntityTypeConfigInterface {
+    $collection = $this->getPluginCollection();
+    if (!$collection->has($id)) {
+      $configuration['id'] = $id;
+      $collection->addInstanceId($id, $configuration);
+    }
+    else {
+      $collection->setConfiguration($configuration);
+    }
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRevalidatorConfiguration() {
+    return $this->getRevalidatorPluginCollection()->getConfiguration();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setRevalidatorConfiguration(string $id, array $configuration): NextEntityTypeConfigInterface {
+    $collection = $this->getRevalidatorPluginCollection();
+    if (!$collection->has($id)) {
+      $configuration['id'] = $id;
+      $collection->addInstanceId($id, $configuration);
+    }
+    else {
+      $collection->setConfiguration($configuration);
+    }
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPluginCollection() {
+    if (!$this->pluginCollection) {
       $this->pluginCollection = new SiteResolverPluginCollection($this->siteResolverPluginManager(), $this->site_resolver, $this->configuration, $this->id());
     }
     return $this->pluginCollection;
@@ -137,18 +218,47 @@ class NextEntityTypeConfig extends ConfigEntityBase implements NextEntityTypeCon
   /**
    * {@inheritdoc}
    */
+  public function getRevalidatorPluginCollection() {
+    if (!$this->revalidatorPluginCollection) {
+      $this->revalidatorPluginCollection = new RevalidatorPluginCollection($this->revalidatorPluginManager(), $this->revalidator, $this->revalidator_configuration, $this->id());
+    }
+    return $this->revalidatorPluginCollection;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getPluginCollections() {
-    return $this->pluginCollection ? ['configuration' => $this->getPluginCollection()] : [];
+    $collections = [];
+    if ($this->pluginCollection) {
+      $collections['configuration'] = $this->getPluginCollection();
+    }
+
+    if ($this->revalidatorPluginCollection) {
+      $collections['revalidator_configuration'] = $this->getRevalidatorPluginCollection();
+    }
+
+    return $collections;
   }
 
   /**
    * Wraps the site_resolver plugin manager.
    *
-   * @return \Drupal\Component\Plugin\PluginManagerInterface
+   * @return \Drupal\next\Plugin\SiteResolverManagerInterface
    *   A site_resolver plugin manager object.
    */
   protected function siteResolverPluginManager() {
     return \Drupal::service('plugin.manager.next.site_resolver');
+  }
+
+  /**
+   * Wraps the revalidator plugin manager.
+   *
+   * @return \Drupal\next\Plugin\RevalidatorManagerInterface
+   *   A revalidator plugin manager object.
+   */
+  protected function revalidatorPluginManager() {
+    return \Drupal::service('plugin.manager.next.revalidator');
   }
 
 }

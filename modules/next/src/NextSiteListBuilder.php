@@ -20,7 +20,6 @@ class NextSiteListBuilder extends ConfigEntityListBuilder {
     $header['id'] = $this->t('ID');
     $header['label'] = $this->t('Label');
     $header['base_url'] = $this->t('Base URL');
-    $header['preview_secret'] = $this->t('Preview secret');
     return $header + parent::buildHeader();
   }
 
@@ -33,7 +32,6 @@ class NextSiteListBuilder extends ConfigEntityListBuilder {
     $row['id'] = $entity->id();
     $row['label'] = $entity->label();
     $row['base_url'] = $entity->getBaseUrl();
-    $row['preview_secret'] = $entity->getPreviewSecret();
 
     return $row + parent::buildRow($entity);
   }

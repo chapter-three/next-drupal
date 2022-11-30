@@ -1,0 +1,69 @@
+---
+title: Configure Authentication
+excerpt: Setup an OAuth client for GraphQL requests.
+weight: 45
+group: Quick Start (GraphQL)
+---
+
+To make GraphQL requests to your Drupal site, we need to configure [authentication](/docs/authentication).
+
+We will use an OAuth Client for authenticating GraphQL requests.
+
+Before we can create an OAuth consumer, we need to create a new role and a user for OAuth scopes.
+
+---
+
+## 1. Create Role
+
+1. Visit `/admin/people/roles`.
+2. Click on **+ Add role**.
+3. Fill in the **Role name**. Example: _Next.js Site_.
+
+---
+
+## 2. Assign Permissions
+
+Next, assign the following permissions to the newly created role.
+
+- GraphQL Compose - Server: Execute arbitrary requests
+
+---
+
+## 3. Create User
+
+Add a new user at `/admin/people/create` and **assign them the role we created above**.
+
+---
+
+## 4. Generate keys
+
+Generate a pair of keys to encrypt the access tokens. Store them outside of your document root (`web` directory) for security.
+
+1. Visit `/admin/config/people/simple_oauth`
+2. Click **Generate keys** to generate encryption keys for tokens
+3. Fill in **Directory for the keys**. For example a relative path like `../`
+4. Click **Generate**
+5. Click **Save configuration**
+
+You can also use `openssl` to generate keys in the directory you used above:
+
+```
+openssl genrsa -out private.key 2048
+openssl rsa -in private.key -pubout > public.key
+```
+
+---
+
+## 5. Create Consumer
+
+1. Visit _/admin/config/services/consumer/add_
+2. Fill in the following values:
+
+- **Label**: `Next.js site`
+- **User**: `Select the user we created`
+- **Secret**: `Your secret`
+- **Scopes**: `Select the role we created`
+
+3. Click **Save**
+
+_Important: note the client id (uuid) and the secret. These are going to be used as environment variables for the Next.js site._

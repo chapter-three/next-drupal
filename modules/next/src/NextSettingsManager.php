@@ -81,7 +81,7 @@ class NextSettingsManager implements NextSettingsManagerInterface {
 
     try {
       /** @var \Drupal\next\Plugin\SitePreviewerInterface $site_previewer */
-      $this->sitePreviewerManager->createInstance($site_previewer_id, $this->get('site_previewer_configuration') ?? []);
+      $site_previewer = $this->sitePreviewerManager->createInstance($site_previewer_id, $this->get('site_previewer_configuration') ?? []);
 
       return $site_previewer;
     }
@@ -110,6 +110,13 @@ class NextSettingsManager implements NextSettingsManagerInterface {
 
       return NULL;
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isDebug(): bool {
+    return (boolean) $this->get('debug');
   }
 
 }

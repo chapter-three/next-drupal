@@ -54,4 +54,12 @@ interface NextSettingsManagerInterface {
    */
   public function getPreviewUrlGenerator(): ?PreviewUrlGeneratorInterface;
 
+  /**
+   * Returns true if debug mode is one.
+   *
+   * @return bool
+   *   TRUE if debug mode is on. FALSE otherwise.
+   */
+  public function isDebug(): bool;
+
 }

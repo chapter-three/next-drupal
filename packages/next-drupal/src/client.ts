@@ -182,6 +182,10 @@ export class DrupalClient {
     return this._apiPrefix
   }
 
+  set defaultLocale(defaultLocale: DrupalClientOptions["defaultLocale"]) {
+    this._defaultLocale = defaultLocale
+  }
+
   get defaultLocale() {
     return this._defaultLocale
   }

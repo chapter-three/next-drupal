@@ -156,7 +156,7 @@
           "Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2021-05-05/3111456-34.patch"
       },
       "drupal/metatag": {
-        "Support JSON API, REST, GraphQL and custom normalizations": "https://www.drupal.org/files/issues/2022-07-13/metatag-data-type-support-2945817-148_0.patch"
+        "Support JSON API, REST, GraphQL and custom normalizations": "https://www.drupal.org/files/issues/2022-10-03/metatag-data-type-support-2945817-152_0.patch"
       }
     }
   }

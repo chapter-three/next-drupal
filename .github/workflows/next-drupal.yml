@@ -24,7 +24,7 @@ jobs:
           DRUPAL_CLIENT_SECRET: ${{ secrets.DRUPAL_CLIENT_SECRET }}
   release-pr:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request' }} && contains(github.event.pull_request.labels.*.name, 'release-pr')
+    if: ${{ github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'release-pr') }}
     needs: test
     environment: Preview
     steps:
@@ -46,7 +46,6 @@ jobs:
       - name: Publish to npm
         run: |
           cd packages/next-drupal
-          ls -al
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
           yarn publish --no-git-checks --access public --tag experimental
         env:

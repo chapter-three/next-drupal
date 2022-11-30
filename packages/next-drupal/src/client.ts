@@ -998,9 +998,9 @@ export class DrupalClient {
   }
 
   async getIndex(locale?: Locale): Promise<JsonApiResponse> {
-    const localePrefix = locale || this.defaultLocale
+    const _locale = locale || this.defaultLocale
     const url = this.buildUrl(
-      localePrefix ? `/${localePrefix}${this.apiPrefix}` : this.apiPrefix
+      _locale ? `/${_locale}${this.apiPrefix}` : this.apiPrefix
     )
 
     try {
@@ -1025,16 +1025,17 @@ export class DrupalClient {
     type: string,
     locale?: Locale
   ): Promise<string> {
+    const _locale = locale || this.defaultLocale
     if (this.useDefaultResourceTypeEntry) {
       const [id, bundle] = type.split("--")
       return (
-        `${this.baseUrl}` + 
-        (locale ? `/${locale}${this.apiPrefix}/` : `${this.apiPrefix}/`) + 
+        `${this.baseUrl}` +
+        (_locale ? `/${_locale}${this.apiPrefix}/` : `${this.apiPrefix}/`) +
         `${id}/${bundle}`
       )
     }
 
-    const index = await this.getIndex(locale)
+    const index = await this.getIndex(_locale)
 
     const link = index.links?.[type] as { href: string }
 
@@ -1045,13 +1046,13 @@ export class DrupalClient {
     const { href } = link
 
     // Fix for missing locale in JSON:API index.
-    // This fix ensures the locale is included in the resouce link.
-    if (locale) {
-      const pattern = `^\\/${locale}\\/`
+    // This fix ensures the locale is included in the resource link.
+    if (_locale) {
+      const pattern = `^\\/${_locale}\\/`
       const path = href.replace(this.baseUrl, "")
 
       if (!new RegExp(pattern, "i").test(path)) {
-        return `${this.baseUrl}/${locale}${path}`
+        return `${this.baseUrl}/${_locale}${path}`
       }
     }
 

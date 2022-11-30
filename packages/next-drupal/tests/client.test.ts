@@ -2716,7 +2716,7 @@ describe("defaultLocale", () => {
       "71e04ead-4cc7-416c-b9ca-60b635fdc50f"
     )
     expect(fetchSpy).toHaveBeenLastCalledWith(
-      "https://dev-next-drupal-tests.pantheonsite.io/jsonapi/es/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
       expect.anything()
     )
 
@@ -2727,7 +2727,64 @@ describe("defaultLocale", () => {
       "71e04ead-4cc7-416c-b9ca-60b635fdc50f"
     )
     expect(fetchSpy).toHaveBeenLastCalledWith(
-      "https://dev-next-drupal-tests.pantheonsite.io/jsonapi/es/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      "https://dev-next-drupal-tests.pantheonsite.io/fr/foo/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      expect.anything()
+    )
+
+    const client2 = new DrupalClient(BASE_URL, {
+      useDefaultResourceTypeEntry: true,
+    })
+    await client2.getResource(
+      "node--recipe",
+      "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      {
+        defaultLocale: "en",
+        locale: "en",
+      }
+    )
+    expect(fetchSpy).toHaveBeenLastCalledWith(
+      "https://dev-next-drupal-tests.pantheonsite.io/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      expect.anything()
+    )
+
+    await client2.getResource(
+      "node--recipe",
+      "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      {
+        defaultLocale: "en",
+        locale: "es",
+      }
+    )
+    expect(fetchSpy).toHaveBeenLastCalledWith(
+      "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      expect.anything()
+    )
+
+    client2.defaultLocale = "fr"
+    await client2.getResource(
+      "node--recipe",
+      "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      {
+        defaultLocale: "en",
+        locale: "en",
+      }
+    )
+    expect(fetchSpy).toHaveBeenLastCalledWith(
+      "https://dev-next-drupal-tests.pantheonsite.io/fr/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      expect.anything()
+    )
+
+    client2.defaultLocale = "fr"
+    await client2.getResource(
+      "node--recipe",
+      "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      {
+        defaultLocale: "en",
+        locale: "es",
+      }
+    )
+    expect(fetchSpy).toHaveBeenLastCalledWith(
+      "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
       expect.anything()
     )
   })

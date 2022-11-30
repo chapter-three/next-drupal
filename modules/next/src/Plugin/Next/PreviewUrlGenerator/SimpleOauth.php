@@ -187,7 +187,7 @@ class SimpleOauth extends ConfigurablePreviewUrlGeneratorBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  protected function getScopesForCurrentUser() {
+  protected function getScopesForCurrentUser(): array {
     $roles = $this->currentUser->getRoles(TRUE);
     $admin_role = $this->getAdminRole();
 
@@ -208,9 +208,10 @@ class SimpleOauth extends ConfigurablePreviewUrlGeneratorBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  protected function getAdminRole() {
+  protected function getAdminRole(): ?string {
     $admin_roles = $this->entityTypeManager->getStorage('user_role')
       ->getQuery()
+      ->accessCheck(FALSE)
       ->condition('is_admin', TRUE)
       ->execute();
 

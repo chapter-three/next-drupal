@@ -172,7 +172,7 @@ export const drupal = new DrupalClient(
   {
     auth: {
       access_token: "ECYM594IlARGc3S8KgBHvTpki0rDtWx6...",
-      token_type: "bearer",
+      token_type: "Bearer",
       expires_in: 3600,
     },
   }
@@ -182,7 +182,7 @@ export const drupal = new DrupalClient(
 const articles = await drupal.getResourceCollection("node--article", {
   withAuth: {
     access_token: "ECYM594IlARGc3S8KgBHvTpki0rDtWx6...",
-    token_type: "bearer",
+    token_type: "Bearer",
     expires_in: 3600,
   },
 })

@@ -1,15 +1,14 @@
 name: next-drupal
 on:
   push:
-  pull_request_target:
-    types: [opened, synchronize, edited]
     branches: [main]
+  pull_request_target:
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install modules
         run: yarn
       - name: Run tests
@@ -42,6 +41,7 @@ jobs:
       - name: Publish to npm
         run: |
           cd packages/next-drupal
+          ls -al
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
           yarn publish --no-git-checks --access public --tag experimental
         env:

@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
   pull_request_target:
+    types: [opened, reopened, synchronize, labelled, edited]
 
 jobs:
   test:
@@ -21,7 +22,7 @@ jobs:
           DRUPAL_CLIENT_SECRET: ${{ secrets.DRUPAL_CLIENT_SECRET }}
   release-pr:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request_target' }}
+    if: ${{ github.event_name == 'pull_request_target' }} && contains(github.event.pull_request.labels.*.name, 'release-pr')
     needs: test
     environment: Preview
     steps:

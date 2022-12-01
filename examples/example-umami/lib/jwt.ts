@@ -2,36 +2,48 @@ import { JWT } from "next-auth/jwt"
 import { AccessToken } from "next-drupal"
 import { cache } from "./node-cache"
 
-const JWT_CACHE_KEY = "NEXT_AUTH_JWT_TOKEN"
+// const JWT_CACHE_KEY = "NEXT_AUTH_JWT_TOKEN"
 
 export async function getJWT(initialJWT: JWT): Promise<JWT> {
-  const cachedJWT = cache.get<JWT>(JWT_CACHE_KEY)
-
-  // We have nothing cached, return the initial token.
-  if (!cachedJWT) {
-    // Warm the cache with the initial token.
-    cache.set(JWT_CACHE_KEY, initialJWT, initialJWT.accessToken.expires_in)
-
+  // We have a cached token, check the expiry date.
+  if (Date.now() < initialJWT?.accessTokenExpires) {
     return initialJWT
   }
 
-  // We have a cached token, check the expiry date.
-  if (Date.now() < cachedJWT.accessTokenExpires) {
-    return cachedJWT
-  }
-
   // The token has expired, fetch a new one.
-  const newJWT = await refreshAccessToken(cachedJWT)
-
-  // Persist this to cache.
-  cache.set(JWT_CACHE_KEY, newJWT, newJWT.accessToken.expires_in)
-
-  return newJWT
+  return await refreshAccessToken(initialJWT)
 }
 
-export async function clearJWT() {
-  cache.del(JWT_CACHE_KEY)
-}
+// export async function getJWT(initialJWT: JWT): Promise<JWT> {
+//   const key = `${JWT_CACHE_KEY}.${initialJWT.accessToken.access_token}`
+
+//   const cachedJWT = cache.get<JWT>(key)
+
+//   // We have nothing cached, return the initial token.
+//   if (!cachedJWT) {
+//     // Warm the cache with the initial token.
+//     cache.set(key, initialJWT, initialJWT.accessToken.expires_in)
+
+//     return initialJWT
+//   }
+
+//   // We have a cached token, check the expiry date.
+//   if (Date.now() < cachedJWT.accessTokenExpires) {
+//     return cachedJWT
+//   }
+
+//   // The token has expired, fetch a new one.
+//   const newJWT = await refreshAccessToken(cachedJWT)
+
+//   // Persist this to cache.
+//   cache.set(key, newJWT, newJWT.accessToken.expires_in)
+
+//   return newJWT
+// }
+
+// export async function clearJWT() {
+//   cache.del(JWT_CACHE_KEY)
+// }
 
 // Helper to obtain a new access_token from a refresh token.
 async function refreshAccessToken(token: JWT): Promise<JWT> {

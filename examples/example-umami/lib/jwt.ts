@@ -2,51 +2,43 @@ import { JWT } from "next-auth/jwt"
 import { AccessToken } from "next-drupal"
 import { cache } from "./node-cache"
 
-// const JWT_CACHE_KEY = "NEXT_AUTH_JWT_TOKEN"
+const JWT_CACHE_KEY = "NEXT_AUTH_JWT_TOKEN"
 
 export async function getJWT(initialJWT: JWT): Promise<JWT> {
-  // We have a cached token, check the expiry date.
-  if (Date.now() < initialJWT?.accessTokenExpires) {
+  const key = `${JWT_CACHE_KEY}.${initialJWT.accessToken.access_token}`
+
+  const cachedJWT = cache.get<JWT>(key)
+
+  // We have nothing cached, return the initial token.
+  if (!cachedJWT) {
+    // Warm the cache with the initial token.
+    cache.set(key, initialJWT, initialJWT.accessToken.expires_in)
+
     return initialJWT
   }
 
+  // We have a cached token, check the expiry date.
+  if (Date.now() < cachedJWT.accessTokenExpires) {
+    return cachedJWT
+  }
+
   // The token has expired, fetch a new one.
-  return await refreshAccessToken(initialJWT)
+  const newJWT = await refreshAccessToken(cachedJWT)
+
+  // Persist this to cache.
+  cache.set(key, newJWT, newJWT.accessToken.expires_in)
+
+  return newJWT
 }
 
-// export async function getJWT(initialJWT: JWT): Promise<JWT> {
-//   const key = `${JWT_CACHE_KEY}.${initialJWT.accessToken.access_token}`
-
-//   const cachedJWT = cache.get<JWT>(key)
-
-//   // We have nothing cached, return the initial token.
-//   if (!cachedJWT) {
-//     // Warm the cache with the initial token.
-//     cache.set(key, initialJWT, initialJWT.accessToken.expires_in)
-
-//     return initialJWT
-//   }
-
-//   // We have a cached token, check the expiry date.
-//   if (Date.now() < cachedJWT.accessTokenExpires) {
-//     return cachedJWT
-//   }
-
-//   // The token has expired, fetch a new one.
-//   const newJWT = await refreshAccessToken(cachedJWT)
-
-//   // Persist this to cache.
-//   cache.set(key, newJWT, newJWT.accessToken.expires_in)
-
-//   return newJWT
-// }
-
-// export async function clearJWT() {
-//   cache.del(JWT_CACHE_KEY)
-// }
+export async function clearJWT(jwt: JWT) {
+  const key = `${JWT_CACHE_KEY}.${jwt.accessToken.access_token}`
+  cache.del(key)
+}
 
 // Helper to obtain a new access_token from a refresh token.
 async function refreshAccessToken(token: JWT): Promise<JWT> {
+  console.log("Refreshing token", { token })
   try {
     const formData = new URLSearchParams()
     formData.append("grant_type", "refresh_token")

@@ -2,7 +2,7 @@ import NextAuth, { User } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import jwt_decode from "jwt-decode"
 
-import { getJWT } from "lib/jwt"
+import { clearJWT, getJWT } from "lib/jwt"
 
 export default NextAuth({
   pages: {
@@ -45,6 +45,11 @@ export default NextAuth({
       },
     }),
   ],
+  events: {
+    signOut: async function ({ token }) {
+      return await clearJWT(token)
+    },
+  },
   callbacks: {
     async jwt({ token, user, account }) {
       if (account && user) {

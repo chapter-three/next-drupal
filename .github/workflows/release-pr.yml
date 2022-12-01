@@ -1,7 +1,7 @@
 name: release-pr
 on:
   pull_request:
-    types: [opened, reopened, synchronize, labeled, edited]
+    types: [opened, reopened, synchronize, labeled]
 
 jobs:
   next-drupal:

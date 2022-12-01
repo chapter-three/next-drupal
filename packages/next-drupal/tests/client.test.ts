@@ -2656,7 +2656,7 @@ describe("defaultLocale", () => {
     // No defaultLocale + No apiPrefix.
     await client.getIndex()
     expect(fetchSpy).toHaveBeenLastCalledWith(
-      "https://dev-next-drupal-tests.pantheonsite.io/jsonapi",
+      "https://tests.next-drupal.org/jsonapi",
       expect.anything()
     )
 
@@ -2664,7 +2664,7 @@ describe("defaultLocale", () => {
     client.apiPrefix = "/foo"
     await client.getIndex()
     expect(fetchSpy).toHaveBeenLastCalledWith(
-      "https://dev-next-drupal-tests.pantheonsite.io/foo",
+      "https://tests.next-drupal.org/foo",
       expect.anything()
     )
 
@@ -2675,7 +2675,7 @@ describe("defaultLocale", () => {
     // With defaultLocale
     await client2.getIndex()
     expect(fetchSpy).toHaveBeenLastCalledWith(
-      "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi",
+      "https://tests.next-drupal.org/es/jsonapi",
       expect.anything()
     )
 
@@ -2684,7 +2684,7 @@ describe("defaultLocale", () => {
     client2.defaultLocale = "fr"
     await client2.getIndex()
     expect(fetchSpy).toHaveBeenLastCalledWith(
-      "https://dev-next-drupal-tests.pantheonsite.io/fr/api",
+      "https://tests.next-drupal.org/fr/api",
       expect.anything()
     )
   })
@@ -2706,7 +2706,7 @@ describe("defaultLocale", () => {
       "71e04ead-4cc7-416c-b9ca-60b635fdc50f"
     )
     expect(fetchSpy).toHaveBeenLastCalledWith(
-      "https://dev-next-drupal-tests.pantheonsite.io/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      "https://tests.next-drupal.org/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
       expect.anything()
     )
 
@@ -2716,7 +2716,7 @@ describe("defaultLocale", () => {
       "71e04ead-4cc7-416c-b9ca-60b635fdc50f"
     )
     expect(fetchSpy).toHaveBeenLastCalledWith(
-      "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      "https://tests.next-drupal.org/es/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
       expect.anything()
     )
 
@@ -2727,7 +2727,7 @@ describe("defaultLocale", () => {
       "71e04ead-4cc7-416c-b9ca-60b635fdc50f"
     )
     expect(fetchSpy).toHaveBeenLastCalledWith(
-      "https://dev-next-drupal-tests.pantheonsite.io/fr/foo/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      "https://tests.next-drupal.org/fr/foo/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
       expect.anything()
     )
 
@@ -2743,7 +2743,7 @@ describe("defaultLocale", () => {
       }
     )
     expect(fetchSpy).toHaveBeenLastCalledWith(
-      "https://dev-next-drupal-tests.pantheonsite.io/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      "https://tests.next-drupal.org/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
       expect.anything()
     )
 
@@ -2756,7 +2756,7 @@ describe("defaultLocale", () => {
       }
     )
     expect(fetchSpy).toHaveBeenLastCalledWith(
-      "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      "https://tests.next-drupal.org/es/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
       expect.anything()
     )
 
@@ -2770,7 +2770,7 @@ describe("defaultLocale", () => {
       }
     )
     expect(fetchSpy).toHaveBeenLastCalledWith(
-      "https://dev-next-drupal-tests.pantheonsite.io/fr/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      "https://tests.next-drupal.org/fr/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
       expect.anything()
     )
 
@@ -2784,7 +2784,7 @@ describe("defaultLocale", () => {
       }
     )
     expect(fetchSpy).toHaveBeenLastCalledWith(
-      "https://dev-next-drupal-tests.pantheonsite.io/es/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      "https://tests.next-drupal.org/es/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
       expect.anything()
     )
   })

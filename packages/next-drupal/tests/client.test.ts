@@ -1443,13 +1443,15 @@ describe("getResourceFromContext", () => {
       },
     }
 
-    const recipe = await client.getResourceFromContext(path, context, {
-      params: {
-        "fields[node--recipe]": "title,path,status",
-      },
-    })
+    if (path) {
+      const recipe = await client.getResourceFromContext(path, context, {
+        params: {
+          "fields[node--recipe]": "title,path,status",
+        },
+      })
 
-    await expect(recipe).toMatchSnapshot()
+      await expect(recipe).toMatchSnapshot()
+    }
   })
 })
 

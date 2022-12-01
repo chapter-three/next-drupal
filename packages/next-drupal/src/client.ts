@@ -896,7 +896,7 @@ export class DrupalClient {
   async translatePath(
     path: string,
     options?: JsonApiWithAuthOptions
-  ): Promise<DrupalTranslatedPath> {
+  ): Promise<DrupalTranslatedPath | null> {
     options = {
       withAuth: this.withAuth,
       ...options,
@@ -927,7 +927,7 @@ export class DrupalClient {
     options?: {
       pathPrefix?: PathPrefix
     } & JsonApiWithAuthOptions
-  ): Promise<DrupalTranslatedPath> {
+  ): Promise<DrupalTranslatedPath | null> {
     options = {
       pathPrefix: "/",
       ...options,

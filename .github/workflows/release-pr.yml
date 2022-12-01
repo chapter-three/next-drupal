@@ -6,7 +6,9 @@ on:
 jobs:
   next-drupal:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'release-pr') }}
+    env:
+      LABEL_NAME: "release-pr: next-drupal"
+    if: ${{ github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, ${LABEL_NAME} ) }}
     environment: Preview
     steps:
       - name: Init

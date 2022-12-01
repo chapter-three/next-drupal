@@ -46,8 +46,8 @@ export default NextAuth({
     }),
   ],
   events: {
-    signOut: async function () {
-      return await clearJWT()
+    signOut: async function ({ token }) {
+      return await clearJWT(token)
     },
   },
   callbacks: {

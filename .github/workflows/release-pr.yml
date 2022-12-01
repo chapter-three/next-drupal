@@ -6,7 +6,7 @@ on:
 jobs:
   next-drupal:
     runs-on: ubuntu-latest
-    if: ${{contains(github.event.commits[0].message, format('release-pr{0} next-drupal', ':'))}}
+    if: ${{ contains(github.event.pull_request.labels.*.name, format('release-pr{0} next-drupal', ':')) }}
     environment: Preview
     steps:
       - name: Init

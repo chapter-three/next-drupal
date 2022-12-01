@@ -1010,8 +1010,8 @@ export class DrupalClient {
     if (this.useDefaultResourceTypeEntry) {
       const [id, bundle] = type.split("--")
       return (
-        `${this.baseUrl}` + 
-        (locale ? `/${locale}${this.apiPrefix}/` : `${this.apiPrefix}/`) + 
+        `${this.baseUrl}` +
+        (locale ? `/${locale}${this.apiPrefix}/` : `${this.apiPrefix}/`) +
         `${id}/${bundle}`
       )
     }

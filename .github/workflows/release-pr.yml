@@ -1,0 +1,45 @@
+name: release-pr
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, labeled, edited]
+
+jobs:
+  next-drupal:
+    runs-on: ubuntu-latest
+    if: |
+      ${{ github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'release-pr: next-drupal') }}
+    environment: Preview
+    steps:
+      - name: Init
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: yarn install
+      - name: Determine version
+        uses: ./.github/version-pr
+        id: determine-version
+        env:
+          PR_NUMBER: ${{ github.event.number }}
+      - name: Publish to npm
+        run: |
+          cd packages/next-drupal
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+          yarn publish --no-git-checks --access public --tag experimental
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Comment version on PR
+        uses: NejcZdovc/comment-pr@v2
+        with:
+          message:
+            "🎉 Experimental release [published 📦️ on npm](https://npmjs.com/package/next-drupal/v/${{ env.VERSION }})!\n \
+            ```sh\npnpm add next-drupal@${{ env.VERSION }}\n```\n \
+            ```sh\nyarn add next-drupal@${{ env.VERSION }}\n```\n \
+            ```sh\nnpm i next-drupal@${{ env.VERSION }}\n```"
+        env:
+          VERSION: ${{ steps.determine-version.outputs.version }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

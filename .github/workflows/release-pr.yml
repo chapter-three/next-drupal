@@ -1,13 +1,12 @@
 name: release-pr
 on:
   pull_request:
-    types: [opened, reopened, synchronize, labeled, edited]
+    types: [opened, reopened, synchronize, labeled]
 
 jobs:
   next-drupal:
     runs-on: ubuntu-latest
-    if: |
-      ${{ contains(github.event.pull_request.labels.*.name, 'release-pr: next-drupal') }}
+    if: ${{ contains(github.event.pull_request.labels.*.name, format('release-pr{0} next-drupal', ':')) }}
     environment: Preview
     steps:
       - name: Init

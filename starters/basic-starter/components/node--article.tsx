@@ -26,8 +26,6 @@ export function NodeArticle({ node, ...props }: NodeArticleProps) {
             src={absoluteUrl(node.field_image.uri.url)}
             width={768}
             height={400}
-            layout="responsive"
-            objectFit="cover"
             alt={node.field_image.resourceIdObjMeta.alt}
             priority
           />

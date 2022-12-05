@@ -544,9 +544,6 @@ export class DrupalClient {
     }
 
     options = {
-      // Add support for revisions for node by default.
-      // TODO: Make this required before stable?
-      isVersionable: /^node--/.test(type),
       deserialize: true,
       pathPrefix: "/",
       withAuth: this.getAuthFromContextAndOptions(context, options),
@@ -560,10 +557,21 @@ export class DrupalClient {
       locale: context.locale,
       defaultLocale: context.defaultLocale,
       withAuth: options?.withAuth,
-      params: {
-        resourceVersion: previewData?.resourceVersion,
-        ...options?.params,
-      },
+      params: options?.params,
+    }
+
+    // Check if resource is versionable.
+    // Add support for revisions for node by default.
+    const isVersionable = options.isVersionable || /^node--/.test(type)
+
+    // If the resource is versionable and no resourceVersion is supplied via params.
+    // Use the resourceVersion from previewData or fallback to the latest version.
+    if (
+      isVersionable &&
+      typeof options.params.resourceVersion === "undefined"
+    ) {
+      options.params.resourceVersion =
+        previewData?.resourceVersion || "rel:latest-version"
     }
 
     if (typeof input !== "string") {

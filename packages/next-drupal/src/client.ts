@@ -562,8 +562,16 @@ export class DrupalClient {
 
     // Check if resource is versionable.
     // Add support for revisions for node by default.
-    if (options.isVersionable || /^node--/.test(type)) {
-      options.params.resourceVersion = previewData?.resourceVersion
+    const isVersionable = options.isVersionable || /^node--/.test(type)
+
+    // If the resource is versionable and no resourceVersion is supplied via params.
+    // Use the resourceVersion from previewData or fallback to the latest version.
+    if (
+      isVersionable &&
+      typeof options.params.resourceVersion === "undefined"
+    ) {
+      options.params.resourceVersion =
+        previewData?.resourceVersion || "rel:latest-version"
     }
 
     if (typeof input !== "string") {

@@ -43,7 +43,7 @@ On-demand Revalidation is now built on top of Drupal's Events API and `Revalidat
 
 You can provide your own `Revalidator` plugins to execute custom code when an entity is inserted, updated or deleted.
 
-```php title=custom_module/src/Plugin/Next/Revalidator/CustomRevalidator.php
+```php showLineNumbers title="custom_module/src/Plugin/Next/Revalidator/CustomRevalidator.php"
 <?php
 
 namespace Drupal\custom_module\Plugin\Next\Revalidator;
@@ -80,7 +80,7 @@ We have also added entity events so you can build your own event subscribers for
 
 You can also use event subscribers to execute code **post revalidation**.
 
-```php title=custom_module/src/EventSubscriber/EventSubscriber.php
+```php showLineNumbers title="custom_module/src/EventSubscriber/EventSubscriber.php"
 <?php
 
 namespace Drupal\next_tests\EventSubscriber;

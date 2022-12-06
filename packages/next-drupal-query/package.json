@@ -42,7 +42,7 @@
   "dependencies": {
     "deepmerge": "^4.2.2",
     "drupal-jsonapi-params": "^2.1.0",
-    "next": "^12.2.3",
+    "next": "^12.2.3 || ^13",
     "type-fest": "^2.17.0"
   }
 }

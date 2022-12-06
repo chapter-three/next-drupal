@@ -1,0 +1,138 @@
+---
+title: Next-Drupal 1.6
+author: shadcn
+date: December 06, 2022
+created: "2022-12-06"
+excerpt: Next.js 13, React 18, Drupal 10 and Stable On-demand Revalidation.
+published: true
+---
+
+Today's release is a big one. We are announcing support for **Next.js 13** and **Drupal 10**.
+
+We also rewrote the implementation for on-demand revalidation. The Drupal module now ships with **stable on-demand revalidation** built on top of Drupal events API and plugin system.
+
+We are approaching **3000+** downloads per week. Thanks everyone. 🎉
+
+---
+
+## Next.js 13
+
+We have updated `next-drupal` and the (JSON:API and GraphQL) starters to Next.js 13.
+
+You can now safely update your site and start implementing new Next.js 13 features such as the new `<Image />` and `<Link />` components, add `@next/font`...etc.
+
+```sh
+yarn add next-drupal@latest
+```
+
+---
+
+## Drupal 10
+
+The `next` module has been updated to Drupal 10. We've removed all deprecated code and APIs.
+
+**Note: This also means, as of `1.6.0`, we are stopping Drupal 8 support. You can upgrade your site to Drupal 9.3+ or Drupal 10 when it's released.**
+
+---
+
+## On-demand Revalidation
+
+The implementation for On-demand Revalidation has been completely rewritten in `1.6.0` and is now stable.
+
+On-demand Revalidation is now built on top of Drupal's Events API and `Revalidator` plugins.
+
+You can provide your own `Revalidator` plugins to execute custom code when an entity is inserted, updated or deleted.
+
+```php showLineNumbers title="custom_module/src/Plugin/Next/Revalidator/CustomRevalidator.php"
+<?php
+
+namespace Drupal\custom_module\Plugin\Next\Revalidator;
+
+use Drupal\next\Event\EntityActionEvent;
+use Drupal\next\Plugin\RevalidatorBase;
+
+/**
+ * Provides a custom revalidator.
+ *
+ * @Revalidator(
+ *  id = "custom",
+ *  label = "Custom Revalidator",
+ *  description = "Description for the custom revalidator"
+ * )
+ */
+class CustomRevalidator extends RevalidatorBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function revalidate(EntityActionEvent $event): bool {
+	// Called when entity is created, updated or deleted.
+  }
+
+}
+```
+
+See the [docs for Revalidator plugins](/docs/revalidator).
+
+### Entity Events
+
+We have also added entity events so you can build your own event subscribers for when an entity is inserted, updated or updated.
+
+You can also use event subscribers to execute code **post revalidation**.
+
+```php showLineNumbers title="custom_module/src/EventSubscriber/EventSubscriber.php"
+<?php
+
+namespace Drupal\next_tests\EventSubscriber;
+
+use Drupal\next\Event\EntityEvents;
+use Drupal\next\Event\EntityRevalidatedEventInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
+/**
+ * Defines an event subscriber for entity revalidated events.
+ */
+class EventSubscriber implements EventSubscriberInterface {
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getSubscribedEvents() {
+    $events[EntityEvents::ENTITY_REVALIDATED] = ['onRevalidated'];
+    return $events;
+  }
+
+  /**
+   * Responds to entity revalidated.
+   *
+   * @param \Drupal\next\Event\EntityRevalidatedEventInterface $event
+   *   The event.
+   */
+  public function onRevalidated(EntityRevalidatedEventInterface $event) {
+    if ($event->isRevalidated()) {
+	 // Do something if entity has been successfully revalidated.
+	}
+  }
+
+}
+```
+
+---
+
+## Version Matching
+
+As of `1.6.0`, we are going to match minor versions for `next-drupal` and `next` module.
+
+Bumping a minor in `next-drupal` will bump same in `next` module.
+
+<Callout>
+
+Note: To match minor for `next-drupal 1.6.0`, we are skipping `next 1.5.0`.
+
+</Callout>
+
+---
+
+## Upgrading
+
+You can upgrade to `1.6.0` by following our upgrade guide [here](/docs/upgrade-guide).

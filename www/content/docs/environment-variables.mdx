@@ -11,6 +11,9 @@ NEXT_IMAGE_DOMAIN=localhost
 # Required for Preview Mode
 DRUPAL_PREVIEW_SECRET=
 
+# Required for On-demand Revalidation
+DRUPAL_REVALIDATE_SECRET=
+
 # Authentication (Bearer)
 DRUPAL_CLIENT_ID=
 DRUPAL_CLIENT_SECRET=
@@ -53,6 +56,25 @@ Environment variables required for preview mode.
 const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
   previewSecret: process.env.DRUPAL_PREVIEW_SECRET,
 })
+```
+
+## On-demand Revalidation
+
+Environment variables required for on-demand revalidation.
+
+| Name                       | Description                                                                                       |
+| -------------------------- | :------------------------------------------------------------------------------------------------ |
+| `DRUPAL_REVALIDATE_SECRET` | The secret for [on-demand revalidation](/docs/on-demand-revalidation). Example: `U2Y5bbkKJ08Ua8F` |
+
+```ts title=pages/api/revalidate.ts
+export default async function handler(request, response) {
+  const secret = request.query.secret as string
+
+  // Validate secret.
+  if (secret !== process.env.DRUPAL_REVALIDATE_SECRET) {
+    return response.status(401).json({ message: "Invalid secret." })
+  }
+}
 ```
 
 ---

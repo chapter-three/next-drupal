@@ -26,8 +26,6 @@ export function NodeArticle({ node, ...props }: NodeArticleProps) {
             src={node.image.url}
             width={768}
             height={480}
-            layout="responsive"
-            objectFit="cover"
             alt={node.title}
           />
         </figure>

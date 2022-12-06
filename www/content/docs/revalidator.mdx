@@ -1,0 +1,142 @@
+---
+title: Revalidator
+excerpt: Learn how to implement custom revalidator plugins.
+---
+
+To handle [On-demand Revalidation](https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#using-on-demand-revalidation), we use `Revalidator` plugins.
+
+A `Revalidator` plugin revalidates one or more Next.js sites when a Drupal entity is **inserted**, **updated** or **deleted**.
+
+Out of the box, the `next` module ships with the [`Path`](https://github.com/chapter-three/next-drupal/blob/main/modules/next/src/Plugin/Next/Revalidator/Path.php) revalidator. The `Path` revalidator revalidates a Next.js site based on the entity path.
+
+---
+
+## Custom Revalidator
+
+You can implement your own revalidator plugin using the Drupal Plugin API.
+
+```php title=custom_module/src/Plugin/Next/Revalidator/CustomRevalidator.php
+<?php
+
+namespace Drupal\custom_module\Plugin\Next\Revalidator;
+
+use Drupal\next\Event\EntityActionEvent;
+use Drupal\next\Plugin\RevalidatorBase;
+
+/**
+ * Provides a custom revalidator.
+ *
+ * @Revalidator(
+ *  id = "custom",
+ *  label = "Custom Revalidator",
+ *  description = "Description for the custom revalidator"
+ * )
+ */
+class CustomRevalidator extends RevalidatorBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function revalidate(EntityActionEvent $event): bool {
+	// Get the entity.
+    $entity = $event->getEntity();
+
+    // Get the sites configured for this entity.
+    $sites = $event->getSites();
+
+    // Get the action: insert, updated or delete.
+    $action = $event->getAction();
+  }
+
+}
+```
+
+Visit the configuration page of an entity type at `/admin/config/services/next/entity-types`.
+
+You should see **Custom Revalidator** available as a plugin under On-demand Revalidation. Select it and save.
+
+Now, whenever an entity is inserted, updated or deleted, the `CustomRevalidator::revalidate` function will be called.
+
+<Callout>
+
+**Note:** `revalidate` is called on [shutdown](https://api.drupal.org/api/drupal/core%21includes%21bootstrap.inc/function/drupal_register_shutdown_function/9.3.x). This means `dump()` calls will not be registered. Use a breakpoint instead.
+
+</Callout>
+
+---
+
+## Configurable Revalidator
+
+To implement a configurable `Revalidator` plugin, extend the `ConfigurableRevalidatorBase`.
+
+```php title=custom_module/src/Plugin/Next/Revalidator/ConfigurableRevalidator.php
+<?php
+
+namespace Drupal\custom_module\Plugin\Next\Revalidator;
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\next\Event\EntityActionEvent;
+use Drupal\next\Plugin\ConfigurableRevalidatorBase;
+
+/**
+ * Provides a configuratble revalidator.
+ *
+ * @Revalidator(
+ *  id = "configurable_revalidator",
+ *  label = "Configurable Revalidator",
+ *  description = "Description for the configurable revalidator"
+ * )
+ */
+class ConfigurableRevalidator extends ConfigurableRevalidatorBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function defaultConfiguration() {
+    return [
+      'message' => NULL,
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+    $form['message'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Message'),
+      '#default_value' => $this->configuration['message'],
+    ];
+
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+    $this->configuration['message'] = $form_state->getValue('message');
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
+  public function revalidate(EntityActionEvent $event): bool {
+    // Get the configuration.
+    $message = $this->configuration['message'];
+  }
+
+}
+```
+
+You should also provide the schema definition at `web/modules/custom/custom_module/config/custom_module.schema.yml`:
+
+```yml
+next.revalidator.configuration.configurable_revalidator:
+  type: mapping
+  mapping:
+    message:
+      type: string
+      label: "Message"
+```

@@ -11,4 +11,8 @@ export const tutorialsConfig = [
     title: "Preview Mode",
     items: [],
   },
+  {
+    title: "On-demand Revalidation",
+    items: [],
+  },
 ]

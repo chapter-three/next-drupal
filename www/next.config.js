@@ -97,6 +97,11 @@ module.exports = {
         destination: "/docs/typescript",
         permanent: true,
       },
+      {
+        source: "/guides/on-demand-revalidation",
+        destination: "/learn/on-demand-revalidation",
+        permanent: true,
+      },
     ]
   },
 }

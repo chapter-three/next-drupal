@@ -7,9 +7,9 @@ excerpt: Next.js 13, React 18, Drupal 10 and Stable On-demand Revalidation.
 published: true
 ---
 
-Today's release is a big one. We are announcing support for Next.js 13 and Drupal 10.
+Today's release is a big one. We are announcing support for **Next.js 13** and **Drupal 10**.
 
-We also rewrote the implementation for on-demand revalidation. The Drupal module now ships with stable on-demand revalidation built on top of Drupal events API and plugin system.
+We also rewrote the implementation for on-demand revalidation. The Drupal module now ships with **stable on-demand revalidation** built on top of Drupal events API and plugin system.
 
 We are approaching **3000+** downloads per week. Thanks everyone. 🎉
 
@@ -31,11 +31,7 @@ yarn add next-drupal@latest
 
 The `next` module has been updated to Drupal 10. We've removed all deprecated code and APIs.
 
-<Callout>
-
 **Note: This also means, as of `1.6.0`, we are stopping Drupal 8 support. You can upgrade your site to Drupal 9.3+ or Drupal 10 when it's released.**
-
-</Callout>
 
 ---
 
@@ -43,9 +39,9 @@ The `next` module has been updated to Drupal 10. We've removed all deprecated co
 
 The implementation for On-demand Revalidation has been completely rewritten in `1.6.0` and is now stable.
 
-The new implementation is built on top of Drupal's Events API and `Revalidator` plugins.
+On-demand Revalidation is now built on top of Drupal's Events API and `Revalidator` plugins.
 
-You can now provide your own `Revalidator` plugins to execute custom code when an entity is inserted, updated or deleted.
+You can provide your own `Revalidator` plugins to execute custom code when an entity is inserted, updated or deleted.
 
 ```php title=custom_module/src/Plugin/Next/Revalidator/CustomRevalidator.php
 <?php
@@ -127,7 +123,7 @@ class EventSubscriber implements EventSubscriberInterface {
 
 As of `1.6.0`, we are going to match minor versions for `next-drupal` and `next` module.
 
-Bumping a minor in `next-drupal` will also bump same in `next` module.
+Bumping a minor in `next-drupal` will bump same in `next` module.
 
 <Callout>
 

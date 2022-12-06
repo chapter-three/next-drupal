@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.2](https://github.com/chapter-three/next-drupal/compare/www@1.9.1...www@1.9.2) (2022-12-06)
+
+
+### Bug Fixes
+
+* **www:** docsearch class ([d1671c2](https://github.com/chapter-three/next-drupal/commit/d1671c275a91d4e3032dc35d8f4e2e1b8a6ff8b0))
+* **www:** update version ([3ef818b](https://github.com/chapter-three/next-drupal/commit/3ef818b596c7d863ce7f63e96298e42a687dfe15))
+
+
+### Features
+
+* **www:** add support for external guides ([6a38679](https://github.com/chapter-three/next-drupal/commit/6a38679755908d03672589e613f43145af5146f5))
+* **www:** add vercel/analytics ([2be00a5](https://github.com/chapter-three/next-drupal/commit/2be00a5daf0a4184fa9d956b5c014043d5393309))
+
+
+
+
+
 ## [1.9.1](https://github.com/chapter-three/next-drupal/compare/www@1.9.0...www@1.9.1) (2022-09-07)
 
 

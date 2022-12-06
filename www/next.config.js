@@ -102,6 +102,11 @@ module.exports = {
         destination: "/learn/on-demand-revalidation",
         permanent: true,
       },
+      {
+        source: "/docs/on-demand-revalidation",
+        destination: "/learn/on-demand-revalidation",
+        permanent: true,
+      },
     ]
   },
 }

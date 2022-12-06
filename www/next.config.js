@@ -13,11 +13,6 @@ module.exports = {
         permanent: true,
       },
       {
-        source: "/learn",
-        destination: "/learn/quick-start",
-        permanent: false,
-      },
-      {
         source: "/docs/demo",
         destination: "/docs/examples",
         permanent: true,

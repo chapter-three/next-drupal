@@ -1,7 +1,7 @@
 {
   "name": "next-drupal-query",
   "description": "Query helpers for structuring large Next.js and Drupal projects.",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "sideEffects": false,
   "source": "src/index.ts",
   "main": "dist/index.js",

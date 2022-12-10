@@ -1,0 +1,96 @@
+---
+title: Entity Events
+excerpt: Events and Events Subscribers.
+---
+
+## Events
+
+| Name                               | Description                                     |
+| ---------------------------------- | ----------------------------------------------- |
+| `EntityEvents::ENTITY_ACTION`      | When an entity is inserted, updated or deleted. |
+| `EntityEvents::ENTITY_REVALIDATED` | When an entity is revalidated                   |
+
+---
+
+## EventSubscribers
+
+### Entity insert, update or delete
+
+Create an event subscriber when an entity is inserted, updated or deleted: `EntityEvents::ENTITY_ACTION`.
+
+```php title=custom_module/src/EventSubscriber/EntityActionEventSubscriber.php
+<?php
+
+namespace Drupal\custom_module\EventSubscriber;
+
+use Drupal\next\Event\EntityActionEvent;
+use Drupal\next\Event\EntityEvents;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
+/**
+ * Defines an event subscriber for entity action events.
+ */
+class EntityActionEventSubscriber implements EventSubscriberInterface {
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getSubscribedEvents() {
+    $events[EntityEvents::ENTITY_ACTION] = ['onAction'];
+    return $events;
+  }
+
+  /**
+   * Responds to the action event.
+   *
+   * @param \Drupal\next\Event\EntityActionEvent $event
+   *   The event.
+   */
+  public function onAction(EntityActionEvent $event) {
+	// Get the action: insert, updated or delete.
+	$action = $event->getAction();
+  }
+
+}
+```
+
+### Revalidated
+
+Create an event subscriber when an entity is revalidated (**post revalidation**): `EntityEvents::ENTITY_REVALIDATED`.
+
+```php title=custom_module/src/EventSubscriber/EntityRevalidatedEventSubscriber.php
+<?php
+
+namespace Drupal\next_tests\EventSubscriber;
+
+use Drupal\next\Event\EntityEvents;
+use Drupal\next\Event\EntityRevalidatedEventInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
+/**
+ * Defines an event subscriber for entity revalidated events.
+ */
+class EntityRevalidatedEventSubscriber implements EventSubscriberInterface {
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getSubscribedEvents() {
+    $events[EntityEvents::ENTITY_REVALIDATED] = ['onRevalidated'];
+    return $events;
+  }
+
+  /**
+   * Responds to entity revalidated.
+   *
+   * @param \Drupal\next\Event\EntityRevalidatedEventInterface $event
+   *   The event.
+   */
+  public function onRevalidated(EntityRevalidatedEventInterface $event) {
+    if ($event->isRevalidated()) {
+	 // Do something if entity has been successfully revalidated.
+	}
+  }
+
+}
+```

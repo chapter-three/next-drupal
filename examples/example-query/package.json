@@ -1,6 +1,6 @@
 {
   "name": "example-query",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -14,8 +14,8 @@
     "@tailwindcss/typography": "^0.5.1",
     "clsx": "^1.2.1",
     "next": "^12.2.3",
-    "next-drupal": "^1.5.0",
-    "next-drupal-query": "^0.3.0",
+    "next-drupal": "^1.6.0",
+    "next-drupal-query": "^0.4.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

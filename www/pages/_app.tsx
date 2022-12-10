@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/react"
 import { site } from "config/site"
 
 import "../styles/global.css"
+import "../styles/mdx.css"
 
 export default function App({ Component, pageProps }) {
   return (

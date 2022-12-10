@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/chapter-three/next-drupal/compare/example-umami@1.1.4...example-umami@1.2.0) (2022-12-06)
+
+**Note:** Version bump only for package example-umami
+
+
+
+
+
+## [1.1.4](https://github.com/chapter-three/next-drupal/compare/example-umami@1.1.3...example-umami@1.1.4) (2022-12-06)
+
+
+### Bug Fixes
+
+* **example-umami:** remove localePath config ([99b6c54](https://github.com/chapter-three/next-drupal/commit/99b6c543a91a23f31df149a604f11202a6433a79))
+* update handling of jwt token caching ([f7767ec](https://github.com/chapter-three/next-drupal/commit/f7767ecaece08f3800551c5da0b4fb49591cb2d0))
+
+
+
+
+
 ## [1.1.3](https://github.com/chapter-three/next-drupal/compare/example-umami@1.1.2...example-umami@1.1.3) (2022-09-07)
 
 **Note:** Version bump only for package example-umami

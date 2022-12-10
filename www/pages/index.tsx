@@ -35,12 +35,11 @@ export default function IndexPage({ features }: IndexPageProps) {
     <Layout title={site.name} description={site.description}>
       <section className="relative px-6 pt-12 pb-8 md:py-12 md:pb-8">
         <div className="container max-w-4xl mx-auto text-center">
-          <Link href="/blog/next-1-4" passHref>
-            <a className="inline-flex space-x-1 mx-auto mb-4 bg-[#E10098]/40 hover:underline text-sm items-center rounded-full px-4 py-1 font-medium">
-              <svg viewBox="0 0 24 24" className="w-5 h-5">
-                <path d="M12.002 0a2.138 2.138 0 1 0 0 4.277 2.138 2.138 0 1 0 0-4.277zm8.54 4.931a2.138 2.138 0 1 0 0 4.277 2.138 2.138 0 1 0 0-4.277zm0 9.862a2.138 2.138 0 1 0 0 4.277 2.138 2.138 0 1 0 0-4.277zm-8.54 4.931a2.138 2.138 0 1 0 0 4.276 2.138 2.138 0 1 0 0-4.276zm-8.542-4.93a2.138 2.138 0 1 0 0 4.276 2.138 2.138 0 1 0 0-4.277zm0-9.863a2.138 2.138 0 1 0 0 4.277 2.138 2.138 0 1 0 0-4.277zm8.542-3.378L2.953 6.777v10.448l9.049 5.224 9.047-5.224V6.777zm0 1.601 7.66 13.27H4.34zm-1.387.371L3.97 15.037V7.363zm2.774 0 6.646 3.838v7.674zM5.355 17.44h13.293l-6.646 3.836z" />
-              </svg>
-              <span>Announcing GraphQL support in Next.js for Drupal</span>
+          <Link href="/blog/next-drupal-1-6" passHref>
+            <a className="inline-flex space-x-1 mx-auto mb-4 bg-[#111] text-white hover:underline text-sm items-center rounded-full px-4 py-1 font-medium">
+              <span>
+                Next.js 13, Drupal 10 and Stable On-demand Revalidation
+              </span>
             </a>
           </Link>
           <h1 className="text-4xl font-black tracking-tight text-center md:text-6xl lg:tracking-tighter lg:text-8xl">

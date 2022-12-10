@@ -13,11 +13,6 @@ module.exports = {
         permanent: true,
       },
       {
-        source: "/learn",
-        destination: "/learn/quick-start",
-        permanent: false,
-      },
-      {
         source: "/docs/demo",
         destination: "/docs/examples",
         permanent: true,
@@ -95,6 +90,16 @@ module.exports = {
       {
         source: "/guides/typescript",
         destination: "/docs/typescript",
+        permanent: true,
+      },
+      {
+        source: "/guides/on-demand-revalidation",
+        destination: "/learn/on-demand-revalidation",
+        permanent: true,
+      },
+      {
+        source: "/docs/on-demand-revalidation",
+        destination: "/learn/on-demand-revalidation",
         permanent: true,
       },
     ]

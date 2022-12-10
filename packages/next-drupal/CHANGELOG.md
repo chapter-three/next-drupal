@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.5.1...next-drupal@1.6.0) (2022-12-06)
+
+**Note:** Version bump only for package next-drupal
+
+
+
+
+
+## [1.5.1](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.5.0...next-drupal@1.5.1) (2022-12-06)
+
+
+### Bug Fixes
+
+* add prepublishonly ([1f71191](https://github.com/chapter-three/next-drupal/commit/1f71191ed87d499676f10915af18a2057ae90ea0))
+* delete dummy files ([87ae38e](https://github.com/chapter-three/next-drupal/commit/87ae38e1933142c1e4a51da64e31448aa135a4db))
+* **next-drupal:** check for versionable resource type  ([#388](https://github.com/chapter-three/next-drupal/issues/388)) ([fb049bb](https://github.com/chapter-three/next-drupal/commit/fb049bb6b51389b701d39647a37fe12eff84f0b1))
+* **next-drupal:** update the headers for getAccessToken ([57dc6a6](https://github.com/chapter-three/next-drupal/commit/57dc6a682712139ebd46fffae916f6c8f0fe9118))
+
+
+### Features
+
+* update workflow ([9ecc8f1](https://github.com/chapter-three/next-drupal/commit/9ecc8f15193a155338bb3f047d0f3f7401deca9d))
+
+
+
+
+
 # [1.5.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.4.1...next-drupal@1.5.0) (2022-09-07)
 
 

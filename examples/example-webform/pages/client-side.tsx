@@ -7,25 +7,14 @@ import { useForm } from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { contactFormSchema } from "../validations/contact"
-import {
-  resolveWebformContent,
-  Webform,
-  components,
-} from "nextjs-drupal-webform"
-import { drupal } from "basic-starter/lib/drupal"
+
 type FormData = yup.TypeOf<typeof contactFormSchema>
-import classNames from "classnames"
-import withCustomStyles from "../components/withCustomStyles"
 
 interface WebformPageProps {
   teams: DrupalTaxonomyTerm[]
-  webformObject: object
 }
 
-export default function WebformPage({
-  teams,
-  webformObject,
-}: WebformPageProps) {
+export default function WebformPage({ teams }: WebformPageProps) {
   const [status, setStatus] = React.useState<"error" | "success">()
   const { register, handleSubmit, formState, reset } = useForm<FormData>({
     resolver: yupResolver(contactFormSchema),
@@ -56,45 +45,6 @@ export default function WebformPage({
     return setStatus("error")
   }
 
-  const labelProps = {
-    className: classNames(["block", "text-sm", "font-medium", "text-gray-700"]),
-  }
-  const fieldProps = {
-    className: classNames([
-      "relative",
-      "block",
-      "w-full px-3",
-      "py-2 mt-1 text-gray-900",
-      "placeholder-gray-500",
-      "border border-gray-300",
-      "rounded-md appearance-none",
-      "focus:outline-none",
-      "focus:ring-black",
-      "focus:border-black",
-      "focus:z-10",
-      "sm:text-sm",
-    ]),
-  }
-  const wrapperProps = {
-    className: classNames(["space-y-3"]),
-  }
-
-  const buttonProps = {
-    className: classNames([
-      "flex",
-      "justify-center",
-      "px-4",
-      "py-2",
-      "text-sm font-medium",
-      "text-white",
-      "bg-black",
-      "border border-transparent",
-      "rounded-md",
-      "shadow-sm",
-      "hover:bg-black",
-    ]),
-  }
-
   return (
     <>
       <Head>
@@ -111,32 +61,6 @@ export default function WebformPage({
             </a>{" "}
             module to submit the form values directly to Drupal.
           </p>
-          {console.log("webformObject", webformObject)}
-          <Webform
-            id="contact"
-            data={webformObject}
-            // onSubmit={{}}
-            // customComponents={{
-            //   textfield: withCustomStyles(
-            //     components.textfield,
-            //     fieldProps,
-            //     labelProps,
-            //     wrapperProps
-            //   ),
-            //   textarea: withCustomStyles(
-            //     components.textarea,
-            //     fieldProps,
-            //     labelProps,
-            //     wrapperProps
-            //   ),
-            //   select: withCustomStyles(
-            //     components.select,
-            //     fieldProps,
-            //     labelProps,
-            //     wrapperProps
-            //   ),
-            // }}
-          />
           <div className="w-full max-w-md p-6 space-y-4 border rounded-md shadow">
             {status === "error" ? (
               <div className="px-4 py-2 text-sm text-red-600 bg-red-100 border-red-200 rounded-md">
@@ -262,7 +186,6 @@ export async function getStaticProps(): Promise<
   // Load terms terms for the contact form.
   return {
     props: {
-      webformObject: await resolveWebformContent("contact", drupal),
       teams: await getResourceCollection("taxonomy_term--team"),
     },
   }

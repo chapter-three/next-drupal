@@ -21,8 +21,8 @@ const withCustomStyles = (
           ...wrapperProps,
         }}
       />
-    );
+    )
   }
-};
+}
 
-export default withCustomStyles;
+export default withCustomStyles

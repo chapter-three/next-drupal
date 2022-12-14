@@ -22,7 +22,8 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.25.3",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "nextjs-drupal-webform": "^1.0.0-alpha1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

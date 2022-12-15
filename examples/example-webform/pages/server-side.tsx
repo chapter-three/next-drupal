@@ -66,23 +66,24 @@ export default function WebformPage({ teams, webform }: WebformPageProps) {
       "shadow-sm",
       "hover:bg-black",
     ]),
+    "data-cy": "btn-submit",
   }
 
   // This makes a POST to a custom API route.
   // The Drupal base URL and the webform_id are NOT exposed.
-  async function onSubmit(data: FormData) {
-    const response = await fetch(`/api/contact`, {
-      method: "POST",
-      body: JSON.stringify(data),
-    })
-
-    if (response.ok) {
-      reset()
-      return setStatus("success")
-    }
-
-    return setStatus("error")
-  }
+  // async function onSubmit(data: FormData) {
+  //   const response = await fetch(`/api/contact`, {
+  //     method: "POST",
+  //     body: JSON.stringify(data),
+  //   })
+  //
+  //   if (response.ok) {
+  //     reset()
+  //     return setStatus("success")
+  //   }
+  //
+  //   return setStatus("error")
+  // }
 
   return (
     <>
@@ -140,6 +141,7 @@ export default function WebformPage({ teams, webform }: WebformPageProps) {
                 wrapperProps
               ),
             }}
+            // className="space-y-6"
           />
           {/*<div className="w-full max-w-md p-6 space-y-4 border rounded-md shadow">*/}
           {/*  {status === "error" ? (*/}

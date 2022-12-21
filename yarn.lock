@@ -10089,10 +10089,10 @@ next@^12.2.3:
     "@next/swc-win32-ia32-msvc" "12.2.3"
     "@next/swc-win32-x64-msvc" "12.2.3"
 
-nextjs-drupal-webform@^1.0.0-alpha2:
-  version "1.0.0-alpha2"
-  resolved "https://registry.yarnpkg.com/nextjs-drupal-webform/-/nextjs-drupal-webform-1.0.0-alpha2.tgz#03f494b2f8a585ecff3c4bc0f55daeba08aedab9"
-  integrity sha512-O+AszzKB1qRT0wFmrqthb1EvCz6rOxE+lbZq1ycj5eW2ftPjWOaui6icKWYVYUH+hkxTD3FYVQbMv7qukpuzEw==
+nextjs-drupal-webform@^1.0.0-beta1:
+  version "1.0.0-beta1"
+  resolved "https://registry.yarnpkg.com/nextjs-drupal-webform/-/nextjs-drupal-webform-1.0.0-beta1.tgz#fbb7989856fa0f559b599c3859c0922f4c5f7bba"
+  integrity sha512-qdV0LVZvBS9+VEI3IwGp43HkY2z6WuMxRWEuoVC9thqRxTWvspoCGCNYqpdm37IqN9uUgafQyzpQa6eI08ejSA==
   dependencies:
     classnames "^2.3.2"
 

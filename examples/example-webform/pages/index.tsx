@@ -1,5 +1,6 @@
 import Head from "next/head"
 import Link from "next/link"
+import * as React from "react"
 
 export default function IndexPage() {
   return (
@@ -33,18 +34,14 @@ export default function IndexPage() {
               <a>See Example</a>
             </Link>
           </p>
-          <h2>Server Side (API Route)</h2>
+          <h2>Server Side</h2>
           <p>
-            We submit the form values to a custom API route first. The API route
-            then submits the form to Drupal using the{" "}
-            <a href="https://www.drupal.org/project/webform_rest">
-              Webform REST
+            This example uses the{" "}
+            <a href="https://www.drupal.org/project/next_webform">
+              Next.js Webform
             </a>{" "}
+            library to render and submit forms built using the Drupal Webform
             module.
-          </p>
-          <p>
-            This is useful if we need to hide client IDs and secrets or our
-            Drupal implementation.
           </p>
           <p>
             <Link href="/server-side" passHref>

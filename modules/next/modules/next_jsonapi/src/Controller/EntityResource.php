@@ -82,7 +82,6 @@ class EntityResource extends JsonApiEntityResource {
       return explode(',', $item);
     }, $query['fields']);
 
-
     if (!isset($sparse_fieldset[$resource_type->getTypeName()])) {
       return $params;
     }

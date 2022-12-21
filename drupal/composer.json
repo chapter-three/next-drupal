@@ -64,7 +64,6 @@
     "drupal/webform": "^6.1",
     "drupal/webform_rest": "^4.0",
     "drush/drush": "^11.3",
-    "twig/twig": "2.15.2",
     "vlucas/phpdotenv": "^4.0",
     "webflo/drupal-finder": "^1.0.0",
     "zaporylie/composer-drupal-optimizations": "^1.0"
@@ -82,7 +81,7 @@
     "preferred-install": "dist",
     "sort-packages": true,
     "platform": {
-      "php": "7.4"
+      "php": "8.1"
     },
     "allow-plugins": {
       "composer/installers": true,

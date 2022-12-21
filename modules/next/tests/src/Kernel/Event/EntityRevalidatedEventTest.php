@@ -11,6 +11,8 @@ use Drupal\Tests\node\Traits\NodeCreationTrait;
 
 /**
  * Tests the EntityRevalidatedEvent.
+ *
+ * @group next
  */
 class EntityRevalidatedEventTest extends KernelTestBase {
 

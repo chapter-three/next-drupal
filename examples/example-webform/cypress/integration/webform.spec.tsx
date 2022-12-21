@@ -30,7 +30,7 @@ context("server side webform", () => {
     cy.get("[name=message]").type("This is my message.")
     cy.get("[data-cy=btn-submit]").click()
 
-    cy.contains("Your message has been sent. Thank you.")
+    cy.contains("New submission added to Contact")
   })
 })
 

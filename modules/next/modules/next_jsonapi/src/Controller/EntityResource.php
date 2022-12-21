@@ -78,7 +78,7 @@ class EntityResource extends JsonApiEntityResource {
     // SPEC: https://jsonapi.org/format/#fetching-sparse-fieldsets
     $sparse_fieldset = array_map(function ($item) {
       return explode(',', $item);
-    }, $request->query->get('fields'));
+    }, $request->query->all('fields'));
 
     if (!isset($sparse_fieldset[$resource_type->getTypeName()])) {
       return $params;
@@ -94,7 +94,7 @@ class EntityResource extends JsonApiEntityResource {
     $max = $this->maxSize;
 
     // Fallback to page[limit] if set.
-    if (($page = $request->query->get('page')) && isset($page['limit']) && $page['limit'] < $max) {
+    if (($page = $request->query->all('page')) && isset($page['limit']) && $page['limit'] < $max) {
       $max = $page['limit'];
     }
 

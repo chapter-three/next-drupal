@@ -35,6 +35,19 @@ export default function IndexPage() {
               <a>See Example</a>
             </Link>
           </p>
+          <h2>Paginated</h2>
+          <p>
+            A full text search implemented using Search API and JSON:API Search
+            API.
+          </p>
+          <p>
+            Pagination is implemented using <code>@tanstack/react-query</code>.
+          </p>
+          <p>
+            <Link href="/paginated" passHref>
+              <a>See Example</a>
+            </Link>
+          </p>
           <h2>Documentation</h2>
           See{" "}
           <a href="https://next-drupal.org/docs/search-api">

@@ -112,8 +112,10 @@ export default function SimplePage() {
                         />
                       </div>
                     )}
-                    <div className="col-span-2">
-                      <h4 className="mt-0">{node.title}</h4>
+                    <div className="col-span-2 not-prose">
+                      <h4 className="font-semibold text-black leading-normal">
+                        {node.title}
+                      </h4>
                       <p className="mb-0">
                         <small>{formatDate(node.created)}</small>
                       </p>

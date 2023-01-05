@@ -12,6 +12,8 @@ export default async function handler(
 
     const results = await getSearchIndex<DrupalNode>(index as string, body)
 
+    console.log({ results })
+
     response.json(results)
   } catch (error) {
     return response.status(400).json(error.message)

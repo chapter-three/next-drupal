@@ -7,6 +7,7 @@ use Drupal\next\Entity\NextEntityTypeConfig;
 use Drupal\next\Entity\NextSite;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use GuzzleHttp\ClientInterface;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * Tests the path revalidator plugin.
@@ -18,6 +19,7 @@ use GuzzleHttp\ClientInterface;
 class PathRevalidatorTest extends KernelTestBase {
 
   use NodeCreationTrait;
+  use ProphecyTrait;
 
   /**
    * {@inheritdoc}

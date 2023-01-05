@@ -114,7 +114,7 @@ class HtmlRenderer extends CoreHtmlRenderer {
 
     $sites = $next_entity_type_config->getSiteResolver()->getSitesForEntity($entity);
     if (!count($sites)) {
-      throw new \Exception('Next.js sites for the entity could not be resolved.');
+      return $build;
     }
 
     $config = $this->configFactory->get('next.settings');

@@ -1,0 +1,25 @@
+uuid: f6821963-ce11-4186-90a3-25c3cdcaaf21
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.default
+    - field.storage.commerce_product.body
+  module:
+    - text
+_core:
+  default_config_hash: qaw_-7RjuDqZ6ysM0sqX7hyzsbjVlvrLRxklB0lHHy8
+id: commerce_product.default.body
+field_name: body
+entity_type: commerce_product
+bundle: default
+label: Body
+description: ""
+required: false
+translatable: true
+default_value: {}
+default_value_callback: ""
+settings:
+  display_summary: false
+  required_summary: false
+field_type: text_with_summary

@@ -6,10 +6,17 @@ dependencies:
     - next_extras
 third_party_settings:
   next_extras:
-    revalidate: false
+    revalidate: true
+    revalidate_paths: "/pages\r\n/\r\n/none"
 id: node.page
 site_resolver: site_selector
 configuration:
   sites:
     example_blog: example_blog
     example_marketing: example_marketing
+    basic_starter: "0"
+  field_name: field_site
+revalidator: path
+revalidator_configuration:
+  revalidate_page: true
+  additional_paths: "/pages\r\n/\r\n/none"

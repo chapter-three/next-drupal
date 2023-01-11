@@ -1,0 +1,12 @@
+_core:
+  default_config_hash: Aqx6J0yYT6mVqT0fbjeP4JkoL-700nmudVF5d6Pq2Yo
+page_alter: false
+raw_names: false
+error_handlers:
+  1: 1
+rebuild_theme: false
+debug_mail_file_format: "%to-%subject-%datetime.mail.txt"
+debug_mail_directory: "temporary://devel-mails"
+devel_dumper: var_dumper
+debug_logfile: "temporary://drupal_debug.txt"
+debug_pre: true

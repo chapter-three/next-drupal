@@ -8,8 +8,10 @@ id: location
 name: Location
 weight: 0
 min_count: 1
+missing: false
+missing_label: others
 url_alias: field_location
-facet_source_id: 'jsonapi_search_api_facets:property'
+facet_source_id: "jsonapi_search_api_facets:property"
 field_identifier: field_location
 query_operator: or
 hard_limit: 0
@@ -18,7 +20,7 @@ use_hierarchy: false
 keep_hierarchy_parents_active: false
 hierarchy:
   type: taxonomy
-  config: {  }
+  config: {}
 expand_hierarchy: false
 enable_parent_when_child_gets_disabled: true
 widget:
@@ -53,12 +55,12 @@ processor_configs:
     processor_id: list_item
     weights:
       build: 5
-    settings: {  }
+    settings: {}
   show_siblings_processor:
     processor_id: show_siblings_processor
     weights:
       build: 40
-    settings: {  }
+    settings: {}
   term_weight_widget_order:
     processor_id: term_weight_widget_order
     weights:
@@ -69,10 +71,10 @@ processor_configs:
     processor_id: translate_entity
     weights:
       build: 5
-    settings: {  }
+    settings: {}
   url_processor_handler:
     processor_id: url_processor_handler
     weights:
       pre_query: 50
       build: 15
-    settings: {  }
+    settings: {}

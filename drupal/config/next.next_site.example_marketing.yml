@@ -1,9 +1,11 @@
 uuid: 8ec29675-5730-4f1e-b87f-53f72dc1911b
 langcode: en
 status: true
-dependencies: {  }
+dependencies: {}
 id: example_marketing
-label: 'Example marketing'
-base_url: 'https://demo.next-drupal.org'
-preview_url: 'https://demo.next-drupal.org/api/preview'
+label: "Example marketing"
+base_url: "http://localhost:3001"
+preview_url: "http://localhost:3001/api/preview"
 preview_secret: secret
+revalidate_url: "http://localhost:3001/api/revalidate"
+revalidate_secret: secret

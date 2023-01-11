@@ -8,8 +8,10 @@ id: status
 name: Status
 weight: 0
 min_count: 1
+missing: false
+missing_label: others
 url_alias: field_status
-facet_source_id: 'jsonapi_search_api_facets:property'
+facet_source_id: "jsonapi_search_api_facets:property"
 field_identifier: field_status
 query_operator: or
 hard_limit: 0
@@ -18,7 +20,7 @@ use_hierarchy: false
 keep_hierarchy_parents_active: false
 hierarchy:
   type: taxonomy
-  config: {  }
+  config: {}
 expand_hierarchy: false
 enable_parent_when_child_gets_disabled: true
 widget:
@@ -53,10 +55,10 @@ processor_configs:
     processor_id: list_item
     weights:
       build: 5
-    settings: {  }
+    settings: {}
   url_processor_handler:
     processor_id: url_processor_handler
     weights:
       pre_query: 50
       build: 15
-    settings: {  }
+    settings: {}

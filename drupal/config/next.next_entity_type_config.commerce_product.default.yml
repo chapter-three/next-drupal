@@ -1,0 +1,12 @@
+uuid: 22afdec1-eb54-40b9-a4ef-2acde222001e
+langcode: en
+status: true
+dependencies: {}
+id: commerce_product.default
+site_resolver: site_selector
+configuration:
+  sites:
+    example_commerce: example_commerce
+    basic_starter: "0"
+    example_blog: "0"
+    example_marketing: "0"

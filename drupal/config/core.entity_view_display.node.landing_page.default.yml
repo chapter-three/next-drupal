@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.node.landing_page.field_sections
-    - field.field.node.landing_page.field_site
     - node.type.landing_page
   module:
     - entity_reference_revisions
@@ -19,21 +18,13 @@ content:
     label: above
     settings:
       view_mode: default
-      link: ''
-    third_party_settings: {  }
+      link: ""
+    third_party_settings: {}
     weight: 102
     region: content
-  field_site:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 103
-    region: content
   links:
-    settings: {  }
-    third_party_settings: {  }
+    settings: {}
+    third_party_settings: {}
     weight: 100
     region: content
 hidden:

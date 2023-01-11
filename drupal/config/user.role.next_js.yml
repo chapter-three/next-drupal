@@ -1,0 +1,21 @@
+uuid: 654a9461-99e4-4ec5-a116-4608677c0bdd
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.remote_video
+  module:
+    - graphql
+    - media
+    - node
+    - subrequests
+id: next_js
+label: Next.js
+weight: -5
+is_admin: null
+permissions:
+  - "access user profiles"
+  - "bypass node access"
+  - "create remote_video media"
+  - "execute graphql_compose_server arbitrary graphql requests"
+  - "issue subrequests"

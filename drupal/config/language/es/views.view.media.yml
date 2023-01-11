@@ -1,3 +1,60 @@
 display:
   default:
-    display_title: 'Por defecto'
+    display_title: "Por defecto"
+    display_options:
+      fields:
+        media_bulk_form:
+          action_title: Acción
+        thumbnail__target_id:
+          separator: ", "
+        name:
+          separator: ", "
+        bundle:
+          label: Tipo
+          separator: ", "
+        uid:
+          label: Autor
+          separator: ", "
+        status:
+          label: Estado
+          settings:
+            format_custom_false: "Sin publicar"
+            format_custom_true: Publicado
+          separator: ", "
+        changed:
+          label: Actualizado
+          separator: ", "
+        operations:
+          label: Operaciones
+      pager:
+        options:
+          tags:
+            next: "Siguiente >"
+            previous: "‹ Anterior"
+            first: "« Primero"
+            last: "Último »"
+          expose:
+            items_per_page_label: "Elementos por página"
+            items_per_page_options_all_label: "- Todo -"
+            offset_label: Desplazamiento
+      exposed_form:
+        options:
+          submit_button: Filtro
+          reset_button_label: Restablecer
+          exposed_sorts_label: "Ordenar por"
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      filters:
+        bundle:
+          expose:
+            label: Tipo
+        status:
+          group_info:
+            group_items:
+              1:
+                title: Publicado
+              2:
+                title: "Sin publicar"
+        langcode:
+          expose:
+            label: Idioma

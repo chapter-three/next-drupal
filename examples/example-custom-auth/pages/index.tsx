@@ -16,7 +16,7 @@ export default function IndexPage({
   return (
     <>
       <Head>
-        <title>Next.js for Drupal | Custom Auth Example</title>
+        <title key="head_title">Next.js for Drupal | Custom Auth Example</title>
       </Head>
       <div>
         <dl>

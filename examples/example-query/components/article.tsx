@@ -12,7 +12,7 @@ export function Article({ article, ...props }: ArticleProps) {
   return (
     <>
       <Head>
-        <title>{article.title}</title>
+        <title key="head_title">{article.title}</title>
       </Head>
       <article {...props}>
         <h1 className="mb-4 text-6xl font-black leading-tight">

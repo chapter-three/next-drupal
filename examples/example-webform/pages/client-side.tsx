@@ -48,7 +48,7 @@ export default function WebformPage({ teams }: WebformPageProps) {
   return (
     <>
       <Head>
-        <title>Next.js for Drupal | Webform Example</title>
+        <title key="head_title">Next.js for Drupal | Webform Example</title>
       </Head>
       <div className="container max-w-2xl px-6 py-10 mx-auto">
         <article className="prose lg:prose-xl">

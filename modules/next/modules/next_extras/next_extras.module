@@ -18,7 +18,7 @@ use Drupal\next\Entity\NextEntityTypeConfigInterface;
  */
 function next_extras_entity_base_field_info(EntityTypeInterface $entity_type) {
   if (\Drupal::moduleHandler()->moduleExists('content_translation')) {
-    if (in_array($entity_type->id(), ['node'])) {
+    if (in_array($entity_type->id(), ['node','taxonomy_term'])) {
       $fields['content_translations'] = BaseFieldDefinition::create('content_translations')
         ->setLabel(t('Content Translations'))
         ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)

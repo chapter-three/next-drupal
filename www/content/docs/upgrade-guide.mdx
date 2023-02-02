@@ -1,0 +1,167 @@
+---
+title: Upgrade Guide
+excerpt: Guide for upgrading your site to use DrupalClient.
+---
+
+## next-drupal 1.6.0
+
+1. Upgrade to the latest version
+
+```sh
+yarn add next-drupal@latest
+```
+
+<Callout>
+
+`next-drupal 1.6.0` adds support for Next.js 13 and React 18. To update your site to Next.js 13, see the [Upgrading from 12 to 13](https://nextjs.org/docs/upgrading#upgrading-from-12-to-13) guide on the Next.js site.
+
+</Callout>
+
+## next 1.6.0
+
+1. Upgrade your Drupal site to use `next 1.6.0`
+
+```sh
+composer require drupal/next
+```
+
+2. Run updates:
+
+```sh
+drush updb
+```
+
+<Callout>
+
+Running the updates will migrate the legacy `next_extras` on-demand revalidation configuration to entity type config.
+
+</Callout>
+
+---
+
+## next 1.3.0
+
+1. Upgrade your Drupal site to use `next 1.3.0`
+
+```sh
+composer require drupal/next
+```
+
+2. Run updates:
+
+```sh
+drush updb
+```
+
+2. Edit the Next.js user and **assign them all the roles that are going to be used for scopes, including the administrator role and the Next.js role**. The granted roles will be filtered based on roles assigned to the current user.
+
+3. Upgrade the `next-drupal` package to `1.5.0`. See the upgrade guide below.
+
+---
+
+## next-drupal 1.5.0
+
+1. Upgrade to the latest version
+
+```sh
+yarn add next-drupal@latest
+```
+
+---
+
+## next-drupal 1.4.0
+
+<Callout icon="⚠️">
+
+The `DrupalClient` is an optional feature. If you're running a site using `next-drupal 1.2 or below`, you can safely upgrade your site without any breaking changes.
+
+</Callout>
+
+1. Upgrade to the latest version
+
+```sh
+yarn add next-drupal@latest
+```
+
+2. Create a new `DrupalClient` in `lib/drupal.ts`
+
+```ts title=lib/drupal.ts
+import { DrupalClient } from "next-drupal"
+
+export const drupal = new DrupalClient(
+  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+  {
+    frontPage: "/home",
+    previewSecret: process.env.DRUPAL_PREVIEW_SECRET,
+    auth: {
+      clientId: process.env.DRUPAL_CLIENT_ID,
+      clientSecret: process.env.DRUPAL_CLIENT_SECRET,
+    },
+  }
+)
+```
+
+By default, all requests made to Drupal by `DrupalClient` are un-authenticated. See _Step 5_ below on how to configure permissions for un-authenticated calls.
+
+To make authenticated requests, you opt-in on a [method-basis](/docs/authentication#method-authentication).
+
+If you want to have all requests authenticated, you can use the [`withAuth`](/docs/configuration#withauth) option on the `DrupalClient`:
+
+```ts
+import { DrupalClient } from "next-drupal"
+
+export const drupal = new DrupalClient(
+  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+  {
+    frontPage: "/home",
+    previewSecret: process.env.DRUPAL_PREVIEW_SECRET,
+    auth: {
+      clientId: process.env.DRUPAL_CLIENT_ID,
+      clientSecret: process.env.DRUPAL_CLIENT_SECRET,
+    },
+    // highlight-start
+    withAuth: true,
+    // highlight-end
+  }
+)
+```
+
+3. Update helpers to use the `drupal` client.
+
+```diff
++ import { drupal } from "lib/drupal"
+
+
+- await getPathsFromContext()
++ await drupal.getStaticPathsFromContext()
+
+
+- await translatePathFromContext()
++ await drupal.translatePathFromContext()
+
+
+- await getResourceFromContext()
++ await drupal.getResourceFromContext()
+```
+
+4. Replace `pages/api/preview.ts` with the following:
+
+```diff
+- import { DrupalPreview } from "next-drupal"
+-
+- export default DrupalPreview()
+
++ import { drupal } from "lib/drupal"
++
++ export default async function (request, response) {
++  return await drupal.preview(request, response)
++ }
+```
+
+5. On the Drupal site, visit `/admin/people/permissions/anonymous` and assign the **Issue subrequests** permission to the **Anonymous user** role: <br /><br />
+   We do this because during the build phase, most of the requests for pages are anonymous requests. By assigning this permission, you can significantly decrease your site's build time. <br /><br />
+   If you would rather keep requests authenticated, you can use the [`withAuth`](/docs/client/configuration#withauth) options.
+
+6. Done. You are now ready to run your site using the new `DrupalClient`.
+
+If you see any bugs during the upgrade, feel free to create an issue on [GitHub](https://github.com/chapter-three/next-drupal).

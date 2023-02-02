@@ -1,0 +1,11 @@
+services:
+  next_tests.entity_action_event_subscriber:
+    class: Drupal\next_tests\EventSubscriber\EntityActionEventSubscriber
+    arguments: ["@logger.channel.default"]
+    tags:
+      - { name: event_subscriber }
+  next_tests.entity_revalidated_event_subscriber:
+    class: Drupal\next_tests\EventSubscriber\EntityRevalidatedEventSubscriber
+    arguments: ["@logger.channel.default"]
+    tags:
+      - { name: event_subscriber }

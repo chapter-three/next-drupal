@@ -1,0 +1,20 @@
+uuid: 9effdef6-c00c-4de4-a352-db3351d1830e
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.team
+  module:
+    - metatag
+id: taxonomy_term.team.metatag
+field_name: metatag
+entity_type: taxonomy_term
+bundle: team
+label: 'Metatags (Hidden field for JSON support)'
+description: 'The computed meta tags for the entity.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: metatag_computed

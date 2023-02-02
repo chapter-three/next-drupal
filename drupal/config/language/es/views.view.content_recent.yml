@@ -1,0 +1,16 @@
+display:
+  default:
+    display_title: "Por defecto"
+    display_options:
+      fields:
+        changed:
+          separator: ", "
+      exposed_form:
+        options:
+          submit_button: Aplicar
+          reset_button_label: Restablecer
+          exposed_sorts_label: "Ordenar por"
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+  block_1:
+    display_title: Bloque

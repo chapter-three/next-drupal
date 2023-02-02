@@ -1,7 +1,7 @@
 {
   "name": "next-drupal",
   "description": "Helpers for Next.js + Drupal.",
-  "version": "1.3.2",
+  "version": "1.6.0",
   "sideEffects": false,
   "source": "src/index.ts",
   "main": "dist/index.js",
@@ -18,7 +18,8 @@
   "scripts": {
     "prepare": "microbundle --no-compress --jsx React.createElement",
     "dev": "microbundle watch --no-compress --jsx React.createElement",
-    "test": "jest"
+    "test": "jest",
+    "prepublishOnly": "yarn prepare"
   },
   "keywords": [
     "next.js",
@@ -41,10 +42,10 @@
   },
   "dependencies": {
     "jsona": "^1.9.7",
-    "next": "^12.0.0",
+    "next": "^12.2.0 || ^13",
     "node-cache": "^5.1.2",
     "qs": "^6.10.3",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react": "^17.0.2 || ^18",
+    "react-dom": "^17.0.2 || ^18"
   }
 }

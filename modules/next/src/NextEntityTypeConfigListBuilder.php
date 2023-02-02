@@ -8,8 +8,6 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\next\Plugin\ConfigurableSiteResolverBase;
-use Drupal\next\Plugin\ConfigurableSiteResolverInterface;
 use Drupal\next\Plugin\SiteResolverManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -66,13 +64,8 @@ class NextEntityTypeConfigListBuilder extends ConfigEntityListBuilder {
    * {@inheritdoc}
    */
   public static function createInstance(ContainerInterface $container, EntityTypeInterface $entity_type) {
-    return new static(
-      $entity_type,
-      $container->get('entity_type.manager')->getStorage($entity_type->id()),
-      $container->get('entity_type.manager'),
-      $container->get('entity_type.bundle.info'),
-      $container->get('plugin.manager.next.site_resolver')
-    );
+    return new static($entity_type, $container->get('entity_type.manager')
+      ->getStorage($entity_type->id()), $container->get('entity_type.manager'), $container->get('entity_type.bundle.info'), $container->get('plugin.manager.next.site_resolver'));
   }
 
   /**
@@ -99,6 +92,7 @@ class NextEntityTypeConfigListBuilder extends ConfigEntityListBuilder {
     $header['bundle'] = $this->t('Bundle');
     $header['site_resolver'] = $this->t('Site resolver');
     $header['summary'] = '';
+    $header['revalidator'] = $this->t('Revalidator');
     return $header + parent::buildHeader();
   }
 
@@ -113,8 +107,9 @@ class NextEntityTypeConfigListBuilder extends ConfigEntityListBuilder {
 
     $row['entity_type'] = $entity_type->getLabel();
     $row['bundle'] = $bundle_info[$bundle]['label'];
-    $row['site_resolver'] = "";
+    $row['site_resolver'] = '';
     $row['summary'] = [];
+    $row['revalidator'] = '';
 
     /** @var \Drupal\next\Plugin\SiteResolverInterface $site_resolver */
     if ($site_resolver = $entity->getSiteResolver()) {
@@ -128,6 +123,10 @@ class NextEntityTypeConfigListBuilder extends ConfigEntityListBuilder {
           '#context' => ['summary' => $summary],
         ];
       }
+    }
+
+    if ($revalidator = $entity->getRevalidator()) {
+      $row['revalidator'] = $revalidator->getLabel();
     }
 
     return $row + parent::buildRow($entity);

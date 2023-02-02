@@ -5,9 +5,26 @@ services:
   plugin.manager.next.site_previewer:
     class: Drupal\next\Plugin\SitePreviewerManager
     parent: default_plugin_manager
+  plugin.manager.next.preview_url_generator:
+    class: Drupal\next\Plugin\PreviewUrlGeneratorManager
+    parent: default_plugin_manager
+  plugin.manager.next.revalidator:
+    class: Drupal\next\Plugin\RevalidatorManager
+    parent: default_plugin_manager
   next.entity_type.manager:
     class: Drupal\next\NextEntityTypeManager
     arguments: ["@entity_type.manager"]
+  next.settings.manager:
+    class: Drupal\next\NextSettingsManager
+    arguments:
+      [
+        "@config.factory",
+        "@plugin.manager.next.site_previewer",
+        "@plugin.manager.next.preview_url_generator",
+      ]
+  next.preview_secret_generator:
+    class: Drupal\next\PreviewSecretGenerator
+    arguments: ["@private_key"]
   next.main_content_renderer.html:
     class: Drupal\next\Render\MainContent\HtmlRenderer
     decorates: main_content_renderer.html
@@ -27,3 +44,24 @@ services:
       ]
     tags:
       - { name: render.main_content_renderer, format: html }
+  next.uninstall_validator:
+    class: Drupal\next\NextUninstallValidator
+    tags:
+      - { name: module_install.uninstall_validator }
+    arguments:
+      ["@plugin.manager.next.preview_url_generator", "@next.settings.manager"]
+    lazy: true
+  logger.channel.next:
+    parent: logger.channel_base
+    arguments: ["next"]
+  next.entity_action_event_revalidate_subscriber:
+    class: Drupal\next\EventSubscriber\EntityActionEventRevalidateSubscriber
+    arguments:
+      [
+        "@next.entity_type.manager",
+        "@next.settings.manager",
+        "@logger.channel.next",
+        "@event_dispatcher",
+      ]
+    tags:
+      - { name: event_subscriber }

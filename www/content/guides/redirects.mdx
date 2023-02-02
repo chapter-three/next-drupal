@@ -9,6 +9,8 @@ This guide uses `translatedPathFromContext` which is available in `next-drupal ^
 
 </Callout>
 
+---
+
 ## Next.js
 
 To use redirects in Next.js you can configure a `redirects` key in `next.config.js`.
@@ -27,6 +29,8 @@ module.exports = {
 }
 ```
 
+---
+
 ## Redirect Module
 
 To handle redirects coming from Drupal ([redirect module](https://www.drupal.org/project/redirect)), you can use `translatedPathFromContext`.
@@ -34,19 +38,13 @@ To handle redirects coming from Drupal ([redirect module](https://www.drupal.org
 Here's how you can handle redirect in `getStaticProps`.
 
 ```tsx title=pages/[...slug].tsx
-import {
-  DrupalNode,
-  getPathsFromContext,
-  getResourceFromContext,
-  getView,
-  translatePathFromContext,
-} from "next-drupal"
+import { DrupalNode } from "next-drupal"
 
 export async function getStaticProps(
   context
 ): Promise<GetStaticPropsResult<NodePageProps>> {
   // Get information about the path.
-  const path = await translatePathFromContext(context)
+  const path = await drupal.translatePathFromContext(context)
 
   if (!path) {
     return {
@@ -66,8 +64,10 @@ export async function getStaticProps(
   }
 
   // No redirect. Fetch the resource for this type.
-  const type = path.jsonapi.resourceName
-  const resource = await getResourceFromContext<DrupalNode>(type, context)
+  const resource = await drupal.getResourceFromContext<DrupalNode>(
+    path,
+    context
+  )
 }
 ```
 

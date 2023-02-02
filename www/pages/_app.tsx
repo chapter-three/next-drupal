@@ -1,9 +1,11 @@
 import Script from "next/script"
 import { DefaultSeo } from "next-seo"
+import { Analytics } from "@vercel/analytics/react"
 
 import { site } from "config/site"
 
 import "../styles/global.css"
+import "../styles/mdx.css"
 
 export default function App({ Component, pageProps }) {
   return (
@@ -42,6 +44,7 @@ export default function App({ Component, pageProps }) {
         }}
       />
       <Component {...pageProps} />
+      <Analytics />
     </>
   )
 }

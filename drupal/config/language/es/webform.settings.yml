@@ -1,0 +1,5 @@
+settings:
+  default_submit_button_label: Enviar
+  default_reset_button_label: Restablecer
+  default_delete_button_label: Eliminar
+  default_wizard_confirmation_label: Completo

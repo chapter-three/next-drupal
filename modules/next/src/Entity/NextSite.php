@@ -2,13 +2,12 @@
 
 namespace Drupal\next\Entity;
 
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
 use Drupal\Core\TypedData\TranslatableInterface;
 use Drupal\Core\Url;
-use Drupal\jsonapi\JsonApiResource\ResourceObject;
-use Drupal\jsonapi\ResourceType\ResourceType;
 
 /**
  * Defines the next_site config entity.
@@ -48,12 +47,15 @@ use Drupal\jsonapi\ResourceType\ResourceType;
  *     "base_url",
  *     "preview_url",
  *     "preview_secret",
+ *     "revalidate_url",
+ *     "revalidate_secret",
  *   },
  *   links = {
  *     "add-form" = "/admin/config/services/next/sites/add",
  *     "edit-form" = "/admin/config/services/next/sites/{next_site}/edit",
  *     "delete-form" = "/admin/config/services/next/sites/{next_site}/delete",
- *     "environment-variables" = "/admin/config/services/next/sites/{next_site}/env",
+ *     "environment-variables" =
+ *   "/admin/config/services/next/sites/{next_site}/env",
  *     "collection" = "/admin/config/services/next"
  *   }
  * )
@@ -80,6 +82,20 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
    * @var string
    */
   protected $preview_secret;
+
+  /**
+   * The revalidate url.
+   *
+   * @var string
+   */
+  protected $revalidate_url;
+
+  /**
+   * The revalidate secret.
+   *
+   * @var string
+   */
+  protected $revalidate_secret;
 
   /**
    * {@inheritdoc}
@@ -129,19 +145,45 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
   /**
    * {@inheritdoc}
    */
-  public function getPreviewUrlForEntity(EntityInterface $entity): Url {
-    $query = [
-      'secret' => $this->preview_secret,
-      'slug' => $entity->toUrl()->toString(),
-    ];
+  public function getRevalidateUrl(): ?string {
+    return $this->revalidate_url;
+  }
 
-    // Add the locale to the query.
-    if ($entity instanceof TranslatableInterface) {
-      $query['locale'] = $entity->language()->getId();
-      $query['defaultLocale'] = \Drupal::languageManager()->getDefaultLanguage()->getId();
+  /**
+   * {@inheritdoc}
+   */
+  public function setRevalidateUrl(string $revalidate_url): NextSiteInterface {
+    $this->set('revalidate_url', $revalidate_url);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRevalidateSecret(): ?string {
+    return $this->revalidate_secret;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setRevalidateSecret(string $revalidate_secret): NextSiteInterface {
+    $this->set('revalidate_secret', $revalidate_secret);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPreviewUrlForEntity(EntityInterface $entity): Url {
+    // Anonymous users do not have access to the preview url.
+    // Same for authenticated users with no additional roles, since we assume no scope.
+    if (\Drupal::currentUser()->isAnonymous() || (!count(\Drupal::currentUser()->getRoles(TRUE)) && \Drupal::currentUser()->id() !== "1")) {
+      return $this->getLiveUrlForEntity($entity);
     }
 
     // Handle revisionable entity types.
+    $resource_version = NULL;
     /** @var \Drupal\next\NextEntityTypeManagerInterface $next_entity_type_manager */
     $next_entity_type_manager = \Drupal::service('next.entity_type.manager');
     if ($next_entity_type_manager->isEntityRevisionable($entity)) {
@@ -166,12 +208,45 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
       if ($entity->isDefaultRevision()) {
         $rel = 'latest-version';
       }
-      $query['resourceVersion'] = $rel ? "rel:$rel" : "id:{$entity->getRevisionId()}";
+      $resource_version = $rel ? "rel:$rel" : "id:{$entity->getRevisionId()}";
     }
 
-    return Url::fromUri($this->preview_url, [
-      'query' => $query,
-    ]);
+    // TODO: Extract this to a service.
+    /** @var \Drupal\next\NextSettingsManagerInterface $next_settings */
+    $next_settings = \Drupal::service('next.settings.manager');
+    $preview_url_generator = $next_settings->getPreviewUrlGenerator();
+    if (!$preview_url_generator) {
+      throw new PluginNotFoundException('Invalid preview url generator.');
+    }
+
+    $preview_url = $preview_url_generator->generate($this, $entity, $resource_version);
+
+    // If no preview url has been generated, show the live url.
+    if (!$preview_url) {
+      return $this->getLiveUrlForEntity($entity);
+    }
+
+    $query = $preview_url->getOption('query');
+
+    // Add the plugin to the query.
+    // This allows next.js app to determine the preview strategy based on the plugin.
+    $query['plugin'] = $preview_url_generator->getId();
+
+    // Add the locale to the query.
+    if ($entity instanceof TranslatableInterface) {
+      $query['locale'] = $entity->language()->getId();
+      $query['defaultLocale'] = \Drupal::languageManager()
+        ->getDefaultLanguage()
+        ->getId();
+    }
+
+    if ($resource_version) {
+      $query['resourceVersion'] = $resource_version;
+    }
+
+    $preview_url->setOption('query', $query);
+
+    return $preview_url;
   }
 
   /**
@@ -184,6 +259,29 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
     }
 
     return Url::fromUri("{$this->base_url}{$entity->toUrl()->toString()}");
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRevalidateUrlForPath(string $path): ?Url {
+    $revalidate_url = $this->getRevalidateUrl();
+
+    if (!$revalidate_url) {
+      return NULL;
+    }
+
+    $query = [
+      'slug' => $path,
+    ];
+
+    if ($secret = $this->getRevalidateSecret()) {
+      $query['secret'] = $secret;
+    }
+
+    return Url::fromUri($this->getRevalidateUrl(), [
+      'query' => $query,
+    ]);
   }
 
 }

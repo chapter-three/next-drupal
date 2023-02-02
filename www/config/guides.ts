@@ -10,6 +10,14 @@ export const guidesConfig: GuidesConfig = {
           href: "/guides",
         },
         {
+          title: "Page Limit",
+          href: "/guides/page-limit",
+        },
+        {
+          title: "Umami Demo",
+          href: "/guides/umami-demo",
+        },
+        {
           title: "JSON:API Params",
           href: "/guides/jsonapi-params",
         },
@@ -42,8 +50,8 @@ export const guidesConfig: GuidesConfig = {
           href: "/guides/search-api",
         },
         {
-          title: "On-demand Revalidation",
-          href: "/guides/on-demand-revalidation",
+          title: "Filter by Site",
+          href: "/guides/filter-by-site",
         },
       ],
     },

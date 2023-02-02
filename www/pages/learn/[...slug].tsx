@@ -2,15 +2,14 @@ import Link from "next/link"
 import { getMdxNode, getMdxPaths, getAllMdxNodes } from "next-mdx/server"
 import { useHydrate } from "next-mdx/client"
 import classNames from "classnames"
+import { getTableOfContents, TableOfContents } from "next-mdx-toc"
 
 import { Tutorial } from "types"
 import { tutorialsConfig } from "config/tutorials"
 import { Layout } from "components/layout"
 import { Pager } from "components/pager"
 import { mdxComponents } from "components/mdx"
-import { Video } from "components/video"
-import { getTableOfContents, TableOfContents } from "next-mdx-toc"
-import { Toc } from "@/core/components/toc"
+import { Toc } from "components/toc"
 
 export interface TutorialPageProps {
   tutorial: Tutorial
@@ -45,75 +44,33 @@ export default function TutorialPage({
       title={tutorial.frontMatter.title}
       description={tutorial.frontMatter.excerpt}
     >
-      <div className="container px-6 mx-auto md:gap-10 xl:gap-10 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-4 lg:grid xl:px-6">
-        <aside className="hidden col-span-2 py-10 pr-4 border-r xl:col-span-1 lg:block">
+      <div className="container px-6 mx-auto md:gap-10 xl:gap-8 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-[260px_1fr] lg:px-4 lg:grid xl:px-6">
+        <aside className="sticky top-0 hidden max-h-screen col-span-2 pt-10 pb-64 pl-2 pr-4 overflow-y-auto border-r xl:col-span-1 lg:block">
           {tutorials.map((group, index) => (
-            <div key={index} className="mb-12">
-              <h4 className="pl-6 mb-2 text-sm font-medium">{group.title}</h4>
-              <ul className="grid grid-flow-row gap-2 auto-rows-max">
+            <div key={index} className="mb-12 -ml-2">
+              <h4 className="px-2 py-1 mb-1 text-sm font-medium rounded-md">
+                {group.title}
+              </h4>
+              <div className="grid grid-flow-row text-sm auto-rows-max">
                 {group.items.map((wiz) => (
-                  <li
-                    key={wiz.hash}
-                    className={classNames(
-                      "flex items-center",
-                      tutorial.frontMatter.weight > wiz.frontMatter.weight &&
-                        tutorial.frontMatter.group === wiz.frontMatter.group
-                        ? "line-through opacity-50"
-                        : "opacity-100"
-                    )}
-                  >
-                    <div className="flex items-center justify-center w-4 h-4 mr-2">
-                      {wiz.hash === tutorial.hash ? (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="w-2 h-2"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <circle cx="12" cy="12" r="10" />
-                        </svg>
-                      ) : (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className={classNames(
-                            "w-4 h-4",
-                            tutorial.frontMatter.weight >=
-                              wiz.frontMatter.weight &&
-                              tutorial.frontMatter.group ===
-                                wiz.frontMatter.group
-                              ? "visible"
-                              : "invisible"
-                          )}
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M20 6L9 17l-5-5" />
-                        </svg>
+                  <Link key={wiz.hash} href={wiz.url} passHref>
+                    <a
+                      className={classNames(
+                        "px-2 py-2 flex items-center w-full rounded-md hover:underline text-black",
+                        tutorial.frontMatter.weight > wiz.frontMatter.weight &&
+                          tutorial.frontMatter.group === wiz.frontMatter.group
+                          ? "line-through opacity-50"
+                          : "opacity-100",
+                        {
+                          "bg-blue-50": wiz.hash === tutorial.hash,
+                        }
                       )}
-                    </div>
-                    <Link href={wiz.url} passHref>
-                      <a
-                        className={classNames(
-                          "text-sm hover:text-black",
-                          wiz.hash === tutorial.hash
-                            ? "text-black font-semibold"
-                            : "text-gray-700"
-                        )}
-                      >
-                        {wiz.frontMatter.title}
-                      </a>
-                    </Link>
-                  </li>
+                    >
+                      {wiz.frontMatter.title}
+                    </a>
+                  </Link>
                 ))}
-              </ul>
+              </div>
             </div>
           ))}
           <div className="p-4 mt-5 border rounded-md border-blue-50 bg-blue-50 callout">
@@ -144,39 +101,30 @@ export default function TutorialPage({
             </p>
           </div>
         </aside>
-        <div className="col-span-4 pt-4 pb-10 xl:col-span-3 sm:pt-6 md:pt-10 DocSearch-content">
-          <div>
-            <div>
-              <h1 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
-                {tutorial.frontMatter.title}
-              </h1>
-              {tutorial.frontMatter.excerpt ? (
-                <p className="text-lg font-light text-gray-700 md:mt-2 md:text-2xl">
-                  {tutorial.frontMatter.excerpt}
-                </p>
-              ) : null}
-            </div>
+        <div className="items-start col-span-4 gap-12 pb-10 xl:col-span-1 xl:grid xl:grid-cols-3 xl:gap-18">
+          <div className="col-span-2 pt-4 sm:pt-6 md:pt-10 DocSearch-content main-content">
+            <h1 className="text-3xl font-bold leading-tight sm:text-4xl">
+              {tutorial.frontMatter.title}
+            </h1>
+            {tutorial.frontMatter.excerpt ? (
+              <p className="mt-2 text-lg font-light text-gray-700 md:text-xl">
+                {tutorial.frontMatter.excerpt}
+              </p>
+            ) : null}
+            <hr className="my-6" />
+            {content}
+            <Pager links={links} />
           </div>
-          <hr className="my-6" />
-          {tutorial.frontMatter.video ? (
-            <Video src={tutorial.frontMatter.video} heading="Play Video" />
-          ) : null}
-          <div className="items-start grid-cols-3 gap-20 md:grid">
-            <div className="col-span-2">
-              {content}
-              <Pager links={links} />
-            </div>
-            <aside className="sticky top-0 hidden pt-4 xl:block">
-              {toc.items?.length && (
-                <div className="p-4 border rounded-md">
-                  <h2 className="mb-1 text-sm font-medium rounded-md">
-                    On this page
-                  </h2>
-                  <Toc tree={toc} />
-                </div>
-              )}
-            </aside>
-          </div>
+          <aside className="sticky top-0 hidden pt-10 xl:block">
+            {toc.items?.length && (
+              <div className="p-4 border rounded-md">
+                <h2 className="mb-1 text-sm font-medium rounded-md">
+                  On this page
+                </h2>
+                <Toc tree={toc} />
+              </div>
+            )}
+          </aside>
         </div>
       </div>
     </Layout>

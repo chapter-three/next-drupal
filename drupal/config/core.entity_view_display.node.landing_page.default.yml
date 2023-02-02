@@ -18,13 +18,13 @@ content:
     label: above
     settings:
       view_mode: default
-      link: ''
-    third_party_settings: {  }
+      link: ""
+    third_party_settings: {}
     weight: 102
     region: content
   links:
-    settings: {  }
-    third_party_settings: {  }
+    settings: {}
+    third_party_settings: {}
     weight: 100
     region: content
 hidden:

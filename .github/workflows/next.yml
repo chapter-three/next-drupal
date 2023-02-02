@@ -10,8 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        drupal: ["8.9", "9.2"]
-    name: Drupal ${{ matrix.drupal }}
+        php: ["8.0", "8.1"]
+        drupal: ["9.3", "9.4", "10.0.0-rc1"]
+        exclude:
+          - php: "8.0"
+            drupal: "10.0.0-rc1"
+    name: Drupal ${{ matrix.drupal }} - PHP ${{ matrix.php }}
     services:
       mysql:
         image: mysql:5.7
@@ -25,7 +29,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, bcmath, soap, intl, gd, exif, iconv
           coverage: none
           tools: composer:v2
@@ -43,7 +47,7 @@ jobs:
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
       - name: Setup Drupal
         run: |
-          COMPOSER_MEMORY_LIMIT=-1 composer create-project drupal/recommended-project:${{ matrix.drupal }} ~/drupal --no-interaction
+          COMPOSER_MEMORY_LIMIT=-1 composer create-project drupal/recommended-project:${{ matrix.drupal }} ~/drupal --no-interaction --no-install
           cd ~/drupal
           composer config extra.enable-patching true
           composer config extra.compile-mode all
@@ -52,7 +56,9 @@ jobs:
           composer config preferred-install dist
           composer config repositories.0 path $GITHUB_WORKSPACE
           composer config repositories.1 composer https://packages.drupal.org/8
-          COMPOSER_MEMORY_LIMIT=-1 composer require drupal/core-dev:${{ matrix.drupal }} --no-suggest
+          composer config allow-plugins true -n
+          COMPOSER_MEMORY_LIMIT=-1 composer require drupal/core-dev:${{ matrix.drupal }} --no-suggest --no-install
+          composer install
       - name: Add phpspec/prophecy-phpunit
         run: |
           cd ~/drupal
@@ -62,6 +68,11 @@ jobs:
         run: cp -R ../next-drupal/modules/next ~/drupal/web/modules/next
       - name: Run php built-in server
         run: php -S 127.0.0.1:8080 -t ~/drupal/web &
+      - name: Run phpcs
+        run: |
+          cd ~/drupal/web
+          cp modules/next/phpcs.xml.dist .
+          ../vendor/bin/phpcs --standard=./phpcs.xml.dist modules/next -p -s -n --colors
       - name: Run PHPUnit
         run: |
           cd ~/drupal/web

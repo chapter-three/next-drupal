@@ -1,0 +1,29 @@
+uuid: ba144175-7df4-4994-a19e-9ff82bc800a9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.menu_link_content.main.field_description
+    - system.menu.main
+  module:
+    - text
+id: menu_link_content.main.default
+targetEntityType: menu_link_content
+bundle: main
+mode: default
+content:
+  children:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_description:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

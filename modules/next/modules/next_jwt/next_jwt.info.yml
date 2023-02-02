@@ -1,0 +1,9 @@
+name: Next.js JWT (Experimental)
+type: module
+description: "Generates preview URLs using JSON Web Token"
+core_version_requirement: ^9 || ^10
+package: Web services
+dependencies:
+  - next:next
+  - jwt:jwt
+  - jwt:jwt_auth_consumer

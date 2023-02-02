@@ -97,8 +97,6 @@ class SiteResolverTest extends KernelTestBase {
 
     $sites = $site_resolver->getSitesForEntity($page);
     $this->assertSame(['blog', 'marketing'], array_keys($sites));
-    $this->assertEquals("https://blog.com/api/preview?secret=one&slug=/node/1&locale=en&defaultLocale=en&resourceVersion=rel%3Alatest-version", $sites['blog']->getPreviewUrlForEntity($page)->toString());
-    $this->assertEquals("https://marketing.com/api/preview?secret=two&slug=/node/1&locale=en&defaultLocale=en&resourceVersion=rel%3Alatest-version", $sites['marketing']->getPreviewUrlForEntity($page)->toString());
 
     $article = $this->createNode(['type' => 'article']);
     $next_entity_type_config = $next_entity_type_manager->getConfigForEntityType($article->getEntityTypeId(), $article->bundle());

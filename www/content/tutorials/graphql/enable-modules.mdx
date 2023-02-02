@@ -1,0 +1,29 @@
+---
+title: Enable Modules
+excerpt: Enable Next.js and Next.js GraphQL modules
+weight: 40
+group: Quick Start (GraphQL)
+---
+
+1. Visit `/admin/modules`.
+2. Enable the following modules: **Next.js** and **Next.js GraphQL**.
+
+## Try GraphQL
+
+If you visit `/admin/config/graphql/servers/manage/graphql_compose_server/explorer` on your site, you should see an example server created for you.
+
+You can start testing GraphQL queries. Let's make our first request to fetch the first 5 articles.
+
+Copy and paste the following in the query textbox and click run.
+
+```graphql
+query Articles {
+  nodeArticles(first: 5) {
+    nodes {
+      title
+    }
+  }
+}
+```
+
+You should see the first 5 articles returned on the right.

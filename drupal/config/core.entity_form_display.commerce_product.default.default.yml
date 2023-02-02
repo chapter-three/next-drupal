@@ -1,0 +1,83 @@
+uuid: d26339a3-ffcd-4626-b8cf-4624bc1390c7
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.default
+    - field.field.commerce_product.default.body
+  module:
+    - commerce
+    - path
+    - text
+_core:
+  default_config_hash: bVqhDE0CBvUi4RPHqKu4sBhUOUwOTgcHVhn5PkfngLU
+id: commerce_product.default.default
+targetEntityType: commerce_product
+bundle: default
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 2
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ""
+    third_party_settings: {}
+    region: content
+  created:
+    type: datetime_timestamp
+    weight: 5
+    settings: {}
+    third_party_settings: {}
+    region: content
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {}
+  path:
+    type: path
+    weight: 7
+    settings: {}
+    third_party_settings: {}
+    region: content
+  status:
+    type: boolean_checkbox
+    weight: 8
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {}
+  stores:
+    type: commerce_entity_select
+    weight: 0
+    settings:
+      hide_single_entity: true
+      autocomplete_threshold: 7
+      autocomplete_size: 60
+      autocomplete_placeholder: ""
+    third_party_settings: {}
+    region: content
+  title:
+    type: string_textfield
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ""
+    third_party_settings: {}
+    region: content
+  uid:
+    type: entity_reference_autocomplete
+    weight: 4
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ""
+    third_party_settings: {}
+    region: content
+hidden:
+  variations: true

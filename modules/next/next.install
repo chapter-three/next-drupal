@@ -1,0 +1,106 @@
+<?php
+
+/**
+ * @file
+ * Installation and update hooks for next.
+ */
+
+use Drupal\Core\Field\BaseFieldDefinition;
+
+/**
+ * Set simple_oauth as the preview url generator.
+ */
+function next_update_9101() {
+  /** @var \Drupal\Core\Config\Config $config */
+  $config = \Drupal::configFactory()->getEditable('next.settings');
+  $config->set('preview_url_generator', 'simple_oauth')
+    ->set('preview_url_generator_configuration', [
+      'secret_expiration' => 30,
+    ])
+    ->save();
+}
+
+/**
+ * Add the revalidate_url and revalidate_secret to next_site.
+ */
+function next_update_9102() {
+  $entity_definition_update = \Drupal::entityDefinitionUpdateManager();
+
+  $storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('Revalidate URL'));
+  $entity_definition_update->installFieldStorageDefinition('revalidate_url', 'next_site', 'next_site', $storage_definition);
+
+  $storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('Revalidate secret'));
+  $entity_definition_update->installFieldStorageDefinition('revalidate_secret', 'next_site', 'next_site', $storage_definition);
+}
+
+/**
+ * Sets a revalidate url and secret for all Next.js sites.
+ */
+function next_update_9103() {
+  /** @var \Drupal\next\Entity\NextSiteInterface[] $sites */
+  $sites = \Drupal::entityTypeManager()->getStorage('next_site')->loadMultiple();
+  foreach ($sites as $site) {
+    $base_url = $site->getBaseUrl();
+
+    // Set a revalidate url.
+    if (!$site->getRevalidateUrl()) {
+      $site->setRevalidateUrl("$base_url/api/revalidate");
+    }
+
+    // Set a secret based on the preview secret for backward compatibility.
+    if (!$site->getRevalidateSecret() && ($secret = $site->getPreviewSecret())) {
+      $site->setRevalidateSecret($secret);
+    }
+
+    $site->save();
+  }
+}
+
+
+/**
+ * Add the revalidator, revalidate_page and revalidate_paths to next_entity_type_config.
+ */
+function next_update_9104() {
+  $entity_definition_update = \Drupal::entityDefinitionUpdateManager();
+
+  $storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('Revalidator'));
+  $entity_definition_update->installFieldStorageDefinition('revalidator', 'next_entity_type_config', 'next_entity_type_config', $storage_definition);
+}
+
+/**
+ * Migrate revalidate settings from next_extras.
+ */
+function next_update_9105() {
+  /** @var \Drupal\next\Entity\NextEntityTypeConfigInterface[] $next_entity_type_configs */
+  $next_entity_type_configs = \Drupal::entityTypeManager()->getStorage('next_entity_type_config')->loadMultiple();
+
+  foreach ($next_entity_type_configs as $next_entity_type_config) {
+    // If revalidation was enabled, migrate to the path revalidator.
+    if ((bool) $next_entity_type_config->getThirdPartySetting('next_extras', 'revalidate')) {
+      $next_entity_type_config->setRevalidator('path');
+      $configuration = [
+        'revalidate_page' => 1,
+      ];
+
+      if ($revalidate_paths = $next_entity_type_config->getThirdPartySetting('next_extras', 'revalidate_paths')) {
+        $configuration['additional_paths'] = $revalidate_paths;
+      }
+
+      $next_entity_type_config->getRevalidatorPluginCollection()->addInstanceId('path', $configuration);
+      $next_entity_type_config->save();
+    }
+  }
+}
+
+/**
+ * Configure debug settings.
+ */
+function next_update_9106() {
+  /** @var \Drupal\Core\Config\Config $config */
+  $config = \Drupal::configFactory()->getEditable('next.settings');
+  $config->set('debug', FALSE)
+    ->save();
+}

@@ -1,0 +1,22 @@
+uuid: 107f68b2-82b8-4542-ac1b-9dfa85a4eee7
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.team
+id: taxonomy_term.team.status
+field_name: status
+entity_type: taxonomy_term
+bundle: team
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

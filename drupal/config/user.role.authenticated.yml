@@ -3,31 +3,24 @@ langcode: en
 status: true
 dependencies:
   config:
-    - filter.format.basic_html
     - rest.resource.webform_rest_submit
   module:
-    - content_moderation
-    - filter
+    - commerce_product
     - media
-    - node
     - rest
-    - shortcut
     - simple_oauth
     - system
 _core:
   default_config_hash: btW6TFHajhy7Eo6YUvdFiPh4TcPggo8GBXYctjV6zag
 id: authenticated
-label: 'Authenticated user'
+label: "Authenticated user"
 weight: -9
 is_admin: false
 permissions:
-  - 'access content'
-  - 'access shortcuts'
-  - 'bypass node access'
-  - 'debug simple_oauth tokens'
-  - 'grant simple_oauth codes'
-  - 'restful post webform_rest_submit'
-  - 'use text format basic_html'
-  - 'view any unpublished content'
-  - 'view latest version'
-  - 'view media'
+  - "access content"
+  - "access user profiles"
+  - "debug simple_oauth tokens"
+  - "grant simple_oauth codes"
+  - "restful post webform_rest_submit"
+  - "view commerce_product"
+  - "view media"

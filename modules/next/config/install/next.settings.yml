@@ -4,3 +4,7 @@ site_previewer_configuration:
   width: 100%
   sync_route: false
   sync_route_skip_routes: ''
+preview_url_generator: simple_oauth
+preview_url_generator_configuration:
+  secret_expiration: 30
+debug: false

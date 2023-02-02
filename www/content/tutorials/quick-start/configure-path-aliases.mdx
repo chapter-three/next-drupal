@@ -1,0 +1,30 @@
+---
+title: Configure Path Aliases
+excerpt: Configure path aliases for content types
+weight: 50
+group: Quick Start
+---
+
+The `next-drupal` plugin uses paths to resolve resources for `getStaticProps`. To make this work, we need to configure path aliases for our content types.
+
+Let's add a pattern for the **Article** content type.
+
+1. Visit `/admin/config/search/path/patterns/add`.
+2. Fill in the following values:
+
+- **Pattern type**: `Content`
+- **Path pattern**: `blog/[node:title]`
+- **Content type**: `Article`
+- **Label**: `Article`
+
+3. Click **Save**
+
+<Img
+  src="/images/next-drupal-pathauto.jpg"
+  width="600"
+  height="420"
+  layout="responsive"
+  mb="10"
+/>
+
+Done. You have completed the Drupal configuration.

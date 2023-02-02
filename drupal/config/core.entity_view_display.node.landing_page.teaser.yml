@@ -14,8 +14,8 @@ bundle: landing_page
 mode: teaser
 content:
   links:
-    settings: {  }
-    third_party_settings: {  }
+    settings: {}
+    third_party_settings: {}
     weight: 100
     region: content
 hidden:

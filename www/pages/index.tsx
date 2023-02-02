@@ -34,7 +34,14 @@ export default function IndexPage({ features }: IndexPageProps) {
   return (
     <Layout title={site.name} description={site.description}>
       <section className="relative px-6 pt-12 pb-8 md:py-12 md:pb-8">
-        <div className="container max-w-4xl mx-auto">
+        <div className="container max-w-4xl mx-auto text-center">
+          <Link href="/blog/next-drupal-1-6" passHref>
+            <a className="inline-flex space-x-1 mx-auto mb-4 bg-[#111] text-white hover:underline text-sm items-center rounded-full px-4 py-1 font-medium">
+              <span>
+                Next.js 13, Drupal 10 and Stable On-demand Revalidation
+              </span>
+            </a>
+          </Link>
           <h1 className="text-4xl font-black tracking-tight text-center md:text-6xl lg:tracking-tighter lg:text-8xl">
             The future of Drupal is headless
           </h1>
@@ -48,20 +55,26 @@ export default function IndexPage({ features }: IndexPageProps) {
                 Get Started
               </a>
             </Link>
-            <Link href="/docs" passHref>
-              <a className="w-2/3 px-8 py-2 mt-4 font-semibold text-center text-black transition-all bg-white border-2 border-black rounded-md sm:w-auto sm:mt-0 sm:ml-4 hover:bg-gray-100 hover:text-black">
-                Read the docs
+            <Link href="https://demo.next-drupal.org" passHref>
+              <a
+                className="w-2/3 px-8 py-2 mt-4 font-semibold text-center text-black transition-all bg-white border-2 border-black rounded-md sm:w-auto sm:mt-0 sm:ml-4 hover:bg-gray-100 hover:text-black"
+                target="_blank"
+                rel="nofollow noreferrer"
+              >
+                See a demo
               </a>
             </Link>
           </div>
-          <video
-            controls
-            muted
-            autoPlay
-            className="w-full overflow-hidden border-2 border-black rounded-md shadow-2xl aspect-video"
-          >
-            <source src="/videos/next-drupal-promo.mp4" type="video/mp4" />
-          </video>
+          <div className="overflow-hidden border-2 border-black rounded-md shadow-2xl aspect-w-16 aspect-h-9">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/dn2PSAcG71Y?controls=0"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full"
+            />
+          </div>
         </div>
       </section>
       <section className="px-6 py-6 md:py-12 lg:py-20">
@@ -140,7 +153,7 @@ export default function IndexPage({ features }: IndexPageProps) {
             Out-of-the-box tooling for the best developer experience
           </h2>
           <p className="mx-auto mt-4 text-lg text-center text-gray-700 leading-1 md:px-16 lg:leading-normal lg:text-2xl">
-            Build all the features you need. Faster.
+            A powerful client for working with JSON:API.
           </p>
         </div>
         <div className="container max-w-5xl grid-cols-2 gap-6 mx-auto mt-10 md:grid">

@@ -1,0 +1,26 @@
+---
+title: Preview Mode
+excerpt: Using preview mode with DrupalClient.
+---
+
+To implement preview mode, configure entity types on Drupal. See the guide [here](/learn/preview-mode).
+
+1. Implement `/pages/api/preview.ts`.
+
+```ts title=pages/api/preview.ts
+import { drupal } from "lib/drupal"
+
+export default async function handler(req, res) {
+  return await drupal.preview(req, res)
+}
+```
+
+2. Implement `/pages/api/exit-preview.ts`
+
+```ts title=pages/api/exit-preview.ts
+export default function exit(_, res) {
+  res.clearPreviewData()
+  res.writeHead(307, { Location: "/" })
+  res.end()
+}
+```

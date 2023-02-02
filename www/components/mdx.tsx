@@ -4,7 +4,7 @@ import Image from "next/image"
 import { Callout } from "components/callout"
 import { Video } from "components/video"
 import { CodeBlock } from "components/code-block"
-import { ExampleCard } from "@/core/components/example-card"
+import { Card, CardHeading, CardBody } from "components/card"
 
 export const mdxComponents = {
   p: (props) => <p className="mb-6 leading-relaxed text-black" {...props} />,
@@ -34,13 +34,21 @@ export const mdxComponents = {
   figcaption: (props) => <figcaption className="text-center" {...props} />,
   inlineCode: ({ children, ...props }) => (
     <code
-      className="font-mono text-sm font-medium text-blue-700 break-words"
+      className="font-mono text-sm font-medium text-gray-800 px-[0.2rem] py-[0.1rem] break-words bg-gray-300 bg-opacity-25 border rounded"
       {...props}
     >
-      `{children}`
+      {children}
     </code>
   ),
   pre: (props) => {
+    if (props["data-theme"]) {
+      return (
+        <pre
+          className="mt-6 mb-4 overflow-x-auto rounded-lg bg-slate-900 py-4"
+          {...props}
+        />
+      )
+    }
     return <div className="flex-1 my-10" {...props} />
   },
   table: (props) => (
@@ -54,7 +62,19 @@ export const mdxComponents = {
   th: ({ align, ...props }) => {
     return <th align={align} {...props} />
   },
-  code: CodeBlock,
+  code: ({ ...props }) => {
+    // This is using Prism remark.
+    if (props.children && props.className) {
+      return <CodeBlock {...props} />
+    }
+
+    return (
+      <code
+        className="relative rounded border bg-slate-300 bg-opacity-25 py-[0.2rem] px-[0.3rem] font-mono text-sm text-slate-600"
+        {...props}
+      />
+    )
+  },
   Callout,
   Link,
   Img: ({ src, width, height, layout, alt, children, ...props }) => (
@@ -74,5 +94,7 @@ export const mdxComponents = {
     </figure>
   ),
   Video,
-  ExampleCard,
+  Card,
+  CardHeading,
+  CardBody,
 }

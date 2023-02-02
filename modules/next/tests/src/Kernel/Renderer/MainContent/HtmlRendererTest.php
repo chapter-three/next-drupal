@@ -73,21 +73,23 @@ class HtmlRendererTest extends KernelTestBase {
       ],
     ]);
     $entity_type_config->save();
+
+    $this->setUpCurrentUser();
   }
 
   /**
    * @covers ::prepare
    */
   public function testPrepare() {
-    $this->setCurrentUser($this->createUser(['bypass node access']));
+    $this->setCurrentUser($this->createUser(['access content']));
 
     $page = $this->createNode(['type' => 'page']);
     $request = Request::create($page->toUrl()->toString(), 'GET');
     $response = $this->container->get('http_kernel')->handle($request);
     $this->setRawContent($response->getContent());
 
-    $preview_url = 'https://blog.com/api/preview?secret=one&slug=/node/1&locale=en&defaultLocale=en&resourceVersion=rel%3Alatest-version';
-    $fields = $this->xpath('//iframe[@src="' . $preview_url . '"]');
+    $preview_url = 'https://blog.com/api/preview?slug=/node/1';
+    $fields = $this->xpath("//iframe[contains(@src, '$preview_url')]");
     $this->assertCount(1, $fields);
 
     $article = $this->createNode(['type' => 'article']);
@@ -95,8 +97,8 @@ class HtmlRendererTest extends KernelTestBase {
     $response = $this->container->get('http_kernel')->handle($request);
     $this->setRawContent($response->getContent());
 
-    $preview_url = 'https://blog.com/api/preview?secret=one&slug=/node/2&locale=en&defaultLocale=en&resourceVersion=rel%3Alatest-version';
-    $fields = $this->xpath('//iframe[@src="' . $preview_url . '"]');
+    $preview_url = 'https://blog.com/node/2';
+    $fields = $this->xpath("//iframe[contains(@src, '$preview_url')]");
     $this->assertEmpty($fields);
   }
 

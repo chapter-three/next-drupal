@@ -56,9 +56,13 @@ export default function BlogsPage({ blogs }: BlogsPageProps) {
 }
 
 export async function getStaticProps(context) {
+  const blogs = (await getAllMdxNodes<Blog>("blog", context)).filter(
+    (post) => post.frontMatter.published
+  )
+
   return {
     props: {
-      blogs: await getAllMdxNodes<Blog>("blog", context),
+      blogs,
     },
   }
 }

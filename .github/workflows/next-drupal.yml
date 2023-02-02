@@ -1,16 +1,23 @@
 name: next-drupal
 on:
-  push:
-  pull_request:
-    branches:
-      - main
+  pull_request_target:
+    types: [opened, reopened, synchronize]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{github.event.pull_request.head.ref}}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
       - name: Install modules
         run: yarn
       - name: Run tests
-        run: yarn test
+        run: yarn test packages/next-drupal
+        env:
+          DRUPAL_BASE_URL: ${{ secrets.DRUPAL_BASE_URL }}
+          DRUPAL_USERNAME: ${{ secrets.DRUPAL_USERNAME }}
+          DRUPAL_PASSWORD: ${{ secrets.DRUPAL_PASSWORD }}
+          DRUPAL_CLIENT_ID: ${{ secrets.DRUPAL_CLIENT_ID }}
+          DRUPAL_CLIENT_SECRET: ${{ secrets.DRUPAL_CLIENT_SECRET }}

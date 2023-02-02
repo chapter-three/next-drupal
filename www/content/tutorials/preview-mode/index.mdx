@@ -2,16 +2,9 @@
 title: Preview Mode
 excerpt: Enable preview mode for content types.
 weight: 100
-group: Preview Mode (DrupalClient)
+group: Preview Mode
 ---
 
 The Next.js module, paired with the `next-drupal` plugin, makes it easy to create [Next.js preview routes](https://nextjs.org/docs/advanced-features/preview-mode).
 
-To handle preview routes, we need to configure authentication.
-
-The `DrupalClient` works with several authentication methods. We are going to look into two methods:
-
-1. **Basic** tokens using the _basic_auth_ module.
-2. **Bearer** tokens using the [_simple_oauth_](https://drupal.org/project/simple_oauth) module.
-
-_Only one of the authentication methods is required for Preview Mode._
+To handle preview routes, we need to create a Next.js site on Drupal and configure authentication.

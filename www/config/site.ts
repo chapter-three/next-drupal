@@ -12,6 +12,11 @@ export const site: SiteConfig = {
       activePathNames: ["/learn/[...slug]"],
     },
     {
+      title: "Learn",
+      href: "/learn",
+      activePathNames: ["/learn/[...slug]"],
+    },
+    {
       title: "Docs",
       href: "/docs",
       activePathNames: ["/docs/[[...slug]]"],
@@ -37,4 +42,14 @@ export const site: SiteConfig = {
     contact: "https://www.chapterthree.com/contact",
     twitter: "shadcn",
   },
+  versions: [
+    {
+      version: "v1.6.0",
+      active: true,
+    },
+    {
+      version: "v1.0.0",
+      url: "https://v1.next-drupal.org",
+    },
+  ],
 }

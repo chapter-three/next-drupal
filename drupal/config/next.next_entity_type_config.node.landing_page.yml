@@ -1,4 +1,4 @@
-uuid: a04e5b82-b2f0-42ec-86f2-58e65c409e7b
+uuid: 0abbbe09-710b-4df3-97dd-262409b60c6a
 langcode: en
 status: true
 dependencies:
@@ -7,10 +7,15 @@ dependencies:
 third_party_settings:
   next_extras:
     revalidate: true
-    revalidate_paths: ''
+    revalidate_paths: "/test\r\n/foo"
 id: node.landing_page
 site_resolver: site_selector
 configuration:
   sites:
     example_marketing: example_marketing
-    example_blog: '0'
+    basic_starter: "0"
+    example_blog: "0"
+revalidator: path
+revalidator_configuration:
+  revalidate_page: true
+  additional_paths: "/test\r\n/foo"

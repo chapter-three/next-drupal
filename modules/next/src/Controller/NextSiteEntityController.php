@@ -51,42 +51,65 @@ class NextSiteEntityController extends ControllerBase {
     $build = [];
 
     $variables = [
+      'required_variables' => '# Required',
       'NEXT_PUBLIC_DRUPAL_BASE_URL' => $this->request->getSchemeAndHttpHost(),
       'NEXT_IMAGE_DOMAIN' => $this->request->getHost(),
-      'DRUPAL_SITE_ID' => $next_site->id(),
-      'DRUPAL_FRONT_PAGE' => $this->config('system.site')->get('page.front'),
+    ];
+
+    $variables += [
+      'authentication_bearer' => '# Authentication',
+      'DRUPAL_CLIENT_ID' => 'Retrieve this from /admin/config/services/consumer',
+      'DRUPAL_CLIENT_SECRET' => 'Retrieve this from /admin/config/services/consumer',
     ];
 
     if ($secret = $next_site->getPreviewSecret()) {
       $variables += [
+        'preview_variables' => '# Required for Preview Mode',
         'DRUPAL_PREVIEW_SECRET' => $secret,
-        'DRUPAL_CLIENT_ID' => 'Retrieve this from /admin/config/services/consumer',
-        'DRUPAL_CLIENT_SECRET' => 'Retrieve this from /admin/config/services/consumer',
       ];
     }
 
-    $build['container'] = [
-      '#title' => $this->t('Environment variables'),
-      '#type' => 'fieldset',
-      '#title_display' => 'invisible',
-    ];
-
-    foreach ($variables as $name => $value) {
-      $build['container'][$name] = [
-        '#type' => 'inline_template',
-        '#template' => '{{ name }}={{ value }}<br/>',
-        '#context' => [
-          'name' => $name,
-          'value' => $value,
-        ]
+    if ($revalidate_secret = $next_site->getRevalidateSecret()) {
+      $variables += [
+        'revalidate_variables' => '# Required for On-demand Revalidation',
+        'DRUPAL_REVALIDATE_SECRET' => $revalidate_secret,
       ];
     }
 
     $build['description'] = [
       '#type' => 'html_tag',
       '#tag' => 'p',
-      '#value' => $this->t('Copy and paste these values in your <em>.env</em> or <em>.env.local</em> files.'),
+      '#value' => $this->t('Copy and paste these values in your <code>.env</code> or <code>.env.local</code> files. To learn more about required and optional environment variables, refer to the <a href=":url" target="_blank">documentation</a>.', [
+        ':url' => 'https://next-drupal.org/docs/environment-variables',
+      ]),
     ];
+
+    $build['container'] = [
+      '#title' => $this->t('Environment variables'),
+      '#type' => 'container',
+      '#title_display' => 'invisible',
+      '#attributes' => [
+        'class' => [
+          'layer-wrapper',
+        ],
+      ],
+    ];
+
+    $build['container']['heading'] = [
+      '#type' => 'inline_template',
+      '#template' => '# See https://next-drupal.org/docs/environment-variables<br/>',
+    ];
+
+    foreach ($variables as $name => $value) {
+      $build['container'][$name] = [
+        '#type' => 'inline_template',
+        '#template' => "{% if value starts with '#' %} <br />{{ value }} {% else %} {{ name }}={{ value }}{% endif %}<br/>",
+        '#context' => [
+          'name' => $name,
+          'value' => $value,
+        ]
+      ];
+    }
 
     $build['actions'] = [
       '#type' => 'actions',

@@ -1,4 +1,4 @@
-uuid: b68acafa-8572-44c4-ab72-6d53b86eaf2e
+uuid: d0c9af0b-48de-476a-8ccb-d89cc7051823
 langcode: en
 status: true
 dependencies:
@@ -6,12 +6,18 @@ dependencies:
     - next_extras
 third_party_settings:
   next_extras:
-    revalidate: false
-    revalidate_paths: ''
+    revalidate: true
+    revalidate_paths: /articles
 id: node.article
-site_resolver: entity_reference_field
+site_resolver: site_selector
 configuration:
-  field_name: field_site
   sites:
-    example_blog: example_blog
-    example_marketing: example_marketing
+    basic_starter: basic_starter
+    example_blog: "0"
+    example_commerce: "0"
+    example_marketing: "0"
+revalidator: path
+revalidator_configuration:
+  revalidate_page: true
+  additional_paths: /
+  message: "This is the message"

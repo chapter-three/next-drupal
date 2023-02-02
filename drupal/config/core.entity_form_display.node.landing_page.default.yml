@@ -16,13 +16,13 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 4
+    weight: 5
     region: content
-    settings: {  }
-    third_party_settings: {  }
+    settings: {}
+    third_party_settings: {}
   field_sections:
     type: paragraphs
-    weight: 1
+    weight: 2
     region: content
     settings:
       title: Section
@@ -35,71 +35,71 @@ content:
       form_display_mode: default
       default_paragraph_type: _none
       features:
-        add_above: '0'
+        add_above: "0"
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
-    third_party_settings: {  }
+    third_party_settings: {}
   langcode:
     type: language_select
-    weight: 2
+    weight: 3
     region: content
     settings:
       include_locked: true
-    third_party_settings: {  }
+    third_party_settings: {}
   moderation_state:
     type: moderation_state_default
-    weight: 10
+    weight: 11
     region: content
-    settings: {  }
-    third_party_settings: {  }
+    settings: {}
+    third_party_settings: {}
   path:
     type: path
-    weight: 7
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    weight: 5
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
     weight: 8
     region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  sticky:
+    settings: {}
+    third_party_settings: {}
+  promote:
     type: boolean_checkbox
     weight: 6
     region: content
     settings:
       display_label: true
-    third_party_settings: {  }
+    third_party_settings: {}
+  status:
+    type: boolean_checkbox
+    weight: 9
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {}
+  sticky:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {}
   title:
     type: string_textfield
     weight: 0
     region: content
     settings:
       size: 60
-      placeholder: ''
-    third_party_settings: {  }
+      placeholder: ""
+    third_party_settings: {}
   translation:
-    weight: 9
+    weight: 10
     region: content
-    settings: {  }
-    third_party_settings: {  }
+    settings: {}
+    third_party_settings: {}
   uid:
     type: entity_reference_autocomplete
-    weight: 3
+    weight: 4
     region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ''
-    third_party_settings: {  }
-hidden: {  }
+      placeholder: ""
+    third_party_settings: {}
+hidden: {}

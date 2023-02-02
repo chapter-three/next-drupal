@@ -1,0 +1,36 @@
+---
+title: JSON:API Client
+excerpt: A powerful client for working with JSON:API resources.
+weight: 0
+---
+
+```ts
+// Create a DrupalClient.
+const drupal = new DrupalClient("http://drupal.org", {
+	auth: {} // Authentication
+	fetcher: {} // Custom fetcher
+	cache: {} // Cache support
+	serializer: {} // Custom serializer
+})
+```
+
+```ts
+// Fetch an article.
+const article = await drupal.getResource(
+  "node--article",
+  "907034d4-ab35-4949-84e4-d2b7afed82df"
+)
+```
+
+```ts
+// Create an article
+const article = await drupal.createResource("node--article", {
+  attributes: {
+    title: "Title of Article",
+    body: {
+      value: "<p>Content of body field</p>",
+      format: "full_html",
+    },
+  },
+})
+```

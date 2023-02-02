@@ -5,7 +5,7 @@ An example showing how to use a custom serializer for deserializing JSON:API in 
 ## Example
 
 ```ts
-import { Experiment_DrupalClient as DrupalClient } from "next-drupal"
+import { DrupalClient } from "next-drupal"
 import { Deserializer } from "jsonapi-serializer"
 
 const customSerializer = new Deserializer({

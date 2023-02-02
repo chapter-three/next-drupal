@@ -7,34 +7,138 @@ excerpt: Configuration variables for Next.js and Drupal.
 # Required
 NEXT_PUBLIC_DRUPAL_BASE_URL=http://localhost:8080
 NEXT_IMAGE_DOMAIN=localhost
+
+# Required for Preview Mode
 DRUPAL_PREVIEW_SECRET=
+
+# Required for On-demand Revalidation
+DRUPAL_REVALIDATE_SECRET=
+
+# Authentication (Bearer)
 DRUPAL_CLIENT_ID=
 DRUPAL_CLIENT_SECRET=
 
+# Authentication (Basic)
+DRUPAL_USERNAME=
+DRUPAL_PASSWORD=
+
 # Optional
 DRUPAL_SITE_ID=
-DRUPAL_FRONT_PAGE=/home
-DRUPAL_JSONAPI_PREFIX=/jsonapi
+DRUPAL_FRONT_PAGE=
 ```
+
+---
 
 ## Required
 
-These environment variables are required for fetching data from the Drupal site.
+These environment variables are required for initializing a new `DrupalClient`.
 
 | Name                          | Description                                                                                                                |
 | ----------------------------- | :------------------------------------------------------------------------------------------------------------------------- |
 | `NEXT_PUBLIC_DRUPAL_BASE_URL` | The base url for your Drupal site. Example: `https://drupal.org`                                                           |
 | `NEXT_IMAGE_DOMAIN`           | The domain name for [next/image](https://nextjs.org/docs/basic-features/image-optimization#domains). Example: `drupal.org` |
-| `DRUPAL_PREVIEW_SECRET`       | The secret for [preview mode](https://nextjs.org/docs/advanced-features/preview-mode). Example: `6SZy9xkdtR`               |
-| `DRUPAL_CLIENT_ID`            | The OAuth client id. Example: `a53b1d17-6b23-478d-8649-9aee63974c80`                                                       |
-| `DRUPAL_CLIENT_SECRET`        | The OAuth client secret. Example: `3#9h$2DU#8qKb6&`                                                                        |
+
+```ts
+const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL)
+```
+
+---
+
+## Preview Mode
+
+Environment variables required for preview mode.
+
+| Name                    | Description                                                              |
+| ----------------------- | :----------------------------------------------------------------------- |
+| `DRUPAL_PREVIEW_SECRET` | The secret for [preview mode](/docs/preview-mode). Example: `6SZy9xkdtR` |
+
+```ts
+const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  previewSecret: process.env.DRUPAL_PREVIEW_SECRET,
+})
+```
+
+## On-demand Revalidation
+
+Environment variables required for on-demand revalidation.
+
+| Name                       | Description                                                                                       |
+| -------------------------- | :------------------------------------------------------------------------------------------------ |
+| `DRUPAL_REVALIDATE_SECRET` | The secret for [on-demand revalidation](/docs/on-demand-revalidation). Example: `U2Y5bbkKJ08Ua8F` |
+
+```ts title=pages/api/revalidate.ts
+export default async function handler(request, response) {
+  const secret = request.query.secret as string
+
+  // Validate secret.
+  if (secret !== process.env.DRUPAL_REVALIDATE_SECRET) {
+    return response.status(401).json({ message: "Invalid secret." })
+  }
+}
+```
+
+---
+
+## Authentication (Bearer)
+
+| Name                   | Description                                                          |
+| ---------------------- | :------------------------------------------------------------------- |
+| `DRUPAL_CLIENT_ID`     | The OAuth client id. Example: `a53b1d17-6b23-478d-8649-9aee63974c80` |
+| `DRUPAL_CLIENT_SECRET` | The OAuth client secret. Example: `3#9h$2DU#8qKb6&`                  |
+
+```ts
+const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  auth: {
+    clientId: process.env.DRUPAL_CLIENT_ID,
+    clientSecret: process.env.DRUPAL_CLIENT_SECRET,
+  },
+})
+```
+
+---
+
+## Authentication (Basic)
+
+| Name              | Description                              |
+| ----------------- | :--------------------------------------- |
+| `DRUPAL_USERNAME` | The Drupal username. Example: `admin`    |
+| `DRUPAL_PASSWORD` | The Drupal password. Example: `password` |
+
+```ts
+const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  auth: {
+    username: process.env.DRUPAL_USERNAME,
+    password: process.env.DRUPAL_PASSWORD,
+  },
+})
+```
 
 ## Optional
 
-Environment variables you can use to customize the Next.js site.
+These environment variables are **optional** and **not required as of `next-drupal 1.4.0`**.
 
-| Name                    | Description                                                 |
-| ----------------------- | :---------------------------------------------------------- |
-| `DRUPAL_SITE_ID`        | The site id for the Next.js site. Example: `marketing_site` |
-| `DRUPAL_FRONT_PAGE`     | The path for the Drupal front page. Example: `/home`        |
-| `DRUPAL_JSONAPI_PREFIX` | The JSON:API prefix. Example: `/jsonapi`                    |
+| Name                | Description                                                                                                                                     |
+| ------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DRUPAL_SITE_ID`    | The site id of the Next.js site on Drupal. Example: `marketing_site`. See the [Filter by site](/guides/filter-by-site) guide for usage example. |
+| `DRUPAL_FRONT_PAGE` | The path to the front page: Example: `/front`                                                                                                   |
+
+```ts title=DRUPAL_SITE_ID
+// Fetch all articles with DRUPAL_SITE_ID in field_sites.
+const nodes = await drupal.getResourceCollection<DrupalNode[]>(
+  "node--article",
+  {
+    params: {
+      filter: {
+        "field_sites.meta.drupal_internal__target_id":
+          process.env.DRUPAL_SITE_ID,
+      },
+    },
+  }
+)
+```
+
+```ts title=DRUPAL_FRONT_PAGE
+const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  frontPage: process.env.DRUPAL_FRONT_PAGE,
+})
+```

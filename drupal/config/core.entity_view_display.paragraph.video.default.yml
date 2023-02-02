@@ -1,0 +1,23 @@
+uuid: a3bd8b87-db31-4ff4-bfe0-312e51ac4c28
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.video.field_media
+    - paragraphs.paragraphs_type.video
+id: paragraph.video.default
+targetEntityType: paragraph
+bundle: video
+mode: default
+content:
+  field_media:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

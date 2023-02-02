@@ -18,6 +18,7 @@ export type Doc = MdxNode<{
 
 export type Blog = MdxNode<{
   title: string
+  published: boolean
   excerpt?: string
   date?: string
   author?: string
@@ -30,6 +31,7 @@ export type Guide = MdxNode<{
   author?: string
   image?: string
   caption?: string
+  externalUrl?: string
 }>
 
 export type Tutorial = MdxNode<{
@@ -74,6 +76,11 @@ export interface SiteConfig {
     twitter?: string
     contact?: string
   }
+  versions: {
+    version: string
+    url?: string
+    active?: boolean
+  }[]
 }
 
 export interface DocsConfig {

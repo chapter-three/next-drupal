@@ -1,0 +1,75 @@
+---
+title: getResourceByPath
+excerpt: Fetch a resource by path.
+---
+
+```ts
+const resource = await drupal.getResourceByPath<T = JsonApiResource>(
+  path,
+  options?: {
+    params,
+    withAuth,
+    deserialize,
+    locale,
+    defaultLocale,
+    isVersionable,
+  }
+): Promise<T>
+```
+
+- `path: string`
+  - **Required**
+  - The resource path. Example: `/blog/slug-for-article`.
+- `options`
+  - Optional
+  - `params: JsonApiParams`: JSON:API params such as `filter`, `fields`, `include` or `sort`.
+  - `withAuth: boolean | DrupalClientAuth`:
+    - Set the authentication method to use. See the [authentication docs](/docs/authentication).
+    - Set to `true` to use the authentication method configured on the client.
+  - `deserialize: boolean`: Set to false to return the raw JSON:API response.
+  - `locale: string`: The locale to fetch the resource in.
+  - `defaultLocale: string`: The default locale of the site.
+  - `isVersionable: boolean`: Set to true if you're fetching the revision for a resource. _Automatically set to true for node entity types_.
+
+---
+
+## Notes
+
+- The [Decoupled Router](https://drupal.org/project/decoupled_router) module is required.
+
+---
+
+## Examples
+
+- Get a page by path.
+
+```ts
+const node = await drupal.getResourceByPath("/blog/slug-for-article")
+```
+
+- Get the raw JSON:API response.
+
+```ts
+const { data, meta, links } = await drupal.getResourceByPath(
+  "/blog/slug-for-article",
+  {
+    deserialize: false,
+  }
+)
+```
+
+---
+
+## TypeScript
+
+- Using `DrupalNode` for a node entity type.
+
+```ts
+import { DrupalNode } from "next-drupal"
+
+const node = await drupal.getResourceByPath<DrupalNode>(
+  "/blog/slug-for-article"
+)
+```
+
+See the [TypeScript docs](/docs/typescript) for more built-in types.

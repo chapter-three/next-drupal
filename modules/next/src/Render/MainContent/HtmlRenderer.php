@@ -77,7 +77,7 @@ class HtmlRenderer extends CoreHtmlRenderer {
    *   The theme manager.
    */
   public function __construct(TitleResolverInterface $title_resolver, PluginManagerInterface $display_variant_manager, EventDispatcherInterface $event_dispatcher, ModuleHandlerInterface $module_handler, RendererInterface $renderer, RenderCacheInterface $render_cache, array $renderer_config, ConfigFactoryInterface $config_factory, NextEntityTypeManager $next_entity_type_manager, SitePreviewerManagerInterface $site_previewer_manager, ThemeManagerInterface $theme_manager) {
-    parent::__construct($title_resolver, $display_variant_manager, $event_dispatcher, $module_handler, $renderer, $render_cache, $renderer_config);
+    parent::__construct($title_resolver, $display_variant_manager, $event_dispatcher, $module_handler, $renderer, $render_cache, $renderer_config, $theme_manager);
     $this->configFactory = $config_factory;
     $this->nextEntityTypeManager = $next_entity_type_manager;
     $this->sitePreviewerManager = $site_previewer_manager;
@@ -114,7 +114,7 @@ class HtmlRenderer extends CoreHtmlRenderer {
 
     $sites = $next_entity_type_config->getSiteResolver()->getSitesForEntity($entity);
     if (!count($sites)) {
-      throw new \Exception('Next.js sites for the entity could not be resolved.');
+      return $build;
     }
 
     $config = $this->configFactory->get('next.settings');

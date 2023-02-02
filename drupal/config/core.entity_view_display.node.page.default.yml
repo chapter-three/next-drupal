@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.page.body
+    - field.field.node.page.field_site
     - node.type.page
   module:
     - text
@@ -26,6 +27,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: -20
+    region: content
+  field_site:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 102
     region: content
   links:
     weight: 101

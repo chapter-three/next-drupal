@@ -1,9 +1,10 @@
 import Head from "next/head"
 import { GetStaticPropsResult } from "next"
-import { DrupalNode, getResourceCollectionFromContext } from "next-drupal"
+import { DrupalNode } from "next-drupal"
 
-import { NodeArticleTeaser } from "@/components/node-article"
-import { Layout } from "@/components/layout"
+import { drupal } from "lib/drupal"
+import { Layout } from "components/layout"
+import { NodeArticleTeaser } from "components/node--article--teaser"
 
 interface IndexPageProps {
   nodes: DrupalNode[]
@@ -21,7 +22,6 @@ export default function IndexPage({ nodes }: IndexPageProps) {
       </Head>
       <div>
         <h1 className="mb-10 text-6xl font-black">Latest Articles.</h1>
-
         {nodes?.length ? (
           nodes.map((node) => (
             <div key={node.id}>
@@ -40,12 +40,13 @@ export default function IndexPage({ nodes }: IndexPageProps) {
 export async function getStaticProps(
   context
 ): Promise<GetStaticPropsResult<IndexPageProps>> {
-  const nodes = await getResourceCollectionFromContext<DrupalNode[]>(
+  const nodes = await drupal.getResourceCollectionFromContext<DrupalNode[]>(
     "node--article",
     context,
     {
       params: {
         "filter[status]": 1,
+        "fields[node--article]": "title,path,field_image,uid,created",
         include: "field_image,uid",
         sort: "-created",
       },
@@ -56,6 +57,5 @@ export async function getStaticProps(
     props: {
       nodes,
     },
-    revalidate: 10,
   }
 }

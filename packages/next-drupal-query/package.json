@@ -1,0 +1,48 @@
+{
+  "name": "next-drupal-query",
+  "description": "Query helpers for structuring large Next.js and Drupal projects.",
+  "version": "0.4.0",
+  "sideEffects": false,
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "shadcn",
+    "url": "https://twitter.com/shadcn"
+  },
+  "scripts": {
+    "prepare": "microbundle --no-compress --jsx React.createElement",
+    "dev": "microbundle watch --no-compress --jsx React.createElement",
+    "test": "jest"
+  },
+  "keywords": [
+    "next.js",
+    "drupal",
+    "jsonapi",
+    "preview"
+  ],
+  "bugs": {
+    "url": "https://github.com/chapter-three/next-drupal/issues"
+  },
+  "homepage": "https://github.com/chapter-three/next-drupal",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chapter-three/next-drupal.git",
+    "directory": "packages/next-drupal-query"
+  },
+  "devDependencies": {
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "deepmerge": "^4.2.2",
+    "drupal-jsonapi-params": "^2.1.0",
+    "next": "^12.2.3 || ^13",
+    "type-fest": "^2.17.0"
+  }
+}

@@ -18,17 +18,25 @@ import type {
   DrupalTranslatedPath,
   DrupalMenuLinkContent,
   FetchOptions,
-  Experiment_DrupalClientOptions,
+  DrupalClientOptions,
   BaseUrl,
   JsonApiWithAuthOptions,
   PathPrefix,
   JsonApiResourceWithPath,
   PathAlias,
   PreviewOptions,
-  GetResourcePreviewUrlOptions,
   JsonApiWithCacheOptions,
+  JsonApiCreateResourceBody,
+  JsonApiUpdateResourceBody,
+  DrupalClientAuthUsernamePassword,
+  DrupalClientAuthAccessToken,
+  DrupalClientAuthClientIdSecret,
+  JsonApiCreateFileResourceBody,
+  DrupalView,
+  DrupalFile,
 } from "./types"
 import { logger as defaultLogger } from "./logger"
+import { JsonApiErrors } from "./jsonapi-errors"
 
 const DEFAULT_API_PREFIX = "/jsonapi"
 const DEFAULT_FRONT_PAGE = "/home"
@@ -43,52 +51,78 @@ const DEFAULT_HEADERS = {
   Accept: "application/vnd.api+json",
 }
 
-export class Experiment_DrupalClient {
+function isBasicAuth(
+  auth: DrupalClientOptions["auth"]
+): auth is DrupalClientAuthUsernamePassword {
+  return (
+    (auth as DrupalClientAuthUsernamePassword)?.username !== undefined ||
+    (auth as DrupalClientAuthUsernamePassword)?.password !== undefined
+  )
+}
+
+function isAccessTokenAuth(
+  auth: DrupalClientOptions["auth"]
+): auth is DrupalClientAuthAccessToken {
+  return (auth as DrupalClientAuthAccessToken)?.access_token !== undefined
+}
+
+function isClientIdSecretAuth(
+  auth: DrupalClient["auth"]
+): auth is DrupalClientAuthClientIdSecret {
+  return (
+    (auth as DrupalClientAuthClientIdSecret)?.clientId !== undefined ||
+    (auth as DrupalClientAuthClientIdSecret)?.clientSecret !== undefined
+  )
+}
+
+export class DrupalClient {
   baseUrl: BaseUrl
 
-  debug: Experiment_DrupalClientOptions["debug"]
+  debug: DrupalClientOptions["debug"]
 
-  frontPage: Experiment_DrupalClientOptions["frontPage"]
+  frontPage: DrupalClientOptions["frontPage"]
 
-  private serializer: Experiment_DrupalClientOptions["serializer"]
+  private serializer: DrupalClientOptions["serializer"]
 
-  private cache: Experiment_DrupalClientOptions["cache"]
+  private cache: DrupalClientOptions["cache"]
 
-  private throwJsonApiErrors?: Experiment_DrupalClientOptions["throwJsonApiErrors"]
+  private throwJsonApiErrors?: DrupalClientOptions["throwJsonApiErrors"]
 
-  private logger: Experiment_DrupalClientOptions["logger"]
+  private logger: DrupalClientOptions["logger"]
 
-  private fetcher?: Experiment_DrupalClientOptions["fetcher"]
+  private fetcher?: DrupalClientOptions["fetcher"]
 
-  private _headers?: Experiment_DrupalClientOptions["headers"]
+  private _headers?: DrupalClientOptions["headers"]
 
-  private _auth?: Experiment_DrupalClientOptions["auth"]
+  private _auth?: DrupalClientOptions["auth"]
 
-  private _apiPrefix: Experiment_DrupalClientOptions["apiPrefix"]
+  private _apiPrefix: DrupalClientOptions["apiPrefix"]
 
-  private useDefaultResourceTypeEntry?: Experiment_DrupalClientOptions["useDefaultResourceTypeEntry"]
+  private useDefaultResourceTypeEntry?: DrupalClientOptions["useDefaultResourceTypeEntry"]
 
   private _token?: AccessToken
 
-  private accessToken?: Experiment_DrupalClientOptions["accessToken"]
+  private accessToken?: DrupalClientOptions["accessToken"]
+
+  private accessTokenScope?: DrupalClientOptions["accessTokenScope"]
 
   private tokenExpiresOn?: number
 
-  private withAuth?: Experiment_DrupalClientOptions["withAuth"]
+  private withAuth?: DrupalClientOptions["withAuth"]
 
-  private previewSecret?: Experiment_DrupalClientOptions["previewSecret"]
+  private previewSecret?: DrupalClientOptions["previewSecret"]
 
-  private forceIframeSameSiteCookie?: Experiment_DrupalClientOptions["forceIframeSameSiteCookie"]
+  private forceIframeSameSiteCookie?: DrupalClientOptions["forceIframeSameSiteCookie"]
 
   /**
-   * Instantiates a new Experiment_DrupalClient.
+   * Instantiates a new DrupalClient.
    *
-   * const client = new Experiment_DrupalClient(baseUrl)
+   * const client = new DrupalClient(baseUrl)
    *
    * @param {baseUrl} baseUrl The baseUrl of your Drupal site. Do not add the /jsonapi suffix.
    * @param {options} options Options for the client. See Experiment_DrupalClientOptions.
    */
-  constructor(baseUrl: BaseUrl, options: Experiment_DrupalClientOptions = {}) {
+  constructor(baseUrl: BaseUrl, options: DrupalClientOptions = {}) {
     if (!baseUrl || typeof baseUrl !== "string") {
       throw new Error("The 'baseUrl' param is required.")
     }
@@ -136,7 +170,7 @@ export class Experiment_DrupalClient {
     this._debug("Debug mode is on.")
   }
 
-  set apiPrefix(apiPrefix: Experiment_DrupalClientOptions["apiPrefix"]) {
+  set apiPrefix(apiPrefix: DrupalClientOptions["apiPrefix"]) {
     this._apiPrefix = apiPrefix.charAt(0) === "/" ? apiPrefix : `/${apiPrefix}`
   }
 
@@ -144,9 +178,21 @@ export class Experiment_DrupalClient {
     return this._apiPrefix
   }
 
-  set auth(auth: Experiment_DrupalClientOptions["auth"]) {
+  set auth(auth: DrupalClientOptions["auth"]) {
     if (typeof auth === "object") {
-      if (!auth.clientId || !auth.clientSecret) {
+      if (isBasicAuth(auth)) {
+        if (!auth.username || !auth.password) {
+          throw new Error(
+            `'username' and 'password' are required for auth. See https://next-drupal.org/docs/client/auth`
+          )
+        }
+      } else if (isAccessTokenAuth(auth)) {
+        if (!auth.access_token || !auth.token_type) {
+          throw new Error(
+            `'access_token' and 'token_type' are required for auth. See https://next-drupal.org/docs/client/auth`
+          )
+        }
+      } else if (!auth.clientId || !auth.clientSecret) {
         throw new Error(
           `'clientId' and 'clientSecret' are required for auth. See https://next-drupal.org/docs/client/auth`
         )
@@ -161,7 +207,7 @@ export class Experiment_DrupalClient {
     this._auth = auth
   }
 
-  set headers(value: Experiment_DrupalClientOptions["headers"]) {
+  set headers(value: DrupalClientOptions["headers"]) {
     this._headers = value
   }
 
@@ -174,30 +220,87 @@ export class Experiment_DrupalClient {
   async fetch(input: RequestInfo, init?: FetchOptions): Promise<Response> {
     init = {
       ...init,
+      credentials: "include",
       headers: {
         ...this._headers,
         ...init?.headers,
       },
     }
 
+    // Using the auth set on the client.
+    // TODO: Abstract this to a re-usable.
     if (init?.withAuth) {
       this._debug(`Using authenticated request.`)
 
-      // If a custom auth is provided, use that.
-      if (typeof this._auth === "function") {
-        this._debug(`Using custom auth.`)
+      if (init.withAuth === true) {
+        if (typeof this._auth === "undefined") {
+          throw new Error(
+            "auth is not configured. See https://next-drupal.org/docs/client/auth"
+          )
+        }
 
-        init["headers"]["Authorization"] = this._auth()
-      } else {
-        // Otherwise use the built-in client_credentials grant.
-        this._debug(`Using default auth (client_credentials).`)
+        // By default, if withAuth is set to true, we use the auth configured
+        // in the client constructor.
+        if (typeof this._auth === "function") {
+          this._debug(`Using custom auth callback.`)
 
+          init["headers"]["Authorization"] = this._auth()
+        } else if (typeof this._auth === "string") {
+          this._debug(`Using custom authorization header.`)
+
+          init["headers"]["Authorization"] = this._auth
+        } else if (typeof this._auth === "object") {
+          this._debug(`Using custom auth credentials.`)
+
+          if (isBasicAuth(this._auth)) {
+            const basic = Buffer.from(
+              `${this._auth.username}:${this._auth.password}`
+            ).toString("base64")
+
+            init["headers"]["Authorization"] = `Basic ${basic}`
+          } else if (isClientIdSecretAuth(this._auth)) {
+            // Use the built-in client_credentials grant.
+            this._debug(`Using default auth (client_credentials).`)
+
+            // Fetch an access token and add it to the request.
+            // Access token can be fetched from cache or using a custom auth method.
+            const token = await this.getAccessToken(this._auth)
+            if (token) {
+              init["headers"]["Authorization"] = `Bearer ${token.access_token}`
+            }
+          } else if (isAccessTokenAuth(this._auth)) {
+            init["headers"][
+              "Authorization"
+            ] = `${this._auth.token_type} ${this._auth.access_token}`
+          }
+        }
+      } else if (typeof init.withAuth === "string") {
+        this._debug(`Using custom authorization header.`)
+
+        init["headers"]["Authorization"] = init.withAuth
+      } else if (typeof init.withAuth === "function") {
+        this._debug(`Using custom authorization callback.`)
+
+        init["headers"]["Authorization"] = init.withAuth()
+      } else if (isBasicAuth(init.withAuth)) {
+        this._debug(`Using basic authorization header`)
+
+        const basic = Buffer.from(
+          `${init.withAuth.username}:${init.withAuth.password}`
+        ).toString("base64")
+
+        init["headers"]["Authorization"] = `Basic ${basic}`
+      } else if (isClientIdSecretAuth(init.withAuth)) {
         // Fetch an access token and add it to the request.
         // Access token can be fetched from cache or using a custom auth method.
-        const token = await this.getAccessToken()
+        const token = await this.getAccessToken(init.withAuth)
         if (token) {
           init["headers"]["Authorization"] = `Bearer ${token.access_token}`
         }
+      } else if (isAccessTokenAuth(init.withAuth)) {
+        init["headers"][
+          "Authorization"
+        ] = `${init.withAuth.token_type} ${init.withAuth.access_token}`
       }
     }
 
@@ -209,17 +312,166 @@ export class Experiment_DrupalClient {
 
     this._debug(`Using default fetch (polyfilled by Next.js).`)
 
-    const response = await fetch(input, init)
+    return await fetch(input, init)
+  }
 
-    if (response?.ok) {
-      return response
+  async createResource<T extends JsonApiResource>(
+    type: string,
+    body: JsonApiCreateResourceBody,
+    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
+  ): Promise<T> {
+    options = {
+      deserialize: true,
+      withAuth: true,
+      ...options,
     }
 
-    const message = await this.formatErrorResponse(response)
+    const apiPath = await this.getEntryForResourceType(
+      type,
+      options?.locale !== options?.defaultLocale ? options.locale : undefined
+    )
 
-    this.throwError(new Error(message))
+    const url = this.buildUrl(apiPath, options?.params)
 
-    return null
+    this._debug(`Creating resource of type ${type}.`)
+    this._debug(url.toString())
+
+    // Add type to body.
+    body.data.type = type
+
+    const response = await this.fetch(url.toString(), {
+      method: "POST",
+      body: JSON.stringify(body),
+      withAuth: options.withAuth,
+    })
+
+    if (!response?.ok) {
+      await this.handleJsonApiErrors(response)
+    }
+
+    const json = await response.json()
+
+    return options.deserialize ? this.deserialize(json) : json
+  }
+
+  async createFileResource<T = DrupalFile>(
+    type: string,
+    body: JsonApiCreateFileResourceBody,
+    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
+  ): Promise<T> {
+    options = {
+      deserialize: true,
+      withAuth: true,
+      ...options,
+    }
+
+    const hostType = body?.data?.attributes?.type
+
+    const apiPath = await this.getEntryForResourceType(
+      hostType,
+      options?.locale !== options?.defaultLocale ? options.locale : undefined
+    )
+
+    const url = this.buildUrl(
+      `${apiPath}/${body.data.attributes.field}`,
+      options?.params
+    )
+
+    this._debug(`Creating file resource for media of type ${type}.`)
+    this._debug(url.toString())
+
+    const response = await this.fetch(url.toString(), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/octet-stream",
+        Accept: "application/vnd.api+json",
+        "Content-Disposition": `file; filename="${body.data.attributes.filename}"`,
+      },
+      body: body.data.attributes.file,
+      withAuth: options.withAuth,
+    })
+
+    if (!response?.ok) {
+      await this.handleJsonApiErrors(response)
+    }
+
+    const json = await response.json()
+
+    return options.deserialize ? this.deserialize(json) : json
+  }
+
+  async updateResource<T extends JsonApiResource>(
+    type: string,
+    uuid: string,
+    body: JsonApiUpdateResourceBody,
+    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
+  ): Promise<T> {
+    options = {
+      deserialize: true,
+      withAuth: true,
+      ...options,
+    }
+
+    const apiPath = await this.getEntryForResourceType(
+      type,
+      options?.locale !== options?.defaultLocale ? options.locale : undefined
+    )
+
+    const url = this.buildUrl(`${apiPath}/${uuid}`, options?.params)
+
+    this._debug(`Updating resource of type ${type} with id ${uuid}.`)
+    this._debug(url.toString())
+
+    // Update body.
+    body.data.type = type
+    body.data.id = uuid
+
+    const response = await this.fetch(url.toString(), {
+      method: "PATCH",
+      body: JSON.stringify(body),
+      withAuth: options.withAuth,
+    })
+
+    if (!response?.ok) {
+      await this.handleJsonApiErrors(response)
+    }
+
+    const json = await response.json()
+
+    return options.deserialize ? this.deserialize(json) : json
+  }
+
+  async deleteResource(
+    type: string,
+    uuid: string,
+    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
+  ): Promise<boolean> {
+    options = {
+      withAuth: true,
+      params: {},
+      ...options,
+    }
+
+    const apiPath = await this.getEntryForResourceType(
+      type,
+      options?.locale !== options?.defaultLocale ? options.locale : undefined
+    )
+
+    const url = this.buildUrl(`${apiPath}/${uuid}`, options?.params)
+
+    this._debug(`Deleting resource of type ${type} with id ${uuid}.`)
+    this._debug(url.toString())
+
+    const response = await this.fetch(url.toString(), {
+      method: "DELETE",
+      withAuth: options.withAuth,
+    })
+
+    if (!response?.ok) {
+      await this.handleJsonApiErrors(response)
+    }
+
+    return response.status === 204
   }
 
   async getResource<T extends JsonApiResource>(
@@ -263,6 +515,10 @@ export class Experiment_DrupalClient {
       withAuth: options.withAuth,
     })
 
+    if (!response?.ok) {
+      await this.handleJsonApiErrors(response)
+    }
+
     const json = await response.json()
 
     if (options.withCache) {
@@ -283,15 +539,14 @@ export class Experiment_DrupalClient {
   ): Promise<T> {
     const type = typeof input === "string" ? input : input.jsonapi.resourceName
 
-    const previewData = context.previewData as { resourceVersion?: string }
+    const previewData = context.previewData as {
+      resourceVersion?: string
+    }
 
     options = {
-      // Add support for revisions for node by default.
-      // TODO: Make this required before stable?
-      isVersionable: /^node--/.test(type),
       deserialize: true,
       pathPrefix: "/",
-      withAuth: this.withAuth,
+      withAuth: this.getAuthFromContextAndOptions(context, options),
       params: {},
       ...options,
     }
@@ -301,11 +556,22 @@ export class Experiment_DrupalClient {
       isVersionable: options.isVersionable,
       locale: context.locale,
       defaultLocale: context.defaultLocale,
-      withAuth: context.preview || options?.withAuth,
-      params: {
-        resourceVersion: previewData?.resourceVersion,
-        ...options?.params,
-      },
+      withAuth: options?.withAuth,
+      params: options?.params,
+    }
+
+    // Check if resource is versionable.
+    // Add support for revisions for node by default.
+    const isVersionable = options.isVersionable || /^node--/.test(type)
+
+    // If the resource is versionable and no resourceVersion is supplied via params.
+    // Use the resourceVersion from previewData or fallback to the latest version.
+    if (
+      isVersionable &&
+      typeof options.params.resourceVersion === "undefined"
+    ) {
+      options.params.resourceVersion =
+        previewData?.resourceVersion || "rel:latest-version"
     }
 
     if (typeof input !== "string") {
@@ -477,9 +743,16 @@ export class Experiment_DrupalClient {
       ...options?.params,
     })
 
+    this._debug(`Fetching resource collection of type ${type}`)
+    this._debug(url.toString())
+
     const response = await this.fetch(url.toString(), {
       withAuth: options.withAuth,
     })
+
+    if (!response?.ok) {
+      await this.handleJsonApiErrors(response)
+    }
 
     const json = await response.json()
 
@@ -495,7 +768,6 @@ export class Experiment_DrupalClient {
       JsonApiWithAuthOptions
   ): Promise<T> {
     options = {
-      withAuth: this.withAuth,
       deserialize: true,
       ...options,
     }
@@ -504,7 +776,7 @@ export class Experiment_DrupalClient {
       ...options,
       locale: context.locale,
       defaultLocale: context.defaultLocale,
-      withAuth: context.preview || options.withAuth,
+      withAuth: this.getAuthFromContextAndOptions(context, options),
     })
   }
 
@@ -647,6 +919,9 @@ export class Experiment_DrupalClient {
     })
 
     if (!response?.ok) {
+      // Do not throw errors here.
+      // Otherwise next.js will catch error and throw a 500.
+      // We want a 404.
       return null
     }
 
@@ -663,18 +938,15 @@ export class Experiment_DrupalClient {
   ): Promise<DrupalTranslatedPath> {
     options = {
       pathPrefix: "/",
-      withAuth: this.withAuth,
       ...options,
     }
     const path = this.getPathFromContext(context, {
       pathPrefix: options.pathPrefix,
     })
 
-    const response = await this.translatePath(path, {
-      withAuth: context.preview || options.withAuth,
+    return await this.translatePath(path, {
+      withAuth: this.getAuthFromContextAndOptions(context, options),
     })
-
-    return response
   }
 
   getPathFromContext(
@@ -746,8 +1018,9 @@ export class Experiment_DrupalClient {
     if (this.useDefaultResourceTypeEntry) {
       const [id, bundle] = type.split("--")
       return (
-        `${this.baseUrl}${this.apiPrefix}/` +
-        (locale ? `${locale}/${id}/${bundle}` : `${id}/${bundle}`)
+        `${this.baseUrl}` +
+        (locale ? `/${locale}${this.apiPrefix}/` : `${this.apiPrefix}/`) +
+        `${id}/${bundle}`
       )
     }
 
@@ -780,87 +1053,60 @@ export class Experiment_DrupalClient {
     response?: NextApiResponse,
     options?: PreviewOptions
   ) {
-    const { slug, resourceVersion, secret, locale, defaultLocale } =
-      request.query
+    const { slug, resourceVersion, plugin } = request.query
 
-    if (secret !== this.previewSecret) {
-      return response
-        .status(401)
-        .json(options?.errorMessages.secret || "Invalid preview secret.")
-    }
+    try {
+      // Always clear preview data to handle different scopes.
+      response.clearPreviewData()
 
-    if (!slug) {
-      return response
-        .status(401)
-        .end(options?.errorMessages.slug || "Invalid slug.")
-    }
-
-    let _options: GetResourcePreviewUrlOptions = {
-      isVersionable: !!resourceVersion,
-    }
-
-    if (locale && defaultLocale) {
-      // Fix for und locale.
-      const _locale = locale === "und" ? defaultLocale : locale
-
-      _options = {
-        ..._options,
-        locale: _locale as string,
-        defaultLocale: defaultLocale as string,
-      }
-    }
-
-    const entity = await this.getResourceByPath(slug as string, {
-      withAuth: true,
-      ..._options,
-    })
-
-    const missingEntityErrorMessage = `The entity with slug ${slug} coud not be found. If the entity exists on your Drupal site, make sure the proper permissions are configured so that Next.js can access it.`
-    const missingPathAliasErrorMessage = `The path alias is missing for entity with slug ${slug}.`
-
-    if (!entity) {
-      this.throwError(new Error(missingEntityErrorMessage))
-
-      return response.status(404).end(missingEntityErrorMessage)
-    }
-
-    if (!entity?.path?.alias) {
-      this.throwError(new Error(missingPathAliasErrorMessage))
-
-      return response.status(404).end(missingPathAliasErrorMessage)
-    }
-
-    const url = entity.default_langcode
-      ? entity?.path.alias
-      : `/${entity.path.langcode}${entity.path.alias}`
-
-    if (!url) {
-      return response
-        .status(404)
-        .end(options?.errorMessages.slug || "Invalid slug")
-    }
-
-    response.setPreviewData({
-      resourceVersion,
-    })
-
-    // Fix issue with cookie.
-    // See https://github.com/vercel/next.js/discussions/32238.
-    // See https://github.com/vercel/next.js/blob/d895a50abbc8f91726daa2d7ebc22c58f58aabbb/packages/next/server/api-utils/node.ts#L504.
-    if (this.forceIframeSameSiteCookie) {
-      const previous = response.getHeader("Set-Cookie") as string[]
-      previous.forEach((cookie, index) => {
-        previous[index] = cookie.replace("SameSite=Lax", "SameSite=None;Secure")
+      // Validate the preview url.
+      const validateUrl = this.buildUrl("/next/preview-url")
+      const result = await this.fetch(validateUrl.toString(), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(request.query),
       })
-      response.setHeader(`Set-Cookie`, previous)
+
+      if (!result.ok) {
+        response.statusCode = result.status
+
+        return response.json(await result.json())
+      }
+
+      const validationPayload = await result.json()
+
+      response.setPreviewData({
+        resourceVersion,
+        plugin,
+        ...validationPayload,
+      })
+
+      // Fix issue with cookie.
+      // See https://github.com/vercel/next.js/discussions/32238.
+      // See https://github.com/vercel/next.js/blob/d895a50abbc8f91726daa2d7ebc22c58f58aabbb/packages/next/server/api-utils/node.ts#L504.
+      if (this.forceIframeSameSiteCookie) {
+        const previous = response.getHeader("Set-Cookie") as string[]
+        previous.forEach((cookie, index) => {
+          previous[index] = cookie.replace(
+            "SameSite=Lax",
+            "SameSite=None;Secure"
+          )
+        })
+        response.setHeader(`Set-Cookie`, previous)
+      }
+
+      // We can safely redirect to the slug since this has been validated on the server.
+      response.writeHead(307, { Location: slug })
+
+      return response.end()
+    } catch (error) {
+      return response.status(422).end()
     }
-
-    response.writeHead(307, { Location: url })
-
-    return response.end()
   }
 
-  async getMenu<T extends DrupalMenuLinkContent>(
+  async getMenu<T = DrupalMenuLinkContent>(
     name: string,
     options?: JsonApiWithLocaleOptions &
       JsonApiWithAuthOptions &
@@ -903,6 +1149,10 @@ export class Experiment_DrupalClient {
       withAuth: options.withAuth,
     })
 
+    if (!response?.ok) {
+      await this.handleJsonApiErrors(response)
+    }
+
     const data = await response.json()
 
     const items = options.deserialize ? this.deserialize(data) : data
@@ -943,15 +1193,10 @@ export class Experiment_DrupalClient {
       : {}
   }
 
-  async getView<T>(
+  async getView<T = JsonApiResource>(
     name: string,
     options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
-  ): Promise<{
-    id: string
-    results: T
-    meta: JsonApiResponse["meta"]
-    links: JsonApiResponse["links"]
-  }> {
+  ): Promise<DrupalView<T>> {
     options = {
       withAuth: this.withAuth,
       deserialize: true,
@@ -974,6 +1219,10 @@ export class Experiment_DrupalClient {
     const response = await this.fetch(url.toString(), {
       withAuth: options.withAuth,
     })
+
+    if (!response?.ok) {
+      await this.handleJsonApiErrors(response)
+    }
 
     const data = await response.json()
 
@@ -1010,6 +1259,10 @@ export class Experiment_DrupalClient {
     const response = await this.fetch(url.toString(), {
       withAuth: options.withAuth,
     })
+
+    if (!response?.ok) {
+      await this.handleJsonApiErrors(response)
+    }
 
     const json = await response.json()
 
@@ -1048,45 +1301,67 @@ export class Experiment_DrupalClient {
     return url
   }
 
-  async getAccessToken(): Promise<AccessToken> {
-    if (this.accessToken) {
+  async getAccessToken(
+    opts?: DrupalClientAuthClientIdSecret
+  ): Promise<AccessToken> {
+    if (this.accessToken && this.accessTokenScope === opts?.scope) {
       return this.accessToken
     }
 
-    if (typeof this._auth !== "object") {
-      throw new Error(
-        "auth is not configured. See https://next-drupal.org/docs/client/auth"
-      )
+    if (!opts?.clientId || !opts?.clientSecret) {
+      if (typeof this._auth === "undefined") {
+        throw new Error(
+          "auth is not configured. See https://next-drupal.org/docs/client/auth"
+        )
+      }
     }
 
-    if (!this._auth.clientId || !this._auth.clientSecret) {
+    if (
+      !isClientIdSecretAuth(this._auth) ||
+      (opts && !isClientIdSecretAuth(opts))
+    ) {
       throw new Error(
         `'clientId' and 'clientSecret' required. See https://next-drupal.org/docs/client/auth`
       )
     }
 
-    if (this._token && Date.now() < this.tokenExpiresOn) {
+    const clientId = opts?.clientId || this._auth.clientId
+    const clientSecret = opts?.clientSecret || this._auth.clientSecret
+    const url = this.buildUrl(opts?.url || this._auth.url || DEFAULT_AUTH_URL)
+
+    if (
+      this.accessTokenScope === opts?.scope &&
+      this._token &&
+      Date.now() < this.tokenExpiresOn
+    ) {
       this._debug(`Using existing access token.`)
       return this._token
     }
 
     this._debug(`Fetching new access token.`)
 
-    const basic = Buffer.from(
-      `${this._auth.clientId}:${this._auth.clientSecret}`
-    ).toString("base64")
+    const basic = Buffer.from(`${clientId}:${clientSecret}`).toString("base64")
 
-    const response = await fetch(`${this.baseUrl}${this._auth.url}`, {
+    let body = `grant_type=client_credentials`
+
+    if (opts?.scope) {
+      body = `${body}&scope=${opts.scope}`
+
+      this._debug(`Using scope: ${opts.scope}`)
+    }
+
+    const response = await this.fetch(url.toString(), {
       method: "POST",
       headers: {
         Authorization: `Basic ${basic}`,
+        Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: `grant_type=client_credentials`,
+      body,
     })
 
     if (!response?.ok) {
-      this.throwError(new Error(response?.statusText))
+      await this.handleJsonApiErrors(response)
     }
 
     const result: AccessToken = await response.json()
@@ -1094,6 +1369,8 @@ export class Experiment_DrupalClient {
     this._debug(result)
 
     this.token = result
+
+    this.accessTokenScope = opts?.scope
 
     return result
   }
@@ -1104,7 +1381,7 @@ export class Experiment_DrupalClient {
     return this.serializer.deserialize(body, options)
   }
 
-  private async formatErrorResponse(response: Response) {
+  private async getErrorsFromResponse(response: Response) {
     const type = response.headers.get("content-type")
 
     if (type === "application/json") {
@@ -1119,7 +1396,7 @@ export class Experiment_DrupalClient {
       const _error: JsonApiResponse = await response.json()
 
       if (_error?.errors?.length) {
-        return this.formatJsonApiErrors(_error.errors)
+        return _error.errors
       }
     }
 
@@ -1152,5 +1429,56 @@ export class Experiment_DrupalClient {
     }
 
     throw error
+  }
+
+  private async handleJsonApiErrors(response: Response) {
+    if (!response?.ok) {
+      const errors = await this.getErrorsFromResponse(response)
+      throw new JsonApiErrors(errors, response.status)
+    }
+  }
+
+  private getAuthFromContextAndOptions(
+    context: GetStaticPropsContext,
+    options: JsonApiWithAuthOptions
+  ) {
+    // If not in preview or withAuth is provided, use that.
+    if (!context.preview) {
+      // If we have provided an auth, use that.
+      if (typeof options?.withAuth !== "undefined") {
+        return options.withAuth
+      }
+
+      // Otherwise we fallback to the global auth.
+      return this.withAuth
+    }
+
+    // If no plugin is provided, return.
+    const plugin = context.previewData?.["plugin"]
+    if (!plugin) {
+      return null
+    }
+
+    let withAuth = this._auth
+
+    if (plugin === "simple_oauth") {
+      // If we are using a client id and secret auth, pass the scope.
+      if (isClientIdSecretAuth(withAuth) && context.previewData?.["scope"]) {
+        withAuth = {
+          ...withAuth,
+          scope: context.previewData?.["scope"],
+        }
+      }
+    }
+
+    if (plugin === "jwt") {
+      const accessToken = context.previewData?.["access_token"]
+
+      if (accessToken) {
+        return `Bearer ${accessToken}`
+      }
+    }
+
+    return withAuth
   }
 }

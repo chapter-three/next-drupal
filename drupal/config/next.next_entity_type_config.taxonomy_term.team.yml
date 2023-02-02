@@ -1,0 +1,20 @@
+uuid: 5b13ce13-0c53-4c7c-b401-cdfafc03dd96
+langcode: en
+status: true
+dependencies:
+  module:
+    - next_extras
+third_party_settings:
+  next_extras:
+    revalidate: false
+    revalidate_paths: ""
+id: taxonomy_term.team
+site_resolver: site_selector
+configuration:
+  sites:
+    basic_starter: basic_starter
+    example_blog: example_blog
+    example_marketing: "0"
+  field_name: {}
+revalidator: null
+revalidator_configuration: {}

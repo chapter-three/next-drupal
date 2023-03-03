@@ -1,0 +1,12 @@
+uuid: 39915f66-815d-4471-9d2a-7e274b45a1d7
+langcode: en
+status: true
+dependencies: {}
+id: user.user
+site_resolver: site_selector
+configuration:
+  sites:
+    basic_starter: basic_starter
+    example_blog: "0"
+    example_commerce: "0"
+    example_marketing: "0"

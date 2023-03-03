@@ -1,0 +1,51 @@
+display:
+  default:
+    display_title: Máster
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Filtro
+          reset_button_label: Restablecer
+          exposed_sorts_label: "Ordenar por"
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        options:
+          tags:
+            previous: ‹‹
+            next: ››
+          expose:
+            items_per_page_label: "Elementos por página"
+            items_per_page_options_all_label: "- Todo -"
+            offset_label: Desplazamiento
+      fields:
+        label:
+          label: Etiqueta
+          separator: ", "
+        type:
+          label: Tipo
+          separator: ", "
+        paragraphs__target_id:
+          separator: ", "
+        langcode:
+          label: Idioma
+          separator: ", "
+        id:
+          label: ID
+          separator: ", "
+        changed:
+          label: Modificado
+          separator: ", "
+        operations:
+          label: Operaciones
+      filters:
+        label:
+          expose:
+            label: Etiqueta
+          group_info:
+            label: Etiqueta
+        type:
+          expose:
+            label: Tipo
+  page_1:
+    display_title: Página

@@ -1,0 +1,19 @@
+uuid: 4edc62f1-ed1b-47ae-b155-69cb33182af2
+langcode: en
+status: true
+dependencies:
+  module:
+    - next_extras
+third_party_settings:
+  next_extras:
+    revalidate: false
+    revalidate_paths: ""
+id: taxonomy_term.property_location
+site_resolver: site_selector
+configuration:
+  sites:
+    basic_starter: basic_starter
+    example_blog: "0"
+    example_marketing: "0"
+revalidator: null
+revalidator_configuration: {}

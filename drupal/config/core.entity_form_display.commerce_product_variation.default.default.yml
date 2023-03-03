@@ -1,0 +1,52 @@
+uuid: e25ab766-6cad-4f32-a5f3-e84ee18c054e
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.default
+  module:
+    - commerce_price
+_core:
+  default_config_hash: dDLA40Axom_QFA79EWUpe_bWXWE8I_7MijzPkslbVfA
+id: commerce_product_variation.default.default
+targetEntityType: commerce_product_variation
+bundle: default
+mode: default
+content:
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {}
+  list_price:
+    type: commerce_list_price
+    weight: -1
+    region: content
+    settings: {}
+    third_party_settings: {}
+  price:
+    type: commerce_price_default
+    weight: 0
+    settings: {}
+    third_party_settings: {}
+    region: content
+  sku:
+    type: string_textfield
+    weight: -4
+    settings:
+      size: 60
+      placeholder: ""
+    third_party_settings: {}
+    region: content
+  status:
+    type: boolean_checkbox
+    weight: 10
+    settings:
+      display_label: true
+    third_party_settings: {}
+    region: content
+hidden:
+  created: true
+  uid: true

@@ -3,19 +3,23 @@ langcode: en
 status: true
 dependencies:
   module:
+    - field_permissions
     - node
     - text
+third_party_settings:
+  field_permissions:
+    permission_type: public
 _core:
   default_config_hash: EBUo7qOWqaiZaQ_RC9sLY5IoDKphS34v77VIHSACmVY
 id: node.body
 field_name: body
 entity_type: node
 type: text_with_summary
-settings: {  }
+settings: {}
 module: text
 locked: false
 cardinality: 1
 translatable: true
-indexes: {  }
+indexes: {}
 persist_with_no_fields: true
 custom_storage: false

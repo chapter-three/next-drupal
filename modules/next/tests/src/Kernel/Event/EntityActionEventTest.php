@@ -10,6 +10,8 @@ use Drupal\Tests\node\Traits\NodeCreationTrait;
 
 /**
  * Tests the EntityActionEvent.
+ *
+ * @group next
  */
 class EntityActionEventTest extends KernelTestBase {
 

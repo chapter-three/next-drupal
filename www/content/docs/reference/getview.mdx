@@ -45,6 +45,18 @@ const view = await drupal.getView<T = JsonApiResource>(
 const view = await drupal.getView("articles--promoted")
 ```
 
+- Using sparse fieldsets to only fetch the title and body fields.
+
+```ts
+const view = await drupal.getView("articles--promoted", {
+  params: {
+    fields: {
+      "node--article": "title,body",
+    },
+  },
+})
+```
+
 ---
 
 ## TypeScript

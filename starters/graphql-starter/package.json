@@ -1,6 +1,6 @@
 {
   "name": "graphql-starter",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -13,7 +13,7 @@
   "dependencies": {
     "@tailwindcss/typography": "^0.5.8",
     "next": "^13",
-    "next-drupal": "^1.5.0",
+    "next-drupal": "^1.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sharp": "^0.31.2"

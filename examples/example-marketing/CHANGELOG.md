@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/chapter-three/next-drupal/compare/example-marketing@1.4.4...example-marketing@1.5.0) (2022-12-06)
+
+**Note:** Version bump only for package example-marketing
+
+
+
+
+
 ## [1.4.4](https://github.com/chapter-three/next-drupal/compare/example-marketing@1.4.3...example-marketing@1.4.4) (2022-12-06)
 
 **Note:** Version bump only for package example-marketing

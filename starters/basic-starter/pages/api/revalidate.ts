@@ -8,7 +8,7 @@ export default async function handler(
   const secret = request.query.secret as string
 
   // Validate secret.
-  if (secret !== process.env.DRUPAL_PREVIEW_SECRET) {
+  if (secret !== process.env.DRUPAL_REVALIDATE_SECRET) {
     return response.status(401).json({ message: "Invalid secret." })
   }
 

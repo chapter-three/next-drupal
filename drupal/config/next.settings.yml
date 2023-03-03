@@ -1,8 +1,10 @@
-_core:
-  default_config_hash: V0oNUv2EJNkfYaIiUyLzCbkyq9nOd7V2MobuQvz-XgY
 langcode: en
 site_previewer: iframe
 site_previewer_configuration:
   width: 100%
   sync_route: false
   sync_route_skip_routes: /blog
+preview_url_generator: simple_oauth
+preview_url_generator_configuration:
+  secret_expiration: 300
+debug: true

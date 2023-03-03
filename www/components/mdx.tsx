@@ -41,6 +41,14 @@ export const mdxComponents = {
     </code>
   ),
   pre: (props) => {
+    if (props["data-theme"]) {
+      return (
+        <pre
+          className="mt-6 mb-4 overflow-x-auto rounded-lg bg-slate-900 py-4"
+          {...props}
+        />
+      )
+    }
     return <div className="flex-1 my-10" {...props} />
   },
   table: (props) => (
@@ -54,7 +62,19 @@ export const mdxComponents = {
   th: ({ align, ...props }) => {
     return <th align={align} {...props} />
   },
-  code: CodeBlock,
+  code: ({ ...props }) => {
+    // This is using Prism remark.
+    if (props.children && props.className) {
+      return <CodeBlock {...props} />
+    }
+
+    return (
+      <code
+        className="relative rounded border bg-slate-300 bg-opacity-25 py-[0.2rem] px-[0.3rem] font-mono text-sm text-slate-600"
+        {...props}
+      />
+    )
+  },
   Callout,
   Link,
   Img: ({ src, width, height, layout, alt, children, ...props }) => (

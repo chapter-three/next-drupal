@@ -14,180 +14,195 @@ resourceFields:
     fieldName: nid
     publicName: nid
     enhancer:
-      id: ''
+      id: ""
   uuid:
     disabled: false
     fieldName: uuid
     publicName: uuid
     enhancer:
-      id: ''
+      id: ""
   vid:
     disabled: false
     fieldName: vid
     publicName: vid
     enhancer:
-      id: ''
+      id: ""
   langcode:
     disabled: false
     fieldName: langcode
     publicName: langcode
     enhancer:
-      id: ''
+      id: ""
   type:
     disabled: false
     fieldName: type
     publicName: type
     enhancer:
-      id: ''
+      id: ""
   revision_timestamp:
     disabled: false
     fieldName: revision_timestamp
     publicName: revision_timestamp
     enhancer:
-      id: ''
+      id: ""
   revision_uid:
     disabled: false
     fieldName: revision_uid
     publicName: revision_uid
     enhancer:
-      id: ''
+      id: ""
   revision_log:
     disabled: false
     fieldName: revision_log
     publicName: revision_log
     enhancer:
-      id: ''
+      id: ""
   status:
     disabled: false
     fieldName: status
     publicName: status
     enhancer:
-      id: ''
+      id: ""
   uid:
     disabled: false
     fieldName: uid
     publicName: uid
     enhancer:
-      id: ''
+      id: ""
   title:
     disabled: false
     fieldName: title
     publicName: title
     enhancer:
-      id: ''
+      id: ""
   created:
     disabled: false
     fieldName: created
     publicName: created
     enhancer:
-      id: ''
+      id: ""
   changed:
     disabled: false
     fieldName: changed
     publicName: changed
     enhancer:
-      id: ''
+      id: ""
   promote:
     disabled: false
     fieldName: promote
     publicName: promote
     enhancer:
-      id: ''
+      id: ""
   sticky:
     disabled: false
     fieldName: sticky
     publicName: sticky
     enhancer:
-      id: ''
+      id: ""
   default_langcode:
     disabled: false
     fieldName: default_langcode
     publicName: default_langcode
     enhancer:
-      id: ''
+      id: ""
   revision_default:
     disabled: false
     fieldName: revision_default
     publicName: revision_default
     enhancer:
-      id: ''
+      id: ""
   revision_translation_affected:
     disabled: false
     fieldName: revision_translation_affected
     publicName: revision_translation_affected
     enhancer:
-      id: ''
+      id: ""
   moderation_state:
     disabled: false
     fieldName: moderation_state
     publicName: moderation_state
     enhancer:
-      id: ''
+      id: ""
   metatag:
     disabled: false
     fieldName: metatag
     publicName: metatag
     enhancer:
-      id: ''
+      id: ""
   content_translations:
     disabled: false
     fieldName: content_translations
     publicName: content_translations
     enhancer:
-      id: ''
+      id: ""
   path:
     disabled: false
     fieldName: path
     publicName: path
     enhancer:
-      id: ''
+      id: ""
+  tca_active:
+    disabled: false
+    fieldName: tca_active
+    publicName: tca_active
+    enhancer:
+      id: ""
+  tca_public:
+    disabled: false
+    fieldName: tca_public
+    publicName: tca_public
+    enhancer:
+      id: ""
+  tca_token:
+    disabled: false
+    fieldName: tca_token
+    publicName: tca_token
+    enhancer:
+      id: ""
   menu_link:
     disabled: false
     fieldName: menu_link
     publicName: menu_link
     enhancer:
-      id: ''
+      id: ""
   content_translation_source:
     disabled: false
     fieldName: content_translation_source
     publicName: content_translation_source
     enhancer:
-      id: ''
+      id: ""
   content_translation_outdated:
     disabled: false
     fieldName: content_translation_outdated
     publicName: content_translation_outdated
     enhancer:
-      id: ''
+      id: ""
   body:
     disabled: false
     fieldName: body
     publicName: body
     enhancer:
-      id: ''
+      id: ""
   field_image:
     disabled: false
     fieldName: field_image
     publicName: field_image
     enhancer:
-      id: ''
+      id: image_styles
+      settings:
+        styles:
+          refine: true
+          custom_selection:
+            - open_graph
   field_site:
     disabled: false
     fieldName: field_site
     publicName: field_site
     enhancer:
-      id: ''
+      id: ""
   field_tags:
     disabled: false
     fieldName: field_tags
     publicName: field_tags
     enhancer:
-      id: ''
-  field_video:
-    disabled: false
-    fieldName: field_video
-    publicName: field_video
-    enhancer:
-      id: url_link
-      settings:
-        absolute_url: 0
+      id: ""

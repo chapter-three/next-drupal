@@ -71,5 +71,8 @@
   "dependencies": {
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0"
+  },
+  "engines": {
+    "node": ">=16.19.0"
   }
 }

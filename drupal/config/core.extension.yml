@@ -69,7 +69,7 @@ module:
   mysql: 0
   next: 0
   next_extras: 0
-  # next_graphql: 0
+  next_graphql: 0
   next_jsonapi: 0
   node: 0
   options: 0

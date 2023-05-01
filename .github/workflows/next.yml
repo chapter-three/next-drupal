@@ -11,10 +11,10 @@ jobs:
     strategy:
       matrix:
         php: ["8.0", "8.1"]
-        drupal: ["9.3", "9.4", "10.0.0-rc1"]
+        drupal: ["9.4", "9.5", "10.0"]
         exclude:
           - php: "8.0"
-            drupal: "10.0.0-rc1"
+            drupal: "10.0"
     name: Drupal ${{ matrix.drupal }} - PHP ${{ matrix.php }}
     services:
       mysql:

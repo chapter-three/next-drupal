@@ -46,7 +46,9 @@ The following will return 100 items (Overridden using `path`):
 
 ```ts
 const articles = await drupal.getResourceCollection("node--article", {
-  "field[node--article]": "path,title",
+  params: {
+    "fields[node--article]": "path,title"
+  }
 })
 ```
 
@@ -54,8 +56,10 @@ The following will return 60 items (Overridden using `path`):
 
 ```ts
 const articles = await drupal.getResourceCollection("node--article", {
-  "field[node--article]": "path,title",
-  "page[limit]": 60,
+  params: {
+    "fields[node--article]": "path,title",
+    "page[limit]": 60,
+  }
 })
 ```
 
@@ -63,7 +67,9 @@ The following will return 100 items (`next_jsonapi.size_max` hard limit - Overri
 
 ```ts
 const articles = await drupal.getResourceCollection("node--article", {
-  "field[node--article]": "path,title",
-  "page[limit]": 999,
+  params: {
+    "fields[node--article]": "path,title",
+    "page[limit]": 999,
+  }
 })
 ```

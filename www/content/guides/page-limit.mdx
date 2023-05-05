@@ -17,7 +17,7 @@ Tip: If you have a site with a large number of pages, consider using on-demand g
 
 ## Configuration
 
-To override the page max size, set the following `parameter` in your Drupal `settings.yml` file and clear caches.
+To override the page max size, set the following `parameter` in your Drupal `services.yml` file and clear caches.
 
 ```yaml
 parameters:
@@ -46,7 +46,9 @@ The following will return 100 items (Overridden using `path`):
 
 ```ts
 const articles = await drupal.getResourceCollection("node--article", {
-  "field[node--article]": "path,title",
+  params: {
+    "fields[node--article]": "path,title"
+  }
 })
 ```
 
@@ -54,16 +56,20 @@ The following will return 60 items (Overridden using `path`):
 
 ```ts
 const articles = await drupal.getResourceCollection("node--article", {
-  "field[node--article]": "path,title",
-  "page[limit]": 60,
+  params: {
+    "fields[node--article]": "path,title",
+    "page[limit]": 60,
+  }
 })
 ```
 
-The following will return 100 items (`next_jsonapi.max_size` hard limit - Overridden using `path`):
+The following will return 100 items (`next_jsonapi.size_max` hard limit - Overridden using `path`):
 
 ```ts
 const articles = await drupal.getResourceCollection("node--article", {
-  "field[node--article]": "path,title",
-  "page[limit]": 999,
+  params: {
+    "fields[node--article]": "path,title",
+    "page[limit]": 999,
+  }
 })
 ```

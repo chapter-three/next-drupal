@@ -74,7 +74,7 @@ class NextEntityTypeManager implements NextEntityTypeManagerInterface {
       }
 
       if ($route_match->getRouteName() === 'entity.node.latest_version') {
-        $node_revision = $route_match->getParameter('node')->getRevisionId();
+        return $route_match->getParameter('node');
       }
 
       return $this->entityTypeManager->getStorage('node')->loadRevision($node_revision);

@@ -108,11 +108,11 @@ class HtmlRenderer extends CoreHtmlRenderer {
     }
 
     $next_entity_type_config = $this->nextEntityTypeManager->getConfigForEntityType($entity->getEntityTypeId(), $entity->bundle());
-    if (!$next_entity_type_config) {
+    if (!$next_entity_type_config || !$next_entity_type_config->getSiteResolver()) {
       return $build;
     }
 
-    $sites = $next_entity_type_config->getSiteResolver()->getSitesForEntity($entity);
+    $sites = $next_entity_type_config->getSiteResolver()->getSitesForEntity($entity) ?? [];
     if (!count($sites)) {
       return $build;
     }

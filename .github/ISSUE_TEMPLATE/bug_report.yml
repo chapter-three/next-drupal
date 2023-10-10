@@ -1,0 +1,64 @@
+# Useful docs:
+# https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository#configuring-the-template-chooser
+# https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms
+# https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-githubs-form-schema
+
+name: Bug Report
+description: File a bug report
+labels: ["bug", "triage"]
+body:
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package containing the bug
+      description: What package in this monorepo has the bug?
+      options:
+        - I’m not sure
+        - next (Drupal module)
+        - next-drupal (NPM package)
+        - basic-starter
+        - graphql-starter
+        - example-auth
+        - example-blog
+        - example-client
+        - example-custom-auth
+        - example-custom-cache
+        - example-custom-fetcher
+        - example-custom-serializer
+        - example-graphql
+        - example-marketing
+        - example-query
+        - example-search-api
+        - example-umami
+        - example-webform
+      default: 0
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      value: |
+        A clear and concise description of what the bug is.
+
+        If applicable, add screenshots to help explain your problem.
+
+        ### Expected behavior
+
+        A clear and concise description of what you expected to happen.
+
+        ### Steps to reproduce:
+
+        1. First '...'
+        2. Then '....'
+        3. 😢
+
+        ### Additional context
+
+        Add any other context about the problem here.
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        <p align="right"><em><strong>Thanks</strong> for taking the time to fill out this bug report!</em></p>

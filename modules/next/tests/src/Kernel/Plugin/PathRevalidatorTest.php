@@ -7,6 +7,7 @@ use Drupal\next\Entity\NextEntityTypeConfig;
 use Drupal\next\Entity\NextSite;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Psr7\Response as GuzzleResponse;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -84,7 +85,7 @@ class PathRevalidatorTest extends KernelTestBase {
     $page->save();
     $this->container->get('kernel')->terminate(Request::create('/'), new Response());
 
-    $client->request('GET', 'http://blog.com/api/revalidate?slug=/node/2')->shouldBeCalled();
+    $client->request('GET', 'http://blog.com/api/revalidate?slug=/node/2')->shouldBeCalled()->willReturn(new GuzzleResponse());
     $blog_site->setRevalidateUrl('http://blog.com/api/revalidate')->save();
     $page = $this->createNode();
     $page->save();
@@ -103,8 +104,8 @@ class PathRevalidatorTest extends KernelTestBase {
       ],
     ])->save();
 
-    $client->request('GET', 'http://marketing.com/api/revalidate?slug=/node/3&secret=12345')->shouldBeCalled();
-    $client->request('GET', 'http://blog.com/api/revalidate?slug=/node/3')->shouldBeCalled();
+    $client->request('GET', 'http://marketing.com/api/revalidate?slug=/node/3&secret=12345')->shouldBeCalled()->willReturn(new GuzzleResponse());
+    $client->request('GET', 'http://blog.com/api/revalidate?slug=/node/3')->shouldBeCalled()->willReturn(new GuzzleResponse());
     $page = $this->createNode();
     $page->save();
     $this->container->get('kernel')->terminate(Request::create('/'), new Response());
@@ -113,12 +114,12 @@ class PathRevalidatorTest extends KernelTestBase {
       'additional_paths' => "/\n/blog",
     ])->save();
 
-    $client->request('GET', 'http://marketing.com/api/revalidate?slug=/node/3&secret=12345')->shouldBeCalled();
-    $client->request('GET', 'http://marketing.com/api/revalidate?slug=/&secret=12345')->shouldBeCalled();
-    $client->request('GET', 'http://marketing.com/api/revalidate?slug=/blog&secret=12345')->shouldBeCalled();
-    $client->request('GET', 'http://blog.com/api/revalidate?slug=/node/3')->shouldBeCalled();
-    $client->request('GET', 'http://blog.com/api/revalidate?slug=/')->shouldBeCalled();
-    $client->request('GET', 'http://blog.com/api/revalidate?slug=/blog')->shouldBeCalled();
+    $client->request('GET', 'http://marketing.com/api/revalidate?slug=/node/3&secret=12345')->shouldBeCalled()->willReturn(new GuzzleResponse());
+    $client->request('GET', 'http://marketing.com/api/revalidate?slug=/&secret=12345')->shouldBeCalled()->willReturn(new GuzzleResponse());
+    $client->request('GET', 'http://marketing.com/api/revalidate?slug=/blog&secret=12345')->shouldBeCalled()->willReturn(new GuzzleResponse());
+    $client->request('GET', 'http://blog.com/api/revalidate?slug=/node/3')->shouldBeCalled()->willReturn(new GuzzleResponse());
+    $client->request('GET', 'http://blog.com/api/revalidate?slug=/')->shouldBeCalled()->willReturn(new GuzzleResponse());
+    $client->request('GET', 'http://blog.com/api/revalidate?slug=/blog')->shouldBeCalled()->willReturn(new GuzzleResponse());
     $page = $this->createNode();
     $page->save();
     $this->container->get('kernel')->terminate(Request::create('/'), new Response());

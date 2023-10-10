@@ -13,11 +13,13 @@ jobs:
         # Supported PHP versions: https://www.drupal.org/docs/getting-started/system-requirements/php-requirements
         php: ["8.0", "8.1", "8.2"]
         # Supported Drupal versions: https://www.drupal.org/project/drupal
-        drupal: ["9.5", "10.0"]
+        drupal: ["9.5", "10.0", "10.1"]
         exclude:
           - drupal: "9.5"
             php: "8.2"
           - drupal: "10.0"
+            php: "8.0"
+          - drupal: "10.1"
             php: "8.0"
     name: Drupal ${{ matrix.drupal }} - PHP ${{ matrix.php }}
     services:

@@ -14,7 +14,7 @@
     "test": "jest",
     "dev": "turbo run dev --parallel",
     "dev:starter": "lerna run --parallel --scope drupal --scope basic-starter dev",
-    "prepare": "lerna run prepare",
+    "prepare": "lerna run prepare && husky install",
     "watch": "lerna run watch",
     "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx .",
     "phpcs": "./drupal/vendor/bin/phpcs -s -n --colors --standard=modules/next/phpcs.xml.dist modules/next",

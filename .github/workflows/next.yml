@@ -68,15 +68,13 @@ jobs:
           cd ~/drupal
           COMPOSER_MEMORY_LIMIT=-1 composer require --dev phpspec/prophecy-phpunit:^2 -W
         if: ${{ startsWith(matrix.drupal, '9') }}
+      - name: Run phpcs
+        run: |
+          ~/drupal/vendor/bin/phpcs -p -s --colors --standard=modules/next/phpcs.xml modules/next
       - name: Copy module
         run: cp -R ../next-drupal/modules/next ~/drupal/web/modules/next
       - name: Run php built-in server
         run: php -S 127.0.0.1:8080 -t ~/drupal/web &
-      - name: Run phpcs
-        run: |
-          cd ~/drupal/web
-          cp modules/next/phpcs.xml.dist .
-          ../vendor/bin/phpcs -p -s --colors --standard=./phpcs.xml.dist modules/next
       - name: Run PHPUnit
         run: |
           cd ~/drupal/web

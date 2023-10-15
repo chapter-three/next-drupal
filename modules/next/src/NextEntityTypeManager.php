@@ -65,7 +65,7 @@ class NextEntityTypeManager implements NextEntityTypeManagerInterface {
   public function getEntityFromRouteMatch(RouteMatchInterface $route_match): ?EntityInterface {
     $entity_types_ids = $this->getConfigEntityTypeIds();
 
-    // TODO: Handle all revisionable entity types.
+    // @todo Handle all revisionable entity types.
     $revision_routes = ['entity.node.revision', 'entity.node.latest_version'];
     if (in_array($route_match->getRouteName(), $revision_routes) && in_array('node', $entity_types_ids)) {
       $node_revision = $route_match->getParameter('node_revision');
@@ -93,9 +93,12 @@ class NextEntityTypeManager implements NextEntityTypeManagerInterface {
    * {@inheritdoc}
    */
   public function isEntityRevisionable(EntityInterface $entity): bool {
+    // @todo How do you do dependency injection on optional dependencies?
+    // @codingStandardsIgnoreStart
     if (\Drupal::hasService('jsonapi.resource_type.repository')) {
-      /* @var \Drupal\jsonapi\ResourceType\ResourceTypeRepositoryInterface $resource_type_repository */
+      /** @var \Drupal\jsonapi\ResourceType\ResourceTypeRepositoryInterface $resource_type_repository */
       $resource_type_repository = \Drupal::service('jsonapi.resource_type.repository');
+      // @codingStandardsIgnoreEnd
       $resource = $resource_type_repository->get($entity->getEntityTypeId(), $entity->bundle());
       return $resource->isVersionable() && $entity->getEntityType()->isRevisionable();
     }

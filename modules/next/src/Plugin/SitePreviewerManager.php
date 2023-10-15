@@ -6,7 +6,6 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\next\Annotation\SitePreviewer;
-use Drupal\next\Annotation\SiteResolver;
 
 /**
  * Plugin manager for site previewers.

@@ -20,7 +20,9 @@ interface EntityActionEventInterface {
   public const UPDATE_ACTION = 'update';
 
   /**
-   * The entity delete action. We use predelete because we need access to the entity for revalidating.
+   * The entity delete action.
+   *
+   * We use predelete because we need access to the entity for revalidating.
    */
   public const DELETE_ACTION = 'delete';
 

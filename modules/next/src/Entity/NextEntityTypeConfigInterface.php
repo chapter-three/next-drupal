@@ -3,12 +3,9 @@
 namespace Drupal\next\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityWithPluginCollectionInterface;
 use Drupal\next\Plugin\RevalidatorInterface;
 use Drupal\next\Plugin\SiteResolverInterface;
-use Drupal\next\RevalidatorPluginCollection;
-use Drupal\next\SiteResolverPluginCollection;
 
 /**
  * Provides an interface for next_entity_type_config entity definitions.

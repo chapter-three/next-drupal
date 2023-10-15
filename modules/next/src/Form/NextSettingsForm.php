@@ -43,8 +43,10 @@ class NextSettingsForm extends ConfigFormBase {
    */
   public function __construct(ConfigFactoryInterface $config_factory, SitePreviewerManagerInterface $site_previewer_manager, PreviewUrlGeneratorManagerInterface $preview_url_generator_manager = NULL) {
     if (!$preview_url_generator_manager) {
-      @trigger_error('Calling NextSettingsForm::__construct() without the $preview_url_generator_manager argument is deprecated in next:1.3.0. The $preview_url_generator_manager argument will be required in next:2.0.0. See https://www.drupal.org/project/next/releases/1.3.0', E_USER_DEPRECATED);
+      @trigger_error('Calling NextSettingsForm::__construct() without the $preview_url_generator_manager argument is deprecated in next:1.3.0 and will be required in next:2.0.0. See https://www.drupal.org/node/3308330', E_USER_DEPRECATED);
+      // @codingStandardsIgnoreStart
       $preview_url_generator_manager = \Drupal::service('plugin.manager.next.preview_url_generator');
+      // @codingStandardsIgnoreEnd
     }
 
     parent::__construct($config_factory);

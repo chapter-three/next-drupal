@@ -6,7 +6,7 @@ use Drupal\Core\Entity\EntityDeleteForm;
 use Drupal\Core\Url;
 
 /**
- * Provides a deletion confirmation form for the next_entity_type_config deletion form.
+ * Provides a deletion confirmation form for next_entity_type_config.
  */
 class NextEntityTypeConfigDeleteForm extends EntityDeleteForm {
 

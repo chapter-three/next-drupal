@@ -17,7 +17,7 @@
     "prepare": "lerna run prepare && husky install",
     "watch": "lerna run watch",
     "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx .",
-    "phpcs": "./drupal/vendor/bin/phpcs -s -n --colors --standard=modules/next/phpcs.xml.dist modules/next",
+    "phpcs": "./drupal/vendor/bin/phpcs -p -s --colors --standard=modules/next/phpcs.xml.dist modules/next",
     "test:next": "./drupal/vendor/bin/phpunit -c ./drupal/web modules/next",
     "sync:modules": "./scripts/sync-modules.sh \"modules/*\"",
     "sync:examples": "./scripts/sync-examples.sh \"examples/example-*\"",

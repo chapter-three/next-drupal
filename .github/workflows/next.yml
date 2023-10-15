@@ -76,7 +76,7 @@ jobs:
         run: |
           cd ~/drupal/web
           cp modules/next/phpcs.xml.dist .
-          ../vendor/bin/phpcs --standard=./phpcs.xml.dist modules/next -p -s -n --colors
+          ../vendor/bin/phpcs -p -s --colors --standard=./phpcs.xml.dist modules/next
       - name: Run PHPUnit
         run: |
           cd ~/drupal/web

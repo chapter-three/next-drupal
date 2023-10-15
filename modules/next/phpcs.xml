@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ruleset name="Drupal coding standards">
+<ruleset name="DrupalProjectNext">
+  <!-- Ignore files -->
   <exclude-pattern>*/config/*</exclude-pattern>
   <exclude-pattern>*/css/*</exclude-pattern>
   <exclude-pattern>*/js/*</exclude-pattern>
 
   <rule ref="Drupal"/>
+  <rule ref="DrupalPractice"/>
 </ruleset>

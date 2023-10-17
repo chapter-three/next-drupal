@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import * as React from "react"
+import { useEffect, useState } from "react"
 import { getMenu } from "./get-menu"
 import type { DrupalMenuLinkContent } from "./types"
 
@@ -12,14 +12,14 @@ export function useMenu<T extends DrupalMenuLinkContent>(
   isLoading: boolean
 } {
   const router = useRouter()
-  const [data, setData] = React.useState<{
+  const [data, setData] = useState<{
     items: T[]
     tree: T[]
   }>(null)
-  const [error, setError] = React.useState(null)
-  const [isLoading, setIsLoading] = React.useState<boolean>(false)
+  const [error, setError] = useState(null)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchMenuItems = async () => {
       setIsLoading(true)
       try {

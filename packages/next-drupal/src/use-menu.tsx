@@ -1,8 +1,7 @@
-import * as React from "react"
 import { useRouter } from "next/router"
-
+import * as React from "react"
 import { getMenu } from "./get-menu"
-import { DrupalMenuLinkContent } from "./types"
+import type { DrupalMenuLinkContent } from "./types"
 
 export function useMenu<T extends DrupalMenuLinkContent>(
   name: string

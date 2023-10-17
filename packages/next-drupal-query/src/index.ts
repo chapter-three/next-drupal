@@ -1,6 +1,6 @@
 import deepmerge from "deepmerge"
 import { DrupalJsonApiParams } from "drupal-jsonapi-params"
-import { GetServerSidePropsContext, GetStaticPathsContext } from "next"
+import type { GetServerSidePropsContext, GetStaticPathsContext } from "next"
 import type { RequireAllOrNone, ConditionalKeys } from "type-fest"
 
 // Note: some generic are explicitly not typed here to force definition.

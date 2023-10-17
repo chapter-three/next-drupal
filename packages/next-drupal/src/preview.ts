@@ -1,6 +1,6 @@
-import { NextApiRequest, NextApiResponse } from "next"
 import { getResourceByPath } from "./get-resource"
-import { JsonApiWithLocaleOptions } from "./types"
+import type { NextApiRequest, NextApiResponse } from "next"
+import type { JsonApiWithLocaleOptions } from "./types"
 
 interface PreviewOptions {
   errorMessages?: {

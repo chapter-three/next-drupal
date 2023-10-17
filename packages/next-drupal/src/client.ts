@@ -1,3 +1,7 @@
+import Jsona from "jsona"
+import { stringify } from "qs"
+import { JsonApiErrors } from "./jsonapi-errors"
+import { logger as defaultLogger } from "./logger"
 import type {
   GetStaticPathsContext,
   GetStaticPathsResult,
@@ -5,38 +9,33 @@ import type {
   NextApiRequest,
   NextApiResponse,
 } from "next"
-import { stringify } from "qs"
-import Jsona from "jsona"
-
 import type {
-  JsonApiResource,
-  Locale,
   AccessToken,
-  JsonApiResponse,
-  JsonApiWithLocaleOptions,
-  JsonApiParams,
-  DrupalTranslatedPath,
-  DrupalMenuLinkContent,
-  FetchOptions,
-  DrupalClientOptions,
   BaseUrl,
-  JsonApiWithAuthOptions,
-  PathPrefix,
-  JsonApiResourceWithPath,
-  PathAlias,
-  PreviewOptions,
-  JsonApiWithCacheOptions,
-  JsonApiCreateResourceBody,
-  JsonApiUpdateResourceBody,
-  DrupalClientAuthUsernamePassword,
   DrupalClientAuthAccessToken,
   DrupalClientAuthClientIdSecret,
-  JsonApiCreateFileResourceBody,
-  DrupalView,
+  DrupalClientAuthUsernamePassword,
+  DrupalClientOptions,
   DrupalFile,
+  DrupalMenuLinkContent,
+  DrupalTranslatedPath,
+  DrupalView,
+  FetchOptions,
+  JsonApiCreateFileResourceBody,
+  JsonApiCreateResourceBody,
+  JsonApiParams,
+  JsonApiResource,
+  JsonApiResourceWithPath,
+  JsonApiResponse,
+  JsonApiUpdateResourceBody,
+  JsonApiWithAuthOptions,
+  JsonApiWithCacheOptions,
+  JsonApiWithLocaleOptions,
+  Locale,
+  PathAlias,
+  PathPrefix,
+  PreviewOptions,
 } from "./types"
-import { logger as defaultLogger } from "./logger"
-import { JsonApiErrors } from "./jsonapi-errors"
 
 const DEFAULT_API_PREFIX = "/jsonapi"
 const DEFAULT_FRONT_PAGE = "/home"

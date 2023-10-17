@@ -1,16 +1,16 @@
-import { GetStaticPropsContext } from "next"
-import {
-  AccessToken,
-  JsonApiParams,
-  JsonApiWithLocaleOptions,
-  JsonApiResource,
-} from "./types"
 import {
   buildHeaders,
   buildUrl,
   deserialize,
   getJsonApiPathForResourceType,
 } from "./utils"
+import type { GetStaticPropsContext } from "next"
+import type {
+  AccessToken,
+  JsonApiParams,
+  JsonApiResource,
+  JsonApiWithLocaleOptions,
+} from "./types"
 
 export async function getResourceCollection<T = JsonApiResource[]>(
   type: string,

@@ -1,10 +1,12 @@
-import { buildHeaders, buildUrl, deserialize } from "./utils"
+import { buildHeaders } from "../utils/build-headers"
+import { buildUrl } from "../utils/build-url"
+import { deserialize } from "../utils/deserialize"
 import type { GetStaticPropsContext } from "next"
 import type {
   AccessToken,
   JsonApiResource,
   JsonApiWithLocaleOptions,
-} from "./types"
+} from "../types"
 
 export async function getSearchIndex<T = JsonApiResource[]>(
   name: string,

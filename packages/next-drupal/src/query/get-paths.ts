@@ -1,6 +1,6 @@
 import { getResourceCollection } from "./get-resource-collection"
 import type { GetStaticPathsContext, GetStaticPathsResult } from "next"
-import type { AccessToken, JsonApiParams, Locale } from "./types"
+import type { AccessToken, JsonApiParams, Locale } from "../types"
 
 export async function getPathsFromContext(
   types: string | string[],

@@ -1,5 +1,7 @@
-import { buildHeaders, buildUrl, deserialize } from "./utils"
-import type { AccessToken, JsonApiWithLocaleOptions } from "./types"
+import { buildHeaders } from "../utils/build-headers"
+import { buildUrl } from "../utils/build-url"
+import { deserialize } from "../utils/deserialize"
+import type { AccessToken, JsonApiWithLocaleOptions } from "../types"
 
 export async function getView<T>(
   name: string,

@@ -1,4 +1,4 @@
-import type { JsonApiError } from "./types"
+import type { JsonApiError } from "../types"
 
 export class JsonApiErrors extends Error {
   errors: JsonApiError[] | string

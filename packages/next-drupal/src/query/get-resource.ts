@@ -1,18 +1,16 @@
 import { stringify } from "qs"
-import {
-  buildHeaders,
-  buildUrl,
-  deserialize,
-  getJsonApiPathForResourceType,
-  getPathFromContext,
-} from "./utils"
+import { buildHeaders } from "../utils/build-headers"
+import { buildUrl } from "../utils/build-url"
+import { deserialize } from "../utils/deserialize"
+import { getJsonApiPathForResourceType } from "../utils/get-json-api-path-for-resource-type"
+import { getPathFromContext } from "../utils/get-path-from-context"
 import type { GetStaticPropsContext } from "next"
 import type {
   AccessToken,
   JsonApiParams,
   JsonApiResource,
   JsonApiWithLocaleOptions,
-} from "./types"
+} from "../types"
 
 export async function getResourceFromContext<T extends JsonApiResource>(
   type: string,

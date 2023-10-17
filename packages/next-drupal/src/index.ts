@@ -1,22 +1,29 @@
-export * from "./get-access-token"
-export * from "./get-menu"
-export * from "./get-paths"
-export * from "./get-resource-collection"
-export * from "./preview"
-export * from "./get-resource-type"
-export * from "./get-resource"
-export * from "./get-search-index"
-export * from "./get-view"
-export * from "./types"
-export * from "./use-menu"
-export * from "./translate-path"
+export { DrupalClient, JsonApiErrors } from "./client"
+export { useMenu } from "./navigation"
+export { DrupalPreview, getResourcePreviewUrl, PreviewHandler } from "./preview"
+export {
+  getAccessToken,
+  getMenu,
+  getPathsFromContext,
+  getResource,
+  getResourceByPath,
+  getResourceFromContext,
+  getResourceCollection,
+  getResourceCollectionFromContext,
+  getResourceTypeFromContext,
+  getSearchIndex,
+  getSearchIndexFromContext,
+  getView,
+} from "./query"
+export { translatePath, translatePathFromContext } from "./translation"
 export {
   deserialize,
+  // buildHeaders,
   buildUrl,
   getJsonApiIndex,
   getJsonApiPathForResourceType,
+  // getPathFromContext,
   syncDrupalPreviewRoutes,
 } from "./utils"
 
-export * from "./client"
-export * from "./jsonapi-errors"
+export * from "./types"

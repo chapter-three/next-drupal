@@ -1,4 +1,4 @@
-import { getResourceByPath } from "./get-resource"
+import { getResourceByPath } from "./query/get-resource"
 import type { NextApiRequest, NextApiResponse } from "next"
 import type { JsonApiWithLocaleOptions } from "./types"
 

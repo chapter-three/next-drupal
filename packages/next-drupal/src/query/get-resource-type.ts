@@ -1,6 +1,6 @@
-import { translatePathFromContext } from "./translate-path"
+import { translatePathFromContext } from "../translation/translate-path"
 import type { GetStaticPropsContext } from "next"
-import type { AccessToken } from "./types"
+import type { AccessToken } from "../types"
 
 export async function getResourceTypeFromContext(
   context: GetStaticPropsContext,

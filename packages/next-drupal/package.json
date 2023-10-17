@@ -3,10 +3,80 @@
   "description": "Helpers for Next.js + Drupal.",
   "version": "1.6.0",
   "sideEffects": false,
-  "source": "src/index.ts",
+  "source": [
+    "src/index.ts",
+    "src/client.ts",
+    "src/navigation.ts",
+    "src/preview.ts",
+    "src/query.ts",
+    "src/translation.ts",
+    "src/utils.ts"
+  ],
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.modern.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.modern.js"
+      },
+      "require": {
+        "types": "./dist/index.cjs.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./client": {
+      "import": {
+        "types": "./dist/client.d.ts",
+        "default": "./dist/client.modern.js"
+      },
+      "require": {
+        "types": "./dist/client.cjs.d.ts",
+        "default": "./dist/client.cjs"
+      }
+    },
+    "./navigation": {
+      "import": {
+        "types": "./dist/navigation.d.ts",
+        "default": "./dist/navigation.modern.js"
+      },
+      "require": {
+        "types": "./dist/navigation.cjs.d.ts",
+        "default": "./dist/navigation.cjs"
+      }
+    },
+    "./preview": {
+      "import": {
+        "types": "./dist/preview.d.ts",
+        "default": "./dist/preview.modern.js"
+      },
+      "require": {
+        "types": "./dist/preview.cjs.d.ts",
+        "default": "./dist/preview.cjs"
+      }
+    },
+    "./query": {
+      "import": {
+        "types": "./dist/query.d.ts",
+        "default": "./dist/query.modern.js"
+      },
+      "require": {
+        "types": "./dist/query.cjs.d.ts",
+        "default": "./dist/query.cjs"
+      }
+    },
+    "./translation": {
+      "import": {
+        "types": "./dist/translation.d.ts",
+        "default": "./dist/translation.modern.js"
+      },
+      "require": {
+        "types": "./dist/translation.cjs.d.ts",
+        "default": "./dist/translation.cjs"
+      }
+    }
+  },
   "types": "dist/types.d.ts",
   "license": "MIT",
   "publishConfig": {
@@ -18,6 +88,7 @@
   },
   "scripts": {
     "prepare": "microbundle --no-compress --jsx React.createElement --format modern,cjs",
+    "postprepare": "node postBuild.mjs",
     "dev": "microbundle watch --no-compress --jsx React.createElement --format modern,cjs",
     "test": "jest",
     "prepublishOnly": "yarn prepare"

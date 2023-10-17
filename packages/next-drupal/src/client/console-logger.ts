@@ -1,7 +1,7 @@
-import type { Logger } from "./types"
+import type { Logger } from "../types"
 
 // Default logger. Uses console.
-export const logger: Logger = {
+export const consoleLogger: Logger = {
   log(message) {
     console.log(`[next-drupal][log]:`, message)
   },

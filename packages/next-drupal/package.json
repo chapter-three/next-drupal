@@ -4,9 +4,10 @@
   "version": "1.6.0",
   "sideEffects": false,
   "source": "src/index.ts",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.modern.js",
+  "types": "dist/types.d.ts",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -16,8 +17,8 @@
     "url": "https://twitter.com/shadcn"
   },
   "scripts": {
-    "prepare": "microbundle --no-compress --jsx React.createElement",
-    "dev": "microbundle watch --no-compress --jsx React.createElement",
+    "prepare": "microbundle --no-compress --jsx React.createElement --format modern,cjs",
+    "dev": "microbundle watch --no-compress --jsx React.createElement --format modern,cjs",
     "test": "jest",
     "prepublishOnly": "yarn prepare"
   },

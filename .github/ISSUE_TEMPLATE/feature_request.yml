@@ -8,6 +8,7 @@ body:
       label: Package
       description: The feature request is for what package in this monorepo?
       options:
+        - Not package-specific
         - I’m not sure
         - next (Drupal module)
         - next-drupal (NPM package)
@@ -26,7 +27,7 @@ body:
         - example-search-api
         - example-umami
         - example-webform
-      default: 0
+      default: 1
     validations:
       required: true
   - type: textarea

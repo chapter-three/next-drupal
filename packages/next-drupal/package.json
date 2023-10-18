@@ -19,8 +19,7 @@
   "scripts": {
     "prepare": "microbundle --no-compress --jsx React.createElement --format modern,cjs",
     "dev": "microbundle watch --no-compress --jsx React.createElement --format modern,cjs",
-    "test": "jest",
-    "prepublishOnly": "yarn prepare"
+    "test": "jest"
   },
   "keywords": [
     "next.js",

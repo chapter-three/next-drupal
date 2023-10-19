@@ -107,7 +107,7 @@ class NextSiteEntityController extends ControllerBase {
         '#context' => [
           'name' => $name,
           'value' => $value,
-        ]
+        ],
       ];
     }
 

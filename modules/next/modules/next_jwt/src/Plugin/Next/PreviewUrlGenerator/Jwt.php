@@ -11,7 +11,6 @@ use Drupal\Core\KeyValueStore\KeyValueExpirableFactoryInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\Url;
 use Drupal\jwt\Authentication\Provider\JwtAuth;
-use Drupal\next\Annotation\PreviewUrlGenerator;
 use Drupal\next\Entity\NextSiteInterface;
 use Drupal\next\Exception\InvalidPreviewUrlRequest;
 use Drupal\next\Plugin\ConfigurablePreviewUrlGeneratorBase;
@@ -142,7 +141,8 @@ class Jwt extends ConfigurablePreviewUrlGeneratorBase {
     $query['timestamp'] = $timestamp = $this->time->getRequestTime();
     $query['secret'] = $secret = $this->previewSecretGenerator->generate($timestamp . $slug . $resource_version . $this->user->uuid());
 
-    // Generate a JWT and store it temporarily so that we can retrieve it on validate.
+    // Generate a JWT and store it temporarily so that we can retrieve it on
+    // validate.
     $jwt = $this->jwtAuth->generateToken();
     $this->keyValue->get('next_jwt')
       ->setWithExpire($secret, $jwt, $this->configuration['access_token_expiration']);

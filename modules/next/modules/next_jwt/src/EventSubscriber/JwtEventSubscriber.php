@@ -9,7 +9,7 @@ use Drupal\next\NextSettingsManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class JwtEventSubscriber.
+ * Subscribes to JWT authentication events.
  */
 class JwtEventSubscriber implements EventSubscriberInterface {
 

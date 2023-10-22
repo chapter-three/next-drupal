@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^2.8.3",
-    "@tailwindcss/forms": "^0.4.0",
+    "@tailwindcss/forms": "^0.5.6",
     "@tailwindcss/typography": "^0.5.1",
     "next": "^12.2.3",
     "next-drupal": "^1.6.0",

@@ -3,7 +3,10 @@
   "description": "Helpers for Next.js + Drupal.",
   "version": "1.6.0",
   "sideEffects": false,
-  "source": "src/index.ts",
+  "source": [
+    "src/index.ts",
+    "src/navigation.ts"
+  ],
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.modern.js",
@@ -16,6 +19,16 @@
       "require": {
         "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
+      }
+    },
+    "./navigation": {
+      "import": {
+        "types": "./dist/navigation.d.ts",
+        "default": "./dist/navigation.modern.js"
+      },
+      "require": {
+        "types": "./dist/navigation.d.cts",
+        "default": "./dist/navigation.cjs"
       }
     }
   },

@@ -52,7 +52,7 @@ class NextEntityTypeConfigTest extends KernelTestBase {
    */
   public function testSiteResolver() {
     $blog_site = NextSite::create([
-      'id' => 'blog'
+      'id' => 'blog',
     ]);
     $blog_site->save();
 
@@ -116,7 +116,7 @@ class NextEntityTypeConfigTest extends KernelTestBase {
    */
   public function testRevalidator() {
     $blog_site = NextSite::create([
-      'id' => 'blog'
+      'id' => 'blog',
     ]);
     $blog_site->save();
 

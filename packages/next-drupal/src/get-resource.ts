@@ -1,11 +1,4 @@
-import { GetStaticPropsContext } from "next"
 import { stringify } from "qs"
-import {
-  AccessToken,
-  JsonApiParams,
-  JsonApiWithLocaleOptions,
-  JsonApiResource,
-} from "./types"
 import {
   buildHeaders,
   buildUrl,
@@ -13,6 +6,13 @@ import {
   getJsonApiPathForResourceType,
   getPathFromContext,
 } from "./utils"
+import type { GetStaticPropsContext } from "next"
+import type {
+  AccessToken,
+  JsonApiParams,
+  JsonApiResource,
+  JsonApiWithLocaleOptions,
+} from "./types"
 
 export async function getResourceFromContext<T extends JsonApiResource>(
   type: string,

@@ -1,7 +1,13 @@
 {
-  "endOfLine": "lf",
   "semi": false,
-  "singleQuote": false,
-  "tabWidth": 2,
-  "trailingComma": "es5"
+  "overrides": [
+    {
+      "files": "modules/**/*",
+      "options": {
+        "semi": true,
+        "singleQuote": true,
+        "trailingComma": "all"
+      }
+    }
+  ]
 }

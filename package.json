@@ -11,12 +11,13 @@
     "www"
   ],
   "scripts": {
-    "test": "jest",
     "dev": "turbo run dev --parallel",
     "dev:starter": "lerna run --parallel --scope drupal --scope basic-starter dev",
     "prepare": "lerna run prepare && husky install",
     "watch": "lerna run watch",
     "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "phpcs": "./drupal/vendor/bin/phpcs -p -s --colors --standard=modules/next/phpcs.xml modules/next",
     "test:next": "./drupal/vendor/bin/phpunit -c ./drupal/web modules/next",
     "sync:modules": "./scripts/sync-modules.sh \"modules/*\"",
@@ -24,6 +25,8 @@
     "sync:starters": "./scripts/sync-starters.sh \"starters/*\"",
     "seed": "NUM_NODES=200 node ./scripts/seed",
     "cy:open": "turbo run cy:open --parallel",
+    "test": "jest",
+    "pretest": "yarn format:check && yarn lint",
     "test:e2e": "turbo run test:e2e --parallel",
     "test:e2e:ci": "turbo run test:e2e:ci --parallel"
   },

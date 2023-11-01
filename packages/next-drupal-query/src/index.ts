@@ -185,7 +185,7 @@ type Queries<Q> = Record<
 type QueryTypeOf<
   Q extends Queries<Q>,
   T extends keyof Q,
-  F extends "params" | "data" | "formatter" | "placeholder"
+  F extends "params" | "data" | "formatter" | "placeholder",
 > = Q[T][F]
 
 // type QueryId<Q = null> = keyof Q
@@ -200,7 +200,7 @@ type QueryDataOpts<Q extends Queries<Q>, T extends keyof Q> = Parameters<
 
 type QueryPlaceholderDataOpts<
   Q extends Queries<Q>,
-  T extends keyof Q
+  T extends keyof Q,
 > = Parameters<Q[T]["placeholder"]>[0]
 
 type QueryFormatterInput<Q extends Queries<Q>, T extends keyof Q> = Parameters<
@@ -213,7 +213,7 @@ type QueryDataReturn<Q extends Queries<Q>, T extends keyof Q> = ReturnType<
 
 type QueryPlaceholderDataReturn<
   Q extends Queries<Q>,
-  T extends keyof Q
+  T extends keyof Q,
 > = ReturnType<QueryTypeOf<Q, T, "placeholder">>
 
 type QueryFormatterReturn<Q extends Queries<Q>, T extends keyof Q> = ReturnType<
@@ -268,7 +268,7 @@ export function massageRouteQuery(query) {
 export function createQueries<Q extends Readonly<Queries<Q>>>(queries: Q) {
   const getRawData = async <
     T extends ConditionalKeys<Q, { data }>,
-    O extends QueryDataOpts<Q, T>
+    O extends QueryDataOpts<Q, T>,
   >(
     id: T,
     opts: O = null
@@ -305,7 +305,7 @@ export function createQueries<Q extends Readonly<Queries<Q>>>(queries: Q) {
 
   const getPlaceholderData = async <
     T extends ConditionalKeys<Q, { data }>,
-    O extends QueryPlaceholderDataOpts<Q, T>
+    O extends QueryPlaceholderDataOpts<Q, T>,
   >(
     id: T,
     opts: O = null
@@ -328,7 +328,7 @@ export function createQueries<Q extends Readonly<Queries<Q>>>(queries: Q) {
 
   const formatData = <
     T extends ConditionalKeys<Q, { formatter }>,
-    Input extends QueryFormatterInput<Q, T>
+    Input extends QueryFormatterInput<Q, T>,
   >(
     id: T,
     input: Input
@@ -357,17 +357,17 @@ export function createQueries<Q extends Readonly<Queries<Q>>>(queries: Q) {
 
   async function getData<
     T extends ConditionalKeys<Q, { formatter; data }>,
-    O extends QueryDataOpts<Q, T>
+    O extends QueryDataOpts<Q, T>,
   >(id: T, opts?: O): Promise<QueryFormatterReturn<Q, T>>
 
   async function getData<
     T extends ConditionalKeys<Q, { data }>,
-    O extends QueryDataOpts<Q, T>
+    O extends QueryDataOpts<Q, T>,
   >(id: T, opts?: O): Promise<QueryDataReturn<Q, T>>
 
   async function getData<
     T extends ConditionalKeys<Q, { placeholder }>,
-    O extends QueryPlaceholderDataOpts<Q, T>
+    O extends QueryPlaceholderDataOpts<Q, T>,
   >(id: T, opts?: O): Promise<QueryPlaceholderDataReturn<Q, T>>
 
   async function getData(id, opts = null) {
@@ -412,7 +412,7 @@ export function createQueries<Q extends Readonly<Queries<Q>>>(queries: Q) {
     },
     getParams: <
       T extends ConditionalKeys<Q, { params }>,
-      O extends QueryParamsOpts<Q, T>
+      O extends QueryParamsOpts<Q, T>,
     >(
       id: T = null,
       opts: O = null

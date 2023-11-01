@@ -1,14 +1,26 @@
-cache
-.cache
+# Ignore everything.
+/*
+
+# Don't ignore some files in the root directory.
+!/*.js
+!/*.ts
+!/*.md
+!/*.json
+
+# Don't ignore these nested directories.
+!/examples
+!/modules
+!/packages
+!/scripts
+!/starters
+!/test
+!/www
+
+# In any nested folder, ignore these paths:
+.next
+CHANGELOG.md
+composer.json
+dist
 package.json
 package-lock.json
 public
-CHANGELOG.md
-.yarn
-packages/codemod/transforms/__testfixtures__/**/*
-packages/codemod/transforms/__tests__/**/*
-packages/codemod/**/*.js
-packages/codemod/**/*.d.ts
-dist
-.next
-/drupal

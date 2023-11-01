@@ -7,7 +7,7 @@
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.modern.js",
-  "types": "dist/types.d.ts",
+  "types": "dist/index.d.ts",
   "license": "MIT",
   "publishConfig": {
     "access": "public"

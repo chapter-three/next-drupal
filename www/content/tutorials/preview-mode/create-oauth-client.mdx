@@ -27,9 +27,14 @@ As from `next-drupal 1.5`, user roles are used for OAuth scopes. The scopes are 
 
 Next, assign the following permissions to the newly created role.
 
-- Bypass content access control
-- Issue subrequests
-- View user information
+
+  - 'access content'
+  - 'access user profiles'
+  - 'issue subrequests'
+  - 'view all revisions'
+  - 'view any unpublished content'
+  - 'view latest version'
+  - 'view media'
 
 <Callout>
 
@@ -55,7 +60,7 @@ const articles = await drupal.getResource(
 
 ## 3. Create User
 
-Add a new user at `/admin/people/create` and **assign them all the roles that are going to be used for scopes, including the administrator role and the role we created above**.
+Add a new user at `/admin/people/create` and **assign them all the roles that are going to be used for scopes, including the role we created above**.
 
 ---
 

@@ -11,12 +11,13 @@
     "www"
   ],
   "scripts": {
-    "test": "jest",
     "dev": "turbo run dev --parallel",
     "dev:starter": "lerna run --parallel --scope drupal --scope basic-starter dev",
     "prepare": "lerna run prepare && husky install",
     "watch": "lerna run watch",
     "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "phpcs": "./drupal/vendor/bin/phpcs -p -s --colors --standard=modules/next/phpcs.xml modules/next",
     "test:next": "./drupal/vendor/bin/phpunit -c ./drupal/web modules/next",
     "sync:modules": "./scripts/sync-modules.sh \"modules/*\"",
@@ -24,6 +25,8 @@
     "sync:starters": "./scripts/sync-starters.sh \"starters/*\"",
     "seed": "NUM_NODES=200 node ./scripts/seed",
     "cy:open": "turbo run cy:open --parallel",
+    "test": "jest",
+    "pretest": "yarn format:check && yarn lint",
     "test:e2e": "turbo run test:e2e --parallel",
     "test:e2e:ci": "turbo run test:e2e:ci --parallel"
   },
@@ -50,18 +53,18 @@
     "@typescript-eslint/parser": "^5.62.0",
     "cypress": "^9.7.0",
     "eslint": "^8.51.0",
-    "eslint-config-prettier": "^8.10.0",
+    "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-cypress": "^2.15.1",
-    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-react": "^7.33.2",
     "faker": "^6.6.6",
     "husky": "^8.0.3",
     "isomorphic-fetch": "^3.0.0",
     "jest": "^27.5.1",
     "lerna": "^4.0.0",
+    "lint-staged": "^15.0.2",
     "microbundle": "^0.15.1",
-    "prettier": "^2.8.8",
-    "pretty-quick": "^3.1.3",
+    "prettier": "^3.0.3",
     "start-server-and-test": "^1.15.5",
     "ts-jest": "^27.1.5",
     "ts-node": "^10.9.1",
@@ -69,8 +72,5 @@
     "typescript": "^4.9.5",
     "uuid": "^9.0.1",
     "yaml": "^2.3.3"
-  },
-  "engines": {
-    "node": ">=16.19.0"
   }
 }

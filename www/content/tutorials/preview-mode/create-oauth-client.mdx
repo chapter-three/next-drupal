@@ -27,7 +27,6 @@ As from `next-drupal 1.5`, user roles are used for OAuth scopes. The scopes are 
 
 Next, assign the following permissions to the newly created role.
 
-
   - 'access content'
   - 'access user profiles'
   - 'issue subrequests'
@@ -38,7 +37,7 @@ Next, assign the following permissions to the newly created role.
 
 <Callout>
 
-We are assigning the _Bypass content access control_ permission to allow Next.js to access unpublished content and revisions.
+We are assigning the _view all revisions_ and _view any unpublished content_ permissions to allow Next.js to access unpublished content and revisions.
 
 This scope is only going to be used when making authenticated requests from Next.js to Drupal.
 

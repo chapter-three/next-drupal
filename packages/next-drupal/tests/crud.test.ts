@@ -1,5 +1,5 @@
 import { expect } from "@jest/globals"
-import { DrupalClient } from "../src/client"
+import { DrupalClient } from "next-drupal-build-testing"
 import type { DrupalNode } from "../src/types"
 import { BASE_URL, deleteTestNodes, toggleDrupalModule } from "./utils"
 

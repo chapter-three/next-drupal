@@ -1,4 +1,4 @@
-import { DrupalClient } from "../src/client"
+import { DrupalClient } from "next-drupal-build-testing"
 
 // Run all tests against this env until we configure CI to setup a Drupal instance.
 // TODO: Bootstrap and expose the /drupal env for testing.

@@ -27,6 +27,9 @@
     "cy:open": "turbo run cy:open --parallel",
     "test": "jest",
     "pretest": "yarn format:check && yarn lint",
+    "test:build": "yarn prepare && yarn test:build:esm && yarn test:build:cjs",
+    "test:build:esm": "TEST_ENV=esm jest",
+    "test:build:cjs": "TEST_ENV=cjs jest",
     "test:e2e": "turbo run test:e2e --parallel",
     "test:e2e:ci": "turbo run test:e2e:ci --parallel"
   },

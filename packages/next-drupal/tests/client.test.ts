@@ -1,6 +1,6 @@
 import { expect } from "@jest/globals"
 import { GetStaticPropsContext } from "next"
-import { DrupalClient } from "../src/client"
+import { DrupalClient } from "next-drupal-build-testing"
 import type {
   Serializer,
   DrupalNode,

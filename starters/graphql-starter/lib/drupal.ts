@@ -32,7 +32,7 @@ export async function query<DataType>(payload: QueryPayload) {
     withAuth: true, // Make authenticated requests using OAuth.
     headers: {
       "Content-Type": "application/json",
-      "Accept": "application/json",
+      Accept: "application/json",
     },
   })
 

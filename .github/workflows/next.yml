@@ -1,6 +1,8 @@
 name: next
 on:
   push:
+    branches:
+      - main
   pull_request:
     branches:
       - main

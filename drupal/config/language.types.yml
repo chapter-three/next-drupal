@@ -9,11 +9,31 @@ configurable:
 negotiation:
   language_content:
     enabled:
-      language-interface: 0
+      language-interface: 9
+    method_weights:
+      language-graphql-operation: -999
+      language-content-entity: -9
+      language-url: -8
+      language-session: -6
+      language-user: -4
+      language-browser: -2
+      language-interface: 9
+      language-selected: 12
   language_url:
     enabled:
       language-url: 0
       language-url-fallback: 1
   language_interface:
     enabled:
-      language-url: 0
+      language-graphql-operation: -999
+      language-url: -8
+      language-user: -4
+      language-selected: 12
+    method_weights:
+      language-graphql-operation: -999
+      language-user-admin: -10
+      language-url: -8
+      language-session: -6
+      language-user: -4
+      language-browser: -2
+      language-selected: 12

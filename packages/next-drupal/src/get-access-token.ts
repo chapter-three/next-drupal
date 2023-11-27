@@ -1,5 +1,5 @@
 import { cache } from "./get-cache"
-import { AccessToken } from "./types"
+import type { AccessToken } from "./types"
 
 const CACHE_KEY = "NEXT_DRUPAL_ACCESS_TOKEN"
 

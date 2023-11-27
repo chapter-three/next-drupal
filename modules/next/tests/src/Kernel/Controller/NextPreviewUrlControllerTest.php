@@ -50,7 +50,7 @@ class NextPreviewUrlControllerTest extends KernelTestBase {
       'id' => 'blog',
       'base_url' => 'https://blog.com',
       'preview_url' => 'https://blog.com/api/preview',
-      'preview_secret' => 'one'
+      'preview_secret' => 'one',
     ]);
     $this->nextSite->save();
 

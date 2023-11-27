@@ -6,7 +6,6 @@ use Drupal\Core\Database\Database;
 use Drupal\dblog\Controller\DbLogController;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\next\Entity\NextEntityTypeConfig;
-use Drupal\node\Entity\NodeType;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 
 /**

@@ -1,0 +1,47 @@
+label: Tiendas
+display:
+  default:
+    display_title: Máster
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Aplicar
+          reset_button_label: Restablecer
+          exposed_sorts_label: "Ordenar por"
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        options:
+          expose:
+            items_per_page_label: "Elementos por página"
+            items_per_page_options_all_label: "- Todo -"
+            offset_label: Desplazamiento
+          tags:
+            previous: "‹ anterior"
+            next: "siguiente ›"
+            first: "« primero"
+            last: "último »"
+      fields:
+        commerce_store_bulk_form:
+          action_title: "Con selección"
+        name:
+          label: Nombre
+          separator: ", "
+        changed:
+          label: Actualizado
+          separator: ", "
+        type:
+          label: Tipo
+          separator: ", "
+        operations:
+          label: Operaciones
+      filters:
+        type:
+          expose:
+            label: Tipo
+      title: Tiendas
+      empty:
+        area_text_custom:
+          content: "No hay tiendas disponibles."
+  page_1:
+    display_title: Página

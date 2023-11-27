@@ -1,17 +1,23 @@
 _core:
   default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc
 module:
+  address: 0
   admin_toolbar: 0
   admin_toolbar_tools: 0
   automated_cron: 0
-  basic_auth: 0
   big_pipe: 0
   block: 0
   block_content: 0
   breakpoint: 0
   ckeditor: 0
+  commerce: 0
+  commerce_price: 0
+  commerce_product: 0
+  commerce_store: 0
   config: 0
+  config_inspector: 0
   config_pages: 0
+  consumer_image_styles: 0
   consumers: 0
   content_moderation: 0
   contextual: 0
@@ -19,20 +25,25 @@ module:
   datetime: 0
   dblog: 0
   decoupled_router: 0
+  devel: 0
+  devel_generate: 0
   dynamic_page_cache: 0
   editor: 0
+  entity: 0
   entity_reference_revisions: 0
   entity_usage: 0
   example_auth: 0
   facets: 0
   field: 0
   field_group: 0
+  field_permissions: 0
   field_ui: 0
   file: 0
   filter: 0
   gin_login: 0
   gin_toolbar: 0
-  hal: 0
+  graphql: 0
+  graphql_compose: 0
   image: 0
   inline_entity_form: 0
   jsonapi: 0
@@ -42,7 +53,10 @@ module:
   jsonapi_search_api: 0
   jsonapi_search_api_facets: 0
   jsonapi_views: 0
+  key: 0
   language: 0
+  layout_builder: 0
+  layout_discovery: 0
   link: 0
   locale: 0
   media: 0
@@ -54,6 +68,7 @@ module:
   mysql: 0
   next: 0
   next_extras: 0
+  next_graphql: 0
   next_jsonapi: 0
   node: 0
   options: 0
@@ -70,13 +85,13 @@ module:
   simple_oauth: 0
   subrequests: 0
   system: 0
-  tablefield: 0
-  tablefield_required: 0
   taxonomy: 0
   text: 0
   token: 0
   toolbar: 0
+  typed_data: 0
   update: 0
+  upgrade_status: 0
   user: 0
   views_ui: 0
   webform: 0

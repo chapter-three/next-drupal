@@ -1,0 +1,130 @@
+display:
+  default:
+    display_title: Máster
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Aplicar
+          reset_button_label: Restablecer
+          exposed_sorts_label: "Ordenar por"
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        options:
+          tags:
+            previous: ‹‹
+            next: ››
+            first: "« Primero"
+            last: "Último »"
+          expose:
+            items_per_page_label: "Elementos por página"
+            items_per_page_options_all_label: "- Todo -"
+            offset_label: Desplazamiento
+      fields:
+        sid:
+          label: Nº
+          separator: ", "
+        in_draft:
+          separator: ", "
+        created:
+          label: Creado
+          separator: ", "
+        remote_addr:
+          label: "Direccion(es) IP"
+          separator: ", "
+        view_webform_submission:
+          label: Operaciones
+      arguments:
+        in_draft:
+          exception:
+            title: Todo(s)
+  embed_administer:
+    display_options:
+      fields:
+        webform_submission_bulk_form:
+          action_title: Acción
+        sid:
+          label: Nº
+          separator: ", "
+        in_draft:
+          separator: ", "
+        sticky:
+          separator: ", "
+        locked:
+          label: Bloqueado
+          separator: ", "
+        created:
+          label: Creado
+          separator: ", "
+        completed:
+          label: Completado
+          separator: ", "
+        remote_addr:
+          label: "Direccion(es) IP"
+          separator: ", "
+        operations:
+          label: Operaciones
+      filters:
+        locked:
+          expose:
+            label: Bloqueado
+  embed_manage:
+    display_options:
+      fields:
+        webform_submission_bulk_form:
+          action_title: Acción
+        sid:
+          label: Nº
+          separator: ", "
+        in_draft:
+          separator: ", "
+        sticky:
+          separator: ", "
+        locked:
+          label: Bloqueado
+          separator: ", "
+        created:
+          label: Creado
+          separator: ", "
+        completed:
+          label: Completado
+          separator: ", "
+        remote_addr:
+          label: "Direccion(es) IP"
+          separator: ", "
+        view_webform_submission:
+          label: Operaciones
+        edit_webform_submission:
+          label: Operaciones
+      filters:
+        locked:
+          expose:
+            label: Bloqueado
+  embed_review:
+    display_options:
+      fields:
+        sid:
+          label: Nº
+          separator: ", "
+        in_draft:
+          separator: ", "
+        sticky:
+          separator: ", "
+        locked:
+          label: Bloqueado
+          separator: ", "
+        created:
+          label: Creado
+          separator: ", "
+        completed:
+          label: Completado
+          separator: ", "
+        remote_addr:
+          label: "Direccion(es) IP"
+          separator: ", "
+        view_webform_submission:
+          label: Operaciones
+      filters:
+        locked:
+          expose:
+            label: Bloqueado

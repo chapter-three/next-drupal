@@ -10,7 +10,7 @@ export default class extends Document {
           <link
             rel="preconnect"
             href={`https://${process.env.NEXT_PUBLIC_ALGOLIA_APP_ID}-dsn.algolia.net`}
-            crossOrigin="true"
+            crossOrigin="anonymous"
           />
         </Head>
         <body>

@@ -55,7 +55,7 @@ class SiteResolverTest extends KernelTestBase {
       'id' => 'blog',
       'base_url' => 'https://blog.com',
       'preview_url' => 'https://blog.com/api/preview',
-      'preview_secret' => 'one'
+      'preview_secret' => 'one',
     ]);
     $blog->save();
 
@@ -64,7 +64,7 @@ class SiteResolverTest extends KernelTestBase {
       'id' => 'marketing',
       'base_url' => 'https://marketing.com',
       'preview_url' => 'https://marketing.com/api/preview',
-      'preview_secret' => 'two'
+      'preview_secret' => 'two',
     ]);
     $marketing->save();
 

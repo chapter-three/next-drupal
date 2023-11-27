@@ -176,8 +176,8 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
    * {@inheritdoc}
    */
   public function getPreviewUrlForEntity(EntityInterface $entity): Url {
-    // Anonymous users do not have access to the preview url.
-    // Same for authenticated users with no additional roles, since we assume no scope.
+    // Anonymous users do not have access to the preview url. Same for
+    // authenticated users with no additional roles, since we assume no scope.
     if (\Drupal::currentUser()->isAnonymous() || (!count(\Drupal::currentUser()->getRoles(TRUE)) && \Drupal::currentUser()->id() !== "1")) {
       return $this->getLiveUrlForEntity($entity);
     }
@@ -190,20 +190,21 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
       /** @var \Drupal\Core\Entity\RevisionableInterface $entity */
       $rel = NULL;
 
-      // In Drupal terms, a "working copy" is the latest revision. It may or may not
-      // be a "default" revision. This revision is the working copy because it is
-      // the revision to which new work will be applied. In other words, it denotes
-      // the most recent revision which might be considered a work-in-progress.
+      // In Drupal terms, a "working copy" is the latest revision. It may or may
+      // not be a "default" revision. This revision is the working copy because
+      // it is the revision to which new work will be applied. In other words,
+      // it denotes the most recent revision which might be considered a
+      // work-in-progress.
       // @see \Drupal\jsonapi\Revisions\VersionByRel
       if ($entity->isLatestRevision()) {
         $rel = 'working-copy';
       }
 
-      // In Drupal terms, the "latest version" is the latest "default" revision. It
-      // may or may not have later revisions after it, as long as none of them are
-      // "default" revisions. This revision is the latest version because it is the
-      // last revision where work was considered finished. Typically, this means
-      // that it is the most recent "published" revision.
+      // In Drupal terms, the "latest version" is the latest "default" revision.
+      // It may or may not have later revisions after it, as long as none of
+      // them are "default" revisions. This revision is the latest version
+      // because it is the last revision where work was considered finished.
+      // Typically, this means that it is the most recent "published" revision.
       // @see \Drupal\jsonapi\Revisions\VersionByRel
       if ($entity->isDefaultRevision()) {
         $rel = 'latest-version';
@@ -211,7 +212,7 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
       $resource_version = $rel ? "rel:$rel" : "id:{$entity->getRevisionId()}";
     }
 
-    // TODO: Extract this to a service.
+    // @todo Extract this to a service.
     /** @var \Drupal\next\NextSettingsManagerInterface $next_settings */
     $next_settings = \Drupal::service('next.settings.manager');
     $preview_url_generator = $next_settings->getPreviewUrlGenerator();
@@ -228,8 +229,8 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
 
     $query = $preview_url->getOption('query');
 
-    // Add the plugin to the query.
-    // This allows next.js app to determine the preview strategy based on the plugin.
+    // Add the plugin to the query. This allows next.js app to determine the
+    // preview strategy based on the plugin.
     $query['plugin'] = $preview_url_generator->getId();
 
     // Add the locale to the query.

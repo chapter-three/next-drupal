@@ -1,0 +1,21 @@
+uuid: ab7a65c7-744c-4a72-bd79-50fcf792684e
+langcode: en
+status: true
+dependencies:
+  module:
+    - next_extras
+third_party_settings:
+  next_extras:
+    revalidate: true
+    revalidate_paths: /properties
+id: node.property_listing
+site_resolver: site_selector
+configuration:
+  sites:
+    example_marketing: example_marketing
+    basic_starter: "0"
+    example_blog: "0"
+revalidator: path
+revalidator_configuration:
+  revalidate_page: true
+  additional_paths: /properties

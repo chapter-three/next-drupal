@@ -1,0 +1,9 @@
+uuid: 0319f180-325a-49a5-ba33-78a349a7060b
+langcode: en
+status: true
+dependencies: {}
+id: example_commerce
+label: "Example Commerce"
+base_url: "http://localhost:3333"
+preview_url: "http://localhost:3333/api/preview"
+preview_secret: secret

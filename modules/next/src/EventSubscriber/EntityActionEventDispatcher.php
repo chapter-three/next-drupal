@@ -7,6 +7,9 @@ use Drupal\next\Event\EntityActionEvent;
 use Drupal\next\Event\EntityEvents;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
+/**
+ * Defines an event subscriber for dispatching entity events.
+ */
 final class EntityActionEventDispatcher implements DestructableInterface {
 
   /**
@@ -14,11 +17,23 @@ final class EntityActionEventDispatcher implements DestructableInterface {
    */
   private array $events = [];
 
+  /**
+   * EntityActionEventDispatcher constructor.
+   *
+   * @param \Drupal\next\NextEntityTypeManagerInterface $next_entity_type_manager
+   *   The next entity type manager.
+   */
   public function __construct(
     private EventDispatcherInterface $eventDispatcher
     ) {
   }
 
+  /**
+   * Adds an event to be dispatched at the end of the request.
+   *
+   * @param \Drupal\next\Event\EntityActionEvent $event
+   *   The event.
+   */
   public function addEvent(EntityActionEvent $event): void {
     $this->events[] = $event;
   }

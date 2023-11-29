@@ -1,13 +1,12 @@
 import Image from "next/image"
-import { DrupalNode } from "next-drupal"
+import { absoluteUrl, formatDate } from "@/lib/utils"
+import type { DrupalNode } from "next-drupal"
 
-import { absoluteUrl, formatDate } from "lib/utils"
-
-interface NodeArticleProps {
+interface ArticleProps {
   node: DrupalNode
 }
 
-export function NodeArticle({ node, ...props }: NodeArticleProps) {
+export function Article({ node, ...props }: ArticleProps) {
   return (
     <article {...props}>
       <h1 className="mb-4 text-6xl font-black leading-tight">{node.title}</h1>
@@ -26,7 +25,7 @@ export function NodeArticle({ node, ...props }: NodeArticleProps) {
             src={absoluteUrl(node.field_image.uri.url)}
             width={768}
             height={400}
-            alt={node.field_image.resourceIdObjMeta.alt}
+            alt={node.field_image.resourceIdObjMeta.alt || ""}
             priority
           />
           {node.field_image.resourceIdObjMeta.title && (

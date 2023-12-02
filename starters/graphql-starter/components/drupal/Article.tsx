@@ -1,13 +1,12 @@
 import Image from "next/image"
+import { formatDate } from "@/lib/utils"
+import type { NodeArticle } from "@/types"
 
-import { formatDate } from "lib/utils"
-import { Article } from "types"
-
-interface NodeArticleProps {
-  node: Article
+interface ArticleProps {
+  node: NodeArticle
 }
 
-export function NodeArticle({ node, ...props }: NodeArticleProps) {
+export function Article({ node, ...props }: ArticleProps) {
   return (
     <article {...props}>
       <h1 className="mb-4 text-6xl font-black leading-tight">{node.title}</h1>
@@ -21,18 +20,19 @@ export function NodeArticle({ node, ...props }: NodeArticleProps) {
         <span> - {formatDate(node.created)}</span>
       </div>
       {node.image && (
-        <figure className="my-4">
+        <figure>
           <Image
             src={node.image.url}
             width={768}
-            height={480}
-            alt={node.title}
+            height={400}
+            alt=""
+            priority
           />
         </figure>
       )}
       {node.body?.processed && (
         <div
-          dangerouslySetInnerHTML={{ __html: node.body.processed }}
+          dangerouslySetInnerHTML={{ __html: node.body?.processed }}
           className="mt-6 font-serif text-xl leading-loose prose"
         />
       )}

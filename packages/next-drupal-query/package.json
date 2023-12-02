@@ -6,8 +6,20 @@
   "source": "src/index.ts",
   "type": "module",
   "main": "dist/index.cjs",
-  "module": "dist/index.modern.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -17,8 +29,8 @@
     "url": "https://twitter.com/shadcn"
   },
   "scripts": {
-    "prepare": "microbundle --no-compress --jsx React.createElement --format modern,cjs",
-    "dev": "microbundle watch --no-compress --jsx React.createElement --format modern,cjs",
+    "prepare": "tsup",
+    "dev": "tsup --watch",
     "test": "jest"
   },
   "keywords": [
@@ -37,13 +49,12 @@
     "directory": "packages/next-drupal-query"
   },
   "devDependencies": {
-    "rollup-plugin-node-builtins": "^2.1.2",
-    "typescript": "^4.9.5"
+    "type-fest": "^4.8.1",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
     "deepmerge": "^4.3.1",
     "drupal-jsonapi-params": "^2.3.1",
-    "next": "^12.2.3 || ^13",
-    "type-fest": "^2.19.0"
+    "next": "^12.2.3 || ^13 || ^14"
   }
 }

@@ -30,6 +30,10 @@ export async function query<DataType>(payload: QueryPayload) {
     method: "POST",
     body: JSON.stringify(payload),
     withAuth: true, // Make authenticated requests using OAuth.
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
   })
 
   if (!response?.ok) {

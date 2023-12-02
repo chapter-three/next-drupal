@@ -1,34 +1,18 @@
-import { GetStaticPathsResult, GetStaticPropsResult } from "next"
 import Head from "next/head"
+import { Article } from "@/components/drupal/Article"
+import { BasicPage } from "@/components/drupal/BasicPage"
+import { Layout } from "@/components/Layout"
+import { drupal, query } from "@/lib/drupal"
+import type {
+  GetStaticPaths,
+  GetStaticProps,
+  InferGetStaticPropsType,
+} from "next"
+import type { NodeArticle, NodePage, NodesPath } from "@/types"
 
-import { Article, NodesPath, Page } from "types"
-import { drupal, query } from "lib/drupal"
-import { NodeArticle } from "components/node--article"
-import { NodeBasicPage } from "components/node--basic-page"
-import { Layout } from "components/layout"
-
-interface NodePageProps {
-  resource: Article | Page
-}
-
-export default function NodePage({ resource }: NodePageProps) {
-  if (!resource) return null
-
-  return (
-    <Layout>
-      <Head>
-        <title>{resource.title}</title>
-        <meta name="description" content="A Next.js site powered by Drupal." />
-      </Head>
-      {resource.__typename === "NodePage" && <NodeBasicPage node={resource} />}
-      {resource.__typename === "NodeArticle" && <NodeArticle node={resource} />}
-    </Layout>
-  )
-}
-
-export async function getStaticPaths(context): Promise<GetStaticPathsResult> {
+export const getStaticPaths = (async (context) => {
   // Fetch the paths for the first 50 articles and pages.
-  // We'll fallback to on-demand generation for the rest.
+  // We'll fall back to on-demand generation for the rest.
   const data = await query<{
     nodeArticles: NodesPath
     nodePages: NodesPath
@@ -49,20 +33,19 @@ export async function getStaticPaths(context): Promise<GetStaticPathsResult> {
 
   // Build static paths.
   const paths = drupal.buildStaticPathsParamsFromPaths(
-    [...data?.nodeArticles?.nodes, ...data?.nodePages?.nodes].map(
-      ({ path }) => path
-    )
+    [
+      ...(data?.nodeArticles?.nodes as []),
+      ...(data?.nodePages?.nodes as []),
+    ].map(({ path }) => path)
   )
 
   return {
     paths,
     fallback: "blocking",
   }
-}
+}) satisfies GetStaticPaths
 
-export async function getStaticProps(
-  context
-): Promise<GetStaticPropsResult<NodePageProps>> {
+export const getStaticProps = (async (context) => {
   if (!context?.params?.slug) {
     return {
       notFound: true,
@@ -70,7 +53,7 @@ export async function getStaticProps(
   }
 
   const data = await query<{
-    nodeByPath: Article
+    nodeByPath: NodeArticle | NodePage
   }>({
     query: `query ($path: String!){
       nodeByPath(path: $path) {
@@ -124,4 +107,27 @@ export async function getStaticProps(
       resource,
     },
   }
+}) satisfies GetStaticProps<{
+  resource: NodeArticle | NodePage
+}>
+
+export default function Page({
+  resource,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
+  if (!resource) return null
+
+  return (
+    <Layout>
+      <Head>
+        <title>{resource.title}</title>
+        <meta
+          name="description"
+          content="A Next.js site powered by Drupal."
+          key="description"
+        />
+      </Head>
+      {resource.__typename === "NodePage" && <BasicPage node={resource} />}
+      {resource.__typename === "NodeArticle" && <Article node={resource} />}
+    </Layout>
+  )
 }

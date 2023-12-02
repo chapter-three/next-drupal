@@ -1,8 +1,8 @@
 import Link from "next/link"
+import { PreviewAlert } from "@/components/PreviewAlert"
+import type { ReactNode } from "react"
 
-import { PreviewAlert } from "components/preview-alert"
-
-export function Layout({ children }) {
+export function Layout({ children }: { children: ReactNode }) {
   return (
     <>
       <PreviewAlert />

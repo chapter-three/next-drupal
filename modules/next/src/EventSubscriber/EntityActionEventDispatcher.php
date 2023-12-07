@@ -13,15 +13,14 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 final class EntityActionEventDispatcher implements DestructableInterface {
 
   /**
+   * The events to dispach.
+   *
    * @var \Drupal\next\Event\EntityActionEvent[]
    */
   private array $events = [];
 
   /**
    * EntityActionEventDispatcher constructor.
-   *
-   * @param \Drupal\next\NextEntityTypeManagerInterface $next_entity_type_manager
-   *   The next entity type manager.
    */
   public function __construct(
     private EventDispatcherInterface $eventDispatcher

@@ -44,7 +44,7 @@
   "scripts": {
     "prepare": "tsup",
     "dev": "tsup --watch",
-    "test": "jest"
+    "test": "jest --verbose"
   },
   "keywords": [
     "next.js",

@@ -3,6 +3,7 @@
 namespace Drupal\next\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Url;
 use Drupal\next\Entity\NextSiteInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,10 +57,11 @@ class NextSiteEntityController extends ControllerBase {
       'NEXT_IMAGE_DOMAIN' => $this->request->getHost(),
     ];
 
+    $path = Url::fromRoute('entity.consumer.collection')->toString();
     $variables += [
       'authentication_bearer' => '# Authentication',
-      'DRUPAL_CLIENT_ID' => 'Retrieve this from /admin/config/services/consumer',
-      'DRUPAL_CLIENT_SECRET' => 'Retrieve this from /admin/config/services/consumer',
+      'DRUPAL_CLIENT_ID' => 'Retrieve this from ' . $path,
+      'DRUPAL_CLIENT_SECRET' => 'Retrieve this from ' . $path,
     ];
 
     if ($secret = $next_site->getPreviewSecret()) {

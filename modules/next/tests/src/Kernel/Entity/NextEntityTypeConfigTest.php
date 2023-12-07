@@ -139,4 +139,27 @@ class NextEntityTypeConfigTest extends KernelTestBase {
     $this->assertSame('path', $revalidator->getId());
   }
 
+  /**
+   * Tests config dependency calculation.
+   */
+  public function testConfigDependencies(): void {
+    $blog_site = NextSite::create([
+      'id' => 'blog',
+    ]);
+    $blog_site->save();
+
+    // Create entity type config.
+    /** @var \Drupal\next\Entity\NextEntityTypeConfigInterface $entity_type_config */
+    $entity_type_config = NextEntityTypeConfig::create([
+      'id' => 'node.page',
+      'site_resolver' => 'site_selector',
+      'configuration' => [
+        'sites' => [
+          'blog' => 'blog',
+        ],
+      ],
+    ]);
+    self::assertEquals([], $entity_type_config->getDependencies());
+  }
+
 }

@@ -16,21 +16,21 @@ export function Meta({ title, description }: MetaProps) {
   return (
     <Head>
       <link
-        key="head_link_canonical"
+        key="canonical_link"
         rel="canonical"
         href={absoluteURL(router.asPath !== "/" ? router.asPath : "")}
       />
-      <title key="head_title">
+      <title key="title">
         {`${title} | ${siteConfig.name}`}
       </title>
-      <meta key="head_meta_description" name="description" content={description || siteConfig.slogan} />
+      <meta key="description" name="description" content={description || siteConfig.slogan} />
       <meta
-        key="head_meta_og:image"
+        key="og_image"
         property="og:image"
         content={`${process.env.NEXT_PUBLIC_BASE_URL}/images/meta.jpg`}
       />
-      <meta key="head_meta_og:image:width" property="og:image:width" content="800" />
-      <meta key="head_meta_og:image:height" property="og:image:height" content="600" />
+      <meta key="og_image_width" property="og:image:width" content="800" />
+      <meta key="og_image_height" property="og:image:height" content="600" />
     </Head>
   )
 }

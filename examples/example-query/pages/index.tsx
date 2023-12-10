@@ -15,9 +15,9 @@ export default function IndexPage({
   return (
     <Layout menu={menu}>
       <Head>
-        <title key="head_title">Example Query</title>
+        <title key="title">Example Query</title>
         <meta
-          key="head_meta_description"
+          key="description"
           name="description"
           content="A Next.js site powered by a Drupal backend."
         />

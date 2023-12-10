@@ -20,9 +20,7 @@ export function Meta({ title, description }: MetaProps) {
         rel="canonical"
         href={absoluteURL(router.asPath !== "/" ? router.asPath : "")}
       />
-      <title key="title">
-        {`${title} | ${siteConfig.name}`}
-      </title>
+      <title key="title">{`${title} | ${siteConfig.name}`}</title>
       <meta key="description" name="description" content={description || siteConfig.slogan} />
       <meta
         key="og_image"

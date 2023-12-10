@@ -1,4 +1,4 @@
-import { Logger } from "."
+import type { Logger } from "./types"
 
 // Default logger. Uses console.
 export const logger: Logger = {

@@ -11,7 +11,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\Url;
-use Drupal\next\Annotation\PreviewUrlGenerator;
 use Drupal\next\Entity\NextSiteInterface;
 use Drupal\next\Exception\InvalidPreviewUrlRequest;
 use Drupal\next\Plugin\ConfigurablePreviewUrlGeneratorBase;

@@ -4990,7 +4990,7 @@ Object {
 }
 `;
 
-exports[`getStaticPathsFromContext it returns static paths for multiple resoure types from context 1`] = `
+exports[`getStaticPathsFromContext it returns static paths for multiple resource types from context 1`] = `
 Array [
   Object {
     "locale": "en",

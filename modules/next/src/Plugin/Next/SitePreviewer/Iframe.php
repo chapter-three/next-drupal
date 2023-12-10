@@ -10,7 +10,6 @@ use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Url;
 use Drupal\next\Form\IframeSitePreviewerSwitcherForm;
 use Drupal\next\Plugin\ConfigurableSitePreviewerBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -191,7 +190,7 @@ class Iframe extends ConfigurableSitePreviewerBase implements ContainerFactoryPl
           'class' => [
             $entity->isPublished() ? 'published' : '',
           ],
-        ]
+        ],
       ];
     }
 
@@ -243,8 +242,8 @@ class Iframe extends ConfigurableSitePreviewerBase implements ContainerFactoryPl
             'iframe_preview' => [
               'sync_route' => $this->configuration['sync_route'],
               'skip_routes' => array_map('trim', explode("\n", mb_strtolower($this->configuration['sync_route_skip_routes']))),
-            ]
-          ]
+            ],
+          ],
         ],
         'library' => [
           'next/site_preview.iframe',

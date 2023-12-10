@@ -57,7 +57,7 @@ class PathRevalidatorTest extends KernelTestBase {
     $this->container->set('http_client', $client->reveal());
 
     $blog_site = NextSite::create([
-      'id' => 'blog'
+      'id' => 'blog',
     ]);
     $blog_site->save();
 
@@ -108,7 +108,7 @@ class PathRevalidatorTest extends KernelTestBase {
     _drupal_shutdown_function();
 
     $entity_type_config->setRevalidatorConfiguration('path', [
-      'additional_paths' => "/\n/blog"
+      'additional_paths' => "/\n/blog",
     ])->save();
 
     $client->request('GET', 'http://marketing.com/api/revalidate?slug=/node/3&secret=12345')->shouldBeCalled();

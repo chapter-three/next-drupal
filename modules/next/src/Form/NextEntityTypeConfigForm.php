@@ -62,8 +62,10 @@ class NextEntityTypeConfigForm extends EntityForm {
    */
   public function __construct(EntityTypeManagerInterface $entity_type_manager, EntityTypeBundleInfoInterface $entity_type_bundle_info, SiteResolverManagerInterface $site_resolver_manager, RevalidatorManagerInterface $revalidator_manager = NULL) {
     if (!$revalidator_manager) {
-      @trigger_error('Calling NextEntityTypeConfigForm::__construct() without the $revalidator_manager argument is deprecated in next:1.4.0. The $revalidator_manager argument will be required in next:2.0.0. See https://www.drupal.org/project/next/releases/1.4.0', E_USER_DEPRECATED);
+      @trigger_error('Calling NextEntityTypeConfigForm::__construct() without the $revalidator_manager argument is deprecated in next:1.4.0 and will be required in next:2.0.0. See https://www.drupal.org/node/3325622', E_USER_DEPRECATED);
+      // @codingStandardsIgnoreStart
       $revalidator_manager = \Drupal::service('plugin.manager.next.revalidator');
+      // @codingStandardsIgnoreEnd
     }
 
     $this->entityTypeManager = $entity_type_manager;

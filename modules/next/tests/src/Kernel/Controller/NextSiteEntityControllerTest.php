@@ -63,7 +63,7 @@ class NextSiteEntityControllerTest extends KernelTestBase {
    */
   public function testOverriddenEnvironmentVariables() {
     $GLOBALS['config']['next.next_site.' . $this->nextSite->id()] = [
-      'preview_secret' => 'overridden'
+      'preview_secret' => 'overridden',
     ];
     $overridden_entity = NextSite::load($this->nextSite->id());
     $controller = NextSiteEntityController::create($this->container);

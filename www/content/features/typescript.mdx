@@ -21,7 +21,6 @@ const tags = await drupal.getResourceCollection<DrupalTaxonomyTerm[]>(
 
 ```ts
 // Any resource type.
-const resources = await drupal.getResourceCollection<JsonApiResource[]>(
-  "entity--bundle"
-)
+const resources =
+  await drupal.getResourceCollection<JsonApiResource[]>("entity--bundle")
 ```

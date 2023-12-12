@@ -8,6 +8,8 @@ use Drupal\next\Entity\NextSite;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use GuzzleHttp\ClientInterface;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Tests the path revalidator plugin.
@@ -80,13 +82,13 @@ class PathRevalidatorTest extends KernelTestBase {
     $client->request('GET', $this->any())->shouldNotBeCalled();
     $page = $this->createNode();
     $page->save();
-    _drupal_shutdown_function();
+    $this->container->get('kernel')->terminate(Request::create('/'), new Response());
 
     $client->request('GET', 'http://blog.com/api/revalidate?slug=/node/2')->shouldBeCalled();
     $blog_site->setRevalidateUrl('http://blog.com/api/revalidate')->save();
     $page = $this->createNode();
     $page->save();
-    _drupal_shutdown_function();
+    $this->container->get('kernel')->terminate(Request::create('/'), new Response());
 
     $marketing = NextSite::create([
       'id' => 'marketing',
@@ -105,7 +107,7 @@ class PathRevalidatorTest extends KernelTestBase {
     $client->request('GET', 'http://blog.com/api/revalidate?slug=/node/3')->shouldBeCalled();
     $page = $this->createNode();
     $page->save();
-    _drupal_shutdown_function();
+    $this->container->get('kernel')->terminate(Request::create('/'), new Response());
 
     $entity_type_config->setRevalidatorConfiguration('path', [
       'additional_paths' => "/\n/blog",
@@ -119,7 +121,7 @@ class PathRevalidatorTest extends KernelTestBase {
     $client->request('GET', 'http://blog.com/api/revalidate?slug=/blog')->shouldBeCalled();
     $page = $this->createNode();
     $page->save();
-    _drupal_shutdown_function();
+    $this->container->get('kernel')->terminate(Request::create('/'), new Response());
   }
 
 }

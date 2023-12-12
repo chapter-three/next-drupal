@@ -65,3 +65,9 @@ services:
       ]
     tags:
       - { name: event_subscriber }
+
+  next.entity_action_event_dispatcher:
+    class: Drupal\next\EventSubscriber\EntityActionEventDispatcher
+    arguments: ['@event_dispatcher']
+    tags:
+      - { name: needs_destruction }

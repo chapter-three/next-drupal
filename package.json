@@ -19,7 +19,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "phpcs": "./drupal/vendor/bin/phpcs -p -s --colors --standard=modules/next/phpcs.xml modules/next",
-    "test:next": "./drupal/vendor/bin/phpunit -c ./drupal/web modules/next",
+    "test:next": "SIMPLETEST_DB=sqlite://localhost/:memory: ./drupal/vendor/bin/phpunit -c ./drupal/web/core modules/next",
     "sync:modules": "./scripts/sync-modules.sh \"modules/*\"",
     "sync:examples": "./scripts/sync-examples.sh \"examples/example-*\"",
     "sync:starters": "./scripts/sync-starters.sh \"starters/*\"",

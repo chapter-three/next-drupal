@@ -1,10 +1,10 @@
-import { DrupalNode } from "next-drupal"
+import type { DrupalNode } from "next-drupal"
 
-interface NodeBasicPageProps {
+interface BasicPageProps {
   node: DrupalNode
 }
 
-export function NodeBasicPage({ node, ...props }: NodeBasicPageProps) {
+export function BasicPage({ node, ...props }: BasicPageProps) {
   return (
     <article {...props}>
       <h1 className="mb-4 text-6xl font-black leading-tight">{node.title}</h1>

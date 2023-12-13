@@ -1,17 +1,16 @@
 import Image from "next/image"
 import Link from "next/link"
+import { formatDate } from "@/lib/utils"
+import type { NodeArticle } from "@/types"
 
-import { formatDate } from "lib/utils"
-import { Article } from "types"
-
-interface NodeArticleTeaserProps {
-  node: Partial<Article>
+interface ArticleTeaserProps {
+  node: Partial<NodeArticle>
 }
 
-export function NodeArticleTeaser({ node, ...props }: NodeArticleTeaserProps) {
+export function ArticleTeaser({ node, ...props }: ArticleTeaserProps) {
   return (
     <article {...props}>
-      <Link href={node.path} className="no-underline hover:text-blue-600">
+      <Link href={node.path || ""} className="no-underline hover:text-blue-600">
         <h2 className="mb-4 text-4xl font-bold">{node.title}</h2>
       </Link>
       <div className="mb-4 text-gray-600">
@@ -21,20 +20,15 @@ export function NodeArticleTeaser({ node, ...props }: NodeArticleTeaserProps) {
             <span className="font-semibold">{node.author.displayName}</span>
           </span>
         ) : null}
-        <span> - {formatDate(node.created)}</span>
+        {node.created && <span> - {formatDate(node.created)}</span>}
       </div>
       {node.image && (
         <figure className="my-4">
-          <Image
-            src={node.image.url}
-            width={768}
-            height={480}
-            alt={node.title}
-          />
+          <Image src={node.image.url} width={768} height={480} alt="" />
         </figure>
       )}
       <Link
-        href={node.path}
+        href={node.path || ""}
         className="inline-flex items-center px-6 py-2 border border-gray-600 rounded-full hover:bg-gray-100"
       >
         Read article

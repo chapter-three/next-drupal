@@ -1,14 +1,13 @@
 import Image from "next/image"
 import Link from "next/link"
-import { DrupalNode } from "next-drupal"
+import { absoluteUrl, formatDate } from "@/lib/utils"
+import type { DrupalNode } from "next-drupal"
 
-import { absoluteUrl, formatDate } from "lib/utils"
-
-interface NodeArticleTeaserProps {
+interface ArticleTeaserProps {
   node: DrupalNode
 }
 
-export function NodeArticleTeaser({ node, ...props }: NodeArticleTeaserProps) {
+export function ArticleTeaser({ node, ...props }: ArticleTeaserProps) {
   return (
     <article {...props}>
       <Link href={node.path.alias} className="no-underline hover:text-blue-600">

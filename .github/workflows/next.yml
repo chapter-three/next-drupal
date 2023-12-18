@@ -21,7 +21,7 @@ jobs:
         drupal:
           - "10.0.x"
           - "10.1.x"
-          - "10.2.x@RC"
+          - "10.2.x"
         exclude:
           - drupal: "10.0.x"
             php: "8.3"

@@ -6,6 +6,7 @@ use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
+use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\TypedData\TranslatableInterface;
 use Drupal\Core\Url;
 
@@ -179,6 +180,16 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
     // Anonymous users do not have access to the preview url. Same for
     // authenticated users with no additional roles, since we assume no scope.
     if (\Drupal::currentUser()->isAnonymous() || (!count(\Drupal::currentUser()->getRoles(TRUE)) && \Drupal::currentUser()->id() !== "1")) {
+      return $this->getLiveUrlForEntity($entity);
+    }
+
+    // Published entity shows live URL.
+    if (
+      $entity instanceof EntityPublishedInterface &&
+      $entity->isPublished() &&
+      $entity instanceof RevisionableInterface &&
+      $entity->isDefaultRevision()
+    ) {
       return $this->getLiveUrlForEntity($entity);
     }
 

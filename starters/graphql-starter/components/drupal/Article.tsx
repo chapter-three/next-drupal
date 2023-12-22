@@ -1,39 +1,33 @@
 import Image from "next/image"
-import { DrupalNode } from "next-drupal"
+import { formatDate } from "@/lib/utils"
+import type { NodeArticle } from "@/types"
 
-import { absoluteUrl, formatDate } from "lib/utils"
-
-interface NodeArticleProps {
-  node: DrupalNode
+interface ArticleProps {
+  node: NodeArticle
 }
 
-export function NodeArticle({ node, ...props }: NodeArticleProps) {
+export function Article({ node, ...props }: ArticleProps) {
   return (
     <article {...props}>
       <h1 className="mb-4 text-6xl font-black leading-tight">{node.title}</h1>
       <div className="mb-4 text-gray-600">
-        {node.uid?.display_name ? (
+        {node.author?.displayName ? (
           <span>
             Posted by{" "}
-            <span className="font-semibold">{node.uid?.display_name}</span>
+            <span className="font-semibold">{node.author.displayName}</span>
           </span>
         ) : null}
         <span> - {formatDate(node.created)}</span>
       </div>
-      {node.field_image && (
+      {node.image && (
         <figure>
           <Image
-            src={absoluteUrl(node.field_image.uri.url)}
+            src={node.image.url}
             width={768}
             height={400}
-            alt={node.field_image.resourceIdObjMeta.alt}
+            alt=""
             priority
           />
-          {node.field_image.resourceIdObjMeta.title && (
-            <figcaption className="py-2 text-sm text-center text-gray-600">
-              {node.field_image.resourceIdObjMeta.title}
-            </figcaption>
-          )}
         </figure>
       )}
       {node.body?.processed && (

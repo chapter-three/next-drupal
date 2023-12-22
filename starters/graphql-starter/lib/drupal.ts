@@ -1,15 +1,17 @@
 import { DrupalClient } from "next-drupal"
 
-export const drupal = new DrupalClient(
-  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
-  {
-    previewSecret: process.env.DRUPAL_PREVIEW_SECRET,
-    auth: {
-      clientId: process.env.DRUPAL_CLIENT_ID,
-      clientSecret: process.env.DRUPAL_CLIENT_SECRET,
-    },
-  }
-)
+const baseUrl: string = process.env.NEXT_PUBLIC_DRUPAL_BASE_URL || ""
+const clientId = process.env.DRUPAL_CLIENT_ID || ""
+const clientSecret = process.env.DRUPAL_CLIENT_SECRET || ""
+const previewSecret = process.env.DRUPAL_PREVIEW_SECRET
+
+export const drupal = new DrupalClient(baseUrl, {
+  auth: {
+    clientId,
+    clientSecret,
+  },
+  previewSecret,
+})
 
 export const graphqlEndpoint = drupal.buildUrl("/graphql")
 
@@ -30,6 +32,10 @@ export async function query<DataType>(payload: QueryPayload) {
     method: "POST",
     body: JSON.stringify(payload),
     withAuth: true, // Make authenticated requests using OAuth.
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
   })
 
   if (!response?.ok) {

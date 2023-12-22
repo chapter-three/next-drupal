@@ -1,43 +1,25 @@
-import { GetStaticPathsResult, GetStaticPropsResult } from "next"
 import Head from "next/head"
-import { DrupalNode } from "next-drupal"
-
-import { drupal } from "lib/drupal"
-import { NodeArticle } from "components/node--article"
-import { NodeBasicPage } from "components/node--basic-page"
-import { Layout } from "components/layout"
+import { Article } from "@/components/drupal/Article"
+import { BasicPage } from "@/components/drupal/BasicPage"
+import { Layout } from "@/components/Layout"
+import { drupal } from "@/lib/drupal"
+import type {
+  GetStaticPaths,
+  GetStaticProps,
+  InferGetStaticPropsType,
+} from "next"
+import type { DrupalNode } from "next-drupal"
 
 const RESOURCE_TYPES = ["node--page", "node--article"]
 
-interface NodePageProps {
-  resource: DrupalNode
-}
-
-export default function NodePage({ resource }: NodePageProps) {
-  if (!resource) return null
-
-  return (
-    <Layout>
-      <Head>
-        <title>{resource.title}</title>
-        <meta name="description" content="A Next.js site powered by Drupal." />
-      </Head>
-      {resource.type === "node--page" && <NodeBasicPage node={resource} />}
-      {resource.type === "node--article" && <NodeArticle node={resource} />}
-    </Layout>
-  )
-}
-
-export async function getStaticPaths(context): Promise<GetStaticPathsResult> {
+export const getStaticPaths = (async (context) => {
   return {
     paths: await drupal.getStaticPathsFromContext(RESOURCE_TYPES, context),
     fallback: "blocking",
   }
-}
+}) satisfies GetStaticPaths
 
-export async function getStaticProps(
-  context
-): Promise<GetStaticPropsResult<NodePageProps>> {
+export const getStaticProps = (async (context) => {
   const path = await drupal.translatePathFromContext(context)
 
   if (!path) {
@@ -46,7 +28,7 @@ export async function getStaticProps(
     }
   }
 
-  const type = path.jsonapi.resourceName
+  const type = path?.jsonapi?.resourceName
 
   let params = {}
   if (type === "node--article") {
@@ -68,7 +50,7 @@ export async function getStaticProps(
   // We throw an error to tell revalidation to skip this for now.
   // Revalidation can try again on next request.
   if (!resource) {
-    throw new Error(`Failed to fetch resource: ${path.jsonapi.individual}`)
+    throw new Error(`Failed to fetch resource: ${path?.jsonapi?.individual}`)
   }
 
   // If we're not in preview mode and the resource is not published,
@@ -84,4 +66,27 @@ export async function getStaticProps(
       resource,
     },
   }
+}) satisfies GetStaticProps<{
+  resource: DrupalNode
+}>
+
+export default function NodePage({
+  resource,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
+  if (!resource) return null
+
+  return (
+    <Layout>
+      <Head>
+        <title>{resource.title}</title>
+        <meta
+          name="description"
+          content="A Next.js site powered by Drupal."
+          key="description"
+        />
+      </Head>
+      {resource.type === "node--page" && <BasicPage node={resource} />}
+      {resource.type === "node--article" && <Article node={resource} />}
+    </Layout>
+  )
 }

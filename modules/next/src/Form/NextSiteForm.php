@@ -38,7 +38,7 @@ class NextSiteForm extends EntityForm {
     ];
 
     $form['base_url'] = [
-      '#type' => 'textfield',
+      '#type' => 'url',
       '#title' => $this->t('Base URL'),
       '#description' => $this->t('Enter the base URL for the Next.js site. Example: <em>https://example.com</em>.'),
       '#default_value' => $entity->getBaseUrl(),
@@ -60,7 +60,7 @@ class NextSiteForm extends EntityForm {
     ];
 
     $form['preview']['preview_url'] = [
-      '#type' => 'textfield',
+      '#type' => 'url',
       '#title' => $this->t('Preview URL'),
       '#description' => $this->t('Enter the preview URL. Example: <em>https://example.com/api/preview</em>.'),
       '#default_value' => $entity->getPreviewUrl(),
@@ -83,7 +83,7 @@ class NextSiteForm extends EntityForm {
     ];
 
     $form['revalidation']['revalidate_url'] = [
-      '#type' => 'textfield',
+      '#type' => 'url',
       '#title' => $this->t('Revalidate URL'),
       '#description' => $this->t('Enter the revalidate URL. Example: <em>https://example.com/api/revalidate</em>.'),
       '#default_value' => $entity->getRevalidateUrl(),

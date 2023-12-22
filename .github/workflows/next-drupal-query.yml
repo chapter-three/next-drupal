@@ -1,6 +1,8 @@
 name: next-drupal-query
 on:
   push:
+    branches:
+      - main
   pull_request:
     types: [opened, synchronize, edited]
 
@@ -12,4 +14,4 @@ jobs:
       - name: Install modules
         run: yarn
       - name: Run tests
-        run: yarn test packages/next-drupal-query
+        run: yarn workspace next-drupal-query test

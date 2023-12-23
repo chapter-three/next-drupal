@@ -69,7 +69,7 @@ function next_next_site_preview_alter(array &$preview, array $context) {
  */
 function next_entity_insert(EntityInterface $entity) {
   $event = EntityActionEvent::createFromEntity($entity, EntityActionEventInterface::INSERT_ACTION);
-  drupal_register_shutdown_function('_next_dispatch_entity_action_event', $event);
+  \Drupal::service('next.entity_action_event_dispatcher')->addEvent($event);
 }
 
 /**
@@ -77,7 +77,7 @@ function next_entity_insert(EntityInterface $entity) {
  */
 function next_entity_update(EntityInterface $entity) {
   $event = EntityActionEvent::createFromEntity($entity, EntityActionEventInterface::UPDATE_ACTION);
-  drupal_register_shutdown_function('_next_dispatch_entity_action_event', $event);
+  \Drupal::service('next.entity_action_event_dispatcher')->addEvent($event);
 }
 
 /**
@@ -85,15 +85,5 @@ function next_entity_update(EntityInterface $entity) {
  */
 function next_entity_predelete(EntityInterface $entity) {
   $event = EntityActionEvent::createFromEntity($entity, EntityActionEventInterface::DELETE_ACTION);
-  drupal_register_shutdown_function('_next_dispatch_entity_action_event', $event);
-}
-
-/**
- * Helper to dispatch an entity action event.
- *
- * @param \Drupal\next\Event\EntityActionEventInterface $event
- *   The entity action event.
- */
-function _next_dispatch_entity_action_event(EntityActionEventInterface $event) {
-  \Drupal::service('event_dispatcher')->dispatch($event, EntityEvents::ENTITY_ACTION);
+  \Drupal::service('next.entity_action_event_dispatcher')->addEvent($event);
 }

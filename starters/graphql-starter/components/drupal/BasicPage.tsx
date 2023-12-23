@@ -1,10 +1,10 @@
-import { Page } from "types"
+import type { NodePage } from "@/types"
 
-interface NodeBasicPageProps {
-  node: Page
+interface BasicPageProps {
+  node: NodePage
 }
 
-export function NodeBasicPage({ node, ...props }: NodeBasicPageProps) {
+export function BasicPage({ node, ...props }: BasicPageProps) {
   return (
     <article {...props}>
       <h1 className="mb-4 text-6xl font-black leading-tight">{node.title}</h1>

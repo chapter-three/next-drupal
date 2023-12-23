@@ -13,14 +13,20 @@ jobs:
     strategy:
       matrix:
         # Supported PHP versions: https://www.drupal.org/docs/getting-started/system-requirements/php-requirements
-        php: ["8.0", "8.1", "8.2"]
+        php:
+          - "8.1"
+          - "8.2"
+          - "8.3"
         # Supported Drupal versions: https://www.drupal.org/project/drupal
-        drupal: ["9.5", "10.0"]
+        drupal:
+          - "10.0.x"
+          - "10.1.x"
+          - "10.2.x"
         exclude:
-          - drupal: "9.5"
-            php: "8.2"
-          - drupal: "10.0"
-            php: "8.0"
+          - drupal: "10.0.x"
+            php: "8.3"
+          - drupal: "10.1.x"
+            php: "8.3"
     name: Drupal ${{ matrix.drupal }} - PHP ${{ matrix.php }}
     services:
       mysql:
@@ -53,7 +59,7 @@ jobs:
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
       - name: Setup Drupal
         run: |
-          COMPOSER_MEMORY_LIMIT=-1 composer create-project drupal/recommended-project:${{ matrix.drupal }}.x ~/drupal --no-interaction --no-install
+          COMPOSER_MEMORY_LIMIT=-1 composer create-project drupal/recommended-project:${{ matrix.drupal }} ~/drupal --no-interaction --no-install
           cd ~/drupal
           composer config extra.enable-patching true
           composer config extra.compile-mode all
@@ -65,11 +71,6 @@ jobs:
           composer config allow-plugins true -n
           COMPOSER_MEMORY_LIMIT=-1 composer require drupal/core-dev --no-install
           composer install
-      - name: Add phpspec/prophecy-phpunit
-        run: |
-          cd ~/drupal
-          COMPOSER_MEMORY_LIMIT=-1 composer require --dev phpspec/prophecy-phpunit:^2 -W
-        if: ${{ startsWith(matrix.drupal, '9') }}
       - name: Run phpcs
         run: |
           ~/drupal/vendor/bin/phpcs -p -s --colors --standard=modules/next/phpcs.xml modules/next

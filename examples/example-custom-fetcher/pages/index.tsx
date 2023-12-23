@@ -12,7 +12,7 @@ export default function IndexPage({ nodes }: IndexPageProps) {
   return (
     <>
       <Head>
-        <title key="title">Next.js for Drupal | Custom Auth Example</title>
+        <title>Next.js for Drupal | Custom Auth Example</title>
       </Head>
       <div>
         {nodes.map((node) => (

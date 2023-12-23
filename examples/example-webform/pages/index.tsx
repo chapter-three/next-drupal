@@ -5,7 +5,7 @@ export default function IndexPage() {
   return (
     <>
       <Head>
-        <title key="title">Next.js for Drupal | Webform Example</title>
+        <title>Next.js for Drupal | Webform Example</title>
       </Head>
       <div className="container mx-auto py-10 px-6 max-w-2xl">
         <article className="prose lg:prose-xl">

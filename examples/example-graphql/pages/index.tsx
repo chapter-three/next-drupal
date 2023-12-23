@@ -8,7 +8,7 @@ export default function IndexPage({ articles }) {
   return (
     <Layout>
       <Head>
-        <title key="title">Next.js for Drupal</title>
+        <title>Next.js for Drupal</title>
         <meta
           key="description"
           name="description"

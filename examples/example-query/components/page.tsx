@@ -9,7 +9,7 @@ export function Page({ page, ...props }: PageProps) {
   return (
     <>
       <Head>
-        <title key="title">{page.title}</title>
+        <title>{page.title}</title>
       </Head>
       <article {...props}>
         <h1 className="mb-4 text-6xl font-black leading-tight">{page.title}</h1>

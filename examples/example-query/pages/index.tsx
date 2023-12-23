@@ -15,7 +15,7 @@ export default function IndexPage({
   return (
     <Layout menu={menu}>
       <Head>
-        <title key="title">Example Query</title>
+        <title>Example Query</title>
         <meta
           key="description"
           name="description"

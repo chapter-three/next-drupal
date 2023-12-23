@@ -11,7 +11,7 @@ export default function NodePage({ resource }) {
   return (
     <Layout>
       <Head>
-        <title key="title">{resource.title}</title>
+        <title>{resource.title}</title>
         <meta key="description" name="description" content="A Next.js site powered by Drupal." />
       </Head>
       {resource && <NodeArticle node={resource} />}

@@ -51,7 +51,7 @@ export default function SimplePage() {
   return (
     <>
       <Head>
-        <title key="title">Next.js for Drupal | Search API Example</title>
+        <title>Next.js for Drupal | Search API Example</title>
       </Head>
       <div className="container max-w-2xl px-6 py-10 mx-auto">
         <article className="prose lg:prose-xl">

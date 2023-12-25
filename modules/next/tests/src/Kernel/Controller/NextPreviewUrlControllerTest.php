@@ -71,7 +71,7 @@ class NextPreviewUrlControllerTest extends KernelTestBase {
 
     $controller = NextPreviewUrlController::create($this->container);
     $response = $controller->validate($request);
-    $this->assertSame(['scope' => $user->getRoles(TRUE)[0]], Json::decode($response->getContent()));
+    $this->assertSame(['path' => $page->toUrl()->toString()], Json::decode($response->getContent()));
   }
 
 }

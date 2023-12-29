@@ -1,7 +1,7 @@
 {
   "name": "example-umami",
   "description": "The Umami demo site built as a headless Drupal with Next.js",
-  "version": "1.2.0",
+  "version": "1.99.0+unreleased",
   "private": true,
   "license": "MIT",
   "scripts": {

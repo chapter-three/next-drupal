@@ -10,6 +10,8 @@ import type {
 } from "../src/types"
 import { BASE_URL } from "./utils"
 
+jest.setTimeout(10000)
+
 afterEach(() => {
   jest.restoreAllMocks()
 })

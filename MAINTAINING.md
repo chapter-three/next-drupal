@@ -88,7 +88,11 @@ We’ll be using Lerna’s `--no-push` flag so that Lerna does not push git tags
    git push --tags
    ```
 
-3. **Publish** with:
+3. **Publish the release**
+
+   Ensure you have authenticated with npmjs.com using `npm login`.
+
+   Then, while your local git working area is clean of changes and `HEAD` is pointing to the commit created in step 1, have Lerna build, prepare, package and publish your release with:
 
    ```
    npx lerna publish from-git

@@ -92,13 +92,25 @@ We’ll be using Lerna’s `--no-push` flag so that Lerna does not push git tags
 
    Ensure you have authenticated with npmjs.com using `npm login`.
 
-   Then, while your local git working area is clean of changes and `HEAD` is pointing to the commit created in step 1, have Lerna build, prepare, package and publish your release with:
+   Then, while your local git working area is clean of changes and `HEAD` is pointing to the commit created in step 1, have Lerna build, prepare, package and publish your release.
+
+   For a new prerelease version, specify the `canary` dist-tag with:
+
+   ```
+   npx lerna publish --dist-tag canary from-git
+   ```
+
+   Otherwise, use:
 
    ```
    npx lerna publish from-git
    ```
 
    Maintainers will need permission to publish to `next-drupal` on npmjs.com. http://npmjs.com/package/next-drupal
+
+4. **Confirm the release**
+
+   Look at the “Current Tags” section of [next-drupal’s npmjs page](https://www.npmjs.com/package/next-drupal?activeTab=versions) and confirm that the newest release is listed and that the `latest` tag and the `canary` tag point at the expected versions.
 
 For more information, see Lerna’s [version docs](https://github.com/lerna/lerna/tree/main/libs/commands/version) and [publish docs](https://github.com/lerna/lerna/tree/main/libs/commands/publish).
 

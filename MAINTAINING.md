@@ -135,14 +135,16 @@ The code in the examples repos do not strictly require a versioned release since
 
 ### Starters
 
-1. **Create a tag** that is Lerna-compatible matching the format: `[project]@[version]`, e.g. `basic-starter@2.0.0-alpha.0`
+1. **Update package.json** with the new release version for that starter, e.g. `2.0.0-alpha.0`. This is important so the developer knows which version of the starter they had when they first started their project.
+
+2. **Create a tag** that is Lerna-compatible matching the format: `[project]@[version]`, e.g. `basic-starter@2.0.0-alpha.0`
 
    ```
    git tag NAME-starter@2.0.0
    git push --tags
    ```
 
-2. **Sync git repositories**
+3. **Sync git repositories**
 
    If the release is a prerelease, sync the monorepo with:
 
@@ -157,6 +159,24 @@ The code in the examples repos do not strictly require a versioned release since
    ```
 
    All recent changes on `main` will be squashed into a commit on the target git repo using the latest commit message.
+
+4. **Create a GitHub release and tag**
+
+   The git tag created in step 1 was for the monorepo; it doesn’t exist in the starters’ git repos. We’ll create a GitHub release to make it easier for developers to see the changes between different versions of the starter.
+
+   To create a GitHub release, go to the releases page for:
+
+   - [basic-starter](https://github.com/chapter-three/next-drupal-basic-starter/releases)
+   - [graphql-starter](https://github.com/chapter-three/next-drupal-graphql-starter/releases)
+
+   And then:
+
+   1. Click the “Draft a new release” button.
+   2. In the **“Target:” drop-down**, select the `main` branch if this is going to be a normal release or select the `canary` branch if this is going to be a prerelease.
+   3. In the **“Choose a tag” widget**, type the new git tag, e.g. `2.0.0-alpha.0`, and hit `enter`. The help text will say “Excellent! This tag will be created from the target when you publish this release.”
+   4. In the “Release title” text field, type the same tag as the previous step.
+   5. Check either the “Set as a pre-release” checkbox or the “Set as the latest release” checkbox.
+   6. Click the “Publish release” button.
 
 ### Docs
 

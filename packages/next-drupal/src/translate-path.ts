@@ -10,6 +10,7 @@ export async function translatePath(
 ): Promise<DrupalTranslatedPath> {
   const url = buildUrl("/router/translate-path", {
     path,
+    _format: "json",
   })
 
   const response = await fetch(url.toString(), {

@@ -268,9 +268,8 @@ export class DrupalClient {
               init["headers"]["Authorization"] = `Bearer ${token.access_token}`
             }
           } else if (isAccessTokenAuth(this._auth)) {
-            init["headers"][
-              "Authorization"
-            ] = `${this._auth.token_type} ${this._auth.access_token}`
+            init["headers"]["Authorization"] =
+              `${this._auth.token_type} ${this._auth.access_token}`
           }
         }
       } else if (typeof init.withAuth === "string") {
@@ -297,9 +296,8 @@ export class DrupalClient {
           init["headers"]["Authorization"] = `Bearer ${token.access_token}`
         }
       } else if (isAccessTokenAuth(init.withAuth)) {
-        init["headers"][
-          "Authorization"
-        ] = `${init.withAuth.token_type} ${init.withAuth.access_token}`
+        init["headers"]["Authorization"] =
+          `${init.withAuth.token_type} ${init.withAuth.access_token}`
       }
     }
 
@@ -1316,17 +1314,22 @@ export class DrupalClient {
     }
 
     if (
-      !isClientIdSecretAuth(this._auth) ||
-      (opts && !isClientIdSecretAuth(opts))
+      !isClientIdSecretAuth(this._auth) &&
+      opts &&
+      !isClientIdSecretAuth(opts)
     ) {
       throw new Error(
         `'clientId' and 'clientSecret' required. See https://next-drupal.org/docs/client/auth`
       )
     }
 
-    const clientId = opts?.clientId || this._auth.clientId
-    const clientSecret = opts?.clientSecret || this._auth.clientSecret
-    const url = this.buildUrl(opts?.url || this._auth.url || DEFAULT_AUTH_URL)
+    const auth = isClientIdSecretAuth(opts)
+      ? opts
+      : (this._auth as DrupalClientAuthClientIdSecret)
+
+    const clientId = auth.clientId
+    const clientSecret = auth.clientSecret
+    const url = this.buildUrl(auth.url || DEFAULT_AUTH_URL)
 
     if (
       this.accessTokenScope === opts?.scope &&

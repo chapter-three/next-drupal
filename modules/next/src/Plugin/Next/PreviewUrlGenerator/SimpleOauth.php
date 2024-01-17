@@ -83,8 +83,8 @@ class SimpleOauth extends ConfigurablePreviewUrlGeneratorBase {
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
     $form['secret_expiration'] = [
-      '#title' => $this->t('Preview secret expiration time'),
-      '#description' => $this->t('The value, in seconds, to be used as expiration time for the preview secret. <strong>It is recommended to use short-lived secrets for increased security.</strong>'),
+      '#title' => $this->t('Secret expiration time'),
+      '#description' => $this->t('The value, in seconds, to be used as expiration time for the validation secret. <strong>It is recommended to use short-lived secrets for increased security.</strong>'),
       '#type' => 'number',
       '#required' => TRUE,
       '#default_value' => $this->configuration['secret_expiration'],

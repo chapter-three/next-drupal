@@ -18,7 +18,7 @@ export type Author = {
   displayName: string
 }
 
-export type Page = {
+export type NodePage = {
   __typename: "NodePage"
   id: string
   status: boolean
@@ -29,7 +29,7 @@ export type Page = {
   }
 }
 
-export type Article = {
+export type NodeArticle = {
   __typename: "NodeArticle"
   id: string
   status: boolean

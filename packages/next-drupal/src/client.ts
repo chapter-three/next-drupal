@@ -1,4 +1,4 @@
-import Jsona from "jsona"
+import { Jsona } from "jsona"
 import { stringify } from "qs"
 import { JsonApiErrors } from "./jsonapi-errors"
 import { logger as defaultLogger } from "./logger"

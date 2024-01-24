@@ -1,4 +1,4 @@
-import Jsona from "jsona"
+import { Jsona } from "jsona"
 import { stringify } from "qs"
 import { getAccessToken } from "./get-access-token"
 import type { GetStaticPropsContext } from "next"

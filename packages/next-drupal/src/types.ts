@@ -410,13 +410,6 @@ export interface JsonApiResourceWithPath extends JsonApiResource {
   path: PathAlias
 }
 
-export interface PreviewOptions {
-  errorMessages?: {
-    secret?: string
-    slug?: string
-  }
-}
-
 export type GetResourcePreviewUrlOptions = JsonApiWithLocaleOptions & {
   isVersionable?: boolean
 }

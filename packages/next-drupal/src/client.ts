@@ -34,7 +34,6 @@ import type {
   Locale,
   PathAlias,
   PathPrefix,
-  PreviewOptions,
 } from "./types"
 
 const DEFAULT_API_PREFIX = "/jsonapi"
@@ -1082,9 +1081,11 @@ export class DrupalClient {
   async preview(
     request: NextApiRequest,
     response: NextApiResponse,
-    options?: PreviewOptions
+    options?: Parameters<NextApiResponse["setDraftMode"]>[0]
   ) {
-    const { slug, resourceVersion, plugin } = request.query
+    const { slug, resourceVersion, plugin, secret, scope, ...draftData } =
+      request.query
+    const useDraftMode = options?.enable
 
     try {
       // Always clear preview data to handle different scopes.
@@ -1092,44 +1093,73 @@ export class DrupalClient {
 
       // Validate the preview url.
       const result = await this.validateDraftUrl(
-        new URL(request.url).searchParams
+        new URL(request.url, `http://${request.headers.host}`).searchParams
       )
 
-      if (!result.ok) {
-        response.statusCode = result.status
-
-        return response.json(await result.json())
-      }
-
       const validationPayload = await result.json()
-
-      response.setPreviewData({
+      const previewData = {
         resourceVersion,
         plugin,
         ...validationPayload,
-      })
+      }
+
+      if (!result.ok) {
+        this.debug(`Draft url validation error: ${validationPayload.message}`)
+        response.statusCode = result.status
+        return response.json(validationPayload)
+      }
+
+      // Optionally turn on draft mode.
+      if (useDraftMode) {
+        response.setDraftMode(options)
+      }
+
+      // Turns on preview mode and adds preview data to Next.js' static context.
+      response.setPreviewData(previewData)
 
       // Fix issue with cookie.
       // See https://github.com/vercel/next.js/discussions/32238.
       // See https://github.com/vercel/next.js/blob/d895a50abbc8f91726daa2d7ebc22c58f58aabbb/packages/next/server/api-utils/node.ts#L504.
-      if (this.forceIframeSameSiteCookie) {
-        const previous = response.getHeader("Set-Cookie") as string[]
-        previous.forEach((cookie, index) => {
-          previous[index] = cookie.replace(
-            "SameSite=Lax",
-            "SameSite=None;Secure"
-          )
-        })
-        response.setHeader(`Set-Cookie`, previous)
+      const cookies = (response.getHeader("Set-Cookie") as string[]).map(
+        (cookie) => cookie.replace("SameSite=Lax", "SameSite=None; Secure")
+      )
+      if (useDraftMode) {
+        // Adds preview data for use in app router pages.
+        cookies.push(
+          `${DRAFT_DATA_COOKIE_NAME}=${encodeURIComponent(
+            JSON.stringify({ slug, resourceVersion, ...draftData })
+          )}; Path=/; HttpOnly; SameSite=None; Secure`
+        )
       }
+      response.setHeader("Set-Cookie", cookies)
 
-      // We can safely redirect to the slug since this has been validated on the server.
+      // We can safely redirect to the slug since this has been validated on the
+      // server.
       response.writeHead(307, { Location: slug })
+
+      this.debug(`${useDraftMode ? "Draft" : "Preview"} mode enabled.`)
 
       return response.end()
     } catch (error) {
+      this.debug(`Preview failed: ${error.message}`)
       return response.status(422).end()
     }
+  }
+
+  async previewDisable(request: NextApiRequest, response: NextApiResponse) {
+    // Disable both preview and draft modes.
+    response.clearPreviewData()
+    response.setDraftMode({ enable: false })
+
+    // Delete the draft data cookie.
+    const cookies = response.getHeader("Set-Cookie") as string[]
+    cookies.push(
+      `${DRAFT_DATA_COOKIE_NAME}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=None; Secure`
+    )
+    response.setHeader("Set-Cookie", cookies)
+
+    response.writeHead(307, { Location: "/" })
+    response.end()
   }
 
   async getMenu<T = DrupalMenuLinkContent>(

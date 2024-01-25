@@ -113,8 +113,6 @@ export class DrupalClient {
 
   private previewSecret?: DrupalClientOptions["previewSecret"]
 
-  private forceIframeSameSiteCookie?: DrupalClientOptions["forceIframeSameSiteCookie"]
-
   /**
    * Instantiates a new DrupalClient.
    *
@@ -142,7 +140,6 @@ export class DrupalClient {
       auth,
       previewSecret,
       accessToken,
-      forceIframeSameSiteCookie = false,
       throwJsonApiErrors = true,
     } = options
 
@@ -160,7 +157,6 @@ export class DrupalClient {
     this.previewSecret = previewSecret
     this.cache = cache
     this.accessToken = accessToken
-    this.forceIframeSameSiteCookie = forceIframeSameSiteCookie
     this.throwJsonApiErrors = throwJsonApiErrors
 
     // Do not throw errors in production.

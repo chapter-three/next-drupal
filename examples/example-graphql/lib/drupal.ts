@@ -8,7 +8,6 @@ export const drupal = new DrupalClient(
       clientSecret: process.env.DRUPAL_CLIENT_SECRET,
     },
     previewSecret: process.env.DRUPAL_PREVIEW_SECRET,
-    forceIframeSameSiteCookie: true,
   }
 )
 

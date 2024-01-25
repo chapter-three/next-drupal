@@ -215,7 +215,6 @@ export class DrupalClient {
     this.tokenExpiresOn = Date.now() + token.expires_in * 1000
   }
 
-  /* eslint-disable @typescript-eslint/no-explicit-any */
   async fetch(input: RequestInfo, init?: FetchOptions): Promise<Response> {
     init = {
       ...init,
@@ -268,9 +267,8 @@ export class DrupalClient {
               init["headers"]["Authorization"] = `Bearer ${token.access_token}`
             }
           } else if (isAccessTokenAuth(this._auth)) {
-            init["headers"][
-              "Authorization"
-            ] = `${this._auth.token_type} ${this._auth.access_token}`
+            init["headers"]["Authorization"] =
+              `${this._auth.token_type} ${this._auth.access_token}`
           }
         }
       } else if (typeof init.withAuth === "string") {
@@ -297,9 +295,8 @@ export class DrupalClient {
           init["headers"]["Authorization"] = `Bearer ${token.access_token}`
         }
       } else if (isAccessTokenAuth(init.withAuth)) {
-        init["headers"][
-          "Authorization"
-        ] = `${init.withAuth.token_type} ${init.withAuth.access_token}`
+        init["headers"]["Authorization"] =
+          `${init.withAuth.token_type} ${init.withAuth.access_token}`
       }
     }
 
@@ -1419,8 +1416,8 @@ export class DrupalClient {
   }
 
   // Error handling.
-  // If throwErrors is enable, we show errors in the Next.js overlay.
-  // Otherwise we log the errors even if debugging is turned off.
+  // If throwErrors is enabled, we show errors in the Next.js overlay.
+  // Otherwise, we log the errors even if debugging is turned off.
   // In production, errors are always logged never thrown.
   private throwError(error: Error) {
     if (!this.throwJsonApiErrors) {

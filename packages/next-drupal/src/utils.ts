@@ -89,9 +89,8 @@ export async function buildHeaders({
   // This reduces the number of OAuth call to the Drupal server.
   // Intentionally marked as unstable for now.
   if (process.env.UNSTABLE_DRUPAL_ACCESS_TOKEN) {
-    headers[
-      "Authorization"
-    ] = `Bearer ${process.env.UNSTABLE_DRUPAL_ACCESS_TOKEN}`
+    headers["Authorization"] =
+      `Bearer ${process.env.UNSTABLE_DRUPAL_ACCESS_TOKEN}`
 
     return headers
   }
@@ -122,8 +121,8 @@ export function getPathFromContext(
   return !slug
     ? process.env.DRUPAL_FRONT_PAGE
     : prefix
-    ? `${prefix}/${slug}`
-    : slug
+      ? `${prefix}/${slug}`
+      : slug
 }
 
 export function syncDrupalPreviewRoutes(path) {

@@ -40,6 +40,9 @@ import type {
 const DEFAULT_API_PREFIX = "/jsonapi"
 const DEFAULT_FRONT_PAGE = "/home"
 const DEFAULT_WITH_AUTH = false
+export const DRAFT_DATA_COOKIE_NAME = "draftData"
+// See https://vercel.com/docs/workflow-collaboration/draft-mode
+export const DRAFT_MODE_COOKIE_NAME = "__prerender_bypass"
 
 // From simple_oauth.
 const DEFAULT_AUTH_URL = "/oauth/token"
@@ -1044,9 +1047,41 @@ export class DrupalClient {
     return href
   }
 
+  async validateDraftUrl(searchParams: URLSearchParams): Promise<Response> {
+    const slug = searchParams.get("slug")
+
+    this.debug(`Fetching draft url validation for ${slug}.`)
+
+    // Fetch the headless CMS to check if the provided `slug` exists
+    let response: Response
+    try {
+      // Validate the draft url.
+      const validateUrl = this.buildUrl("/next/draft-url").toString()
+      response = await this.fetch(validateUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(Object.fromEntries(searchParams.entries())),
+      })
+    } catch (error) {
+      response = new Response(JSON.stringify({ message: error.message }), {
+        status: 401,
+      })
+    }
+
+    this.debug(
+      response.status !== 200
+        ? `Could not validate slug, ${slug}`
+        : `Validated slug, ${slug}`
+    )
+
+    return response
+  }
+
   async preview(
-    request?: NextApiRequest,
-    response?: NextApiResponse,
+    request: NextApiRequest,
+    response: NextApiResponse,
     options?: PreviewOptions
   ) {
     const { slug, resourceVersion, plugin } = request.query
@@ -1056,14 +1091,9 @@ export class DrupalClient {
       response.clearPreviewData()
 
       // Validate the preview url.
-      const validateUrl = this.buildUrl("/next/preview-url")
-      const result = await this.fetch(validateUrl.toString(), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(request.query),
-      })
+      const result = await this.validateDraftUrl(
+        new URL(request.url).searchParams
+      )
 
       if (!result.ok) {
         response.statusCode = result.status

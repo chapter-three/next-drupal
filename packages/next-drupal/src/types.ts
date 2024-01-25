@@ -139,16 +139,6 @@ export type DrupalClientOptions = {
    * The scope used for the current access token.
    */
   accessTokenScope?: string
-
-  /**
-   * If set to true, the preview cookie will be set with SameSite=None,Secure.
-   *
-   * * **Default value**: `false`
-   * * **Required**: *No*
-   *
-   * [Documentation](https://next-drupal.org/docs/client/configuration#forceiframesamesitecookie)
-   */
-  forceIframeSameSiteCookie?: boolean
 }
 
 export type DrupalClientAuth =

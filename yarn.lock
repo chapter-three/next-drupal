@@ -4204,6 +4204,11 @@ classnames@^2.3.1:
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.2.tgz#351d813bf0137fcc6a76a16b88208d2560a0d924"
   integrity sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==
 
+classnames@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.2.tgz#351d813bf0137fcc6a76a16b88208d2560a0d924"
+  integrity sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==
+
 clean-stack@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/clean-stack/-/clean-stack-2.2.0.tgz#ee8472dbb129e727b31e8a10a427dee9dfe4008b"
@@ -9578,6 +9583,13 @@ next@^12.2.3:
     "@next/swc-win32-arm64-msvc" "12.3.4"
     "@next/swc-win32-ia32-msvc" "12.3.4"
     "@next/swc-win32-x64-msvc" "12.3.4"
+
+nextjs-drupal-webform@^1.0.0-beta1:
+  version "1.0.0-beta1"
+  resolved "https://registry.yarnpkg.com/nextjs-drupal-webform/-/nextjs-drupal-webform-1.0.0-beta1.tgz#fbb7989856fa0f559b599c3859c0922f4c5f7bba"
+  integrity sha512-qdV0LVZvBS9+VEI3IwGp43HkY2z6WuMxRWEuoVC9thqRxTWvspoCGCNYqpdm37IqN9uUgafQyzpQa6eI08ejSA==
+  dependencies:
+    classnames "^2.3.2"
 
 node-abi@^3.3.0:
   version "3.52.0"

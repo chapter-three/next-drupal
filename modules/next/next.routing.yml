@@ -17,6 +17,7 @@ next.validate_draft_url:
     _access: 'TRUE'
     _format: 'json'
 
+# TODO: This path is used by next-drupal 1.6.0; remove with next 3.x.
 next.validate_preview_url:
   path: '/next/preview-url'
   defaults:

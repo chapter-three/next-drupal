@@ -32,6 +32,14 @@ interface NextEntityTypeConfigInterface extends ConfigEntityInterface, EntityWit
   public function setSiteResolver(string $plugin_id): self;
 
   /**
+   * Checks if the preview mode is enabled.
+   *
+   * @return bool
+   *   Return true/false if preview mode is enabled.
+   */
+  public function isPreviewEnabled(): bool;
+
+  /**
    * Returns the revalidator plugin.
    *
    * @return \Drupal\next\Plugin\Next\Revalidator\|null

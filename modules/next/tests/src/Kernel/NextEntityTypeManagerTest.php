@@ -53,6 +53,7 @@ class NextEntityTypeManagerTest extends KernelTestBase {
 
     $entity_type_config = NextEntityTypeConfig::create([
       'id' => 'node.page',
+      'preview_enabled' => TRUE,
       'site_resolver' => 'site_selector',
       'configuration' => [
         'sites' => [
@@ -98,6 +99,7 @@ class NextEntityTypeManagerTest extends KernelTestBase {
 
     $entity_type_config = NextEntityTypeConfig::create([
       'id' => 'node.page',
+      'preview_enabled' => TRUE,
       'site_resolver' => 'site_selector',
       'configuration' => [
         'sites' => [
@@ -121,6 +123,7 @@ class NextEntityTypeManagerTest extends KernelTestBase {
 
     $entity_type_config = NextEntityTypeConfig::create([
       'id' => 'node.page',
+      'preview_enabled' => TRUE,
       'site_resolver' => 'site_selector',
       'configuration' => [
         'sites' => [

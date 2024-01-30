@@ -59,7 +59,7 @@ describe("DrupalClient", () => {
       "[next-drupal][debug]:",
       "Debug mode is on."
     )
-    expect(client.debug).toBe(true)
+    expect(client.isDebugEnabled).toBe(true)
   })
 })
 

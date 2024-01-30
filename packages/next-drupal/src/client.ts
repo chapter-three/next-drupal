@@ -77,9 +77,9 @@ function isClientIdSecretAuth(
 export class DrupalClient {
   baseUrl: BaseUrl
 
-  debug: DrupalClientOptions["debug"]
-
   frontPage: DrupalClientOptions["frontPage"]
+
+  private isDebugEnabled: DrupalClientOptions["debug"]
 
   private serializer: DrupalClientOptions["serializer"]
 
@@ -148,7 +148,7 @@ export class DrupalClient {
     this.apiPrefix = apiPrefix
     this.serializer = serializer
     this.frontPage = frontPage
-    this.debug = debug
+    this.isDebugEnabled = !!debug
     this.useDefaultResourceTypeEntry = useDefaultResourceTypeEntry
     this.fetcher = fetcher
     this.auth = auth
@@ -166,7 +166,7 @@ export class DrupalClient {
       this.throwJsonApiErrors = false
     }
 
-    this._debug("Debug mode is on.")
+    this.debug("Debug mode is on.")
   }
 
   set apiPrefix(apiPrefix: DrupalClientOptions["apiPrefix"]) {
@@ -215,7 +215,6 @@ export class DrupalClient {
     this.tokenExpiresOn = Date.now() + token.expires_in * 1000
   }
 
-  /* eslint-disable @typescript-eslint/no-explicit-any */
   async fetch(input: RequestInfo, init?: FetchOptions): Promise<Response> {
     init = {
       ...init,
@@ -229,7 +228,7 @@ export class DrupalClient {
     // Using the auth set on the client.
     // TODO: Abstract this to a re-usable.
     if (init?.withAuth) {
-      this._debug(`Using authenticated request.`)
+      this.debug(`Using authenticated request.`)
 
       if (init.withAuth === true) {
         if (typeof this._auth === "undefined") {
@@ -241,15 +240,15 @@ export class DrupalClient {
         // By default, if withAuth is set to true, we use the auth configured
         // in the client constructor.
         if (typeof this._auth === "function") {
-          this._debug(`Using custom auth callback.`)
+          this.debug(`Using custom auth callback.`)
 
           init["headers"]["Authorization"] = this._auth()
         } else if (typeof this._auth === "string") {
-          this._debug(`Using custom authorization header.`)
+          this.debug(`Using custom authorization header.`)
 
           init["headers"]["Authorization"] = this._auth
         } else if (typeof this._auth === "object") {
-          this._debug(`Using custom auth credentials.`)
+          this.debug(`Using custom auth credentials.`)
 
           if (isBasicAuth(this._auth)) {
             const basic = Buffer.from(
@@ -259,7 +258,7 @@ export class DrupalClient {
             init["headers"]["Authorization"] = `Basic ${basic}`
           } else if (isClientIdSecretAuth(this._auth)) {
             // Use the built-in client_credentials grant.
-            this._debug(`Using default auth (client_credentials).`)
+            this.debug(`Using default auth (client_credentials).`)
 
             // Fetch an access token and add it to the request.
             // Access token can be fetched from cache or using a custom auth method.
@@ -273,15 +272,15 @@ export class DrupalClient {
           }
         }
       } else if (typeof init.withAuth === "string") {
-        this._debug(`Using custom authorization header.`)
+        this.debug(`Using custom authorization header.`)
 
         init["headers"]["Authorization"] = init.withAuth
       } else if (typeof init.withAuth === "function") {
-        this._debug(`Using custom authorization callback.`)
+        this.debug(`Using custom authorization callback.`)
 
         init["headers"]["Authorization"] = init.withAuth()
       } else if (isBasicAuth(init.withAuth)) {
-        this._debug(`Using basic authorization header`)
+        this.debug(`Using basic authorization header.`)
 
         const basic = Buffer.from(
           `${init.withAuth.username}:${init.withAuth.password}`
@@ -302,12 +301,12 @@ export class DrupalClient {
     }
 
     if (this.fetcher) {
-      this._debug(`Using custom fetcher.`)
+      this.debug(`Using custom fetcher, fetching: ${input}`)
 
       return await this.fetcher(input, init)
     }
 
-    this._debug(`Using default fetch (polyfilled by Next.js).`)
+    this.debug(`Using default fetch, fetching: ${input}`)
 
     return await fetch(input, init)
   }
@@ -330,8 +329,7 @@ export class DrupalClient {
 
     const url = this.buildUrl(apiPath, options?.params)
 
-    this._debug(`Creating resource of type ${type}.`)
-    this._debug(url.toString())
+    this.debug(`Creating resource of type ${type}.`)
 
     // Add type to body.
     body.data.type = type
@@ -374,8 +372,7 @@ export class DrupalClient {
       options?.params
     )
 
-    this._debug(`Creating file resource for media of type ${type}.`)
-    this._debug(url.toString())
+    this.debug(`Creating file resource for media of type ${type}.`)
 
     const response = await this.fetch(url.toString(), {
       method: "POST",
@@ -416,8 +413,7 @@ export class DrupalClient {
 
     const url = this.buildUrl(`${apiPath}/${uuid}`, options?.params)
 
-    this._debug(`Updating resource of type ${type} with id ${uuid}.`)
-    this._debug(url.toString())
+    this.debug(`Updating resource of type ${type} with id ${uuid}.`)
 
     // Update body.
     body.data.type = type
@@ -456,8 +452,7 @@ export class DrupalClient {
 
     const url = this.buildUrl(`${apiPath}/${uuid}`, options?.params)
 
-    this._debug(`Deleting resource of type ${type} with id ${uuid}.`)
-    this._debug(url.toString())
+    this.debug(`Deleting resource of type ${type} with id ${uuid}.`)
 
     const response = await this.fetch(url.toString(), {
       method: "DELETE",
@@ -490,7 +485,7 @@ export class DrupalClient {
       const cached = (await this.cache.get(options.cacheKey)) as string
 
       if (cached) {
-        this._debug(`Returning cached resource ${type} with id ${uuid}`)
+        this.debug(`Returning cached resource ${type} with id ${uuid}.`)
 
         const json = JSON.parse(cached)
 
@@ -505,8 +500,7 @@ export class DrupalClient {
 
     const url = this.buildUrl(`${apiPath}/${uuid}`, options?.params)
 
-    this._debug(`Fetching resource ${type} with id ${uuid}.`)
-    this._debug(url.toString())
+    this.debug(`Fetching resource ${type} with id ${uuid}.`)
 
     const response = await this.fetch(url.toString(), {
       withAuth: options.withAuth,
@@ -688,6 +682,8 @@ export class DrupalClient {
       _format: "json",
     })
 
+    this.debug(`Fetching resource by path, ${path}.`)
+
     const response = await this.fetch(url.toString(), {
       method: "POST",
       credentials: "include",
@@ -740,8 +736,7 @@ export class DrupalClient {
       ...options?.params,
     })
 
-    this._debug(`Fetching resource collection of type ${type}`)
-    this._debug(url.toString())
+    this.debug(`Fetching resource collection of type ${type}.`)
 
     const response = await this.fetch(url.toString(), {
       withAuth: options.withAuth,
@@ -911,6 +906,8 @@ export class DrupalClient {
       path,
     })
 
+    this.debug(`Fetching translated path, ${path}.`)
+
     const response = await this.fetch(url.toString(), {
       withAuth: options.withAuth,
     })
@@ -991,6 +988,8 @@ export class DrupalClient {
     )
 
     try {
+      this.debug(`Fetching JSON:API index.`)
+
       const response = await this.fetch(url.toString(), {
         // As per https://www.drupal.org/node/2984034 /jsonapi is public.
         withAuth: false,
@@ -1124,7 +1123,7 @@ export class DrupalClient {
       const cached = (await this.cache.get(options.cacheKey)) as string
 
       if (cached) {
-        this._debug(`Returning cached menu items for ${name}`)
+        this.debug(`Returning cached menu items for ${name}.`)
         return JSON.parse(cached)
       }
     }
@@ -1139,8 +1138,7 @@ export class DrupalClient {
       options.params
     )
 
-    this._debug(`Fetching menu items for ${name}.`)
-    this._debug(url.toString())
+    this.debug(`Fetching menu items for ${name}.`)
 
     const response = await this.fetch(url.toString(), {
       withAuth: options.withAuth,
@@ -1213,6 +1211,8 @@ export class DrupalClient {
       options.params
     )
 
+    this.debug(`Fetching view, ${viewId}.${displayId}.`)
+
     const response = await this.fetch(url.toString(), {
       withAuth: options.withAuth,
     })
@@ -1252,6 +1252,8 @@ export class DrupalClient {
       `${localePrefix}${this.apiPrefix}/index/${name}`,
       options.params
     )
+
+    this.debug(`Fetching search index, ${name}.`)
 
     const response = await this.fetch(url.toString(), {
       withAuth: options.withAuth,
@@ -1336,11 +1338,11 @@ export class DrupalClient {
       this._token &&
       Date.now() < this.tokenExpiresOn
     ) {
-      this._debug(`Using existing access token.`)
+      this.debug(`Using existing access token.`)
       return this._token
     }
 
-    this._debug(`Fetching new access token.`)
+    this.debug(`Fetching new access token.`)
 
     const basic = Buffer.from(`${clientId}:${clientSecret}`).toString("base64")
 
@@ -1349,7 +1351,7 @@ export class DrupalClient {
     if (opts?.scope) {
       body = `${body}&scope=${opts.scope}`
 
-      this._debug(`Using scope: ${opts.scope}`)
+      this.debug(`Using scope: ${opts.scope}`)
     }
 
     const response = await this.fetch(url.toString(), {
@@ -1367,8 +1369,6 @@ export class DrupalClient {
     }
 
     const result: AccessToken = await response.json()
-
-    this._debug(result)
 
     this.token = result
 
@@ -1417,13 +1417,13 @@ export class DrupalClient {
     return message
   }
 
-  private _debug(message) {
-    !!this.debug && this.logger.debug(message)
+  debug(message) {
+    this.isDebugEnabled && this.logger.debug(message)
   }
 
   // Error handling.
-  // If throwErrors is enable, we show errors in the Next.js overlay.
-  // Otherwise we log the errors even if debugging is turned off.
+  // If throwErrors is enabled, we show errors in the Next.js overlay.
+  // Otherwise, we log the errors even if debugging is turned off.
   // In production, errors are always logged never thrown.
   private throwError(error: Error) {
     if (!this.throwJsonApiErrors) {

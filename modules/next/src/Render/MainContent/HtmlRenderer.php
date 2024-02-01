@@ -112,8 +112,8 @@ class HtmlRenderer extends CoreHtmlRenderer {
       return $build;
     }
 
-    $sites = $next_entity_type_config->getSiteResolver()->getSitesForEntity($entity);
-    if (!count($sites)) {
+    $sites = $next_entity_type_config->getSiteResolver()?->getSitesForEntity($entity);
+    if (!$sites) {
       return $build;
     }
 

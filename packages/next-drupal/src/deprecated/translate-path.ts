@@ -1,6 +1,6 @@
 import { buildHeaders, buildUrl, getPathFromContext } from "./utils"
 import type { GetStaticPropsContext } from "next"
-import type { AccessToken, DrupalTranslatedPath } from "./types"
+import type { AccessToken, DrupalTranslatedPath } from "../types"
 
 export async function translatePath(
   path: string,

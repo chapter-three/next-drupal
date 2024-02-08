@@ -13,15 +13,19 @@ module.exports = {
   coverageProvider: "v8",
   collectCoverage: true,
   collectCoverageFrom: ["./src/**"],
-  coveragePathIgnorePatterns: ["./src/get-*"],
+  coveragePathIgnorePatterns: [
+    "./src/deprecated/*",
+    "./src/deprecated.ts",
+    "./src/navigation.ts",
+    "./src/types/*",
+  ],
   coverageReporters: ["lcov", "text", "text-summary"],
   coverageThreshold: {
     global: {
-      // @TODO Make these thresholds strict once #608 is completed.
-      statements: 50, // 55.1,
-      branches: 80, // 84.16,
-      functions: 70, // 72.41,
-      lines: 50, // 55.1,
+      statements: 82.07,
+      branches: 86.9,
+      functions: 80.76,
+      lines: 82.07,
     },
   },
 }

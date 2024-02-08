@@ -1,9 +1,6 @@
 import { buildHeaders, buildUrl, deserialize } from "./utils"
-import type {
-  AccessToken,
-  DrupalMenuLinkContent,
-  JsonApiWithLocaleOptions,
-} from "./types"
+import type { AccessToken, DrupalMenuLinkContent } from "../types"
+import type { JsonApiWithLocaleOptions } from "../types/deprecated"
 
 export async function getMenu<T extends DrupalMenuLinkContent>(
   name: string,

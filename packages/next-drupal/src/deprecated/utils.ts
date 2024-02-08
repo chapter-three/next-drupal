@@ -2,7 +2,7 @@ import { Jsona } from "jsona"
 import { stringify } from "qs"
 import { getAccessToken } from "./get-access-token"
 import type { GetStaticPropsContext } from "next"
-import type { AccessToken, Locale } from "./types"
+import type { AccessToken, Locale } from "../types"
 
 const JSONAPI_PREFIX = process.env.DRUPAL_JSONAPI_PREFIX || "/jsonapi"
 

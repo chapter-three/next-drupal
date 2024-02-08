@@ -23,14 +23,14 @@ import type {
   FetchOptions,
   JsonApiCreateFileResourceBody,
   JsonApiCreateResourceBody,
+  JsonApiOptions,
   JsonApiParams,
   JsonApiResource,
   JsonApiResourceWithPath,
   JsonApiResponse,
   JsonApiUpdateResourceBody,
-  JsonApiWithAuthOptions,
+  JsonApiWithAuthOption,
   JsonApiWithCacheOptions,
-  JsonApiWithLocaleOptions,
   Locale,
   PathAlias,
   PathPrefix,
@@ -312,7 +312,7 @@ export class DrupalClient {
   async createResource<T extends JsonApiResource>(
     type: string,
     body: JsonApiCreateResourceBody,
-    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
+    options?: JsonApiOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -350,7 +350,7 @@ export class DrupalClient {
   async createFileResource<T = DrupalFile>(
     type: string,
     body: JsonApiCreateFileResourceBody,
-    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
+    options?: JsonApiOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -396,7 +396,7 @@ export class DrupalClient {
     type: string,
     uuid: string,
     body: JsonApiUpdateResourceBody,
-    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
+    options?: JsonApiOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -435,7 +435,7 @@ export class DrupalClient {
   async deleteResource(
     type: string,
     uuid: string,
-    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
+    options?: JsonApiOptions
   ): Promise<boolean> {
     options = {
       withAuth: true,
@@ -467,9 +467,7 @@ export class DrupalClient {
   async getResource<T extends JsonApiResource>(
     type: string,
     uuid: string,
-    options?: JsonApiWithLocaleOptions &
-      JsonApiWithAuthOptions &
-      JsonApiWithCacheOptions
+    options?: JsonApiOptions & JsonApiWithCacheOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -523,8 +521,7 @@ export class DrupalClient {
     options?: {
       pathPrefix?: PathPrefix
       isVersionable?: boolean
-    } & JsonApiWithLocaleOptions &
-      JsonApiWithAuthOptions
+    } & JsonApiOptions
   ): Promise<T> {
     const type = typeof input === "string" ? input : input.jsonapi.resourceName
 
@@ -605,8 +602,7 @@ export class DrupalClient {
     path: string,
     options?: {
       isVersionable?: boolean
-    } & JsonApiWithLocaleOptions &
-      JsonApiWithAuthOptions
+    } & JsonApiOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -716,8 +712,7 @@ export class DrupalClient {
     type: string,
     options?: {
       deserialize?: boolean
-    } & JsonApiWithLocaleOptions &
-      JsonApiWithAuthOptions
+    } & JsonApiOptions
   ): Promise<T> {
     options = {
       withAuth: this.withAuth,
@@ -754,8 +749,7 @@ export class DrupalClient {
     context: GetStaticPropsContext,
     options?: {
       deserialize?: boolean
-    } & JsonApiWithLocaleOptions &
-      JsonApiWithAuthOptions
+    } & JsonApiOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -778,7 +772,7 @@ export class DrupalClient {
     options?: {
       params?: JsonApiParams
       pathPrefix?: PathPrefix
-    } & JsonApiWithAuthOptions
+    } & JsonApiWithAuthOption
   ): Promise<GetStaticPathsResult<{ slug: string[] }>["paths"]> {
     options = {
       withAuth: this.withAuth,
@@ -893,7 +887,7 @@ export class DrupalClient {
 
   async translatePath(
     path: string,
-    options?: JsonApiWithAuthOptions
+    options?: JsonApiWithAuthOption
   ): Promise<DrupalTranslatedPath | null> {
     options = {
       withAuth: this.withAuth,
@@ -926,7 +920,7 @@ export class DrupalClient {
     context: GetStaticPropsContext,
     options?: {
       pathPrefix?: PathPrefix
-    } & JsonApiWithAuthOptions
+    } & JsonApiWithAuthOption
   ): Promise<DrupalTranslatedPath | null> {
     options = {
       pathPrefix: "/",
@@ -1160,9 +1154,7 @@ export class DrupalClient {
 
   async getMenu<T = DrupalMenuLinkContent>(
     name: string,
-    options?: JsonApiWithLocaleOptions &
-      JsonApiWithAuthOptions &
-      JsonApiWithCacheOptions
+    options?: JsonApiOptions & JsonApiWithCacheOptions
   ): Promise<{
     items: T[]
     tree: T[]
@@ -1246,7 +1238,7 @@ export class DrupalClient {
 
   async getView<T = JsonApiResource>(
     name: string,
-    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
+    options?: JsonApiOptions
   ): Promise<DrupalView<T>> {
     options = {
       withAuth: this.withAuth,
@@ -1291,7 +1283,7 @@ export class DrupalClient {
 
   async getSearchIndex<T = JsonApiResource[]>(
     name: string,
-    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
+    options?: JsonApiOptions
   ): Promise<T> {
     options = {
       withAuth: this.withAuth,
@@ -1327,7 +1319,7 @@ export class DrupalClient {
   async getSearchIndexFromContext<T = JsonApiResource[]>(
     name: string,
     context: GetStaticPropsContext,
-    options?: JsonApiWithLocaleOptions & JsonApiWithAuthOptions
+    options?: JsonApiOptions
   ): Promise<T> {
     return await this.getSearchIndex<T>(name, {
       ...options,
@@ -1493,7 +1485,7 @@ export class DrupalClient {
 
   private getAuthFromContextAndOptions(
     context: GetStaticPropsContext,
-    options: JsonApiWithAuthOptions
+    options: JsonApiWithAuthOption
   ) {
     // If not in preview or withAuth is provided, use that.
     if (!context.preview) {

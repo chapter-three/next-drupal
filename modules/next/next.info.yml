@@ -1,5 +1,5 @@
 name: Next.js
-description: Next.js + Drupal for Incremental Static Regeneration and Preview mode.
+description: Next.js + Drupal for Incremental Static Regeneration and Draft mode.
 type: module
 core_version_requirement: ^9 || ^10
 package: Web services

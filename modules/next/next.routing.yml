@@ -8,6 +8,16 @@ next.settings:
   options:
     _admin_route: TRUE
 
+next.validate_draft_url:
+  path: '/next/draft-url'
+  defaults:
+    _controller: 'Drupal\next\Controller\NextPreviewUrlController::validate'
+  methods: [POST]
+  requirements:
+    _access: 'TRUE'
+    _format: 'json'
+
+# TODO: This path is used by next-drupal 1.6.0; remove with next 3.x.
 next.validate_preview_url:
   path: '/next/preview-url'
   defaults:

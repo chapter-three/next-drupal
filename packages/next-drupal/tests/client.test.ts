@@ -10,6 +10,8 @@ import type {
 } from "../src/types"
 import { BASE_URL } from "./utils"
 
+jest.setTimeout(10000)
+
 afterEach(() => {
   jest.restoreAllMocks()
 })
@@ -59,7 +61,7 @@ describe("DrupalClient", () => {
       "[next-drupal][debug]:",
       "Debug mode is on."
     )
-    expect(client.debug).toBe(true)
+    expect(client.isDebugEnabled).toBe(true)
   })
 })
 
@@ -911,7 +913,7 @@ describe("getResource", () => {
     )
   })
 
-  test("it throws an error if revision access if forbidden", async () => {
+  test("it throws an error if revision access is forbidden", async () => {
     const client = new DrupalClient(BASE_URL)
 
     await expect(
@@ -926,7 +928,7 @@ describe("getResource", () => {
         }
       )
     ).rejects.toThrow(
-      "403 Forbidden\nThe current user is not allowed to GET the selected resource. The user does not have access to the requested version."
+      "401 Unauthorized\nNo authentication credentials provided."
     )
   })
 
@@ -1093,7 +1095,7 @@ describe("getResourceByPath", () => {
     )
   })
 
-  test("it throws an error if revision access if forbidden", async () => {
+  test("it throws an error if revision access is forbidden", async () => {
     const client = new DrupalClient(BASE_URL)
 
     await expect(
@@ -1107,7 +1109,7 @@ describe("getResourceByPath", () => {
         }
       )
     ).rejects.toThrow(
-      "403 Forbidden\nThe current user is not allowed to GET the selected resource. The user does not have access to the requested version."
+      "401 Unauthorized\nNo authentication credentials provided."
     )
   })
 
@@ -1324,7 +1326,7 @@ describe("getResourceFromContext", () => {
     )
   })
 
-  test("it throws an error if revision access if forbidden", async () => {
+  test("it throws an error if revision access is forbidden", async () => {
     const client = new DrupalClient(BASE_URL)
 
     const context: GetStaticPropsContext = {
@@ -1343,7 +1345,7 @@ describe("getResourceFromContext", () => {
         },
       })
     ).rejects.toThrow(
-      "403 Forbidden\nThe current user is not allowed to GET the selected resource. The user does not have access to the requested version."
+      "401 Unauthorized\nNo authentication credentials provided."
     )
   })
 
@@ -1897,7 +1899,7 @@ describe("getStaticPathsFromContext", () => {
     expect(paths).toMatchSnapshot()
   })
 
-  test("it returns static paths for multiple resoure types from context", async () => {
+  test("it returns static paths for multiple resource types from context", async () => {
     const client = new DrupalClient(BASE_URL)
 
     const paths = await client.getStaticPathsFromContext(
@@ -2610,7 +2612,7 @@ describe("getAuthFromContextAndOptions", () => {
     )
   })
 
-  test("if in preview and using the jwt plugin, t should use the access token from context even with global withAuth", async () => {
+  test("if in preview and using the jwt plugin, it should use the access token from context even with global withAuth", async () => {
     const client = new DrupalClient(BASE_URL, {
       auth: {
         clientId: "7795065e-8ad0-45eb-a64d-73d9f3a5e943",

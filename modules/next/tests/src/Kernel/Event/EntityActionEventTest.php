@@ -7,9 +7,13 @@ use Drupal\dblog\Controller\DbLogController;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\node\Entity\NodeType;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Tests the EntityActionEvent.
+ *
+ * @group next
  */
 class EntityActionEventTest extends KernelTestBase {
 
@@ -58,17 +62,17 @@ class EntityActionEventTest extends KernelTestBase {
 
     // Insert.
     $page->save();
-    _drupal_shutdown_function();
+    $this->container->get('kernel')->terminate(Request::create('/'), new Response());
     $this->assertLogsContains("Event next.entity.action dispatched for entity A page and action insert.");
 
     // Update.
     $page->set('title', 'A page updated')->save();
-    _drupal_shutdown_function();
+    $this->container->get('kernel')->terminate(Request::create('/'), new Response());
     $this->assertLogsContains("Event next.entity.action dispatched for entity A page updated and action update.");
 
     // Delete.
     $page->delete();
-    _drupal_shutdown_function();
+    $this->container->get('kernel')->terminate(Request::create('/'), new Response());
     $this->assertLogsContains("Event next.entity.action dispatched for entity A page updated and action delete.");
   }
 

@@ -1,3 +1,54 @@
 display:
   default:
-    display_title: 'Por defecto'
+    display_title: "Por defecto"
+    display_options:
+      fields:
+        filename:
+          label: Nombre
+          separator: ", "
+        status:
+          label: Estado
+        changed:
+          label: "Fecha de modificación"
+        count:
+          label: "Usado en"
+      pager:
+        options:
+          tags:
+            next: "Siguiente >"
+            previous: "‹ Anterior"
+          expose:
+            items_per_page_label: "Elementos por página"
+            items_per_page_options_all_label: "- Todo -"
+            offset_label: Desplazamiento
+      exposed_form:
+        options:
+          submit_button: Filtro
+          reset_button_label: Restablecer
+          exposed_sorts_label: "Ordenar por"
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      filters:
+        status:
+          expose:
+            label: Estado
+  page_2:
+    display_options:
+      fields:
+        entity_label:
+          label: Entidad
+        type:
+          label: "Tipo de entidad"
+      pager:
+        options:
+          tags:
+            next: "Siguiente >"
+            previous: "‹ Anterior"
+          expose:
+            items_per_page_label: "Elementos por página"
+            items_per_page_options_all_label: "- Todo -"
+            offset_label: Desplazamiento
+      arguments:
+        fid:
+          exception:
+            title: Todo(s)

@@ -3,9 +3,13 @@ langcode: en
 status: true
 dependencies:
   module:
+    - field_permissions
     - file
     - image
     - node
+third_party_settings:
+  field_permissions:
+    permission_type: public
 _core:
   default_config_hash: SkXIPKZYiIMMtnBmfnxk58RYfbZ8cHSw5NZPY_JByME
 id: node.field_image
@@ -19,8 +23,8 @@ settings:
   uri_scheme: public
   default_image:
     uuid: null
-    alt: ''
-    title: ''
+    alt: ""
+    title: ""
     width: null
     height: null
 module: image

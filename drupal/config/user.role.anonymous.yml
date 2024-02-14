@@ -3,22 +3,23 @@ langcode: en
 status: true
 dependencies:
   config:
-    - node.type.article
     - rest.resource.webform_rest_submit
   module:
+    - commerce_product
     - media
-    - node
     - rest
+    - simple_oauth
     - system
 _core:
   default_config_hash: pq_mEIu_B4widZN7Ap81iCJSjShFFdcL0jEiCi8VrDk
 id: anonymous
-label: 'Anonymous user'
+label: "Anonymous user"
 weight: -10
 is_admin: false
 permissions:
-  - 'access content'
-  - 'access user profiles'
-  - 'create article content'
-  - 'restful post webform_rest_submit'
-  - 'view media'
+  - "access content"
+  - "access user profiles"
+  - "debug simple_oauth tokens"
+  - "restful post webform_rest_submit"
+  - "view commerce_product"
+  - "view media"

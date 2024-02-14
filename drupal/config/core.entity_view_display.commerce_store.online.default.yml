@@ -1,0 +1,33 @@
+uuid: 0ef9e22a-3414-45e7-a3de-98b561ac43fd
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_store.commerce_store_type.online
+  module:
+    - address
+_core:
+  default_config_hash: TXXGt2nhVIkNciw-z_ybNwsIZnsyMLKvqUFjsZFUmwI
+id: commerce_store.online.default
+targetEntityType: commerce_store
+bundle: online
+mode: default
+content:
+  address:
+    type: address_default
+    weight: 1
+    label: above
+    settings: {}
+    third_party_settings: {}
+    region: content
+hidden:
+  billing_countries: true
+  created: true
+  default_currency: true
+  is_default: true
+  langcode: true
+  mail: true
+  name: true
+  search_api_excerpt: true
+  timezone: true
+  uid: true

@@ -3,6 +3,50 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-alpha.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.6.0...next-drupal@2.0.0-alpha.0) (2024-01-05)
+
+
+### Bug Fixes
+
+* **next-drupal:** fix "403 forbidden" jest failures ([22d5742](https://github.com/chapter-three/next-drupal/commit/22d57420342b0573fdcf697c80f219f723adbc5e)), closes [#603](https://github.com/chapter-three/next-drupal/issues/603)
+* **next-drupal:** fix broken build by using named Jsona export ([f2f398d](https://github.com/chapter-three/next-drupal/commit/f2f398de57366c17908b7b54301d5966f39e73bf))
+
+
+* feat(next-drupal)!: add App Router support for Server Components ([410a5df](https://github.com/chapter-three/next-drupal/commit/410a5dfec62df2c9de0adf37feaa615a1f35e98a)), closes [#442](https://github.com/chapter-three/next-drupal/issues/442)
+
+
+### Features
+
+* **next-drupal:** add Next.js v14 support ([32a5a0a](https://github.com/chapter-three/next-drupal/commit/32a5a0a582c5faa93f8ac1a9633a89c60f5fd627)), closes [#578](https://github.com/chapter-three/next-drupal/issues/578)
+
+
+### BREAKING CHANGES
+
+* The useMenu() client hook has moved out of the main entry point and into its own
+entry point. Any import or require of that function needs to be updated:
+
+Old usage:
+```js
+import { useMenu } from "next-drupal"
+```
+
+New usage:
+```js
+import { useMenu } from "next-drupal/navigation"
+```
+
+
+
+
+
+# [1.6.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.5.1...next-drupal@1.6.0) (2022-12-06)
+
+**Note:** Version bump only for package next-drupal
+
+
+
+
+
 ## [1.5.1](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.5.0...next-drupal@1.5.1) (2022-12-06)
 
 

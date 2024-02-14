@@ -7,6 +7,10 @@ use Drupal\next\Entity\NextEntityTypeConfig;
 use Drupal\next\Entity\NextSite;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Psr7\Response as GuzzleResponse;
+use Prophecy\PhpUnit\ProphecyTrait;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Tests the path revalidator plugin.
@@ -18,6 +22,7 @@ use GuzzleHttp\ClientInterface;
 class PathRevalidatorTest extends KernelTestBase {
 
   use NodeCreationTrait;
+  use ProphecyTrait;
 
   /**
    * {@inheritdoc}
@@ -55,7 +60,7 @@ class PathRevalidatorTest extends KernelTestBase {
     $this->container->set('http_client', $client->reveal());
 
     $blog_site = NextSite::create([
-      'id' => 'blog'
+      'id' => 'blog',
     ]);
     $blog_site->save();
 
@@ -78,13 +83,13 @@ class PathRevalidatorTest extends KernelTestBase {
     $client->request('GET', $this->any())->shouldNotBeCalled();
     $page = $this->createNode();
     $page->save();
-    _drupal_shutdown_function();
+    $this->container->get('kernel')->terminate(Request::create('/'), new Response());
 
-    $client->request('GET', 'http://blog.com/api/revalidate?slug=/node/2')->shouldBeCalled();
+    $client->request('GET', 'http://blog.com/api/revalidate?slug=/node/2')->shouldBeCalled()->willReturn(new GuzzleResponse());
     $blog_site->setRevalidateUrl('http://blog.com/api/revalidate')->save();
     $page = $this->createNode();
     $page->save();
-    _drupal_shutdown_function();
+    $this->container->get('kernel')->terminate(Request::create('/'), new Response());
 
     $marketing = NextSite::create([
       'id' => 'marketing',
@@ -99,25 +104,25 @@ class PathRevalidatorTest extends KernelTestBase {
       ],
     ])->save();
 
-    $client->request('GET', 'http://marketing.com/api/revalidate?slug=/node/3&secret=12345')->shouldBeCalled();
-    $client->request('GET', 'http://blog.com/api/revalidate?slug=/node/3')->shouldBeCalled();
+    $client->request('GET', 'http://marketing.com/api/revalidate?slug=/node/3&secret=12345')->shouldBeCalled()->willReturn(new GuzzleResponse());
+    $client->request('GET', 'http://blog.com/api/revalidate?slug=/node/3')->shouldBeCalled()->willReturn(new GuzzleResponse());
     $page = $this->createNode();
     $page->save();
-    _drupal_shutdown_function();
+    $this->container->get('kernel')->terminate(Request::create('/'), new Response());
 
     $entity_type_config->setRevalidatorConfiguration('path', [
-      'additional_paths' => "/\n/blog"
+      'additional_paths' => "/\n/blog",
     ])->save();
 
-    $client->request('GET', 'http://marketing.com/api/revalidate?slug=/node/3&secret=12345')->shouldBeCalled();
-    $client->request('GET', 'http://marketing.com/api/revalidate?slug=/&secret=12345')->shouldBeCalled();
-    $client->request('GET', 'http://marketing.com/api/revalidate?slug=/blog&secret=12345')->shouldBeCalled();
-    $client->request('GET', 'http://blog.com/api/revalidate?slug=/node/3')->shouldBeCalled();
-    $client->request('GET', 'http://blog.com/api/revalidate?slug=/')->shouldBeCalled();
-    $client->request('GET', 'http://blog.com/api/revalidate?slug=/blog')->shouldBeCalled();
+    $client->request('GET', 'http://marketing.com/api/revalidate?slug=/node/3&secret=12345')->shouldBeCalled()->willReturn(new GuzzleResponse());
+    $client->request('GET', 'http://marketing.com/api/revalidate?slug=/&secret=12345')->shouldBeCalled()->willReturn(new GuzzleResponse());
+    $client->request('GET', 'http://marketing.com/api/revalidate?slug=/blog&secret=12345')->shouldBeCalled()->willReturn(new GuzzleResponse());
+    $client->request('GET', 'http://blog.com/api/revalidate?slug=/node/3')->shouldBeCalled()->willReturn(new GuzzleResponse());
+    $client->request('GET', 'http://blog.com/api/revalidate?slug=/')->shouldBeCalled()->willReturn(new GuzzleResponse());
+    $client->request('GET', 'http://blog.com/api/revalidate?slug=/blog')->shouldBeCalled()->willReturn(new GuzzleResponse());
     $page = $this->createNode();
     $page->save();
-    _drupal_shutdown_function();
+    $this->container->get('kernel')->terminate(Request::create('/'), new Response());
   }
 
 }

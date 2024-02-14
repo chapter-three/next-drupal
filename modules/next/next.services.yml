@@ -13,29 +13,34 @@ services:
     parent: default_plugin_manager
   next.entity_type.manager:
     class: Drupal\next\NextEntityTypeManager
-    arguments: [ "@entity_type.manager" ]
+    arguments: ['@entity_type.manager']
   next.settings.manager:
     class: Drupal\next\NextSettingsManager
-    arguments: [ "@config.factory", "@plugin.manager.next.site_previewer", "@plugin.manager.next.preview_url_generator" ]
+    arguments:
+      [
+        '@config.factory',
+        '@plugin.manager.next.site_previewer',
+        '@plugin.manager.next.preview_url_generator',
+      ]
   next.preview_secret_generator:
     class: Drupal\next\PreviewSecretGenerator
-    arguments: [ "@private_key" ]
+    arguments: ['@private_key']
   next.main_content_renderer.html:
     class: Drupal\next\Render\MainContent\HtmlRenderer
     decorates: main_content_renderer.html
     arguments:
       [
-        "@title_resolver",
-        "@plugin.manager.display_variant",
-        "@event_dispatcher",
-        "@module_handler",
-        "@renderer",
-        "@render_cache",
-        "%renderer.config%",
-        "@config.factory",
-        "@next.entity_type.manager",
-        "@plugin.manager.next.site_previewer",
-        "@theme.manager",
+        '@title_resolver',
+        '@plugin.manager.display_variant',
+        '@event_dispatcher',
+        '@module_handler',
+        '@renderer',
+        '@render_cache',
+        '%renderer.config%',
+        '@config.factory',
+        '@next.entity_type.manager',
+        '@plugin.manager.next.site_previewer',
+        '@theme.manager',
       ]
     tags:
       - { name: render.main_content_renderer, format: html }
@@ -43,14 +48,26 @@ services:
     class: Drupal\next\NextUninstallValidator
     tags:
       - { name: module_install.uninstall_validator }
-    arguments: [ '@plugin.manager.next.preview_url_generator', '@next.settings.manager' ]
+    arguments:
+      ['@plugin.manager.next.preview_url_generator', '@next.settings.manager']
     lazy: true
   logger.channel.next:
     parent: logger.channel_base
-    arguments: [ 'next' ]
+    arguments: ['next']
   next.entity_action_event_revalidate_subscriber:
     class: Drupal\next\EventSubscriber\EntityActionEventRevalidateSubscriber
-    arguments: ['@next.entity_type.manager', '@next.settings.manager', '@logger.channel.next']
+    arguments:
+      [
+        '@next.entity_type.manager',
+        '@next.settings.manager',
+        '@logger.channel.next',
+        '@event_dispatcher',
+      ]
     tags:
       - { name: event_subscriber }
 
+  next.entity_action_event_dispatcher:
+    class: Drupal\next\EventSubscriber\EntityActionEventDispatcher
+    arguments: ['@event_dispatcher']
+    tags:
+      - { name: needs_destruction }

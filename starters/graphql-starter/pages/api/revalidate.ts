@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next"
+import type { NextApiRequest, NextApiResponse } from "next"
 
 export default async function handler(
   request: NextApiRequest,
@@ -8,7 +8,7 @@ export default async function handler(
   const secret = request.query.secret as string
 
   // Validate secret.
-  if (secret !== process.env.DRUPAL_PREVIEW_SECRET) {
+  if (secret !== process.env.DRUPAL_REVALIDATE_SECRET) {
     return response.status(401).json({ message: "Invalid secret." })
   }
 
@@ -23,7 +23,7 @@ export default async function handler(
     return response.json({})
   } catch (error) {
     return response.status(404).json({
-      message: error.message,
+      message: (error as Error).message,
     })
   }
 }

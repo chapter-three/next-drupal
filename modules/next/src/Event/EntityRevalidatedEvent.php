@@ -17,6 +17,19 @@ class EntityRevalidatedEvent extends EntityActionEvent implements EntityRevalida
   protected bool $revalidated;
 
   /**
+   * Helper to create an entity action event.
+   *
+   * @param \Drupal\next\Event\EntityActionEventInterface $event
+   *   The entity action event.
+   *
+   * @return \Drupal\next\Event\EntityRevalidatedEvent
+   *   An instance of entity action event.
+   */
+  public static function createFromEntityActionEvent(EntityActionEventInterface $event): self {
+    return new static($event->getEntity(), $event->getAction(), $event->getSites(), $event->getEntityUrl());
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function setRevalidated(bool $revalidated): EntityRevalidatedEventInterface {

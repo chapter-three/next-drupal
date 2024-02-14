@@ -38,7 +38,7 @@ class NextSiteForm extends EntityForm {
     ];
 
     $form['base_url'] = [
-      '#type' => 'textfield',
+      '#type' => 'url',
       '#title' => $this->t('Base URL'),
       '#description' => $this->t('Enter the base URL for the Next.js site. Example: <em>https://example.com</em>.'),
       '#default_value' => $entity->getBaseUrl(),
@@ -51,39 +51,39 @@ class NextSiteForm extends EntityForm {
     ];
 
     $form['preview'] = [
-      '#title' => $this->t('Preview Mode'),
-      '#description' => $this->t('Preview mode allows editors to preview content on the site. You can read more on the <a href=":uri" target="_blank">Next.js documentation</a>.', [
-        ':uri' => 'https://nextjs.org/docs/advanced-features/preview-mode',
+      '#title' => $this->t('Draft Mode'),
+      '#description' => $this->t('Draft mode (or the deprecated Preview mode) allows editors to preview content on the site. You can read more on the <a href=":uri" target="_blank">Next.js documentation</a>.', [
+        ':uri' => 'https://nextjs.org/docs/app/building-your-application/configuring/draft-mode',
       ]),
       '#type' => 'details',
       '#group' => 'settings',
     ];
 
     $form['preview']['preview_url'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Preview URL'),
-      '#description' => $this->t('Enter the preview URL. Example: <em>https://example.com/api/preview</em>.'),
+      '#type' => 'url',
+      '#title' => $this->t('Draft URL (or Preview URL)'),
+      '#description' => $this->t('Enter the draft URL or preview URL. Example: <em>https://example.com/api/draft</em> or <em>https://example.com/api/preview</em>.'),
       '#default_value' => $entity->getPreviewUrl(),
     ];
 
     $form['preview']['preview_secret'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Preview secret'),
-      '#description' => $this->t('Enter a secret for the site preview. This is the same value used for <em>DRUPAL_PREVIEW_SECRET</em>.'),
+      '#title' => $this->t('Secret key'),
+      '#description' => $this->t('Enter a secret for the site draft/preview. This must be unique for each Next.js site'),
       '#default_value' => $entity->getPreviewSecret(),
     ];
 
     $form['revalidation'] = [
       '#title' => $this->t('On-demand Revalidation'),
       '#description' => $this->t('On-demand revalidation updates your pages when content is updated on your Drupal site. You can read more on the <a href=":uri" target="_blank">Next.js documentation</a>.', [
-        ':uri' => 'https://nextjs.org/docs/advanced-features/preview-mode',
+        ':uri' => 'https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#revalidating-data',
       ]),
       '#type' => 'details',
       '#group' => 'settings',
     ];
 
     $form['revalidation']['revalidate_url'] = [
-      '#type' => 'textfield',
+      '#type' => 'url',
       '#title' => $this->t('Revalidate URL'),
       '#description' => $this->t('Enter the revalidate URL. Example: <em>https://example.com/api/revalidate</em>.'),
       '#default_value' => $entity->getRevalidateUrl(),

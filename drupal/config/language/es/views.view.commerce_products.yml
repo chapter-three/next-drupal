@@ -1,0 +1,56 @@
+label: Productos
+display:
+  default:
+    display_title: Máster
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Filtro
+          reset_button_label: Restablecer
+          exposed_sorts_label: "Ordenar por"
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        options:
+          expose:
+            items_per_page_label: "Elementos por página"
+            items_per_page_options_all_label: "- Todo -"
+            offset_label: Desplazamiento
+          tags:
+            previous: "‹ anterior"
+            next: "siguiente ›"
+            first: "« primero"
+            last: "último »"
+      fields:
+        commerce_product_bulk_form:
+          action_title: "Con selección"
+        title:
+          label: Título
+          separator: ", "
+        type:
+          label: Tipo
+          separator: ", "
+        status:
+          label: Estado
+          settings:
+            format_custom_true: Publicado
+            format_custom_false: "Sin publicar"
+          separator: ", "
+        changed:
+          label: Actualizado
+          separator: ", "
+        operations:
+          label: Operaciones
+      filters:
+        type:
+          expose:
+            label: Tipo
+        title:
+          expose:
+            label: Título
+      title: Productos
+      empty:
+        area_text_custom:
+          content: "No hay productos disponibles."
+  page_1:
+    display_title: Página

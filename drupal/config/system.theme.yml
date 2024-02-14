@@ -1,4 +1,4 @@
 _core:
   default_config_hash: fOjer9hADYYnbCJVZMFZIIM1azTFWyg84ZkFDHfAbUg
-admin: ''
+admin: gin
 default: gin

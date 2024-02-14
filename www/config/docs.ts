@@ -221,6 +221,14 @@ export const docsConfig: DocsConfig = {
           title: "SiteResolver",
           href: "/docs/site-resolver",
         },
+        {
+          title: "Revalidator",
+          href: "/docs/revalidator",
+        },
+        {
+          title: "Entity Events",
+          href: "/docs/entity-events",
+        },
       ],
     },
   ],

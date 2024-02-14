@@ -1,6 +1,10 @@
-import { GetStaticPropsContext } from "next"
-import { AccessToken, JsonApiResource, JsonApiWithLocaleOptions } from "./types"
 import { buildHeaders, buildUrl, deserialize } from "./utils"
+import type { GetStaticPropsContext } from "next"
+import type {
+  AccessToken,
+  JsonApiResource,
+  JsonApiWithLocaleOptions,
+} from "./types"
 
 export async function getSearchIndex<T = JsonApiResource[]>(
   name: string,

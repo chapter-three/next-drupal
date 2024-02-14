@@ -4,6 +4,7 @@ namespace Drupal\next\EventSubscriber;
 
 use Drupal\next\Event\EntityActionEvent;
 use Drupal\next\Event\EntityEvents;
+use Drupal\next\Event\EntityRevalidatedEvent;
 
 /**
  * Defines an event subscriber for revalidating entity.
@@ -29,7 +30,12 @@ class EntityActionEventRevalidateSubscriber extends EntityActionEventSubscriberB
    */
   public function onAction(EntityActionEvent $event) {
     if ($revalidator = $this->nextEntityTypeManager->getRevalidator($event->getEntity())) {
-      $revalidator->revalidate($event);
+      $revalidated = $revalidator->revalidate($event);
+
+      // Dispatch post revalidation event.
+      $revalidated_event = EntityRevalidatedEvent::createFromEntityActionEvent($event);
+      $revalidated_event->setRevalidated($revalidated);
+      $this->eventDispatcher->dispatch($revalidated_event, EntityEvents::ENTITY_REVALIDATED);
     }
 
     return NULL;

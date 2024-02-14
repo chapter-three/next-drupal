@@ -95,11 +95,11 @@ class HtmlRenderer extends CoreHtmlRenderer {
       return $build;
     }
 
-    // TODO: Make this configurable?
+    // @todo Make this configurable?
     $entity_type_id = $entity->getEntityTypeId();
     $revision_routes = $entity->getEntityType()->isRevisionable() ? [
       "entity.$entity_type_id.revision",
-      "entity.$entity_type_id.latest_version"
+      "entity.$entity_type_id.latest_version",
     ] : [];
     $routes = array_merge(["entity.$entity_type_id.canonical"], $revision_routes);
 
@@ -114,7 +114,7 @@ class HtmlRenderer extends CoreHtmlRenderer {
 
     $sites = $next_entity_type_config->getSiteResolver()->getSitesForEntity($entity);
     if (!count($sites)) {
-      throw new \Exception('Next.js sites for the entity could not be resolved.');
+      return $build;
     }
 
     $config = $this->configFactory->get('next.settings');

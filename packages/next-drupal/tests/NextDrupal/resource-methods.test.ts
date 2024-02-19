@@ -530,6 +530,19 @@ describe("getResourceByPath()", () => {
     ).rejects.toThrow("Unable to resolve path /path-do-not-exist.")
   })
 
+  test("throws an error for server errors", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+
+    spyOnFetch({
+      responseBody: { message: "mocked internal server error" },
+      status: 500,
+    })
+
+    await expect(
+      drupal.getResourceByPath<DrupalNode>("/server-error")
+    ).rejects.toThrow("500 mocked internal server error")
+  })
+
   test("throws an error for invalid params", async () => {
     const drupal = new NextDrupal(BASE_URL)
 
@@ -1015,6 +1028,19 @@ describe("translatePath()", () => {
     const path = await drupal.translatePath("/path-not-found")
 
     expect(path).toBeNull()
+  })
+
+  test("throws an error for server errors", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+
+    spyOnFetch({
+      responseBody: { message: "mocked internal server error" },
+      status: 500,
+    })
+
+    await expect(drupal.translatePath("/server-error")).rejects.toThrowError(
+      "500 mocked internal server error"
+    )
   })
 
   test("makes un-authenticated requests by default", async () => {

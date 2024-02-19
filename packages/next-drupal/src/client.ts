@@ -910,6 +910,10 @@ export class DrupalClient {
       withAuth: options.withAuth,
     })
 
+    if (response?.status.toString().startsWith("5")) {
+      throw new Error(`Server error.`)
+    }
+
     if (!response?.ok) {
       // Do not throw errors here.
       // Otherwise next.js will catch error and throw a 500.

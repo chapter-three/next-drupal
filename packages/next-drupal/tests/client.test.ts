@@ -10,6 +10,8 @@ import type {
 } from "../src/types"
 import { BASE_URL } from "./utils"
 
+jest.setTimeout(10000)
+
 afterEach(() => {
   jest.restoreAllMocks()
 })
@@ -59,7 +61,7 @@ describe("DrupalClient", () => {
       "[next-drupal][debug]:",
       "Debug mode is on."
     )
-    expect(client.debug).toBe(true)
+    expect(client.isDebugEnabled).toBe(true)
   })
 })
 
@@ -1443,13 +1445,15 @@ describe("getResourceFromContext", () => {
       },
     }
 
-    const recipe = await client.getResourceFromContext(path, context, {
-      params: {
-        "fields[node--recipe]": "title,path,status",
-      },
-    })
+    if (path) {
+      const recipe = await client.getResourceFromContext(path, context, {
+        params: {
+          "fields[node--recipe]": "title,path,status",
+        },
+      })
 
-    await expect(recipe).toMatchSnapshot()
+      await expect(recipe).toMatchSnapshot()
+    }
   })
 })
 

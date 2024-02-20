@@ -139,16 +139,6 @@ export type DrupalClientOptions = {
    * The scope used for the current access token.
    */
   accessTokenScope?: string
-
-  /**
-   * If set to true, the preview cookie will be set with SameSite=None,Secure.
-   *
-   * * **Default value**: `false`
-   * * **Required**: *No*
-   *
-   * [Documentation](https://next-drupal.org/docs/client/configuration#forceiframesamesitecookie)
-   */
-  forceIframeSameSiteCookie?: boolean
 }
 
 export type DrupalClientAuth =
@@ -408,13 +398,6 @@ export interface JsonApiResource extends Record<string, any> {
 
 export interface JsonApiResourceWithPath extends JsonApiResource {
   path: PathAlias
-}
-
-export interface PreviewOptions {
-  errorMessages?: {
-    secret?: string
-    slug?: string
-  }
 }
 
 export type GetResourcePreviewUrlOptions = JsonApiWithLocaleOptions & {

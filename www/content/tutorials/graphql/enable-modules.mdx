@@ -6,7 +6,14 @@ group: Quick Start (GraphQL)
 ---
 
 1. Visit `/admin/modules`.
-2. Enable the following modules: **Next.js** and **Next.js GraphQL**.
+2. Enable the following modules: **Next.js**, **Next.js GraphQL**, **GraphQL Compose: Edges**, **GraphQL Compose: Routes**.
+
+## Configure GraphQL Compose
+
+1. Visit `/admin/config/graphql_compose`.
+2. Enable "GraphQL", "Single Query", "Edge Query", & "Loading by Route" for the Article content type.
+3. Enable all of the fields for the Article content type.
+4. Do the same for the Basic page content type.
 
 ## Try GraphQL
 
@@ -14,7 +21,7 @@ If you visit `/admin/config/graphql/servers/manage/graphql_compose_server/explor
 
 You can start testing GraphQL queries. Let's make our first request to fetch the first 5 articles.
 
-Copy and paste the following in the query textbox and click run.
+Copy and paste the following in the query text input and click the Execute Query (▶) button.
 
 ```graphql
 query Articles {

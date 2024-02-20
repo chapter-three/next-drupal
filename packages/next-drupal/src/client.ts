@@ -910,7 +910,7 @@ export class DrupalClient {
       withAuth: options.withAuth,
     })
 
-    if (response?.status.toString().startsWith("5")) {
+    if (response.status && response.status.toString().startsWith("5")) {
       throw new Error(`Server error.`)
     }
 

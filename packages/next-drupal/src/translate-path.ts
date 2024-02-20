@@ -16,7 +16,7 @@ export async function translatePath(
     headers: await buildHeaders(options),
   })
 
-  if (response?.status.toString().startsWith("5")) {
+  if (response.status && response.status.toString().startsWith("5")) {
     throw new Error(`Server error.`)
   }
 

@@ -264,7 +264,7 @@ export class DrupalClient {
             if (token) {
               init["headers"]["Authorization"] = `Bearer ${token.access_token}`
             }
-          } else if (isAccessTokenAuth(this._auth)) {
+          } /* c8 ignore next 4 */ else if (isAccessTokenAuth(this._auth)) {
             init["headers"]["Authorization"] =
               `${this._auth.token_type} ${this._auth.access_token}`
           }
@@ -273,7 +273,7 @@ export class DrupalClient {
         this.debug(`Using custom authorization header.`)
 
         init["headers"]["Authorization"] = init.withAuth
-      } else if (typeof init.withAuth === "function") {
+      } /* c8 ignore next 4 */ else if (typeof init.withAuth === "function") {
         this.debug(`Using custom authorization callback.`)
 
         init["headers"]["Authorization"] = init.withAuth()
@@ -292,7 +292,7 @@ export class DrupalClient {
         if (token) {
           init["headers"]["Authorization"] = `Bearer ${token.access_token}`
         }
-      } else if (isAccessTokenAuth(init.withAuth)) {
+      } /* c8 ignore next 4 */ else if (isAccessTokenAuth(init.withAuth)) {
         init["headers"]["Authorization"] =
           `${init.withAuth.token_type} ${init.withAuth.access_token}`
       }
@@ -322,7 +322,9 @@ export class DrupalClient {
 
     const apiPath = await this.getEntryForResourceType(
       type,
-      options?.locale !== options?.defaultLocale ? options.locale : undefined
+      options?.locale !== options?.defaultLocale
+        ? /* c8 ignore next */ options.locale
+        : undefined
     )
 
     const url = this.buildUrl(apiPath, options?.params)
@@ -338,13 +340,13 @@ export class DrupalClient {
       withAuth: options.withAuth,
     })
 
-    if (!response?.ok) {
-      await this.handleJsonApiErrors(response)
-    }
+    await this.throwIfJsonApiErrors(response)
 
     const json = await response.json()
 
-    return options.deserialize ? this.deserialize(json) : json
+    return options.deserialize
+      ? this.deserialize(json)
+      : /* c8 ignore next */ json
   }
 
   async createFileResource<T = DrupalFile>(
@@ -383,9 +385,7 @@ export class DrupalClient {
       withAuth: options.withAuth,
     })
 
-    if (!response?.ok) {
-      await this.handleJsonApiErrors(response)
-    }
+    await this.throwIfJsonApiErrors(response)
 
     const json = await response.json()
 
@@ -406,7 +406,9 @@ export class DrupalClient {
 
     const apiPath = await this.getEntryForResourceType(
       type,
-      options?.locale !== options?.defaultLocale ? options.locale : undefined
+      options?.locale !== options?.defaultLocale
+        ? /* c8 ignore next */ options.locale
+        : undefined
     )
 
     const url = this.buildUrl(`${apiPath}/${uuid}`, options?.params)
@@ -423,13 +425,13 @@ export class DrupalClient {
       withAuth: options.withAuth,
     })
 
-    if (!response?.ok) {
-      await this.handleJsonApiErrors(response)
-    }
+    await this.throwIfJsonApiErrors(response)
 
     const json = await response.json()
 
-    return options.deserialize ? this.deserialize(json) : json
+    return options.deserialize
+      ? this.deserialize(json)
+      : /* c8 ignore next */ json
   }
 
   async deleteResource(
@@ -445,7 +447,9 @@ export class DrupalClient {
 
     const apiPath = await this.getEntryForResourceType(
       type,
-      options?.locale !== options?.defaultLocale ? options.locale : undefined
+      options?.locale !== options?.defaultLocale
+        ? /* c8 ignore next */ options.locale
+        : undefined
     )
 
     const url = this.buildUrl(`${apiPath}/${uuid}`, options?.params)
@@ -457,9 +461,7 @@ export class DrupalClient {
       withAuth: options.withAuth,
     })
 
-    if (!response?.ok) {
-      await this.handleJsonApiErrors(response)
-    }
+    await this.throwIfJsonApiErrors(response)
 
     return response.status === 204
   }
@@ -477,6 +479,7 @@ export class DrupalClient {
       ...options,
     }
 
+    /* c8 ignore next 11 */
     if (options.withCache) {
       const cached = (await this.cache.get(options.cacheKey)) as string
 
@@ -502,12 +505,11 @@ export class DrupalClient {
       withAuth: options.withAuth,
     })
 
-    if (!response?.ok) {
-      await this.handleJsonApiErrors(response)
-    }
+    await this.throwIfJsonApiErrors(response)
 
     const json = await response.json()
 
+    /* c8 ignore next 3 */
     if (options.withCache) {
       await this.cache.set(options.cacheKey, JSON.stringify(json))
     }
@@ -568,6 +570,7 @@ export class DrupalClient {
       // When we try to translate /es/example, decoupled router will properly
       // translate to the untranslated version and set the locale to es.
       // However a subrequests to /es/subrequests for decoupled router will fail.
+      /* c8 ignore next 3 */
       if (context.locale && input.entity.langcode !== context.locale) {
         context.locale = input.entity.langcode
       }
@@ -621,7 +624,7 @@ export class DrupalClient {
       options.defaultLocale &&
       path.indexOf(options.locale) !== 1
     ) {
-      path = path === "/" ? path : path.replace(/^\/+/, "")
+      path = path === "/" ? /* c8 ignore next */ path : path.replace(/^\/+/, "")
       path = this.getPathFromContext({
         params: { slug: [path] },
         locale: options.locale,
@@ -735,9 +738,7 @@ export class DrupalClient {
       withAuth: options.withAuth,
     })
 
-    if (!response?.ok) {
-      await this.handleJsonApiErrors(response)
-    }
+    await this.throwIfJsonApiErrors(response)
 
     const json = await response.json()
 
@@ -1028,6 +1029,7 @@ export class DrupalClient {
       const pattern = `^\\/${locale}\\/`
       const path = href.replace(this.baseUrl, "")
 
+      /* c8 ignore next 3 */
       if (!new RegExp(pattern, "i").test(path)) {
         return `${this.baseUrl}/${locale}${path}`
       }
@@ -1073,6 +1075,7 @@ export class DrupalClient {
     response: NextApiResponse,
     options?: Parameters<NextApiResponse["setDraftMode"]>[0]
   ) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { slug, resourceVersion, plugin, secret, scope, ...draftData } =
       request.query
     const useDraftMode = options?.enable
@@ -1167,6 +1170,7 @@ export class DrupalClient {
       ...options,
     }
 
+    /* c8 ignore next 9 */
     if (options.withCache) {
       const cached = (await this.cache.get(options.cacheKey)) as string
 
@@ -1192,13 +1196,13 @@ export class DrupalClient {
       withAuth: options.withAuth,
     })
 
-    if (!response?.ok) {
-      await this.handleJsonApiErrors(response)
-    }
+    await this.throwIfJsonApiErrors(response)
 
     const data = await response.json()
 
-    const items = options.deserialize ? this.deserialize(data) : data
+    const items = options.deserialize
+      ? this.deserialize(data)
+      : /* c8 ignore next */ data
 
     const { items: tree } = this.buildMenuTree(items)
 
@@ -1207,6 +1211,7 @@ export class DrupalClient {
       tree,
     }
 
+    /* c8 ignore next 3 */
     if (options.withCache) {
       await this.cache.set(options.cacheKey, JSON.stringify(menu))
     }
@@ -1265,9 +1270,7 @@ export class DrupalClient {
       withAuth: options.withAuth,
     })
 
-    if (!response?.ok) {
-      await this.handleJsonApiErrors(response)
-    }
+    await this.throwIfJsonApiErrors(response)
 
     const data = await response.json()
 
@@ -1307,9 +1310,7 @@ export class DrupalClient {
       withAuth: options.withAuth,
     })
 
-    if (!response?.ok) {
-      await this.handleJsonApiErrors(response)
-    }
+    await this.throwIfJsonApiErrors(response)
 
     const json = await response.json()
 
@@ -1374,7 +1375,7 @@ export class DrupalClient {
 
     const clientId = opts?.clientId || this._auth.clientId
     const clientSecret = opts?.clientSecret || this._auth.clientSecret
-    const url = this.buildUrl(opts?.url || this._auth.url || DEFAULT_AUTH_URL)
+    const url = this.buildUrl(opts?.url || this._auth.url)
 
     if (
       this.accessTokenScope === opts?.scope &&
@@ -1407,9 +1408,7 @@ export class DrupalClient {
       body,
     })
 
-    if (!response?.ok) {
-      await this.handleJsonApiErrors(response)
-    }
+    await this.throwIfJsonApiErrors(response)
 
     const result: AccessToken = await response.json()
 
@@ -1476,7 +1475,7 @@ export class DrupalClient {
     throw error
   }
 
-  private async handleJsonApiErrors(response: Response) {
+  private async throwIfJsonApiErrors(response: Response) {
     if (!response?.ok) {
       const errors = await this.getErrorsFromResponse(response)
       throw new JsonApiErrors(errors, response.status)

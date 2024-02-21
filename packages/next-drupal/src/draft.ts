@@ -34,6 +34,7 @@ export async function enableDraftMode(
   }
 
   // Send Drupal's data to the draft-mode page.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { secret, scope, plugin, ...draftData } = Object.fromEntries(
     searchParams.entries()
   )

@@ -1,10 +1,25 @@
-import { expect } from "@jest/globals"
-import { DrupalClient } from "../src/client"
-import type { DrupalNode } from "../src/types"
-import { BASE_URL, deleteTestNodes, toggleDrupalModule } from "./utils"
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  describe,
+  expect,
+  jest,
+  test,
+} from "@jest/globals"
+import { DrupalClient } from "../../src"
+import {
+  BASE_URL,
+  deleteTestNodes,
+  toggleDrupalModule,
+  mocks,
+  mockLogger,
+  spyOnFetch,
+} from "../utils"
+import type { DrupalNode, JsonApiCreateFileResourceBody } from "../../src"
 
 // Enabling and disabling modules takes longer.
-// So we increase the time out to handle this.
+// So we increase the timeout to 10 seconds to handle this.
 jest.setTimeout(10000)
 
 beforeAll(async () => {
@@ -21,8 +36,8 @@ afterAll(async () => {
   await deleteTestNodes()
 })
 
-describe("createResource", () => {
-  test("it creates a resource", async () => {
+describe("createResource()", () => {
+  test("creates a resource", async () => {
     const client = new DrupalClient(BASE_URL)
 
     const article = await client.createResource<DrupalNode>(
@@ -46,7 +61,7 @@ describe("createResource", () => {
     expect(article.title).toEqual("TEST New article")
   })
 
-  test("it creates a resource with a relationship", async () => {
+  test("creates a resource with a relationship", async () => {
     const client = new DrupalClient(BASE_URL, {
       auth: {
         username: process.env.DRUPAL_USERNAME,
@@ -92,7 +107,7 @@ describe("createResource", () => {
     expect(article.field_media_image.name).toEqual(mediaImage.name)
   })
 
-  test("it creates a localized resource", async () => {
+  test("creates a localized resource", async () => {
     const client = new DrupalClient(BASE_URL, {
       auth: {
         username: process.env.DRUPAL_USERNAME,
@@ -112,7 +127,7 @@ describe("createResource", () => {
     expect(article.langcode).toEqual("es")
   })
 
-  test("it throws an error for missing required attributes", async () => {
+  test("throws an error for missing required attributes", async () => {
     const client = new DrupalClient(BASE_URL, {
       auth: {
         username: process.env.DRUPAL_USERNAME,
@@ -131,7 +146,7 @@ describe("createResource", () => {
     )
   })
 
-  test("it throws an error for invalid attributes", async () => {
+  test("throws an error for invalid attributes", async () => {
     const client = new DrupalClient(BASE_URL, {
       auth: {
         username: process.env.DRUPAL_USERNAME,
@@ -172,8 +187,115 @@ describe("createResource", () => {
   })
 })
 
-describe("updateResource", () => {
-  test("it updates a resource", async () => {
+describe("createFileResource()", () => {
+  const mockBody: JsonApiCreateFileResourceBody = {
+    data: {
+      attributes: {
+        type: "file--file",
+        field: "field_media_image",
+        filename: "mediterranean-quiche-umami.jpg",
+        file: Buffer.from("mock-file-data"),
+      },
+    },
+  }
+  const mockResponseData = mocks.resources.file
+
+  test("constructs the API path from body and options", async () => {
+    const logger = mockLogger()
+    const client = new DrupalClient("https://example.com", {
+      useDefaultResourceTypeEntry: true,
+      debug: true,
+      logger,
+    })
+    const type = "type--from-first-argument"
+    const fetchSpy = spyOnFetch({ responseBody: mockResponseData })
+
+    await client.createFileResource(type, mockBody, {
+      withAuth: false,
+      params: { include: "extra_field" },
+    })
+
+    expect(logger.debug).toBeCalledWith(
+      `Creating file resource for media of type ${type}.`
+    )
+    expect(fetchSpy.mock.lastCall[0]).toBe(
+      "https://example.com/jsonapi/file/file/field_media_image?include=extra_field"
+    )
+  })
+
+  test("constructs the API path using non-default locale", async () => {
+    const client = new DrupalClient("https://example.com", {
+      useDefaultResourceTypeEntry: true,
+    })
+    const type = "type--from-first-argument"
+    const fetchSpy = spyOnFetch({ responseBody: mockResponseData })
+
+    await client.createFileResource(type, mockBody, {
+      withAuth: false,
+      params: { include: "extra_field" },
+      locale: "es",
+      defaultLocale: "en",
+    })
+
+    expect(fetchSpy.mock.lastCall[0]).toBe(
+      "https://example.com/es/jsonapi/file/file/field_media_image?include=extra_field"
+    )
+  })
+
+  test("returns the deserialized data", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      useDefaultResourceTypeEntry: true,
+    })
+    spyOnFetch({ responseBody: mockResponseData })
+
+    const result = await client.createFileResource("ignored", mockBody, {
+      withAuth: false,
+    })
+
+    expect(result?.filename).toBe(mockResponseData.data.attributes.filename)
+    expect(result?.data?.attributes?.filename).toBe(undefined)
+  })
+
+  test("optionally returns the raw data", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      useDefaultResourceTypeEntry: true,
+    })
+    spyOnFetch({ responseBody: mockResponseData })
+
+    const result = await client.createFileResource("ignored", mockBody, {
+      withAuth: false,
+      deserialize: false,
+    })
+
+    expect(result?.filename).toBe(undefined)
+    expect(result?.data?.attributes?.filename).toBe(
+      mockResponseData.data.attributes.filename
+    )
+  })
+
+  test("throws error if response is not ok", async () => {
+    const client = new DrupalClient(BASE_URL, {
+      useDefaultResourceTypeEntry: true,
+    })
+    const message = "mock error"
+    spyOnFetch({
+      responseBody: { message },
+      status: 403,
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+
+    await expect(
+      client.createFileResource("ignored", mockBody, {
+        withAuth: false,
+      })
+    ).rejects.toThrow(message)
+  })
+})
+
+describe("updateResource()", () => {
+  test("updates a resource", async () => {
     const client = new DrupalClient(BASE_URL)
 
     const basic = Buffer.from(
@@ -213,7 +335,7 @@ describe("updateResource", () => {
     expect(updatedArticle.title).toEqual("TEST New article updated")
   })
 
-  test("it updates a resource with a relationship", async () => {
+  test("updates a resource with a relationship", async () => {
     const basic = Buffer.from(
       `${process.env.DRUPAL_USERNAME}:${process.env.DRUPAL_PASSWORD}`
     ).toString("base64")
@@ -273,7 +395,7 @@ describe("updateResource", () => {
     expect(updatedArticle.field_media_image.name).toEqual(mediaImage.name)
   })
 
-  test("it throws an error for missing required attributes", async () => {
+  test("throws an error for missing required attributes", async () => {
     const client = new DrupalClient(BASE_URL, {
       auth: {
         username: process.env.DRUPAL_USERNAME,
@@ -302,7 +424,7 @@ describe("updateResource", () => {
     )
   })
 
-  test("it throws an error for invalid attributes", async () => {
+  test("throws an error for invalid attributes", async () => {
     const client = new DrupalClient(BASE_URL, {
       auth: {
         username: process.env.DRUPAL_USERNAME,
@@ -349,8 +471,8 @@ describe("updateResource", () => {
   })
 })
 
-describe("deleteResource", () => {
-  test("it deletes a resource", async () => {
+describe("deleteResource()", () => {
+  test("deletes a resource", async () => {
     const client = new DrupalClient(BASE_URL, {
       auth: {
         username: process.env.DRUPAL_USERNAME,
@@ -377,7 +499,7 @@ describe("deleteResource", () => {
     )
   })
 
-  test("it throws an error for invalid resource", async () => {
+  test("throws an error for invalid resource", async () => {
     const client = new DrupalClient(BASE_URL, {
       auth: {
         username: process.env.DRUPAL_USERNAME,

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import type { JsonApiError, JsonApiLinks } from "../jsonapi-errors"
 import type { PathAlias } from "./drupal"
 
@@ -53,7 +55,6 @@ export interface JsonApiUpdateResourceBody {
   }
 }
 
-/* eslint-disable  @typescript-eslint/no-explicit-any */
 export interface JsonApiResource extends Record<string, any> {
   id: string
   type: string

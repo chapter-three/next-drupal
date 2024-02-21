@@ -13,6 +13,7 @@ module.exports = {
       },
     ],
   },
+  testLocationInResults: true,
   coverageProvider: "v8",
   collectCoverage: true,
   collectCoverageFrom: ["./src/**"],
@@ -25,10 +26,10 @@ module.exports = {
   coverageReporters: ["lcov", "text", "text-summary"],
   coverageThreshold: {
     global: {
-      statements: 82.07,
-      branches: 86.9,
-      functions: 80.76,
-      lines: 82.07,
+      statements: 100,
+      branches: 100,
+      functions: 100,
+      lines: 100,
     },
   },
 }

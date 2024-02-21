@@ -1,8 +1,5 @@
-import { DrupalClient } from "../src"
-
-// Run all tests against this env until we configure CI to setup a Drupal instance.
-// TODO: Bootstrap and expose the /drupal env for testing.
-export const BASE_URL = process.env["DRUPAL_BASE_URL"] as string
+import { DrupalClient } from "../../src"
+import { BASE_URL } from "./index"
 
 const client = new DrupalClient(BASE_URL, {
   auth: {

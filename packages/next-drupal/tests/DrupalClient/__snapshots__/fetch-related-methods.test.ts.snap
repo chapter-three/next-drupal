@@ -1,596 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`buildStaticPathsFromResources it builds static paths from resources 1`] = `
-[
-  {
-    "params": {
-      "slug": [
-        "blog",
-        "post",
-        "one",
-      ],
-    },
-  },
-  {
-    "params": {
-      "slug": [
-        "blog",
-        "post",
-        "two",
-      ],
-    },
-  },
-]
-`;
-
-exports[`buildStaticPathsFromResources it builds static paths from resources 2`] = `
-[
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "blog",
-        "post",
-        "one",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "blog",
-        "post",
-        "two",
-      ],
-    },
-  },
-]
-`;
-
-exports[`buildStaticPathsFromResources it builds static paths from resources with pathPrefix 1`] = `
-[
-  {
-    "params": {
-      "slug": [
-        "post",
-        "one",
-      ],
-    },
-  },
-  {
-    "params": {
-      "slug": [
-        "post",
-        "two",
-      ],
-    },
-  },
-]
-`;
-
-exports[`buildStaticPathsFromResources it builds static paths from resources with pathPrefix 2`] = `
-[
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "one",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "two",
-      ],
-    },
-  },
-]
-`;
-
-exports[`buildStaticPathsParamsFromPaths it builds static paths from paths 1`] = `
-[
-  {
-    "params": {
-      "slug": [
-        "blog",
-        "post",
-        "one",
-      ],
-    },
-  },
-  {
-    "params": {
-      "slug": [
-        "blog",
-        "post",
-        "two",
-      ],
-    },
-  },
-  {
-    "params": {
-      "slug": [
-        "blog",
-        "post",
-        "three",
-      ],
-    },
-  },
-]
-`;
-
-exports[`buildStaticPathsParamsFromPaths it builds static paths from paths 2`] = `
-[
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "blog",
-        "post",
-        "one",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "blog",
-        "post",
-        "two",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "blog",
-        "post",
-        "three",
-      ],
-    },
-  },
-]
-`;
-
-exports[`buildStaticPathsParamsFromPaths it builds static paths from paths with pathPrefix 1`] = `
-[
-  {
-    "params": {
-      "slug": [
-        "post",
-        "one",
-      ],
-    },
-  },
-  {
-    "params": {
-      "slug": [
-        "post",
-        "two",
-      ],
-    },
-  },
-  {
-    "params": {
-      "slug": [
-        "post",
-      ],
-    },
-  },
-]
-`;
-
-exports[`deserialize it allows for custom data serializer 1`] = `
-{
-  "id": "52837ad0-f218-46bd-a106-5710336b7053",
-  "title": "TITLE: Give it a go and grow your own herbs",
-}
-`;
-
-exports[`deserialize it deserializes JSON:API collection 1`] = `
-[
-  {
-    "id": "52837ad0-f218-46bd-a106-5710336b7053",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053?resourceVersion=id%3A20",
-      },
-    },
-    "title": "Give it a go and grow your own herbs",
-    "type": "node--article",
-  },
-  {
-    "id": "3d5a7bca-5b4a-49ee-87d2-cbe313562903",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/3d5a7bca-5b4a-49ee-87d2-cbe313562903?resourceVersion=id%3A22",
-      },
-    },
-    "title": "Dairy-free and delicious milk chocolate",
-    "type": "node--article",
-  },
-  {
-    "id": "a1ef61c9-ed15-4b6d-bba2-bf6e5141f961",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/a1ef61c9-ed15-4b6d-bba2-bf6e5141f961?resourceVersion=id%3A24",
-      },
-    },
-    "title": "The real deal for supermarket savvy shopping",
-    "type": "node--article",
-  },
-  {
-    "id": "ac0b8b56-db8d-4322-9b1e-224f22083f0d",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/ac0b8b56-db8d-4322-9b1e-224f22083f0d?resourceVersion=id%3A26",
-      },
-    },
-    "title": "The Umami guide to our favorite mushrooms",
-    "type": "node--article",
-  },
-  {
-    "id": "22874ecc-0443-441b-a3c9-3aa94d85b800",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/22874ecc-0443-441b-a3c9-3aa94d85b800?resourceVersion=id%3A28",
-      },
-    },
-    "title": "Let's hear it for carrots",
-    "type": "node--article",
-  },
-  {
-    "id": "ec51b1de-f51e-4761-b061-aa2624e58b4a",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/ec51b1de-f51e-4761-b061-aa2624e58b4a?resourceVersion=id%3A30",
-      },
-    },
-    "title": "Baking mishaps - our troubleshooting tips",
-    "type": "node--article",
-  },
-  {
-    "id": "d5b9ef80-c0aa-45ca-88e7-79c28abe5d50",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/d5b9ef80-c0aa-45ca-88e7-79c28abe5d50?resourceVersion=id%3A32",
-      },
-    },
-    "title": "Skip the spirits with delicious mocktails",
-    "type": "node--article",
-  },
-  {
-    "id": "6c7c249f-cd1a-41d5-944b-b3bfce68b325",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/6c7c249f-cd1a-41d5-944b-b3bfce68b325?resourceVersion=id%3A34",
-      },
-    },
-    "title": "Give your oatmeal the ultimate makeover",
-    "type": "node--article",
-  },
-]
-`;
-
-exports[`deserialize it deserializes JSON:API resource 1`] = `
-{
-  "body": {
-    "format": "basic_html",
-    "processed": "<p>There's nothing like having your own supply of fresh herbs, readily available and close at hand to use while cooking. Whether you have a large garden or a small kitchen window sill, there's always enough room for something home grown.</p>
-<h2>Outdoors</h2>
-<h3>Mint</h3>
-<p>Mint is a great plant to grow as it's hardy and can grow in almost any soil. Mint can grow wild, so keep it contained in a pot or it might spread and take over your whole garden.</p>
-<h3>Sage</h3>
-<p>Like mint, sage is another prolific growing plant and will take over your garden if you let it. Highly aromatic, the sage plant can be planted in a pot or flower bed in well drained soil. The best way to store the herb is to sun dry the leaves and store in a cool, dark cupboard in a sealed container.</p>
-<h3>Rosemary</h3>
-<p>Rosemary plants grow into lovely shrubs. Easily grown from cuttings, rosemary plants do not like freezing temperatures so keep pots or planted bushes near the home to shelter them from the cold. It grows well in pots as it likes dry soil, but can survive well in the ground too. If pruning rosemary to encourage it into a better shape, save the branches and hang them upside down to preserve the flavor and use in food.</p>
-<h2>Indoors</h2>
-<h3>Basil</h3>
-<p>Perfect in sunny spot on a kitchen window sill. Basil is an annual plant, so will die off in the autumn, so it's a good idea to harvest it in the summer if you have an abundance and dry it. Picked basil stays fresh longer if it is placed in water (like fresh flowers). A great way to store basil is to make it into pesto!</p>
-<h3>Chives</h3>
-<p>A versatile herb, chives can grow well indoors. Ensure the plant is watered well, and gets plenty of light. Remember to regularly trim the chives. This prevents the flowers from developing and encourages new growth.</p>
-<h3>Coriander (Cilantro)</h3>
-<p>Coriander can grow indoors, but unlike the other herbs, it doesn't like full sun. If you have a south facing kitchen window, this isn't the place for it. Although not as thirsty as basil, coriander doesn't like dry soil so don't forget to water it! Cut coriander is best stored in the fridge.</p>
-",
-    "summary": null,
-    "value": "<p>There's nothing like having your own supply of fresh herbs, readily available and close at hand to use while cooking. Whether you have a large garden or a small kitchen window sill, there's always enough room for something home grown.</p>
-<h2>Outdoors</h2>
-<h3>Mint</h3>
-<p>Mint is a great plant to grow as it's hardy and can grow in almost any soil. Mint can grow wild, so keep it contained in a pot or it might spread and take over your whole garden.</p>
-<h3>Sage</h3>
-<p>Like mint, sage is another prolific growing plant and will take over your garden if you let it. Highly aromatic, the sage plant can be planted in a pot or flower bed in well drained soil. The best way to store the herb is to sun dry the leaves and store in a cool, dark cupboard in a sealed container.</p>
-<h3>Rosemary</h3>
-<p>Rosemary plants grow into lovely shrubs. Easily grown from cuttings, rosemary plants do not like freezing temperatures so keep pots or planted bushes near the home to shelter them from the cold. It grows well in pots as it likes dry soil, but can survive well in the ground too. If pruning rosemary to encourage it into a better shape, save the branches and hang them upside down to preserve the flavor and use in food.</p>
-<h2>Indoors</h2>
-<h3>Basil</h3>
-<p>Perfect in sunny spot on a kitchen window sill. Basil is an annual plant, so will die off in the autumn, so it's a good idea to harvest it in the summer if you have an abundance and dry it. Picked basil stays fresh longer if it is placed in water (like fresh flowers). A great way to store basil is to make it into pesto!</p>
-<h3>Chives</h3>
-<p>A versatile herb, chives can grow well indoors. Ensure the plant is watered well, and gets plenty of light. Remember to regularly trim the chives. This prevents the flowers from developing and encourages new growth.</p>
-<h3>Coriander (Cilantro)</h3>
-<p>Coriander can grow indoors, but unlike the other herbs, it doesn't like full sun. If you have a south facing kitchen window, this isn't the place for it. Although not as thirsty as basil, coriander doesn't like dry soil so don't forget to water it! Cut coriander is best stored in the fridge.</p>
-",
-  },
-  "changed": "2022-03-21T10:52:42+00:00",
-  "content_translation_outdated": false,
-  "content_translation_source": "und",
-  "created": "2022-03-21T10:52:42+00:00",
-  "default_langcode": true,
-  "drupal_internal__nid": 10,
-  "drupal_internal__vid": 20,
-  "field_media_image": {
-    "id": "e5091a16-134e-400d-8393-cfe4eccbcaa2",
-    "resourceIdObjMeta": {
-      "drupal_internal__target_id": 10,
-    },
-    "type": "media--image",
-  },
-  "field_tags": [
-    {
-      "changed": "2022-03-21T10:52:42+00:00",
-      "content_translation_created": "2022-03-21T10:52:42+00:00",
-      "content_translation_outdated": false,
-      "content_translation_source": "und",
-      "content_translation_uid": {
-        "id": "256a133b-0bd7-4426-a823-b8ce81e0d778",
-        "resourceIdObjMeta": {
-          "drupal_internal__target_id": 0,
-        },
-        "type": "user--user",
-      },
-      "default_langcode": true,
-      "description": null,
-      "drupal_internal__revision_id": 14,
-      "drupal_internal__tid": 14,
-      "id": "dcd81647-71b7-48cb-b555-e20322bcb7a7",
-      "langcode": "en",
-      "links": {
-        "self": {
-          "href": "https://tests.next-drupal.org/en/jsonapi/taxonomy_term/tags/dcd81647-71b7-48cb-b555-e20322bcb7a7?resourceVersion=id%3A14",
-        },
-      },
-      "name": "Grow your own",
-      "parent": [
-        {
-          "id": "virtual",
-          "resourceIdObjMeta": {
-            "links": {
-              "help": {
-                "href": "https://www.drupal.org/docs/8/modules/json-api/core-concepts#virtual",
-                "meta": {
-                  "about": "Usage and meaning of the 'virtual' resource identifier.",
-                },
-              },
-            },
-          },
-          "type": "taxonomy_term--tags",
-        },
-      ],
-      "path": {
-        "alias": "/tags/grow-your-own",
-        "langcode": "en",
-        "pid": 27,
-      },
-      "relationshipNames": [
-        "vid",
-        "revision_user",
-        "parent",
-        "content_translation_uid",
-      ],
-      "resourceIdObjMeta": {
-        "drupal_internal__target_id": 14,
-      },
-      "revision_created": "2022-03-21T10:52:42+00:00",
-      "revision_log_message": null,
-      "revision_translation_affected": true,
-      "revision_user": null,
-      "status": true,
-      "type": "taxonomy_term--tags",
-      "vid": {
-        "id": "b0442737-e5ff-4c7c-8c2b-c977886d6e73",
-        "resourceIdObjMeta": {
-          "drupal_internal__target_id": "tags",
-        },
-        "type": "taxonomy_vocabulary--taxonomy_vocabulary",
-      },
-      "weight": 0,
-    },
-    {
-      "changed": "2022-03-21T10:52:42+00:00",
-      "content_translation_created": "2022-03-21T10:52:42+00:00",
-      "content_translation_outdated": false,
-      "content_translation_source": "und",
-      "content_translation_uid": {
-        "id": "256a133b-0bd7-4426-a823-b8ce81e0d778",
-        "resourceIdObjMeta": {
-          "drupal_internal__target_id": 0,
-        },
-        "type": "user--user",
-      },
-      "default_langcode": true,
-      "description": null,
-      "drupal_internal__revision_id": 23,
-      "drupal_internal__tid": 23,
-      "id": "60d20a4c-9d42-4b25-b717-3af3cba6abe8",
-      "langcode": "en",
-      "links": {
-        "self": {
-          "href": "https://tests.next-drupal.org/en/jsonapi/taxonomy_term/tags/60d20a4c-9d42-4b25-b717-3af3cba6abe8?resourceVersion=id%3A23",
-        },
-      },
-      "name": "Seasonal",
-      "parent": [
-        {
-          "id": "virtual",
-          "resourceIdObjMeta": {
-            "links": {
-              "help": {
-                "href": "https://www.drupal.org/docs/8/modules/json-api/core-concepts#virtual",
-                "meta": {
-                  "about": "Usage and meaning of the 'virtual' resource identifier.",
-                },
-              },
-            },
-          },
-          "type": "taxonomy_term--tags",
-        },
-      ],
-      "path": {
-        "alias": "/tags/seasonal",
-        "langcode": "en",
-        "pid": 45,
-      },
-      "relationshipNames": [
-        "vid",
-        "revision_user",
-        "parent",
-        "content_translation_uid",
-      ],
-      "resourceIdObjMeta": {
-        "drupal_internal__target_id": 23,
-      },
-      "revision_created": "2022-03-21T10:52:42+00:00",
-      "revision_log_message": null,
-      "revision_translation_affected": true,
-      "revision_user": null,
-      "status": true,
-      "type": "taxonomy_term--tags",
-      "vid": {
-        "id": "b0442737-e5ff-4c7c-8c2b-c977886d6e73",
-        "resourceIdObjMeta": {
-          "drupal_internal__target_id": "tags",
-        },
-        "type": "taxonomy_vocabulary--taxonomy_vocabulary",
-      },
-      "weight": 0,
-    },
-    {
-      "changed": "2022-03-21T10:52:42+00:00",
-      "content_translation_created": "2022-03-21T10:52:42+00:00",
-      "content_translation_outdated": false,
-      "content_translation_source": "und",
-      "content_translation_uid": {
-        "id": "256a133b-0bd7-4426-a823-b8ce81e0d778",
-        "resourceIdObjMeta": {
-          "drupal_internal__target_id": 0,
-        },
-        "type": "user--user",
-      },
-      "default_langcode": true,
-      "description": null,
-      "drupal_internal__revision_id": 16,
-      "drupal_internal__tid": 16,
-      "id": "57a1d9f6-23a6-4215-a8a9-582202cd938d",
-      "langcode": "en",
-      "links": {
-        "self": {
-          "href": "https://tests.next-drupal.org/en/jsonapi/taxonomy_term/tags/57a1d9f6-23a6-4215-a8a9-582202cd938d?resourceVersion=id%3A16",
-        },
-      },
-      "name": "Herbs",
-      "parent": [
-        {
-          "id": "virtual",
-          "resourceIdObjMeta": {
-            "links": {
-              "help": {
-                "href": "https://www.drupal.org/docs/8/modules/json-api/core-concepts#virtual",
-                "meta": {
-                  "about": "Usage and meaning of the 'virtual' resource identifier.",
-                },
-              },
-            },
-          },
-          "type": "taxonomy_term--tags",
-        },
-      ],
-      "path": {
-        "alias": "/tags/herbs",
-        "langcode": "en",
-        "pid": 31,
-      },
-      "relationshipNames": [
-        "vid",
-        "revision_user",
-        "parent",
-        "content_translation_uid",
-      ],
-      "resourceIdObjMeta": {
-        "drupal_internal__target_id": 16,
-      },
-      "revision_created": "2022-03-21T10:52:42+00:00",
-      "revision_log_message": null,
-      "revision_translation_affected": true,
-      "revision_user": null,
-      "status": true,
-      "type": "taxonomy_term--tags",
-      "vid": {
-        "id": "b0442737-e5ff-4c7c-8c2b-c977886d6e73",
-        "resourceIdObjMeta": {
-          "drupal_internal__target_id": "tags",
-        },
-        "type": "taxonomy_vocabulary--taxonomy_vocabulary",
-      },
-      "weight": 0,
-    },
-  ],
-  "id": "52837ad0-f218-46bd-a106-5710336b7053",
-  "langcode": "en",
-  "links": {
-    "self": {
-      "href": "https://tests.next-drupal.org/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053?resourceVersion=id%3A20",
-    },
-  },
-  "moderation_state": "published",
-  "node_type": {
-    "id": "a145b65a-e660-4f5d-ac0d-bd2ff9e3f0b0",
-    "resourceIdObjMeta": {
-      "drupal_internal__target_id": "article",
-    },
-    "type": "node_type--node_type",
-  },
-  "path": {
-    "alias": "/articles/give-it-a-go-and-grow-your-own-herbs",
-    "langcode": "en",
-    "pid": 85,
-  },
-  "promote": true,
-  "relationshipNames": [
-    "node_type",
-    "revision_uid",
-    "uid",
-    "field_media_image",
-    "field_tags",
-  ],
-  "revision_log": null,
-  "revision_timestamp": "2022-03-21T10:52:42+00:00",
-  "revision_translation_affected": null,
-  "revision_uid": {
-    "id": "dd9c916d-4d66-4bff-a851-eeba0cf7673a",
-    "resourceIdObjMeta": {
-      "drupal_internal__target_id": 5,
-    },
-    "type": "user--user",
-  },
-  "status": true,
-  "sticky": false,
-  "title": "Give it a go and grow your own herbs",
-  "type": "node--article",
-  "uid": {
-    "id": "dd9c916d-4d66-4bff-a851-eeba0cf7673a",
-    "resourceIdObjMeta": {
-      "drupal_internal__target_id": 5,
-    },
-    "type": "user--user",
-  },
-}
-`;
-
-exports[`fetch it allows fetching custom url 1`] = `
+exports[`fetch() allows fetching custom url 1`] = `
 {
   "data": {
     "attributes": {
@@ -781,7 +191,7 @@ exports[`fetch it allows fetching custom url 1`] = `
 }
 `;
 
-exports[`getIndex it fetches the JSON:API index 1`] = `
+exports[`getIndex() fetches the JSON:API index 1`] = `
 {
   "data": [],
   "jsonapi": {
@@ -991,7 +401,7 @@ exports[`getIndex it fetches the JSON:API index 1`] = `
 }
 `;
 
-exports[`getIndex it fetches the JSON:API index with locale 1`] = `
+exports[`getIndex() fetches the JSON:API index with locale 1`] = `
 {
   "data": [],
   "jsonapi": {
@@ -1201,7 +611,7 @@ exports[`getIndex it fetches the JSON:API index with locale 1`] = `
 }
 `;
 
-exports[`getMenu it fetches menu items for a menu 1`] = `
+exports[`getMenu() fetches menu items for a menu 1`] = `
 {
   "items": [
     {
@@ -1336,7 +746,7 @@ exports[`getMenu it fetches menu items for a menu 1`] = `
 }
 `;
 
-exports[`getMenu it fetches menu items for a menu with locale 1`] = `
+exports[`getMenu() fetches menu items for a menu with locale 1`] = `
 {
   "items": [
     {
@@ -1471,7 +881,7 @@ exports[`getMenu it fetches menu items for a menu with locale 1`] = `
 }
 `;
 
-exports[`getMenu it fetches menu items for a menu with params 1`] = `
+exports[`getMenu() fetches menu items for a menu with params 1`] = `
 {
   "items": [
     {
@@ -1494,36 +904,7 @@ exports[`getMenu it fetches menu items for a menu with params 1`] = `
 }
 `;
 
-exports[`getPathFromContext it encodes path with punctuation 1`] = `
-{
-  "entity": {
-    "bundle": "page",
-    "canonical": "https://tests.next-drupal.org/en/path%26with%5Epunc%26in%24path",
-    "id": "20",
-    "langcode": "en",
-    "path": "/en/path%26with%5Epunc%26in%24path",
-    "type": "node",
-    "uuid": "e4bbe727-14ee-44bc-a34a-14ce5c86a82e",
-  },
-  "isHomePath": false,
-  "jsonapi": {
-    "basePath": "/en/jsonapi",
-    "entryPoint": "https://tests.next-drupal.org/en/jsonapi",
-    "individual": "https://tests.next-drupal.org/en/jsonapi/node/page/e4bbe727-14ee-44bc-a34a-14ce5c86a82e",
-    "pathPrefix": "en/jsonapi",
-    "resourceName": "node--page",
-  },
-  "label": "Page with characters in path",
-  "meta": {
-    "deprecated": {
-      "jsonapi.pathPrefix": "This property has been deprecated and will be removed in the next version of Decoupled Router. Use basePath instead.",
-    },
-  },
-  "resolved": "https://tests.next-drupal.org/en/path%26with%5Epunc%26in%24path",
-}
-`;
-
-exports[`getResource it fetches a resource by uuid 1`] = `
+exports[`getResource() fetches a resource by uuid 1`] = `
 {
   "changed": "2022-03-25T08:02:17+00:00",
   "content_translation_outdated": false,
@@ -1660,7 +1041,7 @@ exports[`getResource it fetches a resource by uuid 1`] = `
 }
 `;
 
-exports[`getResource it fetches a resource by uuid with params 1`] = `
+exports[`getResource() fetches a resource by uuid with params 1`] = `
 {
   "field_cooking_time": 30,
   "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
@@ -1674,7 +1055,7 @@ exports[`getResource it fetches a resource by uuid with params 1`] = `
 }
 `;
 
-exports[`getResource it fetches a resource using locale 1`] = `
+exports[`getResource() fetches a resource using locale 1`] = `
 {
   "field_cooking_time": 30,
   "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
@@ -1688,7 +1069,7 @@ exports[`getResource it fetches a resource using locale 1`] = `
 }
 `;
 
-exports[`getResource it fetches raw data 1`] = `
+exports[`getResource() fetches raw data 1`] = `
 {
   "data": {
     "attributes": {
@@ -1898,7 +1279,7 @@ exports[`getResource it fetches raw data 1`] = `
 }
 `;
 
-exports[`getResourceByPath it fetches a resource by path 1`] = `
+exports[`getResourceByPath() fetches a resource by path 1`] = `
 {
   "changed": "2022-03-25T08:02:17+00:00",
   "content_translation_outdated": false,
@@ -2035,7 +1416,7 @@ exports[`getResourceByPath it fetches a resource by path 1`] = `
 }
 `;
 
-exports[`getResourceByPath it fetches a resource by path using locale 1`] = `
+exports[`getResourceByPath() fetches a resource by path using locale 1`] = `
 {
   "field_cooking_time": 30,
   "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
@@ -2049,7 +1430,7 @@ exports[`getResourceByPath it fetches a resource by path using locale 1`] = `
 }
 `;
 
-exports[`getResourceByPath it fetches a resource by path with params 1`] = `
+exports[`getResourceByPath() fetches a resource by path with params 1`] = `
 {
   "field_cooking_time": 30,
   "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
@@ -2063,7 +1444,7 @@ exports[`getResourceByPath it fetches a resource by path with params 1`] = `
 }
 `;
 
-exports[`getResourceByPath it fetches raw data 1`] = `
+exports[`getResourceByPath() fetches raw data 1`] = `
 {
   "data": {
     "attributes": {
@@ -2273,7 +1654,7 @@ exports[`getResourceByPath it fetches raw data 1`] = `
 }
 `;
 
-exports[`getResourceCollection it fetches a resource collection 1`] = `
+exports[`getResourceCollection() fetches a resource collection 1`] = `
 [
   {
     "id": "52837ad0-f218-46bd-a106-5710336b7053",
@@ -2358,7 +1739,7 @@ exports[`getResourceCollection it fetches a resource collection 1`] = `
 ]
 `;
 
-exports[`getResourceCollection it fetches a resource collection using locale 1`] = `
+exports[`getResourceCollection() fetches a resource collection using locale 1`] = `
 [
   {
     "id": "52837ad0-f218-46bd-a106-5710336b7053",
@@ -2451,7 +1832,7 @@ exports[`getResourceCollection it fetches a resource collection using locale 1`]
 ]
 `;
 
-exports[`getResourceCollection it fetches raw data 1`] = `
+exports[`getResourceCollection() fetches raw data 1`] = `
 {
   "data": [
     {
@@ -2500,449 +1881,7 @@ exports[`getResourceCollection it fetches raw data 1`] = `
 }
 `;
 
-exports[`getResourceCollectionFromContext it fetches a resource collection 1`] = `
-[
-  {
-    "id": "52837ad0-f218-46bd-a106-5710336b7053",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053?resourceVersion=id%3A20",
-      },
-    },
-    "title": "Give it a go and grow your own herbs",
-    "type": "node--article",
-  },
-  {
-    "id": "3d5a7bca-5b4a-49ee-87d2-cbe313562903",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/3d5a7bca-5b4a-49ee-87d2-cbe313562903?resourceVersion=id%3A22",
-      },
-    },
-    "title": "Dairy-free and delicious milk chocolate",
-    "type": "node--article",
-  },
-  {
-    "id": "a1ef61c9-ed15-4b6d-bba2-bf6e5141f961",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/a1ef61c9-ed15-4b6d-bba2-bf6e5141f961?resourceVersion=id%3A24",
-      },
-    },
-    "title": "The real deal for supermarket savvy shopping",
-    "type": "node--article",
-  },
-  {
-    "id": "ac0b8b56-db8d-4322-9b1e-224f22083f0d",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/ac0b8b56-db8d-4322-9b1e-224f22083f0d?resourceVersion=id%3A26",
-      },
-    },
-    "title": "The Umami guide to our favorite mushrooms",
-    "type": "node--article",
-  },
-  {
-    "id": "22874ecc-0443-441b-a3c9-3aa94d85b800",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/22874ecc-0443-441b-a3c9-3aa94d85b800?resourceVersion=id%3A28",
-      },
-    },
-    "title": "Let's hear it for carrots",
-    "type": "node--article",
-  },
-  {
-    "id": "ec51b1de-f51e-4761-b061-aa2624e58b4a",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/ec51b1de-f51e-4761-b061-aa2624e58b4a?resourceVersion=id%3A30",
-      },
-    },
-    "title": "Baking mishaps - our troubleshooting tips",
-    "type": "node--article",
-  },
-  {
-    "id": "d5b9ef80-c0aa-45ca-88e7-79c28abe5d50",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/d5b9ef80-c0aa-45ca-88e7-79c28abe5d50?resourceVersion=id%3A32",
-      },
-    },
-    "title": "Skip the spirits with delicious mocktails",
-    "type": "node--article",
-  },
-  {
-    "id": "6c7c249f-cd1a-41d5-944b-b3bfce68b325",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/6c7c249f-cd1a-41d5-944b-b3bfce68b325?resourceVersion=id%3A34",
-      },
-    },
-    "title": "Give your oatmeal the ultimate makeover",
-    "type": "node--article",
-  },
-]
-`;
-
-exports[`getResourceCollectionFromContext it fetches a resource collection using locale 1`] = `
-[
-  {
-    "id": "52837ad0-f218-46bd-a106-5710336b7053",
-    "langcode": "es",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/es/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053?resourceVersion=id%3A20",
-      },
-    },
-    "title": "Prueba y cultiva tus propias hierbas",
-    "type": "node--article",
-  },
-  {
-    "id": "3d5a7bca-5b4a-49ee-87d2-cbe313562903",
-    "langcode": "es",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/es/jsonapi/node/article/3d5a7bca-5b4a-49ee-87d2-cbe313562903?resourceVersion=id%3A22",
-      },
-    },
-    "title": "Delicioso chocolate sin lactosa",
-    "type": "node--article",
-  },
-  {
-    "id": "a1ef61c9-ed15-4b6d-bba2-bf6e5141f961",
-    "langcode": "es",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/es/jsonapi/node/article/a1ef61c9-ed15-4b6d-bba2-bf6e5141f961?resourceVersion=id%3A24",
-      },
-    },
-    "title": "El verdadero negocio para comprar en el supermercado",
-    "type": "node--article",
-  },
-  {
-    "id": "ac0b8b56-db8d-4322-9b1e-224f22083f0d",
-    "langcode": "es",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/es/jsonapi/node/article/ac0b8b56-db8d-4322-9b1e-224f22083f0d?resourceVersion=id%3A26",
-      },
-    },
-    "title": "Guía Umami de nuestras setas preferidas",
-    "type": "node--article",
-  },
-  {
-    "id": "22874ecc-0443-441b-a3c9-3aa94d85b800",
-    "langcode": "es",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/es/jsonapi/node/article/22874ecc-0443-441b-a3c9-3aa94d85b800?resourceVersion=id%3A28",
-      },
-    },
-    "title": "Un aplauso para las zanahorias",
-    "type": "node--article",
-  },
-  {
-    "id": "ec51b1de-f51e-4761-b061-aa2624e58b4a",
-    "langcode": "es",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/es/jsonapi/node/article/ec51b1de-f51e-4761-b061-aa2624e58b4a?resourceVersion=id%3A30",
-      },
-    },
-    "title": "Percances al hornear - nuestros consejos para solucionar los problemas",
-    "type": "node--article",
-  },
-  {
-    "id": "d5b9ef80-c0aa-45ca-88e7-79c28abe5d50",
-    "langcode": "es",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/es/jsonapi/node/article/d5b9ef80-c0aa-45ca-88e7-79c28abe5d50?resourceVersion=id%3A32",
-      },
-    },
-    "title": "Salta los espíritus con deliciosos cócteles sin alcohol",
-    "type": "node--article",
-  },
-  {
-    "id": "6c7c249f-cd1a-41d5-944b-b3bfce68b325",
-    "langcode": "es",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/es/jsonapi/node/article/6c7c249f-cd1a-41d5-944b-b3bfce68b325?resourceVersion=id%3A34",
-      },
-    },
-    "title": "Dale a tu avena el cambio de imagen definitivo",
-    "type": "node--article",
-  },
-]
-`;
-
-exports[`getResourceCollectionFromContext it fetches raw data 1`] = `
-{
-  "data": [
-    {
-      "attributes": {
-        "title": "Vegan chocolate and nut brownies",
-      },
-      "id": "7862d283-ece2-4ae1-8bef-865259f72315",
-      "links": {
-        "self": {
-          "href": "https://tests.next-drupal.org/en/jsonapi/node/recipe/7862d283-ece2-4ae1-8bef-865259f72315?resourceVersion=id%3A4",
-        },
-      },
-      "type": "node--recipe",
-    },
-    {
-      "attributes": {
-        "title": "Super easy vegetarian pasta bake",
-      },
-      "id": "8d4b237f-f6fe-4bb1-95ef-f9e3b3f9d6b7",
-      "links": {
-        "self": {
-          "href": "https://tests.next-drupal.org/en/jsonapi/node/recipe/8d4b237f-f6fe-4bb1-95ef-f9e3b3f9d6b7?resourceVersion=id%3A6",
-        },
-      },
-      "type": "node--recipe",
-    },
-  ],
-  "jsonapi": {
-    "meta": {
-      "links": {
-        "self": {
-          "href": "http://jsonapi.org/format/1.0/",
-        },
-      },
-    },
-    "version": "1.0",
-  },
-  "links": {
-    "next": {
-      "href": "https://tests.next-drupal.org/en/jsonapi/node/recipe?fields%5Bnode--recipe%5D=title&page%5Boffset%5D=2&page%5Blimit%5D=2",
-    },
-    "self": {
-      "href": "https://tests.next-drupal.org/en/jsonapi/node/recipe?fields%5Bnode--recipe%5D=title&page%5Blimit%5D=2",
-    },
-  },
-}
-`;
-
-exports[`getResourceFromContext it accepts a translated path 1`] = `
-{
-  "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
-  "links": {
-    "self": {
-      "href": "https://tests.next-drupal.org/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?resourceVersion=id%3A37",
-    },
-  },
-  "path": {
-    "alias": "/recipes/deep-mediterranean-quiche",
-    "langcode": "en",
-    "pid": 67,
-  },
-  "status": true,
-  "title": "Deep mediterranean quiche - edited",
-  "type": "node--recipe",
-}
-`;
-
-exports[`getResourceFromContext it fetches a resource from context 1`] = `
-{
-  "changed": "2022-03-25T08:02:17+00:00",
-  "content_translation_outdated": false,
-  "content_translation_source": "und",
-  "created": "2022-03-21T10:52:42+00:00",
-  "default_langcode": true,
-  "drupal_internal__nid": 1,
-  "drupal_internal__vid": 37,
-  "field_cooking_time": 30,
-  "field_difficulty": "medium",
-  "field_ingredients": [
-    "For the pastry:",
-    "280g plain flour",
-    "140g butter",
-    "Cold water",
-    "For the filling:",
-    "1 onion",
-    "2 garlic cloves",
-    "Half a courgette",
-    "450ml soya milk",
-    "500g grated parmesan",
-    "2 eggs",
-    "200g sun dried tomatoes",
-    "100g feta",
-  ],
-  "field_media_image": {
-    "id": "bbfe9d97-2da2-432b-a22c-0396c08e06ca",
-    "resourceIdObjMeta": {
-      "drupal_internal__target_id": 1,
-    },
-    "type": "media--image",
-  },
-  "field_number_of_servings": 8,
-  "field_preparation_time": 40,
-  "field_recipe_category": [
-    {
-      "id": "a6c02fe4-67bf-462c-90cb-32281a07efe4",
-      "resourceIdObjMeta": {
-        "drupal_internal__target_id": 31,
-      },
-      "type": "taxonomy_term--recipe_category",
-    },
-  ],
-  "field_recipe_instruction": {
-    "format": "basic_html",
-    "processed": "<ol><li>Preheat the oven to 400°F/200°C. Starting with the pastry; rub the flour and butter together in a bowl until crumbling like breadcrumbs. Add water, a little at a time, until it forms a dough.</li>
-<li>Roll out the pastry on a floured board and gently spread over your tin. Place in the fridge for 20 minutes before blind baking for a further 10.</li>
-<li>Whilst the pastry is cooling, chop and gently cook the onions, garlic and courgette.</li>
-<li>In a large bowl, add the soya milk, half the parmesan, and the eggs. Gently mix.</li>
-<li>Once the pastry is cooked, spread the onions, garlic and sun dried tomatoes over the base and pour the eggs mix over. Sprinkle the remaining parmesan and careful lay the feta over the top. Bake for 30 minutes or until golden brown.</li>
-</ol>",
-    "value": "<ol>
-	<li>Preheat the oven to 400°F/200°C. Starting with the pastry; rub the flour and butter together in a bowl until crumbling like breadcrumbs. Add water, a little at a time, until it forms a dough.</li>
-	<li>Roll out the pastry on a floured board and gently spread over your tin. Place in the fridge for 20 minutes before blind baking for a further 10.</li>
-	<li>Whilst the pastry is cooling, chop and gently cook the onions, garlic and courgette.</li>
-	<li>In a large bowl, add the soya milk, half the parmesan, and the eggs. Gently mix.</li>
-	<li>Once the pastry is cooked, spread the onions, garlic and sun dried tomatoes over the base and pour the eggs mix over. Sprinkle the remaining parmesan and careful lay the feta over the top. Bake for 30 minutes or until golden brown.</li>
-</ol>
-",
-  },
-  "field_summary": {
-    "format": "basic_html",
-    "processed": "<p>An Italian inspired quiche with sun dried tomatoes and courgette. A perfect light meal for a summer's day.</p>
-",
-    "value": "<p>An Italian inspired quiche with sun dried tomatoes and courgette. A perfect light meal for a summer's day.</p>
-",
-  },
-  "field_tags": [
-    {
-      "id": "46258827-cfad-4813-99dc-287c4cb41117",
-      "resourceIdObjMeta": {
-        "drupal_internal__target_id": 22,
-      },
-      "type": "taxonomy_term--tags",
-    },
-    {
-      "id": "f32a4d84-0568-4bfd-8be3-8217d36efb6d",
-      "resourceIdObjMeta": {
-        "drupal_internal__target_id": 13,
-      },
-      "type": "taxonomy_term--tags",
-    },
-  ],
-  "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
-  "langcode": "en",
-  "links": {
-    "self": {
-      "href": "https://tests.next-drupal.org/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?resourceVersion=id%3A37",
-    },
-  },
-  "moderation_state": "published",
-  "node_type": {
-    "id": "9b70a287-cade-454f-be8b-dea7b9a37c7a",
-    "resourceIdObjMeta": {
-      "drupal_internal__target_id": "recipe",
-    },
-    "type": "node_type--node_type",
-  },
-  "path": {
-    "alias": "/recipes/deep-mediterranean-quiche",
-    "langcode": "en",
-    "pid": 67,
-  },
-  "promote": true,
-  "relationshipNames": [
-    "node_type",
-    "revision_uid",
-    "uid",
-    "field_media_image",
-    "field_recipe_category",
-    "field_tags",
-  ],
-  "revision_log": null,
-  "revision_timestamp": "2022-03-25T08:02:17+00:00",
-  "revision_translation_affected": true,
-  "revision_uid": {
-    "id": "365cc7b5-ddc4-4b3b-939e-1494400aab4a",
-    "resourceIdObjMeta": {
-      "drupal_internal__target_id": 1,
-    },
-    "type": "user--user",
-  },
-  "status": true,
-  "sticky": false,
-  "title": "Deep mediterranean quiche - edited",
-  "type": "node--recipe",
-  "uid": {
-    "id": "9e4944e8-dd77-407a-8610-83e823b48b56",
-    "resourceIdObjMeta": {
-      "drupal_internal__target_id": 4,
-    },
-    "type": "user--user",
-  },
-}
-`;
-
-exports[`getResourceFromContext it fetches a resource from context using locale 1`] = `
-{
-  "field_cooking_time": 30,
-  "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
-  "links": {
-    "self": {
-      "href": "https://tests.next-drupal.org/es/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?resourceVersion=id%3A37",
-    },
-  },
-  "title": "Quiche mediterráneo profundo",
-  "type": "node--recipe",
-}
-`;
-
-exports[`getResourceFromContext it fetches a resource from context with params 1`] = `
-{
-  "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
-  "links": {
-    "self": {
-      "href": "https://tests.next-drupal.org/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?resourceVersion=id%3A37",
-    },
-  },
-  "title": "Deep mediterranean quiche - edited",
-  "type": "node--recipe",
-}
-`;
-
-exports[`getResourceFromContext it fetches raw data 1`] = `
-{
-  "data": {
-    "attributes": {
-      "title": "Deep mediterranean quiche - edited",
-    },
-    "id": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
-    "links": {
-      "self": {
-        "href": "https://tests.next-drupal.org/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?resourceVersion=id%3A37",
-      },
-    },
-    "type": "node--recipe",
-  },
-  "jsonapi": {
-    "meta": {
-      "links": {
-        "self": {
-          "href": "http://jsonapi.org/format/1.0/",
-        },
-      },
-    },
-    "version": "1.0",
-  },
-  "links": {
-    "self": {
-      "href": "https://tests.next-drupal.org/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f?fields%5Bnode--recipe%5D=title&resourceVersion=rel%3Alatest-version",
-    },
-  },
-}
-`;
-
-exports[`getSearchIndex it fetches a search index 1`] = `
+exports[`getSearchIndex() fetches a search index 1`] = `
 [
   {
     "id": "3873f7b4-790c-4f93-ac7a-b4ca71272128",
@@ -3037,7 +1976,7 @@ exports[`getSearchIndex it fetches a search index 1`] = `
 ]
 `;
 
-exports[`getSearchIndex it fetches a search index with facets filters 1`] = `
+exports[`getSearchIndex() fetches a search index with facets filters 1`] = `
 {
   "data": [
     {
@@ -3966,7 +2905,7 @@ exports[`getSearchIndex it fetches a search index with facets filters 1`] = `
 }
 `;
 
-exports[`getSearchIndex it fetches a search index with locale 1`] = `
+exports[`getSearchIndex() fetches a search index with locale 1`] = `
 [
   {
     "id": "3873f7b4-790c-4f93-ac7a-b4ca71272128",
@@ -4061,7 +3000,7 @@ exports[`getSearchIndex it fetches a search index with locale 1`] = `
 ]
 `;
 
-exports[`getSearchIndex it fetches raw data from search index 1`] = `
+exports[`getSearchIndex() fetches raw data from search index 1`] = `
 {
   "data": [
     {
@@ -4990,605 +3929,7 @@ exports[`getSearchIndex it fetches raw data from search index 1`] = `
 }
 `;
 
-exports[`getStaticPathsFromContext it returns static paths for multiple resource types from context 1`] = `
-[
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "articles",
-        "give-it-a-go-and-grow-your-own-herbs",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "articles",
-        "dairy-free-and-delicious-milk-chocolate",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "articles",
-        "the-real-deal-for-supermarket-savvy-shopping",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "articles",
-        "the-umami-guide-to-our-favourite-mushrooms",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "articles",
-        "lets-hear-it-for-carrots",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "articles",
-        "baking-mishaps-our-troubleshooting-tips",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "articles",
-        "skip-the-spirits-with-delicious-mocktails",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "articles",
-        "give-your-oatmeal-the-ultimate-makeover",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "articles",
-        "prueba-y-cultiva-tus-propias-hierbas",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "articles",
-        "delicioso-chocolate-sin-lactosa",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "articles",
-        "el-verdadeo-negocio-para-comprar-en-el-supermercado",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "articles",
-        "guia-umami-de-nuestras-setas-preferidas",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "articles",
-        "un-aplauso-para-las-zanahorias",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "articles",
-        "percances-al-hornear-nuestros-consejos-para-solucionar-problemas",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "articles",
-        "salta-los-espiritus-con-deliciosos-cocteles-sin-alcohol",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "articles",
-        "dale-a-tu-avena-el-cambio-de-imagen-definitivo",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "recipes",
-        "vegan-chocolate-and-nut-brownies",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "recipes",
-        "super-easy-vegetarian-pasta-bake",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "recipes",
-        "watercress-soup",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "recipes",
-        "victoria-sponge-cake",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "recipes",
-        "gluten-free-pizza",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "recipes",
-        "thai-green-curry",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "recipes",
-        "crema-catalana",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "recipes",
-        "fiery-chili-sauce",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "recipes",
-        "deep-mediterranean-quiche",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "recipes",
-        "bizcochos-veganos-de-chocolate-y-nueces",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "recipes",
-        "pasta-vegetariana-horno-super-facil",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "recipes",
-        "sopa-de-berro",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "recipes",
-        "pastel-victoria",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "recipes",
-        "pizza-sin-gluten",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "recipes",
-        "curry-verde-tailandes",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "recipes",
-        "crema-catalana",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "recipes",
-        "salsa-de-chile-ardiente",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "recipes",
-        "quiche-mediterráneo-profundo",
-      ],
-    },
-  },
-]
-`;
-
-exports[`getStaticPathsFromContext it returns static paths from context 1`] = `
-[
-  {
-    "params": {
-      "slug": [
-        "articles",
-        "give-it-a-go-and-grow-your-own-herbs",
-      ],
-    },
-  },
-  {
-    "params": {
-      "slug": [
-        "articles",
-        "dairy-free-and-delicious-milk-chocolate",
-      ],
-    },
-  },
-  {
-    "params": {
-      "slug": [
-        "articles",
-        "the-real-deal-for-supermarket-savvy-shopping",
-      ],
-    },
-  },
-  {
-    "params": {
-      "slug": [
-        "articles",
-        "the-umami-guide-to-our-favourite-mushrooms",
-      ],
-    },
-  },
-  {
-    "params": {
-      "slug": [
-        "articles",
-        "lets-hear-it-for-carrots",
-      ],
-    },
-  },
-  {
-    "params": {
-      "slug": [
-        "articles",
-        "baking-mishaps-our-troubleshooting-tips",
-      ],
-    },
-  },
-  {
-    "params": {
-      "slug": [
-        "articles",
-        "skip-the-spirits-with-delicious-mocktails",
-      ],
-    },
-  },
-  {
-    "params": {
-      "slug": [
-        "articles",
-        "give-your-oatmeal-the-ultimate-makeover",
-      ],
-    },
-  },
-]
-`;
-
-exports[`getStaticPathsFromContext it returns static paths from context with locale 1`] = `
-[
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "articles",
-        "give-it-a-go-and-grow-your-own-herbs",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "articles",
-        "dairy-free-and-delicious-milk-chocolate",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "articles",
-        "the-real-deal-for-supermarket-savvy-shopping",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "articles",
-        "the-umami-guide-to-our-favourite-mushrooms",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "articles",
-        "lets-hear-it-for-carrots",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "articles",
-        "baking-mishaps-our-troubleshooting-tips",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "articles",
-        "skip-the-spirits-with-delicious-mocktails",
-      ],
-    },
-  },
-  {
-    "locale": "en",
-    "params": {
-      "slug": [
-        "articles",
-        "give-your-oatmeal-the-ultimate-makeover",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "articles",
-        "prueba-y-cultiva-tus-propias-hierbas",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "articles",
-        "delicioso-chocolate-sin-lactosa",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "articles",
-        "el-verdadeo-negocio-para-comprar-en-el-supermercado",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "articles",
-        "guia-umami-de-nuestras-setas-preferidas",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "articles",
-        "un-aplauso-para-las-zanahorias",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "articles",
-        "percances-al-hornear-nuestros-consejos-para-solucionar-problemas",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "articles",
-        "salta-los-espiritus-con-deliciosos-cocteles-sin-alcohol",
-      ],
-    },
-  },
-  {
-    "locale": "es",
-    "params": {
-      "slug": [
-        "articles",
-        "dale-a-tu-avena-el-cambio-de-imagen-definitivo",
-      ],
-    },
-  },
-]
-`;
-
-exports[`getStaticPathsFromContext it returns static paths from context with params 1`] = `
-[
-  {
-    "params": {
-      "slug": [
-        "articles",
-        "give-it-a-go-and-grow-your-own-herbs",
-      ],
-    },
-  },
-  {
-    "params": {
-      "slug": [
-        "articles",
-        "dairy-free-and-delicious-milk-chocolate",
-      ],
-    },
-  },
-  {
-    "params": {
-      "slug": [
-        "articles",
-        "the-real-deal-for-supermarket-savvy-shopping",
-      ],
-    },
-  },
-  {
-    "params": {
-      "slug": [
-        "articles",
-        "the-umami-guide-to-our-favourite-mushrooms",
-      ],
-    },
-  },
-  {
-    "params": {
-      "slug": [
-        "articles",
-        "lets-hear-it-for-carrots",
-      ],
-    },
-  },
-  {
-    "params": {
-      "slug": [
-        "articles",
-        "baking-mishaps-our-troubleshooting-tips",
-      ],
-    },
-  },
-  {
-    "params": {
-      "slug": [
-        "articles",
-        "skip-the-spirits-with-delicious-mocktails",
-      ],
-    },
-  },
-  {
-    "params": {
-      "slug": [
-        "articles",
-        "give-your-oatmeal-the-ultimate-makeover",
-      ],
-    },
-  },
-]
-`;
-
-exports[`getView it fetches a view 1`] = `
+exports[`getView() fetches a view 1`] = `
 {
   "id": "featured_articles--page_1",
   "links": {
@@ -6617,7 +4958,7 @@ This low-sugar delight will meet all of those chocolate cravings and is the perf
 }
 `;
 
-exports[`getView it fetches a view with locale 1`] = `
+exports[`getView() fetches a view with locale 1`] = `
 {
   "id": "featured_articles--page_1",
   "links": {
@@ -6713,7 +5054,7 @@ exports[`getView it fetches a view with locale 1`] = `
 }
 `;
 
-exports[`getView it fetches a view with params 1`] = `
+exports[`getView() fetches a view with params 1`] = `
 {
   "id": "featured_articles--page_1",
   "links": {
@@ -6809,7 +5150,7 @@ exports[`getView it fetches a view with params 1`] = `
 }
 `;
 
-exports[`getView it fetches raw data 1`] = `
+exports[`getView() fetches raw data 1`] = `
 {
   "id": "featured_articles--page_1",
   "links": {
@@ -6941,65 +5282,7 @@ exports[`getView it fetches raw data 1`] = `
 }
 `;
 
-exports[`translatePath it translates a path 1`] = `
-{
-  "entity": {
-    "bundle": "recipe",
-    "canonical": "https://tests.next-drupal.org/en/recipes/deep-mediterranean-quiche",
-    "id": "1",
-    "langcode": "en",
-    "path": "/en/recipes/deep-mediterranean-quiche",
-    "type": "node",
-    "uuid": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
-  },
-  "isHomePath": false,
-  "jsonapi": {
-    "basePath": "/en/jsonapi",
-    "entryPoint": "https://tests.next-drupal.org/en/jsonapi",
-    "individual": "https://tests.next-drupal.org/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
-    "pathPrefix": "en/jsonapi",
-    "resourceName": "node--recipe",
-  },
-  "label": "Deep mediterranean quiche - edited",
-  "meta": {
-    "deprecated": {
-      "jsonapi.pathPrefix": "This property has been deprecated and will be removed in the next version of Decoupled Router. Use basePath instead.",
-    },
-  },
-  "resolved": "https://tests.next-drupal.org/en/recipes/deep-mediterranean-quiche",
-}
-`;
-
-exports[`translatePathFromContext it translates a path 1`] = `
-{
-  "entity": {
-    "bundle": "recipe",
-    "canonical": "https://tests.next-drupal.org/en/recipes/deep-mediterranean-quiche",
-    "id": "1",
-    "langcode": "en",
-    "path": "/en/recipes/deep-mediterranean-quiche",
-    "type": "node",
-    "uuid": "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
-  },
-  "isHomePath": false,
-  "jsonapi": {
-    "basePath": "/en/jsonapi",
-    "entryPoint": "https://tests.next-drupal.org/en/jsonapi",
-    "individual": "https://tests.next-drupal.org/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
-    "pathPrefix": "en/jsonapi",
-    "resourceName": "node--recipe",
-  },
-  "label": "Deep mediterranean quiche - edited",
-  "meta": {
-    "deprecated": {
-      "jsonapi.pathPrefix": "This property has been deprecated and will be removed in the next version of Decoupled Router. Use basePath instead.",
-    },
-  },
-  "resolved": "https://tests.next-drupal.org/en/recipes/deep-mediterranean-quiche",
-}
-`;
-
-exports[`translatePathFromContext it translates a path with pathPrefix 1`] = `
+exports[`translatePath() translates a path 1`] = `
 {
   "entity": {
     "bundle": "recipe",

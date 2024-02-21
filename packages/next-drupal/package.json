@@ -72,7 +72,7 @@
     "directory": "packages/next-drupal"
   },
   "devDependencies": {
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.3"
   },
   "dependencies": {
     "jsona": "^1.12.1",

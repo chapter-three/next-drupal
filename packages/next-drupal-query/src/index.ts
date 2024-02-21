@@ -235,7 +235,7 @@ export function withPagination(
     }
   }
 
-  if (typeof opts.page !== undefined && typeof opts.limit !== undefined) {
+  if (typeof opts.page !== "undefined" && typeof opts.limit !== "undefined") {
     params.addPageLimit(opts.limit).addPageOffset(opts.page * opts.limit)
   }
 
@@ -292,8 +292,8 @@ export function createQueries<Q extends Readonly<Queries<Q>>>(queries: Q) {
     opts = massageRouteQuery(opts)
 
     if (
-      typeof query["defaultOpts"] !== undefined &&
-      typeof opts !== undefined
+      typeof query["defaultOpts"] !== "undefined" &&
+      typeof opts !== "undefined"
     ) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       opts = deepmerge(query["defaultOpts"], opts as any) as any

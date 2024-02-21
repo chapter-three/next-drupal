@@ -59,7 +59,7 @@
     "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-react": "^7.33.2",
     "faker": "^6.6.6",
-    "husky": "^8.0.3",
+    "husky": "^9.0.11",
     "isomorphic-fetch": "^3.0.0",
     "jest": "^27.5.1",
     "lerna": "^8.0.1",

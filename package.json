@@ -20,7 +20,7 @@
     "format:check": "prettier --check .",
     "phpcs": "./drupal/vendor/bin/phpcs -p -s --colors --standard=modules/next/phpcs.xml modules/next",
     "test:next": "SIMPLETEST_DB=sqlite://localhost/:memory: ./drupal/vendor/bin/phpunit -c ./drupal/web/core modules/next",
-    "sync:modules": "./scripts/sync-repo.sh 1.0.x git@git.drupal.org:project/ \"modules/*\"",
+    "sync:modules": "./scripts/sync-repo.sh 2.x git@git.drupal.org:project/ \"modules/*\"",
     "sync:examples": "./scripts/sync-repo.sh main git@github.com:chapter-three/next- \"examples/example-*\"",
     "sync:starters": "./scripts/sync-repo.sh canary git@github.com:chapter-three/next-drupal- \"starters/*\"",
     "sync:starters:release": "./scripts/sync-repo.sh canary,main git@github.com:chapter-three/next-drupal- \"starters/*\"",

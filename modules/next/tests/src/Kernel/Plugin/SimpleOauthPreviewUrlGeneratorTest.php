@@ -35,6 +35,13 @@ class SimpleOauthPreviewUrlGeneratorTest extends KernelTestBase {
   protected $nextSite;
 
   /**
+   * The next settings manager.
+   *
+   * @var \Drupal\next\NextSettingsManagerInterface
+   */
+  protected $nextSettingsManager;
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
@@ -45,6 +52,8 @@ class SimpleOauthPreviewUrlGeneratorTest extends KernelTestBase {
     $this->installConfig(['filter', 'next']);
     $this->installSchema('system', ['sequences']);
     $this->installSchema('node', ['node_access']);
+
+    $this->nextSettingsManager = $this->container->get('next.settings.manager');
 
     // Create NextSite entities.
     $this->nextSite = NextSite::create([
@@ -91,44 +100,11 @@ class SimpleOauthPreviewUrlGeneratorTest extends KernelTestBase {
     $this->assertNotEmpty($query['timestamp']);
     $this->assertNotEmpty($query['secret']);
     $this->assertSame($query['plugin'], 'simple_oauth');
-    $this->assertContains($query['scope'], $user->getRoles());
 
     // Test the secret.
     /** @var \Drupal\next\PreviewSecretGeneratorInterface $secret_generator */
     $secret_generator = \Drupal::service('next.preview_secret_generator');
-    $this->assertSame($query['secret'], $secret_generator->generate($query['timestamp'] . $query['slug'] . $query['scope'] . $query['resourceVersion']));
-  }
-
-  /**
-   * @covers ::getScopesForCurrentUser
-   * @covers ::getAdminRole
-   */
-  public function testCurrentUserScopes() {
-    /** @var \Drupal\next\NextSettingsManagerInterface $next_settings_manager */
-    $next_settings_manager = $this->container->get('next.settings.manager');
-    /** @var \Drupal\next\Plugin\Next\PreviewUrlGenerator\SimpleOauth $preview_url_generator */
-    $preview_url_generator = $next_settings_manager->getPreviewUrlGenerator();
-
-    $page = $this->createNode(['type' => 'page']);
-
-    // Log in as anonymous user.
-    $this->setCurrentUser(User::load(0));
-    $url = $preview_url_generator->generate($this->nextSite, $page);
-    $this->assertNull($url);
-
-    // Log in as user 1.
-    $admin_role = $this->createAdminRole();
-    $this->setCurrentUser(User::load(1));
-    $url = $preview_url_generator->generate($this->nextSite, $page);
-    $query = $url->getOption('query');
-    $this->assertSame($query['scope'], $admin_role);
-
-    // Log in as admin user.
-    $admin_user = $this->createUser([], NULL, TRUE);
-    $this->setCurrentUser($admin_user);
-    $url = $preview_url_generator->generate($this->nextSite, $page);
-    $query = $url->getOption('query');
-    $this->assertSame($query['scope'], $admin_user->getRoles(TRUE)[0]);
+    $this->assertSame($query['secret'], $secret_generator->generate($query['timestamp'] . $query['slug'] . $query['resourceVersion']));
   }
 
   /**
@@ -137,10 +113,7 @@ class SimpleOauthPreviewUrlGeneratorTest extends KernelTestBase {
    */
   public function testValidateForInvalidBody($body, $message, $is_valid = FALSE) {
     $request = Request::create('/', 'POST', [], [], [], [], Json::encode($body));
-
-    /** @var \Drupal\next\NextSettingsManagerInterface $next_settings_manager */
-    $next_settings_manager = $this->container->get('next.settings.manager');
-    $preview_url_generator = $next_settings_manager->getPreviewUrlGenerator();
+    $preview_url_generator = $this->nextSettingsManager->getPreviewUrlGenerator();
 
     if (!$is_valid) {
       $this->expectExceptionMessage($message);
@@ -159,15 +132,9 @@ class SimpleOauthPreviewUrlGeneratorTest extends KernelTestBase {
     $query = $preview_url->getOption('query');
 
     $request = Request::create('/', 'POST', [], [], [], [], Json::encode($query));
+    $preview_url_generator = $this->nextSettingsManager->getPreviewUrlGenerator();
 
-    /** @var \Drupal\next\NextSettingsManagerInterface $next_settings_manager */
-    $next_settings_manager = $this->container->get('next.settings.manager');
-    $preview_url_generator = $next_settings_manager->getPreviewUrlGenerator();
-
-    $response = $preview_url_generator->validate($request);
-    $role = $user->getRoles(TRUE)[0];
-    $this->assertSame(['scope' => $role], $response);
-
+    $preview_url_generator->validate($request);
     $this->expectExceptionMessage('The provided secret is invalid.');
     $query = $preview_url->getOption('query');
     $query['timestamp'] = strtotime('+60seconds');
@@ -185,12 +152,6 @@ class SimpleOauthPreviewUrlGeneratorTest extends KernelTestBase {
     $query['resourceVersion'] = 'rel:23';
     $request = Request::create('/', 'POST', [], [], [], [], Json::encode($query));
     $preview_url_generator->validate($request);
-
-    $this->expectExceptionMessage('The provided secret is invalid.');
-    $query = $preview_url->getOption('query');
-    $query['scope'] = 'editor';
-    $request = Request::create('/', 'POST', [], [], [], [], Json::encode($query));
-    $preview_url_generator->validate($request);
   }
 
   /**
@@ -204,14 +165,9 @@ class SimpleOauthPreviewUrlGeneratorTest extends KernelTestBase {
       [[], "Field 'slug' is missing"],
       [['slug' => '/node/1'], "Field 'timestamp' is missing"],
       [
-        ['slug' => '/node/1', 'timestamp' => strtotime('now')],
-        "Field 'scope' is missing",
-      ],
-      [
         [
           'slug' => '/node/1',
           'timestamp' => strtotime('now'),
-          'scope' => 'llama',
         ],
         "Field 'secret' is missing",
       ],
@@ -219,7 +175,6 @@ class SimpleOauthPreviewUrlGeneratorTest extends KernelTestBase {
         [
           'slug' => '/node/1',
           'timestamp' => strtotime('-60 seconds'),
-          'scope' => 'llama',
           'secret' => 'secret',
         ],
         "The provided secret has expired.",
@@ -228,7 +183,6 @@ class SimpleOauthPreviewUrlGeneratorTest extends KernelTestBase {
         [
           'slug' => '/node/1',
           'timestamp' => strtotime('60 seconds'),
-          'scope' => 'llama',
           'secret' => 'secret',
         ],
         "",

@@ -64,7 +64,7 @@ class NextSiteEntityController extends ControllerBase {
 
     if ($secret = $next_site->getPreviewSecret()) {
       $variables += [
-        'preview_variables' => '# Required for Preview Mode',
+        'preview_variables' => '# Required for Draft Mode',
         'DRUPAL_PREVIEW_SECRET' => $secret,
       ];
     }
@@ -107,7 +107,7 @@ class NextSiteEntityController extends ControllerBase {
         '#context' => [
           'name' => $name,
           'value' => $value,
-        ]
+        ],
       ];
     }
 

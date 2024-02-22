@@ -8,7 +8,7 @@ body:
       label: Package
       description: The question is for what package in this monorepo?
       options:
-        - Not applicable
+        - Not package-specific
         - I’m not sure
         - next (Drupal module)
         - next-drupal (NPM package)

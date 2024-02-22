@@ -16,7 +16,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @SiteResolver(
  *  id = "site_selector",
  *  label = "Site selector",
- *  description = "The site selector plugin allows you to manually select the Next.js sites for the entity type."
+ *  description = "The site selector plugin allows you to manually select the
+ *    Next.js sites for the entity type."
  * )
  */
 class SiteSelector extends ConfigurableSiteResolverBase implements ContainerFactoryPluginInterface {

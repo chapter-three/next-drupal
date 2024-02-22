@@ -3,7 +3,7 @@ next.preview_url_generator.configuration.jwt:
   mapping:
     secret_expiration:
       type: integer
-      label: "Secret expiration"
+      label: 'Secret expiration'
     access_token_expiration:
       type: integer
-      label: "Access token expiration"
+      label: 'Access token expiration'

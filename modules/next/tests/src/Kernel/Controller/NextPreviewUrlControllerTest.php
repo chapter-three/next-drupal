@@ -50,7 +50,7 @@ class NextPreviewUrlControllerTest extends KernelTestBase {
       'id' => 'blog',
       'base_url' => 'https://blog.com',
       'preview_url' => 'https://blog.com/api/preview',
-      'preview_secret' => 'one'
+      'preview_secret' => 'one',
     ]);
     $this->nextSite->save();
 
@@ -71,7 +71,10 @@ class NextPreviewUrlControllerTest extends KernelTestBase {
 
     $controller = NextPreviewUrlController::create($this->container);
     $response = $controller->validate($request);
-    $this->assertSame(['scope' => $user->getRoles(TRUE)[0]], Json::decode($response->getContent()));
+    $this->assertSame([
+      'path' => $page->toUrl()->toString(),
+      'maxAge' => $this->config('next.settings')->get('preview_url_generator_configuration.secret_expiration'),
+    ], Json::decode($response->getContent()));
   }
 
 }

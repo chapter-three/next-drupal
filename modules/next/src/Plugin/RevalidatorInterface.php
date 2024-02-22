@@ -2,7 +2,6 @@
 
 namespace Drupal\next\Plugin;
 
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\next\Event\EntityActionEvent;
 
 /**

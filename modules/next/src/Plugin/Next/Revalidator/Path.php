@@ -3,7 +3,6 @@
 namespace Drupal\next\Plugin\Next\Revalidator;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\next\Annotation\Revalidator;
 use Drupal\next\Event\EntityActionEvent;
 use Drupal\next\Plugin\ConfigurableRevalidatorBase;
 use Drupal\next\Plugin\RevalidatorInterface;

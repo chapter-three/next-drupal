@@ -2,8 +2,6 @@
 
 namespace Drupal\next\Event;
 
-use Drupal\Core\Entity\EntityInterface;
-
 /**
  * Defines an entity revalidated event.
  *

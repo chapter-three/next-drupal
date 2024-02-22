@@ -1,16 +1,9 @@
 {
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
   "version": "independent",
-  "packages": ["packages/*", "examples/*", "modules/*"],
   "npmClient": "yarn",
-  "useWorkspaces": true,
-  "loglevel": "success",
-  "registry": "https://registry.npmjs.org/",
-  "ignoreChanges": [
-    "CHANGELOG.md",
-    "**/__tests__/**",
-    "**/__mocks__/**",
-    "drupal/**"
-  ],
+  "packages": ["packages/next-drupal"],
+  "ignoreChanges": ["CHANGELOG.md", "**/__tests__/**", "**/__mocks__/**"],
   "command": {
     "create": {
       "license": "MIT"

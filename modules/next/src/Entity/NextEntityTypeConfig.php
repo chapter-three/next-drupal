@@ -3,7 +3,6 @@
 namespace Drupal\next\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\next\Plugin\RevalidatorInterface;
 use Drupal\next\Plugin\SiteResolverInterface;
 use Drupal\next\RevalidatorPluginCollection;

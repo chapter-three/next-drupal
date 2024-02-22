@@ -1,0 +1,4 @@
+# Starters should never have a lock file.
+package-lock.json
+pnpm-lock.yaml
+yarn.lock

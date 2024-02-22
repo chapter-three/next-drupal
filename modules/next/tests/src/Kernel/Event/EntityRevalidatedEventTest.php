@@ -6,8 +6,9 @@ use Drupal\Core\Database\Database;
 use Drupal\dblog\Controller\DbLogController;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\next\Entity\NextEntityTypeConfig;
-use Drupal\node\Entity\NodeType;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Tests the EntityRevalidatedEvent.
@@ -71,17 +72,17 @@ class EntityRevalidatedEventTest extends KernelTestBase {
 
     // Insert.
     $page->save();
-    _drupal_shutdown_function();
+    $this->container->get('kernel')->terminate(Request::create('/'), new Response());
     $this->assertLogsContains("Entity A page, action insert, revalidated 0.");
 
     // Update.
     $page->set('title', 'A page updated')->save();
-    _drupal_shutdown_function();
+    $this->container->get('kernel')->terminate(Request::create('/'), new Response());
     $this->assertLogsContains("Entity A page updated, action update, revalidated 0.");
 
     // Delete.
     $page->delete();
-    _drupal_shutdown_function();
+    $this->container->get('kernel')->terminate(Request::create('/'), new Response());
     $this->assertLogsContains("Entity A page updated, action delete, revalidated 0.");
   }
 

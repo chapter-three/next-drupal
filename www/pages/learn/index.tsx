@@ -1,4 +1,3 @@
-import { getAllMdxNodes } from "next-mdx/server"
 import Link from "next/link"
 
 import { Tutorial } from "types"

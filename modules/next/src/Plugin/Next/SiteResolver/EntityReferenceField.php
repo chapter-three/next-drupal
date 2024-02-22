@@ -19,7 +19,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @SiteResolver(
  *  id = "entity_reference_field",
  *  label = "Entity reference field",
- *  description = "This plugin allows you to select an entity reference field from which to resolve the Next.js site."
+ *  description = "This plugin allows you to select an entity reference field
+ *    from which to resolve the Next.js site."
  * )
  */
 class EntityReferenceField extends ConfigurableSiteResolverBase implements ContainerFactoryPluginInterface {

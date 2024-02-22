@@ -51,7 +51,7 @@ export async function getStaticProps(context) {
     }
   }
 
-  const type = path.jsonapi.resourceName as typeof RESOURCE_TYPES[number]
+  const type = path.jsonapi.resourceName as (typeof RESOURCE_TYPES)[number]
 
   if (!RESOURCE_TYPES.includes(type)) {
     return {

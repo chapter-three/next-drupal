@@ -5,8 +5,6 @@ namespace Drupal\Tests\next\Kernel\Plugin;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\next\Entity\NextEntityTypeConfig;
 use Drupal\next\Entity\NextSite;
-use Drupal\next\Plugin\Next\PreviewUrlGenerator\SimpleOauth;
-use Drupal\next\Plugin\Next\SitePreviewer\Iframe;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 
 /**
@@ -48,7 +46,7 @@ class NextEntityTypeManagerTest extends KernelTestBase {
     $this->assertEmpty($next_entity_type_manager->getSitesForEntity($page));
 
     $blog_site = NextSite::create([
-      'id' => 'blog'
+      'id' => 'blog',
     ]);
     $blog_site->save();
     $this->assertEmpty($next_entity_type_manager->getSitesForEntity($page));
@@ -93,7 +91,7 @@ class NextEntityTypeManagerTest extends KernelTestBase {
     $this->assertEmpty($next_entity_type_manager->getSiteResolver($page));
 
     $blog_site = NextSite::create([
-      'id' => 'blog'
+      'id' => 'blog',
     ]);
     $blog_site->save();
     $this->assertEmpty($next_entity_type_manager->getSiteResolver($page));

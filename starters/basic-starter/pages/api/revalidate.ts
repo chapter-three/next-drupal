@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next"
+import type { NextApiRequest, NextApiResponse } from "next"
 
 export default async function handler(
   request: NextApiRequest,
@@ -23,7 +23,7 @@ export default async function handler(
     return response.json({})
   } catch (error) {
     return response.status(404).json({
-      message: error.message,
+      message: (error as Error).message,
     })
   }
 }

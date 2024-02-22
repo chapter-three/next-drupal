@@ -1,0 +1,102 @@
+################
+# DrupalCI GitLabCI template
+#
+# Gitlab-ci.yml to replicate DrupalCI testing for Contrib
+#
+# With thanks to:
+#   * The GitLab Acceleration Initiative participants
+#   * DrupalSpoons
+################
+
+################
+# Guidelines
+#
+# This template is designed to give any Contrib maintainer everything they need to test, without requiring modification. It is also designed to keep up to date with Core Development automatically through the use of include files that can be centrally maintained.
+#
+# However, you can modify this template if you have additional needs for your project.
+################
+
+################
+# Includes
+#
+# Additional configuration can be provided through includes.
+# One advantage of include files is that if they are updated upstream, the changes affect all pipelines using that include.
+#
+# Includes can be overridden by re-declaring anything provided in an include, here in gitlab-ci.yml
+# https://docs.gitlab.com/ee/ci/yaml/includes.html#override-included-configuration-values
+################
+
+include:
+  ################
+  # DrupalCI includes:
+  # As long as you include this, any future includes added by the Drupal Association will be accessible to your pipelines automatically.
+  # View these include files at https://git.drupalcode.org/project/gitlab_templates/
+  ################
+  - project: $_GITLAB_TEMPLATES_REPO
+    # "ref" value can be:
+    # - Recommended (default) - `ref: $_GITLAB_TEMPLATES_REF` - The Drupal Association will update this value to the recommended tag for contrib.
+    # - Latest - `ref: main` - Get the latest additions and bug fixes as they are merged into the templates.
+    # - Minor or Major latests - `ref: 1.x-latest` or `ref: 1.0.x-latest` - Get the latest additions within a minor (mostly bugfixes) or major (bugs and new features).
+    # - Fixed tag - `ref: 1.0.1` - Set the value to a known tag. This will not get any updates.
+    ref: $_GITLAB_TEMPLATES_REF
+    file:
+      - '/includes/include.drupalci.main.yml'
+      # EXPERIMENTAL: For Drupal 7, remove the above line and uncomment the below.
+      # - '/includes/include.drupalci.main-d7.yml'
+      - '/includes/include.drupalci.variables.yml'
+      - '/includes/include.drupalci.workflows.yml'
+################
+# Pipeline configuration variables
+#
+# These are the variables provided to the Run Pipeline form that a user may want to override.
+#
+# Docs at https://git.drupalcode.org/project/gitlab_templates/-/blob/1.0.x/includes/include.drupalci.variables.yml
+################
+# variables:
+#   SKIP_ESLINT: '1'
+
+###################################################################################
+#
+#                                        *
+#                                       /(
+#                                      ((((,
+#                                    /(((((((
+#                                   ((((((((((*
+#                                ,(((((((((((((((
+#                              ,(((((((((((((((((((
+#                            ((((((((((((((((((((((((*
+#                         *(((((((((((((((((((((((((((((
+#                       ((((((((((((((((((((((((((((((((((*
+#                    *((((((((((((((((((  .((((((((((((((((((
+#                  ((((((((((((((((((.       /(((((((((((((((((*
+#                /(((((((((((((((((            .(((((((((((((((((,
+#             ,((((((((((((((((((                 ((((((((((((((((((
+#           .((((((((((((((((((((                   .(((((((((((((((((
+#          (((((((((((((((((((((((                     ((((((((((((((((/
+#        (((((((((((((((((((((((((((/                    ,(((((((((((((((*
+#      .((((((((((((((/  /(((((((((((((.                   ,(((((((((((((((
+#     *((((((((((((((      ,(((((((((((((/                   *((((((((((((((.
+#    ((((((((((((((,          /(((((((((((((.                  ((((((((((((((,
+#   (((((((((((((/              ,(((((((((((((*                 ,(((((((((((((,
+#  *(((((((((((((                .(((((((((((((((                ,(((((((((((((
+#  ((((((((((((/                /((((((((((((((((((.              ,((((((((((((/
+# (((((((((((((              *(((((((((((((((((((((((*             *((((((((((((
+# (((((((((((((            ,(((((((((((((..(((((((((((((           *((((((((((((
+# ((((((((((((,          /((((((((((((*      /((((((((((((/         ((((((((((((
+# (((((((((((((        /((((((((((((/          (((((((((((((*       ((((((((((((
+# (((((((((((((/     /((((((((((((               ,((((((((((((,    *((((((((((((
+#  ((((((((((((((  *(((((((((((/                   *((((((((((((.  ((((((((((((/
+#  *((((((((((((((((((((((((((,                      /(((((((((((((((((((((((((
+#   (((((((((((((((((((((((((                         ((((((((((((((((((((((((,
+#   .(((((((((((((((((((((((/                         ,(((((((((((((((((((((((
+#     ((((((((((((((((((((((/                         ,(((((((((((((((((((((/
+#      *(((((((((((((((((((((                         (((((((((((((((((((((,
+#       ,(((((((((((((((((((((,                      ((((((((((((((((((((/
+#         ,(((((((((((((((((((((*                  /((((((((((((((((((((
+#            ((((((((((((((((((((((,           ,/((((((((((((((((((((,
+#              ,(((((((((((((((((((((((((((((((((((((((((((((((((((
+#                 .(((((((((((((((((((((((((((((((((((((((((((((
+#                     .((((((((((((((((((((((((((((((((((((,.
+#                          .,(((((((((((((((((((((((((.
+#
+###################################################################################

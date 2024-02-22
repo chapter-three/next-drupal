@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`formatData it formats data 1`] = `
-Object {
+{
   "name": "First Last",
 }
 `;
 
 exports[`getData it accepts data options 1`] = `
-Object {
+{
   "author": "shadcn",
   "id": "ID",
   "title": "Title of Article",
@@ -16,14 +16,14 @@ Object {
 `;
 
 exports[`getData it accepts placeholder options 1`] = `
-Object {
+{
   "email": "name@example.com",
   "name": "shadcn",
 }
 `;
 
 exports[`getData it returns data for a query 1`] = `
-Object {
+{
   "author": "shadcn",
   "id": "id",
   "title": "Title of Article",
@@ -32,52 +32,52 @@ Object {
 `;
 
 exports[`getData it returns data when both data and placeholder is defined 1`] = `
-Object {
+{
   "email": "foo@example.com",
 }
 `;
 
 exports[`getData it returns formatted data if a formatter is defined 1`] = `
-Object {
+{
   "email": "foo@example.com",
   "name": "First Last",
 }
 `;
 
 exports[`getData it returns placeholder data if a query does not define data 1`] = `
-Object {
+{
   "name": "shadcn",
 }
 `;
 
 exports[`getParams it accepts params options 1`] = `
-Object {
-  "fields": Object {
+{
+  "fields": {
     "resource": "foo,bar",
   },
-  "filter": Object {},
-  "include": Array [],
-  "sort": Array [],
+  "filter": {},
+  "include": [],
+  "sort": [],
 }
 `;
 
 exports[`getParams it allows params to be nested 1`] = `
-Object {
-  "fields": Object {},
-  "filter": Object {},
+{
+  "fields": {},
+  "filter": {},
   "include": "field_image,uid",
-  "page": Object {
+  "page": {
     "limit": 10,
   },
-  "sort": Array [],
+  "sort": [],
 }
 `;
 
 exports[`getParams it returns params for a query 1`] = `
-Object {
-  "fields": Object {},
-  "filter": Object {},
+{
+  "fields": {},
+  "filter": {},
   "include": "field_image,uid",
-  "sort": Array [],
+  "sort": [],
 }
 `;

@@ -1,6 +1,8 @@
 name: next-drupal-query
 on:
   push:
+    branches:
+      - main
   pull_request:
     types: [opened, synchronize, edited]
 
@@ -8,8 +10,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Install modules
         run: yarn
       - name: Run tests
-        run: yarn test packages/next-drupal-query
+        run: yarn workspace next-drupal-query test

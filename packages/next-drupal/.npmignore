@@ -1,5 +1,4 @@
-babel.config.js
-*.test.js
-coverage
-__snapshots__
-test
+/coverage
+/CHANGELOG.md
+/tests
+/tsconfig.json

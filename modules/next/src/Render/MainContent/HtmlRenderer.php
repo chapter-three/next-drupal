@@ -112,7 +112,12 @@ class HtmlRenderer extends CoreHtmlRenderer {
       return $build;
     }
 
-    $sites = $next_entity_type_config->getSiteResolver()->getSitesForEntity($entity);
+    $resolver = $next_entity_type_config->getSiteResolver();
+    if (empty($resolver)) {
+      return $build;
+    }
+
+    $sites = $resolver->getSitesForEntity($entity);
     if (!count($sites)) {
       return $build;
     }

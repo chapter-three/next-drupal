@@ -1,3 +1,4 @@
 {
-  "extends": ["@commitlint/config-conventional"]
+  "extends": ["@commitlint/config-conventional"],
+  "helpUrl": "https://github.com/chapter-three/next-drupal/blob/main/CONTRIBUTING.md#commits"
 }

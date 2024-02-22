@@ -1,0 +1,406 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`deserialize() allows for custom data serializer 1`] = `
+{
+  "id": "52837ad0-f218-46bd-a106-5710336b7053",
+  "title": "TITLE: Give it a go and grow your own herbs",
+}
+`;
+
+exports[`deserialize() deserializes JSON:API collection 1`] = `
+[
+  {
+    "id": "52837ad0-f218-46bd-a106-5710336b7053",
+    "links": {
+      "self": {
+        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053?resourceVersion=id%3A20",
+      },
+    },
+    "title": "Give it a go and grow your own herbs",
+    "type": "node--article",
+  },
+  {
+    "id": "3d5a7bca-5b4a-49ee-87d2-cbe313562903",
+    "links": {
+      "self": {
+        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/3d5a7bca-5b4a-49ee-87d2-cbe313562903?resourceVersion=id%3A22",
+      },
+    },
+    "title": "Dairy-free and delicious milk chocolate",
+    "type": "node--article",
+  },
+  {
+    "id": "a1ef61c9-ed15-4b6d-bba2-bf6e5141f961",
+    "links": {
+      "self": {
+        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/a1ef61c9-ed15-4b6d-bba2-bf6e5141f961?resourceVersion=id%3A24",
+      },
+    },
+    "title": "The real deal for supermarket savvy shopping",
+    "type": "node--article",
+  },
+  {
+    "id": "ac0b8b56-db8d-4322-9b1e-224f22083f0d",
+    "links": {
+      "self": {
+        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/ac0b8b56-db8d-4322-9b1e-224f22083f0d?resourceVersion=id%3A26",
+      },
+    },
+    "title": "The Umami guide to our favorite mushrooms",
+    "type": "node--article",
+  },
+  {
+    "id": "22874ecc-0443-441b-a3c9-3aa94d85b800",
+    "links": {
+      "self": {
+        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/22874ecc-0443-441b-a3c9-3aa94d85b800?resourceVersion=id%3A28",
+      },
+    },
+    "title": "Let's hear it for carrots",
+    "type": "node--article",
+  },
+  {
+    "id": "ec51b1de-f51e-4761-b061-aa2624e58b4a",
+    "links": {
+      "self": {
+        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/ec51b1de-f51e-4761-b061-aa2624e58b4a?resourceVersion=id%3A30",
+      },
+    },
+    "title": "Baking mishaps - our troubleshooting tips",
+    "type": "node--article",
+  },
+  {
+    "id": "d5b9ef80-c0aa-45ca-88e7-79c28abe5d50",
+    "links": {
+      "self": {
+        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/d5b9ef80-c0aa-45ca-88e7-79c28abe5d50?resourceVersion=id%3A32",
+      },
+    },
+    "title": "Skip the spirits with delicious mocktails",
+    "type": "node--article",
+  },
+  {
+    "id": "6c7c249f-cd1a-41d5-944b-b3bfce68b325",
+    "links": {
+      "self": {
+        "href": "https://tests.next-drupal.org/en/jsonapi/node/article/6c7c249f-cd1a-41d5-944b-b3bfce68b325?resourceVersion=id%3A34",
+      },
+    },
+    "title": "Give your oatmeal the ultimate makeover",
+    "type": "node--article",
+  },
+]
+`;
+
+exports[`deserialize() deserializes JSON:API resource 1`] = `
+{
+  "body": {
+    "format": "basic_html",
+    "processed": "<p>There's nothing like having your own supply of fresh herbs, readily available and close at hand to use while cooking. Whether you have a large garden or a small kitchen window sill, there's always enough room for something home grown.</p>
+<h2>Outdoors</h2>
+<h3>Mint</h3>
+<p>Mint is a great plant to grow as it's hardy and can grow in almost any soil. Mint can grow wild, so keep it contained in a pot or it might spread and take over your whole garden.</p>
+<h3>Sage</h3>
+<p>Like mint, sage is another prolific growing plant and will take over your garden if you let it. Highly aromatic, the sage plant can be planted in a pot or flower bed in well drained soil. The best way to store the herb is to sun dry the leaves and store in a cool, dark cupboard in a sealed container.</p>
+<h3>Rosemary</h3>
+<p>Rosemary plants grow into lovely shrubs. Easily grown from cuttings, rosemary plants do not like freezing temperatures so keep pots or planted bushes near the home to shelter them from the cold. It grows well in pots as it likes dry soil, but can survive well in the ground too. If pruning rosemary to encourage it into a better shape, save the branches and hang them upside down to preserve the flavor and use in food.</p>
+<h2>Indoors</h2>
+<h3>Basil</h3>
+<p>Perfect in sunny spot on a kitchen window sill. Basil is an annual plant, so will die off in the autumn, so it's a good idea to harvest it in the summer if you have an abundance and dry it. Picked basil stays fresh longer if it is placed in water (like fresh flowers). A great way to store basil is to make it into pesto!</p>
+<h3>Chives</h3>
+<p>A versatile herb, chives can grow well indoors. Ensure the plant is watered well, and gets plenty of light. Remember to regularly trim the chives. This prevents the flowers from developing and encourages new growth.</p>
+<h3>Coriander (Cilantro)</h3>
+<p>Coriander can grow indoors, but unlike the other herbs, it doesn't like full sun. If you have a south facing kitchen window, this isn't the place for it. Although not as thirsty as basil, coriander doesn't like dry soil so don't forget to water it! Cut coriander is best stored in the fridge.</p>
+",
+    "summary": null,
+    "value": "<p>There's nothing like having your own supply of fresh herbs, readily available and close at hand to use while cooking. Whether you have a large garden or a small kitchen window sill, there's always enough room for something home grown.</p>
+<h2>Outdoors</h2>
+<h3>Mint</h3>
+<p>Mint is a great plant to grow as it's hardy and can grow in almost any soil. Mint can grow wild, so keep it contained in a pot or it might spread and take over your whole garden.</p>
+<h3>Sage</h3>
+<p>Like mint, sage is another prolific growing plant and will take over your garden if you let it. Highly aromatic, the sage plant can be planted in a pot or flower bed in well drained soil. The best way to store the herb is to sun dry the leaves and store in a cool, dark cupboard in a sealed container.</p>
+<h3>Rosemary</h3>
+<p>Rosemary plants grow into lovely shrubs. Easily grown from cuttings, rosemary plants do not like freezing temperatures so keep pots or planted bushes near the home to shelter them from the cold. It grows well in pots as it likes dry soil, but can survive well in the ground too. If pruning rosemary to encourage it into a better shape, save the branches and hang them upside down to preserve the flavor and use in food.</p>
+<h2>Indoors</h2>
+<h3>Basil</h3>
+<p>Perfect in sunny spot on a kitchen window sill. Basil is an annual plant, so will die off in the autumn, so it's a good idea to harvest it in the summer if you have an abundance and dry it. Picked basil stays fresh longer if it is placed in water (like fresh flowers). A great way to store basil is to make it into pesto!</p>
+<h3>Chives</h3>
+<p>A versatile herb, chives can grow well indoors. Ensure the plant is watered well, and gets plenty of light. Remember to regularly trim the chives. This prevents the flowers from developing and encourages new growth.</p>
+<h3>Coriander (Cilantro)</h3>
+<p>Coriander can grow indoors, but unlike the other herbs, it doesn't like full sun. If you have a south facing kitchen window, this isn't the place for it. Although not as thirsty as basil, coriander doesn't like dry soil so don't forget to water it! Cut coriander is best stored in the fridge.</p>
+",
+  },
+  "changed": "2022-03-21T10:52:42+00:00",
+  "content_translation_outdated": false,
+  "content_translation_source": "und",
+  "created": "2022-03-21T10:52:42+00:00",
+  "default_langcode": true,
+  "drupal_internal__nid": 10,
+  "drupal_internal__vid": 20,
+  "field_media_image": {
+    "id": "e5091a16-134e-400d-8393-cfe4eccbcaa2",
+    "resourceIdObjMeta": {
+      "drupal_internal__target_id": 10,
+    },
+    "type": "media--image",
+  },
+  "field_tags": [
+    {
+      "changed": "2022-03-21T10:52:42+00:00",
+      "content_translation_created": "2022-03-21T10:52:42+00:00",
+      "content_translation_outdated": false,
+      "content_translation_source": "und",
+      "content_translation_uid": {
+        "id": "256a133b-0bd7-4426-a823-b8ce81e0d778",
+        "resourceIdObjMeta": {
+          "drupal_internal__target_id": 0,
+        },
+        "type": "user--user",
+      },
+      "default_langcode": true,
+      "description": null,
+      "drupal_internal__revision_id": 14,
+      "drupal_internal__tid": 14,
+      "id": "dcd81647-71b7-48cb-b555-e20322bcb7a7",
+      "langcode": "en",
+      "links": {
+        "self": {
+          "href": "https://tests.next-drupal.org/en/jsonapi/taxonomy_term/tags/dcd81647-71b7-48cb-b555-e20322bcb7a7?resourceVersion=id%3A14",
+        },
+      },
+      "name": "Grow your own",
+      "parent": [
+        {
+          "id": "virtual",
+          "resourceIdObjMeta": {
+            "links": {
+              "help": {
+                "href": "https://www.drupal.org/docs/8/modules/json-api/core-concepts#virtual",
+                "meta": {
+                  "about": "Usage and meaning of the 'virtual' resource identifier.",
+                },
+              },
+            },
+          },
+          "type": "taxonomy_term--tags",
+        },
+      ],
+      "path": {
+        "alias": "/tags/grow-your-own",
+        "langcode": "en",
+        "pid": 27,
+      },
+      "relationshipNames": [
+        "vid",
+        "revision_user",
+        "parent",
+        "content_translation_uid",
+      ],
+      "resourceIdObjMeta": {
+        "drupal_internal__target_id": 14,
+      },
+      "revision_created": "2022-03-21T10:52:42+00:00",
+      "revision_log_message": null,
+      "revision_translation_affected": true,
+      "revision_user": null,
+      "status": true,
+      "type": "taxonomy_term--tags",
+      "vid": {
+        "id": "b0442737-e5ff-4c7c-8c2b-c977886d6e73",
+        "resourceIdObjMeta": {
+          "drupal_internal__target_id": "tags",
+        },
+        "type": "taxonomy_vocabulary--taxonomy_vocabulary",
+      },
+      "weight": 0,
+    },
+    {
+      "changed": "2022-03-21T10:52:42+00:00",
+      "content_translation_created": "2022-03-21T10:52:42+00:00",
+      "content_translation_outdated": false,
+      "content_translation_source": "und",
+      "content_translation_uid": {
+        "id": "256a133b-0bd7-4426-a823-b8ce81e0d778",
+        "resourceIdObjMeta": {
+          "drupal_internal__target_id": 0,
+        },
+        "type": "user--user",
+      },
+      "default_langcode": true,
+      "description": null,
+      "drupal_internal__revision_id": 23,
+      "drupal_internal__tid": 23,
+      "id": "60d20a4c-9d42-4b25-b717-3af3cba6abe8",
+      "langcode": "en",
+      "links": {
+        "self": {
+          "href": "https://tests.next-drupal.org/en/jsonapi/taxonomy_term/tags/60d20a4c-9d42-4b25-b717-3af3cba6abe8?resourceVersion=id%3A23",
+        },
+      },
+      "name": "Seasonal",
+      "parent": [
+        {
+          "id": "virtual",
+          "resourceIdObjMeta": {
+            "links": {
+              "help": {
+                "href": "https://www.drupal.org/docs/8/modules/json-api/core-concepts#virtual",
+                "meta": {
+                  "about": "Usage and meaning of the 'virtual' resource identifier.",
+                },
+              },
+            },
+          },
+          "type": "taxonomy_term--tags",
+        },
+      ],
+      "path": {
+        "alias": "/tags/seasonal",
+        "langcode": "en",
+        "pid": 45,
+      },
+      "relationshipNames": [
+        "vid",
+        "revision_user",
+        "parent",
+        "content_translation_uid",
+      ],
+      "resourceIdObjMeta": {
+        "drupal_internal__target_id": 23,
+      },
+      "revision_created": "2022-03-21T10:52:42+00:00",
+      "revision_log_message": null,
+      "revision_translation_affected": true,
+      "revision_user": null,
+      "status": true,
+      "type": "taxonomy_term--tags",
+      "vid": {
+        "id": "b0442737-e5ff-4c7c-8c2b-c977886d6e73",
+        "resourceIdObjMeta": {
+          "drupal_internal__target_id": "tags",
+        },
+        "type": "taxonomy_vocabulary--taxonomy_vocabulary",
+      },
+      "weight": 0,
+    },
+    {
+      "changed": "2022-03-21T10:52:42+00:00",
+      "content_translation_created": "2022-03-21T10:52:42+00:00",
+      "content_translation_outdated": false,
+      "content_translation_source": "und",
+      "content_translation_uid": {
+        "id": "256a133b-0bd7-4426-a823-b8ce81e0d778",
+        "resourceIdObjMeta": {
+          "drupal_internal__target_id": 0,
+        },
+        "type": "user--user",
+      },
+      "default_langcode": true,
+      "description": null,
+      "drupal_internal__revision_id": 16,
+      "drupal_internal__tid": 16,
+      "id": "57a1d9f6-23a6-4215-a8a9-582202cd938d",
+      "langcode": "en",
+      "links": {
+        "self": {
+          "href": "https://tests.next-drupal.org/en/jsonapi/taxonomy_term/tags/57a1d9f6-23a6-4215-a8a9-582202cd938d?resourceVersion=id%3A16",
+        },
+      },
+      "name": "Herbs",
+      "parent": [
+        {
+          "id": "virtual",
+          "resourceIdObjMeta": {
+            "links": {
+              "help": {
+                "href": "https://www.drupal.org/docs/8/modules/json-api/core-concepts#virtual",
+                "meta": {
+                  "about": "Usage and meaning of the 'virtual' resource identifier.",
+                },
+              },
+            },
+          },
+          "type": "taxonomy_term--tags",
+        },
+      ],
+      "path": {
+        "alias": "/tags/herbs",
+        "langcode": "en",
+        "pid": 31,
+      },
+      "relationshipNames": [
+        "vid",
+        "revision_user",
+        "parent",
+        "content_translation_uid",
+      ],
+      "resourceIdObjMeta": {
+        "drupal_internal__target_id": 16,
+      },
+      "revision_created": "2022-03-21T10:52:42+00:00",
+      "revision_log_message": null,
+      "revision_translation_affected": true,
+      "revision_user": null,
+      "status": true,
+      "type": "taxonomy_term--tags",
+      "vid": {
+        "id": "b0442737-e5ff-4c7c-8c2b-c977886d6e73",
+        "resourceIdObjMeta": {
+          "drupal_internal__target_id": "tags",
+        },
+        "type": "taxonomy_vocabulary--taxonomy_vocabulary",
+      },
+      "weight": 0,
+    },
+  ],
+  "id": "52837ad0-f218-46bd-a106-5710336b7053",
+  "langcode": "en",
+  "links": {
+    "self": {
+      "href": "https://tests.next-drupal.org/en/jsonapi/node/article/52837ad0-f218-46bd-a106-5710336b7053?resourceVersion=id%3A20",
+    },
+  },
+  "moderation_state": "published",
+  "node_type": {
+    "id": "a145b65a-e660-4f5d-ac0d-bd2ff9e3f0b0",
+    "resourceIdObjMeta": {
+      "drupal_internal__target_id": "article",
+    },
+    "type": "node_type--node_type",
+  },
+  "path": {
+    "alias": "/articles/give-it-a-go-and-grow-your-own-herbs",
+    "langcode": "en",
+    "pid": 85,
+  },
+  "promote": true,
+  "relationshipNames": [
+    "node_type",
+    "revision_uid",
+    "uid",
+    "field_media_image",
+    "field_tags",
+  ],
+  "revision_log": null,
+  "revision_timestamp": "2022-03-21T10:52:42+00:00",
+  "revision_translation_affected": null,
+  "revision_uid": {
+    "id": "dd9c916d-4d66-4bff-a851-eeba0cf7673a",
+    "resourceIdObjMeta": {
+      "drupal_internal__target_id": 5,
+    },
+    "type": "user--user",
+  },
+  "status": true,
+  "sticky": false,
+  "title": "Give it a go and grow your own herbs",
+  "type": "node--article",
+  "uid": {
+    "id": "dd9c916d-4d66-4bff-a851-eeba0cf7673a",
+    "resourceIdObjMeta": {
+      "drupal_internal__target_id": 5,
+    },
+    "type": "user--user",
+  },
+}
+`;

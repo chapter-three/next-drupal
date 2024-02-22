@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0-alpha.0](https://github.com/chapter-three/next-drupal/compare/next-drupal-query@0.4.0...next-drupal-query@0.5.0-alpha.0) (2024-01-05)
+
+
+### Features
+
+* **next-drupal:** add Next.js v14 support ([32a5a0a](https://github.com/chapter-three/next-drupal/commit/32a5a0a582c5faa93f8ac1a9633a89c60f5fd627)), closes [#578](https://github.com/chapter-three/next-drupal/issues/578)
+
+
+
+
+
 # [0.4.0](https://github.com/chapter-three/next-drupal/compare/next-drupal-query@0.3.0...next-drupal-query@0.4.0) (2022-12-06)
 
 **Note:** Version bump only for package next-drupal-query

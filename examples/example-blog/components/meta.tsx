@@ -14,6 +14,7 @@ export function Meta({ title, tags }: MetaProps) {
   return (
     <Head>
       <link
+        key="canonical_link"
         rel="canonical"
         href={`${process.env.NEXT_PUBLIC_BASE_URL}${
           router.asPath !== "/" ? router.asPath : ""
@@ -37,15 +38,17 @@ export function Meta({ title, tags }: MetaProps) {
         <>
           <title>{`${title} | Next.js for Drupal`}</title>
           <meta
+            key="description"
             name="description"
             content="A Next.js blog powered by a Drupal backend."
           />
           <meta
+            key="og_image"
             property="og:image"
             content={`${process.env.NEXT_PUBLIC_BASE_URL}/images/meta.jpg`}
           />
-          <meta property="og:image:width" content="800" />
-          <meta property="og:image:height" content="600" />
+          <meta key="og_image_width" property="og:image:width" content="800" />
+          <meta key="og_image_height" property="og:image:height" content="600" />
         </>
       )}
     </Head>

@@ -8,7 +8,7 @@ export interface FieldTextFormatted {
 
 export type FieldEntityReference<
   Types,
-  Cardinality extends FieldCardinality = "limited"
+  Cardinality extends FieldCardinality = "limited",
 > = Cardinality extends "unlimited" ? Array<Partial<Types>> : Partial<Types>
 
 export type FieldList<List> = keyof List

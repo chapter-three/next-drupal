@@ -17,6 +17,7 @@ export default function IndexPage({
       <Head>
         <title>Example Query</title>
         <meta
+          key="description"
           name="description"
           content="A Next.js site powered by a Drupal backend."
         />

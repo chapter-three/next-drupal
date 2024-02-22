@@ -3,6 +3,82 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-alpha.1](https://github.com/chapter-three/next-drupal/compare/next-drupal@2.0.0-alpha.0...next-drupal@2.0.0-alpha.1) (2024-02-21)
+
+
+### Bug Fixes
+
+* **next-drupal:** update TypeScript definition for translatePath and translatePathFromContext ([9f6ae58](https://github.com/chapter-three/next-drupal/commit/9f6ae5816da2339e374b91fa7cc026b3ff0d4709)), closes [#359](https://github.com/chapter-three/next-drupal/issues/359)
+
+
+* refactor(next-drupal)!: move non-DrupalClient code to src/deprecated ([f04c617](https://github.com/chapter-three/next-drupal/commit/f04c61776cbb7905577865639d1403a1a02428b9))
+* feat(next-drupal)!: drop forceIframeSameSiteCookie option ([083cebb](https://github.com/chapter-three/next-drupal/commit/083cebbf33da9bdf40ede4e6f75bc510af9dfa65))
+* feat(next-drupal)!: add draft mode to pages router ([a4f8d84](https://github.com/chapter-three/next-drupal/commit/a4f8d840038f2ab6f7a6e733b48240ecade55266)), closes [#502](https://github.com/chapter-three/next-drupal/issues/502)
+* feat(next-drupal)!: add public debug() method to DrupalClient ([e0fc4bd](https://github.com/chapter-three/next-drupal/commit/e0fc4bd6697c11803539b5faef68a0e0e897d653)), closes [#668](https://github.com/chapter-three/next-drupal/issues/668)
+
+
+### Features
+
+* **next-drupal:** add draft mode for app router pages ([7a62a39](https://github.com/chapter-three/next-drupal/commit/7a62a3921ca36291b5a5eeb7db942c006e0645e0)), closes [#502](https://github.com/chapter-three/next-drupal/issues/502)
+* **next:** remove scope from preview URL generation and validation process ([dde673d](https://github.com/chapter-three/next-drupal/commit/dde673d1952da918e2fb5a2e05a49ddb2408356b)), closes [#635](https://github.com/chapter-three/next-drupal/issues/635)
+
+
+### BREAKING CHANGES
+
+* The JsonApiWithAuthOptions type has been renamed to JsonApiWithAuthOption. The
+JsonApiWithLocaleOptions type is now considered deprecated for DrupalClient
+usage and can be replaced with the JsonApiOptions type.
+* The forceIframeSameSiteCookie option to DrupalClient has been removed. The
+DrupalClient now automatically makes this change when the Next.js website is
+running in development mode (and the change is not needed for production sites).
+* The options to the DrupalClient.preview() method were previously ignored. The
+options are now passed to the NextApiResponse.setDraftMode() method and their
+TypeScript definition have now changed to match the options parameter of the
+setDraftMode method.
+* DrupalClient previously had a debug property that indicated if debugging was
+enabled. This property has been removed and replaced with a debug() method that
+accepts a string and logs it as a debug message if debugging is enabled.
+
+
+
+
+
+# [2.0.0-alpha.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.6.0...next-drupal@2.0.0-alpha.0) (2024-01-05)
+
+
+### Bug Fixes
+
+* **next-drupal:** fix "403 forbidden" jest failures ([22d5742](https://github.com/chapter-three/next-drupal/commit/22d57420342b0573fdcf697c80f219f723adbc5e)), closes [#603](https://github.com/chapter-three/next-drupal/issues/603)
+* **next-drupal:** fix broken build by using named Jsona export ([f2f398d](https://github.com/chapter-three/next-drupal/commit/f2f398de57366c17908b7b54301d5966f39e73bf))
+
+
+* feat(next-drupal)!: add App Router support for Server Components ([410a5df](https://github.com/chapter-three/next-drupal/commit/410a5dfec62df2c9de0adf37feaa615a1f35e98a)), closes [#442](https://github.com/chapter-three/next-drupal/issues/442)
+
+
+### Features
+
+* **next-drupal:** add Next.js v14 support ([32a5a0a](https://github.com/chapter-three/next-drupal/commit/32a5a0a582c5faa93f8ac1a9633a89c60f5fd627)), closes [#578](https://github.com/chapter-three/next-drupal/issues/578)
+
+
+### BREAKING CHANGES
+
+* The useMenu() client hook has moved out of the main entry point and into its own
+entry point. Any import or require of that function needs to be updated:
+
+Old usage:
+```js
+import { useMenu } from "next-drupal"
+```
+
+New usage:
+```js
+import { useMenu } from "next-drupal/navigation"
+```
+
+
+
+
+
 # [1.6.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@1.5.1...next-drupal@1.6.0) (2022-12-06)
 
 **Note:** Version bump only for package next-drupal

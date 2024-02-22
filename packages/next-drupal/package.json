@@ -1,7 +1,7 @@
 {
   "name": "next-drupal",
   "description": "Helpers for Next.js + Drupal.",
-  "version": "1.6.0",
+  "version": "2.0.0-alpha.1",
   "sideEffects": false,
   "source": [
     "src/index.ts",
@@ -20,6 +20,16 @@
       "require": {
         "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
+      }
+    },
+    "./draft": {
+      "import": {
+        "types": "./dist/draft.d.ts",
+        "default": "./dist/draft.js"
+      },
+      "require": {
+        "types": "./dist/draft.d.cts",
+        "default": "./dist/draft.cjs"
       }
     },
     "./navigation": {
@@ -62,11 +72,11 @@
     "directory": "packages/next-drupal"
   },
   "devDependencies": {
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.3"
   },
   "dependencies": {
     "jsona": "^1.12.1",
-    "next": "^12.2.0 || ^13 || ^14",
+    "next": "^13.4 || ^14",
     "node-cache": "^5.1.2",
     "qs": "^6.11.2",
     "react": "^17.0.2 || ^18",

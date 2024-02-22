@@ -6,7 +6,7 @@ import {
   DrupalNode,
   getSearchIndexFromContext,
   deserialize,
-  JsonApiSearchApiResponse,
+  DrupalSearchApiJsonApiResponse,
   DrupalSearchApiFacet,
 } from "next-drupal"
 import { GetStaticPropsResult } from "next"
@@ -209,14 +209,15 @@ export default function AdvancedPage({
 export async function getStaticProps(
   context
 ): Promise<GetStaticPropsResult<AdvancedPageProps>> {
-  const results = await getSearchIndexFromContext<JsonApiSearchApiResponse>(
-    "property",
-    context,
-    {
-      deserialize: false,
-      params,
-    }
-  )
+  const results =
+    await getSearchIndexFromContext<DrupalSearchApiJsonApiResponse>(
+      "property",
+      context,
+      {
+        deserialize: false,
+        params,
+      }
+    )
 
   return {
     props: {

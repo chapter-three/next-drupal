@@ -12,7 +12,7 @@ export default function NodePage({ resource }) {
     <Layout>
       <Head>
         <title>{resource.title}</title>
-        <meta name="description" content="A Next.js site powered by Drupal." />
+        <meta key="description" name="description" content="A Next.js site powered by Drupal." />
       </Head>
       {resource && <NodeArticle node={resource} />}
     </Layout>

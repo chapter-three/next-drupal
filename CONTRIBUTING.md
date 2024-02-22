@@ -157,7 +157,7 @@ For example:
 
 The `<scope>` can be empty (e.g. if the change is a global or difficult to assign to a single component), in which case the parentheses are omitted and the first line just becomes: `<type>: <subject>`
 
-The `<!>` is optional. It must be used for a BREAKING CHANGE. For example, `fix(widgets)!: Fix incompatibility with widget v2` indicates the bugfix required a breaking change.
+The `<!>` is optional. It should be used for a BREAKING CHANGE. For example, `fix(widgets)!: Fix incompatibility with widget v2` indicates the bugfix required a breaking change. Note that the "BREAKING CHANGE:" FOOTER is REQUIRED (see below).
 
 ### Commit message `<body>`
 

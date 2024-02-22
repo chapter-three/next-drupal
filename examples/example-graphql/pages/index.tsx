@@ -10,6 +10,7 @@ export default function IndexPage({ articles }) {
       <Head>
         <title>Next.js for Drupal</title>
         <meta
+          key="description"
           name="description"
           content="A Next.js site powered by a Drupal backend."
         />

@@ -33,6 +33,11 @@ include:
   # View these include files at https://git.drupalcode.org/project/gitlab_templates/
   ################
   - project: $_GITLAB_TEMPLATES_REPO
+    # "ref" value can be:
+    # - Recommended (default) - `ref: $_GITLAB_TEMPLATES_REF` - The Drupal Association will update this value to the recommended tag for contrib.
+    # - Latest - `ref: main` - Get the latest additions and bug fixes as they are merged into the templates.
+    # - Minor or Major latests - `ref: 1.x-latest` or `ref: 1.0.x-latest` - Get the latest additions within a minor (mostly bugfixes) or major (bugs and new features).
+    # - Fixed tag - `ref: 1.0.1` - Set the value to a known tag. This will not get any updates.
     ref: $_GITLAB_TEMPLATES_REF
     file:
       - '/includes/include.drupalci.main.yml'

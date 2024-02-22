@@ -66,7 +66,16 @@ class SimpleOauth extends ConfigurablePreviewUrlGeneratorBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static($configuration, $plugin_id, $plugin_definition, $container->get('current_user'), $container->get('datetime.time'), $container->get('next.preview_secret_generator'), $container->get('entity_type.manager'), $container->get('module_handler'));
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('current_user'),
+      $container->get('datetime.time'),
+      $container->get('next.preview_secret_generator'),
+      $container->get('entity_type.manager'),
+      $container->get('module_handler')
+    );
   }
 
   /**
@@ -83,8 +92,8 @@ class SimpleOauth extends ConfigurablePreviewUrlGeneratorBase {
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
     $form['secret_expiration'] = [
-      '#title' => $this->t('Preview secret expiration time'),
-      '#description' => $this->t('The value, in seconds, to be used as expiration time for the preview secret. <strong>It is recommended to use short-lived secrets for increased security.</strong>'),
+      '#title' => $this->t('Secret expiration time'),
+      '#description' => $this->t('The value, in seconds, to be used as expiration time for the validation secret. <strong>It is recommended to use short-lived secrets for increased security.</strong>'),
       '#type' => 'number',
       '#required' => TRUE,
       '#default_value' => $this->configuration['secret_expiration'],
@@ -119,18 +128,9 @@ class SimpleOauth extends ConfigurablePreviewUrlGeneratorBase {
     $query = [];
     $query['slug'] = $slug = $entity->toUrl()->toString();
 
-    // Send the current user roles as scope.
-    $scopes = $this->getScopesForCurrentUser();
-
-    if (!count($scopes)) {
-      return NULL;
-    }
-
-    $query['scope'] = $scope = implode(' ', $scopes);
-
     // Create a secret based on the timestamp, slug, scope and resource version.
     $query['timestamp'] = $timestamp = $this->time->getRequestTime();
-    $query['secret'] = $this->previewSecretGenerator->generate($timestamp . $slug . $scope . $resource_version);
+    $query['secret'] = $this->previewSecretGenerator->generate($timestamp . $slug . $resource_version);
 
     return Url::fromUri($next_site->getPreviewUrl(), [
       'query' => $query,
@@ -159,66 +159,19 @@ class SimpleOauth extends ConfigurablePreviewUrlGeneratorBase {
       throw new InvalidPreviewUrlRequest("The provided secret has expired.");
     }
 
-    if (empty($body['scope'])) {
-      throw new InvalidPreviewUrlRequest("Field 'scope' is missing");
-    }
-
     // Validate the secret.
     if (empty($body['secret'])) {
       throw new InvalidPreviewUrlRequest("Field 'secret' is missing");
     }
 
-    if ($body['secret'] !== $this->previewSecretGenerator->generate($body['timestamp'] . $body['slug'] . $body['scope'] . $body['resourceVersion'])) {
+    if ($body['secret'] !== $this->previewSecretGenerator->generate($body['timestamp'] . $body['slug'] . $body['resourceVersion'])) {
       throw new InvalidPreviewUrlRequest("The provided secret is invalid.");
     }
 
     return [
-      'scope' => $body['scope'],
+      'path' => $body['slug'],
+      'maxAge' => (int) $this->configuration['secret_expiration'],
     ];
-  }
-
-  /**
-   * Returns scope for the current user.
-   *
-   * @return array|mixed
-   *   An array of roles as scopes.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   */
-  protected function getScopesForCurrentUser(): array {
-    $roles = $this->currentUser->getRoles(TRUE);
-    $admin_role = $this->getAdminRole();
-
-    // Return the admin role for administrators.
-    if ((int) $this->currentUser->id() === 1 || in_array($admin_role, $roles)) {
-      return [$admin_role];
-    }
-
-    return $roles;
-  }
-
-  /**
-   * Returns an array of admin roles.
-   *
-   * @return string|null
-   *   The admin role.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   */
-  protected function getAdminRole(): ?string {
-    $admin_roles = $this->entityTypeManager->getStorage('user_role')
-      ->getQuery()
-      ->accessCheck(FALSE)
-      ->condition('is_admin', TRUE)
-      ->execute();
-
-    if (!$admin_roles) {
-      return NULL;
-    }
-
-    return reset($admin_roles);
   }
 
 }

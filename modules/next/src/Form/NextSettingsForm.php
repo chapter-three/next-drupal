@@ -87,14 +87,14 @@ class NextSettingsForm extends ConfigFormBase {
     ];
 
     $form['preview_url_generator_container'] = [
-      '#title' => $this->t('Preview URL'),
+      '#title' => $this->t('Draft Mode'),
       '#type' => 'details',
       '#group' => 'settings',
     ];
 
     $form['preview_url_generator_container']['preview_url_generator'] = [
       '#title' => $this->t('Plugin'),
-      '#description' => $this->t('Select a plugin to use for the preview URL generator.'),
+      '#description' => $this->t('Select a plugin to use for the draft validation generator.'),
       '#type' => 'select',
       '#options' => array_column($this->previewUrlGeneratorManager->getDefinitions(), 'label', 'id'),
       '#default_value' => $config->get('preview_url_generator'),

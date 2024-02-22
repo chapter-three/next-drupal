@@ -1,1 +1,1 @@
-export { useMenu } from "./navigation/use-menu"
+export { useMenu } from "./deprecated/use-menu"

@@ -42,7 +42,7 @@ export function Header({ menus }: HeaderProps) {
           </a>
         </Link>
         <button
-          className="absolute transition-all border beorder-transparent md:hidden right-4 top-8 hover:border-link"
+          className="absolute transition-all border border-transparent md:hidden right-4 top-8 hover:border-link"
           onClick={() => setShowMenu(!showMenu)}
         >
           <svg

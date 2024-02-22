@@ -2,9 +2,9 @@
 
 namespace Drupal\next\EventSubscriber;
 
-use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\next\NextEntityTypeManagerInterface;
 use Drupal\next\NextSettingsManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -30,9 +30,9 @@ abstract class EntityActionEventSubscriberBase implements EventSubscriberInterfa
   /**
    * The logger channel.
    *
-   * @var \Drupal\Core\Logger\LoggerChannelInterface
+   * @var \Psr\Log\LoggerInterface
    */
-  protected LoggerChannelInterface $logger;
+  protected LoggerInterface $logger;
 
   /**
    * The event dispatcher.
@@ -48,12 +48,12 @@ abstract class EntityActionEventSubscriberBase implements EventSubscriberInterfa
    *   The next entity type manager.
    * @param \Drupal\next\NextSettingsManagerInterface $next_settings_manager
    *   The next settings manager.
-   * @param \Drupal\Core\Logger\LoggerChannelInterface $logger
+   * @param \Psr\Log\LoggerInterface $logger
    *   The logger channel.
    * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
    *   The event dispatcher.
    */
-  public function __construct(NextEntityTypeManagerInterface $next_entity_type_manager, NextSettingsManagerInterface $next_settings_manager, LoggerChannelInterface $logger, EventDispatcherInterface $event_dispatcher) {
+  public function __construct(NextEntityTypeManagerInterface $next_entity_type_manager, NextSettingsManagerInterface $next_settings_manager, LoggerInterface $logger, EventDispatcherInterface $event_dispatcher) {
     $this->nextEntityTypeManager = $next_entity_type_manager;
     $this->nextSettingsManager = $next_settings_manager;
     $this->logger = $logger;

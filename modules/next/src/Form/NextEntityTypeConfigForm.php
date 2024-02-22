@@ -119,16 +119,16 @@ class NextEntityTypeConfigForm extends EntityForm {
         '#title' => $this->t('Settings'),
       ];
 
-      $form['preview_mode'] = [
-        '#title' => $this->t('Preview Mode'),
-        '#description' => $this->t('Configure preview mode the entity type.'),
+      $form['draft_mode'] = [
+        '#title' => $this->t('Draft Mode'),
+        '#description' => $this->t('Configure draft mode for this entity type.'),
         '#type' => 'details',
         '#group' => 'settings',
       ];
 
-      $form['preview_mode']['site_resolver'] = [
+      $form['draft_mode']['site_resolver'] = [
         '#title' => $this->t('Plugin'),
-        '#description' => $this->t('Select a plugin to use for resolving the preview site for this entity type.'),
+        '#description' => $this->t('Select a plugin to use when validating the draft url for this entity type.'),
         '#type' => 'select',
         '#options' => array_merge(['' => $this->t('None')], array_column($this->siteResolverManager->getDefinitions(), 'label', 'id')),
         '#default_value' => $entity->getSiteResolver() ? $entity->getSiteResolver()->getId() : NULL,
@@ -142,7 +142,7 @@ class NextEntityTypeConfigForm extends EntityForm {
         ],
       ];
 
-      $form['preview_mode']['site_resolver_settings_container'] = [
+      $form['draft_mode']['site_resolver_settings_container'] = [
         '#type' => 'container',
         '#prefix' => '<div id="site-resolver-settings">',
         '#suffix' => '</div>',
@@ -152,7 +152,7 @@ class NextEntityTypeConfigForm extends EntityForm {
       if ($site_resolver instanceof ConfigurableSiteResolverInterface) {
         $form['configuration'] = [];
         $subform_state = SubformState::createForSubform($form['configuration'], $form, $form_state);
-        $form['preview_mode']['site_resolver_settings_container']['configuration'] = $site_resolver->buildConfigurationForm($form['configuration'], $subform_state);
+        $form['draft_mode']['site_resolver_settings_container']['configuration'] = $site_resolver->buildConfigurationForm($form['configuration'], $subform_state);
       }
 
       $form['revalidation'] = [
@@ -223,7 +223,7 @@ class NextEntityTypeConfigForm extends EntityForm {
    * Handles switching the site resolver selector.
    */
   public function ajaxReplaceSiteResolverSettingsForm($form, FormStateInterface $form_state) {
-    return $form['preview_mode']['site_resolver_settings_container'];
+    return $form['draft_mode']['site_resolver_settings_container'];
   }
 
   /**

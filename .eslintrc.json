@@ -19,6 +19,11 @@
     "node": true,
     "jest": true
   },
+  "globals": {
+    "Drupal": true,
+    "drupalSettings": true,
+    "jQuery": true
+  },
   "rules": {
     "react/prop-types": 0,
     "prettier/prettier": ["error"],

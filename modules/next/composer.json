@@ -1,6 +1,6 @@
 {
   "name": "drupal/next",
-  "description": "Next.js + Drupal for Incremental Static Regeneration and Preview mode.",
+  "description": "Next.js + Drupal for Incremental Static Regeneration and Draft mode.",
   "type": "drupal-module",
   "homepage": "http://drupal.org/project/next",
   "license": "GPL-2.0-or-later",

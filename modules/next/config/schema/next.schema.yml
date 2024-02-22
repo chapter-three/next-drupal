@@ -1,45 +1,44 @@
 next.next_site.*:
   type: config_entity
-  label: "Next.js site"
+  label: 'Next.js site'
   mapping:
     id:
       type: string
-      label: "ID"
+      label: 'ID'
     label:
       type: label
-      label: "Label"
+      label: 'Label'
     base_url:
       type: string
-      label: "Base URL"
+      label: 'Base URL'
     preview_url:
       type: string
-      label: "Preview URL"
+      label: 'Preview URL'
     preview_secret:
       type: string
-      label: "Preview secret"
+      label: 'Preview secret'
     revalidate_url:
       type: string
-      label: "Revalidate URL"
+      label: 'Revalidate URL'
     revalidate_secret:
       type: string
-      label: "Revalidate secret"
-
+      label: 'Revalidate secret'
 
 next.next_entity_type_config.*:
   type: config_entity
-  label: "Next.js entity type config"
+  label: 'Next.js entity type config'
   mapping:
     id:
       type: string
-      label: "ID"
+      label: 'ID'
     site_resolver:
       type: string
-      label: "Site resolver"
+      label: 'Site resolver'
     configuration:
       type: next.site_resolver.configuration.[%parent.site_resolver]
     revalidator:
       type: string
-      label: "Revalidator"
+      label: 'Revalidator'
     revalidator_configuration:
       type: next.revalidator.configuration.[%parent.revalidator]
 
@@ -48,17 +47,17 @@ next.site_resolver.configuration.site_selector:
   mapping:
     sites:
       type: sequence
-      label: "Next.js sites"
+      label: 'Next.js sites'
       sequence:
         type: string
-        label: "Site"
+        label: 'Site'
 
 next.site_resolver.configuration.entity_reference_field:
   type: mapping
   mapping:
     field_name:
       type: string
-      label: "Field name"
+      label: 'Field name'
 
 next.revalidator.configuration.*:
   type: mapping
@@ -69,23 +68,23 @@ next.revalidator.configuration.path:
   mapping:
     revalidate_page:
       type: boolean
-      label: "Revalidate page"
+      label: 'Revalidate page'
     additional_paths:
       type: string
-      label: "Additional paths"
+      label: 'Additional paths'
 
 next.settings:
   type: config_object
-  label: "Next settings"
+  label: 'Next settings'
   mapping:
     site_previewer:
       type: string
-      label: "Site previewer"
+      label: 'Site previewer'
     site_previewer_configuration:
       type: next.site_previewer.configuration.[%parent.site_previewer]
     preview_url_generator:
       type: string
-      label: "Preview URL generator"
+      label: 'Preview URL generator'
     preview_url_generator_configuration:
       type: next.preview_url_generator.configuration.[%parent.preview_url_generator]
     debug:
@@ -96,17 +95,17 @@ next.site_previewer.configuration.iframe:
   mapping:
     width:
       type: string
-      label: "Width"
+      label: 'Width'
     sync_route:
       type: boolean
-      label: "Sync route"
+      label: 'Sync route'
     sync_route_skip_routes:
       type: string
-      label: "Sync route skip pages"
+      label: 'Sync route skip pages'
 
 next.preview_url_generator.configuration.simple_oauth:
   type: mapping
   mapping:
     secret_expiration:
       type: integer
-      label: "Secret expiration"
+      label: 'Secret expiration'

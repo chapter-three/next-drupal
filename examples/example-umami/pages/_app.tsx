@@ -1,7 +1,11 @@
 import * as React from "react"
 import Router from "next/router"
 import { SessionProvider } from "next-auth/react"
-import { QueryClient, QueryClientProvider, Hydrate } from "@tanstack/react-query"
+import {
+  QueryClient,
+  QueryClientProvider,
+  Hydrate,
+} from "@tanstack/react-query"
 import { appWithTranslation } from "next-i18next"
 import NProgress from "nprogress"
 import "nprogress/nprogress.css"

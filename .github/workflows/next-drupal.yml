@@ -1,5 +1,8 @@
 name: next-drupal
 on:
+  push:
+    branches:
+      - main
   pull_request_target:
     types: [opened, reopened, synchronize]
 
@@ -14,7 +17,7 @@ jobs:
       - name: Install modules
         run: yarn
       - name: Run tests
-        run: yarn test packages/next-drupal
+        run: yarn workspace next-drupal test
         env:
           DRUPAL_BASE_URL: ${{ secrets.DRUPAL_BASE_URL }}
           DRUPAL_USERNAME: ${{ secrets.DRUPAL_USERNAME }}

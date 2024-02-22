@@ -14,10 +14,10 @@ jobs:
         with:
           ref: ${{github.event.pull_request.head.ref}}
           repository: ${{github.event.pull_request.head.repo.full_name}}
-      - name: Install modules
+      - name: Install packages
         run: yarn
       - name: Run tests
-        run: yarn workspace next-drupal test
+        run: yarn test
         env:
           DRUPAL_BASE_URL: ${{ secrets.DRUPAL_BASE_URL }}
           DRUPAL_USERNAME: ${{ secrets.DRUPAL_USERNAME }}

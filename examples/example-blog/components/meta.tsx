@@ -48,7 +48,11 @@ export function Meta({ title, tags }: MetaProps) {
             content={`${process.env.NEXT_PUBLIC_BASE_URL}/images/meta.jpg`}
           />
           <meta key="og_image_width" property="og:image:width" content="800" />
-          <meta key="og_image_height" property="og:image:height" content="600" />
+          <meta
+            key="og_image_height"
+            property="og:image:height"
+            content="600"
+          />
         </>
       )}
     </Head>

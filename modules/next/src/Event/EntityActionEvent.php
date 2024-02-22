@@ -77,7 +77,8 @@ class EntityActionEvent extends Event implements EntityActionEventInterface {
     $sites = $next_entity_type_manager->getSitesForEntity($entity);
     try {
       $url = $entity->hasLinkTemplate('canonical') ? $entity->toUrl()->toString(TRUE)->getGeneratedUrl() : NULL;
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e) {
       $url = NULL;
     }
     return new static($entity, $action, $sites, $url);

@@ -278,19 +278,19 @@ describe("getAccessToken()", () => {
     expect(fetchSpy).toHaveBeenCalledTimes(0)
   })
 
-  test("BUG: throws if auth is ClientIdSecret and not given as opts", async () => {
+  test("throws if auth is not ClientIdSecret", async () => {
     const fetchSpy = spyOnFetch({
       responseBody: accessToken,
     })
 
     const client = new DrupalClient(BASE_URL, {
-      auth: clientIdSecret,
+      auth: mocks.auth.basicAuth,
       withAuth: true,
     })
 
     await expect(
       // @ts-ignore
-      client.getAccessToken({ scope: "irrelevant" })
+      client.getAccessToken()
     ).rejects.toThrow(
       "'clientId' and 'clientSecret' required. See https://next-drupal.org/docs/client/auth"
     )

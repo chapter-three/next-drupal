@@ -100,7 +100,7 @@ class EntityResource extends JsonApiEntityResource {
       $max = $page['limit'];
     }
 
-    $params[OffsetPage::KEY_NAME] = new OffsetPage($query['offset'] ?? OffsetPage::DEFAULT_OFFSET, $max);
+    $params[OffsetPage::KEY_NAME] = new OffsetPage($page['offset'] ?? OffsetPage::DEFAULT_OFFSET, $max);
 
     return $params;
   }

@@ -3,7 +3,7 @@ import { Jsona } from "jsona"
 import { DrupalClient } from "../../src"
 import { DEBUG_MESSAGE_PREFIX, logger as defaultLogger } from "../../src/logger"
 import { BASE_URL } from "../utils"
-import type { Logger } from "../../src"
+import type { DrupalClientAuth, Logger } from "../../src"
 
 afterEach(() => {
   jest.restoreAllMocks()
@@ -106,7 +106,7 @@ describe("options parameter", () => {
     })
 
     test("sets the auth credentials", () => {
-      const auth: DrupalClient["auth"] = {
+      const auth: DrupalClientAuth = {
         username: "example",
         password: "pw",
       }
@@ -115,7 +115,6 @@ describe("options parameter", () => {
       })
       expect(client._auth).toMatchObject({
         ...auth,
-        url: "/oauth/token",
       })
     })
   })

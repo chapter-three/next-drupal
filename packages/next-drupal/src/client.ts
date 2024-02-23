@@ -12,6 +12,7 @@ import type {
 import type {
   AccessToken,
   BaseUrl,
+  DrupalClientAuth,
   DrupalClientAuthAccessToken,
   DrupalClientAuthClientIdSecret,
   DrupalClientAuthUsernamePassword,
@@ -53,25 +54,28 @@ const DEFAULT_HEADERS = {
 }
 
 function isBasicAuth(
-  auth: DrupalClientOptions["auth"]
+  auth: DrupalClientAuth
 ): auth is DrupalClientAuthUsernamePassword {
   return (
-    (auth as DrupalClientAuthUsernamePassword)?.username !== undefined ||
+    (auth as DrupalClientAuthUsernamePassword)?.username !== undefined &&
     (auth as DrupalClientAuthUsernamePassword)?.password !== undefined
   )
 }
 
 function isAccessTokenAuth(
-  auth: DrupalClientOptions["auth"]
+  auth: DrupalClientAuth
 ): auth is DrupalClientAuthAccessToken {
-  return (auth as DrupalClientAuthAccessToken)?.access_token !== undefined
+  return (
+    (auth as DrupalClientAuthAccessToken)?.access_token !== undefined &&
+    (auth as DrupalClientAuthAccessToken)?.token_type !== undefined
+  )
 }
 
 function isClientIdSecretAuth(
-  auth: DrupalClient["auth"]
+  auth: DrupalClientAuth
 ): auth is DrupalClientAuthClientIdSecret {
   return (
-    (auth as DrupalClientAuthClientIdSecret)?.clientId !== undefined ||
+    (auth as DrupalClientAuthClientIdSecret)?.clientId !== undefined &&
     (auth as DrupalClientAuthClientIdSecret)?.clientSecret !== undefined
   )
 }
@@ -177,31 +181,47 @@ export class DrupalClient {
 
   set auth(auth: DrupalClientOptions["auth"]) {
     if (typeof auth === "object") {
-      if (isBasicAuth(auth)) {
-        if (!auth.username || !auth.password) {
+      const checkUsernamePassword = auth as DrupalClientAuthUsernamePassword
+      const checkAccessToken = auth as DrupalClientAuthAccessToken
+      const checkClientIdSecret = auth as DrupalClientAuthClientIdSecret
+
+      if (
+        checkUsernamePassword.username !== undefined ||
+        checkUsernamePassword.password !== undefined
+      ) {
+        if (
+          !checkUsernamePassword.username ||
+          !checkUsernamePassword.password
+        ) {
           throw new Error(
             `'username' and 'password' are required for auth. See https://next-drupal.org/docs/client/auth`
           )
         }
-      } else if (isAccessTokenAuth(auth)) {
-        if (!auth.access_token || !auth.token_type) {
+      } else if (
+        checkAccessToken.access_token !== undefined ||
+        checkAccessToken.token_type !== undefined
+      ) {
+        if (!checkAccessToken.access_token || !checkAccessToken.token_type) {
           throw new Error(
             `'access_token' and 'token_type' are required for auth. See https://next-drupal.org/docs/client/auth`
           )
         }
-      } else if (!auth.clientId || !auth.clientSecret) {
+      } else if (
+        !checkClientIdSecret.clientId ||
+        !checkClientIdSecret.clientSecret
+      ) {
         throw new Error(
           `'clientId' and 'clientSecret' are required for auth. See https://next-drupal.org/docs/client/auth`
         )
       }
 
-      auth = {
-        url: DEFAULT_AUTH_URL,
+      this._auth = {
+        ...(isClientIdSecretAuth(auth) ? { url: DEFAULT_AUTH_URL } : {}),
         ...auth,
       }
+    } else {
+      this._auth = auth
     }
-
-    this._auth = auth
   }
 
   set headers(value: DrupalClientOptions["headers"]) {
@@ -1356,26 +1376,25 @@ export class DrupalClient {
       return this.accessToken
     }
 
-    if (!opts?.clientId || !opts?.clientSecret) {
-      if (typeof this._auth === "undefined") {
-        throw new Error(
-          "auth is not configured. See https://next-drupal.org/docs/client/auth"
-        )
+    let auth: DrupalClientAuthClientIdSecret
+    if (isClientIdSecretAuth(opts)) {
+      auth = {
+        url: DEFAULT_AUTH_URL,
+        ...opts,
       }
-    }
-
-    if (
-      !isClientIdSecretAuth(this._auth) ||
-      (opts && !isClientIdSecretAuth(opts))
-    ) {
+    } else if (isClientIdSecretAuth(this._auth)) {
+      auth = this._auth
+    } else if (typeof this._auth === "undefined") {
+      throw new Error(
+        "auth is not configured. See https://next-drupal.org/docs/client/auth"
+      )
+    } else {
       throw new Error(
         `'clientId' and 'clientSecret' required. See https://next-drupal.org/docs/client/auth`
       )
     }
 
-    const clientId = opts?.clientId || this._auth.clientId
-    const clientSecret = opts?.clientSecret || this._auth.clientSecret
-    const url = this.buildUrl(opts?.url || this._auth.url)
+    const url = this.buildUrl(auth.url)
 
     if (
       this.accessTokenScope === opts?.scope &&
@@ -1388,7 +1407,9 @@ export class DrupalClient {
 
     this.debug(`Fetching new access token.`)
 
-    const basic = Buffer.from(`${clientId}:${clientSecret}`).toString("base64")
+    const basic = Buffer.from(`${auth.clientId}:${auth.clientSecret}`).toString(
+      "base64"
+    )
 
     let body = `grant_type=client_credentials`
 

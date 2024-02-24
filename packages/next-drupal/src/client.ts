@@ -233,7 +233,10 @@ export class DrupalClient {
     this.tokenExpiresOn = Date.now() + token.expires_in * 1000
   }
 
-  async fetch(input: RequestInfo, init?: FetchOptions): Promise<Response> {
+  async fetch(
+    input: RequestInfo,
+    { withAuth, ...init }: FetchOptions = {}
+  ): Promise<Response> {
     init = {
       ...init,
       credentials: "include",
@@ -245,10 +248,10 @@ export class DrupalClient {
 
     // Using the auth set on the client.
     // TODO: Abstract this to a re-usable.
-    if (init?.withAuth) {
+    if (withAuth) {
       this.debug(`Using authenticated request.`)
 
-      if (init.withAuth === true) {
+      if (withAuth === true) {
         if (typeof this._auth === "undefined") {
           throw new Error(
             "auth is not configured. See https://next-drupal.org/docs/client/auth"
@@ -289,32 +292,32 @@ export class DrupalClient {
               `${this._auth.token_type} ${this._auth.access_token}`
           }
         }
-      } else if (typeof init.withAuth === "string") {
+      } else if (typeof withAuth === "string") {
         this.debug(`Using custom authorization header.`)
 
-        init["headers"]["Authorization"] = init.withAuth
-      } /* c8 ignore next 4 */ else if (typeof init.withAuth === "function") {
+        init["headers"]["Authorization"] = withAuth
+      } /* c8 ignore next 4 */ else if (typeof withAuth === "function") {
         this.debug(`Using custom authorization callback.`)
 
-        init["headers"]["Authorization"] = init.withAuth()
-      } else if (isBasicAuth(init.withAuth)) {
+        init["headers"]["Authorization"] = withAuth()
+      } else if (isBasicAuth(withAuth)) {
         this.debug(`Using basic authorization header.`)
 
         const basic = Buffer.from(
-          `${init.withAuth.username}:${init.withAuth.password}`
+          `${withAuth.username}:${withAuth.password}`
         ).toString("base64")
 
         init["headers"]["Authorization"] = `Basic ${basic}`
-      } else if (isClientIdSecretAuth(init.withAuth)) {
+      } else if (isClientIdSecretAuth(withAuth)) {
         // Fetch an access token and add it to the request.
         // Access token can be fetched from cache or using a custom auth method.
-        const token = await this.getAccessToken(init.withAuth)
+        const token = await this.getAccessToken(withAuth)
         if (token) {
           init["headers"]["Authorization"] = `Bearer ${token.access_token}`
         }
-      } /* c8 ignore next 4 */ else if (isAccessTokenAuth(init.withAuth)) {
+      } /* c8 ignore next 4 */ else if (isAccessTokenAuth(withAuth)) {
         init["headers"]["Authorization"] =
-          `${init.withAuth.token_type} ${init.withAuth.access_token}`
+          `${withAuth.token_type} ${withAuth.access_token}`
       }
     }
 

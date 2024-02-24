@@ -105,7 +105,6 @@ describe("fetch()", () => {
             Accept: "application/vnd.api+json",
             Authorization: "Basic YWRtaW46cGFzc3dvcmQ=",
           },
-          withAuth: true,
         })
       )
     })
@@ -133,7 +132,6 @@ describe("fetch()", () => {
             Accept: "application/vnd.api+json",
             Authorization: "Basic YXJzaGFkQG5leHQtZHJ1cGFsLm9yZzphYmMxMjM=",
           },
-          withAuth: true,
         })
       )
     })
@@ -227,7 +225,6 @@ describe("fetch()", () => {
             foo: "bar",
             Authorization: "Basic YXJzaGFkQG5leHQtZHJ1cGFsLm9yZzphYmMxMjM=",
           },
-          withAuth: true,
         })
       )
     })
@@ -464,7 +461,9 @@ describe("getMenu()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: true,
+        headers: expect.objectContaining({
+          Authorization: "Bearer sample-token",
+        }),
       })
     )
   })
@@ -653,7 +652,9 @@ describe("getResource()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: true,
+        headers: expect.objectContaining({
+          Authorization: "Bearer sample-token",
+        }),
       })
     )
   })
@@ -803,7 +804,9 @@ describe("getResourceByPath()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.not.objectContaining({
-        withAuth: true,
+        headers: expect.objectContaining({
+          Authorization: expect.anything(),
+        }),
       })
     )
     expect(getAccessTokenSpy).not.toHaveBeenCalled()
@@ -814,7 +817,9 @@ describe("getResourceByPath()", () => {
       auth: mocks.auth.clientIdSecret,
     })
     const fetchSpy = spyOnFetch()
-    const getAccessTokenSpy = jest.spyOn(client, "getAccessToken")
+    const getAccessTokenSpy = jest
+      .spyOn(client, "getAccessToken")
+      .mockImplementation(async () => mocks.auth.accessToken)
 
     await client.getResourceByPath<DrupalNode>(
       "/recipes/deep-mediterranean-quiche",
@@ -826,7 +831,9 @@ describe("getResourceByPath()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: true,
+        headers: expect.objectContaining({
+          Authorization: `${mocks.auth.accessToken.token_type} ${mocks.auth.accessToken.access_token}`,
+        }),
       })
     )
     expect(getAccessTokenSpy).toHaveBeenCalled()
@@ -930,7 +937,9 @@ describe("getResourceCollection()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: true,
+        headers: expect.objectContaining({
+          Authorization: "Bearer sample-token",
+        }),
       })
     )
   })
@@ -1029,7 +1038,9 @@ describe("getSearchIndex()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: true,
+        headers: expect.objectContaining({
+          Authorization: "Bearer sample-token",
+        }),
       })
     )
   })
@@ -1114,7 +1125,9 @@ describe("getView()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: true,
+        headers: expect.objectContaining({
+          Authorization: "Bearer sample-token",
+        }),
       })
     )
   })
@@ -1179,7 +1192,9 @@ describe("translatePath()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: true,
+        headers: expect.objectContaining({
+          Authorization: "Bearer sample-token",
+        }),
       })
     )
   })

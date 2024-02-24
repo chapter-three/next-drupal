@@ -232,13 +232,16 @@ describe("buildStaticPathsParamsFromPaths()", () => {
 
 describe("getAuthFromContextAndOptions()", () => {
   const clientIdSecret = mocks.auth.clientIdSecret
+  const accessToken = mocks.auth.accessToken
 
   test("should use the withAuth option if provided and NOT in preview", async () => {
     const client = new DrupalClient(BASE_URL, {
       auth: clientIdSecret,
     })
     const fetchSpy = spyOnFetch()
-    jest.spyOn(client, "getAccessToken")
+    jest
+      .spyOn(client, "getAccessToken")
+      .mockImplementation(async () => accessToken)
 
     await client.getResourceFromContext(
       "node--article",
@@ -253,7 +256,9 @@ describe("getAuthFromContextAndOptions()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: true,
+        headers: expect.objectContaining({
+          Authorization: `${accessToken.token_type} ${accessToken.access_token}`,
+        }),
       })
     )
 
@@ -274,11 +279,9 @@ describe("getAuthFromContextAndOptions()", () => {
     expect(fetchSpy).toHaveBeenLastCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: {
-          clientId: "foo",
-          clientSecret: "bar",
-          scope: "baz",
-        },
+        headers: expect.objectContaining({
+          Authorization: `${accessToken.token_type} ${accessToken.access_token}`,
+        }),
       })
     )
   })
@@ -296,7 +299,9 @@ describe("getAuthFromContextAndOptions()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: false,
+        headers: expect.not.objectContaining({
+          Authorization: expect.anything(),
+        }),
       })
     )
 
@@ -304,11 +309,9 @@ describe("getAuthFromContextAndOptions()", () => {
       auth: clientIdSecret,
       withAuth: true,
     })
-    jest.spyOn(client2, "getAccessToken").mockImplementation(async () => ({
-      token_type: "",
-      expires_in: 0,
-      access_token: "",
-    }))
+    jest
+      .spyOn(client2, "getAccessToken")
+      .mockImplementation(async () => accessToken)
 
     await client2.getResourceFromContext("node--article", {
       preview: false,
@@ -317,7 +320,9 @@ describe("getAuthFromContextAndOptions()", () => {
     expect(fetchSpy).toHaveBeenLastCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: true,
+        headers: expect.objectContaining({
+          Authorization: `${accessToken.token_type} ${accessToken.access_token}`,
+        }),
       })
     )
   })
@@ -327,7 +332,8 @@ describe("getAuthFromContextAndOptions()", () => {
       auth: clientIdSecret,
       withAuth: true,
     })
-    const fetchSpy = spyOnFetch()
+    const fetchSpy = jest.spyOn(client, "fetch")
+    spyOnFetch()
 
     await client.getResourceFromContext("node--article", {
       preview: true,
@@ -345,7 +351,8 @@ describe("getAuthFromContextAndOptions()", () => {
     const client = new DrupalClient(BASE_URL, {
       auth: clientIdSecret,
     })
-    const fetchSpy = spyOnFetch()
+    const fetchSpy = jest.spyOn(client, "fetch")
+    spyOnFetch()
 
     await client.getResourceFromContext("node--article", {
       preview: true,
@@ -375,7 +382,8 @@ describe("getAuthFromContextAndOptions()", () => {
       },
       withAuth: true,
     })
-    const fetchSpy = spyOnFetch()
+    const fetchSpy = jest.spyOn(client, "fetch")
+    spyOnFetch()
 
     await client.getResourceFromContext("node--article", {
       preview: true,
@@ -414,7 +422,9 @@ describe("getAuthFromContextAndOptions()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: `Bearer example-token`,
+        headers: expect.objectContaining({
+          Authorization: `Bearer example-token`,
+        }),
       })
     )
   })
@@ -440,7 +450,9 @@ describe("getAuthFromContextAndOptions()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: `Bearer example-token`,
+        headers: expect.objectContaining({
+          Authorization: `Bearer example-token`,
+        }),
       })
     )
   })
@@ -775,7 +787,9 @@ describe("getResourceCollectionFromContext()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: true,
+        headers: expect.objectContaining({
+          Authorization: "Bearer sample-token",
+        }),
       })
     )
   })
@@ -981,7 +995,9 @@ describe("getResourceFromContext()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: true,
+        headers: expect.objectContaining({
+          Authorization: "Bearer sample-token",
+        }),
       })
     )
   })
@@ -1010,7 +1026,9 @@ describe("getResourceFromContext()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: `Bearer sample-token`,
+        headers: expect.objectContaining({
+          Authorization: `Bearer sample-token`,
+        }),
       })
     )
   })
@@ -1148,7 +1166,9 @@ describe("getStaticPathsFromContext()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: true,
+        headers: expect.objectContaining({
+          Authorization: "Bearer sample-token",
+        }),
       })
     )
   })
@@ -1245,7 +1265,9 @@ describe("translatePathFromContext()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: true,
+        headers: expect.objectContaining({
+          Authorization: "Bearer sample-token",
+        }),
       })
     )
   })

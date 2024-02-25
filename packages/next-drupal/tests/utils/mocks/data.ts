@@ -1,5 +1,4 @@
 import type {
-  DrupalClientAuth,
   DrupalClientAuthAccessToken,
   DrupalClientAuthClientIdSecret,
   DrupalClientAuthUsernamePassword,

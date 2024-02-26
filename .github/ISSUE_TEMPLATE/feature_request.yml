@@ -23,7 +23,7 @@ body:
         - example-custom-serializer
         - example-graphql
         - example-marketing
-        - example-query
+        - example-router-migration
         - example-search-api
         - example-umami
         - example-webform

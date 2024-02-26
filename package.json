@@ -26,7 +26,7 @@
     "sync:starters:release": "./scripts/sync-repo.sh canary,main git@github.com:chapter-three/next-drupal- \"starters/*\"",
     "seed": "NUM_NODES=200 node ./scripts/seed",
     "cy:open": "turbo run cy:open --parallel",
-    "test": "yarn workspace next-drupal test && yarn workspace next-drupal-query test",
+    "test": "yarn workspace next-drupal test",
     "pretest": "yarn format:check && yarn lint",
     "test:e2e": "turbo run test:e2e --parallel",
     "test:e2e:ci": "turbo run test:e2e:ci --parallel"

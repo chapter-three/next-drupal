@@ -8,10 +8,10 @@ class JsonRpc extends NextDrupalBase {
     this.apiPrefix = "/jsonrpc"
   }
 
-  async execute(body) {
-    const endpoint = await jsonRpc.buildEndpoint()
+  async execute(body: object) {
+    const endpoint = await this.buildEndpoint()
 
-    const response = await jsonRpc.fetch(endpoint, {
+    const response = await this.fetch(endpoint, {
       method: "POST",
       body: JSON.stringify(body),
       withAuth: true,

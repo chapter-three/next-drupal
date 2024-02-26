@@ -49,7 +49,7 @@
   },
   "author": {
     "name": "shadcn",
-    "url": "https://twitter.com/shadcn"
+    "url": "https://www.chapterthree.com"
   },
   "scripts": {
     "prepare": "tsup",

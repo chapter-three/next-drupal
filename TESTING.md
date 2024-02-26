@@ -21,7 +21,7 @@ Note: We have a CI for running these tests on GitHub Actions.
 
 We use Cypress to run end-to-end tests for the examples.
 
-_You will need a copy of the database and files on your local machine to run the tests. These are not tracked in this repo. You can reached out to [@shadcn](https://twitter.com/shadcn) to get you a copy._
+_You will need a copy of the database and files on your local machine to run the tests. These are not tracked in this repo. You can reach out to Chapter Three to get a copy._
 
 _TODO: Add a test profile that builds the Drupal site from config with demo content._
 

@@ -4,7 +4,7 @@ Thanks for your interest in contributing to Next.js for Drupal. We're happy to h
 
 Please take a moment to review this document before submitting your first pull request.
 
-If you need any help, feel free to reach out on [Drupal Slack](https://drupal.slack.com/archives/C01E36BMU72). Look for _@shadcn_ in the _#nextjs_ channel.
+If you need any help, feel free to reach out on [Drupal Slack](https://drupal.slack.com/archives/C01E36BMU72). Look for us in the _#nextjs_ channel.
 
 ## About this repository
 

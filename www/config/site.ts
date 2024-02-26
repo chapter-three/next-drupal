@@ -40,7 +40,7 @@ export const site: SiteConfig = {
   social: {
     github: "chapter-three/next-drupal",
     contact: "https://www.chapterthree.com/contact",
-    twitter: "shadcn",
+    twitter: "chapter_three",
   },
   versions: [
     {

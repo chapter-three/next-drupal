@@ -58,14 +58,6 @@ We use `jest` for testing the `next-drupal` package.
 yarn test packages/next-drupal
 ```
 
-### `next-drupal-query`
-
-We use `jest` for testing the `next-drupal-query` package.
-
-```
-yarn test packages/next-drupal
-```
-
 ### `next`
 
 We use `phpunit` for testing the `next` module.
@@ -76,7 +68,7 @@ yarn test:next
 
 ## Linting
 
-### `next-drupal` and `next-drupal-query`
+### `next-drupal`
 
 ```
 yarn lint

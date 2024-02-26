@@ -554,7 +554,6 @@ export class DrupalClient {
     if (typeof input !== "string") {
       // Fix for subrequests and translation.
       // TODO: Confirm if we still need this after https://www.drupal.org/i/3111456.
-      // @shadcn, note to self:
       // Given an entity at /example with no translation.
       // When we try to translate /es/example, decoupled router will properly
       // translate to the untranslated version and set the locale to es.

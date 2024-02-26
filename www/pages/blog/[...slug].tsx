@@ -24,15 +24,7 @@ export default function BlogsPage({ blog }: BlogsPageProps) {
           {blog.frontMatter.title}
         </h1>
         <p className="mt-4 text-gray-700">
-          {blog.frontMatter.date} -{" "}
-          <a
-            href="https://twitter.com/shadcn"
-            target="_blank"
-            rel="noreferrer nofollow"
-            className="text-blue-600"
-          >
-            @shadcn
-          </a>
+          {blog.frontMatter.date} - {blog.frontMatter.author}
         </p>
         <hr className="my-6" />
         {content}

@@ -78,7 +78,7 @@ export default function TutorialPage({
             <p className="text-sm text-gray-600">
               We are on{" "}
               <a
-                href="https://twitter.com/shadcn"
+                href="https://twitter.com/chapter_three"
                 className="text-blue-800 hover:underline"
               >
                 Twitter

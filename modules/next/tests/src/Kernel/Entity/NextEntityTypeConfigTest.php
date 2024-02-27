@@ -5,6 +5,7 @@ namespace Drupal\Tests\next\Kernel\Plugin;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\next\Entity\NextEntityTypeConfig;
 use Drupal\next\Entity\NextSite;
+use Drupal\node\Entity\NodeType;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 
 /**
@@ -42,6 +43,8 @@ class NextEntityTypeConfigTest extends KernelTestBase {
     $this->installEntitySchema('path_alias');
     $this->installConfig(['filter']);
     $this->installSchema('node', ['node_access']);
+
+    NodeType::create(['type' => 'page'])->save();
   }
 
   /**
@@ -161,7 +164,11 @@ class NextEntityTypeConfigTest extends KernelTestBase {
     ]);
     // Saving causes dependency calculation.
     $entity_type_config->save();
-    self::assertEquals([], $entity_type_config->getDependencies());
+    self::assertEquals([
+      'config' => [
+        'node.type.page',
+      ],
+    ], $entity_type_config->getDependencies());
   }
 
 }

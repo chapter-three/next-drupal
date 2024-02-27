@@ -159,6 +159,8 @@ class NextEntityTypeConfigTest extends KernelTestBase {
         ],
       ],
     ]);
+    // Saving causes dependency calculation.
+    $entity_type_config->save();
     self::assertEquals([], $entity_type_config->getDependencies());
   }
 

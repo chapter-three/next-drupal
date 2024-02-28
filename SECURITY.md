@@ -26,4 +26,4 @@ We will do our best to quickly fix the problem.
 
 We will sync with the [Drupal Security Team](https://www.drupal.org/drupal-security-team) if the vulnerability affects the `next` Drupal module.
 
-Email arshad@chapterthree.com to disclose any security vulnerabilities.
+Email info@chapterthree.com to disclose any security vulnerabilities.

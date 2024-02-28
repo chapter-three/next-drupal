@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, jest, test } from "@jest/globals"
-import { GetStaticPropsContext } from "next"
-import { DrupalClient } from "../../src"
-import { BASE_URL, mocks, spyOnFetch } from "../utils"
+import { GetStaticPropsContext, NextApiRequest, NextApiResponse } from "next"
+import { DRAFT_DATA_COOKIE_NAME, DrupalClient } from "../../src"
+import { BASE_URL, mockLogger, mocks, spyOnFetch } from "../utils"
 import type { DrupalNode, JsonApiResourceWithPath } from "../../src"
 
 afterEach(() => {
@@ -232,13 +232,16 @@ describe("buildStaticPathsParamsFromPaths()", () => {
 
 describe("getAuthFromContextAndOptions()", () => {
   const clientIdSecret = mocks.auth.clientIdSecret
+  const accessToken = mocks.auth.accessToken
 
   test("should use the withAuth option if provided and NOT in preview", async () => {
     const client = new DrupalClient(BASE_URL, {
       auth: clientIdSecret,
     })
     const fetchSpy = spyOnFetch()
-    jest.spyOn(client, "getAccessToken")
+    jest
+      .spyOn(client, "getAccessToken")
+      .mockImplementation(async () => accessToken)
 
     await client.getResourceFromContext(
       "node--article",
@@ -253,7 +256,9 @@ describe("getAuthFromContextAndOptions()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: true,
+        headers: expect.objectContaining({
+          Authorization: `${accessToken.token_type} ${accessToken.access_token}`,
+        }),
       })
     )
 
@@ -274,11 +279,9 @@ describe("getAuthFromContextAndOptions()", () => {
     expect(fetchSpy).toHaveBeenLastCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: {
-          clientId: "foo",
-          clientSecret: "bar",
-          scope: "baz",
-        },
+        headers: expect.objectContaining({
+          Authorization: `${accessToken.token_type} ${accessToken.access_token}`,
+        }),
       })
     )
   })
@@ -296,7 +299,9 @@ describe("getAuthFromContextAndOptions()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: false,
+        headers: expect.not.objectContaining({
+          Authorization: expect.anything(),
+        }),
       })
     )
 
@@ -304,11 +309,9 @@ describe("getAuthFromContextAndOptions()", () => {
       auth: clientIdSecret,
       withAuth: true,
     })
-    jest.spyOn(client2, "getAccessToken").mockImplementation(async () => ({
-      token_type: "",
-      expires_in: 0,
-      access_token: "",
-    }))
+    jest
+      .spyOn(client2, "getAccessToken")
+      .mockImplementation(async () => accessToken)
 
     await client2.getResourceFromContext("node--article", {
       preview: false,
@@ -317,7 +320,9 @@ describe("getAuthFromContextAndOptions()", () => {
     expect(fetchSpy).toHaveBeenLastCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: true,
+        headers: expect.objectContaining({
+          Authorization: `${accessToken.token_type} ${accessToken.access_token}`,
+        }),
       })
     )
   })
@@ -327,7 +332,8 @@ describe("getAuthFromContextAndOptions()", () => {
       auth: clientIdSecret,
       withAuth: true,
     })
-    const fetchSpy = spyOnFetch()
+    const fetchSpy = jest.spyOn(client, "fetch")
+    spyOnFetch()
 
     await client.getResourceFromContext("node--article", {
       preview: true,
@@ -345,7 +351,8 @@ describe("getAuthFromContextAndOptions()", () => {
     const client = new DrupalClient(BASE_URL, {
       auth: clientIdSecret,
     })
-    const fetchSpy = spyOnFetch()
+    const fetchSpy = jest.spyOn(client, "fetch")
+    spyOnFetch()
 
     await client.getResourceFromContext("node--article", {
       preview: true,
@@ -375,7 +382,8 @@ describe("getAuthFromContextAndOptions()", () => {
       },
       withAuth: true,
     })
-    const fetchSpy = spyOnFetch()
+    const fetchSpy = jest.spyOn(client, "fetch")
+    spyOnFetch()
 
     await client.getResourceFromContext("node--article", {
       preview: true,
@@ -414,7 +422,9 @@ describe("getAuthFromContextAndOptions()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: `Bearer example-token`,
+        headers: expect.objectContaining({
+          Authorization: `Bearer example-token`,
+        }),
       })
     )
   })
@@ -440,7 +450,9 @@ describe("getAuthFromContextAndOptions()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: `Bearer example-token`,
+        headers: expect.objectContaining({
+          Authorization: `Bearer example-token`,
+        }),
       })
     )
   })
@@ -775,7 +787,9 @@ describe("getResourceCollectionFromContext()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: true,
+        headers: expect.objectContaining({
+          Authorization: "Bearer sample-token",
+        }),
       })
     )
   })
@@ -981,7 +995,9 @@ describe("getResourceFromContext()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: true,
+        headers: expect.objectContaining({
+          Authorization: "Bearer sample-token",
+        }),
       })
     )
   })
@@ -1010,7 +1026,9 @@ describe("getResourceFromContext()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: `Bearer sample-token`,
+        headers: expect.objectContaining({
+          Authorization: `Bearer sample-token`,
+        }),
       })
     )
   })
@@ -1148,9 +1166,204 @@ describe("getStaticPathsFromContext()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: true,
+        headers: expect.objectContaining({
+          Authorization: "Bearer sample-token",
+        }),
       })
     )
+  })
+})
+
+describe("preview()", () => {
+  // Get values from our mocked request.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { slug, resourceVersion, plugin, secret, ...draftData } =
+    new NextApiRequest().query
+  const dataCookie = `${DRAFT_DATA_COOKIE_NAME}=${encodeURIComponent(
+    JSON.stringify({ slug, resourceVersion, ...draftData })
+  )}; Path=/; HttpOnly; SameSite=None; Secure`
+  const validationPayload = {
+    slug,
+    maxAge: 30,
+  }
+
+  test("turns on preview mode and clears preview data", async () => {
+    const request = new NextApiRequest()
+    const response = new NextApiResponse()
+    const client = new DrupalClient(BASE_URL)
+    spyOnFetch({ responseBody: validationPayload })
+
+    await client.preview(request, response)
+
+    expect(response.clearPreviewData).toBeCalledTimes(1)
+    expect(response.setPreviewData).toBeCalledWith({
+      resourceVersion,
+      plugin,
+      ...validationPayload,
+    })
+  })
+
+  test("does not enable preview mode if validation fails", async () => {
+    const logger = mockLogger()
+    const request = new NextApiRequest()
+    const response = new NextApiResponse()
+    const client = new DrupalClient(BASE_URL, { debug: true, logger })
+    const status = 403
+    const message = "mock fail"
+    spyOnFetch({
+      responseBody: { message },
+      status,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+
+    await client.preview(request, response)
+
+    expect(logger.debug).toBeCalledWith(
+      `Draft url validation error: ${message}`
+    )
+    expect(response.setPreviewData).toBeCalledTimes(0)
+    expect(response.statusCode).toBe(status)
+    expect(response.json).toBeCalledWith({ message })
+  })
+
+  test("does not turn on draft mode by default", async () => {
+    const request = new NextApiRequest()
+    const response = new NextApiResponse()
+    const client = new DrupalClient(BASE_URL)
+    spyOnFetch({ responseBody: validationPayload })
+
+    await client.preview(request, response)
+
+    expect(response.setDraftMode).toBeCalledTimes(0)
+
+    // Also check for no draft data cookie.
+    const cookies = response.getHeader("Set-Cookie")
+    expect(cookies[cookies.length - 1]).not.toBe(dataCookie)
+  })
+
+  test("optionally turns on draft mode", async () => {
+    const request = new NextApiRequest()
+    const response = new NextApiResponse()
+    const logger = mockLogger()
+    const client = new DrupalClient(BASE_URL, {
+      debug: true,
+      logger,
+    })
+    spyOnFetch({ responseBody: validationPayload })
+
+    const options = { enable: true }
+    await client.preview(request, response, options)
+
+    expect(response.setDraftMode).toBeCalledWith(options)
+
+    // Also check for draft data cookie.
+    const cookies = response.getHeader("Set-Cookie")
+    expect(cookies[cookies.length - 1]).toBe(dataCookie)
+
+    expect(logger.debug).toHaveBeenLastCalledWith("Draft mode enabled.")
+  })
+
+  test("updates preview mode cookie’s sameSite flag", async () => {
+    const request = new NextApiRequest()
+    const response = new NextApiResponse()
+    const client = new DrupalClient(BASE_URL)
+    spyOnFetch({ responseBody: validationPayload })
+
+    // Our mock response.setPreviewData() does not set a cookie, so we set one.
+    const previewCookie =
+      "__next_preview_data=secret-data; Path=/; HttpOnly; SameSite=Lax"
+    response.setHeader("Set-Cookie", [
+      previewCookie,
+      ...response.getHeader("Set-Cookie"),
+    ])
+
+    const cookies = response.getHeader("Set-Cookie")
+    cookies[0] = cookies[0].replace("SameSite=Lax", "SameSite=None; Secure")
+
+    await client.preview(request, response)
+
+    expect(response.getHeader).toHaveBeenLastCalledWith("Set-Cookie")
+    expect(response.setHeader).toHaveBeenLastCalledWith("Set-Cookie", cookies)
+    expect(response.getHeader("Set-Cookie")).toStrictEqual(cookies)
+  })
+
+  test("redirects to the slug path", async () => {
+    const request = new NextApiRequest()
+    const response = new NextApiResponse()
+    const logger = mockLogger()
+    const client = new DrupalClient(BASE_URL, { debug: true, logger })
+    spyOnFetch({ responseBody: validationPayload })
+
+    await client.preview(request, response)
+
+    expect(response.setPreviewData).toBeCalledWith({
+      resourceVersion,
+      plugin,
+      ...validationPayload,
+    })
+    expect(response.writeHead).toBeCalledWith(307, { Location: slug })
+    expect(logger.debug).toHaveBeenLastCalledWith("Preview mode enabled.")
+  })
+
+  test("returns a 422 response on error", async () => {
+    const request = new NextApiRequest()
+    const response = new NextApiResponse()
+    const logger = mockLogger()
+    const client = new DrupalClient(BASE_URL, { debug: true, logger })
+    const message = "mock internal error"
+    response.clearPreviewData = jest.fn(() => {
+      throw new Error(message)
+    })
+
+    await client.preview(request, response)
+
+    expect(logger.debug).toHaveBeenLastCalledWith(`Preview failed: ${message}`)
+    expect(response.status).toBeCalledWith(422)
+    expect(response.end).toHaveBeenCalled()
+  })
+})
+
+describe("previewDisable()", () => {
+  test("clears preview data", async () => {
+    const request = new NextApiRequest()
+    const response = new NextApiResponse()
+    const client = new DrupalClient(BASE_URL)
+
+    await client.previewDisable(request, response)
+    expect(response.clearPreviewData).toBeCalledTimes(1)
+  })
+
+  test("disables draft mode", async () => {
+    const request = new NextApiRequest()
+    const response = new NextApiResponse()
+    const client = new DrupalClient(BASE_URL)
+
+    await client.previewDisable(request, response)
+    expect(response.setDraftMode).toBeCalledWith({ enable: false })
+  })
+
+  test("deletes the draft cookie", async () => {
+    const request = new NextApiRequest()
+    const response = new NextApiResponse()
+    const client = new DrupalClient(BASE_URL)
+
+    await client.previewDisable(request, response)
+    const cookies = response.getHeader("Set-Cookie")
+    expect(cookies[cookies.length - 1]).toBe(
+      `${DRAFT_DATA_COOKIE_NAME}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=None; Secure`
+    )
+  })
+
+  test('redirects to "/"', async () => {
+    const request = new NextApiRequest()
+    const response = new NextApiResponse()
+    const client = new DrupalClient(BASE_URL)
+
+    await client.previewDisable(request, response)
+    expect(response.writeHead).toBeCalledWith(307, { Location: "/" })
+    expect(response.end).toBeCalled()
   })
 })
 
@@ -1245,7 +1458,9 @@ describe("translatePathFromContext()", () => {
     expect(fetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        withAuth: true,
+        headers: expect.objectContaining({
+          Authorization: "Bearer sample-token",
+        }),
       })
     )
   })

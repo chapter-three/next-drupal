@@ -12,6 +12,7 @@ import type {
 import type {
   AccessToken,
   BaseUrl,
+  DrupalClientAuth,
   DrupalClientAuthAccessToken,
   DrupalClientAuthClientIdSecret,
   DrupalClientAuthUsernamePassword,
@@ -53,25 +54,28 @@ const DEFAULT_HEADERS = {
 }
 
 function isBasicAuth(
-  auth: DrupalClientOptions["auth"]
+  auth: DrupalClientAuth
 ): auth is DrupalClientAuthUsernamePassword {
   return (
-    (auth as DrupalClientAuthUsernamePassword)?.username !== undefined ||
+    (auth as DrupalClientAuthUsernamePassword)?.username !== undefined &&
     (auth as DrupalClientAuthUsernamePassword)?.password !== undefined
   )
 }
 
 function isAccessTokenAuth(
-  auth: DrupalClientOptions["auth"]
+  auth: DrupalClientAuth
 ): auth is DrupalClientAuthAccessToken {
-  return (auth as DrupalClientAuthAccessToken)?.access_token !== undefined
+  return (
+    (auth as DrupalClientAuthAccessToken)?.access_token !== undefined &&
+    (auth as DrupalClientAuthAccessToken)?.token_type !== undefined
+  )
 }
 
 function isClientIdSecretAuth(
-  auth: DrupalClient["auth"]
+  auth: DrupalClientAuth
 ): auth is DrupalClientAuthClientIdSecret {
   return (
-    (auth as DrupalClientAuthClientIdSecret)?.clientId !== undefined ||
+    (auth as DrupalClientAuthClientIdSecret)?.clientId !== undefined &&
     (auth as DrupalClientAuthClientIdSecret)?.clientSecret !== undefined
   )
 }
@@ -177,31 +181,47 @@ export class DrupalClient {
 
   set auth(auth: DrupalClientOptions["auth"]) {
     if (typeof auth === "object") {
-      if (isBasicAuth(auth)) {
-        if (!auth.username || !auth.password) {
+      const checkUsernamePassword = auth as DrupalClientAuthUsernamePassword
+      const checkAccessToken = auth as DrupalClientAuthAccessToken
+      const checkClientIdSecret = auth as DrupalClientAuthClientIdSecret
+
+      if (
+        checkUsernamePassword.username !== undefined ||
+        checkUsernamePassword.password !== undefined
+      ) {
+        if (
+          !checkUsernamePassword.username ||
+          !checkUsernamePassword.password
+        ) {
           throw new Error(
             `'username' and 'password' are required for auth. See https://next-drupal.org/docs/client/auth`
           )
         }
-      } else if (isAccessTokenAuth(auth)) {
-        if (!auth.access_token || !auth.token_type) {
+      } else if (
+        checkAccessToken.access_token !== undefined ||
+        checkAccessToken.token_type !== undefined
+      ) {
+        if (!checkAccessToken.access_token || !checkAccessToken.token_type) {
           throw new Error(
             `'access_token' and 'token_type' are required for auth. See https://next-drupal.org/docs/client/auth`
           )
         }
-      } else if (!auth.clientId || !auth.clientSecret) {
+      } else if (
+        !checkClientIdSecret.clientId ||
+        !checkClientIdSecret.clientSecret
+      ) {
         throw new Error(
           `'clientId' and 'clientSecret' are required for auth. See https://next-drupal.org/docs/client/auth`
         )
       }
 
-      auth = {
-        url: DEFAULT_AUTH_URL,
+      this._auth = {
+        ...(isClientIdSecretAuth(auth) ? { url: DEFAULT_AUTH_URL } : {}),
         ...auth,
       }
+    } else {
+      this._auth = auth
     }
-
-    this._auth = auth
   }
 
   set headers(value: DrupalClientOptions["headers"]) {
@@ -213,7 +233,10 @@ export class DrupalClient {
     this.tokenExpiresOn = Date.now() + token.expires_in * 1000
   }
 
-  async fetch(input: RequestInfo, init?: FetchOptions): Promise<Response> {
+  async fetch(
+    input: RequestInfo,
+    { withAuth, ...init }: FetchOptions = {}
+  ): Promise<Response> {
     init = {
       ...init,
       credentials: "include",
@@ -223,79 +246,10 @@ export class DrupalClient {
       },
     }
 
-    // Using the auth set on the client.
-    // TODO: Abstract this to a re-usable.
-    if (init?.withAuth) {
-      this.debug(`Using authenticated request.`)
-
-      if (init.withAuth === true) {
-        if (typeof this._auth === "undefined") {
-          throw new Error(
-            "auth is not configured. See https://next-drupal.org/docs/client/auth"
-          )
-        }
-
-        // By default, if withAuth is set to true, we use the auth configured
-        // in the client constructor.
-        if (typeof this._auth === "function") {
-          this.debug(`Using custom auth callback.`)
-
-          init["headers"]["Authorization"] = this._auth()
-        } else if (typeof this._auth === "string") {
-          this.debug(`Using custom authorization header.`)
-
-          init["headers"]["Authorization"] = this._auth
-        } else if (typeof this._auth === "object") {
-          this.debug(`Using custom auth credentials.`)
-
-          if (isBasicAuth(this._auth)) {
-            const basic = Buffer.from(
-              `${this._auth.username}:${this._auth.password}`
-            ).toString("base64")
-
-            init["headers"]["Authorization"] = `Basic ${basic}`
-          } else if (isClientIdSecretAuth(this._auth)) {
-            // Use the built-in client_credentials grant.
-            this.debug(`Using default auth (client_credentials).`)
-
-            // Fetch an access token and add it to the request.
-            // Access token can be fetched from cache or using a custom auth method.
-            const token = await this.getAccessToken(this._auth)
-            if (token) {
-              init["headers"]["Authorization"] = `Bearer ${token.access_token}`
-            }
-          } /* c8 ignore next 4 */ else if (isAccessTokenAuth(this._auth)) {
-            init["headers"]["Authorization"] =
-              `${this._auth.token_type} ${this._auth.access_token}`
-          }
-        }
-      } else if (typeof init.withAuth === "string") {
-        this.debug(`Using custom authorization header.`)
-
-        init["headers"]["Authorization"] = init.withAuth
-      } /* c8 ignore next 4 */ else if (typeof init.withAuth === "function") {
-        this.debug(`Using custom authorization callback.`)
-
-        init["headers"]["Authorization"] = init.withAuth()
-      } else if (isBasicAuth(init.withAuth)) {
-        this.debug(`Using basic authorization header.`)
-
-        const basic = Buffer.from(
-          `${init.withAuth.username}:${init.withAuth.password}`
-        ).toString("base64")
-
-        init["headers"]["Authorization"] = `Basic ${basic}`
-      } else if (isClientIdSecretAuth(init.withAuth)) {
-        // Fetch an access token and add it to the request.
-        // Access token can be fetched from cache or using a custom auth method.
-        const token = await this.getAccessToken(init.withAuth)
-        if (token) {
-          init["headers"]["Authorization"] = `Bearer ${token.access_token}`
-        }
-      } /* c8 ignore next 4 */ else if (isAccessTokenAuth(init.withAuth)) {
-        init["headers"]["Authorization"] =
-          `${init.withAuth.token_type} ${init.withAuth.access_token}`
-      }
+    if (withAuth) {
+      init.headers["Authorization"] = await this.getAuthorizationHeader(
+        withAuth === true ? this._auth : withAuth
+      )
     }
 
     if (this.fetcher) {
@@ -307,6 +261,41 @@ export class DrupalClient {
     this.debug(`Using default fetch, fetching: ${input}`)
 
     return await fetch(input, init)
+  }
+
+  async getAuthorizationHeader(auth: DrupalClientAuth) {
+    let header: string
+
+    if (isBasicAuth(auth)) {
+      const basic = Buffer.from(`${auth.username}:${auth.password}`).toString(
+        "base64"
+      )
+      header = `Basic ${basic}`
+      this.debug("Using basic authorization header.")
+    } else if (isClientIdSecretAuth(auth)) {
+      // Fetch an access token and add it to the request. getAccessToken()
+      // throws an error if it fails to get an access token.
+      const token = await this.getAccessToken(auth)
+      header = `Bearer ${token.access_token}`
+      this.debug(
+        "Using access token authorization header retrieved from Client Id/Secret."
+      )
+    } else if (isAccessTokenAuth(auth)) {
+      header = `${auth.token_type} ${auth.access_token}`
+      this.debug("Using access token authorization header.")
+    } else if (typeof auth === "string") {
+      header = auth
+      this.debug("Using custom authorization header.")
+    } else if (typeof auth === "function") {
+      header = auth()
+      this.debug("Using custom authorization callback.")
+    } else {
+      throw new Error(
+        "auth is not configured. See https://next-drupal.org/docs/client/auth"
+      )
+    }
+
+    return header
   }
 
   async createResource<T extends JsonApiResource>(
@@ -565,7 +554,6 @@ export class DrupalClient {
     if (typeof input !== "string") {
       // Fix for subrequests and translation.
       // TODO: Confirm if we still need this after https://www.drupal.org/i/3111456.
-      // @shadcn, note to self:
       // Given an entity at /example with no translation.
       // When we try to translate /es/example, decoupled router will properly
       // translate to the untranslated version and set the locale to es.
@@ -1356,26 +1344,25 @@ export class DrupalClient {
       return this.accessToken
     }
 
-    if (!opts?.clientId || !opts?.clientSecret) {
-      if (typeof this._auth === "undefined") {
-        throw new Error(
-          "auth is not configured. See https://next-drupal.org/docs/client/auth"
-        )
+    let auth: DrupalClientAuthClientIdSecret
+    if (isClientIdSecretAuth(opts)) {
+      auth = {
+        url: DEFAULT_AUTH_URL,
+        ...opts,
       }
-    }
-
-    if (
-      !isClientIdSecretAuth(this._auth) ||
-      (opts && !isClientIdSecretAuth(opts))
-    ) {
+    } else if (isClientIdSecretAuth(this._auth)) {
+      auth = this._auth
+    } else if (typeof this._auth === "undefined") {
+      throw new Error(
+        "auth is not configured. See https://next-drupal.org/docs/client/auth"
+      )
+    } else {
       throw new Error(
         `'clientId' and 'clientSecret' required. See https://next-drupal.org/docs/client/auth`
       )
     }
 
-    const clientId = opts?.clientId || this._auth.clientId
-    const clientSecret = opts?.clientSecret || this._auth.clientSecret
-    const url = this.buildUrl(opts?.url || this._auth.url)
+    const url = this.buildUrl(auth.url)
 
     if (
       this.accessTokenScope === opts?.scope &&
@@ -1388,8 +1375,11 @@ export class DrupalClient {
 
     this.debug(`Fetching new access token.`)
 
-    const basic = Buffer.from(`${clientId}:${clientSecret}`).toString("base64")
-
+    // Use BasicAuth to retrieve the access token.
+    const credentials: DrupalClientAuthUsernamePassword = {
+      username: auth.clientId,
+      password: auth.clientSecret,
+    }
     let body = `grant_type=client_credentials`
 
     if (opts?.scope) {
@@ -1401,7 +1391,7 @@ export class DrupalClient {
     const response = await this.fetch(url.toString(), {
       method: "POST",
       headers: {
-        Authorization: `Basic ${basic}`,
+        Authorization: await this.getAuthorizationHeader(credentials),
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded",
       },

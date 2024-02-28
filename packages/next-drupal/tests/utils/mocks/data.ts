@@ -1,5 +1,4 @@
 import type {
-  DrupalClientAuth,
   DrupalClientAuthAccessToken,
   DrupalClientAuthClientIdSecret,
   DrupalClientAuthUsernamePassword,
@@ -16,18 +15,17 @@ const auth = {
   } as DrupalClientAuthUsernamePassword,
   accessToken: {
     access_token: "ECYM594IlARGc3S8KgBHvTpki0rDtWx6",
-    token_type: "bearer",
+    token_type: "Bearer",
     expires_in: 3600,
   } as DrupalClientAuthAccessToken,
   clientIdSecret: {
     clientId: "7795065e-8ad0-45eb-a64d-73d9f3a5e943",
     clientSecret: "d92Fm^ds",
   } as DrupalClientAuthClientIdSecret,
-  function: function authFunction() {
+  callback: function authFunction() {
     return "custom Authentication header from authFunction"
-  } as DrupalClientAuth,
-  customAuthenticationHeader:
-    "custom Authentication header from string" as DrupalClientAuth,
+  },
+  customAuthenticationHeader: "custom Authentication header from string",
 }
 
 const resources = {

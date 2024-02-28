@@ -57,13 +57,12 @@ describe("auth", () => {
   })
 
   describe("throws an error if invalid Access Token", () => {
-    // TODO: The wrong error is thrown.
-    test.skip("missing access_token", () => {
+    test("missing access_token", () => {
       expect(() => {
         const client = new DrupalClient(BASE_URL)
         // @ts-ignore
         client.auth = {
-          token_type: "bearer",
+          token_type: mocks.auth.accessToken.token_type,
         }
       }).toThrow(
         "'access_token' and 'token_type' are required for auth. See https://next-drupal.org/docs/client/auth"
@@ -151,21 +150,21 @@ describe("auth", () => {
   })
 
   test("sets a default access token url", () => {
-    const accessToken = {
-      ...mocks.auth.accessToken,
+    const clientIdSecret = {
+      ...mocks.auth.clientIdSecret,
     }
     const client = new DrupalClient(BASE_URL)
-    client.auth = accessToken
+    client.auth = clientIdSecret
     expect(client._auth.url).toBe("/oauth/token")
   })
 
   test("can override the default access token url", () => {
-    const accessToken = {
-      ...mocks.auth.accessToken,
+    const clientIdSecret = {
+      ...mocks.auth.clientIdSecret,
       url: "/custom/oauth/token",
     }
     const client = new DrupalClient(BASE_URL)
-    client.auth = accessToken
+    client.auth = clientIdSecret
     expect(client._auth.url).toBe("/custom/oauth/token")
   })
 })

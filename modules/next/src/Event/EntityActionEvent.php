@@ -75,8 +75,12 @@ class EntityActionEvent extends Event implements EntityActionEventInterface {
     $next_entity_type_manager = \Drupal::service('next.entity_type.manager');
 
     $sites = $next_entity_type_manager->getSitesForEntity($entity);
-    $url = $entity->hasLinkTemplate('canonical') ? $entity->toUrl()->toString(TRUE)->getGeneratedUrl() : NULL;
-
+    try {
+      $url = $entity->hasLinkTemplate('canonical') ? $entity->toUrl()->toString(TRUE)->getGeneratedUrl() : NULL;
+    }
+    catch (\Exception $e) {
+      $url = NULL;
+    }
     return new static($entity, $action, $sites, $url);
   }
 

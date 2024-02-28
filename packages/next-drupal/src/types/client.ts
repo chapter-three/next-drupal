@@ -116,16 +116,6 @@ export type DrupalClientOptions = {
   useDefaultResourceTypeEntry?: boolean
 
   /**
-   * The secret to use for preview mode.
-   *
-   * * **Default value**: `null`
-   * * **Required**: *No*
-   *
-   * [Documentation](https://next-drupal.org/docs/client/configuration#previewsecret)
-   */
-  previewSecret?: string
-
-  /**
    * A long-lived access token you can set for the client.
    *
    * * **Default value**: `null`

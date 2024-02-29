@@ -11,7 +11,6 @@
     }
   ],
   "require": {
-    "cweagans/composer-patches": "~2.0",
     "drupal/decoupled_router": "^2.0",
     "drupal/pathauto": "^1.11",
     "drupal/simple_oauth": "^5.0 || ^6.0",

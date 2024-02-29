@@ -29,16 +29,6 @@ await drupal.preview(request, response, options?: {
 ## Notes
 
 - The `preview` method should be called in an API route.
-- Remember to set a `previewSecret` on the client.
-
-```ts title=lib/drupal.ts
-export const drupal = new DrupalClient(
-  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
-  {
-    previewSecret: process.env.DRUPAL_PREVIEW_SECRET,
-  }
-)
-```
 
 ---
 

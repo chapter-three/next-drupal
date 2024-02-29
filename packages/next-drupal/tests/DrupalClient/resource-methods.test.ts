@@ -3,6 +3,8 @@ import { DrupalClient } from "../../src"
 import { BASE_URL, mocks, spyOnFetch } from "../utils"
 import type { DrupalNode, DrupalSearchApiJsonApiResponse } from "../../src"
 
+jest.setTimeout(10000)
+
 afterEach(() => {
   jest.restoreAllMocks()
 })

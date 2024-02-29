@@ -247,22 +247,6 @@ describe("options parameter", () => {
     })
   })
 
-  describe("previewSecret", () => {
-    test("defaults to `undefined`", () => {
-      const client = new DrupalClient(BASE_URL)
-      expect(client.previewSecret).toBe(undefined)
-    })
-
-    test("sets up a custom previewSecret", () => {
-      const customPreviewSecret = "custom-secret-value"
-
-      const client = new DrupalClient(BASE_URL, {
-        previewSecret: customPreviewSecret,
-      })
-      expect(client.previewSecret).toBe(customPreviewSecret)
-    })
-  })
-
   describe("serializer", () => {
     test("defaults to `new Jsona()`", () => {
       const client = new DrupalClient(BASE_URL)

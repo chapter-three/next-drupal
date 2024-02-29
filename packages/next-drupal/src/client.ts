@@ -115,8 +115,6 @@ export class DrupalClient {
 
   private withAuth?: DrupalClientOptions["withAuth"]
 
-  private previewSecret?: DrupalClientOptions["previewSecret"]
-
   /**
    * Instantiates a new DrupalClient.
    *
@@ -142,7 +140,6 @@ export class DrupalClient {
       withAuth = DEFAULT_WITH_AUTH,
       fetcher,
       auth,
-      previewSecret,
       accessToken,
       throwJsonApiErrors = true,
     } = options
@@ -158,7 +155,6 @@ export class DrupalClient {
     this.headers = headers
     this.logger = logger
     this.withAuth = withAuth
-    this.previewSecret = previewSecret
     this.cache = cache
     this.accessToken = accessToken
     this.throwJsonApiErrors = throwJsonApiErrors

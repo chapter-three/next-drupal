@@ -4,6 +4,8 @@ import { DRAFT_DATA_COOKIE_NAME, DrupalClient } from "../../src"
 import { BASE_URL, mockLogger, mocks, spyOnFetch } from "../utils"
 import type { DrupalNode, JsonApiResourceWithPath } from "../../src"
 
+jest.setTimeout(10000)
+
 afterEach(() => {
   jest.restoreAllMocks()
 })

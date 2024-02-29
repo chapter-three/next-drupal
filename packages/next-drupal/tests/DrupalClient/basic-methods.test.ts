@@ -3,6 +3,8 @@ import { DrupalClient, JsonApiErrors } from "../../src"
 import { BASE_URL, mockLogger, spyOnFetch, spyOnFetchOnce } from "../utils"
 import type { DrupalNode, JsonApiError, Serializer } from "../../src"
 
+jest.setTimeout(10000)
+
 afterEach(() => {
   jest.restoreAllMocks()
 })

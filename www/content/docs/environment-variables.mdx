@@ -8,9 +8,6 @@ excerpt: Configuration variables for Next.js and Drupal.
 NEXT_PUBLIC_DRUPAL_BASE_URL=http://localhost:8080
 NEXT_IMAGE_DOMAIN=localhost
 
-# Required for Preview Mode
-DRUPAL_PREVIEW_SECRET=
-
 # Required for On-demand Revalidation
 DRUPAL_REVALIDATE_SECRET=
 
@@ -43,20 +40,6 @@ const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL)
 ```
 
 ---
-
-## Preview Mode
-
-Environment variables required for preview mode.
-
-| Name                    | Description                                                              |
-| ----------------------- | :----------------------------------------------------------------------- |
-| `DRUPAL_PREVIEW_SECRET` | The secret for [preview mode](/docs/preview-mode). Example: `6SZy9xkdtR` |
-
-```ts
-const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
-  previewSecret: process.env.DRUPAL_PREVIEW_SECRET,
-})
-```
 
 ## On-demand Revalidation
 

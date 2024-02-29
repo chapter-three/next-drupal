@@ -62,13 +62,6 @@ class NextSiteEntityController extends ControllerBase {
       'DRUPAL_CLIENT_SECRET' => 'Retrieve this from /admin/config/services/consumer',
     ];
 
-    if ($secret = $next_site->getPreviewSecret()) {
-      $variables += [
-        'preview_variables' => '# Required for Draft Mode',
-        'DRUPAL_PREVIEW_SECRET' => $secret,
-      ];
-    }
-
     if ($revalidate_secret = $next_site->getRevalidateSecret()) {
       $variables += [
         'revalidate_variables' => '# Required for On-demand Revalidation',

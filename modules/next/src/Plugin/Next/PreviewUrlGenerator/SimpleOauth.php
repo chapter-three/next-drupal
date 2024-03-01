@@ -83,6 +83,7 @@ class SimpleOauth extends ConfigurablePreviewUrlGeneratorBase {
    */
   public function defaultConfiguration() {
     return [
+      'next_base_path' => '',
       'secret_expiration' => NULL,
     ];
   }
@@ -91,6 +92,14 @@ class SimpleOauth extends ConfigurablePreviewUrlGeneratorBase {
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+
+    $form['next_base_path'] = [
+      '#title' => $this->t('Next.js Base Path'),
+      '#description' => $this->t('The <a href="https://nextjs.org/docs/api-reference/next.config.js/basepath" target="_blank"><code>basePath</code></a> value configured in <code>next.config.js</code>, for instance <code>/next</code>.'),
+      '#type' => 'textfield',
+      '#default_value' => $this->configuration['next_base_path'],
+    ];
+
     $form['secret_expiration'] = [
       '#title' => $this->t('Secret expiration time'),
       '#description' => $this->t('The value, in seconds, to be used as expiration time for the validation secret. <strong>It is recommended to use short-lived secrets for increased security.</strong>'),
@@ -117,7 +126,23 @@ class SimpleOauth extends ConfigurablePreviewUrlGeneratorBase {
   /**
    * {@inheritdoc}
    */
+  public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
+    // @todo Subform does not return any value. Fix this once it does.
+    $base_path = $form_state->getUserInput()['preview_url_generator_configuration']['next_base_path'];
+    $parsed = $base_path ? array_filter(parse_url($base_path)) : [];
+    if ($base_path && (!$parsed['path'] || count($parsed) > 1 || $base_path[0] !== '/')) {
+      $form_state->setError(
+        $form['preview_url_generator_container']['settings_container']['preview_url_generator_configuration']['next_base_path'],
+        $this->t('Invalid base path')
+      );
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+    $this->configuration['next_base_path'] = $form_state->getValue('next_base_path');
     $this->configuration['secret_expiration'] = $form_state->getValue('secret_expiration');
   }
 
@@ -126,7 +151,7 @@ class SimpleOauth extends ConfigurablePreviewUrlGeneratorBase {
    */
   public function generate(NextSiteInterface $next_site, EntityInterface $entity, string $resource_version = NULL): ?Url {
     $query = [];
-    $query['slug'] = $slug = $entity->toUrl()->toString();
+    $query['slug'] = $slug = $this->configuration['next_base_path'] . $entity->toUrl()->toString();
 
     // Create a secret based on the timestamp, slug, scope and resource version.
     $query['timestamp'] = $timestamp = $this->time->getRequestTime();

@@ -1,3 +1,6 @@
+import { NextDrupalPages } from "./next-drupal-pages"
+export const DrupalClient = NextDrupalPages
+
 export * from "./deprecated/get-access-token"
 export * from "./deprecated/get-menu"
 export * from "./deprecated/get-paths"

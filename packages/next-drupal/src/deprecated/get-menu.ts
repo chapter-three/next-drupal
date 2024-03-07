@@ -1,8 +1,8 @@
 import { buildHeaders, buildUrl, deserialize } from "./utils"
-import type { AccessToken, DrupalMenuLinkContent } from "../types"
+import type { AccessToken, DrupalMenuItem } from "../types"
 import type { JsonApiWithLocaleOptions } from "../types/deprecated"
 
-export async function getMenu<T extends DrupalMenuLinkContent>(
+export async function getMenu<T extends DrupalMenuItem>(
   name: string,
   options?: {
     deserialize?: boolean
@@ -45,8 +45,8 @@ export async function getMenu<T extends DrupalMenuLinkContent>(
 }
 
 function buildMenuTree(
-  links: DrupalMenuLinkContent[],
-  parent: DrupalMenuLinkContent["id"] = ""
+  links: DrupalMenuItem[],
+  parent: DrupalMenuItem["id"] = ""
 ) {
   if (!links?.length) {
     return {

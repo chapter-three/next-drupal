@@ -487,12 +487,13 @@ exports[`getMenu() fetches menu items for a menu 1`] = `
       "weight": "30",
     },
   ],
-  "tree": [
+  "tree": DrupalMenuTree [
     {
       "description": "",
       "enabled": true,
       "expanded": false,
       "id": "standard.front_page",
+      "items": undefined,
       "menu_name": "main",
       "meta": [],
       "options": [],
@@ -512,6 +513,7 @@ exports[`getMenu() fetches menu items for a menu 1`] = `
       "enabled": true,
       "expanded": false,
       "id": "views_view:views.featured_articles.page_1",
+      "items": undefined,
       "menu_name": "main",
       "meta": {
         "display_id": "page_1",
@@ -534,6 +536,7 @@ exports[`getMenu() fetches menu items for a menu 1`] = `
       "enabled": true,
       "expanded": false,
       "id": "views_view:views.recipes.page_1",
+      "items": undefined,
       "menu_name": "main",
       "meta": {
         "display_id": "page_1",
@@ -622,12 +625,13 @@ exports[`getMenu() fetches menu items for a menu with locale 1`] = `
       "weight": "30",
     },
   ],
-  "tree": [
+  "tree": DrupalMenuTree [
     {
       "description": "",
       "enabled": true,
       "expanded": false,
       "id": "standard.front_page",
+      "items": undefined,
       "menu_name": "main",
       "meta": [],
       "options": [],
@@ -647,6 +651,7 @@ exports[`getMenu() fetches menu items for a menu with locale 1`] = `
       "enabled": true,
       "expanded": false,
       "id": "views_view:views.featured_articles.page_1",
+      "items": undefined,
       "menu_name": "main",
       "meta": {
         "display_id": "page_1",
@@ -669,6 +674,7 @@ exports[`getMenu() fetches menu items for a menu with locale 1`] = `
       "enabled": true,
       "expanded": false,
       "id": "views_view:views.recipes.page_1",
+      "items": undefined,
       "menu_name": "main",
       "meta": {
         "display_id": "page_1",
@@ -1082,7 +1088,7 @@ exports[`getResource() fetches raw data 1`] = `
   },
   "links": {
     "self": {
-      "href": "https://tests.next-drupal.org/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      "href": "https://tests.next-drupal.org/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
     },
   },
 }
@@ -1457,7 +1463,7 @@ exports[`getResourceByPath() fetches raw data 1`] = `
   },
   "links": {
     "self": {
-      "href": "https://tests.next-drupal.org/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      "href": "https://tests.next-drupal.org/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
     },
   },
 }

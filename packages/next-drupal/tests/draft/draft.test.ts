@@ -12,7 +12,7 @@ import { NextRequest } from "next/server"
 import {
   DRAFT_DATA_COOKIE_NAME,
   DRAFT_MODE_COOKIE_NAME,
-  DrupalClient,
+  NextDrupal,
 } from "../../src"
 import { BASE_URL, spyOnFetch } from "../utils"
 import {
@@ -50,7 +50,7 @@ describe("enableDraftMode()", () => {
   const request = new NextRequest(
     `https://example.com/api/draft?${searchParams}`
   )
-  const client = new DrupalClient(BASE_URL)
+  const drupal = new NextDrupal(BASE_URL)
   const draftModeCookie: ResponseCookie = {
     name: DRAFT_MODE_COOKIE_NAME,
     value: "some-secret-key",
@@ -60,7 +60,7 @@ describe("enableDraftMode()", () => {
   test("does not enable draft mode if validation fails", async () => {
     spyOnFetch({ responseBody: { message: "fail" }, status: 500 })
 
-    const response = await enableDraftMode(request, client)
+    const response = await enableDraftMode(request, drupal)
 
     expect(draftMode().enable).not.toHaveBeenCalled()
     expect(response).toBeInstanceOf(Response)
@@ -70,7 +70,7 @@ describe("enableDraftMode()", () => {
   test("enables draft mode", async () => {
     spyOnFetch({ responseBody: validationPayload })
 
-    await enableDraftMode(request, client)
+    await enableDraftMode(request, drupal)
 
     expect(draftMode().enable).toHaveBeenCalled()
   })
@@ -83,7 +83,7 @@ describe("enableDraftMode()", () => {
     expect(cookies().get(DRAFT_MODE_COOKIE_NAME).sameSite).toBe("lax")
     expect(cookies().get(DRAFT_MODE_COOKIE_NAME).secure).toBeFalsy()
 
-    await enableDraftMode(request, client)
+    await enableDraftMode(request, drupal)
 
     expect(cookies().get(DRAFT_MODE_COOKIE_NAME).sameSite).toBe("none")
     expect(cookies().get(DRAFT_MODE_COOKIE_NAME).secure).toBe(true)
@@ -93,7 +93,7 @@ describe("enableDraftMode()", () => {
     spyOnFetch({ responseBody: validationPayload })
     expect(cookies().get(DRAFT_DATA_COOKIE_NAME)).toBe(undefined)
 
-    await enableDraftMode(request, client)
+    await enableDraftMode(request, drupal)
 
     const cookie = cookies().get(DRAFT_DATA_COOKIE_NAME)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -111,7 +111,7 @@ describe("enableDraftMode()", () => {
   test("redirects to the given path", async () => {
     spyOnFetch({ responseBody: validationPayload })
 
-    await enableDraftMode(request, client)
+    await enableDraftMode(request, drupal)
 
     expect(redirect).toHaveBeenCalledWith(searchParams.get("path"))
   })

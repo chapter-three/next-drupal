@@ -1,12 +1,15 @@
 import { cookies, draftMode } from "next/headers"
 import { redirect } from "next/navigation"
-import { DRAFT_DATA_COOKIE_NAME, DRAFT_MODE_COOKIE_NAME } from "./client"
+import {
+  DRAFT_DATA_COOKIE_NAME,
+  DRAFT_MODE_COOKIE_NAME,
+} from "./draft-constants"
 import type { NextRequest } from "next/server"
-import type { DrupalClient } from "./client"
+import type { NextDrupal } from "./next-drupal"
 
 export async function enableDraftMode(
   request: NextRequest,
-  drupal: DrupalClient
+  drupal: NextDrupal
 ): Promise<Response | never> {
   // Validate the draft request.
   const response = await drupal.validateDraftUrl(request.nextUrl.searchParams)

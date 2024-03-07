@@ -1,9 +1,9 @@
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { getMenu } from "./get-menu"
-import type { DrupalMenuLinkContent } from "../types"
+import type { DrupalMenuItem } from "../types"
 
-export function useMenu<T extends DrupalMenuLinkContent>(
+export function useMenu<T extends DrupalMenuItem>(
   name: string
 ): {
   items: T[]

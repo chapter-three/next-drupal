@@ -37,15 +37,15 @@ export interface DrupalMedia extends JsonApiResource {
   name: string
 }
 
-export interface DrupalMenuLinkContent {
+export interface DrupalMenuItem {
   description: string
   enabled: boolean
   expanded: boolean
-  id: string
+  id: DrupalMenuItemId
   menu_name: string
   meta: Record<string, unknown>
   options: Record<string, unknown>
-  parent: string
+  parent: DrupalMenuItemId
   provider: string
   route: {
     name: string
@@ -55,8 +55,10 @@ export interface DrupalMenuLinkContent {
   type: string
   url: string
   weight: string
-  items?: DrupalMenuLinkContent[]
+  items?: DrupalMenuItem[]
 }
+
+export type DrupalMenuItemId = string
 
 export interface DrupalNode extends JsonApiResourceWithPath {
   drupal_internal__nid: number
@@ -71,6 +73,12 @@ export interface DrupalNode extends JsonApiResourceWithPath {
 export interface DrupalParagraph extends JsonApiResource {
   drupal_internal__id: number
   drupal_internal__revision_id: number
+}
+
+export type DrupalPathAlias = {
+  alias: string
+  pid: number
+  langcode: string
 }
 
 export interface DrupalSearchApiJsonApiResponse extends JsonApiResponse {
@@ -145,10 +153,4 @@ export interface DrupalView<T = Record<string, any>[]> {
   results: T
   meta: JsonApiResponse["meta"]
   links: JsonApiResponse["links"]
-}
-
-export type PathAlias = {
-  alias: string
-  pid: number
-  langcode: string
 }

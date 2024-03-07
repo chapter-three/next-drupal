@@ -1,4 +1,6 @@
-export type * from "./client"
 export type * from "./drupal"
+export type * from "./next-drupal-base"
+export type * from "./next-drupal"
+export type * from "./next-drupal-pages"
 export type * from "./options"
 export type * from "./resource"

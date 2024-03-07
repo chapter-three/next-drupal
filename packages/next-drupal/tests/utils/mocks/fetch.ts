@@ -52,12 +52,14 @@ function fetchMockImplementation({
     }
   }
 
+  const mockedHeaders = new Headers(headers)
+  if (!mockedHeaders.has("content-type")) {
+    mockedHeaders.set("content-type", "application/vnd.api+json")
+  }
+
   return async () =>
     new Response(JSON.stringify(responseBody || {}), {
       status,
-      headers: {
-        "content-type": "application/vnd.api+json",
-        ...headers,
-      },
+      headers: mockedHeaders,
     })
 }

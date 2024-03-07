@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, jest, test } from "@jest/globals"
-import { DrupalClient } from "../../src"
+import { NextDrupal } from "../../src"
 import { BASE_URL, mocks, spyOnFetch } from "../utils"
 import type { DrupalNode, DrupalSearchApiJsonApiResponse } from "../../src"
 
@@ -15,57 +15,57 @@ describe("buildMenuTree()", () => {
 
 describe("getEntryForResourceType()", () => {
   test("returns the JSON:API entry for a resource type", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const getIndexSpy = jest.spyOn(client, "getIndex")
+    const drupal = new NextDrupal(BASE_URL)
+    const getIndexSpy = jest.spyOn(drupal, "getIndex")
 
-    const recipeEntry = await client.getEntryForResourceType("node--recipe")
+    const recipeEntry = await drupal.getEntryForResourceType("node--recipe")
     expect(recipeEntry).toMatch(`${BASE_URL}/en/jsonapi/node/recipe`)
     expect(getIndexSpy).toHaveBeenCalledTimes(1)
 
-    const articleEntry = await client.getEntryForResourceType("node--article")
+    const articleEntry = await drupal.getEntryForResourceType("node--article")
     expect(articleEntry).toMatch(`${BASE_URL}/en/jsonapi/node/article`)
     expect(getIndexSpy).toHaveBeenCalledTimes(2)
   })
 
   test("assembles JSON:API entry without fetching index", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new NextDrupal(BASE_URL, {
       useDefaultResourceTypeEntry: true,
     })
-    const getIndexSpy = jest.spyOn(client, "getIndex")
+    const getIndexSpy = jest.spyOn(drupal, "getIndex")
 
-    const recipeEntry = await client.getEntryForResourceType("node--article")
+    const recipeEntry = await drupal.getEntryForResourceType("node--article")
     expect(recipeEntry).toMatch(`${BASE_URL}/jsonapi/node/article`)
     expect(getIndexSpy).toHaveBeenCalledTimes(0)
   })
 
   test("throws an error if resource type does not exist", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
     await expect(
-      client.getEntryForResourceType("RESOURCE-DOES-NOT-EXIST")
+      drupal.getEntryForResourceType("RESOURCE-DOES-NOT-EXIST")
     ).rejects.toThrow("Resource of type 'RESOURCE-DOES-NOT-EXIST' not found.")
   })
 })
 
 describe("getIndex()", () => {
   test("fetches the JSON:API index", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const index = await client.getIndex()
+    const drupal = new NextDrupal(BASE_URL)
+    const index = await drupal.getIndex()
 
     expect(index).toMatchSnapshot()
   })
 
   test("fetches the JSON:API index with locale", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const index = await client.getIndex("es")
+    const drupal = new NextDrupal(BASE_URL)
+    const index = await drupal.getIndex("es")
 
     expect(index).toMatchSnapshot()
   })
 
   test("throws error for invalid base url", async () => {
-    const client = new DrupalClient("https://example.com")
+    const drupal = new NextDrupal("https://example.com")
 
-    await expect(client.getIndex()).rejects.toThrow(
+    await expect(drupal.getIndex()).rejects.toThrow(
       "Failed to fetch JSON:API index at https://example.com/jsonapi"
     )
   })
@@ -73,17 +73,17 @@ describe("getIndex()", () => {
 
 describe("getMenu()", () => {
   test("fetches menu items for a menu", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
-    const menu = await client.getMenu("main")
+    const menu = await drupal.getMenu("main")
 
     expect(menu).toMatchSnapshot()
   })
 
   test("fetches menu items for a menu with locale", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
-    const menu = await client.getMenu("main", {
+    const menu = await drupal.getMenu("main", {
       locale: "es",
       defaultLocale: "en",
     })
@@ -92,9 +92,9 @@ describe("getMenu()", () => {
   })
 
   test("fetches menu items for a menu with params", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
-    const menu = await client.getMenu("main", {
+    const menu = await drupal.getMenu("main", {
       params: {
         "fields[menu_link_content--menu_link_content]": "title",
       },
@@ -104,48 +104,44 @@ describe("getMenu()", () => {
   })
 
   test("throws an error for invalid menu name", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
-    await expect(client.getMenu("INVALID")).rejects.toThrow(
+    await expect(drupal.getMenu("INVALID")).rejects.toThrow(
       '404 Not Found\nThe "menu" parameter was not converted for the path "/jsonapi/menu_items/{menu}" (route name: "jsonapi_menu_items.menu")'
     )
   })
 
   test("makes un-authenticated requests by default", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const fetchSpy = jest.spyOn(client, "fetch")
+    const drupal = new NextDrupal(BASE_URL)
+    const drupalFetchSpy = jest.spyOn(drupal, "fetch")
 
-    await client.getMenu("main")
-    expect(fetchSpy).toHaveBeenCalledWith(expect.anything(), {
+    await drupal.getMenu("main")
+
+    expect(drupalFetchSpy).toHaveBeenCalledWith(expect.anything(), {
       withAuth: false,
     })
   })
 
   test("makes authenticated requests with withAuth option", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new NextDrupal(BASE_URL, {
       useDefaultResourceTypeEntry: true,
       auth: `Bearer sample-token`,
     })
     const fetchSpy = spyOnFetch()
-    jest.spyOn(client, "getAccessToken")
+    jest.spyOn(drupal, "getAccessToken")
 
-    await client.getMenu("main", { withAuth: true })
+    await drupal.getMenu("main", { withAuth: true })
 
-    expect(fetchSpy).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        headers: expect.objectContaining({
-          Authorization: "Bearer sample-token",
-        }),
-      })
-    )
+    expect(
+      (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
+    ).toBe("Bearer sample-token")
   })
 })
 
 describe("getResource()", () => {
   test("fetches a resource by uuid", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const recipe = await client.getResource<DrupalNode>(
+    const drupal = new NextDrupal(BASE_URL)
+    const recipe = await drupal.getResource<DrupalNode>(
       "node--recipe",
       "71e04ead-4cc7-416c-b9ca-60b635fdc50f"
     )
@@ -154,8 +150,8 @@ describe("getResource()", () => {
   })
 
   test("fetches a resource by uuid with params", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const recipe = await client.getResource<DrupalNode>(
+    const drupal = new NextDrupal(BASE_URL)
+    const recipe = await drupal.getResource<DrupalNode>(
       "node--recipe",
       "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
       {
@@ -169,8 +165,8 @@ describe("getResource()", () => {
   })
 
   test("fetches a resource using locale", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const recipe = await client.getResource<DrupalNode>(
+    const drupal = new NextDrupal(BASE_URL)
+    const recipe = await drupal.getResource<DrupalNode>(
       "node--recipe",
       "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
       {
@@ -186,10 +182,10 @@ describe("getResource()", () => {
   })
 
   test("fetches raw data", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
     await expect(
-      client.getResource(
+      drupal.getResource(
         "node--recipe",
         "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
         {
@@ -200,8 +196,8 @@ describe("getResource()", () => {
   })
 
   test("fetches a resource by revision", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const recipe = await client.getResource<DrupalNode>(
+    const drupal = new NextDrupal(BASE_URL)
+    const recipe = await drupal.getResource<DrupalNode>(
       "node--recipe",
       "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
       {
@@ -210,7 +206,7 @@ describe("getResource()", () => {
         },
       }
     )
-    const latestRevision = await client.getResource<DrupalNode>(
+    const latestRevision = await drupal.getResource<DrupalNode>(
       "node--recipe",
       "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
       {
@@ -227,10 +223,10 @@ describe("getResource()", () => {
   })
 
   test("throws an error for invalid revision", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
     await expect(
-      client.getResource<DrupalNode>(
+      drupal.getResource<DrupalNode>(
         "node--recipe",
         "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
         {
@@ -246,10 +242,10 @@ describe("getResource()", () => {
   })
 
   test("throws an error if revision access is forbidden", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
     await expect(
-      client.getResource<DrupalNode>(
+      drupal.getResource<DrupalNode>(
         "node--recipe",
         "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
         {
@@ -265,10 +261,10 @@ describe("getResource()", () => {
   })
 
   test("throws an error for invalid resource type", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
     await expect(
-      client.getResource<DrupalNode>(
+      drupal.getResource<DrupalNode>(
         "RESOURCE-DOES-NOT-EXIST",
         "71e04ead-4cc7-416c-b9ca-60b635fdc50f"
       )
@@ -276,10 +272,10 @@ describe("getResource()", () => {
   })
 
   test("throws an error for invalid params", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
     await expect(
-      client.getResource<DrupalNode>(
+      drupal.getResource<DrupalNode>(
         "node--recipe",
         "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
         {
@@ -294,27 +290,27 @@ describe("getResource()", () => {
   })
 
   test("makes un-authenticated requests by default", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const fetchSpy = jest.spyOn(client, "fetch")
+    const drupal = new NextDrupal(BASE_URL)
+    const drupalFetchSpy = jest.spyOn(drupal, "fetch")
 
-    await client.getResource(
+    await drupal.getResource(
       "node--recipe",
       "71e04ead-4cc7-416c-b9ca-60b635fdc50f"
     )
-    expect(fetchSpy).toHaveBeenCalledWith(expect.anything(), {
+    expect(drupalFetchSpy).toHaveBeenCalledWith(expect.anything(), {
       withAuth: false,
     })
   })
 
   test("makes authenticated requests with withAuth option", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new NextDrupal(BASE_URL, {
       useDefaultResourceTypeEntry: true,
       auth: `Bearer sample-token`,
     })
     const fetchSpy = spyOnFetch()
-    jest.spyOn(client, "getAccessToken")
+    jest.spyOn(drupal, "getAccessToken")
 
-    await client.getResource(
+    await drupal.getResource(
       "node--recipe",
       "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
       {
@@ -322,31 +318,26 @@ describe("getResource()", () => {
       }
     )
 
-    expect(fetchSpy).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        headers: expect.objectContaining({
-          Authorization: "Bearer sample-token",
-        }),
-      })
-    )
+    expect(
+      (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
+    ).toBe("Bearer sample-token")
   })
 })
 
 describe("getResourceByPath()", () => {
   test("fetches a resource by path", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
     await expect(
-      client.getResourceByPath("/recipes/deep-mediterranean-quiche")
+      drupal.getResourceByPath("/recipes/deep-mediterranean-quiche")
     ).resolves.toMatchSnapshot()
   })
 
   test("fetches a resource by path with params", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
     await expect(
-      client.getResourceByPath("/recipes/deep-mediterranean-quiche", {
+      drupal.getResourceByPath("/recipes/deep-mediterranean-quiche", {
         params: {
           "fields[node--recipe]": "title,field_cooking_time",
         },
@@ -355,8 +346,8 @@ describe("getResourceByPath()", () => {
   })
 
   test("fetches a resource by path using locale", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const recipe = await client.getResourceByPath(
+    const drupal = new NextDrupal(BASE_URL)
+    const recipe = await drupal.getResourceByPath(
       "/recipes/quiche-mediterráneo-profundo",
       {
         locale: "es",
@@ -371,18 +362,18 @@ describe("getResourceByPath()", () => {
   })
 
   test("fetches raw data", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
     await expect(
-      client.getResourceByPath("/recipes/deep-mediterranean-quiche", {
+      drupal.getResourceByPath("/recipes/deep-mediterranean-quiche", {
         deserialize: false,
       })
     ).resolves.toMatchSnapshot()
   })
 
   test("fetches a resource by revision", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const recipe = await client.getResourceByPath<DrupalNode>(
+    const drupal = new NextDrupal(BASE_URL)
+    const recipe = await drupal.getResourceByPath<DrupalNode>(
       "/recipes/deep-mediterranean-quiche",
       {
         params: {
@@ -390,7 +381,7 @@ describe("getResourceByPath()", () => {
         },
       }
     )
-    const latestRevision = await client.getResourceByPath<DrupalNode>(
+    const latestRevision = await drupal.getResourceByPath<DrupalNode>(
       "/recipes/deep-mediterranean-quiche",
       {
         params: {
@@ -406,10 +397,10 @@ describe("getResourceByPath()", () => {
   })
 
   test("throws an error for invalid revision", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
     await expect(
-      client.getResourceByPath<DrupalNode>(
+      drupal.getResourceByPath<DrupalNode>(
         "/recipes/deep-mediterranean-quiche",
         {
           params: {
@@ -424,10 +415,10 @@ describe("getResourceByPath()", () => {
   })
 
   test("throws an error if revision access is forbidden", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
     await expect(
-      client.getResourceByPath<DrupalNode>(
+      drupal.getResourceByPath<DrupalNode>(
         "/recipes/deep-mediterranean-quiche",
         {
           params: {
@@ -442,18 +433,18 @@ describe("getResourceByPath()", () => {
   })
 
   test("returns null for path not found", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
     await expect(
-      client.getResourceByPath<DrupalNode>("/path-do-not-exist")
+      drupal.getResourceByPath<DrupalNode>("/path-do-not-exist")
     ).rejects.toThrow("Unable to resolve path /path-do-not-exist.")
   })
 
   test("throws an error for invalid params", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
     await expect(
-      client.getResourceByPath<DrupalNode>(
+      drupal.getResourceByPath<DrupalNode>(
         "/recipes/deep-mediterranean-quiche",
         {
           params: {
@@ -467,14 +458,14 @@ describe("getResourceByPath()", () => {
   })
 
   test("makes un-authenticated requests by default", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const fetchSpy = jest.spyOn(client, "fetch")
-    const getAccessTokenSpy = jest.spyOn(client, "getAccessToken")
+    const drupal = new NextDrupal(BASE_URL)
+    const drupalFetchSpy = jest.spyOn(drupal, "fetch")
+    const getAccessTokenSpy = jest.spyOn(drupal, "getAccessToken")
 
-    await client.getResourceByPath<DrupalNode>(
+    await drupal.getResourceByPath<DrupalNode>(
       "/recipes/deep-mediterranean-quiche"
     )
-    expect(fetchSpy).toHaveBeenCalledWith(
+    expect(drupalFetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.not.objectContaining({
         headers: expect.objectContaining({
@@ -486,45 +477,42 @@ describe("getResourceByPath()", () => {
   })
 
   test("makes authenticated requests with withAuth", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new NextDrupal(BASE_URL, {
       auth: mocks.auth.clientIdSecret,
     })
     const fetchSpy = spyOnFetch()
     const getAccessTokenSpy = jest
-      .spyOn(client, "getAccessToken")
+      .spyOn(drupal, "getAccessToken")
       .mockImplementation(async () => mocks.auth.accessToken)
 
-    await client.getResourceByPath<DrupalNode>(
+    await drupal.getResourceByPath<DrupalNode>(
       "/recipes/deep-mediterranean-quiche",
       {
         withAuth: true,
       }
     )
 
-    expect(fetchSpy).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        headers: expect.objectContaining({
-          Authorization: `${mocks.auth.accessToken.token_type} ${mocks.auth.accessToken.access_token}`,
-        }),
-      })
+    expect(
+      (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
+    ).toBe(
+      `${mocks.auth.accessToken.token_type} ${mocks.auth.accessToken.access_token}`
     )
     expect(getAccessTokenSpy).toHaveBeenCalled()
   })
 
   test("returns null if path is falsey", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
-    const resource = await client.getResourceByPath("")
+    const resource = await drupal.getResourceByPath("")
     expect(resource).toBe(null)
   })
 })
 
 describe("getResourceCollection()", () => {
   test("fetches a resource collection", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
-    const articles = await client.getResourceCollection("node--article", {
+    const articles = await drupal.getResourceCollection("node--article", {
       params: {
         "fields[node--article]": "title",
       },
@@ -534,9 +522,9 @@ describe("getResourceCollection()", () => {
   })
 
   test("fetches a resource collection using locale", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
-    const articles = await client.getResourceCollection("node--article", {
+    const articles = await drupal.getResourceCollection("node--article", {
       locale: "es",
       defaultLocale: "en",
       params: {
@@ -550,9 +538,9 @@ describe("getResourceCollection()", () => {
   })
 
   test("fetches raw data", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
-    const recipes = await client.getResourceCollection("node--recipe", {
+    const recipes = await drupal.getResourceCollection("node--recipe", {
       deserialize: false,
       params: {
         "fields[node--recipe]": "title",
@@ -564,18 +552,18 @@ describe("getResourceCollection()", () => {
   })
 
   test("throws an error for invalid resource type", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
     await expect(
-      client.getResourceCollection("RESOURCE-DOES-NOT-EXIST")
+      drupal.getResourceCollection("RESOURCE-DOES-NOT-EXIST")
     ).rejects.toThrow("Resource of type 'RESOURCE-DOES-NOT-EXIST' not found.")
   })
 
   test("throws an error for invalid params", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
     await expect(
-      client.getResourceCollection<DrupalNode>("node--recipe", {
+      drupal.getResourceCollection<DrupalNode>("node--recipe", {
         params: {
           include: "invalid_relationship",
         },
@@ -586,43 +574,38 @@ describe("getResourceCollection()", () => {
   })
 
   test("makes un-authenticated requests by default", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const fetchSpy = jest.spyOn(client, "fetch")
+    const drupal = new NextDrupal(BASE_URL)
+    const drupalFetchSpy = jest.spyOn(drupal, "fetch")
 
-    await client.getResourceCollection("node--recipe")
-    expect(fetchSpy).toHaveBeenCalledWith(expect.anything(), {
+    await drupal.getResourceCollection("node--recipe")
+    expect(drupalFetchSpy).toHaveBeenCalledWith(expect.anything(), {
       withAuth: false,
     })
   })
 
   test("makes authenticated requests with withAuth option", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new NextDrupal(BASE_URL, {
       useDefaultResourceTypeEntry: true,
       auth: `Bearer sample-token`,
     })
     const fetchSpy = spyOnFetch()
-    jest.spyOn(client, "getAccessToken")
+    jest.spyOn(drupal, "getAccessToken")
 
-    await client.getResourceCollection("node--recipe", {
+    await drupal.getResourceCollection("node--recipe", {
       withAuth: true,
     })
 
-    expect(fetchSpy).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        headers: expect.objectContaining({
-          Authorization: "Bearer sample-token",
-        }),
-      })
-    )
+    expect(
+      (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
+    ).toBe("Bearer sample-token")
   })
 })
 
 describe("getSearchIndex()", () => {
   test("fetches a search index", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
-    const search = await client.getSearchIndex("recipes", {
+    const search = await drupal.getSearchIndex("recipes", {
       params: {
         "fields[node--recipe]": "title",
       },
@@ -632,9 +615,9 @@ describe("getSearchIndex()", () => {
   })
 
   test("fetches a search index with locale", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
-    const search = await client.getSearchIndex("recipes", {
+    const search = await drupal.getSearchIndex("recipes", {
       locale: "es",
       defaultLocale: "en",
       params: {
@@ -646,9 +629,9 @@ describe("getSearchIndex()", () => {
   })
 
   test("fetches a search index with facets filters", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
-    const search = await client.getSearchIndex<DrupalSearchApiJsonApiResponse>(
+    const search = await drupal.getSearchIndex<DrupalSearchApiJsonApiResponse>(
       "recipes",
       {
         deserialize: false,
@@ -664,9 +647,9 @@ describe("getSearchIndex()", () => {
   })
 
   test("fetches raw data from search index", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
-    const search = await client.getSearchIndex("recipes", {
+    const search = await drupal.getSearchIndex("recipes", {
       deserialize: false,
       params: {
         "filter[difficulty]": "easy",
@@ -678,60 +661,55 @@ describe("getSearchIndex()", () => {
   })
 
   test("makes un-authenticated requests by default", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const fetchSpy = jest.spyOn(client, "fetch")
+    const drupal = new NextDrupal(BASE_URL)
+    const drupalFetchSpy = jest.spyOn(drupal, "fetch")
 
-    await client.getSearchIndex("recipes")
+    await drupal.getSearchIndex("recipes")
 
-    expect(fetchSpy).toHaveBeenCalledWith(expect.anything(), {
+    expect(drupalFetchSpy).toHaveBeenCalledWith(expect.anything(), {
       withAuth: false,
     })
   })
 
   test("throws an error for invalid index", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
-    await expect(client.getSearchIndex("INVALID-INDEX")).rejects.toThrow(
+    await expect(drupal.getSearchIndex("INVALID-INDEX")).rejects.toThrow(
       "Not Found"
     )
   })
 
   test("makes authenticated requests with withAuth option", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new NextDrupal(BASE_URL, {
       useDefaultResourceTypeEntry: true,
       auth: `Bearer sample-token`,
     })
     const fetchSpy = spyOnFetch()
-    jest.spyOn(client, "getAccessToken")
+    jest.spyOn(drupal, "getAccessToken")
 
-    await client.getSearchIndex("recipes", {
+    await drupal.getSearchIndex("recipes", {
       withAuth: true,
     })
 
-    expect(fetchSpy).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        headers: expect.objectContaining({
-          Authorization: "Bearer sample-token",
-        }),
-      })
-    )
+    expect(
+      (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
+    ).toBe("Bearer sample-token")
   })
 })
 
 describe("getView()", () => {
   test("fetches a view", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
-    const view = await client.getView("featured_articles--page_1")
+    const view = await drupal.getView("featured_articles--page_1")
 
     expect(view).toMatchSnapshot()
   })
 
   test("fetches a view with params", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
-    const view = await client.getView("featured_articles--page_1", {
+    const view = await drupal.getView("featured_articles--page_1", {
       params: {
         "fields[node--article]": "title",
       },
@@ -741,9 +719,9 @@ describe("getView()", () => {
   })
 
   test("fetches a view with locale", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
-    const view = await client.getView("featured_articles--page_1", {
+    const view = await drupal.getView("featured_articles--page_1", {
       locale: "es",
       defaultLocale: "en",
       params: {
@@ -755,9 +733,9 @@ describe("getView()", () => {
   })
 
   test("fetches raw data", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
-    const view = await client.getView("featured_articles--page_1", {
+    const view = await drupal.getView("featured_articles--page_1", {
       locale: "es",
       defaultLocale: "en",
       deserialize: false,
@@ -770,44 +748,39 @@ describe("getView()", () => {
   })
 
   test("throws an error for invalid view name", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
-    await expect(client.getView("INVALID")).rejects.toThrow("Not Found")
+    await expect(drupal.getView("INVALID")).rejects.toThrow("Not Found")
   })
 
   test("makes un-authenticated requests by default", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const fetchSpy = jest.spyOn(client, "fetch")
+    const drupal = new NextDrupal(BASE_URL)
+    const drupalFetchSpy = jest.spyOn(drupal, "fetch")
 
-    await client.getView("featured_articles--page_1")
-    expect(fetchSpy).toHaveBeenCalledWith(expect.anything(), {
+    await drupal.getView("featured_articles--page_1")
+    expect(drupalFetchSpy).toHaveBeenCalledWith(expect.anything(), {
       withAuth: false,
     })
   })
 
   test("makes authenticated requests with withAuth option", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new NextDrupal(BASE_URL, {
       useDefaultResourceTypeEntry: true,
       auth: `Bearer sample-token`,
     })
     const fetchSpy = spyOnFetch()
-    jest.spyOn(client, "getAccessToken")
+    jest.spyOn(drupal, "getAccessToken")
 
-    await client.getView("featured_articles--page_1", { withAuth: true })
+    await drupal.getView("featured_articles--page_1", { withAuth: true })
 
-    expect(fetchSpy).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        headers: expect.objectContaining({
-          Authorization: "Bearer sample-token",
-        }),
-      })
-    )
+    expect(
+      (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
+    ).toBe("Bearer sample-token")
   })
 
   test("fetches a view with links for pagination", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const view = await client.getView("recipes--page_1")
+    const drupal = new NextDrupal(BASE_URL)
+    const view = await drupal.getView("recipes--page_1")
 
     expect(view.links).toHaveProperty("next")
   })
@@ -815,13 +788,13 @@ describe("getView()", () => {
 
 describe("translatePath()", () => {
   test("translates a path", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
-    const path = await client.translatePath("recipes/deep-mediterranean-quiche")
+    const path = await drupal.translatePath("recipes/deep-mediterranean-quiche")
 
     expect(path).toMatchSnapshot()
 
-    const path2 = await client.translatePath(
+    const path2 = await drupal.translatePath(
       "/recipes/deep-mediterranean-quiche"
     )
 
@@ -829,20 +802,20 @@ describe("translatePath()", () => {
   })
 
   test("returns null for path not found", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
-    const path = await client.translatePath("/path-not-found")
+    const path = await drupal.translatePath("/path-not-found")
 
     expect(path).toBeNull()
   })
 
   test("makes un-authenticated requests by default", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const fetchSpy = jest.spyOn(client, "fetch")
+    const drupal = new NextDrupal(BASE_URL)
+    const drupalFetchSpy = jest.spyOn(drupal, "fetch")
 
-    await client.translatePath("recipes/deep-mediterranean-quiche")
+    await drupal.translatePath("recipes/deep-mediterranean-quiche")
 
-    expect(fetchSpy).toHaveBeenCalledWith(
+    expect(drupalFetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
         withAuth: false,
@@ -851,24 +824,19 @@ describe("translatePath()", () => {
   })
 
   test("makes authenticated requests with withAuth option", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new NextDrupal(BASE_URL, {
       useDefaultResourceTypeEntry: true,
       auth: `Bearer sample-token`,
     })
     const fetchSpy = spyOnFetch()
-    jest.spyOn(client, "getAccessToken")
+    jest.spyOn(drupal, "getAccessToken")
 
-    await client.translatePath("recipes/deep-mediterranean-quiche", {
+    await drupal.translatePath("recipes/deep-mediterranean-quiche", {
       withAuth: true,
     })
 
-    expect(fetchSpy).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        headers: expect.objectContaining({
-          Authorization: "Bearer sample-token",
-        }),
-      })
-    )
+    expect(
+      (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
+    ).toBe("Bearer sample-token")
   })
 })

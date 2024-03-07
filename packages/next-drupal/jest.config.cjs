@@ -14,6 +14,8 @@ module.exports = {
     ],
   },
   testLocationInResults: true,
+  // TODO: Remove prettierPath after Jest v30 release. See https://github.com/jestjs/jest/issues/14305
+  prettierPath: null,
   coverageProvider: "v8",
   collectCoverage: true,
   collectCoverageFrom: ["./src/**"],

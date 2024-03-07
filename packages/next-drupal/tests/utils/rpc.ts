@@ -1,27 +1,35 @@
-import { DrupalClient } from "../../src"
+import { NextDrupalBase } from "../../src"
 import { BASE_URL } from "./index"
+import type { BaseUrl, NextDrupalBaseOptions } from "../../src"
 
-const client = new DrupalClient(BASE_URL, {
+class JsonRpc extends NextDrupalBase {
+  constructor(baseUrl: BaseUrl, options: NextDrupalBaseOptions = {}) {
+    super(baseUrl, options)
+    this.apiPrefix = "/jsonrpc"
+  }
+
+  async execute(body) {
+    const endpoint = await jsonRpc.buildEndpoint()
+
+    const response = await jsonRpc.fetch(endpoint, {
+      method: "POST",
+      body: JSON.stringify(body),
+      withAuth: true,
+    })
+
+    return response.ok
+  }
+}
+
+const jsonRpc = new JsonRpc(BASE_URL, {
   auth: {
     clientId: process.env["DRUPAL_CLIENT_ID"] as string,
     clientSecret: process.env["DRUPAL_CLIENT_SECRET"] as string,
   },
 })
 
-export async function executeRPC(body) {
-  const url = client.buildUrl("/jsonrpc")
-
-  const response = await client.fetch(url.toString(), {
-    method: "POST",
-    body: JSON.stringify(body),
-    withAuth: true,
-  })
-
-  return response.ok
-}
-
 export async function toggleDrupalModule(name: string, status = true) {
-  await executeRPC({
+  await jsonRpc.execute({
     jsonrpc: "2.0",
     method: "module.toggle",
     params: {
@@ -33,7 +41,7 @@ export async function toggleDrupalModule(name: string, status = true) {
 }
 
 export async function deleteTestNodes() {
-  await executeRPC({
+  await jsonRpc.execute({
     jsonrpc: "2.0",
     method: "test_content.clean",
     id: "clean-test-content",

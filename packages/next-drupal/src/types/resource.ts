@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import type { JsonApiError, JsonApiLinks } from "../jsonapi-errors"
-import type { PathAlias } from "./drupal"
+import type { DrupalPathAlias } from "./drupal"
 
 // TODO: any...ugh.
 export interface JsonApiResponse extends Record<string, any> {
@@ -63,5 +63,5 @@ export interface JsonApiResource extends Record<string, any> {
 }
 
 export interface JsonApiResourceWithPath extends JsonApiResource {
-  path: PathAlias
+  path: DrupalPathAlias
 }

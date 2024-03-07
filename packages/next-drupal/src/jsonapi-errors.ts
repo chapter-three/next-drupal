@@ -17,15 +17,21 @@ export class JsonApiErrors extends Error {
   errors: JsonApiError[] | string
   statusCode: number
 
-  constructor(errors: JsonApiError[], statusCode: number) {
+  constructor(
+    errors: JsonApiError[] | string,
+    statusCode: number,
+    messagePrefix: string = ""
+  ) {
     super()
 
     this.errors = errors
     this.statusCode = statusCode
-    this.message = JsonApiErrors.formatMessage(errors)
+    this.message =
+      (messagePrefix ? `${messagePrefix} ` : "") +
+      JsonApiErrors.formatMessage(errors)
   }
 
-  private static formatMessage(errors) {
+  static formatMessage(errors: JsonApiError[] | string) {
     if (typeof errors === "string") {
       return errors
     }

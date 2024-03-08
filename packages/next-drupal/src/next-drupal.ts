@@ -12,7 +12,9 @@ import type {
   JsonApiCreateFileResourceBody,
   JsonApiCreateResourceBody,
   JsonApiOptions,
+  JsonApiParams,
   JsonApiResource,
+  JsonApiResourceWithPath,
   JsonApiResponse,
   JsonApiUpdateResourceBody,
   JsonApiWithAuthOption,
@@ -20,6 +22,7 @@ import type {
   JsonDeserializer,
   Locale,
   NextDrupalOptions,
+  PathPrefix,
 } from "./types"
 
 const DEFAULT_API_PREFIX = "/jsonapi"
@@ -424,6 +427,112 @@ export class NextDrupal extends NextDrupalBase {
     const json = await response.json()
 
     return options.deserialize ? this.deserialize(json) : json
+  }
+
+  async getResourceCollectionPathSegments(
+    types: string | string[],
+    options?: {
+      pathPrefix?: PathPrefix
+      params?: JsonApiParams
+    } & JsonApiWithAuthOption &
+      (
+        | {
+            locales: Locale[]
+            defaultLocale: Locale
+          }
+        | {
+            locales?: undefined
+            defaultLocale?: never
+          }
+      )
+  ): Promise<
+    {
+      path: string
+      type: string
+      locale: Locale
+      segments: string[]
+    }[]
+  > {
+    options = {
+      withAuth: this.withAuth,
+      pathPrefix: "",
+      params: {},
+      ...options,
+    }
+
+    if (typeof types === "string") {
+      types = [types]
+    }
+
+    const paths = await Promise.all(
+      types.map(async (type) => {
+        // Use sparse fieldset to expand max size.
+        // Note we don't need status filter here since this runs non-authenticated (by default).
+        const params = {
+          [`fields[${type}]`]: "path",
+          ...options?.params,
+        }
+
+        const locales = options?.locales?.length ? options.locales : [undefined]
+
+        return Promise.all(
+          locales.map(async (locale) => {
+            let opts: Parameters<NextDrupal["getResourceCollection"]>[1] = {
+              params,
+              withAuth: options.withAuth,
+            }
+            if (locale) {
+              opts = {
+                ...opts,
+                deserialize: true,
+                locale,
+                defaultLocale: options.defaultLocale,
+              }
+            }
+            const resources = await this.getResourceCollection<
+              JsonApiResourceWithPath[]
+            >(type, opts)
+
+            return (
+              resources
+                .map((resource) => {
+                  return resource?.path?.alias === this.frontPage
+                    ? /* c8 ignore next */ "/"
+                    : resource?.path?.alias
+                })
+                // Remove results with no path aliases.
+                .filter(Boolean)
+                .map((path) => {
+                  let segmentPath = path
+
+                  // Trim the pathPrefix off the front of the path.
+                  if (
+                    options.pathPrefix &&
+                    (segmentPath.startsWith(
+                      `${options.pathPrefix}/`
+                    ) /* c8 ignore next */ ||
+                      segmentPath === options.pathPrefix)
+                  ) {
+                    segmentPath = segmentPath.slice(options.pathPrefix.length)
+                  }
+
+                  // Convert the trimmed path into an array of path segments.
+                  const segments = segmentPath.split("/").filter(Boolean)
+
+                  return {
+                    path,
+                    type,
+                    locale,
+                    segments,
+                  }
+                })
+            )
+          })
+        )
+      })
+    )
+
+    return paths.flat(2)
   }
 
   async translatePath(

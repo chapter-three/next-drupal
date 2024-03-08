@@ -1,7 +1,13 @@
 import { afterEach, describe, expect, jest, test } from "@jest/globals"
 import { GetStaticPropsContext, NextApiRequest, NextApiResponse } from "next"
 import { DRAFT_DATA_COOKIE_NAME, NextDrupalPages } from "../../src"
-import { BASE_URL, mockLogger, mocks, spyOnFetch } from "../utils"
+import {
+  BASE_URL,
+  mockLogger,
+  mocks,
+  spyOnDrupalFetch,
+  spyOnFetch,
+} from "../utils"
 import type {
   DrupalNode,
   JsonApiResourceWithPath,
@@ -710,8 +716,8 @@ describe("getResourceCollectionFromContext()", () => {
   })
 
   test("makes un-authenticated requests by default", async () => {
-    const drupal = new NextDrupalPages(BASE_URL)
-    const drupalFetchSpy = jest.spyOn(drupal, "fetch")
+    const drupal = new NextDrupalPages(BASE_URL, { useDefaultEndpoints: true })
+    const drupalFetchSpy = spyOnDrupalFetch(drupal)
 
     const context: GetStaticPropsContext = {
       locale: "en",
@@ -908,7 +914,7 @@ describe("getResourceFromContext()", () => {
 
   test("makes un-authenticated requests by default", async () => {
     const drupal = new NextDrupalPages(BASE_URL)
-    const drupalFetchSpy = jest.spyOn(drupal, "fetch")
+    const drupalFetchSpy = spyOnDrupalFetch(drupal)
     const context: GetStaticPropsContext = {
       params: {
         slug: ["recipes", "deep-mediterranean-quiche"],
@@ -1080,8 +1086,8 @@ describe("getStaticPathsFromContext()", () => {
   })
 
   test("makes un-authenticated requests by default", async () => {
-    const drupal = new NextDrupalPages(BASE_URL)
-    const drupalFetchSpy = jest.spyOn(drupal, "fetch")
+    const drupal = new NextDrupalPages(BASE_URL, { useDefaultEndpoints: true })
+    const drupalFetchSpy = spyOnDrupalFetch(drupal)
 
     await drupal.getStaticPathsFromContext("node--article", {
       locales: ["en", "es"],
@@ -1385,7 +1391,7 @@ describe("translatePathFromContext()", () => {
 
   test("makes un-authenticated requests by default", async () => {
     const drupal = new NextDrupalPages(BASE_URL)
-    const drupalFetchSpy = jest.spyOn(drupal, "fetch")
+    const drupalFetchSpy = spyOnDrupalFetch(drupal)
 
     const context: GetStaticPropsContext = {
       params: {

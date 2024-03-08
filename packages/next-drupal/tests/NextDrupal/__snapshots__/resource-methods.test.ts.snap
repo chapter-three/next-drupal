@@ -1696,6 +1696,559 @@ exports[`getResourceCollection() fetches raw data 1`] = `
 }
 `;
 
+exports[`getResourceCollectionPathSegments() returns path segments 1`] = `
+[
+  {
+    "locale": undefined,
+    "path": "/articles/give-it-a-go-and-grow-your-own-herbs",
+    "segments": [
+      "articles",
+      "give-it-a-go-and-grow-your-own-herbs",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": undefined,
+    "path": "/articles/dairy-free-and-delicious-milk-chocolate",
+    "segments": [
+      "articles",
+      "dairy-free-and-delicious-milk-chocolate",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": undefined,
+    "path": "/articles/the-real-deal-for-supermarket-savvy-shopping",
+    "segments": [
+      "articles",
+      "the-real-deal-for-supermarket-savvy-shopping",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": undefined,
+    "path": "/articles/the-umami-guide-to-our-favourite-mushrooms",
+    "segments": [
+      "articles",
+      "the-umami-guide-to-our-favourite-mushrooms",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": undefined,
+    "path": "/articles/lets-hear-it-for-carrots",
+    "segments": [
+      "articles",
+      "lets-hear-it-for-carrots",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": undefined,
+    "path": "/articles/baking-mishaps-our-troubleshooting-tips",
+    "segments": [
+      "articles",
+      "baking-mishaps-our-troubleshooting-tips",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": undefined,
+    "path": "/articles/skip-the-spirits-with-delicious-mocktails",
+    "segments": [
+      "articles",
+      "skip-the-spirits-with-delicious-mocktails",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": undefined,
+    "path": "/articles/give-your-oatmeal-the-ultimate-makeover",
+    "segments": [
+      "articles",
+      "give-your-oatmeal-the-ultimate-makeover",
+    ],
+    "type": "node--article",
+  },
+]
+`;
+
+exports[`getResourceCollectionPathSegments() returns path segments for multiple resource types 1`] = `
+[
+  {
+    "locale": "en",
+    "path": "/articles/give-it-a-go-and-grow-your-own-herbs",
+    "segments": [
+      "articles",
+      "give-it-a-go-and-grow-your-own-herbs",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "en",
+    "path": "/articles/dairy-free-and-delicious-milk-chocolate",
+    "segments": [
+      "articles",
+      "dairy-free-and-delicious-milk-chocolate",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "en",
+    "path": "/articles/the-real-deal-for-supermarket-savvy-shopping",
+    "segments": [
+      "articles",
+      "the-real-deal-for-supermarket-savvy-shopping",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "en",
+    "path": "/articles/the-umami-guide-to-our-favourite-mushrooms",
+    "segments": [
+      "articles",
+      "the-umami-guide-to-our-favourite-mushrooms",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "en",
+    "path": "/articles/lets-hear-it-for-carrots",
+    "segments": [
+      "articles",
+      "lets-hear-it-for-carrots",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "en",
+    "path": "/articles/baking-mishaps-our-troubleshooting-tips",
+    "segments": [
+      "articles",
+      "baking-mishaps-our-troubleshooting-tips",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "en",
+    "path": "/articles/skip-the-spirits-with-delicious-mocktails",
+    "segments": [
+      "articles",
+      "skip-the-spirits-with-delicious-mocktails",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "en",
+    "path": "/articles/give-your-oatmeal-the-ultimate-makeover",
+    "segments": [
+      "articles",
+      "give-your-oatmeal-the-ultimate-makeover",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "es",
+    "path": "/articles/prueba-y-cultiva-tus-propias-hierbas",
+    "segments": [
+      "articles",
+      "prueba-y-cultiva-tus-propias-hierbas",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "es",
+    "path": "/articles/delicioso-chocolate-sin-lactosa",
+    "segments": [
+      "articles",
+      "delicioso-chocolate-sin-lactosa",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "es",
+    "path": "/articles/el-verdadeo-negocio-para-comprar-en-el-supermercado",
+    "segments": [
+      "articles",
+      "el-verdadeo-negocio-para-comprar-en-el-supermercado",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "es",
+    "path": "/articles/guia-umami-de-nuestras-setas-preferidas",
+    "segments": [
+      "articles",
+      "guia-umami-de-nuestras-setas-preferidas",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "es",
+    "path": "/articles/un-aplauso-para-las-zanahorias",
+    "segments": [
+      "articles",
+      "un-aplauso-para-las-zanahorias",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "es",
+    "path": "/articles/percances-al-hornear-nuestros-consejos-para-solucionar-problemas",
+    "segments": [
+      "articles",
+      "percances-al-hornear-nuestros-consejos-para-solucionar-problemas",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "es",
+    "path": "/articles/salta-los-espiritus-con-deliciosos-cocteles-sin-alcohol",
+    "segments": [
+      "articles",
+      "salta-los-espiritus-con-deliciosos-cocteles-sin-alcohol",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "es",
+    "path": "/articles/dale-a-tu-avena-el-cambio-de-imagen-definitivo",
+    "segments": [
+      "articles",
+      "dale-a-tu-avena-el-cambio-de-imagen-definitivo",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "en",
+    "path": "/about-umami",
+    "segments": [
+      "about-umami",
+    ],
+    "type": "node--page",
+  },
+  {
+    "locale": "en",
+    "path": "/path&with^punc&in$path",
+    "segments": [
+      "path&with^punc&in$path",
+    ],
+    "type": "node--page",
+  },
+  {
+    "locale": "es",
+    "path": "/acerca-de-umami",
+    "segments": [
+      "acerca-de-umami",
+    ],
+    "type": "node--page",
+  },
+  {
+    "locale": "es",
+    "path": "/path&with^punc&in$path",
+    "segments": [
+      "path&with^punc&in$path",
+    ],
+    "type": "node--page",
+  },
+]
+`;
+
+exports[`getResourceCollectionPathSegments() returns path segments with locales 1`] = `
+[
+  {
+    "locale": "en",
+    "path": "/articles/give-it-a-go-and-grow-your-own-herbs",
+    "segments": [
+      "articles",
+      "give-it-a-go-and-grow-your-own-herbs",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "en",
+    "path": "/articles/dairy-free-and-delicious-milk-chocolate",
+    "segments": [
+      "articles",
+      "dairy-free-and-delicious-milk-chocolate",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "en",
+    "path": "/articles/the-real-deal-for-supermarket-savvy-shopping",
+    "segments": [
+      "articles",
+      "the-real-deal-for-supermarket-savvy-shopping",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "en",
+    "path": "/articles/the-umami-guide-to-our-favourite-mushrooms",
+    "segments": [
+      "articles",
+      "the-umami-guide-to-our-favourite-mushrooms",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "en",
+    "path": "/articles/lets-hear-it-for-carrots",
+    "segments": [
+      "articles",
+      "lets-hear-it-for-carrots",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "en",
+    "path": "/articles/baking-mishaps-our-troubleshooting-tips",
+    "segments": [
+      "articles",
+      "baking-mishaps-our-troubleshooting-tips",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "en",
+    "path": "/articles/skip-the-spirits-with-delicious-mocktails",
+    "segments": [
+      "articles",
+      "skip-the-spirits-with-delicious-mocktails",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "en",
+    "path": "/articles/give-your-oatmeal-the-ultimate-makeover",
+    "segments": [
+      "articles",
+      "give-your-oatmeal-the-ultimate-makeover",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "es",
+    "path": "/articles/prueba-y-cultiva-tus-propias-hierbas",
+    "segments": [
+      "articles",
+      "prueba-y-cultiva-tus-propias-hierbas",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "es",
+    "path": "/articles/delicioso-chocolate-sin-lactosa",
+    "segments": [
+      "articles",
+      "delicioso-chocolate-sin-lactosa",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "es",
+    "path": "/articles/el-verdadeo-negocio-para-comprar-en-el-supermercado",
+    "segments": [
+      "articles",
+      "el-verdadeo-negocio-para-comprar-en-el-supermercado",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "es",
+    "path": "/articles/guia-umami-de-nuestras-setas-preferidas",
+    "segments": [
+      "articles",
+      "guia-umami-de-nuestras-setas-preferidas",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "es",
+    "path": "/articles/un-aplauso-para-las-zanahorias",
+    "segments": [
+      "articles",
+      "un-aplauso-para-las-zanahorias",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "es",
+    "path": "/articles/percances-al-hornear-nuestros-consejos-para-solucionar-problemas",
+    "segments": [
+      "articles",
+      "percances-al-hornear-nuestros-consejos-para-solucionar-problemas",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "es",
+    "path": "/articles/salta-los-espiritus-con-deliciosos-cocteles-sin-alcohol",
+    "segments": [
+      "articles",
+      "salta-los-espiritus-con-deliciosos-cocteles-sin-alcohol",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": "es",
+    "path": "/articles/dale-a-tu-avena-el-cambio-de-imagen-definitivo",
+    "segments": [
+      "articles",
+      "dale-a-tu-avena-el-cambio-de-imagen-definitivo",
+    ],
+    "type": "node--article",
+  },
+]
+`;
+
+exports[`getResourceCollectionPathSegments() returns path segments with params 1`] = `
+[
+  {
+    "locale": undefined,
+    "path": "/articles/give-it-a-go-and-grow-your-own-herbs",
+    "segments": [
+      "articles",
+      "give-it-a-go-and-grow-your-own-herbs",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": undefined,
+    "path": "/articles/dairy-free-and-delicious-milk-chocolate",
+    "segments": [
+      "articles",
+      "dairy-free-and-delicious-milk-chocolate",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": undefined,
+    "path": "/articles/the-real-deal-for-supermarket-savvy-shopping",
+    "segments": [
+      "articles",
+      "the-real-deal-for-supermarket-savvy-shopping",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": undefined,
+    "path": "/articles/the-umami-guide-to-our-favourite-mushrooms",
+    "segments": [
+      "articles",
+      "the-umami-guide-to-our-favourite-mushrooms",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": undefined,
+    "path": "/articles/lets-hear-it-for-carrots",
+    "segments": [
+      "articles",
+      "lets-hear-it-for-carrots",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": undefined,
+    "path": "/articles/baking-mishaps-our-troubleshooting-tips",
+    "segments": [
+      "articles",
+      "baking-mishaps-our-troubleshooting-tips",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": undefined,
+    "path": "/articles/skip-the-spirits-with-delicious-mocktails",
+    "segments": [
+      "articles",
+      "skip-the-spirits-with-delicious-mocktails",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": undefined,
+    "path": "/articles/give-your-oatmeal-the-ultimate-makeover",
+    "segments": [
+      "articles",
+      "give-your-oatmeal-the-ultimate-makeover",
+    ],
+    "type": "node--article",
+  },
+]
+`;
+
+exports[`getResourceCollectionPathSegments() returns path segments with pathPrefix removed 1`] = `
+[
+  {
+    "locale": undefined,
+    "path": "/articles/give-it-a-go-and-grow-your-own-herbs",
+    "segments": [
+      "give-it-a-go-and-grow-your-own-herbs",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": undefined,
+    "path": "/articles/dairy-free-and-delicious-milk-chocolate",
+    "segments": [
+      "dairy-free-and-delicious-milk-chocolate",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": undefined,
+    "path": "/articles/the-real-deal-for-supermarket-savvy-shopping",
+    "segments": [
+      "the-real-deal-for-supermarket-savvy-shopping",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": undefined,
+    "path": "/articles/the-umami-guide-to-our-favourite-mushrooms",
+    "segments": [
+      "the-umami-guide-to-our-favourite-mushrooms",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": undefined,
+    "path": "/articles/lets-hear-it-for-carrots",
+    "segments": [
+      "lets-hear-it-for-carrots",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": undefined,
+    "path": "/articles/baking-mishaps-our-troubleshooting-tips",
+    "segments": [
+      "baking-mishaps-our-troubleshooting-tips",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": undefined,
+    "path": "/articles/skip-the-spirits-with-delicious-mocktails",
+    "segments": [
+      "skip-the-spirits-with-delicious-mocktails",
+    ],
+    "type": "node--article",
+  },
+  {
+    "locale": undefined,
+    "path": "/articles/give-your-oatmeal-the-ultimate-makeover",
+    "segments": [
+      "give-your-oatmeal-the-ultimate-makeover",
+    ],
+    "type": "node--article",
+  },
+]
+`;
+
 exports[`getSearchIndex() fetches a search index 1`] = `
 [
   {

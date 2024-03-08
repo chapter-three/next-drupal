@@ -1,6 +1,12 @@
 import { afterEach, describe, expect, jest, test } from "@jest/globals"
 import { NextDrupal } from "../../src"
-import { BASE_URL, mockLogger, mocks, spyOnFetch } from "../utils"
+import {
+  BASE_URL,
+  mockLogger,
+  mocks,
+  spyOnDrupalFetch,
+  spyOnFetch,
+} from "../utils"
 import type { DrupalNode, DrupalSearchApiJsonApiResponse } from "../../src"
 
 jest.setTimeout(10000)
@@ -674,6 +680,125 @@ describe("getResourceCollection()", () => {
     expect(
       (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
     ).toBe("Bearer sample-token")
+  })
+})
+
+describe("getResourceCollectionPathSegments()", () => {
+  test("returns path segments", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+
+    const paths =
+      await drupal.getResourceCollectionPathSegments("node--article")
+
+    expect(paths).toMatchSnapshot()
+  })
+
+  test("returns path segments with locales", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+
+    const paths = await drupal.getResourceCollectionPathSegments(
+      "node--article",
+      {
+        locales: ["en", "es"],
+        defaultLocale: "en",
+      }
+    )
+
+    expect(paths).toMatchSnapshot()
+  })
+
+  test("returns path segments for multiple resource types", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+
+    const paths = await drupal.getResourceCollectionPathSegments(
+      ["node--article", "node--page"],
+      {
+        locales: ["en", "es"],
+        defaultLocale: "en",
+      }
+    )
+
+    expect(paths).toMatchSnapshot()
+  })
+
+  test("returns path segments with params", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+
+    const paths = await drupal.getResourceCollectionPathSegments(
+      ["node--article", "node--page"],
+      {
+        params: {
+          "filter[promote]": 1,
+        },
+      }
+    )
+
+    expect(paths).toMatchSnapshot()
+  })
+
+  test("returns path segments with pathPrefix removed", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+
+    const paths = await drupal.getResourceCollectionPathSegments(
+      "node--article",
+      {
+        pathPrefix: "/articles",
+      }
+    )
+
+    expect(paths).toMatchSnapshot()
+  })
+
+  test("uses constructor-provided withAuth by default", async () => {
+    let drupal = new NextDrupal(BASE_URL)
+    let drupalFetchSpy = spyOnDrupalFetch(drupal, {
+      responseBody: { data: [] },
+    })
+
+    await drupal.getResourceCollectionPathSegments("node--article", {
+      locales: ["en", "es"],
+      defaultLocale: "en",
+    })
+
+    expect(drupalFetchSpy).toHaveBeenCalledWith(expect.anything(), {
+      withAuth: false,
+    })
+
+    drupal = new NextDrupal(BASE_URL, {
+      withAuth: true,
+    })
+    drupalFetchSpy = spyOnDrupalFetch(drupal, {
+      responseBody: { data: [] },
+    })
+
+    await drupal.getResourceCollectionPathSegments("node--article", {
+      locales: ["en", "es"],
+      defaultLocale: "en",
+    })
+
+    expect(drupalFetchSpy).toHaveBeenCalledWith(expect.anything(), {
+      withAuth: true,
+    })
+  })
+
+  test("makes authenticated requests using withAuth option", async () => {
+    const mockAuth = "Bearer sample-token"
+    const drupal = new NextDrupal(BASE_URL, {
+      auth: mockAuth,
+    })
+    const fetchSpy = spyOnFetch({
+      responseBody: { data: [] },
+    })
+
+    await drupal.getResourceCollectionPathSegments("node--article", {
+      locales: ["en", "es"],
+      defaultLocale: "en",
+      withAuth: true,
+    })
+
+    expect(
+      (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
+    ).toBe(mockAuth)
   })
 })
 

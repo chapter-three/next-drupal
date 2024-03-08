@@ -37,6 +37,7 @@ Over time, you will be moving all the files from `/pages` to `/app`. However, th
 2. Delete the last files in your `/pages` directory:
    - `/pages/api/exit-preview.ts`
    - `/pages/api/preview.ts`
+3. Update your `lib/drupal.ts` file and switch from the `DrupalClient` class (with dual Pages/App Router support) to the new, leaner `NextDrupal` class (with only App Router support).
 
 ## License
 

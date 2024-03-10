@@ -8,13 +8,13 @@ import type { Metadata, ResolvingMetadata } from "next"
 import type { DrupalNode, JsonApiParams } from "next-drupal"
 
 async function getNode(slug: string[]) {
-  const path = slug.join("/")
+  const path = `/${slug.join("/")}`
 
   const params: JsonApiParams = {}
 
   const draftData = getDraftData()
 
-  if (draftData.slug === `/${path}`) {
+  if (draftData.path === path) {
     params.resourceVersion = draftData.resourceVersion
   }
 
@@ -88,9 +88,17 @@ export async function generateStaticParams(): Promise<NodePageParams[]> {
     }
   )
 
-  return resources.map((resource) => ({
-    slug: resource.segments,
-  }))
+  return resources.map((resource) => {
+    // resources is an array containing objects like: {
+    //   path: "/blog/some-category/a-blog-post",
+    //   type: "node--article",
+    //   locale: "en", // or `undefined` if no `locales` requested.
+    //   segments: ["blog", "some-category", "a-blog-post"],
+    // }
+    return {
+      slug: resource.segments,
+    }
+  })
 }
 
 export default async function NodePage({

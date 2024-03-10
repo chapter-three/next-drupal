@@ -96,7 +96,7 @@ class SimpleOauthPreviewUrlGeneratorTest extends KernelTestBase {
     $this->setCurrentUser($user);
     $preview_url = $this->nextSite->getPreviewUrlForEntity($page);
     $query = $preview_url->getOption('query');
-    $this->assertNotEmpty($query['slug']);
+    $this->assertNotEmpty($query['path']);
     $this->assertNotEmpty($query['timestamp']);
     $this->assertNotEmpty($query['secret']);
     $this->assertSame($query['plugin'], 'simple_oauth');
@@ -104,7 +104,7 @@ class SimpleOauthPreviewUrlGeneratorTest extends KernelTestBase {
     // Test the secret.
     /** @var \Drupal\next\PreviewSecretGeneratorInterface $secret_generator */
     $secret_generator = \Drupal::service('next.preview_secret_generator');
-    $this->assertSame($query['secret'], $secret_generator->generate($query['timestamp'] . $query['slug'] . $query['resourceVersion']));
+    $this->assertSame($query['secret'], $secret_generator->generate($query['timestamp'] . $query['path'] . $query['resourceVersion']));
   }
 
   /**
@@ -143,7 +143,7 @@ class SimpleOauthPreviewUrlGeneratorTest extends KernelTestBase {
 
     $this->expectExceptionMessage('The provided secret is invalid.');
     $query = $preview_url->getOption('query');
-    $query['slug'] = '/random-slug';
+    $query['path'] = '/random-path';
     $request = Request::create('/', 'POST', [], [], [], [], Json::encode($query));
     $preview_url_generator->validate($request);
 
@@ -162,18 +162,18 @@ class SimpleOauthPreviewUrlGeneratorTest extends KernelTestBase {
    */
   public function providerValidateForInvalidBody() {
     return [
-      [[], "Field 'slug' is missing"],
-      [['slug' => '/node/1'], "Field 'timestamp' is missing"],
+      [[], "Field 'path' is missing"],
+      [['path' => '/node/1'], "Field 'timestamp' is missing"],
       [
         [
-          'slug' => '/node/1',
+          'path' => '/node/1',
           'timestamp' => strtotime('now'),
         ],
         "Field 'secret' is missing",
       ],
       [
         [
-          'slug' => '/node/1',
+          'path' => '/node/1',
           'timestamp' => strtotime('-60 seconds'),
           'secret' => 'secret',
         ],
@@ -181,7 +181,7 @@ class SimpleOauthPreviewUrlGeneratorTest extends KernelTestBase {
       ],
       [
         [
-          'slug' => '/node/1',
+          'path' => '/node/1',
           'timestamp' => strtotime('60 seconds'),
           'secret' => 'secret',
         ],

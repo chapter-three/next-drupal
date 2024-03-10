@@ -322,7 +322,7 @@ export class DrupalClient extends NextDrupal {
     options?: Parameters<NextApiResponse["setDraftMode"]>[0]
   ) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { slug, resourceVersion, plugin, secret, scope, ...draftData } =
+    const { path, resourceVersion, plugin, secret, scope, ...draftData } =
       request.query
     const useDraftMode = options?.enable
 
@@ -366,15 +366,15 @@ export class DrupalClient extends NextDrupal {
         // Adds preview data for use in app router pages.
         cookies.push(
           `${DRAFT_DATA_COOKIE_NAME}=${encodeURIComponent(
-            JSON.stringify({ slug, resourceVersion, ...draftData })
+            JSON.stringify({ path, resourceVersion, ...draftData })
           )}; Path=/; HttpOnly; SameSite=None; Secure`
         )
       }
       response.setHeader("Set-Cookie", cookies)
 
-      // We can safely redirect to the slug since this has been validated on the
+      // We can safely redirect to the path since this has been validated on the
       // server.
-      response.writeHead(307, { Location: slug })
+      response.writeHead(307, { Location: path })
 
       this.debug(`${useDraftMode ? "Draft" : "Preview"} mode enabled.`)
 

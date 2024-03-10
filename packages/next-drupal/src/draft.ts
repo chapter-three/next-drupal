@@ -20,7 +20,7 @@ export async function enableDraftMode(
   }
 
   const searchParams = request.nextUrl.searchParams
-  const slug = searchParams.get("slug")
+  const path = searchParams.get("path")
 
   // Enable Draft Mode by setting the cookie
   draftMode().enable()
@@ -50,8 +50,8 @@ export async function enableDraftMode(
   })
 
   // Redirect to the path from the fetched post. We can safely redirect to the
-  // slug since this has been validated on the server.
-  redirect(slug)
+  // path since this has been validated on the server.
+  redirect(path)
 }
 
 export function disableDraftMode() {
@@ -62,7 +62,7 @@ export function disableDraftMode() {
 }
 
 export interface DraftData {
-  slug?: string
+  path?: string
   resourceVersion?: string
 }
 

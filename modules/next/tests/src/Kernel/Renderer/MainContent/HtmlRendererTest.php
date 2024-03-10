@@ -88,7 +88,7 @@ class HtmlRendererTest extends KernelTestBase {
     $response = $this->container->get('http_kernel')->handle($request);
     $this->setRawContent($response->getContent());
 
-    $preview_url = 'https://blog.com/api/preview?slug=/node/1';
+    $preview_url = 'https://blog.com/api/preview?path=/node/1';
     $fields = $this->xpath("//iframe[contains(@src, '$preview_url')]");
     $this->assertCount(1, $fields);
 

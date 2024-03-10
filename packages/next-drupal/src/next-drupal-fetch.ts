@@ -405,11 +405,11 @@ export class NextDrupalFetch {
   }
 
   async validateDraftUrl(searchParams: URLSearchParams): Promise<Response> {
-    const slug = searchParams.get("slug")
+    const path = searchParams.get("path")
 
-    this.debug(`Fetching draft url validation for ${slug}.`)
+    this.debug(`Fetching draft url validation for ${path}.`)
 
-    // Fetch the headless CMS to check if the provided `slug` exists
+    // Fetch the headless CMS to check if the provided `path` exists
     let response: Response
     try {
       // Validate the draft url.
@@ -430,8 +430,8 @@ export class NextDrupalFetch {
 
     this.debug(
       response.status !== 200
-        ? `Could not validate slug, ${slug}`
-        : `Validated slug, ${slug}`
+        ? `Could not validate path, ${path}`
+        : `Validated path, ${path}`
     )
 
     return response

@@ -1,15 +1,15 @@
 import Head from "next/head"
 import { ArticleTeaser } from "@/components/drupal/ArticleTeaser"
 import { Layout } from "@/components/Layout"
-import { query } from "@/lib/drupal"
+import { drupal } from "@/lib/drupal"
 import type { InferGetStaticPropsType, GetStaticProps } from "next"
-import type { NodeArticle } from "@/types"
+import type { DrupalArticle } from "@/types"
 
 export const getStaticProps = (async (context) => {
   // Fetch the first 10 articles.
-  const data = await query<{
+  const data = await drupal.query<{
     nodeArticles: {
-      nodes: NodeArticle[]
+      nodes: DrupalArticle[]
     }
   }>({
     query: `
@@ -20,12 +20,14 @@ export const getStaticProps = (async (context) => {
             title
             path
             author {
-              displayName
+              name
             }
             body {
               processed
             }
-            created
+            created {
+              time
+            }
             image {
               width
               url
@@ -43,7 +45,7 @@ export const getStaticProps = (async (context) => {
     },
   }
 }) satisfies GetStaticProps<{
-  nodes: NodeArticle[]
+  nodes: DrupalArticle[]
 }>
 
 export default function Home({

@@ -15,10 +15,10 @@ export type Image = {
 }
 
 export type Author = {
-  displayName: string
+  name: string
 }
 
-export type NodePage = {
+export type DrupalPage = {
   __typename: "NodePage"
   id: string
   status: boolean
@@ -29,7 +29,7 @@ export type NodePage = {
   }
 }
 
-export type NodeArticle = {
+export type DrupalArticle = {
   __typename: "NodeArticle"
   id: string
   status: boolean
@@ -39,6 +39,8 @@ export type NodeArticle = {
   body: {
     processed: string
   }
-  created: string
+  created: {
+    time: string
+  }
   image: Image
 }

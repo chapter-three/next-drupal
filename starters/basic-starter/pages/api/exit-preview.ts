@@ -1,10 +1,9 @@
+import { drupal } from "@/lib/drupal"
 import type { NextApiRequest, NextApiResponse } from "next"
 
 export default async function exit(
-  _: NextApiRequest,
+  request: NextApiRequest,
   response: NextApiResponse
 ) {
-  response.clearPreviewData()
-  response.writeHead(307, { Location: "/" })
-  response.end()
+  await drupal.previewDisable(request, response)
 }

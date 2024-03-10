@@ -311,9 +311,9 @@ describe("validateDraftUrl()", () => {
       debug: true,
       logger,
     })
-    const slug = "/example"
+    const path = "/example"
     const searchParams = new URLSearchParams({
-      slug,
+      path,
     })
 
     const testPayload = { test: "resolved" }
@@ -331,21 +331,21 @@ describe("validateDraftUrl()", () => {
     expect(response.status).toBe(200)
     expect(logger.debug).toHaveBeenCalledWith("Debug mode is on.")
     expect(logger.debug).toHaveBeenCalledWith(
-      `Fetching draft url validation for ${slug}.`
+      `Fetching draft url validation for ${path}.`
     )
-    expect(logger.debug).toHaveBeenCalledWith(`Validated slug, ${slug}`)
+    expect(logger.debug).toHaveBeenCalledWith(`Validated path, ${path}`)
 
     response = await client.validateDraftUrl(searchParams)
     expect(response.status).toBe(404)
     expect(logger.debug).toHaveBeenCalledWith(
-      `Could not validate slug, ${slug}`
+      `Could not validate path, ${path}`
     )
   })
 
   test("calls draft-url endpoint", async () => {
     const client = new DrupalClient(BASE_URL)
     const searchParams = new URLSearchParams({
-      slug: "/example",
+      path: "/example",
     })
 
     const testPayload = { test: "resolved" }
@@ -370,7 +370,7 @@ describe("validateDraftUrl()", () => {
   test("returns a response object on success", async () => {
     const client = new DrupalClient(BASE_URL)
     const searchParams = new URLSearchParams({
-      slug: "/example",
+      path: "/example",
     })
 
     const testPayload = { test: "resolved" }
@@ -386,7 +386,7 @@ describe("validateDraftUrl()", () => {
   test("returns a response if fetch throws", async () => {
     const client = new DrupalClient(BASE_URL)
     const searchParams = new URLSearchParams({
-      slug: "/example",
+      path: "/example",
     })
 
     const message = "random fetch error"

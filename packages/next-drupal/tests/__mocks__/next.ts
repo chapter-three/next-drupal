@@ -1,6 +1,6 @@
 export const NextApiRequest = jest.fn(function () {
   this.query = {
-    slug: "/example",
+    path: "/example",
     resourceVersion: "id:1",
     plugin: "simple_oauth",
     secret: "very-secret-key",

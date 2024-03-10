@@ -134,12 +134,12 @@ class Jwt extends ConfigurablePreviewUrlGeneratorBase {
    */
   public function generate(NextSiteInterface $next_site, EntityInterface $entity, string $resource_version = NULL): ?Url {
     $query = [];
-    $query['slug'] = $slug = $entity->toUrl()->toString();
+    $query['path'] = $path = $entity->toUrl()->toString();
     $query['uuid'] = $this->user->uuid();
 
-    // Create a secret based on the timestamp, slug and the user uuid.
+    // Create a secret based on the timestamp, path and the user uuid.
     $query['timestamp'] = $timestamp = $this->time->getRequestTime();
-    $query['secret'] = $secret = $this->previewSecretGenerator->generate($timestamp . $slug . $resource_version . $this->user->uuid());
+    $query['secret'] = $secret = $this->previewSecretGenerator->generate($timestamp . $path . $resource_version . $this->user->uuid());
 
     // Generate a JWT and store it temporarily so that we can retrieve it on
     // validate.
@@ -158,10 +158,10 @@ class Jwt extends ConfigurablePreviewUrlGeneratorBase {
   public function validate(Request $request) {
     $body = Json::decode($request->getContent());
 
-    // Validate the slug.
-    // We do not check for existing slug. We let the next.js site handle this.
-    if (empty($body['slug'])) {
-      throw new InvalidPreviewUrlRequest("Field 'slug' is missing");
+    // Validate the path.
+    // We do not check for existing path. We let the next.js site handle this.
+    if (empty($body['path'])) {
+      throw new InvalidPreviewUrlRequest("Field 'path' is missing");
     }
 
     // Validate the uuid.
@@ -184,7 +184,7 @@ class Jwt extends ConfigurablePreviewUrlGeneratorBase {
       throw new InvalidPreviewUrlRequest("Field 'secret' is missing");
     }
 
-    if ($body['secret'] !== $this->previewSecretGenerator->generate($body['timestamp'] . $body['slug'] . $body['resourceVersion'] . $body['uuid'])) {
+    if ($body['secret'] !== $this->previewSecretGenerator->generate($body['timestamp'] . $body['path'] . $body['resourceVersion'] . $body['uuid'])) {
       throw new InvalidPreviewUrlRequest("The provided secret is invalid.");
     }
 

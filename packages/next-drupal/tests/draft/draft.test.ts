@@ -38,7 +38,7 @@ afterEach(() => {
 
 describe("enableDraftMode()", () => {
   const searchParams = new URLSearchParams({
-    slug: "/example",
+    path: "/example",
     resourceVersion: "id:1",
     plugin: "simple_oauth",
     secret: "very-secret-key",
@@ -108,12 +108,12 @@ describe("enableDraftMode()", () => {
     })
   })
 
-  test("redirects to the slug path", async () => {
+  test("redirects to the given path", async () => {
     spyOnFetch({ responseBody: validationPayload })
 
     await enableDraftMode(request, client)
 
-    expect(redirect).toHaveBeenCalledWith(searchParams.get("slug"))
+    expect(redirect).toHaveBeenCalledWith(searchParams.get("path"))
   })
 })
 
@@ -146,7 +146,7 @@ describe("disableDraftMode()", () => {
 
 describe("getDraftData()", () => {
   const draftData = {
-    slug: "/example",
+    path: "/example",
     resourceVersion: "id:1",
   }
   const draftDataCookie: ResponseCookie = {

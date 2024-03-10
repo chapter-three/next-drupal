@@ -164,7 +164,7 @@ class NextCacheInvalidator {
     return Url::fromUri("{$site->getBaseUrl()}/api/revalidate", [
       'query' => [
         'secret' => $site->getPreviewSecret(),
-        'slug' => $path,
+        'path' => $path,
       ],
     ])->toString();
   }

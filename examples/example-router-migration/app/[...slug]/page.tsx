@@ -8,13 +8,13 @@ import type { Metadata, ResolvingMetadata } from "next"
 import type { DrupalNode, JsonApiParams } from "next-drupal"
 
 async function getNode(slug: string[]) {
-  const path = slug.join("/")
+  const path = `/${slug.join("/")}`
 
   const params: JsonApiParams = {}
 
   const draftData = getDraftData()
 
-  if (draftData.slug === `/${path}`) {
+  if (draftData.path === path) {
     params.resourceVersion = draftData.resourceVersion
   }
 

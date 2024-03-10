@@ -126,11 +126,11 @@ class SimpleOauth extends ConfigurablePreviewUrlGeneratorBase {
    */
   public function generate(NextSiteInterface $next_site, EntityInterface $entity, string $resource_version = NULL): ?Url {
     $query = [];
-    $query['slug'] = $slug = $entity->toUrl()->toString();
+    $query['path'] = $path = $entity->toUrl()->toString();
 
-    // Create a secret based on the timestamp, slug, scope and resource version.
+    // Create a secret based on the timestamp, path, scope and resource version.
     $query['timestamp'] = $timestamp = $this->time->getRequestTime();
-    $query['secret'] = $this->previewSecretGenerator->generate($timestamp . $slug . $resource_version);
+    $query['secret'] = $this->previewSecretGenerator->generate($timestamp . $path . $resource_version);
 
     return Url::fromUri($next_site->getPreviewUrl(), [
       'query' => $query,
@@ -143,10 +143,10 @@ class SimpleOauth extends ConfigurablePreviewUrlGeneratorBase {
   public function validate(Request $request) {
     $body = Json::decode($request->getContent());
 
-    // Validate the slug.
-    // We do not check for existing slug. We let the next.js site handle this.
-    if (empty($body['slug'])) {
-      throw new InvalidPreviewUrlRequest("Field 'slug' is missing");
+    // Validate the path.
+    // We do not check for existing path. We let the next.js site handle this.
+    if (empty($body['path'])) {
+      throw new InvalidPreviewUrlRequest("Field 'path' is missing");
     }
 
     // Validate the timestamp.
@@ -164,12 +164,12 @@ class SimpleOauth extends ConfigurablePreviewUrlGeneratorBase {
       throw new InvalidPreviewUrlRequest("Field 'secret' is missing");
     }
 
-    if ($body['secret'] !== $this->previewSecretGenerator->generate($body['timestamp'] . $body['slug'] . $body['resourceVersion'])) {
+    if ($body['secret'] !== $this->previewSecretGenerator->generate($body['timestamp'] . $body['path'] . $body['resourceVersion'])) {
       throw new InvalidPreviewUrlRequest("The provided secret is invalid.");
     }
 
     return [
-      'path' => $body['slug'],
+      'path' => $body['path'],
       'maxAge' => (int) $this->configuration['secret_expiration'],
     ];
   }

@@ -1179,13 +1179,13 @@ describe("getStaticPathsFromContext()", () => {
 describe("preview()", () => {
   // Get values from our mocked request.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { slug, resourceVersion, plugin, secret, ...draftData } =
+  const { path, resourceVersion, plugin, secret, ...draftData } =
     new NextApiRequest().query
   const dataCookie = `${DRAFT_DATA_COOKIE_NAME}=${encodeURIComponent(
-    JSON.stringify({ slug, resourceVersion, ...draftData })
+    JSON.stringify({ path, resourceVersion, ...draftData })
   )}; Path=/; HttpOnly; SameSite=None; Secure`
   const validationPayload = {
-    slug,
+    path,
     maxAge: 30,
   }
 
@@ -1291,7 +1291,7 @@ describe("preview()", () => {
     expect(response.getHeader("Set-Cookie")).toStrictEqual(cookies)
   })
 
-  test("redirects to the slug path", async () => {
+  test("redirects to the given path", async () => {
     const request = new NextApiRequest()
     const response = new NextApiResponse()
     const logger = mockLogger()
@@ -1305,7 +1305,7 @@ describe("preview()", () => {
       plugin,
       ...validationPayload,
     })
-    expect(response.writeHead).toBeCalledWith(307, { Location: slug })
+    expect(response.writeHead).toBeCalledWith(307, { Location: path })
     expect(logger.debug).toHaveBeenLastCalledWith("Preview mode enabled.")
   })
 

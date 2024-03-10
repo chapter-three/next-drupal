@@ -273,7 +273,7 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
     }
 
     $query = [
-      'slug' => $path,
+      'path' => $path,
     ];
 
     if ($secret = $this->getRevalidateSecret()) {

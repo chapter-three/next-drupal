@@ -1023,11 +1023,11 @@ export class DrupalClient {
   }
 
   async validateDraftUrl(searchParams: URLSearchParams): Promise<Response> {
-    const slug = searchParams.get("slug")
+    const path = searchParams.get("path")
 
-    this.debug(`Fetching draft url validation for ${slug}.`)
+    this.debug(`Fetching draft url validation for ${path}.`)
 
-    // Fetch the headless CMS to check if the provided `slug` exists
+    // Fetch the headless CMS to check if the provided `path` exists
     let response: Response
     try {
       // Validate the draft url.
@@ -1047,8 +1047,8 @@ export class DrupalClient {
 
     this.debug(
       response.status !== 200
-        ? `Could not validate slug, ${slug}`
-        : `Validated slug, ${slug}`
+        ? `Could not validate path, ${path}`
+        : `Validated path, ${path}`
     )
 
     return response
@@ -1060,7 +1060,7 @@ export class DrupalClient {
     options?: Parameters<NextApiResponse["setDraftMode"]>[0]
   ) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { slug, resourceVersion, plugin, secret, scope, ...draftData } =
+    const { path, resourceVersion, plugin, secret, scope, ...draftData } =
       request.query
     const useDraftMode = options?.enable
 
@@ -1104,15 +1104,15 @@ export class DrupalClient {
         // Adds preview data for use in app router pages.
         cookies.push(
           `${DRAFT_DATA_COOKIE_NAME}=${encodeURIComponent(
-            JSON.stringify({ slug, resourceVersion, ...draftData })
+            JSON.stringify({ path, resourceVersion, ...draftData })
           )}; Path=/; HttpOnly; SameSite=None; Secure`
         )
       }
       response.setHeader("Set-Cookie", cookies)
 
-      // We can safely redirect to the slug since this has been validated on the
+      // We can safely redirect to the path since this has been validated on the
       // server.
-      response.writeHead(307, { Location: slug })
+      response.writeHead(307, { Location: path })
 
       this.debug(`${useDraftMode ? "Draft" : "Preview"} mode enabled.`)
 

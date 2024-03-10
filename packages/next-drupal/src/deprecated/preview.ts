@@ -18,7 +18,7 @@ export async function PreviewHandler(
   response?: NextApiResponse,
   options?: PreviewOptions
 ) {
-  const { slug, resourceVersion, secret, locale, defaultLocale } = request.query
+  const { path, resourceVersion, secret, locale, defaultLocale } = request.query
 
   if (secret !== process.env.DRUPAL_PREVIEW_SECRET) {
     return response.status(401).json({
@@ -26,7 +26,7 @@ export async function PreviewHandler(
     })
   }
 
-  if (!slug) {
+  if (!path) {
     return response
       .status(401)
       .end({ message: options?.errorMessages.slug || "Invalid slug." })
@@ -43,7 +43,7 @@ export async function PreviewHandler(
     }
   }
 
-  const url = await getResourcePreviewUrl(slug as string, _options)
+  const url = await getResourcePreviewUrl(path as string, _options)
 
   if (!url) {
     response

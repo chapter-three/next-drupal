@@ -1,4 +1,5 @@
 import { jest } from "@jest/globals"
+import type { NextDrupalFetch } from "../../../src"
 
 interface SpyOnFetchParams {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -40,6 +41,25 @@ export function spyOnFetchOnce({
   )
 }
 
+export function spyOnDrupalFetch(
+  drupal: NextDrupalFetch,
+  {
+    responseBody = null,
+    throwErrorMessage = null,
+    status = 200,
+    headers = {},
+  }: SpyOnFetchParams = {}
+) {
+  return jest.spyOn(drupal, "fetch").mockImplementation(
+    fetchMockImplementation({
+      responseBody,
+      throwErrorMessage,
+      status,
+      headers,
+    })
+  )
+}
+
 function fetchMockImplementation({
   responseBody = null,
   throwErrorMessage = null,
@@ -52,12 +72,14 @@ function fetchMockImplementation({
     }
   }
 
+  const mockedHeaders = new Headers(headers)
+  if (!mockedHeaders.has("content-type")) {
+    mockedHeaders.set("content-type", "application/vnd.api+json")
+  }
+
   return async () =>
     new Response(JSON.stringify(responseBody || {}), {
       status,
-      headers: {
-        "content-type": "application/vnd.api+json",
-        ...headers,
-      },
+      headers: mockedHeaders,
     })
 }

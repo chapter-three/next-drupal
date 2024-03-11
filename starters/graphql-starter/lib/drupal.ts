@@ -1,51 +1,13 @@
-import { DrupalClient } from "next-drupal"
+import { NextDrupalGraphQL } from "./next-drupal-graphql"
 
-const baseUrl: string = process.env.NEXT_PUBLIC_DRUPAL_BASE_URL || ""
-const clientId = process.env.DRUPAL_CLIENT_ID || ""
-const clientSecret = process.env.DRUPAL_CLIENT_SECRET || ""
+const baseUrl = process.env.NEXT_PUBLIC_DRUPAL_BASE_URL as string
+const clientId = process.env.DRUPAL_CLIENT_ID as string
+const clientSecret = process.env.DRUPAL_CLIENT_SECRET as string
 
-export const drupal = new DrupalClient(baseUrl, {
+export const drupal = new NextDrupalGraphQL(baseUrl, {
   auth: {
     clientId,
     clientSecret,
   },
+  // debug: true,
 })
-
-export const graphqlEndpoint = drupal.buildUrl("/graphql")
-
-type QueryPayload = {
-  query: string
-  variables?: Record<string, string>
-}
-
-type QueryJsonResponse<DataType> = {
-  data?: DataType
-  errors?: { message: string }[]
-}
-
-// This is a wrapper around drupal.fetch.
-// Acts as a query helper.
-export async function query<DataType>(payload: QueryPayload) {
-  const response = await drupal.fetch(graphqlEndpoint.toString(), {
-    method: "POST",
-    body: JSON.stringify(payload),
-    withAuth: true, // Make authenticated requests using OAuth.
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  })
-
-  if (!response?.ok) {
-    throw new Error(response.statusText)
-  }
-
-  const { data, errors }: QueryJsonResponse<DataType> = await response.json()
-
-  if (errors) {
-    console.log(errors)
-    throw new Error(errors?.map((e) => e.message).join("\n") ?? "unknown")
-  }
-
-  return data
-}

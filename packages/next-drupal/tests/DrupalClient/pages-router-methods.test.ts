@@ -29,9 +29,9 @@ describe("buildStaticPathsFromResources()", () => {
   ]
 
   test("builds static paths from resources", () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
-    expect(client.buildStaticPathsFromResources(resources)).toMatchObject([
+    expect(drupal.buildStaticPathsFromResources(resources)).toMatchObject([
       {
         params: {
           slug: ["blog", "post", "one"],
@@ -45,7 +45,7 @@ describe("buildStaticPathsFromResources()", () => {
     ])
 
     expect(
-      client.buildStaticPathsFromResources(resources, { locale: "es" })
+      drupal.buildStaticPathsFromResources(resources, { locale: "es" })
     ).toMatchObject([
       {
         locale: "es",
@@ -63,22 +63,22 @@ describe("buildStaticPathsFromResources()", () => {
   })
 
   test("builds static paths from resources with pathPrefix", () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
-    const paths = client.buildStaticPathsFromResources(resources, {
+    const paths = drupal.buildStaticPathsFromResources(resources, {
       pathPrefix: "blog",
     })
 
-    const paths2 = client.buildStaticPathsFromResources(resources, {
+    const paths2 = drupal.buildStaticPathsFromResources(resources, {
       pathPrefix: "/blog",
     })
 
-    const paths3 = client.buildStaticPathsFromResources(resources, {
+    const paths3 = drupal.buildStaticPathsFromResources(resources, {
       pathPrefix: "/blog/post",
       locale: "es",
     })
 
-    const paths4 = client.buildStaticPathsFromResources(resources, {
+    const paths4 = drupal.buildStaticPathsFromResources(resources, {
       pathPrefix: "blog/post",
       locale: "es",
     })
@@ -115,7 +115,7 @@ describe("buildStaticPathsFromResources()", () => {
   })
 
   test('converts frontPage path to "/"', () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
     const resources: Pick<JsonApiResourceWithPath, "path">[] = [
       {
@@ -127,7 +127,7 @@ describe("buildStaticPathsFromResources()", () => {
       },
     ]
 
-    expect(client.buildStaticPathsFromResources(resources)).toMatchObject([
+    expect(drupal.buildStaticPathsFromResources(resources)).toMatchObject([
       {
         params: {
           slug: [""],
@@ -139,11 +139,11 @@ describe("buildStaticPathsFromResources()", () => {
 
 describe("buildStaticPathsParamsFromPaths()", () => {
   test("builds static paths from paths", () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
     const paths = ["/blog/post/one", "/blog/post/two", "/blog/post/three"]
 
-    expect(client.buildStaticPathsParamsFromPaths(paths)).toMatchObject([
+    expect(drupal.buildStaticPathsParamsFromPaths(paths)).toMatchObject([
       {
         params: {
           slug: ["blog", "post", "one"],
@@ -162,7 +162,7 @@ describe("buildStaticPathsParamsFromPaths()", () => {
     ])
 
     expect(
-      client.buildStaticPathsParamsFromPaths(paths, { locale: "en" })
+      drupal.buildStaticPathsParamsFromPaths(paths, { locale: "en" })
     ).toMatchObject([
       {
         locale: "en",
@@ -186,24 +186,24 @@ describe("buildStaticPathsParamsFromPaths()", () => {
   })
 
   test("builds static paths from paths with pathPrefix", () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
-    const paths = client.buildStaticPathsParamsFromPaths(
+    const paths = drupal.buildStaticPathsParamsFromPaths(
       ["/blog/post/one", "/blog/post/two", "/blog/post"],
       { pathPrefix: "blog" }
     )
 
-    const paths2 = client.buildStaticPathsParamsFromPaths(
+    const paths2 = drupal.buildStaticPathsParamsFromPaths(
       ["/blog/post/one", "/blog/post/two", "/blog/post"],
       { pathPrefix: "/blog" }
     )
 
-    const paths3 = client.buildStaticPathsParamsFromPaths(
+    const paths3 = drupal.buildStaticPathsParamsFromPaths(
       ["blog/post/one", "blog/post/two", "blog/post"],
       { pathPrefix: "/blog" }
     )
 
-    const paths4 = client.buildStaticPathsParamsFromPaths(
+    const paths4 = drupal.buildStaticPathsParamsFromPaths(
       ["blog/post/one", "blog/post/two", "blog/post"],
       { pathPrefix: "blog" }
     )
@@ -235,113 +235,83 @@ describe("buildStaticPathsParamsFromPaths()", () => {
 describe("getAuthFromContextAndOptions()", () => {
   const clientIdSecret = mocks.auth.clientIdSecret
   const accessToken = mocks.auth.accessToken
+  const context = {
+    preview: false,
+    params: { slug: ["recipes", "deep-mediterranean-quiche"] },
+  }
 
   test("should use the withAuth option if provided and NOT in preview", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new DrupalClient(BASE_URL, {
       auth: clientIdSecret,
     })
+
     const fetchSpy = spyOnFetch()
     jest
-      .spyOn(client, "getAccessToken")
+      .spyOn(drupal, "getAccessToken")
       .mockImplementation(async () => accessToken)
 
-    await client.getResourceFromContext(
-      "node--article",
-      {
-        preview: false,
+    await drupal.getResourceFromContext("node--article", context, {
+      withAuth: true,
+    })
+
+    expect(
+      (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
+    ).toBe(`${accessToken.token_type} ${accessToken.access_token}`)
+
+    await drupal.getResourceFromContext("node--article", context, {
+      withAuth: {
+        clientId: "foo",
+        clientSecret: "bar",
+        scope: "baz",
       },
-      {
-        withAuth: true,
-      }
-    )
+    })
 
-    expect(fetchSpy).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        headers: expect.objectContaining({
-          Authorization: `${accessToken.token_type} ${accessToken.access_token}`,
-        }),
-      })
-    )
-
-    await client.getResourceFromContext(
-      "node--article",
-      {
-        preview: false,
-      },
-      {
-        withAuth: {
-          clientId: "foo",
-          clientSecret: "bar",
-          scope: "baz",
-        },
-      }
-    )
-
-    expect(fetchSpy).toHaveBeenLastCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        headers: expect.objectContaining({
-          Authorization: `${accessToken.token_type} ${accessToken.access_token}`,
-        }),
-      })
-    )
+    expect(
+      (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
+    ).toBe(`${accessToken.token_type} ${accessToken.access_token}`)
   })
 
   test("should fallback to the global auth if NOT in preview and no withAuth option provided", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new DrupalClient(BASE_URL, {
       auth: clientIdSecret,
     })
     const fetchSpy = spyOnFetch()
 
-    await client.getResourceFromContext("node--article", {
-      preview: false,
-    })
+    await drupal.getResourceFromContext("node--article", context)
 
-    expect(fetchSpy).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        headers: expect.not.objectContaining({
-          Authorization: expect.anything(),
-        }),
-      })
-    )
+    expect(
+      (fetchSpy.mock.lastCall[1].headers as Headers).has("Authorization")
+    ).toBeFalsy()
 
-    const client2 = new DrupalClient(BASE_URL, {
+    const drupal2 = new DrupalClient(BASE_URL, {
       auth: clientIdSecret,
       withAuth: true,
     })
     jest
-      .spyOn(client2, "getAccessToken")
+      .spyOn(drupal2, "getAccessToken")
       .mockImplementation(async () => accessToken)
 
-    await client2.getResourceFromContext("node--article", {
-      preview: false,
-    })
+    await drupal2.getResourceFromContext("node--article", context)
 
-    expect(fetchSpy).toHaveBeenLastCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        headers: expect.objectContaining({
-          Authorization: `${accessToken.token_type} ${accessToken.access_token}`,
-        }),
-      })
-    )
+    expect(
+      (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
+    ).toBe(`${accessToken.token_type} ${accessToken.access_token}`)
   })
 
   test("should NOT use the global auth if in preview", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new DrupalClient(BASE_URL, {
       auth: clientIdSecret,
       withAuth: true,
     })
-    const fetchSpy = jest.spyOn(client, "fetch")
+    const drupalFetchSpy = jest.spyOn(drupal, "fetch")
     spyOnFetch()
 
-    await client.getResourceFromContext("node--article", {
+    await drupal.getResourceFromContext("node--article", {
+      ...context,
       preview: true,
     })
 
-    expect(fetchSpy).toHaveBeenCalledWith(
+    expect(drupalFetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
         withAuth: null,
@@ -350,13 +320,14 @@ describe("getAuthFromContextAndOptions()", () => {
   })
 
   test("should use the scope from context if in preview and using the simple_oauth plugin", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new DrupalClient(BASE_URL, {
       auth: clientIdSecret,
     })
-    const fetchSpy = jest.spyOn(client, "fetch")
+    const drupalFetchSpy = jest.spyOn(drupal, "fetch")
     spyOnFetch()
 
-    await client.getResourceFromContext("node--article", {
+    await drupal.getResourceFromContext("node--article", {
+      ...context,
       preview: true,
       previewData: {
         plugin: "simple_oauth",
@@ -364,7 +335,7 @@ describe("getAuthFromContextAndOptions()", () => {
       },
     })
 
-    expect(fetchSpy).toHaveBeenCalledWith(
+    expect(drupalFetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
         withAuth: {
@@ -377,17 +348,18 @@ describe("getAuthFromContextAndOptions()", () => {
   })
 
   test("should use the scope from context even with global withAuth if in preview and using the simple_oauth plugin", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new DrupalClient(BASE_URL, {
       auth: {
         ...clientIdSecret,
         scope: "administrator",
       },
       withAuth: true,
     })
-    const fetchSpy = jest.spyOn(client, "fetch")
+    const drupalFetchSpy = jest.spyOn(drupal, "fetch")
     spyOnFetch()
 
-    await client.getResourceFromContext("node--article", {
+    await drupal.getResourceFromContext("node--article", {
+      ...context,
       preview: true,
       previewData: {
         plugin: "simple_oauth",
@@ -395,7 +367,7 @@ describe("getAuthFromContextAndOptions()", () => {
       },
     })
 
-    expect(fetchSpy).toHaveBeenCalledWith(
+    expect(drupalFetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
         withAuth: {
@@ -408,12 +380,13 @@ describe("getAuthFromContextAndOptions()", () => {
   })
 
   test("should use the access_token from context if in preview and using the jwt plugin", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new DrupalClient(BASE_URL, {
       auth: clientIdSecret,
     })
     const fetchSpy = spyOnFetch()
 
-    await client.getResourceFromContext("node--article", {
+    await drupal.getResourceFromContext("node--article", {
+      ...context,
       preview: true,
       previewData: {
         plugin: "jwt",
@@ -421,18 +394,13 @@ describe("getAuthFromContextAndOptions()", () => {
       },
     })
 
-    expect(fetchSpy).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        headers: expect.objectContaining({
-          Authorization: `Bearer example-token`,
-        }),
-      })
-    )
+    expect(
+      (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
+    ).toBe(`Bearer example-token`)
   })
 
   test("should use the access token from context even with global withAuth if in preview and using the jwt plugin", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new DrupalClient(BASE_URL, {
       auth: {
         ...clientIdSecret,
         scope: "administrator",
@@ -441,7 +409,8 @@ describe("getAuthFromContextAndOptions()", () => {
     })
     const fetchSpy = spyOnFetch()
 
-    await client.getResourceFromContext("node--article", {
+    await drupal.getResourceFromContext("node--article", {
+      ...context,
       preview: true,
       previewData: {
         plugin: "jwt",
@@ -449,23 +418,18 @@ describe("getAuthFromContextAndOptions()", () => {
       },
     })
 
-    expect(fetchSpy).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        headers: expect.objectContaining({
-          Authorization: `Bearer example-token`,
-        }),
-      })
-    )
+    expect(
+      (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
+    ).toBe(`Bearer example-token`)
   })
 })
 
 describe("getPathFromContext()", () => {
   test("returns a path from context", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
     expect(
-      client.getPathFromContext({
+      drupal.getPathFromContext({
         params: {
           slug: ["foo"],
         },
@@ -473,7 +437,7 @@ describe("getPathFromContext()", () => {
     ).toEqual("/foo")
 
     expect(
-      client.getPathFromContext({
+      drupal.getPathFromContext({
         params: {
           slug: ["foo", "bar"],
         },
@@ -481,7 +445,7 @@ describe("getPathFromContext()", () => {
     ).toEqual("/foo/bar")
 
     expect(
-      client.getPathFromContext({
+      drupal.getPathFromContext({
         locale: "en",
         defaultLocale: "es",
         params: {
@@ -491,17 +455,17 @@ describe("getPathFromContext()", () => {
     ).toEqual("/en/foo/bar")
 
     expect(
-      client.getPathFromContext({
+      drupal.getPathFromContext({
         params: {
           slug: [],
         },
       })
     ).toEqual("/home")
 
-    client.frontPage = "/front"
+    drupal.frontPage = "/front"
 
     expect(
-      client.getPathFromContext({
+      drupal.getPathFromContext({
         params: {
           slug: [],
         },
@@ -509,7 +473,7 @@ describe("getPathFromContext()", () => {
     ).toEqual("/front")
 
     expect(
-      client.getPathFromContext({
+      drupal.getPathFromContext({
         locale: "es",
         defaultLocale: "en",
         params: {
@@ -520,10 +484,10 @@ describe("getPathFromContext()", () => {
   })
 
   test("returns a path from context with pathPrefix", () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
     expect(
-      client.getPathFromContext(
+      drupal.getPathFromContext(
         {
           params: {
             slug: ["bar", "baz"],
@@ -536,7 +500,7 @@ describe("getPathFromContext()", () => {
     ).toEqual("/foo/bar/baz")
 
     expect(
-      client.getPathFromContext(
+      drupal.getPathFromContext(
         {
           params: {
             slug: ["bar", "baz"],
@@ -549,7 +513,7 @@ describe("getPathFromContext()", () => {
     ).toEqual("/foo/bar/baz")
 
     expect(
-      client.getPathFromContext(
+      drupal.getPathFromContext(
         {
           locale: "en",
           defaultLocale: "en",
@@ -564,7 +528,7 @@ describe("getPathFromContext()", () => {
     ).toEqual("/foo/bar/baz")
 
     expect(
-      client.getPathFromContext(
+      drupal.getPathFromContext(
         {
           locale: "es",
           defaultLocale: "en",
@@ -579,7 +543,7 @@ describe("getPathFromContext()", () => {
     ).toEqual("/es/foo/bar/baz")
 
     expect(
-      client.getPathFromContext(
+      drupal.getPathFromContext(
         {
           locale: "es",
           defaultLocale: "en",
@@ -591,12 +555,12 @@ describe("getPathFromContext()", () => {
           pathPrefix: "/foo",
         }
       )
-    ).toEqual("/es/foo/home")
+    ).toEqual("/es/foo")
 
-    client.frontPage = "/baz"
+    drupal.frontPage = "/baz"
 
     expect(
-      client.getPathFromContext(
+      drupal.getPathFromContext(
         {
           locale: "en",
           defaultLocale: "en",
@@ -608,26 +572,26 @@ describe("getPathFromContext()", () => {
           pathPrefix: "foo",
         }
       )
-    ).toEqual("/foo/baz")
+    ).toEqual("/foo")
 
     expect(
-      client.getPathFromContext(
+      drupal.getPathFromContext(
         {
           params: {
             slug: [],
           },
         },
         {
-          pathPrefix: "/foo/bar",
+          pathPrefix: "",
         }
       )
-    ).toEqual("/foo/bar/baz")
+    ).toEqual("/baz")
   })
 
   test("encodes path with punctuation", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
-    const path = client.getPathFromContext({
+    const path = drupal.getPathFromContext({
       params: {
         slug: ["path&with^punc&in$path"],
       },
@@ -635,7 +599,7 @@ describe("getPathFromContext()", () => {
 
     expect(path).toEqual("/path%26with%5Epunc%26in%24path")
 
-    const translatedPath = await client.translatePath(path)
+    const translatedPath = await drupal.translatePath(path)
 
     expect(translatedPath).toMatchSnapshot()
   })
@@ -643,21 +607,21 @@ describe("getPathFromContext()", () => {
 
 describe("getPathsFromContext()", () => {
   test("is an alias for getStaticPathsFromContext", () => {
-    const client = new DrupalClient(BASE_URL)
-    expect(client.getPathsFromContext).toBe(client.getStaticPathsFromContext)
+    const drupal = new DrupalClient(BASE_URL)
+    expect(drupal.getPathsFromContext).toBe(drupal.getStaticPathsFromContext)
   })
 })
 
 describe("getResourceCollectionFromContext()", () => {
   test("fetches a resource collection", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
     const context: GetStaticPropsContext = {
       locale: "en",
       defaultLocale: "en",
     }
 
-    const articles = await client.getResourceCollectionFromContext(
+    const articles = await drupal.getResourceCollectionFromContext(
       "node--article",
       context,
       {
@@ -671,14 +635,14 @@ describe("getResourceCollectionFromContext()", () => {
   })
 
   test("fetches a resource collection using locale", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
     const context: GetStaticPropsContext = {
       locale: "es",
       defaultLocale: "en",
     }
 
-    const articles = await client.getResourceCollectionFromContext(
+    const articles = await drupal.getResourceCollectionFromContext(
       "node--article",
       context,
       {
@@ -694,14 +658,14 @@ describe("getResourceCollectionFromContext()", () => {
   })
 
   test("fetches raw data", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
     const context: GetStaticPropsContext = {
       locale: "en",
       defaultLocale: "en",
     }
 
-    const recipes = await client.getResourceCollectionFromContext(
+    const recipes = await drupal.getResourceCollectionFromContext(
       "node--recipe",
       context,
       {
@@ -717,7 +681,7 @@ describe("getResourceCollectionFromContext()", () => {
   })
 
   test("throws an error for invalid resource type", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
     const context: GetStaticPropsContext = {
       locale: "en",
@@ -725,7 +689,7 @@ describe("getResourceCollectionFromContext()", () => {
     }
 
     await expect(
-      client.getResourceCollectionFromContext(
+      drupal.getResourceCollectionFromContext(
         "RESOURCE-DOES-NOT-EXIST",
         context
       )
@@ -733,7 +697,7 @@ describe("getResourceCollectionFromContext()", () => {
   })
 
   test("throws an error for invalid params", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
     const context: GetStaticPropsContext = {
       locale: "en",
@@ -741,7 +705,7 @@ describe("getResourceCollectionFromContext()", () => {
     }
 
     await expect(
-      client.getResourceCollectionFromContext<DrupalNode>(
+      drupal.getResourceCollectionFromContext<DrupalNode>(
         "node--recipe",
         context,
         {
@@ -756,56 +720,51 @@ describe("getResourceCollectionFromContext()", () => {
   })
 
   test("makes un-authenticated requests by default", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const fetchSpy = jest.spyOn(client, "fetch")
+    const drupal = new DrupalClient(BASE_URL)
+    const drupalFetchSpy = jest.spyOn(drupal, "fetch")
 
     const context: GetStaticPropsContext = {
       locale: "en",
       defaultLocale: "en",
     }
 
-    await client.getResourceCollectionFromContext("node--recipe", context)
-    expect(fetchSpy).toHaveBeenCalledWith(expect.anything(), {
+    await drupal.getResourceCollectionFromContext("node--recipe", context)
+    expect(drupalFetchSpy).toHaveBeenCalledWith(expect.anything(), {
       withAuth: false,
     })
   })
 
   test("makes authenticated requests with withAuth option", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
       auth: `Bearer sample-token`,
     })
     const fetchSpy = spyOnFetch()
-    jest.spyOn(client, "getAccessToken")
+    jest.spyOn(drupal, "getAccessToken")
 
     const context: GetStaticPropsContext = {
       locale: "en",
       defaultLocale: "en",
     }
-    await client.getResourceCollectionFromContext("node--recipe", context, {
+    await drupal.getResourceCollectionFromContext("node--recipe", context, {
       withAuth: true,
     })
 
-    expect(fetchSpy).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        headers: expect.objectContaining({
-          Authorization: "Bearer sample-token",
-        }),
-      })
-    )
+    expect(
+      (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
+    ).toBe("Bearer sample-token")
   })
 })
 
 describe("getResourceFromContext()", () => {
   test("fetches a resource from context", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
     const context: GetStaticPropsContext = {
       params: {
         slug: ["recipes", "deep-mediterranean-quiche"],
       },
     }
-    const recipe = await client.getResourceFromContext<DrupalNode>(
+    const recipe = await drupal.getResourceFromContext<DrupalNode>(
       "node--recipe",
       context
     )
@@ -814,13 +773,13 @@ describe("getResourceFromContext()", () => {
   })
 
   test("fetches a resource from context with params", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
     const context: GetStaticPropsContext = {
       params: {
         slug: ["recipes", "deep-mediterranean-quiche"],
       },
     }
-    const recipe = await client.getResourceFromContext<DrupalNode>(
+    const recipe = await drupal.getResourceFromContext<DrupalNode>(
       "node--recipe",
       context,
       {
@@ -834,7 +793,7 @@ describe("getResourceFromContext()", () => {
   })
 
   test("fetches a resource from context using locale", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
     const context: GetStaticPropsContext = {
       params: {
         slug: ["recipes", "quiche-mediterráneo-profundo"],
@@ -842,7 +801,7 @@ describe("getResourceFromContext()", () => {
       locale: "es",
       defaultLocale: "en",
     }
-    const recipe = await client.getResourceFromContext<DrupalNode>(
+    const recipe = await drupal.getResourceFromContext<DrupalNode>(
       "node--recipe",
       context,
       {
@@ -856,14 +815,14 @@ describe("getResourceFromContext()", () => {
   })
 
   test("fetches raw data", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
     const context: GetStaticPropsContext = {
       params: {
         slug: ["recipes", "deep-mediterranean-quiche"],
       },
     }
-    const recipe = await client.getResourceFromContext<DrupalNode>(
+    const recipe = await drupal.getResourceFromContext<DrupalNode>(
       "node--recipe",
       context,
       {
@@ -878,7 +837,7 @@ describe("getResourceFromContext()", () => {
   })
 
   test("fetches a resource from context by revision", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
     const context: GetStaticPropsContext = {
       params: {
         slug: ["recipes", "quiche-mediterráneo-profundo"],
@@ -886,7 +845,7 @@ describe("getResourceFromContext()", () => {
       locale: "es",
       defaultLocale: "en",
     }
-    const recipe = await client.getResourceFromContext<DrupalNode>(
+    const recipe = await drupal.getResourceFromContext<DrupalNode>(
       "node--recipe",
       context,
       {
@@ -898,7 +857,7 @@ describe("getResourceFromContext()", () => {
 
     context.previewData = { resourceVersion: "rel:latest-version" }
 
-    const latestRevision = await client.getResourceFromContext<DrupalNode>(
+    const latestRevision = await drupal.getResourceFromContext<DrupalNode>(
       "node--recipe",
       context,
       {
@@ -914,7 +873,7 @@ describe("getResourceFromContext()", () => {
   })
 
   test("throws an error for invalid revision", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
     const context: GetStaticPropsContext = {
       previewData: {
         resourceVersion: "id:-11",
@@ -925,7 +884,7 @@ describe("getResourceFromContext()", () => {
     }
 
     await expect(
-      client.getResourceFromContext<DrupalNode>("node--recipe", context, {
+      drupal.getResourceFromContext<DrupalNode>("node--recipe", context, {
         params: {
           "fields[node--recipe]": "drupal_internal__vid",
         },
@@ -936,7 +895,7 @@ describe("getResourceFromContext()", () => {
   })
 
   test("throws an error if revision access is forbidden", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
     const context: GetStaticPropsContext = {
       previewData: {
@@ -948,7 +907,7 @@ describe("getResourceFromContext()", () => {
     }
 
     await expect(
-      client.getResourceFromContext<DrupalNode>("node--recipe", context, {
+      drupal.getResourceFromContext<DrupalNode>("node--recipe", context, {
         params: {
           "fields[node--recipe]": "title",
         },
@@ -959,16 +918,16 @@ describe("getResourceFromContext()", () => {
   })
 
   test("makes un-authenticated requests by default", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const fetchSpy = jest.spyOn(client, "fetch")
+    const drupal = new DrupalClient(BASE_URL)
+    const drupalFetchSpy = jest.spyOn(drupal, "fetch")
     const context: GetStaticPropsContext = {
       params: {
         slug: ["recipes", "deep-mediterranean-quiche"],
       },
     }
 
-    await client.getResourceFromContext("node--recipe", context)
-    expect(fetchSpy).toHaveBeenCalledWith(
+    await drupal.getResourceFromContext("node--recipe", context)
+    expect(drupalFetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
         withAuth: false,
@@ -977,12 +936,12 @@ describe("getResourceFromContext()", () => {
   })
 
   test("makes authenticated requests with withAuth option", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
       auth: `Bearer sample-token`,
     })
     const fetchSpy = spyOnFetch()
-    jest.spyOn(client, "getAccessToken")
+    jest.spyOn(drupal, "getAccessToken")
 
     const context: GetStaticPropsContext = {
       params: {
@@ -990,27 +949,22 @@ describe("getResourceFromContext()", () => {
       },
     }
 
-    await client.getResourceFromContext("node--recipe", context, {
+    await drupal.getResourceFromContext("node--recipe", context, {
       withAuth: true,
     })
 
-    expect(fetchSpy).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        headers: expect.objectContaining({
-          Authorization: "Bearer sample-token",
-        }),
-      })
-    )
+    expect(
+      (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
+    ).toBe("Bearer sample-token")
   })
 
   test("makes authenticated requests when preview is true", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
       auth: `Bearer sample-token`,
     })
     const fetchSpy = spyOnFetch()
-    jest.spyOn(client, "getAccessToken")
+    jest.spyOn(drupal, "getAccessToken")
 
     const context: GetStaticPropsContext = {
       preview: true,
@@ -1023,22 +977,17 @@ describe("getResourceFromContext()", () => {
       },
     }
 
-    await client.getResourceFromContext("node--recipe", context)
+    await drupal.getResourceFromContext("node--recipe", context)
 
-    expect(fetchSpy).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        headers: expect.objectContaining({
-          Authorization: `Bearer sample-token`,
-        }),
-      })
-    )
+    expect(
+      (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
+    ).toBe("Bearer sample-token")
   })
 
   test("accepts a translated path", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
-    const path = await client.translatePath("recipes/deep-mediterranean-quiche")
+    const path = await drupal.translatePath("recipes/deep-mediterranean-quiche")
 
     const context: GetStaticPropsContext = {
       params: {
@@ -1046,7 +995,7 @@ describe("getResourceFromContext()", () => {
       },
     }
 
-    const recipe = await client.getResourceFromContext(path, context, {
+    const recipe = await drupal.getResourceFromContext(path, context, {
       params: {
         "fields[node--recipe]": "title,path,status",
       },
@@ -1058,9 +1007,9 @@ describe("getResourceFromContext()", () => {
 
 describe("getSearchIndexFromContext()", () => {
   test("calls getSearchIndex() with context data", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
     const fetchSpy = jest
-      .spyOn(client, "getSearchIndex")
+      .spyOn(drupal, "getSearchIndex")
       .mockImplementation(async () => jest.fn())
     const name = "resource-name"
     const locale = "en-uk"
@@ -1069,7 +1018,7 @@ describe("getSearchIndexFromContext()", () => {
       deserialize: true,
     }
 
-    await client.getSearchIndexFromContext(
+    await drupal.getSearchIndexFromContext(
       name,
       { locale, defaultLocale },
       options
@@ -1085,17 +1034,17 @@ describe("getSearchIndexFromContext()", () => {
 
 describe("getStaticPathsFromContext()", () => {
   test("returns static paths from context", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
-    const paths = await client.getStaticPathsFromContext("node--article", {})
+    const paths = await drupal.getStaticPathsFromContext("node--article", {})
 
     expect(paths).toMatchSnapshot()
   })
 
   test("returns static paths from context with locale", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
-    const paths = await client.getStaticPathsFromContext("node--article", {
+    const paths = await drupal.getStaticPathsFromContext("node--article", {
       locales: ["en", "es"],
       defaultLocale: "en",
     })
@@ -1104,9 +1053,9 @@ describe("getStaticPathsFromContext()", () => {
   })
 
   test("returns static paths for multiple resource types from context", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
-    const paths = await client.getStaticPathsFromContext(
+    const paths = await drupal.getStaticPathsFromContext(
       ["node--article", "node--recipe"],
       {
         locales: ["en", "es"],
@@ -1118,9 +1067,9 @@ describe("getStaticPathsFromContext()", () => {
   })
 
   test("returns static paths from context with params", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
-    const paths = await client.getStaticPathsFromContext(
+    const paths = await drupal.getStaticPathsFromContext(
       "node--article",
       {},
       {
@@ -1134,27 +1083,27 @@ describe("getStaticPathsFromContext()", () => {
   })
 
   test("makes un-authenticated requests by default", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const fetchSpy = jest.spyOn(client, "fetch")
+    const drupal = new DrupalClient(BASE_URL)
+    const drupalFetchSpy = jest.spyOn(drupal, "fetch")
 
-    await client.getStaticPathsFromContext("node--article", {
+    await drupal.getStaticPathsFromContext("node--article", {
       locales: ["en", "es"],
       defaultLocale: "en",
     })
-    expect(fetchSpy).toHaveBeenCalledWith(expect.anything(), {
+    expect(drupalFetchSpy).toHaveBeenCalledWith(expect.anything(), {
       withAuth: false,
     })
   })
 
   test("makes authenticated requests with withAuth option", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
       auth: `Bearer sample-token`,
     })
     const fetchSpy = spyOnFetch()
-    jest.spyOn(client, "getAccessToken")
+    jest.spyOn(drupal, "getAccessToken")
 
-    await client.getStaticPathsFromContext(
+    await drupal.getStaticPathsFromContext(
       "node--article",
       {
         locales: ["en", "es"],
@@ -1165,37 +1114,32 @@ describe("getStaticPathsFromContext()", () => {
       }
     )
 
-    expect(fetchSpy).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        headers: expect.objectContaining({
-          Authorization: "Bearer sample-token",
-        }),
-      })
-    )
+    expect(
+      (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
+    ).toBe("Bearer sample-token")
   })
 })
 
 describe("preview()", () => {
   // Get values from our mocked request.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { slug, resourceVersion, plugin, secret, ...draftData } =
+  const { path, resourceVersion, plugin, secret, ...draftData } =
     new NextApiRequest().query
   const dataCookie = `${DRAFT_DATA_COOKIE_NAME}=${encodeURIComponent(
-    JSON.stringify({ slug, resourceVersion, ...draftData })
+    JSON.stringify({ path, resourceVersion, ...draftData })
   )}; Path=/; HttpOnly; SameSite=None; Secure`
   const validationPayload = {
-    slug,
+    path,
     maxAge: 30,
   }
 
   test("turns on preview mode and clears preview data", async () => {
     const request = new NextApiRequest()
     const response = new NextApiResponse()
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
     spyOnFetch({ responseBody: validationPayload })
 
-    await client.preview(request, response)
+    await drupal.preview(request, response)
 
     expect(response.clearPreviewData).toBeCalledTimes(1)
     expect(response.setPreviewData).toBeCalledWith({
@@ -1209,7 +1153,7 @@ describe("preview()", () => {
     const logger = mockLogger()
     const request = new NextApiRequest()
     const response = new NextApiResponse()
-    const client = new DrupalClient(BASE_URL, { debug: true, logger })
+    const drupal = new DrupalClient(BASE_URL, { debug: true, logger })
     const status = 403
     const message = "mock fail"
     spyOnFetch({
@@ -1220,7 +1164,7 @@ describe("preview()", () => {
       },
     })
 
-    await client.preview(request, response)
+    await drupal.preview(request, response)
 
     expect(logger.debug).toBeCalledWith(
       `Draft url validation error: ${message}`
@@ -1233,10 +1177,10 @@ describe("preview()", () => {
   test("does not turn on draft mode by default", async () => {
     const request = new NextApiRequest()
     const response = new NextApiResponse()
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
     spyOnFetch({ responseBody: validationPayload })
 
-    await client.preview(request, response)
+    await drupal.preview(request, response)
 
     expect(response.setDraftMode).toBeCalledTimes(0)
 
@@ -1249,14 +1193,14 @@ describe("preview()", () => {
     const request = new NextApiRequest()
     const response = new NextApiResponse()
     const logger = mockLogger()
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new DrupalClient(BASE_URL, {
       debug: true,
       logger,
     })
     spyOnFetch({ responseBody: validationPayload })
 
     const options = { enable: true }
-    await client.preview(request, response, options)
+    await drupal.preview(request, response, options)
 
     expect(response.setDraftMode).toBeCalledWith(options)
 
@@ -1270,7 +1214,7 @@ describe("preview()", () => {
   test("updates preview mode cookie’s sameSite flag", async () => {
     const request = new NextApiRequest()
     const response = new NextApiResponse()
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
     spyOnFetch({ responseBody: validationPayload })
 
     // Our mock response.setPreviewData() does not set a cookie, so we set one.
@@ -1284,28 +1228,28 @@ describe("preview()", () => {
     const cookies = response.getHeader("Set-Cookie")
     cookies[0] = cookies[0].replace("SameSite=Lax", "SameSite=None; Secure")
 
-    await client.preview(request, response)
+    await drupal.preview(request, response)
 
     expect(response.getHeader).toHaveBeenLastCalledWith("Set-Cookie")
     expect(response.setHeader).toHaveBeenLastCalledWith("Set-Cookie", cookies)
     expect(response.getHeader("Set-Cookie")).toStrictEqual(cookies)
   })
 
-  test("redirects to the slug path", async () => {
+  test("redirects to the given path", async () => {
     const request = new NextApiRequest()
     const response = new NextApiResponse()
     const logger = mockLogger()
-    const client = new DrupalClient(BASE_URL, { debug: true, logger })
+    const drupal = new DrupalClient(BASE_URL, { debug: true, logger })
     spyOnFetch({ responseBody: validationPayload })
 
-    await client.preview(request, response)
+    await drupal.preview(request, response)
 
     expect(response.setPreviewData).toBeCalledWith({
       resourceVersion,
       plugin,
       ...validationPayload,
     })
-    expect(response.writeHead).toBeCalledWith(307, { Location: slug })
+    expect(response.writeHead).toBeCalledWith(307, { Location: path })
     expect(logger.debug).toHaveBeenLastCalledWith("Preview mode enabled.")
   })
 
@@ -1313,13 +1257,13 @@ describe("preview()", () => {
     const request = new NextApiRequest()
     const response = new NextApiResponse()
     const logger = mockLogger()
-    const client = new DrupalClient(BASE_URL, { debug: true, logger })
+    const drupal = new DrupalClient(BASE_URL, { debug: true, logger })
     const message = "mock internal error"
     response.clearPreviewData = jest.fn(() => {
       throw new Error(message)
     })
 
-    await client.preview(request, response)
+    await drupal.preview(request, response)
 
     expect(logger.debug).toHaveBeenLastCalledWith(`Preview failed: ${message}`)
     expect(response.status).toBeCalledWith(422)
@@ -1331,27 +1275,27 @@ describe("previewDisable()", () => {
   test("clears preview data", async () => {
     const request = new NextApiRequest()
     const response = new NextApiResponse()
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
-    await client.previewDisable(request, response)
+    await drupal.previewDisable(request, response)
     expect(response.clearPreviewData).toBeCalledTimes(1)
   })
 
   test("disables draft mode", async () => {
     const request = new NextApiRequest()
     const response = new NextApiResponse()
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
-    await client.previewDisable(request, response)
+    await drupal.previewDisable(request, response)
     expect(response.setDraftMode).toBeCalledWith({ enable: false })
   })
 
   test("deletes the draft cookie", async () => {
     const request = new NextApiRequest()
     const response = new NextApiResponse()
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
-    await client.previewDisable(request, response)
+    await drupal.previewDisable(request, response)
     const cookies = response.getHeader("Set-Cookie")
     expect(cookies[cookies.length - 1]).toBe(
       `${DRAFT_DATA_COOKIE_NAME}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=None; Secure`
@@ -1361,9 +1305,9 @@ describe("previewDisable()", () => {
   test('redirects to "/"', async () => {
     const request = new NextApiRequest()
     const response = new NextApiResponse()
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
-    await client.previewDisable(request, response)
+    await drupal.previewDisable(request, response)
     expect(response.writeHead).toBeCalledWith(307, { Location: "/" })
     expect(response.end).toBeCalled()
   })
@@ -1371,7 +1315,7 @@ describe("previewDisable()", () => {
 
 describe("translatePathFromContext()", () => {
   test("translates a path", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
     const context: GetStaticPropsContext = {
       params: {
@@ -1379,13 +1323,13 @@ describe("translatePathFromContext()", () => {
       },
     }
 
-    const path = await client.translatePathFromContext(context)
+    const path = await drupal.translatePathFromContext(context)
 
     expect(path).toMatchSnapshot()
   })
 
   test("returns null for path not found", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
     const context: GetStaticPropsContext = {
       params: {
@@ -1393,13 +1337,13 @@ describe("translatePathFromContext()", () => {
       },
     }
 
-    const path = await client.translatePathFromContext(context)
+    const path = await drupal.translatePathFromContext(context)
 
     expect(path).toBeNull()
   })
 
   test("translates a path with pathPrefix", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new DrupalClient(BASE_URL)
 
     const context: GetStaticPropsContext = {
       params: {
@@ -1407,13 +1351,13 @@ describe("translatePathFromContext()", () => {
       },
     }
 
-    const path = await client.translatePathFromContext(context, {
+    const path = await drupal.translatePathFromContext(context, {
       pathPrefix: "recipes",
     })
 
     expect(path).toMatchSnapshot()
 
-    const path2 = await client.translatePathFromContext(context, {
+    const path2 = await drupal.translatePathFromContext(context, {
       pathPrefix: "/recipes",
     })
 
@@ -1421,17 +1365,17 @@ describe("translatePathFromContext()", () => {
   })
 
   test("makes un-authenticated requests by default", async () => {
-    const client = new DrupalClient(BASE_URL)
-    const fetchSpy = jest.spyOn(client, "fetch")
+    const drupal = new DrupalClient(BASE_URL)
+    const drupalFetchSpy = jest.spyOn(drupal, "fetch")
 
     const context: GetStaticPropsContext = {
       params: {
         slug: ["recipes", "deep-mediterranean-quiche"],
       },
     }
-    await client.translatePathFromContext(context)
+    await drupal.translatePathFromContext(context)
 
-    expect(fetchSpy).toHaveBeenCalledWith(
+    expect(drupalFetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
         withAuth: false,
@@ -1440,30 +1384,25 @@ describe("translatePathFromContext()", () => {
   })
 
   test("makes authenticated requests with withAuth option", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new DrupalClient(BASE_URL, {
       useDefaultResourceTypeEntry: true,
       auth: `Bearer sample-token`,
     })
     const fetchSpy = spyOnFetch()
-    jest.spyOn(client, "getAccessToken")
+    jest.spyOn(drupal, "getAccessToken")
 
     const context: GetStaticPropsContext = {
       params: {
         slug: ["deep-mediterranean-quiche"],
       },
     }
-    await client.translatePathFromContext(context, {
+    await drupal.translatePathFromContext(context, {
       pathPrefix: "recipes",
       withAuth: true,
     })
 
-    expect(fetchSpy).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        headers: expect.objectContaining({
-          Authorization: "Bearer sample-token",
-        }),
-      })
-    )
+    expect(
+      (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
+    ).toBe("Bearer sample-token")
   })
 })

@@ -1,7 +1,7 @@
-import type { NodePage } from "@/types"
+import type { DrupalPage } from "@/types"
 
 interface BasicPageProps {
-  node: NodePage
+  node: DrupalPage
 }
 
 export function BasicPage({ node, ...props }: BasicPageProps) {

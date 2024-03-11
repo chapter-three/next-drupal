@@ -1,0 +1,18 @@
+# Ignore everything.
+/*
+
+# Format most files in the root directory.
+!/*.js
+!/*.ts
+!/*.md
+!/*.json
+# But ignore some.
+/package.json
+/package-lock.json
+/CHANGELOG.md
+
+# Don't ignore these nested directories.
+!/app
+!/components
+!/lib
+!/pages

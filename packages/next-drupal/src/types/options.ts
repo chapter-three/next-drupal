@@ -1,4 +1,5 @@
-import type { DrupalClientAuth } from "./client"
+import type { NextDrupalAuth } from "./next-drupal-fetch"
+import type { RequestInit } from "next/dist/server/web/spec-extension/request"
 
 export type BaseUrl = string
 
@@ -7,7 +8,7 @@ export type Locale = string
 export type PathPrefix = string
 
 export interface FetchOptions extends RequestInit {
-  withAuth?: boolean | DrupalClientAuth
+  withAuth?: boolean | NextDrupalAuth
 }
 
 export type JsonApiOptions = {
@@ -26,7 +27,7 @@ export type JsonApiOptions = {
   )
 
 export type JsonApiWithAuthOption = {
-  withAuth?: boolean | DrupalClientAuth
+  withAuth?: boolean | NextDrupalAuth
 }
 
 export type JsonApiWithCacheOptions = {

@@ -76,15 +76,21 @@ export async function generateMetadata(
 const RESOURCE_TYPES = ["node--page", "node--article"]
 
 export async function generateStaticParams(): Promise<NodePageParams[]> {
-  // TODO: Replace getStaticPathsFromContext() usage since there is no context.
-  const paths = await drupal.getStaticPathsFromContext(RESOURCE_TYPES, {})
-  // console.log(
-  //   "generateStaticParams",
-  //   paths.map(({ params }) => params)
-  // )
-  return paths.map((path: string | { params: NodePageParams }) =>
-    typeof path === "string" ? { slug: [] } : path?.params
+  const resources = await drupal.getResourceCollectionPathSegments(
+    RESOURCE_TYPES,
+    {
+      // The pathPrefix will be removed from the returned path segments array.
+      // pathPrefix: "/blog",
+      // The list of locales to return.
+      // locales: ["en", "es"],
+      // The default locale.
+      // defaultLocale: "en",
+    }
   )
+
+  return resources.map((resource) => ({
+    slug: resource.segments,
+  }))
 }
 
 export default async function NodePage({

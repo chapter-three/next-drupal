@@ -7,7 +7,7 @@ import {
   jest,
   test,
 } from "@jest/globals"
-import { DrupalClient } from "../../src"
+import { NextDrupal } from "../../src"
 import {
   BASE_URL,
   deleteTestNodes,
@@ -38,9 +38,9 @@ afterAll(async () => {
 
 describe("createResource()", () => {
   test("creates a resource", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
-    const article = await client.createResource<DrupalNode>(
+    const article = await drupal.createResource<DrupalNode>(
       "node--article",
       {
         data: {
@@ -62,7 +62,7 @@ describe("createResource()", () => {
   })
 
   test("creates a resource with a relationship", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new NextDrupal(BASE_URL, {
       auth: {
         username: process.env.DRUPAL_USERNAME,
         password: process.env.DRUPAL_PASSWORD,
@@ -70,7 +70,7 @@ describe("createResource()", () => {
     })
 
     // Find an image media.
-    const [mediaImage] = await client.getResourceCollection("media--image", {
+    const [mediaImage] = await drupal.getResourceCollection("media--image", {
       params: {
         "page[limit]": 1,
         "filter[status]": 1,
@@ -78,7 +78,7 @@ describe("createResource()", () => {
       },
     })
 
-    const article = await client.createResource(
+    const article = await drupal.createResource(
       "node--article",
       {
         data: {
@@ -108,14 +108,14 @@ describe("createResource()", () => {
   })
 
   test("creates a localized resource", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new NextDrupal(BASE_URL, {
       auth: {
         username: process.env.DRUPAL_USERNAME,
         password: process.env.DRUPAL_PASSWORD,
       },
     })
 
-    const article = await client.createResource("node--article", {
+    const article = await drupal.createResource("node--article", {
       data: {
         attributes: {
           title: "TEST Article in spanish",
@@ -128,7 +128,7 @@ describe("createResource()", () => {
   })
 
   test("throws an error for missing required attributes", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new NextDrupal(BASE_URL, {
       auth: {
         username: process.env.DRUPAL_USERNAME,
         password: process.env.DRUPAL_PASSWORD,
@@ -136,7 +136,7 @@ describe("createResource()", () => {
     })
 
     await expect(
-      client.createResource("node--article", {
+      drupal.createResource("node--article", {
         data: {
           attributes: {},
         },
@@ -147,7 +147,7 @@ describe("createResource()", () => {
   })
 
   test("throws an error for invalid attributes", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new NextDrupal(BASE_URL, {
       auth: {
         username: process.env.DRUPAL_USERNAME,
         password: process.env.DRUPAL_PASSWORD,
@@ -155,7 +155,7 @@ describe("createResource()", () => {
     })
 
     await expect(
-      client.createResource("node--article", {
+      drupal.createResource("node--article", {
         data: {
           attributes: {
             title: "TEST: Article",
@@ -170,7 +170,7 @@ describe("createResource()", () => {
     )
 
     await expect(
-      client.createResource("node--article", {
+      drupal.createResource("node--article", {
         data: {
           attributes: {
             title: "TEST: Article",
@@ -202,7 +202,7 @@ describe("createFileResource()", () => {
 
   test("constructs the API path from body and options", async () => {
     const logger = mockLogger()
-    const client = new DrupalClient("https://example.com", {
+    const drupal = new NextDrupal("https://example.com", {
       useDefaultResourceTypeEntry: true,
       debug: true,
       logger,
@@ -210,7 +210,7 @@ describe("createFileResource()", () => {
     const type = "type--from-first-argument"
     const fetchSpy = spyOnFetch({ responseBody: mockResponseData })
 
-    await client.createFileResource(type, mockBody, {
+    await drupal.createFileResource(type, mockBody, {
       withAuth: false,
       params: { include: "extra_field" },
     })
@@ -224,13 +224,13 @@ describe("createFileResource()", () => {
   })
 
   test("constructs the API path using non-default locale", async () => {
-    const client = new DrupalClient("https://example.com", {
+    const drupal = new NextDrupal("https://example.com", {
       useDefaultResourceTypeEntry: true,
     })
     const type = "type--from-first-argument"
     const fetchSpy = spyOnFetch({ responseBody: mockResponseData })
 
-    await client.createFileResource(type, mockBody, {
+    await drupal.createFileResource(type, mockBody, {
       withAuth: false,
       params: { include: "extra_field" },
       locale: "es",
@@ -243,12 +243,12 @@ describe("createFileResource()", () => {
   })
 
   test("returns the deserialized data", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new NextDrupal(BASE_URL, {
       useDefaultResourceTypeEntry: true,
     })
     spyOnFetch({ responseBody: mockResponseData })
 
-    const result = await client.createFileResource("ignored", mockBody, {
+    const result = await drupal.createFileResource("ignored", mockBody, {
       withAuth: false,
     })
 
@@ -257,12 +257,12 @@ describe("createFileResource()", () => {
   })
 
   test("optionally returns the raw data", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new NextDrupal(BASE_URL, {
       useDefaultResourceTypeEntry: true,
     })
     spyOnFetch({ responseBody: mockResponseData })
 
-    const result = await client.createFileResource("ignored", mockBody, {
+    const result = await drupal.createFileResource("ignored", mockBody, {
       withAuth: false,
       deserialize: false,
     })
@@ -274,7 +274,7 @@ describe("createFileResource()", () => {
   })
 
   test("throws error if response is not ok", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new NextDrupal(BASE_URL, {
       useDefaultResourceTypeEntry: true,
     })
     const message = "mock error"
@@ -287,7 +287,7 @@ describe("createFileResource()", () => {
     })
 
     await expect(
-      client.createFileResource("ignored", mockBody, {
+      drupal.createFileResource("ignored", mockBody, {
         withAuth: false,
       })
     ).rejects.toThrow(message)
@@ -296,13 +296,13 @@ describe("createFileResource()", () => {
 
 describe("updateResource()", () => {
   test("updates a resource", async () => {
-    const client = new DrupalClient(BASE_URL)
+    const drupal = new NextDrupal(BASE_URL)
 
     const basic = Buffer.from(
       `${process.env.DRUPAL_USERNAME}:${process.env.DRUPAL_PASSWORD}`
     ).toString("base64")
 
-    const article = await client.createResource<DrupalNode>(
+    const article = await drupal.createResource<DrupalNode>(
       "node--article",
       {
         data: {
@@ -316,7 +316,7 @@ describe("updateResource()", () => {
       }
     )
 
-    const updatedArticle = await client.updateResource<DrupalNode>(
+    const updatedArticle = await drupal.updateResource<DrupalNode>(
       "node--article",
       article.id,
       {
@@ -340,12 +340,12 @@ describe("updateResource()", () => {
       `${process.env.DRUPAL_USERNAME}:${process.env.DRUPAL_PASSWORD}`
     ).toString("base64")
 
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new NextDrupal(BASE_URL, {
       auth: `Basic ${basic}`,
     })
 
     // Create an article.
-    const article = await client.createResource<DrupalNode>("node--article", {
+    const article = await drupal.createResource<DrupalNode>("node--article", {
       data: {
         attributes: {
           title: "TEST New article",
@@ -354,7 +354,7 @@ describe("updateResource()", () => {
     })
 
     // Find an image media.
-    const [mediaImage] = await client.getResourceCollection("media--image", {
+    const [mediaImage] = await drupal.getResourceCollection("media--image", {
       params: {
         "page[limit]": 1,
         "filter[status]": 1,
@@ -363,7 +363,7 @@ describe("updateResource()", () => {
     })
 
     // Attach the media image to the article.
-    const updatedArticle = await client.updateResource(
+    const updatedArticle = await drupal.updateResource(
       "node--article",
       article.id,
       {
@@ -396,14 +396,14 @@ describe("updateResource()", () => {
   })
 
   test("throws an error for missing required attributes", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new NextDrupal(BASE_URL, {
       auth: {
         username: process.env.DRUPAL_USERNAME,
         password: process.env.DRUPAL_PASSWORD,
       },
     })
 
-    const article = await client.createResource<DrupalNode>("node--article", {
+    const article = await drupal.createResource<DrupalNode>("node--article", {
       data: {
         attributes: {
           title: "TEST New article",
@@ -412,7 +412,7 @@ describe("updateResource()", () => {
     })
 
     await expect(
-      client.updateResource("node--article", article.id, {
+      drupal.updateResource("node--article", article.id, {
         data: {
           attributes: {
             title: null,
@@ -425,14 +425,14 @@ describe("updateResource()", () => {
   })
 
   test("throws an error for invalid attributes", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new NextDrupal(BASE_URL, {
       auth: {
         username: process.env.DRUPAL_USERNAME,
         password: process.env.DRUPAL_PASSWORD,
       },
     })
 
-    const article = await client.createResource<DrupalNode>("node--article", {
+    const article = await drupal.createResource<DrupalNode>("node--article", {
       data: {
         attributes: {
           title: "TEST New article",
@@ -441,7 +441,7 @@ describe("updateResource()", () => {
     })
 
     await expect(
-      client.updateResource("node--article", article.id, {
+      drupal.updateResource("node--article", article.id, {
         data: {
           attributes: {
             body: {
@@ -455,7 +455,7 @@ describe("updateResource()", () => {
     )
 
     await expect(
-      client.updateResource("node--article", article.id, {
+      drupal.updateResource("node--article", article.id, {
         data: {
           attributes: {
             body: {
@@ -473,14 +473,14 @@ describe("updateResource()", () => {
 
 describe("deleteResource()", () => {
   test("deletes a resource", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new NextDrupal(BASE_URL, {
       auth: {
         username: process.env.DRUPAL_USERNAME,
         password: process.env.DRUPAL_PASSWORD,
       },
     })
 
-    const article = await client.createResource<DrupalNode>("node--article", {
+    const article = await drupal.createResource<DrupalNode>("node--article", {
       data: {
         attributes: {
           title: "TEST New article",
@@ -488,19 +488,19 @@ describe("deleteResource()", () => {
       },
     })
 
-    const deleted = await client.deleteResource("node--article", article.id)
+    const deleted = await drupal.deleteResource("node--article", article.id)
 
     expect(deleted).toBe(true)
 
     await expect(
-      client.getResource("node--article", article.id)
+      drupal.getResource("node--article", article.id)
     ).rejects.toThrow(
       '404 Not Found\nThe "entity" parameter was not converted for the path "/jsonapi/node/article/{entity}" (route name: "jsonapi.node--article.individual")'
     )
   })
 
   test("throws an error for invalid resource", async () => {
-    const client = new DrupalClient(BASE_URL, {
+    const drupal = new NextDrupal(BASE_URL, {
       auth: {
         username: process.env.DRUPAL_USERNAME,
         password: process.env.DRUPAL_PASSWORD,
@@ -508,7 +508,7 @@ describe("deleteResource()", () => {
     })
 
     await expect(
-      client.deleteResource("node--article", "invalid-id")
+      drupal.deleteResource("node--article", "invalid-id")
     ).rejects.toThrow(
       '404 Not Found\nThe "entity" parameter was not converted for the path "/jsonapi/node/article/{entity}" (route name: "jsonapi.node--article.individual.delete")'
     )

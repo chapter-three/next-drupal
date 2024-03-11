@@ -5,6 +5,7 @@ This pull request is for: (mark with an "x")
 - [ ] `packages/next-drupal`
 - [ ] `starters/basic-starter`
 - [ ] `starters/graphql-starter`
+- [ ] `starters/pages-starter`
 - [ ] Other
 
 GitHub Issue: #

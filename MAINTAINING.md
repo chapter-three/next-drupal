@@ -168,6 +168,7 @@ The code in the examples repos do not strictly require a versioned release since
 
    - [basic-starter](https://github.com/chapter-three/next-drupal-basic-starter/releases)
    - [graphql-starter](https://github.com/chapter-three/next-drupal-graphql-starter/releases)
+   - [pages-starter](https://github.com/chapter-three/next-drupal-pages-starter/releases)
 
    And then:
 

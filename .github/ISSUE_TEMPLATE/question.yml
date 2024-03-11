@@ -14,6 +14,7 @@ body:
         - next-drupal (NPM package)
         - basic-starter
         - graphql-starter
+        - pages-starter
         - example-auth
         - example-blog
         - example-client

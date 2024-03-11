@@ -1,11 +1,12 @@
-// This is an example GraphQL implementation using DrupalClient.
+// This is an example GraphQL implementation using NextDrupalFetch, a
+// lower-level class that contains helper methods and no JSON:API methods.
 
-import { DrupalClient } from "next-drupal"
+import { NextDrupalFetch } from "next-drupal"
 import type { BaseUrl, NextDrupalFetchOptions } from "next-drupal"
 
 const DEFAULT_API_PREFIX = "/graphql"
 
-export class NextDrupalGraphQL extends DrupalClient {
+export class NextDrupalGraphQL extends NextDrupalFetch {
   endpoint: string
 
   constructor(baseUrl: BaseUrl, options: NextDrupalFetchOptions = {}) {
@@ -23,12 +24,6 @@ export class NextDrupalGraphQL extends DrupalClient {
       method: "POST",
       body: JSON.stringify(payload),
       withAuth: true, // Make authenticated requests using OAuth.
-      // TODO: Remove headers when switching from extending DrupalClient to
-      //  NextDrupalFetch, since they will be redundant.
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
     })
 
     if (!response?.ok) {

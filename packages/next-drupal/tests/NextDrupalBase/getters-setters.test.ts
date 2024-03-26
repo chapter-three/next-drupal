@@ -34,7 +34,7 @@ describe("auth", () => {
     test("missing username", () => {
       expect(() => {
         const drupal = new NextDrupalBase(BASE_URL)
-        // @ts-ignore
+        // @ts-expect-error
         drupal.auth = {
           password: "password",
         }
@@ -46,7 +46,7 @@ describe("auth", () => {
     test("missing password", () => {
       expect(() => {
         const drupal = new NextDrupalBase(BASE_URL)
-        // @ts-ignore
+        // @ts-expect-error
         drupal.auth = {
           username: "admin",
         }
@@ -60,7 +60,7 @@ describe("auth", () => {
     test("missing access_token", () => {
       expect(() => {
         const drupal = new NextDrupalBase(BASE_URL)
-        // @ts-ignore
+        // @ts-expect-error
         drupal.auth = {
           token_type: mocks.auth.accessToken.token_type,
         }
@@ -72,7 +72,7 @@ describe("auth", () => {
     test("missing token_type", () => {
       expect(() => {
         const drupal = new NextDrupalBase(BASE_URL)
-        // @ts-ignore
+        // @ts-expect-error
         drupal.auth = {
           access_token: mocks.auth.accessToken.access_token,
         }
@@ -86,7 +86,7 @@ describe("auth", () => {
     test("missing clientId", () => {
       expect(() => {
         const drupal = new NextDrupalBase(BASE_URL)
-        // @ts-ignore
+        // @ts-expect-error
         drupal.auth = {
           clientSecret: mocks.auth.clientIdSecret.clientSecret,
         }
@@ -98,7 +98,7 @@ describe("auth", () => {
     test("missing clientSecret", () => {
       expect(() => {
         const drupal = new NextDrupalBase(BASE_URL)
-        // @ts-ignore
+        // @ts-expect-error
         drupal.auth = {
           clientId: mocks.auth.clientIdSecret.clientId,
         }
@@ -258,7 +258,13 @@ describe("token", () => {
     const after = getExpiresOn(accessToken)
 
     expect(drupal.token).toBe(accessToken)
-    expect(drupal._tokenExpiresOn).toBeGreaterThanOrEqual(before)
-    expect(drupal._tokenExpiresOn).toBeLessThanOrEqual(after)
+    expect(
+      // @ts-expect-error
+      drupal._tokenExpiresOn
+    ).toBeGreaterThanOrEqual(before)
+    expect(
+      // @ts-expect-error
+      drupal._tokenExpiresOn
+    ).toBeLessThanOrEqual(after)
   })
 })

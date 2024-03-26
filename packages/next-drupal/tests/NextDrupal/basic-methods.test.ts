@@ -76,7 +76,10 @@ describe("deserialize()", () => {
 
     expect(article).toMatchSnapshot()
     expect(article.id).toEqual("52837ad0-f218-46bd-a106-5710336b7053")
-    expect(article.title).toEqual(`TITLE: ${json.data.attributes.title}`)
+    expect(article.title).toEqual(
+      // @ts-expect-error
+      `TITLE: ${json.data.attributes.title}`
+    )
   })
 
   test("returns null if no body", () => {

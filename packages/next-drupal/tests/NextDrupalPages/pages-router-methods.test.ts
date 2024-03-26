@@ -1120,6 +1120,7 @@ describe("preview()", () => {
   // Get values from our mocked request.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { path, resourceVersion, plugin, secret, ...draftData } =
+    // @ts-expect-error
     new NextApiRequest().query
   const dataCookie = `${DRAFT_DATA_COOKIE_NAME}=${encodeURIComponent(
     JSON.stringify({ path, resourceVersion, ...draftData })
@@ -1130,7 +1131,9 @@ describe("preview()", () => {
   }
 
   test("turns on preview mode and clears preview data", async () => {
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const drupal = new NextDrupalPages(BASE_URL)
     spyOnFetch({ responseBody: validationPayload })
@@ -1147,7 +1150,9 @@ describe("preview()", () => {
 
   test("does not enable preview mode if validation fails", async () => {
     const logger = mockLogger()
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const drupal = new NextDrupalPages(BASE_URL, { debug: true, logger })
     const status = 403
@@ -1171,7 +1176,9 @@ describe("preview()", () => {
   })
 
   test("does not turn on draft mode by default", async () => {
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const drupal = new NextDrupalPages(BASE_URL)
     spyOnFetch({ responseBody: validationPayload })
@@ -1186,7 +1193,9 @@ describe("preview()", () => {
   })
 
   test("optionally turns on draft mode", async () => {
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const logger = mockLogger()
     const drupal = new NextDrupalPages(BASE_URL, {
@@ -1208,7 +1217,9 @@ describe("preview()", () => {
   })
 
   test("updates preview mode cookie’s sameSite flag", async () => {
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const drupal = new NextDrupalPages(BASE_URL)
     spyOnFetch({ responseBody: validationPayload })
@@ -1232,7 +1243,9 @@ describe("preview()", () => {
   })
 
   test("redirects to the given path", async () => {
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const logger = mockLogger()
     const drupal = new NextDrupalPages(BASE_URL, { debug: true, logger })
@@ -1250,7 +1263,9 @@ describe("preview()", () => {
   })
 
   test("returns a 422 response on error", async () => {
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const logger = mockLogger()
     const drupal = new NextDrupalPages(BASE_URL, { debug: true, logger })
@@ -1269,7 +1284,9 @@ describe("preview()", () => {
 
 describe("previewDisable()", () => {
   test("clears preview data", async () => {
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const drupal = new NextDrupalPages(BASE_URL)
 
@@ -1278,7 +1295,9 @@ describe("previewDisable()", () => {
   })
 
   test("disables draft mode", async () => {
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const drupal = new NextDrupalPages(BASE_URL)
 
@@ -1287,7 +1306,9 @@ describe("previewDisable()", () => {
   })
 
   test("deletes the draft cookie", async () => {
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const drupal = new NextDrupalPages(BASE_URL)
 
@@ -1299,7 +1320,9 @@ describe("previewDisable()", () => {
   })
 
   test('redirects to "/"', async () => {
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const drupal = new NextDrupalPages(BASE_URL)
 

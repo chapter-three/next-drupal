@@ -233,7 +233,7 @@ describe("getAccessToken()", () => {
 
     await expect(
       drupal.getAccessToken(
-        // @ts-ignore
+        // @ts-expect-error
         { clientId: clientIdSecret.clientId }
       )
     ).rejects.toThrow(errorMessage)
@@ -563,7 +563,7 @@ describe("getAuthorizationHeader()", () => {
 
     await expect(
       drupal.getAuthorizationHeader(
-        // @ts-ignore
+        // @ts-expect-error
         auth
       )
     ).rejects.toThrow(

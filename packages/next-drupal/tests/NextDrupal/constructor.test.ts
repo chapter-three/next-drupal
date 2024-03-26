@@ -27,6 +27,7 @@ jest.mock("jsona", () => {
 })
 
 beforeEach(() => {
+  // @ts-expect-error
   Jsona.mockClear()
 })
 
@@ -108,6 +109,7 @@ describe("options parameter", () => {
       expect(Jsona).toBeCalledTimes(1)
 
       const deserializeMock = new Jsona().deserialize
+      // @ts-expect-error
       deserializeMock.mockClear()
       const args: Parameters<JsonDeserializer> = [{}, { options: true }]
       drupal.deserialize(...args)

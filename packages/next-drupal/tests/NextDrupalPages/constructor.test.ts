@@ -19,7 +19,10 @@ describe("options parameter", () => {
   describe("serializer", () => {
     test("defaults to `new Jsona()`", () => {
       const drupal = new NextDrupalPages(BASE_URL)
-      expect(drupal.serializer).toBeInstanceOf(Jsona)
+      expect(
+        // @ts-expect-error
+        drupal.serializer
+      ).toBeInstanceOf(Jsona)
     })
 
     test("sets up a custom serializer", () => {
@@ -37,7 +40,10 @@ describe("options parameter", () => {
       const drupal = new NextDrupalPages(BASE_URL, {
         serializer: customSerializer,
       })
-      expect(drupal.serializer).toBe(customSerializer)
+      expect(
+        // @ts-expect-error
+        drupal.serializer
+      ).toBe(customSerializer)
     })
   })
 })

@@ -52,11 +52,13 @@ describe("deserialize()", () => {
   test("allows for custom data serializer", async () => {
     const deserializer: JsonDeserializer = (
       body: { data: { id: string; attributes: { title: string } } },
-      options: { pathPrefix: string }
+      options: { titlePrefix: string }
     ) => {
       return {
         id: body.data.id,
-        title: `${options.pathPrefix}: ${body.data.attributes.title}`,
+        title:
+          (options.titlePrefix ? `${options.titlePrefix}: ` : "") +
+          body.data.attributes.title,
       }
     }
     const drupal = new NextDrupal(BASE_URL, {
@@ -71,7 +73,7 @@ describe("deserialize()", () => {
     expect(response.status).toBe(200)
     const json = await response.json()
     const article = drupal.deserialize(json, {
-      pathPrefix: "TITLE",
+      titlePrefix: "TITLE",
     }) as DrupalNode
 
     expect(article).toMatchSnapshot()

@@ -21,15 +21,17 @@ describe("baseUrl parameter", () => {
   })
 
   test("throws error given an invalid baseUrl", () => {
-    // @ts-ignore
-    expect(() => new NextDrupalBase()).toThrow(
-      "The 'baseUrl' param is required."
-    )
+    expect(
+      () =>
+        // @ts-expect-error
+        new NextDrupalBase()
+    ).toThrow("The 'baseUrl' param is required.")
 
-    // @ts-ignore
-    expect(() => new NextDrupalBase({})).toThrow(
-      "The 'baseUrl' param is required."
-    )
+    expect(
+      () =>
+        // @ts-expect-error
+        new NextDrupalBase({})
+    ).toThrow("The 'baseUrl' param is required.")
   })
 
   test("announces debug mode when turned on", () => {

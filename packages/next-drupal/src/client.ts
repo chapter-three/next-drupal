@@ -673,6 +673,18 @@ export class DrupalClient {
       withAuth: options.withAuth,
     })
 
+    // Server error. But 404 is treated implicitely below.
+    if (!response?.ok && response.status !== 404) {
+      let errorMessage: string
+      try {
+        const responseJson = await response.json()
+        errorMessage = `${response.status} ${responseJson?.message}`
+      } catch (e) {
+        errorMessage = `${response.status} ${response.statusText}`
+      }
+      throw new Error(errorMessage)
+    }
+
     const json = await response.json()
 
     if (!json?.["resolvedResource#uri{0}"]?.body) {

@@ -449,6 +449,19 @@ describe("getResourceByPath()", () => {
     ).rejects.toThrow("Unable to resolve path /path-do-not-exist.")
   })
 
+  test("throws an error for server errors", async () => {
+    const client = new DrupalClient(BASE_URL)
+
+    spyOnFetch({
+      responseBody: { message: "mocked internal server error" },
+      status: 500,
+    })
+
+    await expect(
+      client.getResourceByPath<DrupalNode>("/server-error")
+    ).rejects.toThrow("500 mocked internal server error")
+  })
+
   test("throws an error for invalid params", async () => {
     const client = new DrupalClient(BASE_URL)
 
@@ -836,8 +849,7 @@ describe("translatePath()", () => {
     expect(path).toBeNull()
   })
 
-  test("throws error for server errors", async () => {
-    console.log(BASE_URL)
+  test("throws an error for server errors", async () => {
     const client = new DrupalClient(BASE_URL)
 
     spyOnFetch({

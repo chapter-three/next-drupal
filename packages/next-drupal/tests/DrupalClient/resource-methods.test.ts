@@ -836,6 +836,20 @@ describe("translatePath()", () => {
     expect(path).toBeNull()
   })
 
+  test("throws error for server errors", async () => {
+    console.log(BASE_URL)
+    const client = new DrupalClient(BASE_URL)
+
+    spyOnFetch({
+      responseBody: { message: "mocked internal server error" },
+      status: 500,
+    })
+
+    await expect(client.translatePath("/server-error")).rejects.toThrowError(
+      "500 mocked internal server error"
+    )
+  })
+
   test("makes un-authenticated requests by default", async () => {
     const client = new DrupalClient(BASE_URL)
     const fetchSpy = jest.spyOn(client, "fetch")

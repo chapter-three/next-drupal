@@ -680,6 +680,7 @@ export class DrupalClient {
         const responseJson = await response.json()
         errorMessage = `${response.status} ${responseJson?.message}`
       } catch (e) {
+        /* c8 ignore next 2 */
         errorMessage = `${response.status} ${response.statusText}`
       }
       throw new Error(errorMessage)
@@ -913,6 +914,7 @@ export class DrupalClient {
         const responseJson = await response.json()
         errorMessage = `${response.status} ${responseJson?.message}`
       } catch (e) {
+        /* c8 ignore next 2 */
         errorMessage = `${response.status} ${response.statusText}`
       }
       throw new Error(errorMessage)

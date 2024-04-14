@@ -673,6 +673,19 @@ export class DrupalClient {
       withAuth: options.withAuth,
     })
 
+    // Server error. But 404 is treated implicitely below.
+    if (!response?.ok && response.status !== 404) {
+      let errorMessage: string
+      try {
+        const responseJson = await response.json()
+        errorMessage = `${response.status} ${responseJson?.message}`
+      } catch (e) {
+        /* c8 ignore next 2 */
+        errorMessage = `${response.status} ${response.statusText}`
+      }
+      throw new Error(errorMessage)
+    }
+
     const json = await response.json()
 
     if (!json?.["resolvedResource#uri{0}"]?.body) {
@@ -890,10 +903,21 @@ export class DrupalClient {
     })
 
     if (!response?.ok) {
-      // Do not throw errors here.
-      // Otherwise next.js will catch error and throw a 500.
-      // We want a 404.
-      return null
+      // Do not throw errors here when response is 404.
+      if (response.status === 404) {
+        return null
+      }
+
+      // Throw error in any other situation as response is not ok.
+      let errorMessage: string
+      try {
+        const responseJson = await response.json()
+        errorMessage = `${response.status} ${responseJson?.message}`
+      } catch (e) {
+        /* c8 ignore next 2 */
+        errorMessage = `${response.status} ${response.statusText}`
+      }
+      throw new Error(errorMessage)
     }
 
     const json = await response.json()

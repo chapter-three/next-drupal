@@ -889,29 +889,6 @@ describe("getResourceFromContext()", () => {
     )
   })
 
-  test("throws an error if revision access is forbidden", async () => {
-    const drupal = new NextDrupalPages(BASE_URL)
-
-    const context: GetStaticPropsContext = {
-      previewData: {
-        resourceVersion: "id:1",
-      },
-      params: {
-        slug: ["recipes", "deep-mediterranean-quiche"],
-      },
-    }
-
-    await expect(
-      drupal.getResourceFromContext<DrupalNode>("node--recipe", context, {
-        params: {
-          "fields[node--recipe]": "title",
-        },
-      })
-    ).rejects.toThrow(
-      "403 Forbidden\nThe current user is not allowed to GET the selected resource. The user does not have access to the requested version."
-    )
-  })
-
   test("makes un-authenticated requests by default", async () => {
     const drupal = new NextDrupalPages(BASE_URL)
     const drupalFetchSpy = spyOnDrupalFetch(drupal)

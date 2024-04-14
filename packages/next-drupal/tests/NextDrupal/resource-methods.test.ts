@@ -330,6 +330,7 @@ describe("getResource()", () => {
 
   test("throws an error if revision access is forbidden", async () => {
     const drupal = new NextDrupal(BASE_URL)
+    spyOnFetch({ responseBody: mocks.resources.node.forbidden, status: 403 })
 
     await expect(
       drupal.getResource<DrupalNode>(
@@ -501,6 +502,10 @@ describe("getResourceByPath()", () => {
 
   test("throws an error if revision access is forbidden", async () => {
     const drupal = new NextDrupal(BASE_URL)
+    spyOnFetch({
+      responseBody: mocks.resources.subRequests.forbidden,
+      status: 207,
+    })
 
     await expect(
       drupal.getResourceByPath<DrupalNode>(

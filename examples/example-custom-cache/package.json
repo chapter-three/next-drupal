@@ -14,14 +14,14 @@
     "test:e2e:ci": "start-server-and-test 'yarn preview' http://localhost:3939 cy:run"
   },
   "dependencies": {
-    "ioredis": "^5.0.4",
-    "next": "^12.2.3",
-    "next-drupal": "^1.6.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "ioredis": "^5.4.1",
+    "next": "^14.2.2",
+    "next-drupal": "^2.0.0-alpha.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "eslint-config-next": "^12.0.10",
-    "typescript": "^5.2.2"
+    "eslint-config-next": "^14.2.2",
+    "typescript": "^5.4.5"
   }
 }

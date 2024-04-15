@@ -71,15 +71,15 @@
     "url": "https://github.com/chapter-three/next-drupal.git",
     "directory": "packages/next-drupal"
   },
-  "devDependencies": {
-    "typescript": "^5.3.3"
-  },
   "dependencies": {
     "jsona": "^1.12.1",
     "next": "^13.4 || ^14",
     "node-cache": "^5.1.2",
-    "qs": "^6.11.2",
-    "react": "^17.0.2 || ^18",
-    "react-dom": "^17.0.2 || ^18"
+    "qs": "^6.12.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
   }
 }

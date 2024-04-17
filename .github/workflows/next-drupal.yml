@@ -14,6 +14,12 @@ jobs:
         with:
           ref: ${{github.event.pull_request.head.ref}}
           repository: ${{github.event.pull_request.head.repo.full_name}}
+      # TODO: Work-around for failing code coverage.
+      # https://github.com/chapter-three/next-drupal/issues/740
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.19.x'
       - name: Install packages
         run: yarn
       - name: Run tests

@@ -1,1 +1,5 @@
-v18
+v18.19
+
+# @TODO v18.20 and v20.10 and later have a bug that causes Jest code coverage to randomly fail. When the tracking bug is fixed, switch to the less-specific "v18" or "v20" version. See https://github.com/chapter-three/next-drupal/issues/740
+
+# Note: This is a non-standard .nvmrc comment. Currently, nvm ignores all lines except the 1st line so we are hijacking this implementation detail to add comments to this file. See https://github.com/nvm-sh/nvm/pull/2288#issuecomment-1115079020

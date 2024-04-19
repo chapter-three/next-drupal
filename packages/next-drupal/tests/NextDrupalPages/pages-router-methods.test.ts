@@ -891,7 +891,10 @@ describe("getResourceFromContext()", () => {
 
   test("makes un-authenticated requests by default", async () => {
     const drupal = new NextDrupalPages(BASE_URL)
-    const drupalFetchSpy = spyOnDrupalFetch(drupal)
+    const drupalFetchSpy = spyOnDrupalFetch(drupal, {
+      responseBody: mocks.resources.subRequests.ok,
+      status: 207,
+    })
     const context: GetStaticPropsContext = {
       params: {
         slug: ["recipes", "deep-mediterranean-quiche"],

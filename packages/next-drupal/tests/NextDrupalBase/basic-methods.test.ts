@@ -274,6 +274,18 @@ describe("getErrorsFromResponse()", () => {
     expect(await drupal.getErrorsFromResponse(response)).toBe(message)
   })
 
+  test("returns the response status text if the application/json errors cannot be found", async () => {
+    const response = new Response(JSON.stringify({}), {
+      status: 403,
+      statusText: "Forbidden",
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+
+    expect(await drupal.getErrorsFromResponse(response)).toBe("Forbidden")
+  })
+
   test("returns application/vnd.api+json errors", async () => {
     const payload = {
       errors: [
@@ -317,7 +329,7 @@ describe("getErrorsFromResponse()", () => {
   })
 
   test("returns the response status text if no errors can be found", async () => {
-    const response = new Response(JSON.stringify({}), {
+    const response = new Response("403 Forbidden", {
       status: 403,
       statusText: "Forbidden",
     })

@@ -372,36 +372,33 @@ export class NextDrupal extends NextDrupalBase {
       withAuth: options.withAuth,
     })
 
-    // Server error. But 404 is treated implicitly below.
-    if (!response?.ok && response.status !== 404) {
-      let errorMessage: string
-      try {
-        const responseJson = await response.json()
-        errorMessage = `${response.status} ${responseJson?.message}`
-      } catch (e) {
-        /* c8 ignore next 2 */
-        errorMessage = `${response.status} ${response.statusText}`
-      }
-      throw new Error(errorMessage)
+    const errorMessagePrefix = "Error while fetching resource by path:"
+
+    if (response.status !== 207) {
+      const errors = await this.getErrorsFromResponse(response)
+      throw new JsonApiErrors(errors, response.status, errorMessagePrefix)
     }
 
     const json = await response.json()
 
     if (!json?.["resolvedResource#uri{0}"]?.body) {
-      if (json?.router?.body) {
-        const error = JSON.parse(json.router.body)
-        if (error?.message) {
-          this.logOrThrowError(new Error(error.message))
-        }
+      const status = json?.router?.headers?.status?.[0]
+      if (status === 404) {
+        return null
       }
-
-      return null
+      const message =
+        (json?.router?.body && JSON.parse(json.router.body)?.message) ||
+        "Unknown error"
+      throw new JsonApiErrors(message, status, errorMessagePrefix)
     }
 
     const data = JSON.parse(json["resolvedResource#uri{0}"]?.body)
 
     if (data.errors) {
-      this.logOrThrowError(new Error(JsonApiErrors.formatMessage(data.errors)))
+      const status = json?.["resolvedResource#uri{0}"]?.headers?.status?.[0]
+      this.logOrThrowError(
+        new JsonApiErrors(data.errors, status, errorMessagePrefix)
+      )
     }
 
     return options.deserialize ? this.deserialize(data) : data
@@ -567,23 +564,13 @@ export class NextDrupal extends NextDrupalBase {
       withAuth: options.withAuth,
     })
 
-    if (!response?.ok) {
-      // Do not throw errors here when response is 404.
-      if (response.status === 404) {
-        return null
-      }
-
-      // Throw error in any other situation as response is not ok.
-      let errorMessage: string
-      try {
-        const responseJson = await response.json()
-        errorMessage = `${response.status} ${responseJson?.message}`
-      } catch (e) {
-        /* c8 ignore next 2 */
-        errorMessage = `${response.status} ${response.statusText}`
-      }
-      throw new Error(errorMessage)
+    if (response.status === 404) {
+      // Do not throw errors here, otherwise Next.js will catch the error and
+      // throw a 500. We want a 404.
+      return null
     }
+
+    await this.throwIfJsonErrors(response)
 
     return await response.json()
   }

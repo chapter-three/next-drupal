@@ -6,6 +6,7 @@ interface SpyOnFetchParams {
   responseBody?: any
   throwErrorMessage?: string
   status?: number
+  statusText?: string
   headers?: Record<string, string>
 }
 
@@ -13,6 +14,7 @@ export function spyOnFetch({
   responseBody = null,
   throwErrorMessage = null,
   status = 200,
+  statusText = "",
   headers = {},
 }: SpyOnFetchParams = {}) {
   return jest.spyOn(global, "fetch").mockImplementation(
@@ -20,6 +22,7 @@ export function spyOnFetch({
       responseBody,
       throwErrorMessage,
       status,
+      statusText,
       headers,
     })
   )
@@ -29,6 +32,7 @@ export function spyOnFetchOnce({
   responseBody = null,
   throwErrorMessage = null,
   status = 200,
+  statusText = "",
   headers = {},
 }: SpyOnFetchParams) {
   return jest.spyOn(global, "fetch").mockImplementationOnce(
@@ -36,6 +40,7 @@ export function spyOnFetchOnce({
       responseBody,
       throwErrorMessage,
       status,
+      statusText,
       headers,
     })
   )
@@ -47,6 +52,7 @@ export function spyOnDrupalFetch(
     responseBody = null,
     throwErrorMessage = null,
     status = 200,
+    statusText = "",
     headers = {},
   }: SpyOnFetchParams = {}
 ) {
@@ -55,6 +61,7 @@ export function spyOnDrupalFetch(
       responseBody,
       throwErrorMessage,
       status,
+      statusText,
       headers,
     })
   )
@@ -64,6 +71,7 @@ function fetchMockImplementation({
   responseBody = null,
   throwErrorMessage = null,
   status = 200,
+  statusText = "",
   headers = {},
 }: SpyOnFetchParams) {
   if (throwErrorMessage) {
@@ -72,14 +80,34 @@ function fetchMockImplementation({
     }
   }
 
+  const hasTextResponse = typeof responseBody === "string"
+
   const mockedHeaders = new Headers(headers)
   if (!mockedHeaders.has("content-type")) {
-    mockedHeaders.set("content-type", "application/vnd.api+json")
+    let contentType: string
+    if (hasTextResponse) {
+      contentType = "text/plain"
+    } else if (
+      responseBody?.data ||
+      responseBody?.errors ||
+      responseBody?.meta ||
+      responseBody?.jsonapi
+    ) {
+      contentType = "application/vnd.api+json"
+    } else {
+      contentType = "application/json"
+    }
+
+    mockedHeaders.set("Content-type", contentType)
   }
 
   return async () =>
-    new Response(JSON.stringify(responseBody || {}), {
-      status,
-      headers: mockedHeaders,
-    })
+    new Response(
+      hasTextResponse ? responseBody : JSON.stringify(responseBody || {}),
+      {
+        status,
+        statusText,
+        headers: mockedHeaders,
+      }
+    )
 }

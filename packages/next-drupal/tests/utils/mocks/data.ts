@@ -461,25 +461,32 @@ const resources = {
     },
   },
   translatePath: {
-    jsonapi: {
-      basePath: "/en/jsonapi",
-      entryPoint: "https://example.com/en/jsonapi",
-      individual:
-        "https://example.com/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
-      resourceName: "node--recipe",
+    ok: {
+      jsonapi: {
+        basePath: "/en/jsonapi",
+        entryPoint: "https://example.com/en/jsonapi",
+        individual:
+          "https://example.com/en/jsonapi/node/recipe/71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+        resourceName: "node--recipe",
+      },
+      entity: {
+        bundle: "recipe",
+        canonical: "https://example.com/en/recipes/deep-mediterranean-quiche",
+        id: "1",
+        langcode: "en",
+        path: "/en/recipes/deep-mediterranean-quiche",
+        type: "node",
+        uuid: "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      },
+      isHomePath: false,
+      label: "Deep mediterranean quiche - edited",
+      resolved: "https://example.com/en/recipes/deep-mediterranean-quiche",
     },
-    entity: {
-      bundle: "recipe",
-      canonical: "https://example.com/en/recipes/deep-mediterranean-quiche",
-      id: "1",
-      langcode: "en",
-      path: "/en/recipes/deep-mediterranean-quiche",
-      type: "node",
-      uuid: "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+    notFound: {
+      message: "Unable to resolve path /path-does-not-exist.",
+      details:
+        "None of the available methods were able to find a match for this path.",
     },
-    isHomePath: false,
-    label: "Deep mediterranean quiche - edited",
-    resolved: "https://example.com/en/recipes/deep-mediterranean-quiche",
   },
   subRequests: {
     ok: {
@@ -532,11 +539,7 @@ const resources = {
     },
     pathNotFound: {
       router: {
-        body: JSON.stringify({
-          message: "Unable to resolve path /path-does-not-exist.",
-          details:
-            "None of the available methods were able to find a match for this path.",
-        }),
+        body: "SEE REPLACEMENT BELOW",
         headers: {
           "cache-control": ["no-cache, private"],
           "content-id": ["<router>"],
@@ -550,15 +553,20 @@ const resources = {
   },
 }
 // JSON-encode the subrequest body fields.
-resources.subRequests.ok.router.body = JSON.stringify(resources.translatePath)
+resources.subRequests.ok.router.body = JSON.stringify(
+  resources.translatePath.ok
+)
 resources.subRequests.ok["resolvedResource#uri{0}"].body = JSON.stringify(
   resources.node.ok
 )
 resources.subRequests.forbidden.router.body = JSON.stringify(
-  resources.translatePath
+  resources.translatePath.ok
 )
 resources.subRequests.forbidden["resolvedResource#uri{0}"].body =
   JSON.stringify(resources.node.forbidden)
+resources.subRequests.pathNotFound.router.body = JSON.stringify(
+  resources.translatePath.notFound
+)
 
 const menus = {
   menuItems: {

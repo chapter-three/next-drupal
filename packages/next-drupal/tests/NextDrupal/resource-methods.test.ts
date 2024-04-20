@@ -496,15 +496,16 @@ describe("getResourceByPath()", () => {
         }
       )
     ).rejects.toThrow(
-      "404 Not Found\nThe requested version, identified by `id:-11`, could not be found."
+      "Error while fetching resource by path: 404 Not Found\nThe requested version, identified by `id:-11`, could not be found."
     )
   })
 
   test("throws an error if revision access is forbidden", async () => {
     const drupal = new NextDrupal(BASE_URL)
     spyOnFetch({
-      responseBody: mocks.resources.subRequests.forbidden,
       status: 207,
+      statusText: "Multi-Status",
+      responseBody: mocks.resources.subRequests.forbidden,
     })
 
     await expect(
@@ -518,19 +519,87 @@ describe("getResourceByPath()", () => {
         }
       )
     ).rejects.toThrow(
-      "403 Forbidden\nThe current user is not allowed to GET the selected resource. The user does not have access to the requested version."
+      "Error while fetching resource by path: 403 Forbidden\nThe current user is not allowed to GET the selected resource. The user does not have access to the requested version."
     )
   })
 
   test("returns null for path not found", async () => {
     const drupal = new NextDrupal(BASE_URL)
 
-    await expect(
-      drupal.getResourceByPath<DrupalNode>("/path-do-not-exist")
-    ).rejects.toThrow("Unable to resolve path /path-do-not-exist.")
+    spyOnFetch({
+      status: 207,
+      statusText: "Multi-Status",
+      responseBody: mocks.resources.subRequests.pathNotFound,
+    })
+
+    const path = await drupal.getResourceByPath<DrupalNode>(
+      "/path-does-not-exist"
+    )
+
+    expect(path).toBeNull()
   })
 
-  test("throws an error for invalid params", async () => {
+  test("throws an error on server error", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+
+    spyOnFetch({
+      status: 500,
+      statusText: "Internal server error",
+      responseBody: "500 Internal server error",
+    })
+
+    await expect(
+      drupal.getResourceByPath<DrupalNode>("/server-error")
+    ).rejects.toThrow(
+      "Error while fetching resource by path: Internal server error"
+    )
+  })
+
+  test("throws an error on router error", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+
+    spyOnFetch({
+      status: 207,
+      statusText: "Multi-Status",
+      responseBody: {
+        router: {
+          body: JSON.stringify({ message: "Forbidden" }),
+          headers: {
+            ...mocks.resources.subRequests.pathNotFound.router.headers,
+            status: [403],
+          },
+        },
+      },
+    })
+
+    await expect(
+      drupal.getResourceByPath<DrupalNode>("/router-error")
+    ).rejects.toThrow("Error while fetching resource by path: Forbidden")
+  })
+
+  test("throws an error on unknown router error", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+
+    spyOnFetch({
+      status: 207,
+      statusText: "Multi-Status",
+      responseBody: {
+        router: {
+          body: JSON.stringify({}),
+          headers: {
+            ...mocks.resources.subRequests.pathNotFound.router.headers,
+            status: [403],
+          },
+        },
+      },
+    })
+
+    await expect(
+      drupal.getResourceByPath<DrupalNode>("/router-error")
+    ).rejects.toThrow("Error while fetching resource by path: Unknown error")
+  })
+
+  test("throws an error on resource error", async () => {
     const drupal = new NextDrupal(BASE_URL)
 
     await expect(
@@ -543,18 +612,23 @@ describe("getResourceByPath()", () => {
         }
       )
     ).rejects.toThrow(
-      "400 Bad Request\n`invalid_relationship` is not a valid relationship field name. Possible values: node_type, revision_uid, uid, menu_link, field_media_image, field_recipe_category, field_tags."
+      "Error while fetching resource by path: 400 Bad Request\n`invalid_relationship` is not a valid relationship field name. Possible values: node_type, revision_uid, uid, menu_link, field_media_image, field_recipe_category, field_tags."
     )
   })
 
   test("makes un-authenticated requests by default", async () => {
     const drupal = new NextDrupal(BASE_URL)
-    const drupalFetchSpy = spyOnDrupalFetch(drupal)
+    const drupalFetchSpy = spyOnDrupalFetch(drupal, {
+      status: 207,
+      statusText: "Multi-Status",
+      responseBody: mocks.resources.subRequests.ok,
+    })
     const getAccessTokenSpy = jest.spyOn(drupal, "getAccessToken")
 
     await drupal.getResourceByPath<DrupalNode>(
       "/recipes/deep-mediterranean-quiche"
     )
+
     expect(drupalFetchSpy).toHaveBeenCalledWith(
       expect.anything(),
       expect.not.objectContaining({
@@ -573,8 +647,9 @@ describe("getResourceByPath()", () => {
       logger: mockLogger(),
     })
     const fetchSpy = spyOnFetch({
-      responseBody: { "resolvedResource#uri{0}": { body: "{}" } },
       status: 207,
+      statusText: "Multi-Status",
+      responseBody: { "resolvedResource#uri{0}": { body: "{}" } },
     })
     const getAccessTokenSpy = jest
       .spyOn(drupal, "getAccessToken")
@@ -1012,9 +1087,29 @@ describe("translatePath()", () => {
   test("returns null for path not found", async () => {
     const drupal = new NextDrupal(BASE_URL)
 
-    const path = await drupal.translatePath("/path-not-found")
+    spyOnFetch({
+      status: 404,
+      statusText: "Not found",
+      responseBody: mocks.resources.translatePath.notFound,
+    })
+
+    const path = await drupal.translatePath("/path-does-not-exist")
 
     expect(path).toBeNull()
+  })
+
+  test("throws an error on server error", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+
+    spyOnFetch({
+      status: 500,
+      statusText: "Internal server error",
+      responseBody: "500 Internal server error",
+    })
+
+    await expect(drupal.translatePath("/server-error")).rejects.toThrowError(
+      "Internal server error"
+    )
   })
 
   test("makes un-authenticated requests by default", async () => {

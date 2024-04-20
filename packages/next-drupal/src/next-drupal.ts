@@ -372,23 +372,33 @@ export class NextDrupal extends NextDrupalBase {
       withAuth: options.withAuth,
     })
 
+    const errorMessagePrefix = "Error while fetching resource by path:"
+
+    if (response.status !== 207) {
+      const errors = await this.getErrorsFromResponse(response)
+      throw new JsonApiErrors(errors, response.status, errorMessagePrefix)
+    }
+
     const json = await response.json()
 
     if (!json?.["resolvedResource#uri{0}"]?.body) {
-      if (json?.router?.body) {
-        const error = JSON.parse(json.router.body)
-        if (error?.message) {
-          this.logOrThrowError(new Error(error.message))
-        }
+      const status = json?.router?.headers?.status?.[0]
+      if (status === 404) {
+        return null
       }
-
-      return null
+      const message =
+        (json?.router?.body && JSON.parse(json.router.body)?.message) ||
+        "Unknown error"
+      throw new JsonApiErrors(message, status, errorMessagePrefix)
     }
 
     const data = JSON.parse(json["resolvedResource#uri{0}"]?.body)
 
     if (data.errors) {
-      this.logOrThrowError(new Error(JsonApiErrors.formatMessage(data.errors)))
+      const status = json?.["resolvedResource#uri{0}"]?.headers?.status?.[0]
+      this.logOrThrowError(
+        new JsonApiErrors(data.errors, status, errorMessagePrefix)
+      )
     }
 
     return options.deserialize ? this.deserialize(data) : data
@@ -554,11 +564,13 @@ export class NextDrupal extends NextDrupalBase {
       withAuth: options.withAuth,
     })
 
-    if (!response?.ok) {
+    if (response.status === 404) {
       // Do not throw errors here, otherwise Next.js will catch the error and
       // throw a 500. We want a 404.
       return null
     }
+
+    await this.throwIfJsonErrors(response)
 
     return await response.json()
   }

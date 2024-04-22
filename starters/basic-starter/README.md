@@ -1,6 +1,6 @@
 # Basic Starter
 
-A simple starter for building your site with Next.js and Drupal.
+A simple starter for building your site with Next.js' Pages Router and Drupal.
 
 ## How to use
 

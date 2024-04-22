@@ -1,9 +1,9 @@
 import Image from "next/image"
 import { formatDate } from "@/lib/utils"
-import type { NodeArticle } from "@/types"
+import type { DrupalArticle } from "@/types"
 
 interface ArticleProps {
-  node: NodeArticle
+  node: DrupalArticle
 }
 
 export function Article({ node, ...props }: ArticleProps) {
@@ -11,13 +11,12 @@ export function Article({ node, ...props }: ArticleProps) {
     <article {...props}>
       <h1 className="mb-4 text-6xl font-black leading-tight">{node.title}</h1>
       <div className="mb-4 text-gray-600">
-        {node.author?.displayName ? (
+        {node.author?.name ? (
           <span>
-            Posted by{" "}
-            <span className="font-semibold">{node.author.displayName}</span>
+            Posted by <span className="font-semibold">{node.author.name}</span>
           </span>
         ) : null}
-        <span> - {formatDate(node.created)}</span>
+        <span> - {formatDate(node.created.time)}</span>
       </div>
       {node.image && (
         <figure>

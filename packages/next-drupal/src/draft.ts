@@ -5,11 +5,11 @@ import {
   DRAFT_MODE_COOKIE_NAME,
 } from "./draft-constants"
 import type { NextRequest } from "next/server"
-import type { NextDrupal } from "./next-drupal"
+import type { NextDrupalBase } from "./next-drupal-base"
 
 export async function enableDraftMode(
   request: NextRequest,
-  drupal: NextDrupal
+  drupal: NextDrupalBase
 ): Promise<Response | never> {
   // Validate the draft request.
   const response = await drupal.validateDraftUrl(request.nextUrl.searchParams)

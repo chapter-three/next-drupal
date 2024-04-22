@@ -1,10 +1,10 @@
 import Image from "next/image"
-import Link from "next/link"
+import { Link } from "@/components/navigation/Link"
 import { formatDate } from "@/lib/utils"
-import type { NodeArticle } from "@/types"
+import type { DrupalArticle } from "@/types"
 
 interface ArticleTeaserProps {
-  node: Partial<NodeArticle>
+  node: Partial<DrupalArticle>
 }
 
 export function ArticleTeaser({ node, ...props }: ArticleTeaserProps) {
@@ -14,13 +14,12 @@ export function ArticleTeaser({ node, ...props }: ArticleTeaserProps) {
         <h2 className="mb-4 text-4xl font-bold">{node.title}</h2>
       </Link>
       <div className="mb-4 text-gray-600">
-        {node.author?.displayName ? (
+        {node.author?.name ? (
           <span>
-            Posted by{" "}
-            <span className="font-semibold">{node.author.displayName}</span>
+            Posted by <span className="font-semibold">{node.author.name}</span>
           </span>
         ) : null}
-        {node.created && <span> - {formatDate(node.created)}</span>}
+        {node.created && <span> - {formatDate(node.created.time)}</span>}
       </div>
       {node.image && (
         <figure className="my-4">

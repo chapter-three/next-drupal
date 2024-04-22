@@ -12,7 +12,7 @@ import { NextRequest } from "next/server"
 import {
   DRAFT_DATA_COOKIE_NAME,
   DRAFT_MODE_COOKIE_NAME,
-  NextDrupal,
+  NextDrupalBase,
 } from "../../src"
 import { BASE_URL, spyOnFetch } from "../utils"
 import {
@@ -50,7 +50,7 @@ describe("enableDraftMode()", () => {
   const request = new NextRequest(
     `https://example.com/api/draft?${searchParams}`
   )
-  const drupal = new NextDrupal(BASE_URL)
+  const drupal = new NextDrupalBase(BASE_URL)
   const draftModeCookie: ResponseCookie = {
     name: DRAFT_MODE_COOKIE_NAME,
     value: "some-secret-key",

@@ -18,7 +18,7 @@
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.12",
     "next": "^14.2.2",
-    "next-drupal": "^2.0.0-alpha.1",
+    "next-drupal": "^2.0.0-beta.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.3",

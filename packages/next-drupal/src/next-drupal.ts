@@ -52,6 +52,8 @@ export class NextDrupal extends NextDrupalBase {
 
   useDefaultEndpoints: boolean
 
+  useSubrequests: boolean
+
   /**
    * Instantiates a new NextDrupal.
    *
@@ -70,6 +72,7 @@ export class NextDrupal extends NextDrupalBase {
       headers = DEFAULT_HEADERS,
       throwJsonApiErrors = true,
       useDefaultEndpoints = true,
+      useSubrequests = false,
     } = options
 
     this.apiPrefix = apiPrefix
@@ -78,6 +81,7 @@ export class NextDrupal extends NextDrupalBase {
     this.headers = headers
     this.throwJsonApiErrors = !!throwJsonApiErrors
     this.useDefaultEndpoints = !!useDefaultEndpoints
+    this.useSubrequests = useSubrequests
 
     // Do not throw errors in production.
     if (process.env.NODE_ENV === "production") {
@@ -331,10 +335,26 @@ export class NextDrupal extends NextDrupalBase {
       params.resourceVersion = resourceVersion
     }
 
+    options.params = params
+
+    if (!this.useSubrequests) {
+      const translatedPath = await this.translatePath(path, options)
+
+      // If the path was 404 Not Found, return null.
+      if (translatedPath === null) {
+        return null
+      }
+
+      const uuid = translatedPath.entity.uuid
+      const type = translatedPath.jsonapi.resourceName
+
+      return this.getResource<T>(uuid, type, options)
+    }
+
     const resourceParams = stringify(params)
 
-    // We are intentionally not using translatePath here.
-    // We want a single request using subrequests.
+    // Instead of using translatePath and getResource, we create a single
+    // JSON:API request using subrequests.
     const payload = [
       {
         requestId: "router",
@@ -570,7 +590,7 @@ export class NextDrupal extends NextDrupalBase {
       return null
     }
 
-    await this.throwIfJsonErrors(response)
+    await this.throwIfJsonErrors(response, "Error while fetching path: ")
 
     return await response.json()
   }

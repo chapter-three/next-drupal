@@ -41,6 +41,16 @@ export type NextDrupalOptions = NextDrupalBaseOptions & {
    * [Documentation](https://next-drupal.org/docs/client/configuration#usedefaultendpoints)
    */
   useDefaultEndpoints?: boolean
+
+  /**
+   * Optionally use the subrequests Drupal module to perform 2 or more JSON:API requests in one fetch operation.
+   *
+   * * **Default value**: `false`
+   * * **Required**: *No*
+   *
+   * [Documentation](https://next-drupal.org/docs/client/configuration#usesubrequests)
+   */
+  useSubrequests?: boolean
 }
 
 export type JsonDeserializer = (

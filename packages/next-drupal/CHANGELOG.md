@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@2.0.0-alpha.1...next-drupal@2.0.0-beta.0) (2024-04-26)
+
+
+### Bug Fixes
+
+* **next-drupal:** allow clientId/Secret in getAccessToken() params ([5581933](https://github.com/chapter-three/next-drupal/commit/55819335c3435e4f8467519ed9e03f9c392f07e1))
+* **next-drupal:** throw non-404 errors from /router/translate-path responses ([5ed427e](https://github.com/chapter-three/next-drupal/commit/5ed427e72110d95248790fde03bbcbb54e6f5d98)), closes [#687](https://github.com/chapter-three/next-drupal/issues/687)
+* **next-drupal:** use NextDrupalBase in enableDraftMode() ([41bdd55](https://github.com/chapter-three/next-drupal/commit/41bdd55cd9a7ec2b59ff95c22df1b524b1487570)), closes [#749](https://github.com/chapter-three/next-drupal/issues/749)
+
+
+* feat(next)!: change "slug" search param to "path" in preview/revalidate urls ([4bce663](https://github.com/chapter-three/next-drupal/commit/4bce66307b42bed5db8c15eca6f86b87610a3c8c)), closes [#718](https://github.com/chapter-three/next-drupal/issues/718)
+
+
+### Features
+
+* **next-drupal:** add new method to support App Router's generateStaticParams() ([d097337](https://github.com/chapter-three/next-drupal/commit/d097337f111937016956a93ccf1f9f29823a0933)), closes [#665](https://github.com/chapter-three/next-drupal/issues/665)
+* **next-drupal:** add NextDrupal and NextDrupalBase class definitions ([c9ae778](https://github.com/chapter-three/next-drupal/commit/c9ae778b02939b16a51db3d6de4691396e2ca592)), closes [#665](https://github.com/chapter-three/next-drupal/issues/665)
+* **next-drupal:** remove unneeded previewSecret option/env variable ([a49f641](https://github.com/chapter-three/next-drupal/commit/a49f641bd4bff1cf900237023eaad889e3a90ff7)), closes [#661](https://github.com/chapter-three/next-drupal/issues/661)
+
+
+### BREAKING CHANGES
+
+* When Drupal uses the Preview Url and the Revalidate Url, the "slug" search param
+has been renamed to "path".
+
+
+
+
+
 # [2.0.0-alpha.1](https://github.com/chapter-three/next-drupal/compare/next-drupal@2.0.0-alpha.0...next-drupal@2.0.0-alpha.1) (2024-02-21)
 
 

@@ -16,7 +16,7 @@
   "dependencies": {
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.12",
-    "@tanstack/react-query": "^4.36.1",
+    "@tanstack/react-query": "^5.37.1",
     "next": "^14.2.2",
     "next-drupal": "^2.0.0-beta.0",
     "react": "^18.2.0",

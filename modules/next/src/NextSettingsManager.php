@@ -9,6 +9,7 @@ use Drupal\next\Plugin\PreviewUrlGeneratorInterface;
 use Drupal\next\Plugin\PreviewUrlGeneratorManagerInterface;
 use Drupal\next\Plugin\SitePreviewerInterface;
 use Drupal\next\Plugin\SitePreviewerManagerInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Provides a service for next settings.
@@ -37,6 +38,13 @@ class NextSettingsManager implements NextSettingsManagerInterface {
   protected PreviewUrlGeneratorManagerInterface $previewUrlGeneratorManager;
 
   /**
+   * A logger instance.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
+  protected $logger;
+
+  /**
    * NextSettingsManager constructor.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config
@@ -45,11 +53,14 @@ class NextSettingsManager implements NextSettingsManagerInterface {
    *   The site previewer plugin manager.
    * @param \Drupal\next\Plugin\PreviewUrlGeneratorManagerInterface $preview_url_generator_manager
    *   The preview url generator plugin manager.
+   * @param \Psr\Log\LoggerInterface $logger
+   *   The logger instance.
    */
-  public function __construct(ConfigFactoryInterface $config, SitePreviewerManagerInterface $site_previewer_manager, PreviewUrlGeneratorManagerInterface $preview_url_generator_manager) {
+  public function __construct(ConfigFactoryInterface $config, SitePreviewerManagerInterface $site_previewer_manager, PreviewUrlGeneratorManagerInterface $preview_url_generator_manager, LoggerInterface $logger) {
     $this->config = $config;
     $this->sitePreviewerManager = $site_previewer_manager;
     $this->previewUrlGeneratorManager = $preview_url_generator_manager;
+    $this->logger = $logger;
   }
 
   /**
@@ -86,7 +97,7 @@ class NextSettingsManager implements NextSettingsManagerInterface {
       return $site_previewer;
     }
     catch (PluginException $exception) {
-      watchdog_exception('next_drupal', $exception);
+      $this->logger->error($exception);
 
       return NULL;
     }
@@ -105,8 +116,7 @@ class NextSettingsManager implements NextSettingsManagerInterface {
       return $preview_url_generator;
     }
     catch (PluginException $exception) {
-
-      watchdog_exception('next_drupal', $exception);
+      $this->logger->error($exception);
 
       return NULL;
     }

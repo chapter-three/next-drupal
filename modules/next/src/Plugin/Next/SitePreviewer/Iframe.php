@@ -211,8 +211,9 @@ class Iframe extends ConfigurableSitePreviewerBase implements ContainerFactoryPl
 
     // Handle revisions.
     if ($entity instanceof RevisionableInterface && !$entity->isDefaultRevision()) {
-      /** @var \Drupal\Core\Entity\RevisionableInterface $revision */
-      $revision = $this->entityTypeManager->getStorage($entity->getEntityTypeId())->loadRevision($entity->getRevisionId());
+      /** @var \Drupal\Core\Entity\RevisionableStorageInterface $entity_storage */
+      $entity_storage = $this->entityTypeManager->getStorage($entity->getEntityTypeId());
+      $revsion = $entity_storage->loadRevision($entity->getRevisionId());
 
       $build['toolbar']['links']['#links']['status'] = [
         'title' => $this->t('Revision: @date', [

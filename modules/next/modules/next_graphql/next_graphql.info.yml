@@ -1,7 +1,7 @@
 name: 'Next.js GraphQL'
 type: module
 description: 'GraphQL for Next.js'
-core_version_requirement: ^9 || ^10
+core_version_requirement: ^9 || ^10 || ^11
 package: Web services
 dependencies:
   - graphql:graphql

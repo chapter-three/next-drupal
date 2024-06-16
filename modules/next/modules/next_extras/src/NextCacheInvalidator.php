@@ -143,7 +143,8 @@ class NextCacheInvalidator {
         }
       }
       catch (RequestException $exception) {
-        watchdog_exception('next_extras', $exception);
+        // Using logger service to log the exception.
+        $this->logger->error($exception);
       }
     }
   }

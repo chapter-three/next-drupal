@@ -160,7 +160,7 @@ class SimpleOauthPreviewUrlGeneratorTest extends KernelTestBase {
    * @return array[]
    *   An array of test data.
    */
-  public function providerValidateForInvalidBody() {
+  public static function providerValidateForInvalidBody(): array {
     return [
       [[], "Field 'path' is missing"],
       [['path' => '/node/1'], "Field 'timestamp' is missing"],

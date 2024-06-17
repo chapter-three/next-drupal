@@ -22,11 +22,17 @@ jobs:
           - "10.0.x"
           - "10.1.x"
           - "10.2.x"
+          - "10.3.x"
+          - "11.0.x"
         exclude:
           - drupal: "10.0.x"
             php: "8.3"
           - drupal: "10.1.x"
             php: "8.3"
+          - drupal: "11.0.x"
+            php: "8.1"
+          - drupal: "11.0.x"
+            php: "8.2"
     name: Drupal ${{ matrix.drupal }} - PHP ${{ matrix.php }}
     services:
       mysql:

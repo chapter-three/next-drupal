@@ -24,7 +24,7 @@ export default function BlogsPage({ blogs }: BlogsPageProps) {
           <article key={blog.slug}>
             <h2 className="text-2xl font-bold leading-tight sm:text-3xl md:text-3xl">
               <Link href={blog.url} passHref>
-                <a>{blog.frontMatter.title}</a>
+                {blog.frontMatter.title}
               </Link>
             </h2>
             <p className="mt-2 text-gray-700">
@@ -34,10 +34,12 @@ export default function BlogsPage({ blogs }: BlogsPageProps) {
               <p className="my-4 text-gray-700">{blog.frontMatter.excerpt}</p>
             ) : null}
 
-            <Link href={blog.url} passHref>
-              <a className="text-sm text-blue-500 hover:text-black">
-                Read More →
-              </a>
+            <Link
+              href={blog.url}
+              passHref
+              className="text-sm text-blue-500 hover:text-black"
+            >
+              Read More →
             </Link>
             <hr className="py-6 mt-6" />
           </article>

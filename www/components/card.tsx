@@ -8,14 +8,15 @@ interface CardProps extends LinkProps {
 
 export function Card({ children, href, ...props }: CardProps) {
   return (
-    <Link href={href} passHref {...props}>
-      <a
-        className={classNames(
-          "block p-6 bg-white group border border-gray-200 rounded-lg shadow-md card"
-        )}
-      >
-        {children}
-      </a>
+    <Link
+      href={href}
+      passHref
+      {...props}
+      className={classNames(
+        "block p-6 bg-white group border border-gray-200 rounded-lg shadow-md card"
+      )}
+    >
+      {children}
     </Link>
   )
 }

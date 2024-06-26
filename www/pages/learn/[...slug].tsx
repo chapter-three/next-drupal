@@ -53,21 +53,22 @@ export default function TutorialPage({
               </h4>
               <div className="grid grid-flow-row text-sm auto-rows-max">
                 {group.items.map((wiz) => (
-                  <Link key={wiz.hash} href={wiz.url} passHref>
-                    <a
-                      className={classNames(
-                        "px-2 py-2 flex items-center w-full rounded-md hover:underline text-black",
-                        tutorial.frontMatter.weight > wiz.frontMatter.weight &&
-                          tutorial.frontMatter.group === wiz.frontMatter.group
-                          ? "line-through opacity-50"
-                          : "opacity-100",
-                        {
-                          "bg-blue-50": wiz.hash === tutorial.hash,
-                        }
-                      )}
-                    >
-                      {wiz.frontMatter.title}
-                    </a>
+                  <Link
+                    key={wiz.hash}
+                    href={wiz.url}
+                    passHref
+                    className={classNames(
+                      "px-2 py-2 flex items-center w-full rounded-md hover:underline text-black",
+                      tutorial.frontMatter.weight > wiz.frontMatter.weight &&
+                        tutorial.frontMatter.group === wiz.frontMatter.group
+                        ? "line-through opacity-50"
+                        : "opacity-100",
+                      {
+                        "bg-blue-50": wiz.hash === tutorial.hash,
+                      }
+                    )}
+                  >
+                    {wiz.frontMatter.title}
                   </Link>
                 ))}
               </div>

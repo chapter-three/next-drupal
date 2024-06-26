@@ -86,15 +86,15 @@ export function Layout({
       >
         <ul className="grid grid-flow-row gap-2 mb-8 auto-rows-max">
           <li>
-            <Link href="/" passHref>
-              <a
-                className={classNames(
-                  "text-sm font-medium hover:underline",
-                  pathname === "/" ? "text-blue-700" : "text-gray-700"
-                )}
-              >
-                Home
-              </a>
+            <Link
+              href="/"
+              passHref
+              className={classNames(
+                "text-sm font-medium hover:underline",
+                pathname === "/" ? "text-blue-700" : "text-gray-700"
+              )}
+            >
+              Home
             </Link>
           </li>
           {site.links.map((link, index) => {
@@ -102,17 +102,17 @@ export function Layout({
               pathname === link.href || link.activePathNames?.includes(pathname)
             return (
               <li key={index}>
-                <Link href={link.href} passHref>
-                  <a
-                    className={classNames(
-                      "text-sm font-medium hover:underline",
-                      isActive ? "text-blue-700" : "text-gray-900"
-                    )}
-                    target={link.external ? "_blank" : "_self"}
-                    rel={link.external ? "noreferrer" : ""}
-                  >
-                    {link.title}
-                  </a>
+                <Link
+                  href={link.href}
+                  passHref
+                  className={classNames(
+                    "text-sm font-medium hover:underline",
+                    isActive ? "text-blue-700" : "text-gray-900"
+                  )}
+                  target={link.external ? "_blank" : "_self"}
+                  rel={link.external ? "noreferrer" : ""}
+                >
+                  {link.title}
                 </Link>
               </li>
             )
@@ -170,10 +170,12 @@ export function Layout({
                 <span className="sr-only">Toggle Menu</span>
               </button>
               <div className="flex items-center space-x-8">
-                <Link href="/" passHref>
-                  <a className="items-center flex-shrink hidden font-semibold sm:flex sm:text-lg lg:text-base xl:text-lg">
-                    {site.name}
-                  </a>
+                <Link
+                  href="/"
+                  passHref
+                  className="items-center flex-shrink hidden font-semibold sm:flex sm:text-lg lg:text-base xl:text-lg"
+                >
+                  {site.name}
                 </Link>
                 <div className="flex-grow hidden grid-flow-col gap-6 mr-4 lg:grid lg:mr-4 lg:gap-4 xl:gap-6 auto-cols-max">
                   {site.links.map((link) => {
@@ -181,18 +183,19 @@ export function Layout({
                       pathname === link.href ||
                       link.activePathNames?.includes(pathname)
                     return (
-                      <Link key={link.href} href={link.href} passHref>
-                        <a
-                          className={classNames(
-                            "hover:underline",
-                            mode === "dark" ? "text-white" : "hover:text-black",
-                            isActive ? "text-black" : "text-gray-600"
-                          )}
-                          target={link.external ? "_blank" : "_self"}
-                          rel={link.external ? "noreferrer" : ""}
-                        >
-                          {link.title}
-                        </a>
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        passHref
+                        className={classNames(
+                          "hover:underline",
+                          mode === "dark" ? "text-white" : "hover:text-black",
+                          isActive ? "text-black" : "text-gray-600"
+                        )}
+                        target={link.external ? "_blank" : "_self"}
+                        rel={link.external ? "noreferrer" : ""}
+                      >
+                        {link.title}
                       </Link>
                     )
                   })}
@@ -276,17 +279,17 @@ export function Layout({
                       <Menu.Item key={version.version}>
                         {({ active }) =>
                           version.url ? (
-                            <Link href={version.url} passHref>
-                              <a
-                                className={classNames(
-                                  "text-sm px-3 py-1 hover:bg-blue-50",
-                                  {
-                                    "bg-blue-50": active,
-                                  }
-                                )}
-                              >
-                                {version.version}
-                              </a>
+                            <Link
+                              href={version.url}
+                              passHref
+                              className={classNames(
+                                "text-sm px-3 py-1 hover:bg-blue-50",
+                                {
+                                  "bg-blue-50": active,
+                                }
+                              )}
+                            >
+                              {version.version}
                             </Link>
                           ) : (
                             <span

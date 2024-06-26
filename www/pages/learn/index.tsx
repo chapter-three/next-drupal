@@ -38,11 +38,13 @@ export default function LearnPage({ tutorials }: LearnPageProps) {
                   <p className="my-4 text-gray-700">{tutorial.excerpt}</p>
                 ) : null}
               </div>
-              <Link href={tutorial.url} passHref>
-                <a className="text-sm text-blue-500 transition-colors">
-                  <span className="absolute inset-0" />
-                  Learn More →
-                </a>
+              <Link
+                href={tutorial.url}
+                passHref
+                className="text-sm text-blue-500 transition-colors"
+              >
+                <span className="absolute inset-0" />
+                Learn More →
               </Link>
             </article>
           ))}

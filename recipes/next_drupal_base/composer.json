@@ -1,0 +1,15 @@
+{
+  "name": "drupal/next_drupal_base",
+  "description": "Common dependencies and configuration for all Next Drupal projects.",
+  "type": "drupal-recipe",
+  "license": "GPL-2.0-or-later",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    }
+  ],
+  "require": {
+    "drupal/next": "^2.0@beta"
+  }
+}

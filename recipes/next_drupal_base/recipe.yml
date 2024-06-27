@@ -1,0 +1,6 @@
+name: "Next Drupal Base"
+description: "Common dependencies and configuration for all Next Drupal projects"
+type: "Site"
+
+install:
+  - next

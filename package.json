@@ -29,7 +29,9 @@
     "test": "yarn workspace next-drupal test",
     "pretest": "yarn format:check && yarn lint",
     "test:e2e": "turbo run test:e2e --parallel",
-    "test:e2e:ci": "turbo run test:e2e:ci --parallel"
+    "test:e2e:ci": "turbo run test:e2e:ci --parallel",
+    "ddev:init": "./scripts/init-drupal.sh",
+    "ddev:destroy": "./scripts/destroy-drupal.sh"
   },
   "devDependencies": {
     "@actions/core": "^1.10.1",

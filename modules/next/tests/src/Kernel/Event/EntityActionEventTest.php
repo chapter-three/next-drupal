@@ -5,6 +5,7 @@ namespace Drupal\Tests\next\Kernel\Event;
 use Drupal\Core\Database\Database;
 use Drupal\dblog\Controller\DbLogController;
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\node\Entity\NodeType;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,6 +31,8 @@ class EntityActionEventTest extends KernelTestBase {
     'system',
     'user',
     'dblog',
+    'content_translation',
+    'language',
   ];
 
   /**
@@ -40,7 +43,7 @@ class EntityActionEventTest extends KernelTestBase {
 
     $this->installEntitySchema('node');
     $this->installEntitySchema('user');
-    $this->installConfig(['filter', 'next', 'system', 'user']);
+    $this->installConfig(['filter', 'next', 'system', 'user', 'language']);
     $this->installSchema('dblog', ['watchdog']);
     $this->installSchema('system', ['sequences']);
     $this->installSchema('node', ['node_access']);
@@ -52,6 +55,9 @@ class EntityActionEventTest extends KernelTestBase {
       'label' => 'Page',
     ]);
     $page_type->save();
+
+    // Set up multilingual.
+    ConfigurableLanguage::createFromLangcode('nl')->save();
   }
 
   /**
@@ -59,6 +65,7 @@ class EntityActionEventTest extends KernelTestBase {
    */
   public function testEntityActionEvents() {
     $page = $this->createNode(['type' => 'page', 'title' => 'A page']);
+    $page->addTranslation('nl', ['title' => 'Translation']);
 
     // Insert.
     $page->save();
@@ -69,6 +76,12 @@ class EntityActionEventTest extends KernelTestBase {
     $page->set('title', 'A page updated')->save();
     $this->container->get('kernel')->terminate(Request::create('/'), new Response());
     $this->assertLogsContains("Event next.entity.action dispatched for entity A page updated and action update.");
+
+    // Delete translation.
+    $page->removeTranslation('nl');
+    $page->save();
+    $this->container->get('kernel')->terminate(Request::create('/'), new Response());
+    $this->assertLogsContains("Event next.entity.action dispatched for entity Translation and action delete.");
 
     // Delete.
     $page->delete();

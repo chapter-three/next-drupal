@@ -12,6 +12,7 @@ async function getNode(slug: string[]) {
 
   const params: JsonApiParams = {}
 
+  const isDraftMode = draftMode().isEnabled
   const draftData = getDraftData()
 
   if (draftData.path === path) {
@@ -19,7 +20,9 @@ async function getNode(slug: string[]) {
   }
 
   // Translating the path also allows us to discover the entity type.
-  const translatedPath = await drupal.translatePath(path)
+  const translatedPath = await drupal.translatePath(path, {
+    withAuth: isDraftMode,
+  })
 
   if (!translatedPath) {
     throw new Error("Resource not found", { cause: "NotFound" })
@@ -34,6 +37,7 @@ async function getNode(slug: string[]) {
 
   const resource = await drupal.getResource<DrupalNode>(type, uuid, {
     params,
+    withAuth: isDraftMode,
   })
 
   if (!resource) {

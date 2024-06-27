@@ -18,7 +18,7 @@ class NextSiteEntityControllerTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected static $modules = ['next'];
+  protected static $modules = ['consumers', 'next'];
 
   /**
    * The next_site entity.

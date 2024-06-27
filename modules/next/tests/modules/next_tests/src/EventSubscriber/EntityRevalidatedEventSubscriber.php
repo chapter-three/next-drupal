@@ -32,7 +32,7 @@ class EntityRevalidatedEventSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     $events[EntityEvents::ENTITY_REVALIDATED] = ['onRevalidated'];
     return $events;
   }

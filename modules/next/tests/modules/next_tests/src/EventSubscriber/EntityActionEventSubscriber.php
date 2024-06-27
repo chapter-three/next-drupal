@@ -32,7 +32,7 @@ class EntityActionEventSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     $events[EntityEvents::ENTITY_ACTION] = ['onAction'];
     return $events;
   }

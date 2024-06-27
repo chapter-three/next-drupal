@@ -43,7 +43,7 @@ class JwtEventSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     $events[JwtAuthEvents::GENERATE][] = ['setStandardClaims', 100];
     $events[JwtAuthEvents::GENERATE][] = ['setDrupalClaims', 99];
     return $events;

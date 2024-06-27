@@ -15,7 +15,6 @@ class NextJsonapiServiceProvider extends ServiceProviderBase {
    */
   public function alter(ContainerBuilder $container) {
     /** @var \Symfony\Component\DependencyInjection\Definition $definition */
-
     if ($container->hasDefinition('jsonapi.entity_resource')) {
       $definition = $container->getDefinition('jsonapi.entity_resource');
       $definition->setClass('Drupal\next_jsonapi\Controller\EntityResource');

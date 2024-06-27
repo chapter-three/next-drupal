@@ -53,7 +53,7 @@ class NextSettingsManagerTest extends KernelTestBase {
     $settings = $this->nextSettingsManager->all();
     $this->assertSame('iframe', $settings['site_previewer']);
     $this->assertSame('simple_oauth', $settings['preview_url_generator']);
-    $this->assertSame(FALSE, $settings['debug']);
+    $this->assertFalse($settings['debug']);
     $this->assertFalse($this->nextSettingsManager->isDebug());
 
     $this->container->get('config.factory')
@@ -61,7 +61,7 @@ class NextSettingsManagerTest extends KernelTestBase {
       ->set('debug', TRUE)
       ->save();
     $settings = $this->nextSettingsManager->all();
-    $this->assertSame(TRUE, $settings['debug']);
+    $this->assertTrue($settings['debug']);
     $this->assertTrue($this->nextSettingsManager->isDebug());
 
     $this->assertInstanceOf(Iframe::class, $this->nextSettingsManager->getSitePreviewer());

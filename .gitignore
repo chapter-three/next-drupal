@@ -12,6 +12,7 @@ package-lock.json
 /packages/*/.turbo
 /packages/*/coverage
 /packages/*/dist
+.turbo
 
 # output of 'npm pack'
 /packages/*/*.tgz

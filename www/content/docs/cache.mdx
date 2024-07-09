@@ -3,13 +3,21 @@ title: Caching
 excerpt: Using a custom cache for resources.
 ---
 
-The `DrupalClient` has support for caching resources.
+The `NextDrupal` has support for caching resources.
 
 This is handy when dealing with global data: you can fetch data once and re-use during builds.
 
 You can provide your own cache implementation using the [`cache`](/docs/configuration#cache) option.
 
 ---
+
+<!--
+************************************************************
+*  TODO: Remove this block before publishing.
+
+*  Comment: Not sure how this cache option works with Next.js caching system
+************************************************************
+-->
 
 ## Example
 
@@ -22,7 +30,7 @@ Note: as of `next-drupal 1.3.0`, only `getResource` and `getMenu` support cachin
 </Callout>
 
 ```ts title=lib/drupal.ts
-import { DrupalClient, DataCache } from "next-drupal"
+import { NextDrupal, DataCache } from "next-drupal"
 import Redis from "ioredis"
 
 const redis = new Redis(process.env.REDIS_URL)
@@ -37,12 +45,9 @@ export const redisCache: DataCache = {
   },
 }
 
-export const drupal = new DrupalClient(
-  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
-  {
-    cache: redisCache,
-  }
-)
+export const drupal = new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  cache: redisCache,
+})
 ```
 
 Now when you make a `getResource` or `getMenu` call you can tell the client to cache and re-use responses.

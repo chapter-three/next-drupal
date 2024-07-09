@@ -1,0 +1,99 @@
+---
+title: getResourceCollectionPathSegments
+excerpt: Returns an array of Drupal path-related data that can be used to provide a static list for generateStaticParams.
+---
+
+```ts
+const paths = await drupal.getResourceCollectionPathSegments(
+  types,
+  options?: {
+    params,
+    withAuth,
+    pathPrefix,
+    locale,
+    defaultLocale,
+    next,
+
+  }
+): Promise<{
+  path: string
+  type: string
+  locale: Locale
+  segments: string[]
+  }[]>
+```
+
+- `types: string | string[]`
+  - **Required**
+  - The resource types. Example: `node--article` or `["taxonomy_term--tags", "user--user"]`.
+- `options`
+  - Optional
+  - `params: JsonApiParams`: JSON:API params such as `filter`, `fields`, `include` or `sort`.
+  - `withAuth: boolean | NextDrupalAuth`:
+    - Set the authentication method to use. See the [authentication docs](/docs/authentication).
+    - Set to `true` to use the authentication method configured on the client.
+  - `pathPrefix: string`: Set the pathPrefix if you're calling from a subdir. Example: for `/articles/[...slug].tsx`, use `pathPrefix: "/articles"`.
+  - `locale: string`: The locale to fetch the resource in.
+  - `defaultLocale: string`: The default locale of the site.
+  - `next: NextFetchRequestConfig`
+    - Set the `revalidate` option in seconds to configure [Time-based revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#time-based-revalidation).  
+      Ex: `next: { revalidate: 3600 } // revalidate resource every hour`
+    - Set the `tags` option to confiure [Tag-based On demand revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#on-demand-revalidation).  
+      Ex: `next: { tags: ['resource-tag'] }`
+
+---
+
+## Examples
+
+- When used in `app/[...slug]/page.tsx` the `[...slug]` Dynamic Segment indicates that
+  `generateStaticParams()` is expected to return an array of objects with a `slug` property
+  containing an array of strings.
+
+```ts
+export async function generateStaticParams(): Promise<NodePageParams[]> {
+  const resources = await drupal.getResourceCollectionPathSegments([
+    "node--page",
+    "node--article",
+  ])
+
+  return resources.map((resource) => {
+    return {
+      slug: resource.segments,
+    }
+  })
+}
+```
+
+- When used in `app/[slug]/blog/[category]/[...slug]/page.tsx` file, `generateStaticParams()`
+  is expected to return an array of objects with a `lang` string, a `category` string and a `slug` array of strings.
+
+````ts
+export async function generateStaticParams(): Promise<NodePageParams[]> {
+  const resources = await drupal.getResourceCollectionPathSegments(
+   ["node--article"],
+    {
+      // The pathPrefix will be removed from the returned path segments array.
+      pathPrefix: "/blog",
+      // The list of locales to return.
+      locales: ["en", "es"],
+      // The default locale.
+      defaultLocale: "en",
+    }
+  );
+
+  return resources.map((resource) => {
+    // NOTE: Because `pathPrefix` was set to "/blog",
+    // "blog" will not be included in the segments array.
+
+    // Grab the first item from the segments array to get
+    // the needed "category" param.
+    const category = resource.segments.unshift();
+
+    return {
+      lang: resource.locale,
+      category,
+      slug: resource.segments,
+    };
+  })
+}```
+````

@@ -18,6 +18,7 @@ const resources = await drupal.getSearchIndex<T = JsonApiResource[]>(
     deserialize,
     locale,
     defaultLocale,
+    next
   }
 ): Promise<T>
 ```
@@ -34,6 +35,11 @@ const resources = await drupal.getSearchIndex<T = JsonApiResource[]>(
   - `deserialize: boolean`: Set to false to return the raw JSON:API response.
   - `locale: string`: The locale to fetch the view in.
   - `defaultLocale: string`: The default locale of the site.
+  - `next: NextFetchRequestConfig`
+    - Set the `revalidate` option in seconds to configure [Time-based revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#time-based-revalidation).  
+      Ex: `next: { revalidate: 3600 } // revalidate resource every hour`
+    - Set the `tags` option to confiure [Tag-based On demand revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#on-demand-revalidation).  
+      Ex: `next: { tags: ['resource-tag'] }`
 
 ---
 

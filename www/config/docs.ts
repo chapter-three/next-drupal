@@ -49,8 +49,8 @@ export const docsConfig: DocsConfig = {
           href: "/docs/environment-variables",
         },
         {
-          title: "Preview Mode",
-          href: "/docs/preview-mode",
+          title: "Draft Mode",
+          href: "/docs/draft-mode",
         },
         {
           title: "TypeScript",
@@ -108,8 +108,8 @@ export const docsConfig: DocsConfig = {
           href: "/docs/fetcher",
         },
         {
-          title: "Serializer",
-          href: "/docs/serializer",
+          title: "Deserializer",
+          href: "/docs/deserializer",
         },
         {
           title: "Caching",
@@ -125,20 +125,12 @@ export const docsConfig: DocsConfig = {
           href: "/docs/reference/getresource",
         },
         {
-          title: "getResourceFromContext",
-          href: "/docs/reference/getresourcefromcontext",
-        },
-        {
           title: "getResourceByPath",
           href: "/docs/reference/getresourcebypath",
         },
         {
           title: "getResourceCollection",
           href: "/docs/reference/getresourcecollection",
-        },
-        {
-          title: "getResourceCollectionFromContext",
-          href: "/docs/reference/getresourcecollectionfromcontext",
         },
         {
           title: "createResource",
@@ -157,28 +149,20 @@ export const docsConfig: DocsConfig = {
           href: "/docs/reference/deleteresource",
         },
         {
-          title: "getStaticPathsFromContext",
-          href: "/docs/reference/getstaticpathsfromcontext",
+          title: "getResourceCollectionPathSegments",
+          href: "/docs/reference/getresourcecollectionpathsegments",
         },
         {
           title: "translatePath",
           href: "/docs/reference/translatepath",
         },
         {
-          title: "translatePathFromContext",
-          href: "/docs/reference/translatepathfromcontext",
+          title: "constructPathFromSegment",
+          href: "/docs/reference/constructpathfromsegment",
         },
         {
-          title: "getPathFromContext",
-          href: "/docs/reference/getpathfromcontext",
-        },
-        {
-          title: "getEntryForResourceType",
-          href: "/docs/reference/getentryforresourcetype",
-        },
-        {
-          title: "preview",
-          href: "/docs/reference/preview",
+          title: "buildEndpoint",
+          href: "/docs/reference/buildEndpoint",
         },
         {
           title: "getAccessToken",
@@ -207,6 +191,10 @@ export const docsConfig: DocsConfig = {
         {
           title: "deserialize",
           href: "/docs/reference/deserialize",
+        },
+        {
+          title: "getAuthorizationHeader",
+          href: "/docs/reference/getauthorizationheader",
         },
       ],
     },

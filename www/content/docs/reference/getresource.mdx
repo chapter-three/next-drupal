@@ -14,6 +14,7 @@ const resource = await drupal.getResource<T = JsonApiResource>(
     locale,
     defaultLocale,
     withCache,
+    next
   }
 ): Promise<T>
 ```
@@ -27,7 +28,7 @@ const resource = await drupal.getResource<T = JsonApiResource>(
 - `options`
   - Optional
   - `params: JsonApiParams`: JSON:API params such as `filter`, `fields`, `include` or `sort`.
-  - `withAuth: boolean | DrupalClientAuth`:
+  - `withAuth: boolean | NextDrupalAuth`:
     - Set the authentication method to use. See the [authentication docs](/docs/authentication).
     - Set to `true` to use the authentication method configured on the client.
   - `deserialize: boolean`: Set to false to return the raw JSON:API response.
@@ -35,6 +36,11 @@ const resource = await drupal.getResource<T = JsonApiResource>(
   - `defaultLocale: string`: The default locale of the site.
   - `withCache: boolean`: Set `withCache` if you want to store and retrieve the resource from cache.
   - `cacheKey: string`: The cache key to use.
+  - `next: NextFetchRequestConfig`
+    - Set the `revalidate` option in seconds to configure [Time-based revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#time-based-revalidation).  
+      Ex: `next: { revalidate: 3600 } // revalidate resource every hour`
+    - Set the `tags` option to confiure [Tag-based On demand revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#on-demand-revalidation).  
+      Ex: `next: { tags: ['resource-tag'] }`
 
 ---
 
@@ -79,9 +85,29 @@ const { data, meta, links } = await drupal.getResource(
 ```ts
 const id = "07464e9f-9221-4a4f-b7f2-01389408e6c8"
 
-const menu = await drupal.getResource("node--article", id, {
+const article = await drupal.getResource("node--article", id, {
   withCache: true,
   cacheKey: `node--article:${id}`,
+})
+```
+
+- Get a page resource with time-based revalidation.
+
+```ts
+const id = "07464e9f-9221-4a4f-b7f2-01389408e6c8"
+
+const node = await drupal.getResource("node--page", id, {
+  next: { revalidate: 3600 }, // revalidate every hour
+})
+```
+
+- Get a page resource with tag-based revalidation.
+
+```ts
+const id = "07464e9f-9221-4a4f-b7f2-01389408e6c8"
+
+const node = await drupal.getResource("node--page", id, {
+  next: { tags: ["page"] }, // revalidates resource when calling `revalidateTag('page')`
 })
 ```
 

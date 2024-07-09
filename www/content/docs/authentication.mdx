@@ -1,9 +1,9 @@
 ---
 title: Authentication
-excerpt: Making authenticated requests with DrupalClient.
+excerpt: Making authenticated requests with NextDrupal.
 ---
 
-The `DrupalClient` works with several auth types. You can use **Bearer** tokens, **Basic** tokens or bring your own authorization headers.
+The `NextDrupal` client works with several auth types. You can use **Bearer** tokens, **Basic** tokens or bring your own authorization headers.
 
 Authentication can be set globally on the client or custom per method.
 
@@ -16,9 +16,9 @@ This is the default authentication configured on the client.
 **This is used most of the time for fetching and building static pages.**
 
 ```ts title=lib/drupal.ts
-import { DrupalClient } from "next-drupal"
+import { NextDrupal } from "next-drupal"
 
-export const drupal = new DrupalClient(
+export const drupal = new NextDrupal(
   process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
   {
     auth: // Configure the global auth here.
@@ -59,15 +59,12 @@ You need to enable the `simple_oauth` module on Drupal.
 
 ```ts title=lib/drupal.ts
 // Client
-export const drupal = new DrupalClient(
-  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
-  {
-    auth: {
-      clientId: process.env.DRUPAL_CLIENT_ID,
-      clientSecret: process.env.DRUPAL_CLIENT_SECRET,
-    },
-  }
-)
+export const drupal = new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  auth: {
+    clientId: process.env.DRUPAL_CLIENT_ID,
+    clientSecret: process.env.DRUPAL_CLIENT_SECRET,
+  },
+})
 
 // Method
 const article = drupal.getResource(
@@ -82,26 +79,23 @@ const article = drupal.getResource(
 )
 ```
 
-`DrupalClient` will fetch **Bearer** token and handle expiration for you.
+`NextDrupal` client will fetch **Bearer** token and handle expiration for you.
 
 If you need to customize the OAuth URL you can use the `url` option.
 
 ```ts title=lib/drupal.ts
-export const drupal = new DrupalClient(
-  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
-  {
-    auth: {
-      clientId: process.env.DRUPAL_CLIENT_ID,
-      clientSecret: process.env.DRUPAL_CLIENT_SECRET,
-      // highlight-start
-      url: `/oauth2/token`,
-      // highlight-end
-    },
-  }
-)
+export const drupal = new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  auth: {
+    clientId: process.env.DRUPAL_CLIENT_ID,
+    clientSecret: process.env.DRUPAL_CLIENT_SECRET,
+    // highlight-start
+    url: `/oauth2/token`,
+    // highlight-end
+  },
+})
 ```
 
-By default, `DrupalClient` uses `/oauth/token` as the default URL.
+By default, `NextDrupal` uses `/oauth/token` as the default URL.
 
 ---
 
@@ -117,15 +111,12 @@ You need to enable the `basic_auth` module on Drupal.
 
 ```ts
 // Client.
-export const drupal = new DrupalClient(
-  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
-  {
-    auth: {
-      username: process.env.DRUPAL_USERNAME,
-      password: process.env.DRUPAL_PASSWORD,
-    },
-  }
-)
+export const drupal = new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  auth: {
+    username: process.env.DRUPAL_USERNAME,
+    password: process.env.DRUPAL_PASSWORD,
+  },
+})
 
 // Method
 const articles = await drupal.getResourceCollection("node--article", {
@@ -144,14 +135,11 @@ You can also provide a custom callback for authentication. The callback must ret
 
 ```ts
 // Client
-export const drupal = new DrupalClient(
-  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
-  {
-    auth: () => {
-      // Do something and return an Authorization header.
-    },
-  }
-)
+export const drupal = new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  auth: () => {
+    // Do something and return an Authorization header.
+  },
+})
 
 // Method
 const users = await drupal.getResourceCollection("user--user", {
@@ -167,16 +155,13 @@ You can also pass in an access token.
 
 ```ts
 // Client
-export const drupal = new DrupalClient(
-  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
-  {
-    auth: {
-      access_token: "ECYM594IlARGc3S8KgBHvTpki0rDtWx6...",
-      token_type: "Bearer",
-      expires_in: 3600,
-    },
-  }
-)
+export const drupal = new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  auth: {
+    access_token: "ECYM594IlARGc3S8KgBHvTpki0rDtWx6...",
+    token_type: "Bearer",
+    expires_in: 3600,
+  },
+})
 
 // Method
 const articles = await drupal.getResourceCollection("node--article", {
@@ -192,13 +177,21 @@ const articles = await drupal.getResourceCollection("node--article", {
 
 If you're using [NextAuth](https://next-auth.js.org) you can use the results from `getSession`:
 
+<!--
+************************************************************
+*  TODO: Remove this block before publishing.
+
+*  Comment: Need to corroborate this with NextAuth updates
+************************************************************
+-->
+
 ```ts
 import { getSession } from "next-auth/react"
 
 const session = getSession(...)
 
 // Client
-export const drupal = new DrupalClient(
+export const drupal = new NextDrupal(
   process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
   {
     auth: session.accessToken,

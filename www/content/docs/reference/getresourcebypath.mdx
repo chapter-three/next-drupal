@@ -13,6 +13,7 @@ const resource = await drupal.getResourceByPath<T = JsonApiResource>(
     locale,
     defaultLocale,
     isVersionable,
+    next,
   }
 ): Promise<T>
 ```
@@ -23,13 +24,18 @@ const resource = await drupal.getResourceByPath<T = JsonApiResource>(
 - `options`
   - Optional
   - `params: JsonApiParams`: JSON:API params such as `filter`, `fields`, `include` or `sort`.
-  - `withAuth: boolean | DrupalClientAuth`:
+  - `withAuth: boolean | NextDrupalAuth`:
     - Set the authentication method to use. See the [authentication docs](/docs/authentication).
     - Set to `true` to use the authentication method configured on the client.
   - `deserialize: boolean`: Set to false to return the raw JSON:API response.
   - `locale: string`: The locale to fetch the resource in.
   - `defaultLocale: string`: The default locale of the site.
   - `isVersionable: boolean`: Set to true if you're fetching the revision for a resource. _Automatically set to true for node entity types_.
+  - `next: NextFetchRequestConfig`
+    - Set the `revalidate` option in seconds to configure [Time-based revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#time-based-revalidation).  
+      Ex: `next: { revalidate: 3600 } // revalidate resource every hour`
+    - Set the `tags` option to confiure [Tag-based On demand revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#on-demand-revalidation).  
+      Ex: `next: { tags: ['resource-tag'] }`
 
 ---
 
@@ -56,6 +62,31 @@ const { data, meta, links } = await drupal.getResourceByPath(
     deserialize: false,
   }
 )
+```
+
+- Get the `es` translation for a page.
+
+```ts
+const node = await drupal.getResourceByPath("/blog/slug-for-article", {
+  locale: "es",
+  defaultLocale: "en",
+})
+```
+
+- Get a page resource by path with time-based revalidation.
+
+```ts
+const node = await drupal.getResourceByPath("/blog/slug-for-article", {
+  next: { revalidate: 3600 }, // revalidate every hour
+})
+```
+
+- Get a page resource by path with tag-based revalidation.
+
+```ts
+const node = await drupal.getResourceByPath("/blog/slug-for-article", {
+  next: { tags: ["page"] }, // revalidates resource when calling `revalidateTag('page')`
+})
 ```
 
 ---

@@ -8,8 +8,9 @@ const path = await drupal.translatePath(
   path,
   options?: {
     withAuth,
+    next
   }
-): Promise<DrupalTranslatedPath>
+): Promise<DrupalTranslatedPath | null>
 ```
 
 - `path: string`
@@ -17,9 +18,14 @@ const path = await drupal.translatePath(
   - The resource path. Example: `/blog/slug-for-article`.
 - `options`
   - Optional
-  - `withAuth: boolean | DrupalClientAuth`:
+  - `withAuth: boolean | NextDrupalAuth`:
     - Set the authentication method to use. See the [authentication docs](/docs/authentication).
     - Set to `true` to use the authentication method configured on the client.
+  - `next: NextFetchRequestConfig`
+    - Set the `revalidate` option in seconds to configure [Time-based revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#time-based-revalidation).  
+      Ex: `next: { revalidate: 3600 } // revalidate resource every hour`
+    - Set the `tags` option to confiure [Tag-based On demand revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#on-demand-revalidation).  
+      Ex: `next: { tags: ['resource-tag'] }`
 
 ---
 

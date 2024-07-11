@@ -5,7 +5,7 @@ weight: 360
 group: On-demand Revalidation
 ---
 
-Implement on-demand revalidation using an API routes at `/revalidate`.
+Implement on-demand revalidation using an API route at `/revalidate`.
 
 <Callout>
 
@@ -13,36 +13,35 @@ If you're using the Basic Starter, revalidate route are already created for you.
 
 </Callout>
 
-## /pages/api/revalidate.ts
+## /app/api/revalidate/route.ts
 
-```ts title=pages/api/revalidate.ts
-import { NextApiRequest, NextApiResponse } from "next"
+```ts title=app/api/revalidate/route.ts
+import { revalidatePath } from "next/cache"
+import type { NextRequest } from "next/server"
 
-export default async function handler(
-  request: NextApiRequest,
-  response: NextApiResponse
-) {
-  let slug = request.query.slug as string
-  const secret = request.query.secret as string
+async function handler(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams
+  const path = searchParams.get("path")
+  const secret = searchParams.get("secret")
 
   // Validate secret.
   if (secret !== process.env.DRUPAL_REVALIDATE_SECRET) {
-    return response.status(401).json({ message: "Invalid secret." })
+    return new Response("Invalid secret.", { status: 401 })
   }
 
-  // Validate slug.
-  if (!slug) {
-    return response.status(400).json({ message: "Invalid slug." })
+  // Validate path.
+  if (!path) {
+    return new Response("Invalid path.", { status: 400 })
   }
 
   try {
-    await response.revalidate(slug)
+    revalidatePath(path)
 
-    return response.json({})
+    return new Response("Revalidated.")
   } catch (error) {
-    return response.status(404).json({
-      message: error.message,
-    })
+    return new Response((error as Error).message, { status: 500 })
   }
 }
+
+export { handler as GET, handler as POST }
 ```

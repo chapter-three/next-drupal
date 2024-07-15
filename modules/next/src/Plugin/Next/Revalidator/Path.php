@@ -116,7 +116,7 @@ class Path extends ConfigurableRevalidatorBase implements RevalidatorInterface {
           }
         }
         catch (\Exception $exception) {
-          $this->logger->error($exception);
+          $this->logger->error($exception->getMessage());
           $revalidated = FALSE;
         }
       }

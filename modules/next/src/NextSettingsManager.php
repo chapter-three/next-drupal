@@ -97,7 +97,7 @@ class NextSettingsManager implements NextSettingsManagerInterface {
       return $site_previewer;
     }
     catch (PluginException $exception) {
-      $this->logger->error($exception);
+      $this->logger->error($exception->getMessage());
 
       return NULL;
     }
@@ -116,7 +116,7 @@ class NextSettingsManager implements NextSettingsManagerInterface {
       return $preview_url_generator;
     }
     catch (PluginException $exception) {
-      $this->logger->error($exception);
+      $this->logger->error($exception->getMessage());
 
       return NULL;
     }

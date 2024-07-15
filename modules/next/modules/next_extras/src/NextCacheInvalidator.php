@@ -144,7 +144,7 @@ class NextCacheInvalidator {
       }
       catch (RequestException $exception) {
         // Using logger service to log the exception.
-        $this->logger->error($exception);
+        $this->logger->error($exception->getMessage());
       }
     }
   }

@@ -12,6 +12,9 @@
   ],
   "require": {
     "drupal/decoupled_router": "^2.0",
+    "drupal/graphql": "^4.8",
+    "drupal/graphql_compose": "^2.2",
+    "drupal/jwt": "^2 || ^3",
     "drupal/pathauto": "^1.11",
     "drupal/simple_oauth": "^5.0 || ^6.0",
     "drupal/subrequests": "^3.0"

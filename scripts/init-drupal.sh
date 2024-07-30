@@ -32,5 +32,4 @@ ddev exec -d /var/www/html/web php core/scripts/drupal recipe recipes/next_drupa
 ddev composer unpack drupal/next_drupal_base
 
 # use the one-time link (CTRL/CMD + Click) from the command below to edit your admin account details.
-ddev drush uli
-ddev launch
+ddev drush uli | xargs open

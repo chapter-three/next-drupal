@@ -9,7 +9,7 @@ on:
 
 jobs:
   phpunit:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         # Supported PHP versions: https://www.drupal.org/docs/getting-started/system-requirements/php-requirements

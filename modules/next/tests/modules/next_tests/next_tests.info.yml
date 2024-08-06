@@ -1,7 +1,6 @@
 name: Next.js tests
 description: Configures testing for Next.js
 type: module
-core_version_requirement: ^10 || ^11
 package: testing
 dependencies:
   - next:next

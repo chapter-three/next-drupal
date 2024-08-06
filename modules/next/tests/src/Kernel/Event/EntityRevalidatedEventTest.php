@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\next\Kernel\Event;
 
-use Drupal\Core\Database\Database;
 use Drupal\dblog\Controller\DbLogController;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\next\Entity\NextEntityTypeConfig;
@@ -96,7 +95,7 @@ class EntityRevalidatedEventTest extends KernelTestBase {
    *   The message to assert in the logs.
    */
   protected function assertLogsContains(string $message) {
-    $logs = Database::getConnection()
+    $logs = $this->container->get('database')
       ->select('watchdog', 'wd')
       ->fields('wd', ['message', 'variables'])
       ->condition('type', 'system')

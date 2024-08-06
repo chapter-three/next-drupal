@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\next\Kernel\Event;
 
-use Drupal\Core\Database\Database;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\node\Entity\NodeType;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
@@ -84,7 +83,7 @@ class EntityActionEventTest extends KernelTestBase {
       '@action' => $action,
     ];
 
-    $this->assertNotEmpty(Database::getConnection()->select('watchdog', 'w')
+    $this->assertNotEmpty($this->container->get('database')->select('watchdog', 'w')
       ->condition('type', 'system')
       ->condition('message', $message)
       ->condition('variables', serialize($variables))

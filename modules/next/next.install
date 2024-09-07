@@ -6,6 +6,85 @@
  */
 
 use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Language\LanguageInterface;
+use Drupal\next\CacheTagNodeMapperInterface;
+use Drupal\next\CacheTagRevalidatorTaskStoreInterface;
+
+/**
+ * Implements hook_schema().
+ */
+function next_schema() {
+  $schema = [];
+
+  $schema[CacheTagNodeMapperInterface::TABLE] = [
+    'description' => 'Cache tags mapped to associated node.',
+    'fields' => [
+      'tag' => [
+        'description' => 'Cache tag.',
+        'type' => 'varchar_ascii',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'nid' => [
+        'description' => 'The node id using the cache tag.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'langcode' => [
+        'description' => 'The language code of the node.',
+        'type' => 'varchar_ascii',
+        'length' => 12,
+        'not null' => TRUE,
+        'default' => LanguageInterface::LANGCODE_NOT_SPECIFIED,
+      ],
+      'next_site' => [
+        'description' => 'The associated next site.',
+        'type' => 'varchar_ascii',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+    ],
+    'primary key' => ['tag', 'nid', 'langcode', 'next_site'],
+    'indexes' => [
+      'tag_nid_langcode_next_site' => ['tag', 'nid', 'langcode', 'next_site'],
+    ],
+  ];
+
+  $schema[CacheTagRevalidatorTaskStoreInterface::TABLE] = [
+    'description' => 'Cache tag revalidator task storage.',
+    'fields' => [
+      'nid' => [
+        'description' => 'The node id that needs to be revalidated.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'langcode' => [
+        'description' => 'The language code of the node.',
+        'type' => 'varchar_ascii',
+        'length' => 12,
+        'not null' => TRUE,
+        'default' => LanguageInterface::LANGCODE_NOT_SPECIFIED,
+      ],
+      'next_site' => [
+        'description' => 'The associated next site.',
+        'type' => 'varchar_ascii',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+    ],
+    'primary key' => ['nid', 'langcode', 'next_site'],
+    'indexes' => [
+      'nid_langcode_next_site' => ['nid', 'langcode', 'next_site'],
+    ],
+  ];
+
+  return $schema;
+}
 
 /**
  * Set simple_oauth as the preview url generator.
@@ -103,4 +182,18 @@ function next_update_9106() {
   $config = \Drupal::configFactory()->getEditable('next.settings');
   $config->set('debug', FALSE)
     ->save();
+}
+
+/**
+ * Install tables if module is already installed.
+ */
+function next_update_9107() {
+  $schema = \Drupal::database()->schema();
+  $tables = next_schema();
+  if (!$schema->tableExists(CacheTagNodeMapperInterface::TABLE)) {
+    $schema->createTable(CacheTagNodeMapperInterface::TABLE, $tables[CacheTagNodeMapperInterface::TABLE]);
+  }
+  if (!$schema->tableExists(CacheTagRevalidatorTaskStoreInterface::TABLE)) {
+    $schema->createTable(CacheTagRevalidatorTaskStoreInterface::TABLE, $tables[CacheTagRevalidatorTaskStoreInterface::TABLE]);
+  }
 }

@@ -177,6 +177,19 @@ class NextSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('debug'),
     ];
 
+    $form['revalidate'] = [
+      '#title' => $this->t('Revalidate'),
+      '#type' => 'details',
+      '#group' => 'settings',
+      'queue_size' => [
+        '#title' => $this->t('Queue size'),
+        '#description' => $this->t('Amount of nodes to be revalidated in a single queue.'),
+        '#type' => 'number',
+        '#default_value' => $config->get('queue_size'),
+        '#min' => 0,
+      ],
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -259,6 +272,7 @@ class NextSettingsForm extends ConfigFormBase {
       ->set('preview_url_generator', $form_state->getValue('preview_url_generator'))
       ->set('preview_url_generator_configuration', $form_state->getValue('preview_url_generator_configuration'))
       ->set('debug', $form_state->getValue('debug'))
+      ->set('queue_size', $form_state->getValue('queue_size'))
       ->save();
   }
 

@@ -71,3 +71,24 @@ services:
     arguments: ['@event_dispatcher']
     tags:
       - { name: needs_destruction }
+  next.resource_response.subscriber:
+    class: Drupal\next\EventSubscriber\ResourceResponseSubscriber
+    arguments:
+      - '@entity_type.manager'
+      - '@language_manager'
+      - '@next.cache_tag_node_mapper'
+    tags:
+      - { name: event_subscriber }
+  next.cache_tag_node_mapper:
+    class: Drupal\next\CacheTagNodeMapper
+    arguments: [ '@database' ]
+  next.cache_tag_revalidator_task_store:
+    class: Drupal\next\CacheTagRevalidatorTaskStore
+    arguments: [ '@database' ]
+  next.path_revalidor_helper:
+    class: Drupal\next\PathRevalidatorHelper
+    arguments:
+      - '@entity_type.manager'
+      - '@next.settings.manager'
+      - '@http_client'
+      - '@logger.channel.next'

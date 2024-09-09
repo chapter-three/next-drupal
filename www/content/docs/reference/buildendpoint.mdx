@@ -48,12 +48,23 @@ const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
 ```ts
 // https://example.com/jsonapi/node/article.
 const url = await drupal.buildEndpoint({ resourceType: `node--article` })
+
+// https://example.com/jsonapi/en/node/article.
+const url = await drupal.buildEndpoint({
+  locale: `en`,
+  resourceType: `node--article`,
+})
+
+// https://example.com/jsonapi/en/node/article?include=field_image.
+const url = await drupal.buildEndpoint({
+  locale: `en`,
+  resourceType: `node--article`,
+  searchParams: `include=field_image`,
+})
+
+// https://example.com/jsonapi/en/views/articles/page_1.
+const url = await drupal.buildEndpoint({
+  locale: `en`,
+  path: `/views/articles/page_1`,
+})
 ```
-
-<!--
-************************************************************
-*  TODO: Remove this block before publishing.
-
-*  Comment: Add more examples. Not sure how the 'path' works
-************************************************************
--->

@@ -1,0 +1,78 @@
+---
+title: getResourceCollectionFromContext
+excerpt: Fetch a collection of resources from getStaticProps or getServerSideProps context.
+---
+
+```ts
+const resource = await drupal.getResourceCollectionFromContext<T = JsonApiResource[]>(
+  type,
+  context,
+  options?: {
+    params,
+    withAuth,
+    deserialize,
+    locale,
+    defaultLocale,
+  }
+): Promise<T>
+```
+
+- `type: string`
+  - **Required**
+  - The resource type. Example: `node--article` or `user--user`.
+- `context: GetStaticPropsContext | GetServerSidePropsContext`
+  - **Required**
+  - The context from `getStaticProps` or `getServerSideProps`.
+- `options`
+  - Optional
+  - `params: JsonApiParams`: JSON:API params such as `filter`, `fields`, `include` or `sort`.
+  - `withAuth: boolean | NextDrupalAuth`:
+    - Set the authentication method to use. See the [authentication docs](/docs/authentication).
+    - Set to `true` to use the authentication method configured on the client.
+  - `deserialize: boolean`: Set to false to return the raw JSON:API response.
+  - `locale: string`: The locale to fetch the resource in.
+  - `defaultLocale: string`: The default locale of the site.
+
+---
+
+## Notes
+
+- The localized resources will be fetched based on the `locale` and `defaultLocale` values from `context`.
+
+---
+
+## Examples
+
+- Get all articles from context.
+
+```ts title=pages/[[...slug]].tsx
+export async function getStaticProps(context) {
+  const articles = await drupal.getResourceCollectionFromContext(
+    "node--article",
+    context
+  )
+
+  return {
+    props: {
+      articles,
+    },
+  }
+}
+```
+
+---
+
+## TypeScript
+
+- Using `DrupalNode` for a node entity type.
+
+```ts
+import { DrupalNode } from "next-drupal"
+
+const nodes = await drupal.getResourceCollectionFromContext<DrupalNode[]>(
+  "node--article",
+  context
+)
+```
+
+See the [TypeScript docs](/docs/typescript) for more built-in types.

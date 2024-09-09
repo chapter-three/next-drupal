@@ -3,15 +3,20 @@ title: Building Pages
 excerpt: How to build pages using JSON:API resources from Drupal.
 ---
 
-In Next.js V14, data fetching has evolved significantly from previous versions. Instead of using `getStaticProps` and `getServerSideProps` you now use the native `fetch` function enhanced by Next.js to handle server-side data fetching. This allows you to configure caching and revalidation directly within your fetch requests. These can be used in Server Components, Route Handlers, and Server Actions. You can read more about it [here](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating)
+In Next.js V14, data fetching has evolved significantly from previous versions. Instead of using `getStaticProps` and `getServerSideProps` you now use the native `fetch` function enhanced by Next.js to handle server-side data fetching.
 
-The `NextDrupal` client provides several functions to help you query JSON:API resources from Drupal and manage these revalidation options on the `fetch` request level.
+The `NextDrupal` client provides several functions to help you query JSON:API resources from Drupal.
 
 <!--
 ************************************************************
 *  TODO: Remove this block before publishing.
 
-*  Comment: Need to corroborate (and maybe update) once next-drupal supports `next` revalidation options
+*  Comment: Need to corroborate (and maybe update) once next-drupal supports `next` revalidation options. Possible replacement for above introduction once it's supported
+
+In Next.js V14, data fetching has evolved significantly from previous versions. Instead of using `getStaticProps` and `getServerSideProps` you now use the native `fetch` function enhanced by Next.js to handle server-side data fetching. This allows you to configure caching and revalidation directly within your fetch requests. These can be used in Server Components, Route Handlers, and Server Actions. You can read more about it [here](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating)
+
+The `NextDrupal` client provides several functions to help you query JSON:API resources from Drupal and manage these revalidation options on the `fetch` request level.
+
 ************************************************************
 -->
 
@@ -52,7 +57,7 @@ export default function AboutPage() {
 
 ## Dynamic pages
 
-You can use Next.js [dynamic route](https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes) to build static pages for Drupal entity types.
+You can use Next.js [dynamic routes](https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes) to build static pages for Drupal entity types.
 
 Start by creating a page at `/app/[...slug]/page.tsx`, where `[...slug]` maps to the **path alias** for an entity type (or content type) in Drupal.
 
@@ -134,17 +139,17 @@ export default function Page({ params }) {
     params.addFields("node--article", ["title", "path", "body", "uid"])
   }
 
-  const node = await drupal.getResourceByPath(path, {
+  const node = await drupal.getResource(path, path.entity.uuid {
     params: params.getQueryObject(),
   })
 
-  // Render different Components based on Node type
+  // Render different Components based on Node type.
   if (node.type === "node--page") {
-  return <PageComponent />
+    return <PageComponent node={node}/>
   }
 
   if (node.type === "node--article") {
-    return <ArticleComponent />
+    return <ArticleComponent node={node}/>
   }
 
   return null

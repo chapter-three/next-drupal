@@ -18,7 +18,6 @@ const view = await drupal.getView<T = JsonApiResource>(
     deserialize,
     locale,
     defaultLocale,
-    next
   }
 ): Promise<DrupalView<T>>
 ```
@@ -35,11 +34,6 @@ const view = await drupal.getView<T = JsonApiResource>(
   - `deserialize: boolean`: Set to false to return the raw JSON:API response.
   - `locale: string`: The locale to fetch the view in.
   - `defaultLocale: string`: The default locale of the site.
-  - `next: NextFetchRequestConfig`
-    - Set the `revalidate` option in seconds to configure [Time-based revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#time-based-revalidation).  
-      Ex: `next: { revalidate: 3600 } // revalidate resource every hour`
-    - Set the `tags` option to confiure [Tag-based On demand revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#on-demand-revalidation).  
-      Ex: `next: { tags: ['resource-tag'] }`
 
 ---
 
@@ -60,22 +54,6 @@ const view = await drupal.getView("articles--promoted", {
       "node--article": "title,body",
     },
   },
-})
-```
-
-- Get a view with time-based revalidation.
-
-```ts
-const view = await drupal.getView("articles--promoted", {
-  next: { revalidate: 3600 }, // revalidate every hour`
-})
-```
-
-- Get a view with tag-based revalidation.
-
-```ts
-const view = await drupal.getView("articles--promoted", {
-  next: { tags: ["article-view"] }, // revalidates resource when calling `revalidateTag('article-view')`
 })
 ```
 

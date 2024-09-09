@@ -5,7 +5,7 @@ excerpt: Initialization and options for NextDrupal client.
 
 ## Initialization
 
-To create a new `NextDrupal`, use the following initialization:
+To create a new `NextDrupal` client, use the following initialization:
 
 ```ts
 import { NextDrupal } from "next-drupal"
@@ -125,14 +125,6 @@ You can find more info about using a custom fetcher [here](/docs/fetcher).
 
 ### cache
 
-<!--
-************************************************************
-*  TODO: Remove this block before publishing.
-
-*  Comment: Not Sure how this works with NextJS cache system
-************************************************************
--->
-
 - **Default value**: `null`
 - **Required**: No
 
@@ -180,14 +172,6 @@ Implement a custom logger. You can use this to send logs to a third-party servic
 Set whether the client should use authenticated requests by default. If set to `true`, all calls to Drupal will use the configured authentication.
 
 ---
-
-<!--
-************************************************************
-*  TODO: Remove this block before publishing.
-
-*  Comment: I believe this option is no longer available on the new NextDrupal options
-************************************************************
--->
 
 ### headers
 

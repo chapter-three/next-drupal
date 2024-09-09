@@ -162,7 +162,7 @@ export const docsConfig: DocsConfig = {
         },
         {
           title: "buildEndpoint",
-          href: "/docs/reference/buildEndpoint",
+          href: "/docs/reference/buildendpoint",
         },
         {
           title: "getAccessToken",

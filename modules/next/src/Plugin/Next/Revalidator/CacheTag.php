@@ -124,7 +124,7 @@ class CacheTag extends ConfigurableRevalidatorBase implements RevalidatorInterfa
       $container->get('logger.channel.next'),
       $container->get('config.factory')->get('next.settings'),
       $container->get('next.cache_tag_node_mapper'),
-      $container->get('next.path_revalidor_helper'),
+      $container->get('next.path_revalidator_helper'),
       $container->get('queue')->get('cache_tag_revalidator', TRUE),
       $container->get('next.cache_tag_revalidator_task_store')
     );

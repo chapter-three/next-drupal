@@ -85,7 +85,7 @@ services:
   next.cache_tag_revalidator_task_store:
     class: Drupal\next\CacheTagRevalidatorTaskStore
     arguments: [ '@database' ]
-  next.path_revalidor_helper:
+  next.path_revalidator_helper:
     class: Drupal\next\PathRevalidatorHelper
     arguments:
       - '@entity_type.manager'

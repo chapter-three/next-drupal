@@ -81,10 +81,10 @@ services:
       - { name: event_subscriber }
   next.cache_tag_node_mapper:
     class: Drupal\next\CacheTagNodeMapper
-    arguments: [ '@database' ]
+    arguments: ['@database']
   next.cache_tag_revalidator_task_store:
     class: Drupal\next\CacheTagRevalidatorTaskStore
-    arguments: [ '@database' ]
+    arguments: ['@database']
   next.path_revalidator_helper:
     class: Drupal\next\PathRevalidatorHelper
     arguments:

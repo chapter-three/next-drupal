@@ -8,7 +8,7 @@ use Drupal\node\Entity\NodeType;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 use Drupal\user\Entity\User;
-use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -91,14 +91,14 @@ class EntityResourceTest extends KernelTestBase {
 
     // Default using \Drupal\jsonapi\Query\OffsetPage::SIZE_MAX.
     $request = Request::create('/jsonapi/node/article');
-    $request->query = new ParameterBag();
+    $request->query = new InputBag();
     $response = $entity_resource->getCollection($resource_type, $request);
     $data = $response->getResponseData()->getData();
     $this->assertSame(50, $data->count());
 
     // With page limit.
     $request = Request::create('/jsonapi/node/article');
-    $request->query = new ParameterBag([
+    $request->query = new InputBag([
       'page' => [
         'limit' => 10,
       ],
@@ -109,7 +109,7 @@ class EntityResourceTest extends KernelTestBase {
 
     // With page limit over size max.
     $request = Request::create('/jsonapi/node/article');
-    $request->query = new ParameterBag([
+    $request->query = new InputBag([
       'page' => [
         'limit' => 100,
       ],
@@ -120,7 +120,7 @@ class EntityResourceTest extends KernelTestBase {
 
     // With page limit and offset.
     $request = Request::create('/jsonapi/node/article');
-    $request->query = new ParameterBag([
+    $request->query = new InputBag([
       'page' => [
         'offset' => 2,
         'limit' => 5,
@@ -132,7 +132,7 @@ class EntityResourceTest extends KernelTestBase {
 
     // With fields as sparse fieldset.
     $request = Request::create('/jsonapi/node/article');
-    $request->query = new ParameterBag([
+    $request->query = new InputBag([
       'fields' => [
         'node--article' => 'title',
       ],
@@ -143,7 +143,7 @@ class EntityResourceTest extends KernelTestBase {
 
     // Using sparse fieldset path override.
     $request = Request::create('/jsonapi/node/article');
-    $request->query = new ParameterBag([
+    $request->query = new InputBag([
       'fields' => [
         'node--article' => 'path,title',
       ],
@@ -154,7 +154,7 @@ class EntityResourceTest extends KernelTestBase {
 
     // Using sparse fieldset path override and limit.
     $request = Request::create('/jsonapi/node/article');
-    $request->query = new ParameterBag([
+    $request->query = new InputBag([
       'fields' => [
         'node--article' => 'path,title',
       ],
@@ -168,7 +168,7 @@ class EntityResourceTest extends KernelTestBase {
 
     // Using sparse fieldset path override and limit.
     $request = Request::create('/jsonapi/node/article');
-    $request->query = new ParameterBag([
+    $request->query = new InputBag([
       'fields' => [
         'node--article' => 'path,title',
       ],

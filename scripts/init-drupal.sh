@@ -6,7 +6,7 @@ set -e
 # Create DDEV project
 mkdir local-next-drupal
 cd local-next-drupal
-ddev config --project-name=local-next-drupal --project-type=drupal10 --php-version=8.3 --docroot=web --create-docroot
+ddev config --project-name=local-next-drupal --project-type=drupal --php-version=8.3 --docroot=web
 ddev start
 ddev composer create drupal/recommended-project
 
@@ -17,6 +17,10 @@ ddev composer config allow-plugins.ewcomposer/unpack true -n
 # Add repositories
 ddev composer config repositories.unpack vcs https://gitlab.ewdev.ca/yonas.legesse/drupal-recipe-unpack.git
 ddev composer config repositories.recipe path web/recipes/next_drupal_base
+ddev composer config repositories.next path modules/next
+
+# Use the local repo version of the next module
+cp -a ../modules/. modules
 
 # Add recipies
 cp -a ../recipes/. web/recipes

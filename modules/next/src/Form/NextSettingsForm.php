@@ -2,7 +2,6 @@
 
 namespace Drupal\next\Form;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\SubformState;
@@ -22,7 +21,7 @@ class NextSettingsForm extends ConfigFormBase {
    *
    * @var \Drupal\next\Plugin\SitePreviewerManagerInterface
    */
-  protected $sitePreviewerManager;
+  protected SitePreviewerManagerInterface $sitePreviewerManager;
 
   /**
    * The preview url generator manager.
@@ -32,33 +31,15 @@ class NextSettingsForm extends ConfigFormBase {
   protected PreviewUrlGeneratorManagerInterface $previewUrlGeneratorManager;
 
   /**
-   * NextSettingsForm constructor.
-   *
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   The config factory service.
-   * @param \Drupal\next\Plugin\SitePreviewerManagerInterface $site_previewer_manager
-   *   The site previewer manager.
-   * @param \Drupal\next\Plugin\PreviewUrlGeneratorManagerInterface $preview_url_generator_manager
-   *   The preview url generator manager.
-   */
-  public function __construct(ConfigFactoryInterface $config_factory, SitePreviewerManagerInterface $site_previewer_manager, PreviewUrlGeneratorManagerInterface $preview_url_generator_manager = NULL) {
-    if (!$preview_url_generator_manager) {
-      @trigger_error('Calling NextSettingsForm::__construct() without the $preview_url_generator_manager argument is deprecated in next:1.3.0 and will be required in next:2.0.0. See https://www.drupal.org/node/3308330', E_USER_DEPRECATED);
-      // @codingStandardsIgnoreStart
-      $preview_url_generator_manager = \Drupal::service('plugin.manager.next.preview_url_generator');
-      // @codingStandardsIgnoreEnd
-    }
-
-    parent::__construct($config_factory);
-    $this->sitePreviewerManager = $site_previewer_manager;
-    $this->previewUrlGeneratorManager = $preview_url_generator_manager;
-  }
-
-  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('config.factory'), $container->get('plugin.manager.next.site_previewer'), $container->get('plugin.manager.next.preview_url_generator'));
+    $instance = parent::create($container);
+
+    $instance->sitePreviewerManager = $container->get('plugin.manager.next.site_previewer');
+    $instance->previewUrlGeneratorManager = $container->get('plugin.manager.next.preview_url_generator');
+
+    return $instance;
   }
 
   /**

@@ -202,15 +202,9 @@ Destroy the local instance by running:
 yarn ddev:destroy
 ```
 
-To use this environment with local testing, add the following to the related
-.env file:
+Things that should work out of the box after running this script:
 
-```
-DRUPAL_BASE_URL="http://local-next-drupal.ddev.site/"
-DRUPAL_CLIENT_ID="next-drupal"
-DRUPAL_CLIENT_SECRET="next"
-```
-
-### Todo
-
-- Update recipe to use local versions of next drupal composer dependencies rather than packagist versions.
+- basic starter
+- pages starter
+- module tests (run from local-next-drupal directory)
+  - `SIMPLETEST_DB=sqlite://localhost/:memory: ./vendor/bin/phpunit -c ./web/core modules/next`

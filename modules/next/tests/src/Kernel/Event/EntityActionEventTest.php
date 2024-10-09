@@ -40,7 +40,6 @@ class EntityActionEventTest extends KernelTestBase {
     $this->installEntitySchema('user');
     $this->installConfig(['filter', 'next', 'system', 'user']);
     $this->installSchema('dblog', ['watchdog']);
-    $this->installSchema('system', ['sequences']);
     $this->installSchema('node', ['node_access']);
     $this->installSchema('user', ['users_data']);
 

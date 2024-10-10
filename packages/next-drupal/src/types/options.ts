@@ -6,7 +6,7 @@ export type Locale = string
 
 export type PathPrefix = string
 
-export interface FetchOptions extends RequestInit {
+export interface FetchOptions extends RequestInit, JsonApiWithNextFetchOptions {
   withAuth?: boolean | NextDrupalAuth
 }
 
@@ -34,6 +34,9 @@ export type JsonApiWithCacheOptions = {
   cacheKey?: string
 }
 
+export type JsonApiWithNextFetchOptions = {
+  next?: NextFetchRequestConfig
+}
 // TODO: Properly type this.
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export type JsonApiParams = Record<string, any>

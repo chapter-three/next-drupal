@@ -45,7 +45,6 @@ class EntityResourceTest extends KernelTestBase {
     $this->installEntitySchema('node');
     $this->installEntitySchema('user');
     $this->installConfig(['filter', 'next']);
-    $this->installSchema('system', ['sequences']);
     $this->installSchema('node', ['node_access']);
 
     $type = NodeType::create([

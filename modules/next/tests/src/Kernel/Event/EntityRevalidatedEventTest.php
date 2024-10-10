@@ -42,7 +42,6 @@ class EntityRevalidatedEventTest extends KernelTestBase {
     $this->installEntitySchema('next_entity_type_config');
     $this->installConfig(['filter', 'next', 'system', 'user']);
     $this->installSchema('dblog', ['watchdog']);
-    $this->installSchema('system', ['sequences']);
     $this->installSchema('node', ['node_access']);
     $this->installSchema('user', ['users_data']);
 

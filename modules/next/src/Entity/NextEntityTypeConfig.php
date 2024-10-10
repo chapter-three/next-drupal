@@ -44,6 +44,7 @@ use Drupal\next\SiteResolverPluginCollection;
  *     "id",
  *     "site_resolver",
  *     "configuration",
+ *     "preview_enabled",
  *     "revalidator",
  *     "revalidator_configuration"
  *   },
@@ -77,6 +78,13 @@ class NextEntityTypeConfig extends ConfigEntityBase implements NextEntityTypeCon
    * @var array
    */
   protected $configuration = [];
+
+  /**
+   * Whether the preview mode is enabled.
+   *
+   * @var bool
+   */
+  protected $preview_enabled = FALSE;
 
   /**
    * The revalidator.
@@ -127,6 +135,13 @@ class NextEntityTypeConfig extends ConfigEntityBase implements NextEntityTypeCon
     $this->site_resolver = $plugin_id;
     $this->getPluginCollection()->addInstanceID($plugin_id);
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isPreviewEnabled(): bool {
+    return $this->preview_enabled;
   }
 
   /**

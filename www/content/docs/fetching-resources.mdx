@@ -1,9 +1,9 @@
 ---
 title: Fetching Resources (GET)
-excerpt: How to fetch JSON:API resources using DrupalClient.
+excerpt: How to fetch JSON:API resources using NextDrupal client.
 ---
 
-The `DrupalClient` ships with helpers to fetch JSON:API data from Drupal.
+The `NextDrupal` client ships with helpers to fetch JSON:API data from Drupal.
 
 You can fetch a single resource, `getResource` or a collection of resources, `getResourceCollection`.
 
@@ -59,17 +59,15 @@ See the API reference for [getResource](/docs/reference/getresource).
 
 ---
 
-## getResourceFromContext
+## getResourceByPath
 
-Fetch an article in `getStaticProps/getServerSideProps` with context.
-
-If you're using [internationalization](https://nextjs.org/docs/advanced-features/i18n-routing), this will automatically fetch the localized resource using the `locale` set in context.
+Fetch an article by path.
 
 ```ts
-const article = await drupal.getResourceFromContext("node--article", context)
+const article = await drupal.getResourceByPath("/blog/slug-for-article")
 ```
 
-See the API reference for [getResourceFromContext](/docs/reference/getresourcefromcontext).
+See the API reference for [getResourceByPath](/docs/reference/getresourcebypath).
 
 ---
 
@@ -93,23 +91,6 @@ const articles = await drupal.getResourceCollection("node--article", {
 ```
 
 See the API reference for [getResourceCollection](/docs/reference/getresourcecollection).
-
----
-
-## getResourceCollectionFromContext
-
-Fetch articles in `getStaticProps/getServerSideProps` with context.
-
-If you're using [internationalization](https://nextjs.org/docs/advanced-features/i18n-routing), this will automatically fetch localized resources using the `locale` set in context.
-
-```ts
-const articles = await drupal.getResourceCollectionFromContext(
-  "node--article",
-  context
-)
-```
-
-See the API reference for [getResourceCollectionFromContext](/docs/reference/getresourcecollectionfromcontext).
 
 ---
 
@@ -187,7 +168,3 @@ const article = await drupal.getResourceCollection(
   // highlight-end
 )
 ```
-
-## More
-
-See the [Examples](/examples) section for data fetching examples.

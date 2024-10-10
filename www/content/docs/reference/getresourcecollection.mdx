@@ -57,6 +57,29 @@ const { data, meta, links } = await drupal.getResourceCollection("node--page", {
 })
 ```
 
+<!--
+************************************************************
+*  TODO: Remove this block before publishing.
+
+*  Comment: commented example until revalidation props are supported.
+- Get articles with time-based revalidation.
+
+```ts
+const articles = await drupal.getResourceCollection("node--article", {
+  next: { revalidate: 3600 }, // revalidate every hour
+})
+```
+
+- Get articles with tag-based revalidation.
+
+```ts
+const articles = await drupal.getResourceCollection("node--article", {
+  next: { tags: ["articles"] }, // revalidates resource when calling `revalidateTag('articles')`
+})
+```
+************************************************************
+-->
+
 ---
 
 ## TypeScript

@@ -21,18 +21,17 @@ yarn add drupal-jsonapi-params
 import { DrupalNode } from "next-drupal"
 import { DrupalJsonApiParams } from "drupal-jsonapi-params"
 
-export async function getStaticProps(context) {
+export default async function ArticlePage() {
   // highlight-start
   const params = new DrupalJsonApiParams()
-    .addFields("node--blog_post", ["title", "path", "body", "uid"])
+    .addFields("node--article", ["title", "path", "body", "uid"])
     .addFilter("status", "1")
     .addInclude(["uid.user_picture"])
     .addSort("created", "DESC")
   // highlight-end
 
-  const articles = await drupal.getResourceCollectionFromContext<DrupalNode[]>(
+  const article = await drupal.getResourceCollection<DrupalNode[]>(
     "node--article",
-    context,
     {
       params: params.getQueryObject(), // highlight-line
     }

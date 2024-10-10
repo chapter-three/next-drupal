@@ -1,0 +1,29 @@
+---
+title: Draft Mode
+excerpt: Using draft mode with NextDrupal client.
+---
+
+To implement draft mode, configure entity types on Drupal. See the guide [here](/learn/draft-mode).
+
+1. Implement `/app/api/draft/route.ts`.
+
+```ts title=app/api/draft/route.ts
+import { drupal } from "@/lib/drupal"
+import { enableDraftMode } from "next-drupal/draft"
+import type { NextRequest } from "next/server"
+
+export async function GET(request: NextRequest): Promise<Response | never> {
+  return enableDraftMode(request, drupal)
+}
+```
+
+2. Implement `/app/api/disable-draft/route.ts`
+
+```ts title=app/api/disable-draft/route.ts
+import { disableDraftMode } from "next-drupal/draft"
+import type { NextRequest } from "next/server"
+
+export async function GET(request: NextRequest) {
+  return disableDraftMode()
+}
+```

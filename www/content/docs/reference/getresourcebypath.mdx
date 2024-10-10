@@ -23,7 +23,7 @@ const resource = await drupal.getResourceByPath<T = JsonApiResource>(
 - `options`
   - Optional
   - `params: JsonApiParams`: JSON:API params such as `filter`, `fields`, `include` or `sort`.
-  - `withAuth: boolean | DrupalClientAuth`:
+  - `withAuth: boolean | NextDrupalAuth`:
     - Set the authentication method to use. See the [authentication docs](/docs/authentication).
     - Set to `true` to use the authentication method configured on the client.
   - `deserialize: boolean`: Set to false to return the raw JSON:API response.
@@ -57,6 +57,38 @@ const { data, meta, links } = await drupal.getResourceByPath(
   }
 )
 ```
+
+- Get the `es` translation for a page.
+
+```ts
+const node = await drupal.getResourceByPath("/blog/slug-for-article", {
+  locale: "es",
+  defaultLocale: "en",
+})
+```
+
+<!--
+************************************************************
+*  TODO: Remove this block before publishing.
+
+*  Comment: commented example until revalidation props are supported.
+- Get a page resource by path with time-based revalidation.
+
+```ts
+const node = await drupal.getResourceByPath("/blog/slug-for-article", {
+  next: { revalidate: 3600 }, // revalidate every hour
+})
+```
+
+- Get a page resource by path with tag-based revalidation.
+
+```ts
+const node = await drupal.getResourceByPath("/blog/slug-for-article", {
+  next: { tags: ["page"] }, // revalidates resource when calling `revalidateTag('page')`
+})
+```
+************************************************************
+-->
 
 ---
 

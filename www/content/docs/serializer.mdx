@@ -3,7 +3,7 @@ title: Serializer
 excerpt: Using a custom serializer with DrupalClient.
 ---
 
-The `DrupalClient` uses [jsona](https://github.com/olosegres/jsona) as the default serializer for serializing and deserializing JSON:API data.
+The `NextDrupalPages` uses [jsona](https://github.com/olosegres/jsona) as the default serializer for serializing and deserializing JSON:API data.
 
 You can provide your own using the [`serializer`](/docs/client/configuration#serializer) option.
 
@@ -14,7 +14,7 @@ You can provide your own using the [`serializer`](/docs/client/configuration#ser
 Here's how you can replace the default serializer with [jsonapi-serializer](https://github.com/SeyZ/jsonapi-serializer).
 
 ```ts title=lib/drupal.ts
-import { DrupalClient } from "next-drupal"
+import { NextDrupalPages } from "next-drupal"
 import { Deserializer } from "jsonapi-serializer"
 
 // Create a custom serializer.
@@ -23,7 +23,7 @@ const customSerializer = new Deserializer({
 })
 
 // Pass the custom serializer to the client.
-export const drupal = new DrupalClient(
+export const drupal = new NextDrupalPages(
   process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
   {
     serializer: customSerializer,

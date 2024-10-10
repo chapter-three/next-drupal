@@ -1,6 +1,6 @@
 ---
 title: Updating Resources (PATCH)
-excerpt: How to update JSON:API resources using DrupalClient.
+excerpt: How to update JSON:API resources using NextDrupal client.
 ---
 
 <Callout icon="⚠️">
@@ -9,13 +9,23 @@ The `updateResource` helper is available in `next-drupal ^1.4.0`.
 
 </Callout>
 
-The `DrupalClient` ships with a `updateResource` method for updating JSON:API resources.
+<Callout>
+
+If you're working with JSON:API, be mindful to select the option:
+
+`Accept all JSON:API create, read, update, and delete operations.`
+
+on the following path: `/admin/config/services/jsonapi` on Drupal.
+
+</Callout>
+
+The `NextDrupal` client ships with a `updateResource` method for updating JSON:API resources.
 
 ---
 
 ## updateResource
 
-### Update Resource
+#### Update Resource
 
 ```ts
 const article = await drupal.updateResource(
@@ -31,7 +41,7 @@ const article = await drupal.updateResource(
 )
 ```
 
-### Update Resource with Relationships
+#### Update Resource with Relationships
 
 ```ts
 const article = await drupal.updateResource(

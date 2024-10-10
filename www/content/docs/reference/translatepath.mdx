@@ -9,7 +9,7 @@ const path = await drupal.translatePath(
   options?: {
     withAuth,
   }
-): Promise<DrupalTranslatedPath>
+): Promise<DrupalTranslatedPath | null>
 ```
 
 - `path: string`
@@ -17,7 +17,7 @@ const path = await drupal.translatePath(
   - The resource path. Example: `/blog/slug-for-article`.
 - `options`
   - Optional
-  - `withAuth: boolean | DrupalClientAuth`:
+  - `withAuth: boolean | NextDrupalAuth`:
     - Set the authentication method to use. See the [authentication docs](/docs/authentication).
     - Set to `true` to use the authentication method configured on the client.
 

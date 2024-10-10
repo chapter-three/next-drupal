@@ -2,7 +2,7 @@
 title: Create OAuth Client
 excerpt: Setup an OAuth client to be used for authenticated content.
 weight: 110
-group: Preview Mode
+group: Draft Mode
 ---
 
 Before we can create an OAuth consumer, we need to create a new role and a user for OAuth scopes.
@@ -38,7 +38,7 @@ We are assigning the _Bypass content access control_ permission to allow Next.js
 This scope is only going to be used when making authenticated requests from Next.js to Drupal.
 
 ```ts
-const articles = await drupal.getResource(
+const article = await drupal.getResource(
   "node--article",
   "dad82fe9-f2b7-463e-8c5f-02f73018d6cb",
   // highlight-start
@@ -108,20 +108,17 @@ DRUPAL_CLIENT_SECRET=
 
 ---
 
-## 7. Update DrupalClient
+## 7. Update NextDrupal client.
 
-Update the `DrupalClient` to use the **Bearer** authentication header.
+Update the `NextDrupal` to use the **Bearer** authentication header.
 
 ```ts title=lib/drupal.ts
-import { DrupalClient } from "next-drupal"
+import { NextDrupal } from "next-drupal"
 
-export const drupal = new DrupalClient(
-  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
-  {
-    auth: {
-      clientId: process.env.DRUPAL_CLIENT_ID,
-      clientSecret: process.env.DRUPAL_CLIENT_SECRET,
-    },
-  }
-)
+export const drupal = new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  auth: {
+    clientId: process.env.DRUPAL_CLIENT_ID,
+    clientSecret: process.env.DRUPAL_CLIENT_SECRET,
+  },
+})
 ```

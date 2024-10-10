@@ -48,8 +48,8 @@ module.exports = {
         permanent: true,
       },
       {
-        source: "/docs/client/serializer",
-        destination: "/docs/serializer",
+        source: "/docs/client/deserializer",
+        destination: "/docs/deserializer",
         permanent: true,
       },
       {
@@ -74,7 +74,7 @@ module.exports = {
       },
       {
         source: "/docs/client/preview-mode",
-        destination: "/docs/preview-mode",
+        destination: "/docs/draft-mode",
         permanent: true,
       },
       {

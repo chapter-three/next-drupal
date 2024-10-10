@@ -1,0 +1,39 @@
+---
+title: Configure Draft Routes
+excerpt: Draft routes in Next.js
+weight: 140
+group: Draft Mode
+---
+
+Implement draft mode using two API routes.
+
+<Callout>
+
+If you're using the Basic Starter, draft routes are already created for you.
+
+</Callout>
+
+## /app/api/draft/route.ts
+
+```ts title=app/api/draft/route.ts
+import { drupal } from "@/lib/drupal"
+import { enableDraftMode } from "next-drupal/draft"
+import type { NextRequest } from "next/server"
+
+export async function GET(request: NextRequest): Promise<Response | never> {
+  return enableDraftMode(request, drupal)
+}
+```
+
+---
+
+## /app/api/disable-draft/route.ts
+
+```ts title=app/api/disable-draft/route.ts
+import { disableDraftMode } from "next-drupal/draft"
+import type { NextRequest } from "next/server"
+
+export async function GET(request: NextRequest) {
+  return disableDraftMode()
+}
+```

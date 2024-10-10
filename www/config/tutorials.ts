@@ -12,9 +12,9 @@ export const tutorialsConfig = [
     items: [],
   },
   {
-    title: "Preview Mode",
-    excerpt: "Implement Preview Mode for Entity Types.",
-    url: "/learn/preview-mode",
+    title: "Draft Mode",
+    excerpt: "Implement Draft Mode for Entity Types.",
+    url: "/learn/draft-mode",
     items: [],
   },
   {

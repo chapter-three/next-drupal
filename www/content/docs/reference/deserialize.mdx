@@ -7,10 +7,10 @@ excerpt: A helper for deserializing JSON:API resources.
 const resource = drupal.deserialize(body, options?)
 ```
 
-- `body: JsonApiResponse`
+- `body`
   - **Required**
   - The raw JSON:API response.
-- `body`
+- `options`
   - Optional
   - Options for the deserializer.
 
@@ -18,7 +18,7 @@ const resource = drupal.deserialize(body, options?)
 
 ## Notes
 
-- To provide your own custom deserializer, see the [serializer docs](/docs/serializer).
+- To provide your own custom deserializer, see the [deserializer docs](/docs/deserializer).
 
 ---
 

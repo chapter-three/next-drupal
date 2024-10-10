@@ -1,0 +1,79 @@
+---
+title: constructPathFromSegment
+excerpt: Returns a Drupal path given an array of Next.js path segments, path prefix and locale.
+---
+
+```ts
+const slug = drupal.constructPathFromSegment(
+  segment,
+  options?: {
+    pathPrefix,
+    locale,
+    defaultLocale
+  }
+): string
+```
+
+- `segment: string | string[]`
+- `options`
+  - Optional
+  - `pathPrefix: string`: Set the pathPrefix if you're calling from a subdir. Example: for `/articles/[...slug].tsx`, use `pathPrefix: "/articles"`.
+  - `locale: string`: The locale to fetch the resource in.
+  - `defaultLocale: string`: The default locale of the site.
+
+---
+
+## Examples
+
+- Get the path (slug) from `en/news/article-1`.
+
+```ts
+
+const path = drupal.constructPathFromSegment('article-1', {
+  locale: 'en',
+  pathPrefix: '/news'
+})
+
+`path` will result in: `/en/news/article-1`
+
+```
+
+This might be useful when trying to get the full path of the `params` object coming from `generateStaticParams`.
+Ex: `app/[lang]/[...slug]/page.tsx`
+
+```tsx
+export async function generateStaticParams() {
+  const apiParams = new DrupalJsonApiParams()
+  const params = apiParams
+    .addFields("node--landing_page", ["status", "path", "changed"])
+    .addSort("changed", "DESC")
+    .addFilter("status", "1")
+
+  const paths = await drupalClient.getResourceCollectionPathSegments(
+    ["node--landing_page"],
+    {
+      params: params.getQueryObject(),
+      defaultLocale: "en",
+      locales: ["en", "es"],
+    }
+  )
+
+  return paths.map((path) => {
+    return {
+      slug: path.segments,
+      lang: path.locale,
+    }
+  })
+}
+
+export default async function LandingPage({ params }) {
+  const { slug, lang } = params
+
+  const path = drupal.constructPathFromSegment(slug, { locale: lang })
+
+  // If slug = ['segment-1', 'segment-2'] and lang = 'en'
+  // path will result in '/en/segment-1/segment-2'
+
+  // ...
+}
+```

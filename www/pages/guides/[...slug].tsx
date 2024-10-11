@@ -1,6 +1,7 @@
 import { getMdxNode, getMdxPaths } from "next-mdx/server"
 import { useHydrate } from "next-mdx/client"
 import { getTableOfContents, TableOfContents } from "next-mdx-toc"
+import { MdxRemote } from "next-mdx-remote/types"
 
 import { Guide } from "types"
 import { guidesConfig } from "config/guides"
@@ -17,7 +18,7 @@ export interface GuidesPageProps {
 
 export default function GuidesPage({ guide, toc }: GuidesPageProps) {
   const content = useHydrate(guide, {
-    components: mdxComponents,
+    components: mdxComponents as unknown as MdxRemote.Components,
   })
 
   return (
@@ -68,7 +69,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const guide = await getMdxNode("guide", context, {
-    components: mdxComponents,
+    components: mdxComponents as unknown as MdxRemote.Components,
     mdxOptions: {
       remarkPlugins: [
         require("remark-slug"),

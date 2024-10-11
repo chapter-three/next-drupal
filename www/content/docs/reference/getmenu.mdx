@@ -10,15 +10,16 @@ You need to install the [JSON:API Menu Items](https://www.drupal.org/project/jso
 </Callout>
 
 ```ts
-const resource = await drupal.getResource<T = DrupalMenuLinkContent>(
-  name,
+const resource = await drupal.getMenu<T = DrupalMenuItem>(
+  menuName,
   options?: {
     params,
     withAuth,
     deserialize,
     locale,
     defaultLocale,
-	withCache
+	withCache,
+    cacheKey,
   }
 ): Promise<{
 	items: T[]
@@ -26,13 +27,13 @@ const resource = await drupal.getResource<T = DrupalMenuLinkContent>(
 }>
 ```
 
-- `name: string`
+- `menuName: string`
   - **Required**
   - The name of the menu. Example: `main` or `footer`.
 - `options`
   - Optional
   - `params: JsonApiParams`: JSON:API params such as `filter`, `fields`, `include` or `sort`.
-  - `withAuth: boolean | DrupalClientAuth`:
+  - `withAuth: boolean | NextDrupalAuth`:
     - Set the authentication method to use. See the [authentication docs](/docs/authentication).
     - Set to `true` to use the authentication method configured on the client.
   - `deserialize: boolean`: Set to false to return the raw JSON:API response.
@@ -46,8 +47,8 @@ const resource = await drupal.getResource<T = DrupalMenuLinkContent>(
 ## Notes
 
 - `getMenu` returns:
-  - `items`: An array of `DrupalMenuLinkContent`.
-  - `tree`: An array of `DrupalMenuLinkContent` with children nested to match the hierarchy from Drupal.
+  - `items`: An array of `DrupalMenuItem`.
+  - `tree`: An array of `DrupalMenuItem` with children nested to match the hierarchy from Drupal.
 
 ---
 
@@ -67,3 +68,18 @@ const menu = await drupal.getMenu("main", {
   cacheKey: "menu--main",
 })
 ```
+
+<!--
+************************************************************
+*  TODO: Remove this block before publishing.
+
+*  Comment: commented example until revalidation props are supported.
+- Get the `main` menu with tag-based revalidation.
+
+```ts
+const menu = await drupal.getMenu("main", {
+  next: { tags: ["main--menu"] }, // revalidates resource when calling `revalidateTag('main--menu')`
+})
+```
+************************************************************
+-->

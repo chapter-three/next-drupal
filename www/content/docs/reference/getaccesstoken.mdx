@@ -4,19 +4,21 @@ excerpt: Retrieve an access token.
 ---
 
 ```ts
-const token = await drupal.getAccessToken(options?: {
+const token = await drupal.getAccessToken(clientIdSecret?: {
   clientId,
   clientSecret,
-  url?
+  url?,
+  scope?
 }): Promise<AccessToken>
 ```
 
-- `options`
+- `clientIdSecret`
   - Optional
-  - If options is not provided, `DrupalClient` will use the `clientId` and `clientSecret` configured in `auth`.
+  - If `clientIdSecret` is not provided, `NextDrupal` will use the `clientId` and `clientSecret` configured in `auth`.
   - `clientId: string`: The oauth client id.
   - `clientSecret: string`: The oauth client secret.
   - `url: string`: The oauth url. Default: `/oauth/token`.
+  - `scope: string`
 
 ---
 

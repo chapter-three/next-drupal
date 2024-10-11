@@ -1,6 +1,6 @@
 ---
 title: Deleting Resources (DELETE)
-excerpt: How to delete JSON:API resources using DrupalClient.
+excerpt: How to delete JSON:API resources using NextDrupal.
 ---
 
 <Callout icon="⚠️">
@@ -9,7 +9,17 @@ The `deleteResource` helper is available in `next-drupal ^1.4.0`.
 
 </Callout>
 
-The `DrupalClient` ships with a `deleteResource` method for deleting JSON:API resources.
+<Callout>
+
+If you're working with JSON:API, be mindful to select the option:
+
+`Accept all JSON:API create, read, update, and delete operations.`
+
+on the following path: `/admin/config/services/jsonapi` in Drupal.
+
+</Callout>
+
+The `NextDrupal` client ships with a `deleteResource` method for deleting JSON:API resources.
 
 ---
 

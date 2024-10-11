@@ -1,9 +1,9 @@
 ---
 title: TypeScript
-excerpt: Using built-in types with DrupalClient.
+excerpt: Using built-in types with NextDrupal client.
 ---
 
-Every helper method for the `DrupalClient` has full TypeScript support.
+Every helper method for the `NextDrupal` client has full TypeScript support.
 
 The `next-drupal` module ships with some default basic types you can use.
 
@@ -132,10 +132,10 @@ export interface DrupalParagraph extends JsonApiResource {
 
 ---
 
-### PathAlias
+### DrupalPathAlias
 
 ```ts
-export type PathAlias = {
+export type DrupalPathAlias = {
   alias: string
   pid: number
   langcode: string
@@ -144,18 +144,18 @@ export type PathAlias = {
 
 ---
 
-### DrupalMenuLinkContent
+### DrupalMenuItem
 
 ```ts
-export interface DrupalMenuLinkContent {
+export interface DrupalMenuItem {
   description: string
   enabled: boolean
   expanded: boolean
-  id: string
+  id: DrupalMenuItemId
   menu_name: string
   meta: Record<string, unknown>
   options: Record<string, unknown>
-  parent: string
+  parent: DrupalMenuItemId
   provider: string
   route: {
     name: string
@@ -165,8 +165,10 @@ export interface DrupalMenuLinkContent {
   type: string
   url: string
   weight: string
-  items?: DrupalMenuLinkContent[]
+  items?: DrupalMenuItem[]
 }
+
+export type DrupalMenuItemId = string
 ```
 
 ---
@@ -198,6 +200,33 @@ export interface DrupalTranslatedPath {
     from: string
     to: string
     status: string
+  }[]
+}
+```
+
+---
+
+### DrupalSearchApiJsonApiResponse
+
+```ts
+export interface DrupalSearchApiJsonApiResponse extends JsonApiResponse {
+  meta: JsonApiResponse["meta"] & {
+    facets?: DrupalSearchApiFacet[]
+  }
+}
+
+export interface DrupalSearchApiFacet {
+  id: string
+  label?: string
+  path?: string
+  terms?: {
+    url: string
+    values: {
+      value: string
+      label: string
+      active?: boolean
+      count?: number
+    }
   }[]
 }
 ```

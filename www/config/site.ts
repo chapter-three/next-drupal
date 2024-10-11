@@ -44,12 +44,16 @@ export const site: SiteConfig = {
   },
   versions: [
     {
-      version: "v1.6.0",
+      version: "v2.0.0",
       active: true,
     },
     {
-      version: "v1.0.0",
+      version: "v1.6.0",
       url: "https://v1.next-drupal.org",
+    },
+    {
+      version: "canary",
+      url: "https://next.next-drupal.org",
     },
   ],
 }

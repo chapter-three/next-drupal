@@ -3,6 +3,42 @@ title: Upgrade Guide
 excerpt: Guide for upgrading your site to use DrupalClient.
 ---
 
+## next-drupal 2.0.0
+
+1. Upgrade to the latest version
+
+```sh
+yarn add next-drupal@latest
+```
+
+<Callout>
+
+`next-drupal 2.0.0` adds support for the App Router and maintains support for the Pages Router. For information on transitioning from the Pages Router to the App Router, see the [App Router Incremental Adoption Guide](https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration) guide on the Next.js site.
+
+</Callout>
+
+TODO - Outline breaking changes here.
+
+## next 2.0.0
+
+1. Upgrade your Drupal site to use `next 2.0.0`
+
+```sh
+composer require drupal/next
+```
+
+2. Run updates:
+
+```sh
+drush updb
+```
+
+<Callout>
+
+TODO - Describe changes as that will occur as a result of this upgrade.
+
+</Callout>
+
 ## next-drupal 1.6.0
 
 1. Upgrade to the latest version

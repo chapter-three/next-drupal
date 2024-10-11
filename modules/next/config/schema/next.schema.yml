@@ -89,6 +89,9 @@ next.settings:
       type: next.preview_url_generator.configuration.[%parent.preview_url_generator]
     debug:
       type: boolean
+    queue_size:
+      type: integer
+      label: 'Queue size'
 
 next.site_previewer.configuration.iframe:
   type: mapping

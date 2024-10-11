@@ -34,14 +34,15 @@ export default function IndexPage({ features }: IndexPageProps) {
 
   return (
     <Layout title={site.name} description={site.description}>
+      TODO - Re-order elements on home page
       <section className="relative px-6 pt-12 pb-8 md:py-12 md:pb-8">
         <div className="container max-w-4xl mx-auto text-center">
           <Link
-            href="/blog/next-drupal-1-6"
+            href="/blog/next-drupal-2-0"
             passHref
             className="inline-flex space-x-1 mx-auto mb-4 bg-[#111] text-white hover:underline text-sm items-center rounded-full px-4 py-1 font-medium"
           >
-            <span>Next.js 13, Drupal 10 and Stable On-demand Revalidation</span>
+            <span>Next.js 14, Drupal 11 and App Router Support</span>
           </Link>
           <h1 className="text-4xl font-black tracking-tight text-center md:text-6xl lg:tracking-tighter lg:text-8xl">
             The future of Drupal is headless
@@ -159,6 +160,7 @@ export default function IndexPage({ features }: IndexPageProps) {
             A powerful client for working with JSON:API.
           </p>
         </div>
+        TODO - Update code below for app router
         <div className="container max-w-5xl grid-cols-2 gap-6 mx-auto mt-10 md:grid">
           <div className="grid grid-flow-row gap-4 mt-10 md:max-w-md auto-rows-max">
             {features.map((feature) => (

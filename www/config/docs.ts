@@ -34,7 +34,7 @@ export const docsConfig: DocsConfig = {
       ],
     },
     {
-      title: "Drupal Client",
+      title: "NextDrupal Client",
       items: [
         {
           title: "Introduction",
@@ -93,6 +93,10 @@ export const docsConfig: DocsConfig = {
         {
           title: "Advanced Example",
           href: "/docs/pages#advanced-example",
+        },
+        {
+          title: "Pages Router",
+          href: "/docs/pages#pages-router",
         },
       ],
     },
@@ -195,6 +199,10 @@ export const docsConfig: DocsConfig = {
         {
           title: "getAuthorizationHeader",
           href: "/docs/reference/getauthorizationheader",
+        },
+        {
+          title: "Pages Router",
+          href: "/docs/reference/pages-router",
         },
       ],
     },

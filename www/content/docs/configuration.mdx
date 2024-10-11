@@ -5,6 +5,8 @@ excerpt: Initialization and options for NextDrupal client.
 
 ## Initialization
 
+### App Router
+
 To create a new `NextDrupal` client, use the following initialization:
 
 ```ts
@@ -18,6 +20,8 @@ Where `NEXT_PUBLIC_DRUPAL_BASE_URL` is the URL to your Drupal site defined as an
 ```txt title=.env.local
 NEXT_PUBLIC_DRUPAL_BASE_URL=http://example.com
 ```
+
+### Pages Router
 
 ---
 
@@ -226,3 +230,5 @@ JSON:API errors are thrown in non-production environments by default. The errors
 By default, the resource endpoint will be based on the resource name. If you turn this off, a JSON:API request will retrieve the resource's endpoint url.
 
 ---
+
+TODO - Call out any App Router or Pages Router specific options here.

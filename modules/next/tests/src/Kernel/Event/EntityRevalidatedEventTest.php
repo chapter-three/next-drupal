@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\next\Kernel\Event;
 
-use Drupal\Core\Database\Database;
 use Drupal\dblog\Controller\DbLogController;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\next\Entity\NextEntityTypeConfig;
@@ -43,7 +42,6 @@ class EntityRevalidatedEventTest extends KernelTestBase {
     $this->installEntitySchema('next_entity_type_config');
     $this->installConfig(['filter', 'next', 'system', 'user']);
     $this->installSchema('dblog', ['watchdog']);
-    $this->installSchema('system', ['sequences']);
     $this->installSchema('node', ['node_access']);
     $this->installSchema('user', ['users_data']);
 
@@ -84,6 +82,9 @@ class EntityRevalidatedEventTest extends KernelTestBase {
     $page->delete();
     $this->container->get('kernel')->terminate(Request::create('/'), new Response());
     $this->assertLogsContains("Entity A page updated, action delete, revalidated 0.");
+    // As hook_entity_predelete is used to perform revalidate
+    // before delete action then it's ideal to check log after revalidate.
+    $this->assertLogsContains("Event next.entity.action dispatched for entity A page updated and action delete.");
   }
 
   /**
@@ -93,7 +94,7 @@ class EntityRevalidatedEventTest extends KernelTestBase {
    *   The message to assert in the logs.
    */
   protected function assertLogsContains(string $message) {
-    $logs = Database::getConnection()
+    $logs = $this->container->get('database')
       ->select('watchdog', 'wd')
       ->fields('wd', ['message', 'variables'])
       ->condition('type', 'system')
@@ -104,7 +105,6 @@ class EntityRevalidatedEventTest extends KernelTestBase {
     $messages = array_map(function ($log) use ($controller) {
       return (string) $controller->formatMessage($log);
     }, $logs);
-
     $this->assertContains($message, $messages);
   }
 

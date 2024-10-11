@@ -2,6 +2,7 @@ import * as React from "react"
 import { GetStaticPropsResult } from "next"
 import { getAllMdxNodes } from "next-mdx"
 import Link from "next/link"
+import { MdxRemote } from "next-mdx-remote/types"
 
 import { site } from "config/site"
 import { Feature } from "types"
@@ -16,7 +17,7 @@ interface FeatureCodeProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function FeatureCode({ feature, ...props }: FeatureCodeProps) {
   const content = useHydrate(feature, {
-    components: mdxComponents,
+    components: mdxComponents as unknown as MdxRemote.Components,
   })
 
   return <div {...props}>{content}</div>

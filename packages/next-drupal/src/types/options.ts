@@ -34,6 +34,9 @@ export type JsonApiWithCacheOptions = {
   cacheKey?: string
 }
 
+export type JsonApiWithNextFetchOptions = {
+  next?: NextFetchRequestConfig
+}
 // TODO: Properly type this.
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export type JsonApiParams = Record<string, any>

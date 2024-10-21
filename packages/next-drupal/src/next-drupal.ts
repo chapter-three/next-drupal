@@ -19,6 +19,7 @@ import type {
   JsonApiUpdateResourceBody,
   JsonApiWithAuthOption,
   JsonApiWithCacheOptions,
+  JsonApiWithNextFetchOptions,
   JsonDeserializer,
   Locale,
   NextDrupalOptions,
@@ -248,7 +249,9 @@ export class NextDrupal extends NextDrupalBase {
   async getResource<T extends JsonApiResource>(
     type: string,
     uuid: string,
-    options?: JsonApiOptions & JsonApiWithCacheOptions
+    options?: JsonApiOptions &
+      JsonApiWithCacheOptions &
+      JsonApiWithNextFetchOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -283,6 +286,7 @@ export class NextDrupal extends NextDrupalBase {
 
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
+      next: options.next,
     })
 
     await this.throwIfJsonErrors(response, "Error while fetching resource: ")
@@ -301,7 +305,8 @@ export class NextDrupal extends NextDrupalBase {
     path: string,
     options?: {
       isVersionable?: boolean
-    } & JsonApiOptions
+    } & JsonApiOptions &
+      JsonApiWithNextFetchOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -370,6 +375,7 @@ export class NextDrupal extends NextDrupalBase {
       redirect: "follow",
       body: JSON.stringify(payload),
       withAuth: options.withAuth,
+      next: options.next,
     })
 
     const errorMessagePrefix = "Error while fetching resource by path:"
@@ -408,7 +414,8 @@ export class NextDrupal extends NextDrupalBase {
     type: string,
     options?: {
       deserialize?: boolean
-    } & JsonApiOptions
+    } & JsonApiOptions &
+      JsonApiWithNextFetchOptions
   ): Promise<T> {
     options = {
       withAuth: this.withAuth,
@@ -427,6 +434,7 @@ export class NextDrupal extends NextDrupalBase {
 
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
+      next: options.next,
     })
 
     await this.throwIfJsonErrors(
@@ -445,6 +453,7 @@ export class NextDrupal extends NextDrupalBase {
       pathPrefix?: PathPrefix
       params?: JsonApiParams
     } & JsonApiWithAuthOption &
+      JsonApiWithNextFetchOptions &
       (
         | {
             locales: Locale[]
@@ -490,6 +499,7 @@ export class NextDrupal extends NextDrupalBase {
             let opts: Parameters<NextDrupal["getResourceCollection"]>[1] = {
               params,
               withAuth: options.withAuth,
+              next: options.next,
             }
             if (locale) {
               opts = {
@@ -547,7 +557,7 @@ export class NextDrupal extends NextDrupalBase {
 
   async translatePath(
     path: string,
-    options?: JsonApiWithAuthOption
+    options?: JsonApiWithAuthOption & JsonApiWithNextFetchOptions
   ): Promise<DrupalTranslatedPath | null> {
     options = {
       withAuth: this.withAuth,
@@ -562,6 +572,7 @@ export class NextDrupal extends NextDrupalBase {
 
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
+      next: options.next,
     })
 
     if (response.status === 404) {
@@ -575,7 +586,10 @@ export class NextDrupal extends NextDrupalBase {
     return await response.json()
   }
 
-  async getIndex(locale?: Locale): Promise<JsonApiResponse> {
+  async getIndex(
+    locale?: Locale,
+    options?: JsonApiWithNextFetchOptions
+  ): Promise<JsonApiResponse> {
     const endpoint = await this.buildEndpoint({
       locale,
     })
@@ -585,6 +599,7 @@ export class NextDrupal extends NextDrupalBase {
     const response = await this.fetch(endpoint, {
       // As per https://www.drupal.org/node/2984034 /jsonapi is public.
       withAuth: false,
+      next: options?.next,
     })
 
     await this.throwIfJsonErrors(
@@ -657,7 +672,9 @@ export class NextDrupal extends NextDrupalBase {
 
   async getMenu<T = DrupalMenuItem>(
     menuName: string,
-    options?: JsonApiOptions & JsonApiWithCacheOptions
+    options?: JsonApiOptions &
+      JsonApiWithCacheOptions &
+      JsonApiWithNextFetchOptions
   ): Promise<{
     items: T[]
     tree: T[]
@@ -692,6 +709,7 @@ export class NextDrupal extends NextDrupalBase {
 
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
+      next: options.next,
     })
 
     await this.throwIfJsonErrors(response, "Error while fetching menu items: ")
@@ -719,7 +737,7 @@ export class NextDrupal extends NextDrupalBase {
 
   async getView<T = JsonApiResource>(
     name: string,
-    options?: JsonApiOptions
+    options?: JsonApiOptions & JsonApiWithNextFetchOptions
   ): Promise<DrupalView<T>> {
     options = {
       withAuth: this.withAuth,
@@ -741,6 +759,7 @@ export class NextDrupal extends NextDrupalBase {
 
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
+      next: options.next,
     })
 
     await this.throwIfJsonErrors(response, "Error while fetching view: ")
@@ -759,7 +778,7 @@ export class NextDrupal extends NextDrupalBase {
 
   async getSearchIndex<T = JsonApiResource[]>(
     name: string,
-    options?: JsonApiOptions
+    options?: JsonApiOptions & JsonApiWithNextFetchOptions
   ): Promise<T> {
     options = {
       withAuth: this.withAuth,
@@ -778,6 +797,7 @@ export class NextDrupal extends NextDrupalBase {
 
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
+      next: options.next,
     })
 
     await this.throwIfJsonErrors(

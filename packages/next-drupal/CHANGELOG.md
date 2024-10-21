@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.1](https://github.com/chapter-three/next-drupal/compare/next-drupal@2.0.0-beta.0...next-drupal@2.0.0-beta.1) (2024-10-21)
+
+
+### Features
+
+* **next-drupal:** next revalidate options ([#784](https://github.com/chapter-three/next-drupal/issues/784)) ([e64dc5b](https://github.com/chapter-three/next-drupal/commit/e64dc5bb8d4ec9a3ed71f15b1810574837134d4b))
+
+
+
+
+
 # [2.0.0-beta.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@2.0.0-alpha.1...next-drupal@2.0.0-beta.0) (2024-04-26)
 
 

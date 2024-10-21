@@ -15,6 +15,19 @@ const response = await drupal.fetch(input, init?): Promise<Response>
   - The fetch options with `withAuth`.
   - If `withAuth` is set, `fetch` will fetch an `Authorization` header before making the request.
 
+<!--
+************************************************************
+*  TODO: Remove this block before publishing.
+
+*  Comment: I'll remove the proposed `next` prop till is supported
+  - `next: NextFetchRequestConfig`
+    - Set the `revalidate` option in seconds to configure [Time-based revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#time-based-revalidation).
+      Ex: `next: { revalidate: 3600 } // revalidate resource every hour`
+    - Set the `tags` option to confiure [Tag-based On demand revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#on-demand-revalidation).
+      Ex: `next: { tags: ['resource-tag'] }`
+************************************************************
+-->
+
 ---
 
 ## Notes

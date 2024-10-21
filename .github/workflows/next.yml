@@ -9,7 +9,7 @@ on:
 
 jobs:
   phpunit:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         # Supported PHP versions: https://www.drupal.org/docs/getting-started/system-requirements/php-requirements
@@ -22,15 +22,21 @@ jobs:
           - "10.0.x"
           - "10.1.x"
           - "10.2.x"
+          - "10.3.x"
+          - "11.0.x"
         exclude:
           - drupal: "10.0.x"
             php: "8.3"
           - drupal: "10.1.x"
             php: "8.3"
+          - drupal: "11.0.x"
+            php: "8.1"
+          - drupal: "11.0.x"
+            php: "8.2"
     name: Drupal ${{ matrix.drupal }} - PHP ${{ matrix.php }}
     services:
       mysql:
-        image: mysql:5.7
+        image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: db

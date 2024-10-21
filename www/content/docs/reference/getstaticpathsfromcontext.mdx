@@ -24,7 +24,7 @@ const paths = await drupal.getStaticPathsFromContext(
 - `options`
   - Optional
   - `params: JsonApiParams`: JSON:API params such as `filter`, `fields`, `include` or `sort`.
-  - `withAuth: boolean | DrupalClientAuth`:
+  - `withAuth: boolean | NextDrupalAuth`:
     - Set the authentication method to use. See the [authentication docs](/docs/authentication).
     - Set to `true` to use the authentication method configured on the client.
   - `pathPrefix: string`: Set the pathPrefix if you're calling from a subdir. Example: for `/articles/[...slug].tsx`, use `pathPrefix: "/articles"`.

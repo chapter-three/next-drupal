@@ -1,5 +1,6 @@
 import { getMdxNode, getMdxPaths } from "next-mdx/server"
 import { useHydrate } from "next-mdx/client"
+import { MdxRemote } from "next-mdx-remote/types"
 
 import { Blog } from "types"
 import { Layout } from "components/layout"
@@ -11,7 +12,7 @@ export interface BlogsPageProps {
 
 export default function BlogsPage({ blog }: BlogsPageProps) {
   const content = useHydrate(blog, {
-    components: mdxComponents,
+    components: mdxComponents as unknown as MdxRemote.Components,
   })
 
   return (
@@ -42,7 +43,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const blog = await getMdxNode("blog", context, {
-    components: mdxComponents,
+    components: mdxComponents as unknown as MdxRemote.Components,
     mdxOptions: {
       remarkPlugins: [
         require("remark-slug"),

@@ -1,6 +1,7 @@
 import { getMdxNode, getMdxPaths } from "next-mdx/server"
 import { useHydrate } from "next-mdx/client"
 import { getTableOfContents, TableOfContents } from "next-mdx-toc"
+import { MdxRemote } from "next-mdx-remote/types"
 
 import { Doc } from "types"
 import { docsConfig } from "config/docs"
@@ -17,7 +18,7 @@ export interface DocsPageProps {
 
 export default function DocsPage({ doc, toc }: DocsPageProps) {
   const content = useHydrate(doc, {
-    components: mdxComponents,
+    components: mdxComponents as unknown as MdxRemote.Components,
   })
 
   return (
@@ -65,7 +66,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const doc = await getMdxNode("doc", context, {
-    components: mdxComponents,
+    components: mdxComponents as unknown as MdxRemote.Components,
     mdxOptions: {
       remarkPlugins: [
         require("remark-slug"),

@@ -1,6 +1,6 @@
 ---
 title: Creating Resources (POST)
-excerpt: How to create JSON:API resources using DrupalClient.
+excerpt: How to create JSON:API resources using NextDrupal client.
 ---
 
 <Callout icon="⚠️">
@@ -9,13 +9,23 @@ The `createResource` and `createFileResource` helpers are available in `next-dru
 
 </Callout>
 
-The `DrupalClient` ships with a `createResource` and a `createFileResource` methods for creating JSON:API resources.
+<Callout>
+
+If you're working with JSON:API, be mindful to select the option:
+
+`Accept all JSON:API create, read, update, and delete operations.`
+
+on the following path: `/admin/config/services/jsonapi` in Drupal.
+
+</Callout>
+
+The `NextDrupal` client ships with `createResource` and `createFileResource` methods for creating JSON:API resources.
 
 ---
 
 ## createResource
 
-### Create Resource
+#### Create Resource
 
 Create an article with a title and a body.
 
@@ -33,7 +43,7 @@ const article = await drupal.createResource("node--article", {
 })
 ```
 
-### Create Resource with Relationships
+#### Create Resource with Relationships
 
 Create an article with a media field.
 

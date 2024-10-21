@@ -50,7 +50,6 @@ class SimpleOauthPreviewUrlGeneratorTest extends KernelTestBase {
     $this->installEntitySchema('node');
     $this->installEntitySchema('user');
     $this->installConfig(['filter', 'next']);
-    $this->installSchema('system', ['sequences']);
     $this->installSchema('node', ['node_access']);
 
     $this->nextSettingsManager = $this->container->get('next.settings.manager');
@@ -160,7 +159,7 @@ class SimpleOauthPreviewUrlGeneratorTest extends KernelTestBase {
    * @return array[]
    *   An array of test data.
    */
-  public function providerValidateForInvalidBody() {
+  public static function providerValidateForInvalidBody(): array {
     return [
       [[], "Field 'path' is missing"],
       [['path' => '/node/1'], "Field 'timestamp' is missing"],

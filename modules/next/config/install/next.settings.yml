@@ -8,3 +8,4 @@ preview_url_generator: simple_oauth
 preview_url_generator_configuration:
   secret_expiration: 30
 debug: false
+queue_size: 10

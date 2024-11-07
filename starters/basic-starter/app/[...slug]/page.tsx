@@ -36,6 +36,7 @@ async function getNode(slug: string[]) {
     params,
     next: {
       revalidate: 3600,
+      // Replace `revalidate` with `tags` if using tag based revalidation.
       // tags: [`${type}:${translatedPath.entity.id}`],
     },
   })

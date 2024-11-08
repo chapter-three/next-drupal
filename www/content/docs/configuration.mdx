@@ -120,7 +120,7 @@ const jsonDeserializer = new Deserializer({
 
 const customDeserializer = jsonSerializer.deserialize.bind(jsonSerializer)
 
-new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+new NextDrupalPages(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
   serializer: customDeserializer,
 })
 ```

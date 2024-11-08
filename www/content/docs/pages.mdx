@@ -214,4 +214,92 @@ See the [fetching JSON:API resources](/docs/fetching-resources) section for more
 
 ## Pages Router
 
-TODO - Port some examples from the previous docs.
+When using the Pages Router, you will use the `getStaticProps` and `getServerSideProps` methods to fetch data for your pages.
+
+### Basic Example
+
+Here's an example which uses `getResource` to fetch a `page` node by ID:
+
+```tsx
+const node = await drupal.getResource(
+  "node--page",
+  "07464e9f-9221-4a4f-b7f2-01389408e6c8"
+)
+```
+
+A full page would look like this:
+
+```tsx title=pages/about.tsx
+// node will be populated at build time by getStaticProps
+export default function AboutPage({ node }) {
+  return (
+    <article>
+      <h1>{node.title}</h1>
+      // ...
+    </article>
+  )
+}
+
+export async function getStaticProps() {
+  // Fetch the node from Drupal.
+  const node = await drupal.getResource(
+    "node--page",
+    "07464e9f-9221-4a4f-b7f2-01389408e6c8"
+  )
+
+  // Pass the node as props to the AboutPage.
+  return {
+    props: {
+      node,
+    },
+  }
+}
+```
+
+---
+
+## Dynamic pages
+
+You can use Next.js [dynamic route](https://nextjs.org/docs/basic-features/pages#pages-with-dynamic-routes) to build static pages for Drupal entity types.
+
+Start by creating a page at `/pages/[...slug].tsx`, where `[...slug]` maps to the **path alias** for an entity type (or content type) in Drupal.
+
+This means `/pages/[...slug].tsx` will handle all pages with the following aliases: `/about`, `/team`, `/another/path` ...etc.
+
+To build static pages, there are two functions we need to implement:
+
+1. `getStaticPaths`: to tell Next.js all the routes that we want to be rendered.
+2. `getStaticProps`: to fetch data for pages.
+
+```tsx title=pages/[...slug].tsx
+export default function Page({ node }) {
+  return (
+    <article>
+      <h1>{node.title}</h1>
+      // ...
+    </article>
+  )
+}
+
+export async function getStaticPaths(context) {
+  // Build paths for all `node--page`.
+  return {
+    paths: await drupal.getStaticPathsFromContext("node--page", context),
+    fallback: false,
+  }
+}
+
+export async function getStaticProps(context) {
+  // Fetch the node based on the context.
+  // next-drupal automatically handles the slug value.
+  const node = await drupal.getResourceFromContext("node--page", context)
+
+  return {
+    props: {
+      node,
+    },
+  }
+}
+```
+
+---

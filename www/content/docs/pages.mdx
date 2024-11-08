@@ -3,7 +3,7 @@ title: Building Pages
 excerpt: How to build pages using JSON:API resources from Drupal.
 ---
 
-In Next.js V14, data fetching has evolved significantly from previous versions. Instead of using `getStaticProps` and `getServerSideProps` you now use the native `fetch` function enhanced by Next.js to handle server-side data fetching. This also allows you to configure caching and revalidation directly within your fetch requests. These can be used in Server Components, Route Handlers, and Server Actions. You can read more about it [here](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating).
+In the Next.js App Router, data fetching has evolved significantly from previous versions. The native `fetch` function enhanced by Next.js can be used to handle server-side data fetching. This also allows you to configure caching and revalidation directly within your fetch requests. These can be used in Server Components, Route Handlers, and Server Actions. You can read more about it [here](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating).
 
 The `NextDrupal` client provides several functions to help you query JSON:API resources from Drupal and manage these revalidation options on the `fetch` request level.
 
@@ -40,7 +40,17 @@ export default function AboutPage() {
 }
 ```
 
-TODO - time based revalidation.
+### Time-based Revalidation
+
+To use time-based revalidation, you can pass a `revalidate` option to the `getResource` function. This will set the cache lifetime of a resource (in seconds).
+
+```tsx
+const node = await drupal.getResource(
+  "node--page",
+  "07464e9f-9221-4a4f-b7f2-01389408e6c8",
+  { next: { revalidate: 3600 } }
+)
+```
 
 ---
 
@@ -145,7 +155,58 @@ export default function Page({ params }) {
 }
 ```
 
-TODO - tag based revalidation.
+### Tag-based Revalidation
+
+In addition to revalidating based on time, it is also possible to revalidate
+based on cache tag values. This is useful when you want to revalidate a resource
+based on changes to other resources.
+
+Below we've adapted the Page function from the example above to include
+tag-based revalidation.
+
+```tsx title=app/[...slug]/page.tsx
+import { DrupalJsonApiParams } from "drupal-jsonapi-params"
+
+...
+
+export default function Page({ params }) {
+  const {slug} = params;
+
+  const path = drupal.translatePath(slug)
+
+  // Get the resource type.
+  const type = path.jsonapi.resourceName
+  const tag = `${path.entity.type}:${path.entity.id}`
+
+  const params = new DrupalJsonApiParams()
+
+  // Fetch the title, path and body field for pages.
+  if (type === "node--page") {
+    params.addFields("node--page", ["title", "path", "body"])
+  }
+
+  // Fetch additional fields for articles.
+  if (type === "node--article") {
+    params.addFields("node--article", ["title", "path", "body", "uid"])
+  }
+
+  const node = await drupal.getResource(path, path.entity.uuid {
+    params: params.getQueryObject(),
+    tags: [tag]
+  })
+
+  // Render different Components based on Node type.
+  if (node.type === "node--page") {
+    return <PageComponent node={node}/>
+  }
+
+  if (node.type === "node--article") {
+    return <ArticleComponent node={node}/>
+  }
+
+  return null
+}
+```
 
 ## Reference
 

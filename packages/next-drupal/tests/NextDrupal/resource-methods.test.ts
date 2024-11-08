@@ -512,6 +512,29 @@ describe("getResource()", () => {
       })
     )
   })
+
+  test("makes request with cache option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      cache: "no-store",
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.getResource(
+      "node--recipe",
+      "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      mockInit
+    )
+
+    expect(fetchSpy).toBeCalledTimes(1)
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
 })
 
 describe("getResourceByPath()", () => {

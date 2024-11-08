@@ -27,6 +27,7 @@ async function getNode(slug: string[]) {
 
   const type = translatedPath.jsonapi?.resourceName!
   const uuid = translatedPath.entity.uuid
+  const tag = `${translatedPath.entity.type}:${translatedPath.entity.id}`
 
   if (type === "node--article") {
     params.include = "field_image,uid"
@@ -37,7 +38,7 @@ async function getNode(slug: string[]) {
     next: {
       revalidate: 3600,
       // Replace `revalidate` with `tags` if using tag based revalidation.
-      // tags: [`${translatedPath.entity.type}:${translatedPath.entity.id}`],
+      // tags: [tag],
     },
   })
 

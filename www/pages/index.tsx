@@ -34,7 +34,8 @@ export default function IndexPage({ features }: IndexPageProps) {
 
   return (
     <Layout title={site.name} description={site.description}>
-      TODO - Re-order elements on home page
+      TODO - Re-order elements on home page TODO - A Last docs wide search for
+      'TODO'
       <section className="relative px-6 pt-12 pb-8 md:py-12 md:pb-8">
         <div className="container max-w-4xl mx-auto text-center">
           <Link

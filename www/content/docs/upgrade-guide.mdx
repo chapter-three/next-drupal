@@ -1,6 +1,6 @@
 ---
 title: Upgrade Guide
-excerpt: Guide for upgrading your site to use DrupalClient.
+excerpt: Upgrading your site to use the latest version of Next.js for Drupal.
 ---
 
 ## next-drupal 2.0.0
@@ -17,7 +17,37 @@ yarn add next-drupal@latest
 
 </Callout>
 
-TODO - Outline breaking changes here.
+Breaking changes:
+
+- When Drupal uses the Preview Url and the Revalidate Url, the "slug" search param
+  has been renamed to "path".
+- The JsonApiWithAuthOptions type has been renamed to JsonApiWithAuthOption. The
+  JsonApiWithLocaleOptions type is now considered deprecated for DrupalClient
+  usage and can be replaced with the JsonApiOptions type.
+- The forceIframeSameSiteCookie option to DrupalClient has been removed. The
+  DrupalClient now automatically makes this change when the Next.js website is
+  running in development mode (and the change is not needed for production sites).
+- The options to the DrupalClient.preview() method were previously ignored. The
+  options are now passed to the NextApiResponse.setDraftMode() method and their
+  TypeScript definition have now changed to match the options parameter of the
+  setDraftMode method.
+- DrupalClient previously had a debug property that indicated if debugging was
+  enabled. This property has been removed and replaced with a debug() method that
+  accepts a string and logs it as a debug message if debugging is enabled.
+- The useMenu() client hook has moved out of the main entry point and into its own
+  entry point. Any import or require of that function needs to be updated:
+
+Old usage:
+
+```js
+import { useMenu } from "next-drupal"
+```
+
+New usage:
+
+```js
+import { useMenu } from "next-drupal/navigation"
+```
 
 ## next 2.0.0
 
@@ -35,7 +65,11 @@ drush updb
 
 <Callout>
 
-TODO - Describe changes as that will occur as a result of this upgrade.
+Notable changes:
+
+- A new 'tag' On-demand validation plugin is available to configure for use with Next.js entity types.
+- When Drupal uses the Preview Url and the Revalidate Url, the "slug" search param
+  has been renamed to "path".
 
 </Callout>
 
@@ -199,3 +233,7 @@ export const drupal = new DrupalClient(
 6. Done. You are now ready to run your site using the new `DrupalClient`.
 
 If you see any bugs during the upgrade, feel free to create an issue on [GitHub](https://github.com/chapter-three/next-drupal).
+
+```
+
+```

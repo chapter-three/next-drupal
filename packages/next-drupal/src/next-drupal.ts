@@ -89,7 +89,7 @@ export class NextDrupal extends NextDrupalBase {
   async createResource<T extends JsonApiResource>(
     type: string,
     body: JsonApiCreateResourceBody,
-    options?: JsonApiOptions
+    options?: JsonApiOptions & JsonApiWithNextFetchOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -130,7 +130,7 @@ export class NextDrupal extends NextDrupalBase {
   async createFileResource<T = DrupalFile>(
     type: string,
     body: JsonApiCreateFileResourceBody,
-    options?: JsonApiOptions
+    options?: JsonApiOptions & JsonApiWithNextFetchOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -176,7 +176,7 @@ export class NextDrupal extends NextDrupalBase {
     type: string,
     uuid: string,
     body: JsonApiUpdateResourceBody,
-    options?: JsonApiOptions
+    options?: JsonApiOptions & JsonApiWithNextFetchOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -219,7 +219,7 @@ export class NextDrupal extends NextDrupalBase {
   async deleteResource(
     type: string,
     uuid: string,
-    options?: JsonApiOptions
+    options?: JsonApiOptions & JsonApiWithNextFetchOptions
   ): Promise<boolean> {
     options = {
       withAuth: true,

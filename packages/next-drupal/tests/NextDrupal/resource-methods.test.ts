@@ -281,6 +281,25 @@ describe("getMenu()", () => {
       })
     )
   })
+
+  test("makes request with cache option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      cache: "no-store",
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.getMenu("main", mockInit)
+
+    expect(fetchSpy).toBeCalledTimes(1)
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
 })
 
 describe("getResource()", () => {
@@ -853,6 +872,32 @@ describe("getResourceByPath()", () => {
       })
     )
   })
+
+  test("makes request with cache option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      cache: "no-store",
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch({
+      status: 207,
+      statusText: "Multi-Status",
+      responseBody: mocks.resources.subRequests.ok,
+    })
+
+    await drupal.getResourceByPath<DrupalNode>(
+      "/recipes/deep-mediterranean-quiche",
+      mockInit
+    )
+
+    expect(fetchSpy).toBeCalledTimes(1)
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
 })
 
 describe("getResourceCollection()", () => {
@@ -974,6 +1019,25 @@ describe("getResourceCollection()", () => {
     await drupal.getResourceCollection("node--recipe", mockInit)
 
     expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
+
+  test("makes request with cache option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      cache: "no-store",
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.getResourceCollection("node--recipe", mockInit)
+
+    expect(fetchSpy).toBeCalledTimes(1)
+    expect(fetchSpy).toBeCalledWith(
       expect.anything(),
       expect.objectContaining({
         ...mockInit,
@@ -1139,6 +1203,27 @@ describe("getResourceCollectionPathSegments()", () => {
       })
     )
   })
+
+  test("makes request with cache option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      cache: "no-store",
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch({
+      responseBody: { data: [] },
+    })
+
+    await drupal.getResourceCollectionPathSegments("node--article", mockInit)
+
+    expect(fetchSpy).toBeCalledTimes(1)
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
 })
 
 describe("getSearchIndex()", () => {
@@ -1269,6 +1354,25 @@ describe("getSearchIndex()", () => {
       })
     )
   })
+
+  test("makes request with cache option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      cache: "no-store",
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.getSearchIndex("recipes", mockInit)
+
+    expect(fetchSpy).toBeCalledTimes(1)
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
 })
 
 describe("getView()", () => {
@@ -1392,6 +1496,25 @@ describe("getView()", () => {
       })
     )
   })
+
+  test("makes request with cache option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      cache: "no-store",
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.getView("featured_articles--page_1", mockInit)
+
+    expect(fetchSpy).toBeCalledTimes(1)
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
 })
 
 describe("translatePath()", () => {
@@ -1495,6 +1618,25 @@ describe("translatePath()", () => {
     await drupal.translatePath("recipes/deep-mediterranean-quiche", mockInit)
 
     expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
+
+  test("makes request with cache option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      cache: "no-store",
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.translatePath("recipes/deep-mediterranean-quiche", mockInit)
+
+    expect(fetchSpy).toBeCalledTimes(1)
+    expect(fetchSpy).toBeCalledWith(
       expect.anything(),
       expect.objectContaining({
         ...mockInit,

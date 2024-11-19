@@ -6,7 +6,7 @@ export type Locale = string
 
 export type PathPrefix = string
 
-export interface FetchOptions extends RequestInit {
+export interface FetchOptions extends RequestInit, JsonApiWithNextFetchOptions {
   withAuth?: boolean | NextDrupalAuth
 }
 

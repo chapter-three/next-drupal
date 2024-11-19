@@ -260,6 +260,7 @@ export class NextDrupal extends NextDrupalBase {
       params: {},
       ...options,
     }
+    // Not sure about this node-cache
 
     /* c8 ignore next 11 */
     if (options.withCache) {

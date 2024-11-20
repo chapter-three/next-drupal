@@ -27,6 +27,10 @@ import type {
   NextApiResponse,
 } from "next"
 
+/**
+ * The NextDrupalPages class extends the NextDrupal class and provides methods
+ * for interacting with a Drupal backend in the context of Next.js pages.
+ */
 export class NextDrupalPages extends NextDrupal {
   private serializer: DrupalClientOptions["serializer"]
 
@@ -59,6 +63,13 @@ export class NextDrupalPages extends NextDrupal {
     ) => this.serializer.deserialize(body, options)
   }
 
+  /**
+   * Gets the entry point for a given resource type.
+   *
+   * @param {string} resourceType The resource type.
+   * @param {Locale} locale The locale.
+   * @returns {Promise<string>} The entry point URL.
+   */
   async getEntryForResourceType(
     resourceType: string,
     locale?: Locale
@@ -74,6 +85,14 @@ export class NextDrupalPages extends NextDrupal {
     return new DrupalMenuTree<DrupalMenuItem>(links, parent)
   }
 
+  /**
+   * Gets a resource from the context.
+   *
+   * @param {string | DrupalTranslatedPath} input The input path or translated path.
+   * @param {GetStaticPropsContext} context The static props context.
+   * @param {Object} options Options for the request.
+   * @returns {Promise<T>} The fetched resource.
+   */
   async getResourceFromContext<T extends JsonApiResource>(
     input: string | DrupalTranslatedPath,
     context: GetStaticPropsContext,
@@ -157,6 +176,14 @@ export class NextDrupalPages extends NextDrupal {
     return resource
   }
 
+  /**
+   * Gets a collection of resources from the context.
+   *
+   * @param {string} type The type of the resources.
+   * @param {GetStaticPropsContext} context The static props context.
+   * @param {Object} options Options for the request.
+   * @returns {Promise<T>} The fetched collection of resources.
+   */
   async getResourceCollectionFromContext<T = JsonApiResource[]>(
     type: string,
     context: GetStaticPropsContext,
@@ -177,6 +204,14 @@ export class NextDrupalPages extends NextDrupal {
     })
   }
 
+  /**
+   * Gets a search index from the context.
+   *
+   * @param {string} name The name of the search index.
+   * @param {GetStaticPropsContext} context The static props context.
+   * @param {Object} options Options for the request.
+   * @returns {Promise<T>} The fetched search index.
+   */
   async getSearchIndexFromContext<T = JsonApiResource[]>(
     name: string,
     context: GetStaticPropsContext,
@@ -189,6 +224,13 @@ export class NextDrupalPages extends NextDrupal {
     })
   }
 
+  /**
+   * Translates a path from the context.
+   *
+   * @param {GetStaticPropsContext} context The static props context.
+   * @param {Object} options Options for the request.
+   * @returns {Promise<DrupalTranslatedPath | null>} The translated path.
+   */
   async translatePathFromContext(
     context: GetStaticPropsContext,
     options?: {
@@ -208,6 +250,13 @@ export class NextDrupalPages extends NextDrupal {
     })
   }
 
+  /**
+   * Gets the path from the context.
+   *
+   * @param {GetStaticPropsContext} context The static props context.
+   * @param {Object} options Options for the request.
+   * @returns {string} The constructed path.
+   */
   getPathFromContext(
     context: GetStaticPropsContext,
     options?: {
@@ -223,6 +272,14 @@ export class NextDrupalPages extends NextDrupal {
 
   getPathsFromContext = this.getStaticPathsFromContext
 
+  /**
+   * Gets static paths from the context.
+   *
+   * @param {string | string[]} types The types of the resources.
+   * @param {GetStaticPathsContext} context The static paths context.
+   * @param {Object} options Options for the request.
+   * @returns {Promise<GetStaticPathsResult<{ slug: string[] }>["paths"]>} The fetched static paths.
+   */
   async getStaticPathsFromContext(
     types: string | string[],
     context: GetStaticPathsContext,
@@ -291,6 +348,13 @@ export class NextDrupalPages extends NextDrupal {
     return paths.flat()
   }
 
+  /**
+   * Builds static paths from resources.
+   *
+   * @param {Object[]} resources The resources.
+   * @param {Object} options Options for the request.
+   * @returns {Object[]} The built static paths.
+   */
   buildStaticPathsFromResources(
     resources: {
       path: DrupalPathAlias
@@ -313,6 +377,13 @@ export class NextDrupalPages extends NextDrupal {
       : []
   }
 
+  /**
+   * Builds static paths parameters from paths.
+   *
+   * @param {string[]} paths The paths.
+   * @param {Object} options Options for the request.
+   * @returns {Object[]} The built static paths parameters.
+   */
   buildStaticPathsParamsFromPaths(
     paths: string[],
     options?: { pathPrefix?: PathPrefix; locale?: Locale }
@@ -342,6 +413,13 @@ export class NextDrupalPages extends NextDrupal {
     })
   }
 
+  /**
+   * Handles preview mode.
+   *
+   * @param {NextApiRequest} request The API request.
+   * @param {NextApiResponse} response The API response.
+   * @param {Object} options Options for the request.
+   */
   async preview(
     request: NextApiRequest,
     response: NextApiResponse,
@@ -411,6 +489,12 @@ export class NextDrupalPages extends NextDrupal {
     }
   }
 
+  /**
+   * Disables preview mode.
+   *
+   * @param {NextApiRequest} request The API request.
+   * @param {NextApiResponse} response The API response.
+   */
   async previewDisable(request: NextApiRequest, response: NextApiResponse) {
     // Disable both preview and draft modes.
     response.clearPreviewData()
@@ -427,6 +511,13 @@ export class NextDrupalPages extends NextDrupal {
     response.end()
   }
 
+  /**
+   * Gets the authentication configuration from the context and options.
+   *
+   * @param {GetStaticPropsContext} context The static props context.
+   * @param {JsonApiWithAuthOption} options Options for the request.
+   * @returns {NextDrupalAuth} The authentication configuration.
+   */
   getAuthFromContextAndOptions(
     context: GetStaticPropsContext,
     options: JsonApiWithAuthOption

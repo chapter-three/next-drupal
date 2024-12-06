@@ -171,7 +171,7 @@ describe("getDraftData()", () => {
     const draftModeStore = await draftMode()
     cookieStore.set(draftDataCookie)
 
-    const data = getDraftData()
+    const data = await getDraftData()
     expect(draftModeStore.isEnabled).toBe(false)
     expect(cookieStore.has).toHaveBeenCalledTimes(0)
     expect(cookieStore.get).toHaveBeenCalledTimes(0)
@@ -203,7 +203,7 @@ describe("getDraftData()", () => {
     })
     draftModeStore.enable()
 
-    const data = getDraftData()
+    const data = await getDraftData()
     expect(draftModeStore).toHaveBeenCalledTimes(1)
     expect(draftModeStore.isEnabled).toBe(true)
     expect(cookiesStore.has).toHaveBeenCalledWith(DRAFT_DATA_COOKIE_NAME)

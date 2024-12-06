@@ -50,6 +50,15 @@ yarn workspace next-drupal dev
 
 You can run all the tests from the root of the repository.
 
+Due to the current CI/CD setup it is not possible to run the tests locally.
+A running Drupal instance with a secret configuration is required to run the tests.
+
+To add the required env vars to Jest run:
+
+```
+cp packages/next-drupal/.env.example packages/next-drupal/.env
+```
+
 ### `next-drupal`
 
 We use `jest` for testing the `next-drupal` package.

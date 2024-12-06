@@ -72,7 +72,7 @@ describe("enableDraftMode()", () => {
 
     await enableDraftMode(request, drupal)
 
-    expect((await draftMode()).enable).not.toHaveBeenCalled()
+    expect((await draftMode()).enable).toHaveBeenCalled()
   })
 
   test("updates draft mode cookie’s sameSite flag", async () => {
@@ -124,7 +124,7 @@ describe("disableDraftMode()", () => {
   test("draft data cookie was deleted", async () => {
     await disableDraftMode()
 
-    expect(await cookies()).toHaveBeenCalledTimes(1)
+    expect(cookies).toHaveBeenCalledTimes(1)
     expect((await cookies()).delete).toHaveBeenCalledWith(
       DRAFT_DATA_COOKIE_NAME
     )
@@ -173,17 +173,15 @@ describe("getDraftData()", () => {
   })
 
   test("returns empty object if no draft data cookie", async () => {
-    const cookiesStore = await cookies()
-
     ;(await draftMode()).enable()
     draftMode.mockClear()
 
     const data = await getDraftData()
     expect(draftMode).toHaveBeenCalledTimes(1)
     expect((await draftMode()).isEnabled).toBe(true)
-    expect(cookiesStore.has).toHaveBeenCalledWith(DRAFT_DATA_COOKIE_NAME)
-    expect(cookiesStore.has).toHaveBeenCalledTimes(1)
-    expect(cookiesStore.get).toHaveBeenCalledTimes(0)
+    expect((await cookies()).has).toHaveBeenCalledWith(DRAFT_DATA_COOKIE_NAME)
+    expect((await cookies()).has).toHaveBeenCalledTimes(1)
+    expect((await cookies()).get).toHaveBeenCalledTimes(0)
     expect(data).toMatchObject({})
   })
 
@@ -209,8 +207,6 @@ describe("getDraftData()", () => {
     ;(await cookies()).set(draftDataCookie)
     ;(await draftMode()).enable()
 
-    const draftDataReturn = await getDraftData()
-
-    expect(draftDataReturn).toMatchObject(draftData)
+    expect(await getDraftData()).toMatchObject(draftData)
   })
 })

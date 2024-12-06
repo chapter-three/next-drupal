@@ -1,4 +1,4 @@
-import { Link } from "@/components/navigation/Link"
+import Link from "next/link"
 
 export function HeaderNav() {
   return (

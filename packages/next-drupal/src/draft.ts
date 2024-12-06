@@ -22,14 +22,16 @@ export async function enableDraftMode(
   const searchParams = request.nextUrl.searchParams
   const path = searchParams.get("path")
 
+  const cookieStore = await cookies()
+  const draftModeStore = await draftMode()
   // Enable Draft Mode by setting the cookie
-  draftMode().enable()
+  draftModeStore.enable()
 
   // Override the default SameSite=lax.
   // See https://github.com/vercel/next.js/issues/49927
-  const draftModeCookie = cookies().get(DRAFT_MODE_COOKIE_NAME)
+  const draftModeCookie = cookieStore.get(DRAFT_MODE_COOKIE_NAME)
   if (draftModeCookie) {
-    cookies().set({
+    cookieStore.set({
       ...draftModeCookie,
       sameSite: "none",
       secure: true,
@@ -41,7 +43,7 @@ export async function enableDraftMode(
   const { secret, scope, plugin, ...draftData } = Object.fromEntries(
     searchParams.entries()
   )
-  cookies().set({
+  cookieStore.set({
     ...draftModeCookie,
     name: DRAFT_DATA_COOKIE_NAME,
     sameSite: "none",
@@ -54,9 +56,11 @@ export async function enableDraftMode(
   redirect(path)
 }
 
-export function disableDraftMode() {
-  cookies().delete(DRAFT_DATA_COOKIE_NAME)
-  draftMode().disable()
+export async function disableDraftMode() {
+  const cookieStore = await cookies()
+  const draftModeStore = await draftMode()
+  cookieStore.delete(DRAFT_DATA_COOKIE_NAME)
+  draftModeStore.disable()
 
   return new Response("Draft mode is disabled")
 }
@@ -66,11 +70,12 @@ export interface DraftData {
   resourceVersion?: string
 }
 
-export function getDraftData() {
+export async function getDraftData() {
   let data: DraftData = {}
-
-  if (draftMode().isEnabled && cookies().has(DRAFT_DATA_COOKIE_NAME)) {
-    data = JSON.parse(cookies().get(DRAFT_DATA_COOKIE_NAME)?.value || "{}")
+  const cookieStore = await cookies()
+  const draftModeStore = await draftMode()
+  if (draftModeStore.isEnabled && cookieStore.has(DRAFT_DATA_COOKIE_NAME)) {
+    data = JSON.parse(cookieStore.get(DRAFT_DATA_COOKIE_NAME)?.value || "{}")
   }
 
   return data

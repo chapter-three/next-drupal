@@ -80,16 +80,14 @@ describe("enableDraftMode()", () => {
 
     // Our mock draftMode().enable does not set a cookie, so we set one.
     ;(await cookies()).set(draftModeCookie)
-    const draftModeCookieFromStore = (await cookies()).get(
-      DRAFT_MODE_COOKIE_NAME
-    ) as ResponseCookie
-    expect(draftModeCookieFromStore.sameSite).toBe("lax")
-    expect(draftModeCookieFromStore.secure).toBeFalsy()
+
+    expect((await cookies()).get(DRAFT_MODE_COOKIE_NAME).sameSite).toBe("lax")
+    expect((await cookies()).get(DRAFT_MODE_COOKIE_NAME).secure).toBeFalsy()
 
     await enableDraftMode(request, drupal)
 
-    expect(draftModeCookieFromStore.sameSite).toBe("none")
-    expect(draftModeCookieFromStore.secure).toBe(true)
+    expect((await cookies()).get(DRAFT_MODE_COOKIE_NAME).sameSite).toBe("none")
+    expect((await cookies()).get(DRAFT_MODE_COOKIE_NAME).secure).toBe(true)
   })
 
   test("sets a draft data cookie", async () => {

@@ -49,7 +49,7 @@ interface PreviewUrlGeneratorInterface {
    * @return \Drupal\Core\Url|null
    *   The generated preview url.
    */
-  public function generate(NextSiteInterface $next_site, EntityInterface $entity, string $resource_version = NULL): ?Url;
+  public function generate(NextSiteInterface $next_site, EntityInterface $entity, ?string $resource_version = NULL): ?Url;
 
   /**
    * Validates the preview url.

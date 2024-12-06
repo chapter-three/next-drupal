@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, jest, test } from "@jest/globals"
-import { GetStaticPropsContext } from "next"
+import { GetStaticPropsContext, NextApiRequest, NextApiResponse } from "next"
 import { DRAFT_DATA_COOKIE_NAME, NextDrupalPages } from "../../src"
 import {
   BASE_URL,
@@ -13,7 +13,7 @@ import type {
   JsonApiResourceWithPath,
   NextDrupalAuth,
 } from "../../src"
-import { NextApiRequest, NextApiResponse } from "../__mocks__/next"
+
 jest.setTimeout(10000)
 
 afterEach(() => {
@@ -1117,12 +1117,13 @@ describe("preview()", () => {
   }
 
   test("turns on preview mode and clears preview data", async () => {
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const drupal = new NextDrupalPages(BASE_URL)
     spyOnFetch({ responseBody: validationPayload })
 
-    // @ts-expect-error
     await drupal.preview(request, response)
 
     expect(response.clearPreviewData).toBeCalledTimes(1)
@@ -1135,7 +1136,9 @@ describe("preview()", () => {
 
   test("does not enable preview mode if validation fails", async () => {
     const logger = mockLogger()
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const drupal = new NextDrupalPages(BASE_URL, { debug: true, logger })
     const status = 403
@@ -1148,7 +1151,6 @@ describe("preview()", () => {
       },
     })
 
-    // @ts-expect-error
     await drupal.preview(request, response)
 
     expect(logger.debug).toBeCalledWith(
@@ -1160,12 +1162,13 @@ describe("preview()", () => {
   })
 
   test("does not turn on draft mode by default", async () => {
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const drupal = new NextDrupalPages(BASE_URL)
     spyOnFetch({ responseBody: validationPayload })
 
-    // @ts-expect-error
     await drupal.preview(request, response)
 
     expect(response.setDraftMode).toBeCalledTimes(0)
@@ -1176,7 +1179,9 @@ describe("preview()", () => {
   })
 
   test("optionally turns on draft mode", async () => {
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const logger = mockLogger()
     const drupal = new NextDrupalPages(BASE_URL, {
@@ -1186,7 +1191,6 @@ describe("preview()", () => {
     spyOnFetch({ responseBody: validationPayload })
 
     const options = { enable: true }
-    // @ts-expect-error
     await drupal.preview(request, response, options)
 
     expect(response.setDraftMode).toBeCalledWith(options)
@@ -1199,7 +1203,9 @@ describe("preview()", () => {
   })
 
   test("updates preview mode cookie’s sameSite flag", async () => {
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const drupal = new NextDrupalPages(BASE_URL)
     spyOnFetch({ responseBody: validationPayload })
@@ -1215,7 +1221,6 @@ describe("preview()", () => {
     const cookies = response.getHeader("Set-Cookie")
     cookies[0] = cookies[0].replace("SameSite=Lax", "SameSite=None; Secure")
 
-    // @ts-expect-error
     await drupal.preview(request, response)
 
     expect(response.getHeader).toHaveBeenLastCalledWith("Set-Cookie")
@@ -1224,13 +1229,14 @@ describe("preview()", () => {
   })
 
   test("redirects to the given path", async () => {
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const logger = mockLogger()
     const drupal = new NextDrupalPages(BASE_URL, { debug: true, logger })
     spyOnFetch({ responseBody: validationPayload })
 
-    // @ts-expect-error
     await drupal.preview(request, response)
 
     expect(response.setPreviewData).toBeCalledWith({
@@ -1243,7 +1249,9 @@ describe("preview()", () => {
   })
 
   test("returns a 422 response on error", async () => {
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const logger = mockLogger()
     const drupal = new NextDrupalPages(BASE_URL, { debug: true, logger })
@@ -1252,7 +1260,6 @@ describe("preview()", () => {
       throw new Error(message)
     })
 
-    // @ts-expect-error
     await drupal.preview(request, response)
 
     expect(logger.debug).toHaveBeenLastCalledWith(`Preview failed: ${message}`)
@@ -1263,31 +1270,34 @@ describe("preview()", () => {
 
 describe("previewDisable()", () => {
   test("clears preview data", async () => {
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const drupal = new NextDrupalPages(BASE_URL)
 
-    // @ts-expect-error
     await drupal.previewDisable(request, response)
     expect(response.clearPreviewData).toBeCalledTimes(1)
   })
 
   test("disables draft mode", async () => {
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const drupal = new NextDrupalPages(BASE_URL)
 
-    // @ts-expect-error
     await drupal.previewDisable(request, response)
     expect(response.setDraftMode).toBeCalledWith({ enable: false })
   })
 
   test("deletes the draft cookie", async () => {
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const drupal = new NextDrupalPages(BASE_URL)
 
-    // @ts-expect-error
     await drupal.previewDisable(request, response)
     const cookies = response.getHeader("Set-Cookie")
     expect(cookies[cookies.length - 1]).toBe(
@@ -1296,11 +1306,12 @@ describe("previewDisable()", () => {
   })
 
   test('redirects to "/"', async () => {
+    // @ts-expect-error
     const request = new NextApiRequest()
+    // @ts-expect-error
     const response = new NextApiResponse()
     const drupal = new NextDrupalPages(BASE_URL)
 
-    // @ts-expect-error
     await drupal.previewDisable(request, response)
     expect(response.writeHead).toBeCalledWith(307, { Location: "/" })
     expect(response.end).toBeCalled()

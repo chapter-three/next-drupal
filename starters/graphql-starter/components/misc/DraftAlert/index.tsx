@@ -3,8 +3,7 @@ import { draftMode } from "next/headers"
 import { DraftAlertClient } from "./Client"
 
 export async function DraftAlert() {
-  const draftModeStore = await draftMode()
-  const isDraftEnabled = draftModeStore.isEnabled
+  const isDraftEnabled = (await draftMode()).isEnabled
 
   return (
     <Suspense fallback={null}>

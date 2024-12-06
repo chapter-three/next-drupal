@@ -21,7 +21,7 @@ import {
   getDraftData,
 } from "../../src/draft"
 import { resetNextHeaders } from "../__mocks__/next/headers"
-import type { ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies"
+import { ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies"
 
 jest.mock("next/headers")
 jest.mock("next/navigation", () => ({
@@ -62,7 +62,7 @@ describe("enableDraftMode()", () => {
 
     const response = await enableDraftMode(request, drupal)
 
-    expect(draftMode().enable).not.toHaveBeenCalled()
+    expect((await draftMode()).enable).not.toHaveBeenCalled()
     expect(response).toBeInstanceOf(Response)
     expect(response.status).toBe(500)
   })
@@ -72,30 +72,31 @@ describe("enableDraftMode()", () => {
 
     await enableDraftMode(request, drupal)
 
-    expect(draftMode().enable).toHaveBeenCalled()
+    expect((await draftMode()).enable).toHaveBeenCalled()
   })
 
   test("updates draft mode cookie’s sameSite flag", async () => {
     spyOnFetch({ responseBody: validationPayload })
 
     // Our mock draftMode().enable does not set a cookie, so we set one.
-    cookies().set(draftModeCookie)
-    expect(cookies().get(DRAFT_MODE_COOKIE_NAME).sameSite).toBe("lax")
-    expect(cookies().get(DRAFT_MODE_COOKIE_NAME).secure).toBeFalsy()
+    ;(await cookies()).set(draftModeCookie)
+
+    expect((await cookies()).get(DRAFT_MODE_COOKIE_NAME).sameSite).toBe("lax")
+    expect((await cookies()).get(DRAFT_MODE_COOKIE_NAME).secure).toBeFalsy()
 
     await enableDraftMode(request, drupal)
 
-    expect(cookies().get(DRAFT_MODE_COOKIE_NAME).sameSite).toBe("none")
-    expect(cookies().get(DRAFT_MODE_COOKIE_NAME).secure).toBe(true)
+    expect((await cookies()).get(DRAFT_MODE_COOKIE_NAME).sameSite).toBe("none")
+    expect((await cookies()).get(DRAFT_MODE_COOKIE_NAME).secure).toBe(true)
   })
 
   test("sets a draft data cookie", async () => {
     spyOnFetch({ responseBody: validationPayload })
-    expect(cookies().get(DRAFT_DATA_COOKIE_NAME)).toBe(undefined)
+    expect((await cookies()).get(DRAFT_DATA_COOKIE_NAME)).toBe(undefined)
 
     await enableDraftMode(request, drupal)
 
-    const cookie = cookies().get(DRAFT_DATA_COOKIE_NAME)
+    const cookie = (await cookies()).get(DRAFT_DATA_COOKIE_NAME)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { secret, plugin, ...data } = Object.fromEntries(
       searchParams.entries()
@@ -118,25 +119,28 @@ describe("enableDraftMode()", () => {
 })
 
 describe("disableDraftMode()", () => {
-  test("draft data cookie was deleted", () => {
-    disableDraftMode()
+  test("draft data cookie was deleted", async () => {
+    await disableDraftMode()
 
     expect(cookies).toHaveBeenCalledTimes(1)
-    expect(cookies().delete).toHaveBeenCalledWith(DRAFT_DATA_COOKIE_NAME)
+    expect((await cookies()).delete).toHaveBeenCalledWith(
+      DRAFT_DATA_COOKIE_NAME
+    )
   })
 
-  test("draft mode was disabled", () => {
+  test("draft mode was disabled", async () => {
     // First ensure draft mode is enabled.
-    draftMode().enable()
-    expect(draftMode().isEnabled).toBe(true)
 
-    disableDraftMode()
-    expect(draftMode().disable).toHaveBeenCalledTimes(1)
-    expect(draftMode().isEnabled).toBe(false)
+    ;(await draftMode()).enable()
+    expect((await draftMode()).isEnabled).toBe(true)
+
+    await disableDraftMode()
+    expect((await draftMode()).disable).toHaveBeenCalledTimes(1)
+    expect((await draftMode()).isEnabled).toBe(false)
   })
 
   test("returns a response object", async () => {
-    const response = disableDraftMode()
+    const response = await disableDraftMode()
 
     expect(response).toBeInstanceOf(Response)
     expect(response.ok).toBe(true)
@@ -156,51 +160,51 @@ describe("getDraftData()", () => {
     secure: true,
   }
 
-  test("returns empty object if draft mode disabled", () => {
-    cookies().set(draftDataCookie)
+  test("returns empty object if draft mode disabled", async () => {
+    ;(await cookies()).set(draftDataCookie)
 
-    const data = getDraftData()
-    expect(draftMode().isEnabled).toBe(false)
-    expect(cookies().has).toHaveBeenCalledTimes(0)
-    expect(cookies().get).toHaveBeenCalledTimes(0)
+    const data = await getDraftData()
+    expect((await draftMode()).isEnabled).toBe(false)
+    expect((await cookies()).has).toHaveBeenCalledTimes(0)
+    expect((await cookies()).get).toHaveBeenCalledTimes(0)
     expect(data).toMatchObject({})
   })
 
-  test("returns empty object if no draft data cookie", () => {
-    draftMode().enable()
+  test("returns empty object if no draft data cookie", async () => {
+    ;(await draftMode()).enable()
     draftMode.mockClear()
 
-    const data = getDraftData()
+    const data = await getDraftData()
     expect(draftMode).toHaveBeenCalledTimes(1)
-    expect(draftMode().isEnabled).toBe(true)
-    expect(cookies().has).toHaveBeenCalledWith(DRAFT_DATA_COOKIE_NAME)
-    expect(cookies().has).toHaveBeenCalledTimes(1)
-    expect(cookies().get).toHaveBeenCalledTimes(0)
+    expect((await draftMode()).isEnabled).toBe(true)
+    expect((await cookies()).has).toHaveBeenCalledWith(DRAFT_DATA_COOKIE_NAME)
+    expect((await cookies()).has).toHaveBeenCalledTimes(1)
+    expect((await cookies()).get).toHaveBeenCalledTimes(0)
     expect(data).toMatchObject({})
   })
 
-  test("returns empty object if no draft data cookie value", () => {
-    cookies().set({
+  test("returns empty object if no draft data cookie value", async () => {
+    ;(await cookies()).set({
       ...draftDataCookie,
       value: "",
     })
-    draftMode().enable()
+    ;(await draftMode()).enable()
     draftMode.mockClear()
 
-    const data = getDraftData()
+    const data = await getDraftData()
     expect(draftMode).toHaveBeenCalledTimes(1)
-    expect(draftMode().isEnabled).toBe(true)
-    expect(cookies().has).toHaveBeenCalledWith(DRAFT_DATA_COOKIE_NAME)
-    expect(cookies().has).toHaveBeenCalledTimes(1)
-    expect(cookies().get).toHaveBeenCalledWith(DRAFT_DATA_COOKIE_NAME)
-    expect(cookies().get).toHaveBeenCalledTimes(1)
+    expect((await draftMode()).isEnabled).toBe(true)
+    expect((await cookies()).has).toHaveBeenCalledWith(DRAFT_DATA_COOKIE_NAME)
+    expect((await cookies()).has).toHaveBeenCalledTimes(1)
+    expect((await cookies()).get).toHaveBeenCalledWith(DRAFT_DATA_COOKIE_NAME)
+    expect((await cookies()).get).toHaveBeenCalledTimes(1)
     expect(data).toMatchObject({})
   })
 
-  test("returns the JSON.parse()d data", () => {
-    cookies().set(draftDataCookie)
-    draftMode().enable()
+  test("returns the JSON.parse()d data", async () => {
+    ;(await cookies()).set(draftDataCookie)
+    ;(await draftMode()).enable()
 
-    expect(getDraftData()).toMatchObject(draftData)
+    expect(await getDraftData()).toMatchObject(draftData)
   })
 })

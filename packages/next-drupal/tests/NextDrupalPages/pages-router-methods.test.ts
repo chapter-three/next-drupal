@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, jest, test } from "@jest/globals"
-import { GetStaticPropsContext, NextApiRequest, NextApiResponse } from "next"
+import { GetStaticPropsContext } from "next"
 import { DRAFT_DATA_COOKIE_NAME, NextDrupalPages } from "../../src"
 import {
   BASE_URL,

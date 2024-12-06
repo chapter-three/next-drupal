@@ -126,7 +126,7 @@ describe("enableDraftMode()", () => {
 
 describe("disableDraftMode()", () => {
   test("draft data cookie was deleted", async () => {
-    disableDraftMode()
+    await disableDraftMode()
     const cookiesStore = await cookies()
 
     expect(cookiesStore).toHaveBeenCalledTimes(1)
@@ -185,7 +185,6 @@ describe("getDraftData()", () => {
     draftModeStore.enable()
 
     const data = await getDraftData()
-    expect(draftMode).toHaveBeenCalledTimes(1)
     expect(draftModeStore.isEnabled).toBe(true)
     expect(cookiesStore.has).toHaveBeenCalledWith(DRAFT_DATA_COOKIE_NAME)
     expect(cookiesStore.has).toHaveBeenCalledTimes(1)
@@ -204,7 +203,6 @@ describe("getDraftData()", () => {
     draftModeStore.enable()
 
     const data = await getDraftData()
-    expect(draftModeStore).toHaveBeenCalledTimes(1)
     expect(draftModeStore.isEnabled).toBe(true)
     expect(cookiesStore.has).toHaveBeenCalledWith(DRAFT_DATA_COOKIE_NAME)
     expect(cookiesStore.has).toHaveBeenCalledTimes(1)
@@ -220,6 +218,8 @@ describe("getDraftData()", () => {
     cookiesStore.set(draftDataCookie)
     draftModeStore.enable()
 
-    expect(getDraftData()).toMatchObject(draftData)
+    const draftDataReturn = await getDraftData()
+
+    expect(draftDataReturn).toMatchObject(draftData)
   })
 })

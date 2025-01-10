@@ -42,15 +42,11 @@ export default function IndexPage({ features }: IndexPageProps) {
             passHref
             className="inline-flex space-x-1 mx-auto mb-4 bg-[#111] text-white hover:underline text-sm items-center rounded-full px-4 py-1 font-medium"
           >
-            <span>Next.js 14, Drupal 11 and App Router Support</span>
+            <span>Next.js 15, Drupal 11 and App Router Support</span>
           </Link>
           <h1 className="text-4xl font-black tracking-tight text-center md:text-6xl lg:tracking-tighter lg:text-8xl">
             Next.js for Drupal
           </h1>
-          {/* <p className="mx-auto mt-4 text-lg text-center text-gray-700 leading-1 md:px-20 lg:leading-normal lg:text-2xl">
-            Next.js for Drupal has everything you need to build a
-            next-generation front-end for your Drupal site.
-          </p> */}
           <div className="flex flex-col items-center justify-center py-4 sm:flex-row md:py-8 lg:py-10">
             <Link
               href="/learn/quick-start"
@@ -150,7 +146,6 @@ export default function IndexPage({ features }: IndexPageProps) {
             A powerful client for working with JSON:API.
           </p>
         </div>
-        TODO - Update code below for app router
         <div className="container max-w-5xl grid-cols-2 gap-6 mx-auto mt-10 md:grid">
           <div className="grid grid-flow-row gap-4 mt-10 md:max-w-md auto-rows-max">
             {features.map((feature) => (

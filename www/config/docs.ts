@@ -118,6 +118,15 @@ export const docsConfig: DocsConfig = {
       ],
     },
     {
+      title: "API",
+      items: [
+        {
+          title: "API Reference",
+          href: "/docs/api/globals",
+        },
+      ],
+    },
+    {
       title: "Reference",
       items: [
         {

@@ -6,10 +6,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "next dev -p 4444",
-    "build": "next build",
-    "preview": "next build && next start -p 4444",
-    "generate:docs": "typedoc --tsconfig tsconfig.docs.json"
+    "dev": "typedoc --tsconfig tsconfig.docs.json && next dev -p 4444",
+    "build": "typedoc --tsconfig tsconfig.docs.json && next build",
+    "preview": "typedoc --tsconfig tsconfig.docs.json && next build && next start -p 4444",
+    "generate:api-docs": "typedoc --tsconfig tsconfig.docs.json"
   },
   "dependencies": {
     "@docsearch/react": "^3.6.0",

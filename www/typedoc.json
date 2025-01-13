@@ -1,5 +1,5 @@
 {
-  "entryPoints": ["../packages/next-drupal/src"],
-  "out": "content/api",
-  "plugin": ["typedoc-plugin-markdown"]
+  "plugin": ["typedoc-plugin-markdown"],
+  "entryPoints": ["../packages/next-drupal/src/index.ts"],
+  "out": "content/api"
 }

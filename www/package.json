@@ -9,7 +9,7 @@
     "dev": "next dev -p 4444",
     "build": "next build",
     "preview": "next build && next start -p 4444",
-    "generate:docs": "typedoc --out content/api ../packages/next-drupal/src"
+    "generate:docs": "typedoc --tsconfig tsconfig.docs.json"
   },
   "dependencies": {
     "@docsearch/react": "^3.6.0",
@@ -25,8 +25,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sharp": "^0.30.7",
-    "typedoc": "^0.23.9",
-    "typedoc-plugin-markdown": "^3.11.0"
+    "typedoc": "^0.27",
+    "typedoc-plugin-markdown": "^4.4"
   },
   "devDependencies": {
     "@mapbox/rehype-prism": "^0.8.0",

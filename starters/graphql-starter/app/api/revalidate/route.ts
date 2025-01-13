@@ -1,9 +1,10 @@
-import { revalidatePath } from "next/cache"
+import { revalidatePath, revalidateTag } from "next/cache"
 import type { NextRequest } from "next/server"
 
 async function handler(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const path = searchParams.get("path")
+  const tags = searchParams.get("tags")
   const secret = searchParams.get("secret")
 
   // Validate secret.
@@ -11,13 +12,14 @@ async function handler(request: NextRequest) {
     return new Response("Invalid secret.", { status: 401 })
   }
 
-  // Validate path.
-  if (!path) {
-    return new Response("Invalid path.", { status: 400 })
+  // Either tags or path must be provided.
+  if (!path && !tags) {
+    return new Response("Missing path or tags.", { status: 400 })
   }
 
   try {
-    revalidatePath(path)
+    path && revalidatePath(path)
+    tags?.split(",").forEach((tag) => revalidateTag(tag))
 
     return new Response("Revalidated.")
   } catch (error) {

@@ -1,0 +1,81 @@
+[next-drupal](../globals.mdx) / JsonApiResponse
+
+# Interface: JsonApiResponse
+
+Defined in: [packages/next-drupal/src/types/resource.ts:7](https://github.com/chapter-three/next-drupal/blob/b814feb907442ea504825c35810c973aeb865442/packages/next-drupal/src/types/resource.ts#L7)
+
+## Extends
+
+- `Record`\<`string`, `any`\>
+
+## Extended by
+
+- [`DrupalSearchApiJsonApiResponse`](DrupalSearchApiJsonApiResponse.mdx)
+
+## Indexable
+
+\[`key`: `string`\]: `any`
+
+## Properties
+
+### data
+
+> **data**: `Record`\<`string`, `any`\>[]
+
+Defined in: [packages/next-drupal/src/types/resource.ts:12](https://github.com/chapter-three/next-drupal/blob/b814feb907442ea504825c35810c973aeb865442/packages/next-drupal/src/types/resource.ts#L12)
+
+---
+
+### errors
+
+> **errors**: [`JsonApiError`](JsonApiError.mdx)[]
+
+Defined in: [packages/next-drupal/src/types/resource.ts:13](https://github.com/chapter-three/next-drupal/blob/b814feb907442ea504825c35810c973aeb865442/packages/next-drupal/src/types/resource.ts#L13)
+
+---
+
+### included?
+
+> `optional` **included**: `Record`\<`string`, `any`\>[]
+
+Defined in: [packages/next-drupal/src/types/resource.ts:19](https://github.com/chapter-three/next-drupal/blob/b814feb907442ea504825c35810c973aeb865442/packages/next-drupal/src/types/resource.ts#L19)
+
+---
+
+### jsonapi?
+
+> `optional` **jsonapi**: `object`
+
+Defined in: [packages/next-drupal/src/types/resource.ts:8](https://github.com/chapter-three/next-drupal/blob/b814feb907442ea504825c35810c973aeb865442/packages/next-drupal/src/types/resource.ts#L8)
+
+#### meta
+
+> **meta**: `Record`\<`string`, `any`\>[]
+
+#### version
+
+> **version**: `string`
+
+---
+
+### links?
+
+> `optional` **links**: [`JsonApiLinks`](JsonApiLinks.mdx)
+
+Defined in: [packages/next-drupal/src/types/resource.ts:18](https://github.com/chapter-three/next-drupal/blob/b814feb907442ea504825c35810c973aeb865442/packages/next-drupal/src/types/resource.ts#L18)
+
+---
+
+### meta
+
+> **meta**: `object`
+
+Defined in: [packages/next-drupal/src/types/resource.ts:14](https://github.com/chapter-three/next-drupal/blob/b814feb907442ea504825c35810c973aeb865442/packages/next-drupal/src/types/resource.ts#L14)
+
+#### Index Signature
+
+\[`key`: `string`\]: `any`
+
+#### count
+
+> **count**: `number`

@@ -19,6 +19,7 @@ import type {
   JsonApiUpdateResourceBody,
   JsonApiWithAuthOption,
   JsonApiWithCacheOptions,
+  JsonApiWithNextFetchOptions,
   JsonDeserializer,
   Locale,
   NextDrupalOptions,
@@ -43,6 +44,10 @@ export function useJsonaDeserialize() {
   }
 }
 
+/**
+ * The NextDrupal class extends the NextDrupalBase class and provides methods
+ * for interacting with a Drupal backend.
+ */
 export class NextDrupal extends NextDrupalBase {
   cache?: NextDrupalOptions["cache"]
 
@@ -85,6 +90,14 @@ export class NextDrupal extends NextDrupalBase {
     }
   }
 
+  /**
+   * Creates a new resource of the specified type.
+   *
+   * @param {string} type The type of the resource.
+   * @param {JsonApiCreateResourceBody} body The body of the resource.
+   * @param {JsonApiOptions} options Options for the request.
+   * @returns {Promise<T>} The created resource.
+   */
   async createResource<T extends JsonApiResource>(
     type: string,
     body: JsonApiCreateResourceBody,
@@ -125,6 +138,14 @@ export class NextDrupal extends NextDrupalBase {
       : /* c8 ignore next */ json
   }
 
+  /**
+   * Creates a new file resource for the specified media type.
+   *
+   * @param {string} type The type of the media.
+   * @param {JsonApiCreateFileResourceBody} body The body of the file resource.
+   * @param {JsonApiOptions} options Options for the request.
+   * @returns {Promise<T>} The created file resource.
+   */
   async createFileResource<T = DrupalFile>(
     type: string,
     body: JsonApiCreateFileResourceBody,
@@ -169,6 +190,15 @@ export class NextDrupal extends NextDrupalBase {
     return options.deserialize ? this.deserialize(json) : json
   }
 
+  /**
+   * Updates an existing resource of the specified type.
+   *
+   * @param {string} type The type of the resource.
+   * @param {string} uuid The UUID of the resource.
+   * @param {JsonApiUpdateResourceBody} body The body of the resource.
+   * @param {JsonApiOptions} options Options for the request.
+   * @returns {Promise<T>} The updated resource.
+   */
   async updateResource<T extends JsonApiResource>(
     type: string,
     uuid: string,
@@ -212,6 +242,14 @@ export class NextDrupal extends NextDrupalBase {
       : /* c8 ignore next */ json
   }
 
+  /**
+   * Deletes an existing resource of the specified type.
+   *
+   * @param {string} type The type of the resource.
+   * @param {string} uuid The UUID of the resource.
+   * @param {JsonApiOptions} options Options for the request.
+   * @returns {Promise<boolean>} True if the resource was deleted, false otherwise.
+   */
   async deleteResource(
     type: string,
     uuid: string,
@@ -245,10 +283,20 @@ export class NextDrupal extends NextDrupalBase {
     return response.status === 204
   }
 
+  /**
+   * Fetches a resource of the specified type by its UUID.
+   *
+   * @param {string} type The type of the resource.
+   * @param {string} uuid The UUID of the resource.
+   * @param {JsonApiOptions & JsonApiWithCacheOptions & JsonApiWithNextFetchOptions} options Options for the request.
+   * @returns {Promise<T>} The fetched resource.
+   */
   async getResource<T extends JsonApiResource>(
     type: string,
     uuid: string,
-    options?: JsonApiOptions & JsonApiWithCacheOptions
+    options?: JsonApiOptions &
+      JsonApiWithCacheOptions &
+      JsonApiWithNextFetchOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -283,6 +331,7 @@ export class NextDrupal extends NextDrupalBase {
 
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
+      next: options.next,
     })
 
     await this.throwIfJsonErrors(response, "Error while fetching resource: ")
@@ -297,11 +346,19 @@ export class NextDrupal extends NextDrupalBase {
     return options.deserialize ? this.deserialize(json) : json
   }
 
+  /**
+   * Fetches a resource of the specified type by its path.
+   *
+   * @param {string} path The path of the resource.
+   * @param {JsonApiOptions & JsonApiWithNextFetchOptions} options Options for the request.
+   * @returns {Promise<T>} The fetched resource.
+   */
   async getResourceByPath<T extends JsonApiResource>(
     path: string,
     options?: {
       isVersionable?: boolean
-    } & JsonApiOptions
+    } & JsonApiOptions &
+      JsonApiWithNextFetchOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -370,6 +427,7 @@ export class NextDrupal extends NextDrupalBase {
       redirect: "follow",
       body: JSON.stringify(payload),
       withAuth: options.withAuth,
+      next: options.next,
     })
 
     const errorMessagePrefix = "Error while fetching resource by path:"
@@ -404,11 +462,19 @@ export class NextDrupal extends NextDrupalBase {
     return options.deserialize ? this.deserialize(data) : data
   }
 
+  /**
+   * Fetches a collection of resources of the specified type.
+   *
+   * @param {string} type The type of the resources.
+   * @param {JsonApiOptions & JsonApiWithNextFetchOptions} options Options for the request.
+   * @returns {Promise<T>} The fetched collection of resources.
+   */
   async getResourceCollection<T = JsonApiResource[]>(
     type: string,
     options?: {
       deserialize?: boolean
-    } & JsonApiOptions
+    } & JsonApiOptions &
+      JsonApiWithNextFetchOptions
   ): Promise<T> {
     options = {
       withAuth: this.withAuth,
@@ -427,6 +493,7 @@ export class NextDrupal extends NextDrupalBase {
 
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
+      next: options.next,
     })
 
     await this.throwIfJsonErrors(
@@ -439,12 +506,20 @@ export class NextDrupal extends NextDrupalBase {
     return options.deserialize ? this.deserialize(json) : json
   }
 
+  /**
+   * Fetches path segments for a collection of resources of the specified types.
+   *
+   * @param {string | string[]} types The types of the resources.
+   * @param {JsonApiOptions & JsonApiWithAuthOption & JsonApiWithNextFetchOptions} options Options for the request.
+   * @returns {Promise<{ path: string, type: string, locale: Locale, segments: string[] }[]>} The fetched path segments.
+   */
   async getResourceCollectionPathSegments(
     types: string | string[],
     options?: {
       pathPrefix?: PathPrefix
       params?: JsonApiParams
     } & JsonApiWithAuthOption &
+      JsonApiWithNextFetchOptions &
       (
         | {
             locales: Locale[]
@@ -490,6 +565,7 @@ export class NextDrupal extends NextDrupalBase {
             let opts: Parameters<NextDrupal["getResourceCollection"]>[1] = {
               params,
               withAuth: options.withAuth,
+              next: options.next,
             }
             if (locale) {
               opts = {
@@ -545,9 +621,16 @@ export class NextDrupal extends NextDrupalBase {
     return paths.flat(2)
   }
 
+  /**
+   * Translates a path to a DrupalTranslatedPath object.
+   *
+   * @param {string} path The path to translate.
+   * @param {JsonApiWithAuthOption & JsonApiWithNextFetchOptions} options Options for the request.
+   * @returns {Promise<DrupalTranslatedPath | null>} The translated path.
+   */
   async translatePath(
     path: string,
-    options?: JsonApiWithAuthOption
+    options?: JsonApiWithAuthOption & JsonApiWithNextFetchOptions
   ): Promise<DrupalTranslatedPath | null> {
     options = {
       withAuth: this.withAuth,
@@ -562,6 +645,7 @@ export class NextDrupal extends NextDrupalBase {
 
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
+      next: options.next,
     })
 
     if (response.status === 404) {
@@ -575,7 +659,17 @@ export class NextDrupal extends NextDrupalBase {
     return await response.json()
   }
 
-  async getIndex(locale?: Locale): Promise<JsonApiResponse> {
+  /**
+   * Fetches the JSON:API index.
+   *
+   * @param {Locale} locale The locale for the request.
+   * @param {JsonApiWithNextFetchOptions} options Options for the request.
+   * @returns {Promise<JsonApiResponse>} The JSON:API index.
+   */
+  async getIndex(
+    locale?: Locale,
+    options?: JsonApiWithNextFetchOptions
+  ): Promise<JsonApiResponse> {
     const endpoint = await this.buildEndpoint({
       locale,
     })
@@ -585,6 +679,7 @@ export class NextDrupal extends NextDrupalBase {
     const response = await this.fetch(endpoint, {
       // As per https://www.drupal.org/node/2984034 /jsonapi is public.
       withAuth: false,
+      next: options?.next,
     })
 
     await this.throwIfJsonErrors(
@@ -595,6 +690,12 @@ export class NextDrupal extends NextDrupalBase {
     return await response.json()
   }
 
+  /**
+   * Builds an endpoint URL for the specified parameters.
+   *
+   * @param {Parameters<NextDrupalBase["buildEndpoint"]>[0] & { resourceType?: string }} params The parameters for the endpoint.
+   * @returns {Promise<string>} The built endpoint URL.
+   */
   async buildEndpoint({
     locale = "",
     resourceType = "",
@@ -632,6 +733,13 @@ export class NextDrupal extends NextDrupalBase {
     ).toString()
   }
 
+  /**
+   * Fetches the endpoint URL for the specified resource type.
+   *
+   * @param {string} type The type of the resource.
+   * @param {Locale} locale The locale for the request.
+   * @returns {Promise<URL>} The fetched endpoint URL.
+   */
   async fetchResourceEndpoint(type: string, locale?: Locale): Promise<URL> {
     const index = await this.getIndex(locale)
 
@@ -655,9 +763,18 @@ export class NextDrupal extends NextDrupalBase {
     return url
   }
 
+  /**
+   * Fetches a menu by its name.
+   *
+   * @param {string} menuName The name of the menu.
+   * @param {JsonApiOptions & JsonApiWithCacheOptions & JsonApiWithNextFetchOptions} options Options for the request.
+   * @returns {Promise<{ items: T[], tree: T[] }>} The fetched menu.
+   */
   async getMenu<T = DrupalMenuItem>(
     menuName: string,
-    options?: JsonApiOptions & JsonApiWithCacheOptions
+    options?: JsonApiOptions &
+      JsonApiWithCacheOptions &
+      JsonApiWithNextFetchOptions
   ): Promise<{
     items: T[]
     tree: T[]
@@ -692,6 +809,7 @@ export class NextDrupal extends NextDrupalBase {
 
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
+      next: options.next,
     })
 
     await this.throwIfJsonErrors(response, "Error while fetching menu items: ")
@@ -717,9 +835,16 @@ export class NextDrupal extends NextDrupalBase {
     return menu
   }
 
+  /**
+   * Fetches a view by its name.
+   *
+   * @param {string} name The name of the view.
+   * @param {JsonApiOptions & JsonApiWithNextFetchOptions} options Options for the request.
+   * @returns {Promise<DrupalView<T>>} The fetched view.
+   */
   async getView<T = JsonApiResource>(
     name: string,
-    options?: JsonApiOptions
+    options?: JsonApiOptions & JsonApiWithNextFetchOptions
   ): Promise<DrupalView<T>> {
     options = {
       withAuth: this.withAuth,
@@ -741,6 +866,7 @@ export class NextDrupal extends NextDrupalBase {
 
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
+      next: options.next,
     })
 
     await this.throwIfJsonErrors(response, "Error while fetching view: ")
@@ -757,9 +883,16 @@ export class NextDrupal extends NextDrupalBase {
     }
   }
 
+  /**
+   * Fetches a search index by its name.
+   *
+   * @param {string} name The name of the search index.
+   * @param {JsonApiOptions & JsonApiWithNextFetchOptions} options Options for the request.
+   * @returns {Promise<T>} The fetched search index.
+   */
   async getSearchIndex<T = JsonApiResource[]>(
     name: string,
-    options?: JsonApiOptions
+    options?: JsonApiOptions & JsonApiWithNextFetchOptions
   ): Promise<T> {
     options = {
       withAuth: this.withAuth,
@@ -778,6 +911,7 @@ export class NextDrupal extends NextDrupalBase {
 
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
+      next: options.next,
     })
 
     await this.throwIfJsonErrors(
@@ -790,16 +924,24 @@ export class NextDrupal extends NextDrupalBase {
     return options.deserialize ? this.deserialize(json) : json
   }
 
+  /**
+   * Deserializes the response body.
+   *
+   * @param {any} body The response body.
+   * @param {any} options Options for deserialization.
+   * @returns {any} The deserialized response body.
+   */
   deserialize(body, options?) {
     if (!body) return null
 
     return this.deserializer(body, options)
   }
 
-  // Error handling.
-  // If throwJsonApiErrors is enabled, we show errors in the Next.js overlay.
-  // Otherwise, we log the errors even if debugging is turned off.
-  // In production, errors are always logged never thrown.
+  /**
+   * Logs or throws an error based on the throwJsonApiErrors flag.
+   *
+   * @param {Error} error The error to log or throw.
+   */
   logOrThrowError(error: Error) {
     if (!this.throwJsonApiErrors) {
       this.logger.error(error)

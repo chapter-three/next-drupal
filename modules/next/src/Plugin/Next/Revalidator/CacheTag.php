@@ -4,9 +4,7 @@ namespace Drupal\next\Plugin\Next\Revalidator;
 
 use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
 use Drupal\Core\Utility\Error;
-use Drupal\next\Entity\NextSite;
 use Drupal\next\Event\EntityActionEvent;
 use Drupal\next\Plugin\ConfigurableRevalidatorBase;
 use Drupal\next\Plugin\RevalidatorInterface;
@@ -72,7 +70,7 @@ class CacheTag extends ConfigurableRevalidatorBase implements RevalidatorInterfa
     foreach ($sites as $site) {
       try {
         $tags_string = implode(',', $tags);
-        $revalidate_url = $this->getRevalidateUrlForTags($site, $tags_string);
+        $revalidate_url = $site->buildRevalidateUrl(['tags' => $tags_string]);
 
         if (!$revalidate_url) {
           throw new \Exception('No revalidate url set.');
@@ -108,32 +106,6 @@ class CacheTag extends ConfigurableRevalidatorBase implements RevalidatorInterfa
     }
 
     return $revalidated;
-  }
-
-  /**
-   * Returns the revalidate url for given cache tags.
-   *
-   * @param NextSite $site
-   * @param string $cache_tags
-   *   The cache tags as string.
-   *
-   * @return \Drupal\Core\Url|null
-   *   The revalidate url.
-   */
-  protected function getRevalidateUrlForTags(NextSite $site, string $cache_tags): ?Url {
-    $revalidate_url = $site->getRevalidateUrl();
-    if (!$revalidate_url) {
-      return NULL;
-    }
-    $query = [
-      'tags' => $cache_tags,
-    ];
-    if ($secret = $site->getRevalidateSecret()) {
-      $query['secret'] = $secret;
-    }
-    return Url::fromUri($site->getRevalidateUrl(), [
-      'query' => $query,
-    ]);
   }
 
 }

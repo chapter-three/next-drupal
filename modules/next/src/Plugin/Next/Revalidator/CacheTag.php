@@ -11,7 +11,7 @@ use Drupal\next\Plugin\RevalidatorInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Provides a revalidator for revalidating Next Site references by cache tags.
+ * Cache tag based on-demand revalidation plugin.
  *
  * @Revalidator(
  *  id = "cache_tag",
@@ -56,29 +56,20 @@ class CacheTag extends ConfigurableRevalidatorBase implements RevalidatorInterfa
       return FALSE;
     }
 
-    $tags = $entity->getCacheTags() ?? [];
-    if ($entity->getEntityTypeId() == 'menu_link_content') {
-      $tags[] = $entity->getEntityTypeId() . ':' . $entity->getMenuName();
-    }
-    else {
-      $tags[] = $entity->getEntityTypeId() . '_list';
-      $tags[] = $entity->getEntityTypeId() . '_list:' . $entity->bundle();
-    }
+    $cache_tags = implode(',', $entity->getCacheTags());
 
     /** @var \Drupal\next\Entity\NextSite $site */
     foreach ($sites as $site) {
       try {
-        $tags_string = implode(',', $tags);
-        $revalidate_url = $site->buildRevalidateUrl(['tags' => $tags_string]);
-
+        $revalidate_url = $site->buildRevalidateUrl(['tags' => $cache_tags]);
         if (!$revalidate_url) {
           throw new \Exception('No revalidate url set.');
         }
 
         if ($this->nextSettingsManager->isDebug()) {
-          $this->logger->notice('(@action): Revalidating tags %tags for the site %site. URL: %url', [
+          $this->logger->notice('(@action): Revalidating tags %list for the site %site. URL: %url', [
             '@action' => $event->getAction(),
-            '%tags' => $tags_string,
+            '%list' => $cache_tags,
             '%site' => $site->label(),
             '%url' => $revalidate_url->toString(),
           ]);
@@ -87,9 +78,9 @@ class CacheTag extends ConfigurableRevalidatorBase implements RevalidatorInterfa
         $response = $this->httpClient->request('GET', $revalidate_url->toString());
         if ($response && $response->getStatusCode() === Response::HTTP_OK) {
           if ($this->nextSettingsManager->isDebug()) {
-            $this->logger->notice('(@action): Successfully revalidated tags %path for the site %site. URL: %url', [
+            $this->logger->notice('(@action): Successfully revalidated tags %list for the site %site. URL: %url', [
               '@action' => $event->getAction(),
-              '%tags' => $tags_string,
+              '%list' => $cache_tags,
               '%site' => $site->label(),
               '%url' => $revalidate_url->toString(),
             ]);

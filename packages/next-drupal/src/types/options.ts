@@ -36,6 +36,7 @@ export type JsonApiWithCacheOptions = {
 
 export type JsonApiWithNextFetchOptions = {
   next?: NextFetchRequestConfig
+  cache?: RequestCache
 }
 // TODO: Properly type this.
 /* eslint-disable  @typescript-eslint/no-explicit-any */

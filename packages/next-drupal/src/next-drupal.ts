@@ -101,7 +101,7 @@ export class NextDrupal extends NextDrupalBase {
   async createResource<T extends JsonApiResource>(
     type: string,
     body: JsonApiCreateResourceBody,
-    options?: JsonApiOptions
+    options?: JsonApiOptions & JsonApiWithNextFetchOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -127,6 +127,7 @@ export class NextDrupal extends NextDrupalBase {
       method: "POST",
       body: JSON.stringify(body),
       withAuth: options.withAuth,
+      cache: options.cache,
     })
 
     await this.throwIfJsonErrors(response, "Error while creating resource: ")
@@ -149,7 +150,7 @@ export class NextDrupal extends NextDrupalBase {
   async createFileResource<T = DrupalFile>(
     type: string,
     body: JsonApiCreateFileResourceBody,
-    options?: JsonApiOptions
+    options?: JsonApiOptions & JsonApiWithNextFetchOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -178,6 +179,7 @@ export class NextDrupal extends NextDrupalBase {
       },
       body: body.data.attributes.file,
       withAuth: options.withAuth,
+      cache: options.cache,
     })
 
     await this.throwIfJsonErrors(
@@ -203,7 +205,7 @@ export class NextDrupal extends NextDrupalBase {
     type: string,
     uuid: string,
     body: JsonApiUpdateResourceBody,
-    options?: JsonApiOptions
+    options?: JsonApiOptions & JsonApiWithNextFetchOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -231,6 +233,7 @@ export class NextDrupal extends NextDrupalBase {
       method: "PATCH",
       body: JSON.stringify(body),
       withAuth: options.withAuth,
+      cache: options.cache,
     })
 
     await this.throwIfJsonErrors(response, "Error while updating resource: ")
@@ -253,7 +256,7 @@ export class NextDrupal extends NextDrupalBase {
   async deleteResource(
     type: string,
     uuid: string,
-    options?: JsonApiOptions
+    options?: JsonApiOptions & JsonApiWithNextFetchOptions
   ): Promise<boolean> {
     options = {
       withAuth: true,
@@ -276,6 +279,7 @@ export class NextDrupal extends NextDrupalBase {
     const response = await this.fetch(endpoint, {
       method: "DELETE",
       withAuth: options.withAuth,
+      cache: options.cache,
     })
 
     await this.throwIfJsonErrors(response, "Error while deleting resource: ")
@@ -332,6 +336,7 @@ export class NextDrupal extends NextDrupalBase {
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
       next: options.next,
+      cache: options.cache,
     })
 
     await this.throwIfJsonErrors(response, "Error while fetching resource: ")
@@ -428,6 +433,7 @@ export class NextDrupal extends NextDrupalBase {
       body: JSON.stringify(payload),
       withAuth: options.withAuth,
       next: options.next,
+      cache: options.cache,
     })
 
     const errorMessagePrefix = "Error while fetching resource by path:"
@@ -494,6 +500,7 @@ export class NextDrupal extends NextDrupalBase {
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
       next: options.next,
+      cache: options.cache,
     })
 
     await this.throwIfJsonErrors(
@@ -566,6 +573,7 @@ export class NextDrupal extends NextDrupalBase {
               params,
               withAuth: options.withAuth,
               next: options.next,
+              cache: options.cache,
             }
             if (locale) {
               opts = {
@@ -646,6 +654,7 @@ export class NextDrupal extends NextDrupalBase {
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
       next: options.next,
+      cache: options.cache,
     })
 
     if (response.status === 404) {
@@ -680,6 +689,7 @@ export class NextDrupal extends NextDrupalBase {
       // As per https://www.drupal.org/node/2984034 /jsonapi is public.
       withAuth: false,
       next: options?.next,
+      cache: options?.cache,
     })
 
     await this.throwIfJsonErrors(
@@ -810,6 +820,7 @@ export class NextDrupal extends NextDrupalBase {
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
       next: options.next,
+      cache: options.cache,
     })
 
     await this.throwIfJsonErrors(response, "Error while fetching menu items: ")
@@ -867,6 +878,7 @@ export class NextDrupal extends NextDrupalBase {
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
       next: options.next,
+      cache: options.cache,
     })
 
     await this.throwIfJsonErrors(response, "Error while fetching view: ")
@@ -912,6 +924,7 @@ export class NextDrupal extends NextDrupalBase {
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
       next: options.next,
+      cache: options.cache,
     })
 
     await this.throwIfJsonErrors(

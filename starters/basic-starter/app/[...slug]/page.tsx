@@ -35,6 +35,7 @@ async function getNode(slug: string[]) {
 
   const resource = await drupal.getResource<DrupalNode>(type, uuid, {
     params,
+    cache: "force-cache",
     next: {
       revalidate: 3600,
       // Replace `revalidate` with `tags` if using tag based revalidation.

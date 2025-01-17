@@ -56,8 +56,7 @@ class CacheTag extends ConfigurableRevalidatorBase implements RevalidatorInterfa
       return FALSE;
     }
 
-    $tags = [];
-    $tags[] = $entity->getEntityTypeId() . ':' . $entity->id();
+    $tags = $entity->getCacheTags() ?? [];
     if ($entity->getEntityTypeId() == 'menu_link_content') {
       $tags[] = $entity->getEntityTypeId() . ':' . $entity->getMenuName();
     }

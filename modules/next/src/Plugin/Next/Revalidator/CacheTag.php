@@ -56,7 +56,13 @@ class CacheTag extends ConfigurableRevalidatorBase implements RevalidatorInterfa
       return FALSE;
     }
 
-    $cache_tags = implode(',', $entity->getCacheTags());
+    // Get all available cache tags (including list tags).
+    $list_tags = $entity->getEntityType()->getListCacheTags();
+    if ($entity->getEntityType()->hasKey('bundle')) {
+      $list_tags[] = $entity->getEntityTypeId() . '_list:' . $entity->bundle();
+    }
+    $combined_tags = array_merge($entity->getCacheTags(), $list_tags);
+    $cache_tags = implode(',', $combined_tags);
 
     /** @var \Drupal\next\Entity\NextSite $site */
     foreach ($sites as $site) {

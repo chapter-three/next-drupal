@@ -127,20 +127,23 @@ describe("disableDraftMode()", () => {
   test("draft data cookie was deleted", async () => {
     const cookieStore = await cookies()
     await disableDraftMode()
-
-    expect(cookies).toHaveBeenCalledTimes(1)
+    expect(cookies).toHaveBeenCalledTimes(2)
     expect(cookieStore.delete).toHaveBeenCalledWith(DRAFT_DATA_COOKIE_NAME)
   })
 
   test("draft mode was disabled", async () => {
-    // First ensure draft mode is enabled.
-    const draft = await draftMode()
-
+    let draft = await draftMode()
     draft.enable()
+
+    // Re-assign draftMode because local variable is not updated
+    draft = await draftMode()
     expect(draft.isEnabled).toBe(true)
 
     await disableDraftMode()
     expect(draft.disable).toHaveBeenCalledTimes(1)
+
+    // Re-assign draftMode because local variable is not updated
+    draft = await draftMode()
     expect(draft.isEnabled).toBe(false)
   })
 
@@ -178,13 +181,15 @@ describe("getDraftData()", () => {
   })
 
   test("returns empty object if no draft data cookie", async () => {
-    const draft = await draftMode()
+    let draft = await draftMode()
     const cookieStore = await cookies()
     draft.enable()
     draftMode.mockClear()
 
     const data = await getDraftData()
     expect(draftMode).toHaveBeenCalledTimes(1)
+    // Re-assign draftMode because local variable is not updated
+    draft = await draftMode()
     expect(draft.isEnabled).toBe(true)
     expect(cookieStore.has).toHaveBeenCalledWith(DRAFT_DATA_COOKIE_NAME)
     expect(cookieStore.has).toHaveBeenCalledTimes(1)
@@ -193,7 +198,7 @@ describe("getDraftData()", () => {
   })
 
   test("returns empty object if no draft data cookie value", async () => {
-    const draft = await draftMode()
+    let draft = await draftMode()
     const cookieStore = await cookies()
 
     cookieStore.set({
@@ -205,6 +210,8 @@ describe("getDraftData()", () => {
 
     const data = await getDraftData()
     expect(draftMode).toHaveBeenCalledTimes(1)
+    // Re-assign draftMode because local variable is not updated
+    draft = await draftMode()
     expect(draft.isEnabled).toBe(true)
     expect(cookieStore.has).toHaveBeenCalledWith(DRAFT_DATA_COOKIE_NAME)
     expect(cookieStore.has).toHaveBeenCalledTimes(1)

@@ -125,8 +125,8 @@ describe("enableDraftMode()", () => {
 
 describe("disableDraftMode()", () => {
   test("draft data cookie was deleted", async () => {
-    await disableDraftMode()
     const cookieStore = await cookies()
+    await disableDraftMode()
 
     expect(cookies).toHaveBeenCalledTimes(1)
     expect(cookieStore.delete).toHaveBeenCalledWith(DRAFT_DATA_COOKIE_NAME)

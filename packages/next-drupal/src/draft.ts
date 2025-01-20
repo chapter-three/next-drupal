@@ -24,7 +24,8 @@ export async function enableDraftMode(
 
   const cookieStore = await cookies()
   // Enable Draft Mode by setting the cookie
-  ;(await draftMode()).enable()
+  const draft = await draftMode()
+  draft.enable()
 
   // Override the default SameSite=lax.
   // See https://github.com/vercel/next.js/issues/49927
@@ -58,7 +59,8 @@ export async function enableDraftMode(
 export async function disableDraftMode() {
   const cookieStore = await cookies()
   cookieStore.delete(DRAFT_DATA_COOKIE_NAME)
-  ;(await draftMode()).disable()
+  const draft = await draftMode()
+  draft.disable()
 
   return new Response("Draft mode is disabled")
 }
@@ -71,10 +73,8 @@ export interface DraftData {
 export async function getDraftData() {
   let data: DraftData = {}
   const cookieStore = await cookies()
-  if (
-    (await draftMode()).isEnabled &&
-    cookieStore.has(DRAFT_DATA_COOKIE_NAME)
-  ) {
+  const draft = await draftMode()
+  if (draft.isEnabled && cookieStore.has(DRAFT_DATA_COOKIE_NAME)) {
     data = JSON.parse(cookieStore.get(DRAFT_DATA_COOKIE_NAME)?.value || "{}")
   }
 

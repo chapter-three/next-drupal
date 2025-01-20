@@ -52,6 +52,12 @@ describe("enableDraftMode()", () => {
   )
   const drupal = new NextDrupalBase(BASE_URL)
 
+  const draftModeCookie: ResponseCookie = {
+    name: DRAFT_MODE_COOKIE_NAME,
+    value: "some-secret-key",
+    sameSite: "lax",
+  }
+
   test("does not enable draft mode if validation fails", async () => {
     spyOnFetch({ responseBody: { message: "fail" }, status: 500 })
 
@@ -74,8 +80,9 @@ describe("enableDraftMode()", () => {
   test("updates draft mode cookie’s sameSite flag", async () => {
     spyOnFetch({ responseBody: validationPayload })
 
-    // Our mock draftMode().enable does not set a cookie, so we set one.
     const cookieStore = await cookies()
+    // Our mock draftMode().enable does not set a cookie, so we set one.
+    cookieStore.set(draftModeCookie)
 
     expect(cookieStore.get(DRAFT_MODE_COOKIE_NAME).sameSite).toBe("lax")
     expect(cookieStore.get(DRAFT_MODE_COOKIE_NAME).secure).toBeFalsy()

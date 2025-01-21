@@ -1,7 +1,7 @@
 {
-  "plugin": ["typedoc-plugin-markdown"],
   "entryPoints": ["../packages/next-drupal/src/index.ts"],
-  "out": "content/docs/api",
-  "fileExtension": ".mdx",
-  "hidePageHeader": true
+  "out": "public/api",
+  "navigationLinks": {
+    "Back to Docs": "/docs"
+  }
 }

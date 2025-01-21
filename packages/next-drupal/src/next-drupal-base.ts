@@ -30,6 +30,9 @@ const DEFAULT_HEADERS = {
   Accept: "application/json",
 }
 
+/**
+ * The base class for NextDrupal clients.
+ */
 export class NextDrupalBase {
   accessToken?: NextDrupalBaseOptions["accessToken"]
 
@@ -173,6 +176,13 @@ export class NextDrupalBase {
     return this._token
   }
 
+  /**
+   * Fetches a resource from the given input URL or path.
+   *
+   * @param {RequestInfo} input The input URL or path.
+   * @param {FetchOptions} init The fetch options.
+   * @returns {Promise<Response>} The fetch response.
+   */
   async fetch(
     input: RequestInfo,
     { withAuth, ...init }: FetchOptions = {}
@@ -215,6 +225,12 @@ export class NextDrupalBase {
     return await fetch(input, init)
   }
 
+  /**
+   * Gets the authorization header value based on the provided auth configuration.
+   *
+   * @param {NextDrupalAuth} auth The auth configuration.
+   * @returns {Promise<string>} The authorization header value.
+   */
   async getAuthorizationHeader(auth: NextDrupalAuth) {
     let header: string
 
@@ -250,6 +266,13 @@ export class NextDrupalBase {
     return header
   }
 
+  /**
+   * Builds a URL with the given path and search parameters.
+   *
+   * @param {string} path The URL path.
+   * @param {EndpointSearchParams} searchParams The search parameters.
+   * @returns {URL} The constructed URL.
+   */
   buildUrl(path: string, searchParams?: EndpointSearchParams): URL {
     const url = new URL(path, this.baseUrl)
 
@@ -269,7 +292,15 @@ export class NextDrupalBase {
     return url
   }
 
-  // async so subclasses can query for endpoint discovery.
+  /**
+   * Builds an endpoint URL with the given options.
+   *
+   * @param {Object} options The options for building the endpoint.
+   * @param {string} options.locale The locale.
+   * @param {string} options.path The path.
+   * @param {EndpointSearchParams} options.searchParams The search parameters.
+   * @returns {Promise<string>} The constructed endpoint URL.
+   */
   async buildEndpoint({
     locale = "",
     path = "",
@@ -291,6 +322,16 @@ export class NextDrupalBase {
     ).toString()
   }
 
+  /**
+   * Constructs a path from the given segment and options.
+   *
+   * @param {string | string[]} segment The path segment.
+   * @param {Object} options The options for constructing the path.
+   * @param {Locale} options.locale The locale.
+   * @param {Locale} options.defaultLocale The default locale.
+   * @param {PathPrefix} options.pathPrefix The path prefix.
+   * @returns {string} The constructed path.
+   */
   constructPathFromSegment(
     segment: string | string[],
     options: {
@@ -338,6 +379,15 @@ export class NextDrupalBase {
     })
   }
 
+  /**
+   * Adds a locale prefix to the given path.
+   *
+   * @param {string} path The path.
+   * @param {Object} options The options for adding the locale prefix.
+   * @param {Locale} options.locale The locale.
+   * @param {Locale} options.defaultLocale The default locale.
+   * @returns {string} The path with the locale prefix.
+   */
   addLocalePrefix(
     path: string,
     options: { locale?: Locale; defaultLocale?: Locale } = {}
@@ -356,6 +406,12 @@ export class NextDrupalBase {
     return `${localePrefix}${path}`
   }
 
+  /**
+   * Gets an access token using the provided client ID and secret.
+   *
+   * @param {NextDrupalAuthClientIdSecret} clientIdSecret The client ID and secret.
+   * @returns {Promise<AccessToken>} The access token.
+   */
   async getAccessToken(
     clientIdSecret?: NextDrupalAuthClientIdSecret
   ): Promise<AccessToken> {
@@ -435,6 +491,12 @@ export class NextDrupalBase {
     return result
   }
 
+  /**
+   * Validates the draft URL using the provided search parameters.
+   *
+   * @param {URLSearchParams} searchParams The search parameters.
+   * @returns {Promise<Response>} The validation response.
+   */
   async validateDraftUrl(searchParams: URLSearchParams): Promise<Response> {
     const path = searchParams.get("path")
 
@@ -468,10 +530,22 @@ export class NextDrupalBase {
     return response
   }
 
+  /**
+   * Logs a debug message if debug mode is enabled.
+   *
+   * @param {string} message The debug message.
+   */
   debug(message) {
     this.isDebugEnabled && this.logger.debug(message)
   }
 
+  /**
+   * Throws an error if the response contains JSON:API errors.
+   *
+   * @param {Response} response The fetch response.
+   * @param {string} messagePrefix The error message prefix.
+   * @throws {JsonApiErrors} The JSON:API errors.
+   */
   async throwIfJsonErrors(response: Response, messagePrefix = "") {
     if (!response?.ok) {
       const errors = await this.getErrorsFromResponse(response)
@@ -479,6 +553,12 @@ export class NextDrupalBase {
     }
   }
 
+  /**
+   * Extracts errors from the fetch response.
+   *
+   * @param {Response} response The fetch response.
+   * @returns {Promise<string | JsonApiResponse>} The extracted errors.
+   */
   async getErrorsFromResponse(response: Response) {
     const type = response.headers.get("content-type")
     let error: JsonApiResponse | { message: string }
@@ -506,6 +586,12 @@ export class NextDrupalBase {
   }
 }
 
+/**
+ * Checks if the provided auth configuration is basic auth.
+ *
+ * @param {NextDrupalAuth} auth The auth configuration.
+ * @returns {boolean} True if the auth configuration is basic auth, false otherwise.
+ */
 export function isBasicAuth(
   auth: NextDrupalAuth
 ): auth is NextDrupalAuthUsernamePassword {
@@ -515,6 +601,12 @@ export function isBasicAuth(
   )
 }
 
+/**
+ * Checks if the provided auth configuration is access token auth.
+ *
+ * @param {NextDrupalAuth} auth The auth configuration.
+ * @returns {boolean} True if the auth configuration is access token auth, false otherwise.
+ */
 export function isAccessTokenAuth(
   auth: NextDrupalAuth
 ): auth is NextDrupalAuthAccessToken {
@@ -524,6 +616,12 @@ export function isAccessTokenAuth(
   )
 }
 
+/**
+ * Checks if the provided auth configuration is client ID and secret auth.
+ *
+ * @param {NextDrupalAuth} auth The auth configuration.
+ * @returns {boolean} True if the auth configuration is client ID and secret auth, false otherwise.
+ */
 export function isClientIdSecretAuth(
   auth: NextDrupalAuth
 ): auth is NextDrupalAuthClientIdSecret {

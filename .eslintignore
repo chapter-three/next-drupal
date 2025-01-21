@@ -5,3 +5,4 @@ node_modules
 *.esm.js
 /drupal
 /drupal-*
+/local-next-drupal

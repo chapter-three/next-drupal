@@ -102,6 +102,11 @@ module.exports = {
         destination: "/learn/on-demand-revalidation",
         permanent: true,
       },
+      {
+        source: "/docs/api/:path*.mdx",
+        destination: "/docs/api/:path*",
+        permanent: true,
+      },
     ]
   },
 }

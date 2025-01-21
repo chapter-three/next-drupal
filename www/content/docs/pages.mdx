@@ -3,22 +3,9 @@ title: Building Pages
 excerpt: How to build pages using JSON:API resources from Drupal.
 ---
 
-In Next.js V14, data fetching has evolved significantly from previous versions. Instead of using `getStaticProps` and `getServerSideProps` you now use the native `fetch` function enhanced by Next.js to handle server-side data fetching.
-
-The `NextDrupal` client provides several functions to help you query JSON:API resources from Drupal.
-
-<!--
-************************************************************
-*  TODO: Remove this block before publishing.
-
-*  Comment: Need to corroborate (and maybe update) once next-drupal supports `next` revalidation options. Possible replacement for above introduction once it's supported
-
-In Next.js V14, data fetching has evolved significantly from previous versions. Instead of using `getStaticProps` and `getServerSideProps` you now use the native `fetch` function enhanced by Next.js to handle server-side data fetching. This allows you to configure caching and revalidation directly within your fetch requests. These can be used in Server Components, Route Handlers, and Server Actions. You can read more about it [here](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating)
+In the Next.js App Router, data fetching has evolved significantly from previous versions. The native `fetch` function enhanced by Next.js can be used to handle server-side data fetching. This also allows you to configure caching and revalidation directly within your fetch requests. These can be used in Server Components, Route Handlers, and Server Actions. You can read more about it [here](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating).
 
 The `NextDrupal` client provides several functions to help you query JSON:API resources from Drupal and manage these revalidation options on the `fetch` request level.
-
-************************************************************
--->
 
 ---
 
@@ -51,6 +38,18 @@ export default function AboutPage() {
     </article>
   )
 }
+```
+
+### Time-based Revalidation
+
+To use time-based revalidation, you can pass a `revalidate` option to the `getResource` function. This will set the cache lifetime of a resource (in seconds).
+
+```tsx
+const node = await drupal.getResource(
+  "node--page",
+  "07464e9f-9221-4a4f-b7f2-01389408e6c8",
+  { next: { revalidate: 3600 } }
+)
 ```
 
 ---
@@ -156,6 +155,151 @@ export default function Page({ params }) {
 }
 ```
 
+### Tag-based Revalidation
+
+In addition to revalidating based on time, it is also possible to revalidate
+based on cache tag values. This is useful when you want to revalidate a resource
+based on changes to other resources.
+
+Below we've adapted the Page function from the example above to include
+tag-based revalidation.
+
+```tsx title=app/[...slug]/page.tsx
+import { DrupalJsonApiParams } from "drupal-jsonapi-params"
+
+...
+
+export default function Page({ params }) {
+  const {slug} = params;
+
+  const path = drupal.translatePath(slug)
+
+  // Get the resource type.
+  const type = path.jsonapi.resourceName
+  const tag = `${path.entity.type}:${path.entity.id}`
+
+  const params = new DrupalJsonApiParams()
+
+  // Fetch the title, path and body field for pages.
+  if (type === "node--page") {
+    params.addFields("node--page", ["title", "path", "body"])
+  }
+
+  // Fetch additional fields for articles.
+  if (type === "node--article") {
+    params.addFields("node--article", ["title", "path", "body", "uid"])
+  }
+
+  const node = await drupal.getResource(path, path.entity.uuid {
+    params: params.getQueryObject(),
+    tags: [tag]
+  })
+
+  // Render different Components based on Node type.
+  if (node.type === "node--page") {
+    return <PageComponent node={node}/>
+  }
+
+  if (node.type === "node--article") {
+    return <ArticleComponent node={node}/>
+  }
+
+  return null
+}
+```
+
 ## Reference
 
 See the [fetching JSON:API resources](/docs/fetching-resources) section for more examples of fetching resources and collection of resources.
+
+## Pages Router
+
+When using the Pages Router, you will use the `getStaticProps` and `getServerSideProps` methods to fetch data for your pages.
+
+### Basic Example
+
+Here's an example which uses `getResource` to fetch a `page` node by ID:
+
+```tsx
+const node = await drupal.getResource(
+  "node--page",
+  "07464e9f-9221-4a4f-b7f2-01389408e6c8"
+)
+```
+
+A full page would look like this:
+
+```tsx title=pages/about.tsx
+// node will be populated at build time by getStaticProps
+export default function AboutPage({ node }) {
+  return (
+    <article>
+      <h1>{node.title}</h1>
+      // ...
+    </article>
+  )
+}
+
+export async function getStaticProps() {
+  // Fetch the node from Drupal.
+  const node = await drupal.getResource(
+    "node--page",
+    "07464e9f-9221-4a4f-b7f2-01389408e6c8"
+  )
+
+  // Pass the node as props to the AboutPage.
+  return {
+    props: {
+      node,
+    },
+  }
+}
+```
+
+---
+
+### Dynamic pages
+
+You can use Next.js [dynamic route](https://nextjs.org/docs/basic-features/pages#pages-with-dynamic-routes) to build static pages for Drupal entity types.
+
+Start by creating a page at `/pages/[...slug].tsx`, where `[...slug]` maps to the **path alias** for an entity type (or content type) in Drupal.
+
+This means `/pages/[...slug].tsx` will handle all pages with the following aliases: `/about`, `/team`, `/another/path` ...etc.
+
+To build static pages, there are two functions we need to implement:
+
+1. `getStaticPaths`: to tell Next.js all the routes that we want to be rendered.
+2. `getStaticProps`: to fetch data for pages.
+
+```tsx title=pages/[...slug].tsx
+export default function Page({ node }) {
+  return (
+    <article>
+      <h1>{node.title}</h1>
+      // ...
+    </article>
+  )
+}
+
+export async function getStaticPaths(context) {
+  // Build paths for all `node--page`.
+  return {
+    paths: await drupal.getStaticPathsFromContext("node--page", context),
+    fallback: false,
+  }
+}
+
+export async function getStaticProps(context) {
+  // Fetch the node based on the context.
+  // next-drupal automatically handles the slug value.
+  const node = await drupal.getResourceFromContext("node--page", context)
+
+  return {
+    props: {
+      node,
+    },
+  }
+}
+```
+
+---

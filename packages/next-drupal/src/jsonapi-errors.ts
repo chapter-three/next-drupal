@@ -13,6 +13,7 @@ export interface JsonApiLinks {
   [key: string]: string | Record<string, string>
 }
 
+/** @hidden */
 export class JsonApiErrors extends Error {
   errors: JsonApiError[] | string
   statusCode: number

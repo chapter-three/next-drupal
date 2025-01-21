@@ -294,6 +294,62 @@ export class NextDrupal extends NextDrupalBase {
    * @param {string} uuid The UUID of the resource.
    * @param {JsonApiOptions & JsonApiWithCacheOptions & JsonApiWithNextFetchOptions} options Options for the request.
    * @returns {Promise<T>} The fetched resource.
+   * @examples
+   * Get a page by uuid.
+   * ```ts
+   * const node = await drupal.getResource(
+   *  "node--page",
+   *  "07464e9f-9221-4a4f-b7f2-01389408e6c8"
+   * )
+   * ```
+   * Get the es translation for a page by uuid.
+   * ```ts
+   * const node = await drupal.getResource(
+   *   "node--page",
+   *   "07464e9f-9221-4a4f-b7f2-01389408e6c8",
+   *   {
+   *     locale: "es",
+   *     defaultLocale: "en",
+   *   }
+   * )
+   * ```
+   * Get the raw JSON:API response.
+   * ```ts
+   * const { data, meta, links } = await drupal.getResource(
+   *   "node--page",
+   *   "07464e9f-9221-4a4f-b7f2-01389408e6c8",
+   *   {
+   *     deserialize: false,
+   *   }
+   * )
+   * ```
+   * Get a node--article resource using cache.
+   * ```ts
+   * const id = "07464e9f-9221-4a4f-b7f2-01389408e6c8"
+   *
+   * const article = await drupal.getResource("node--article", id, {
+   *   withCache: true,
+   *   cacheKey: `node--article:${id}`,
+   * })
+   * ```
+   * Using DrupalNode for a node entity type.
+   * ```ts
+   * import { DrupalNode } from "next-drupal"
+   *
+   * const node = await drupal.getResource<DrupalNode>(
+   *   "node--page",
+   *   "07464e9f-9221-4a4f-b7f2-01389408e6c8"
+   * )
+   * ```
+   * Using DrupalTaxonomyTerm for a taxonomy term entity type.
+   * ```ts
+   * import { DrupalTaxonomyTerm } from "next-drupal"
+   *
+   * const term = await drupal.getResource<DrupalTaxonomyTerm>(
+   *   "taxonomy_term--tags",
+   *   "7b47d7cc-9b1b-4867-a909-75dc1d61dfd3"
+   * )
+   * ```
    */
   async getResource<T extends JsonApiResource>(
     type: string,

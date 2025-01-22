@@ -290,8 +290,8 @@ export class NextDrupal extends NextDrupalBase {
   /**
    * Fetches a resource of the specified type by its UUID.
    *
-   * @param {string} type The type of the resource.
-   * @param {string} uuid The UUID of the resource.
+   * @param {string} type The resource type. Example: `node--article`, `taxonomy_term--tags`, or `block_content--basic`.
+   * @param {string} uuid The id of the resource. Example: `15486935-24bf-4be7-b858-a5b2de78d09d`.
    * @param {JsonApiOptions & JsonApiWithCacheOptions & JsonApiWithNextFetchOptions} options Options for the request.
    * @returns {Promise<T>} The fetched resource.
    * @examples
@@ -330,6 +330,27 @@ export class NextDrupal extends NextDrupalBase {
    * const article = await drupal.getResource("node--article", id, {
    *   withCache: true,
    *   cacheKey: `node--article:${id}`,
+   * })
+   * ```
+   * Get a page resource with time-based revalidation.
+   * ```ts
+   * const node = await drupal.getResource(
+   *   "node--page",
+   *   "07464e9f-9221-4a4f-b7f2-01389408e6c8",
+   *   { next: { revalidate: 3600 } }
+   * )
+   * ```
+   * Get a page resource with tag-based revalidation.
+   * ```ts
+   * const {slug} = params;
+   * const path = drupal.translatePath(slug)
+   *
+   * const type = path.jsonapi.resourceName
+   * const tag = `${path.entity.type}:${path.entity.id}`
+   *
+   * const node = await drupal.getResource(path, path.entity.uuid, {
+   *   params: params.getQueryObject(),
+   *   tags: [tag]
    * })
    * ```
    * Using DrupalNode for a node entity type.

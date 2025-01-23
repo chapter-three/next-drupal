@@ -88,10 +88,64 @@ export class NextDrupalPages extends NextDrupal {
   /**
    * Gets a resource from the context.
    *
-   * @param {string | DrupalTranslatedPath} input The input path or translated path.
-   * @param {GetStaticPropsContext} context The static props context.
+   * @param {string | DrupalTranslatedPath} input Either a resource type (e.g. "node--article") or a translated path from translatePath().
+   * @param {GetStaticPropsContext} context The Next.js context from getStaticProps.
    * @param {Object} options Options for the request.
+   * @param {PathPrefix} [options.pathPrefix] The path prefix to use for the request (defaults to "/").
+   * @param {boolean} [options.isVersionable] Whether the resource is versionable (defaults to false for all entity types except nodes).
    * @returns {Promise<T>} The fetched resource.
+   * @remarks
+   * The localized resource will be fetched based on the `locale` and `defaultLocale` values from `context`.
+   *
+   * If you pass in a `DrupalTranslatedPath` for input, `getResourceFromContext` will take the `type` and `id` from the path and make a `getResource` call to Drupal:
+   * ```ts
+   * export async function getStaticProps(context) {
+   *   const path = await drupal.translatePathFromContext(context)
+   *
+   *   const node = await drupal.getResourceFromContext(path, context)
+   *
+   *   return {
+   *     props: {
+   *       node,
+   *     },
+   *   }
+   * }
+   * ```
+   *
+   * If you pass in a `string` input, such as `node--article`, `getResourceFromContext` will make a subrequest call to Drupal to translate the path and then fetch the resource.
+   * You will need both the [Subrequests](https://drupal.org/project/subrequests) and [Decoupled Router](https://drupal.org/project/decoupled_router) modules:
+   * ```ts
+   * export async function getStaticProps(context) {
+   *   const node = await drupal.getResourceFromContext("node--article", context)
+   *
+   *   return {
+   *     props: {
+   *       node,
+   *     },
+   *   }
+   * }
+   * ```
+   * @examples
+   *
+   * Using DrupalNode type:
+   * ```ts
+   * import { DrupalNode } from "next-drupal"
+   *
+   * const node = await drupal.getResourceFromContext<DrupalNode>(
+   *   "node--page",
+   *   context
+   * )
+   * ```
+   * Using DrupalTaxonomyTerm type:
+   * ```ts
+   * import { DrupalTaxonomyTerm } from "next-drupal"
+   *
+   * const term = await drupal.getResourceFromContext<DrupalTaxonomyTerm>(
+   *   "taxonomy_term--tags",
+   *   context
+   * )
+   * ```
+   * @see {@link https://next-drupal.org/docs/typescript} for more built-in types.
    */
   async getResourceFromContext<T extends JsonApiResource>(
     input: string | DrupalTranslatedPath,

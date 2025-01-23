@@ -126,7 +126,32 @@ export class NextDrupalPages extends NextDrupal {
    * }
    * ```
    * @examples
+   * Fetch a resource from context.
+   * ```ts title=pages/[[...slug]].tsx
+   * export async function getStaticProps(context) {
+   *   const node = await drupal.getResourceFromContext("node--page", context)
    *
+   *   return {
+   *     props: {
+   *       node,
+   *     },
+   *   }
+   * }
+   * ```
+   * Fetch a resource from context in a sub directory.
+   * ```ts title=pages/articles/[[...slug]].tsx
+   * export async function getStaticProps(context) {
+   *   const node = await drupal.getResourceFromContext("node--page", context, {
+   *     pathPrefix: "/articles",
+   *   })
+   *
+   *   return {
+   *     props: {
+   *       node,
+   *     },
+   *   }
+   * }
+   * ```
    * Using DrupalNode type:
    * ```ts
    * import { DrupalNode } from "next-drupal"

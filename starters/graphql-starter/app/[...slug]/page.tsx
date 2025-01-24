@@ -119,7 +119,8 @@ export async function generateStaticParams(): Promise<NodePageParams[]> {
 }
 
 export default async function Page({ params: { slug } }: NodePageProps) {
-  const isDraftMode = (await draftMode()).isEnabled
+  const draft = await draftMode()
+  const isDraftMode = draft.isEnabled
 
   let node
   try {

@@ -117,7 +117,8 @@ export default async function NodePage(props: NodePageProps) {
 
   const { slug } = params
 
-  const isDraftMode = (await draftMode()).isEnabled
+  const draft = await draftMode()
+  const isDraftMode = draft.isEnabled
 
   let node
   try {

@@ -431,9 +431,32 @@ export class NextDrupal extends NextDrupalBase {
   /**
    * Fetches a resource of the specified type by its path.
    *
-   * @param {string} path The path of the resource.
-   * @param {JsonApiOptions & JsonApiWithNextFetchOptions} options Options for the request.
+   * @param {string} path The path of the resource. Example: `/blog/slug-for-article`.
+   * @param { { isVersionable?: boolean } & JsonApiOptions & JsonApiWithNextFetchOptions} options Options for the request.
+   *   - isVersionable: Set to true if you're fetching the revision for a resource. Automatically set to true for node entity types
    * @returns {Promise<T>} The fetched resource.
+   * @requires Decoupled Router module
+   * @example
+   * Get a page by path
+   * ```
+   * const node = await drupal.getResourceByPath("/blog/slug-for-article")
+   * ```
+   * Get the raw JSON:API response
+   * ```
+   * const { data, meta, links } = await drupal.getResourceByPath(
+   *   "/blog/slug-for-article",
+   *   {
+   *     deserialize: false,
+   *   }
+   * )
+   *```
+   * Using DrupalNode for a node entity type
+   * ```
+   * import { DrupalNode } from "next-drupal"
+   * const node = await drupal.getResourceByPath<DrupalNode>(
+   *   "/blog/slug-for-article"
+   * )
+   * ```
    */
   async getResourceByPath<T extends JsonApiResource>(
     path: string,

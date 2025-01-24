@@ -6,38 +6,29 @@ weight: 4
 
 ```ts
 // Bearer token.
-export const drupal = new DrupalClient(
-  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
-  {
-    auth: {
-      clientId: process.env.DRUPAL_CLIENT_ID,
-      clientSecret: process.env.DRUPAL_CLIENT_SECRET,
-    },
-  }
-)
+export const drupal = new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  auth: {
+    clientId: process.env.DRUPAL_CLIENT_ID,
+    clientSecret: process.env.DRUPAL_CLIENT_SECRET,
+  },
+})
 ```
 
 ```ts
 // Basic.
-export const drupal = new DrupalClient(
-  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
-  {
-    auth: {
-      username: process.env.DRUPAL_USERNAME,
-      password: process.env.DRUPAL_PASSWORD,
-    },
-  }
-)
+export const drupal = new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  auth: {
+    username: process.env.DRUPAL_USERNAME,
+    password: process.env.DRUPAL_PASSWORD,
+  },
+})
 ```
 
 ```ts
 // Bring your own.
-export const drupal = new DrupalClient(
-  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
-  {
-    auth: () => {
-      // Do something and return an Authorization header.
-    },
-  }
-)
+export const drupal = new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  auth: () => {
+    // Do something and return an Authorization header.
+  },
+})
 ```

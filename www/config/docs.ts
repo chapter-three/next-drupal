@@ -34,7 +34,7 @@ export const docsConfig: DocsConfig = {
       ],
     },
     {
-      title: "Drupal Client",
+      title: "NextDrupal Client",
       items: [
         {
           title: "Introduction",
@@ -94,6 +94,10 @@ export const docsConfig: DocsConfig = {
           title: "Advanced Example",
           href: "/docs/pages#advanced-example",
         },
+        {
+          title: "Pages Router",
+          href: "/docs/pages#pages-router",
+        },
       ],
     },
     {
@@ -118,83 +122,11 @@ export const docsConfig: DocsConfig = {
       ],
     },
     {
-      title: "Reference",
+      title: "API",
       items: [
         {
-          title: "getResource",
-          href: "/docs/reference/getresource",
-        },
-        {
-          title: "getResourceByPath",
-          href: "/docs/reference/getresourcebypath",
-        },
-        {
-          title: "getResourceCollection",
-          href: "/docs/reference/getresourcecollection",
-        },
-        {
-          title: "createResource",
-          href: "/docs/reference/createresource",
-        },
-        {
-          title: "createFileResource",
-          href: "/docs/reference/createfileresource",
-        },
-        {
-          title: "updateResource",
-          href: "/docs/reference/updateresource",
-        },
-        {
-          title: "deleteResource",
-          href: "/docs/reference/deleteresource",
-        },
-        {
-          title: "getResourceCollectionPathSegments",
-          href: "/docs/reference/getresourcecollectionpathsegments",
-        },
-        {
-          title: "translatePath",
-          href: "/docs/reference/translatepath",
-        },
-        {
-          title: "constructPathFromSegment",
-          href: "/docs/reference/constructpathfromsegment",
-        },
-        {
-          title: "buildEndpoint",
-          href: "/docs/reference/buildendpoint",
-        },
-        {
-          title: "getAccessToken",
-          href: "/docs/reference/getaccesstoken",
-        },
-        {
-          title: "getMenu",
-          href: "/docs/reference/getmenu",
-        },
-        {
-          title: "getView",
-          href: "/docs/reference/getview",
-        },
-        {
-          title: "getSearchIndex",
-          href: "/docs/reference/getsearch",
-        },
-        {
-          title: "buildUrl",
-          href: "/docs/reference/buildurl",
-        },
-        {
-          title: "fetch",
-          href: "/docs/reference/fetch",
-        },
-        {
-          title: "deserialize",
-          href: "/docs/reference/deserialize",
-        },
-        {
-          title: "getAuthorizationHeader",
-          href: "/docs/reference/getauthorizationheader",
+          title: "API Reference",
+          href: "/docs/api/globals",
         },
       ],
     },

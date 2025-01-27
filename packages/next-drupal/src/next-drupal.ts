@@ -93,10 +93,84 @@ export class NextDrupal extends NextDrupalBase {
   /**
    * Creates a new resource of the specified type.
    *
-   * @param {string} type The type of the resource.
-   * @param {JsonApiCreateResourceBody} body The body of the resource.
-   * @param {JsonApiOptions} options Options for the request.
+   * @param {string} type The type of the resource. Example: `node--article`, `taxonomy_term--tags`, or `block_content--basic`.
+   * @param {JsonApiCreateResourceBody} body The body payload with data.
+   * @param {JsonApiOptions & JsonApiWithNextFetchOptions} options Options for the request.
    * @returns {Promise<T>} The created resource.
+   * @example
+   * Create a node--page resource
+   * ```
+   * const page = await drupal.createResource("node--page", {
+   *   data: {
+   *     attributes: {
+   *       title: "Page Title",
+   *       body: {
+   *         value: "<p>Content of body field</p>",
+   *         format: "full_html",
+   *       },
+   *     },
+   *   },
+   * })
+   * ```
+   * Create a node--article with a taxonomy term
+   * ```
+   * const article = await drupal.createResource("node--article", {
+   *   data: {
+   *     attributes: {
+   *       title: "Title of Article",
+   *       body: {
+   *         value: "<p>Content of body field</p>",
+   *         format: "full_html",
+   *       },
+   *     },
+   *     relationships: {
+   *       field_category: {
+   *         data: {
+   *           type: "taxonomy_term--category",
+   *           id: "28ab9f26-927d-4e33-9510-b59a7ccdafe6",
+   *         },
+   *       },
+   *     },
+   *   },
+   * })
+   * ```
+   * Using filters
+   * ```
+   * const page = await drupal.createResource(
+   *   "node--page",
+   *   {
+   *     data: {
+   *       attributes: {
+   *         title: "Page Title",
+   *         body: {
+   *           value: "<p>Content of body field</p>",
+   *           format: "full_html",
+   *         },
+   *       },
+   *     },
+   *   },
+   *   {
+   *     params: {
+   *       "fields[node--page]": "title,path",
+   *     },
+   *   }
+   * )
+   * ```
+   * Using TypeScript with DrupalNode
+   * ```
+   * import { DrupalNode } from "next-drupal"
+   * const page = await drupal.createResource<DrupalNode>("node--page", {
+   *   data: {
+   *     attributes: {
+   *       title: "Page Title",
+   *       body: {
+   *         value: "<p>Content of body field</p>",
+   *         format: "full_html",
+   *       },
+   *     },
+   *   },
+   * })
+   * ```
    */
   async createResource<T extends JsonApiResource>(
     type: string,

@@ -258,10 +258,37 @@ export class NextDrupalPages extends NextDrupal {
   /**
    * Gets a collection of resources from the context.
    *
-   * @param {string} type The type of the resources.
-   * @param {GetStaticPropsContext} context The static props context.
+   * @param {string} type The type of the resources. Example: `node--article` or `user--user`.
+   * @param {GetStaticPropsContext} context The static props context from getStaticProps or getServerSideProps.
    * @param {Object} options Options for the request.
+   *   - deserialize: Set to false to return the raw JSON:API response
    * @returns {Promise<T>} The fetched collection of resources.
+   * @remarks
+   * The localized resources will be fetched based on the `locale` and `defaultLocale` values from `context`.
+   * @example
+   * Get all articles from context
+   * ```
+   * export async function getStaticProps(context) {
+   *   const articles = await drupal.getResourceCollectionFromContext(
+   *     "node--article",
+   *     context
+   *   )
+   *
+   *   return {
+   *     props: {
+   *       articles,
+   *     },
+   *   }
+   * }
+   * ```
+   * Using TypeScript with DrupalNode for a node entity type
+   * ```
+   * import { DrupalNode } from "next-drupal"
+   * const nodes = await drupal.getResourceCollectionFromContext<DrupalNode[]>(
+   *   "node--article",
+   *   context
+   * )
+   * ```
    */
   async getResourceCollectionFromContext<T = JsonApiResource[]>(
     type: string,

@@ -571,9 +571,34 @@ export class NextDrupal extends NextDrupalBase {
   /**
    * Fetches a collection of resources of the specified type.
    *
-   * @param {string} type The type of the resources.
+   * @param {string} type The type of the resources. Example: `node--article` or `user--user`.
    * @param {JsonApiOptions & JsonApiWithNextFetchOptions} options Options for the request.
+   *   - deserialize: Set to false to return the raw JSON:API response
    * @returns {Promise<T>} The fetched collection of resources.
+   * @example
+   * Get all articles
+   * ```
+   * const articles = await drupal.getResourceCollection("node--article")
+   * ```
+   * Using filters
+   * ```
+   * const publishedArticles = await drupal.getResourceCollection("node--article", {
+   *   params: {
+   *     "filter[status]": "1",
+   *   },
+   * })
+   * ```
+   * Get the raw JSON:API response
+   * ```
+   * const { data, meta, links } = await drupal.getResourceCollection("node--page", {
+   *   deserialize: false,
+   * })
+   * ```
+   * Using TypeScript with DrupalNode for a node entity type
+   * ```
+   * import { DrupalNode } from "next-drupal"
+   * const nodes = await drupal.getResourceCollection<DrupalNode[]>("node--article")
+   * ```
    */
   async getResourceCollection<T = JsonApiResource[]>(
     type: string,

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-rc.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@2.0.0-beta.1...next-drupal@2.0.0-rc.0) (2025-01-27)
+
+
+### Features
+
+* add cache option to fetch ([#817](https://github.com/chapter-three/next-drupal/issues/817)) ([f8561b1](https://github.com/chapter-three/next-drupal/commit/f8561b1db17b603b9c250223985b4009e46bf02a))
+* Finalize 2.x Documentation ([#804](https://github.com/chapter-three/next-drupal/issues/804)) ([74c8dc7](https://github.com/chapter-three/next-drupal/commit/74c8dc7c023c9a44d8ba4f6fce552c5f1b19883c))
+
+
+
+
+
 # [2.0.0-beta.1](https://github.com/chapter-three/next-drupal/compare/next-drupal@2.0.0-beta.0...next-drupal@2.0.0-beta.1) (2024-10-21)
 
 

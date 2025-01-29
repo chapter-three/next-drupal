@@ -908,9 +908,15 @@ export class NextDrupal extends NextDrupalBase {
   /**
    * Translates a path to a DrupalTranslatedPath object.
    *
-   * @param {string} path The path to translate.
+   * @param {string} path The resource path. Example: `/blog/slug-for-article`.
    * @param {JsonApiWithAuthOption & JsonApiWithNextFetchOptions} options Options for the request.
    * @returns {Promise<DrupalTranslatedPath | null>} The translated path.
+   * @requires Decoupled Router module
+   * @example
+   * Get info about a `/blog/slug-for-article` path
+   * ```ts
+   * const path = await drupal.translatePath("/blog/slug-for-article")
+   * ```
    */
   async translatePath(
     path: string,

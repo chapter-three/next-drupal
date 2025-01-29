@@ -269,9 +269,35 @@ export class NextDrupalBase {
   /**
    * Builds a URL with the given path and search parameters.
    *
-   * @param {string} path The URL path.
-   * @param {EndpointSearchParams} searchParams The search parameters.
+   * @param {string} path The path for the url. Example: "/example"
+   * @param {string | Record<string, string> | URLSearchParams | JsonApiParams} searchParams Optional query parameters.
    * @returns {URL} The constructed URL.
+   * @example
+   * ```ts
+   * const drupal = new DrupalClient("https://example.com")
+   *
+   * // https://drupal.org
+   * drupal.buildUrl("https://drupal.org").toString()
+   *
+   * // https://example.com/foo
+   * drupal.buildUrl("/foo").toString()
+   *
+   * // https://example.com/foo?bar=baz
+   * client.buildUrl("/foo", { bar: "baz" }).toString()
+   * ```
+   *
+   * Build a URL from `DrupalJsonApiParams`
+   * ```ts
+   * const params = {
+   *   getQueryObject: () => ({
+   *     sort: "-created",
+   *     "fields[node--article]": "title,path",
+   *   }),
+   * }
+   *
+   * // https://example.com/jsonapi/node/article?sort=-created&fields%5Bnode--article%5D=title%2Cpath
+   * drupal.buildUrl("/jsonapi/node/article", params).toString()
+   * ```
    */
   buildUrl(path: string, searchParams?: EndpointSearchParams): URL {
     const url = new URL(path, this.baseUrl)

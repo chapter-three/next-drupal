@@ -64,11 +64,29 @@ export class NextDrupalPages extends NextDrupal {
   }
 
   /**
-   * Gets the entry point for a given resource type.
+   * Get the JSON:API entry for a resource type.
    *
-   * @param {string} resourceType The resource type.
-   * @param {Locale} locale The locale.
+   * @param {string} resourceType The resource type. Example: `node--article`.
+   * @param {Locale} locale Optional. The locale to fetch the index. Example: `es` or `fr`.
    * @returns {Promise<string>} The entry point URL.
+   * @remarks
+   * By default, when retrieving resources in `getResource` or `getResourceCollection`,
+   * the `DrupalClient` make a request to Drupal to fetch the JSON:API resource entry.
+   *
+   * Example: if you provide `node--article`, `DrupalClient` will make a request to
+   * `http://example.com/jsonapi/node/article`.
+   *
+   * If you would like to infer the entry from the resource type, use the useDefaultResourceTypeEntry option:
+   * ```ts
+   * const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+   *   useDefaultResourceTypeEntry: true,
+   * })
+   * ```
+   * @example
+   * ```ts
+   * // https://example.com/jsonapi/node/article
+   * const url = await drupal.getEntryForResourceType(`node--article`)
+   * ```
    */
   async getEntryForResourceType(
     resourceType: string,

@@ -381,10 +381,33 @@ export class NextDrupalPages extends NextDrupal {
   /**
    * Gets static paths from the context.
    *
-   * @param {string | string[]} types The types of the resources.
-   * @param {GetStaticPathsContext} context The static paths context.
-   * @param {Object} options Options for the request.
-   * @returns {Promise<GetStaticPathsResult<{ slug: string[] }>["paths"]>} The fetched static paths.
+   * @param {string | string[]} types The resource types. Example: `node--article` or `["taxonomy_term--tags", "user--user"]`.
+   * @param {GetStaticPathsContext} context The context from `getStaticPaths`.
+   * @param {object} options Options for the request.
+   * @returns {Promise<GetStaticPathsResult<{ slug: string[] }>["paths"]>} The static paths.
+   * @example
+   * Return static paths for `node--page` resources
+   * ```ts
+   * export async function getStaticPaths(context) {
+   *   return {
+   *     paths: await drupal.getStaticPathsFromContext("node--page", context),
+   *     fallback: "blocking",
+   *   }
+   * }
+   * ```
+   *
+   * Return static paths for `node--page` and `node--article` resources
+   * ```ts
+   * export async function getStaticPaths(context) {
+   *   return {
+   *     paths: await drupal.getStaticPathsFromContext(
+   *       ["node--page", "node--article"],
+   *       context
+   *     ),
+   *     fallback: "blocking",
+   *   }
+   * }
+   * ```
    */
   async getStaticPathsFromContext(
     types: string | string[],

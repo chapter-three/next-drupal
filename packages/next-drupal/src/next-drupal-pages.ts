@@ -333,9 +333,17 @@ export class NextDrupalPages extends NextDrupal {
   /**
    * Translates a path from the context.
    *
-   * @param {GetStaticPropsContext} context The static props context.
+   * @param {GetStaticPropsContext} context The context from `getStaticProps` or `getServerSideProps`.
    * @param {Object} options Options for the request.
    * @returns {Promise<DrupalTranslatedPath | null>} The translated path.
+   * @requires Decoupled Router module
+   * @example
+   * Get info about a path from `getStaticProps` context
+   * ```ts
+   * export async function getStaticProps(context) {
+   *   const path = await drupal.translatePathFromContext(context)
+   * }
+   * ```
    */
   async translatePathFromContext(
     context: GetStaticPropsContext,

@@ -1147,9 +1147,33 @@ export class NextDrupal extends NextDrupalBase {
   /**
    * Fetches a view by its name.
    *
-   * @param {string} name The name of the view.
+   * @param {string} name The name of the view and the display id. Example: `articles--promoted`.
    * @param {JsonApiOptions & JsonApiWithNextFetchOptions} options Options for the request.
    * @returns {Promise<DrupalView<T>>} The fetched view.
+   * @requires JSON:API Views module
+   * @example
+   * Get a view named `articles` and display id `promoted`
+   * ```ts
+   * const view = await drupal.getView("articles--promoted")
+   * ```
+   *
+   * Using sparse fieldsets to only fetch the title and body fields
+   * ```ts
+   * const view = await drupal.getView("articles--promoted", {
+   *   params: {
+   *     fields: {
+   *       "node--article": "title,body",
+   *     },
+   *   },
+   * })
+   * ```
+   *
+   * Using TypeScript with DrupalNode for a node entity type
+   * ```ts
+   * import { DrupalNode } from "next-drupal"
+   *
+   * const view = await drupal.getView<DrupalNode>("articles--promoted")
+   * ```
    */
   async getView<T = JsonApiResource>(
     name: string,

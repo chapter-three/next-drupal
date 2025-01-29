@@ -407,10 +407,19 @@ export class NextDrupalBase {
   }
 
   /**
-   * Gets an access token using the provided client ID and secret.
+   * Retrieve an access token.
    *
    * @param {NextDrupalAuthClientIdSecret} clientIdSecret The client ID and secret.
    * @returns {Promise<AccessToken>} The access token.
+   * @remarks
+   * If options is not provided, `DrupalClient` will use the `clientId` and `clientSecret` configured in `auth`.
+   * @example
+   * ```ts
+   * const accessToken = await drupal.getAccessToken({
+   *   clientId: "7034f4db-7151-466f-a711-8384bddb9e60",
+   *   clientSecret: "d92Fm^ds",
+   * })
+   * ```
    */
   async getAccessToken(
     clientIdSecret?: NextDrupalAuthClientIdSecret

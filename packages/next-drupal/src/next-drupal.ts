@@ -1058,9 +1058,25 @@ export class NextDrupal extends NextDrupalBase {
   /**
    * Fetches a menu by its name.
    *
-   * @param {string} menuName The name of the menu.
+   * @param {string} menuName The name of the menu. Example: `main` or `footer`.
    * @param {JsonApiOptions & JsonApiWithCacheOptions & JsonApiWithNextFetchOptions} options Options for the request.
    * @returns {Promise<{ items: T[], tree: T[] }>} The fetched menu.
+   *   - items: An array of `DrupalMenuLinkContent`
+   *   - tree: An array of `DrupalMenuLinkContent` with children nested to match the hierarchy from Drupal
+   * @requires JSON:API Menu Items module
+   * @example
+   * Get the `main` menu
+   * ```ts
+   * const { menu, items } = await drupal.getMenu("main")
+   * ```
+   *
+   * Get the `main` menu using cache
+   * ```ts
+   * const menu = await drupal.getMenu("main", {
+   *   withCache: true,
+   *   cacheKey: "menu--main",
+   * })
+   * ```
    */
   async getMenu<T = DrupalMenuItem>(
     menuName: string,

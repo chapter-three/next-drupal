@@ -1223,6 +1223,19 @@ export class NextDrupal extends NextDrupalBase {
    * @param {string} name The name of the search index.
    * @param {JsonApiOptions & JsonApiWithNextFetchOptions} options Options for the request.
    * @returns {Promise<T>} The fetched search index.
+   * @requires JSON:API Search API module
+   * @example
+   * Get search results from an index named `articles`
+   * ```ts
+   * const results = await drupal.getSearchIndex("articles")
+   * ```
+   *
+   * Using TypeScript with DrupalNode for a node entity type
+   * ```ts
+   * import { DrupalNode } from "next-drupal"
+   *
+   * const results = await drupal.getSearchIndex<DrupalNode>("articles")
+   * ```
    */
   async getSearchIndex<T = JsonApiResource[]>(
     name: string,

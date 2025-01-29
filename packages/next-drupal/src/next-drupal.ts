@@ -216,10 +216,47 @@ export class NextDrupal extends NextDrupalBase {
   /**
    * Creates a new file resource for the specified media type.
    *
-   * @param {string} type The type of the media.
-   * @param {JsonApiCreateFileResourceBody} body The body of the file resource.
+   * @param {string} type The type of the resource. In most cases this is `file--file`.
+   * @param {JsonApiCreateFileResourceBody} body The body payload with data.
+   *   - type: The resource type of the host entity. Example: `media--image`
+   *   - field: The name of the file field on the host entity. Example: `field_media_image`
+   *   - filename: The name of the file with extension. Example: `avatar.jpg`
+   *   - file: The file as a Buffer
    * @param {JsonApiOptions} options Options for the request.
    * @returns {Promise<T>} The created file resource.
+   * @example
+   * Create a file resource for a media--image entity
+   * ```ts
+   * const file = await drupal.createFileResource("file--file", {
+   *   data: {
+   *     attributes: {
+   *       type: "media--image", // The type of the parent resource
+   *       field: "field_media_image", // The name of the field on the parent resource
+   *       filename: "filename.jpg",
+   *       file: await fs.readFile("/path/to/file.jpg"),
+   *     },
+   *   },
+   * })
+   * ```
+   *
+   * You can then use this to create a new media--image with a relationship to the file:
+   * ```ts
+   * const media = await drupal.createResource<DrupalMedia>("media--image", {
+   *   data: {
+   *     attributes: {
+   *       name: "Name for the media",
+   *     },
+   *     relationships: {
+   *       field_media_image: {
+   *         data: {
+   *           type: "file--file",
+   *           id: file.id,
+   *         },
+   *       },
+   *     },
+   *   },
+   * })
+   * ```
    */
   async createFileResource<T = DrupalFile>(
     type: string,

@@ -576,11 +576,33 @@ export class NextDrupalPages extends NextDrupal {
   }
 
   /**
-   * Handles preview mode.
+   * Handle preview mode for resources.
    *
-   * @param {NextApiRequest} request The API request.
-   * @param {NextApiResponse} response The API response.
+   * @param {NextApiRequest} request The `request` from an API route.
+   * @param {NextApiResponse} response The `response` from an API route.
    * @param {Object} options Options for the request.
+   * @returns {Promise<void>}
+   * @remarks
+   * The `preview` method should be called in an API route.
+   * Remember to set a `previewSecret` on the client.
+   * ```ts
+   * // lib/drupal.ts
+   * export const drupal = new DrupalClient(
+   *   process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+   *   {
+   *     previewSecret: process.env.DRUPAL_PREVIEW_SECRET,
+   *   }
+   * )
+   * ```
+   * @example
+   * ```ts
+   * // pages/api/preview.ts
+   * import { drupal } from "lib/drupal"
+   *
+   * export default async function handler(req, res) {
+   *   return await drupal.preview(req, res)
+   * }
+   * ```
    */
   async preview(
     request: NextApiRequest,

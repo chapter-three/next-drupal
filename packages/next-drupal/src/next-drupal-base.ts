@@ -179,9 +179,21 @@ export class NextDrupalBase {
   /**
    * Fetches a resource from the given input URL or path.
    *
-   * @param {RequestInfo} input The input URL or path.
-   * @param {FetchOptions} init The fetch options.
+   * @param {RequestInfo} input The url to fetch from.
+   * @param {FetchOptions} init The fetch options with `withAuth`.
+   *   If `withAuth` is set, `fetch` will fetch an `Authorization` header before making the request.
    * @returns {Promise<Response>} The fetch response.
+   * @remarks
+   * To provide your own custom fetcher, see the fetcher docs.
+   * @example
+   * ```ts
+   * const url = drupal.buildUrl("/jsonapi/node/article", {
+   *   sort: "-created",
+   *   "fields[node--article]": "title,path",
+   * })
+   *
+   * const response = await drupal.fetch(url.toString())
+   * ```
    */
   async fetch(
     input: RequestInfo,

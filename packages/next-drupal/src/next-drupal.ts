@@ -1278,6 +1278,20 @@ export class NextDrupal extends NextDrupalBase {
    * @param {any} body The response body.
    * @param {any} options Options for deserialization.
    * @returns {any} The deserialized response body.
+   * @remarks
+   * To provide your own custom deserializer, see the serializer docs.
+   * @example
+   * ```ts
+   * const url = drupal.buildUrl("/jsonapi/node/article", {
+   *   sort: "-created",
+   *   "fields[node--article]": "title,path",
+   * })
+   *
+   * const response = await drupal.fetch(url.toString())
+   * const json = await response.json()
+   *
+   * const resource = drupal.deserialize(json)
+   * ```
    */
   deserialize(body, options?) {
     if (!body) return null

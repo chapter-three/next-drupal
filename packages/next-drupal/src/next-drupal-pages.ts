@@ -365,11 +365,18 @@ export class NextDrupalPages extends NextDrupal {
   }
 
   /**
-   * Gets the path from the context.
+   * Return the path (slug) from getStaticProps or getServerSideProps context.
    *
-   * @param {GetStaticPropsContext} context The static props context.
+   * @param {GetStaticPropsContext} context The context from `getStaticProps` or `getServerSideProps`.
    * @param {Object} options Options for the request.
    * @returns {string} The constructed path.
+   * @example
+   * Get the path (slug) from `getStaticProps` context
+   * ```ts
+   * export async function getStaticProps(context) {
+   *   const slug = await drupal.getPathFromContext(context)
+   * }
+   * ```
    */
   getPathFromContext(
     context: GetStaticPropsContext,

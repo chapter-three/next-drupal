@@ -391,10 +391,18 @@ export class NextDrupal extends NextDrupalBase {
   /**
    * Deletes an existing resource of the specified type.
    *
-   * @param {string} type The type of the resource.
-   * @param {string} uuid The UUID of the resource.
-   * @param {JsonApiOptions} options Options for the request.
+   * @param {string} type The type of the resource. Example: `node--article`, `taxonomy_term--tags`, or `block_content--basic`.
+   * @param {string} uuid The resource id. Example: `a50ffee7-ba94-46c9-9705-f9f8f440db94`.
+   * @param {JsonApiOptions & JsonApiWithNextFetchOptions} options Options for the request.
    * @returns {Promise<boolean>} True if the resource was deleted, false otherwise.
+   * @example
+   * Delete a node--page resource
+   * ```ts
+   * const isDeleted = await drupal.deleteResource(
+   *   "node--page",
+   *   "a50ffee7-ba94-46c9-9705-f9f8f440db94"
+   * )
+   * ```
    */
   async deleteResource(
     type: string,

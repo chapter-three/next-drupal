@@ -117,7 +117,7 @@ class NextSiteTest extends KernelTestBase {
   }
 
   /**
-   * @covers ::getRevalidateUrlForPath
+   * @covers ::buildRevalidateUrl
    */
   public function testGetRevalidateUrlForPath() {
     $marketing = NextSite::create([
@@ -129,13 +129,13 @@ class NextSiteTest extends KernelTestBase {
     ]);
     $marketing->save();
 
-    $this->assertNull($marketing->getRevalidateUrlForPath('/foo'));
+    $this->assertNull($marketing->buildRevalidateUrl(['path' => '/foo']));
 
     $marketing->setRevalidateUrl('http://example.com/api/revalidate');
-    $this->assertSame('http://example.com/api/revalidate?path=/foo', $marketing->getRevalidateUrlForPath('/foo')->toString());
+    $this->assertSame('http://example.com/api/revalidate?path=/foo', $marketing->buildRevalidateUrl(['path' => '/foo'])->toString());
 
     $marketing->setRevalidateSecret('12345');
-    $this->assertSame('http://example.com/api/revalidate?path=/foo&secret=12345', $marketing->getRevalidateUrlForPath('/foo')->toString());
+    $this->assertSame('http://example.com/api/revalidate?path=/foo&secret=12345', $marketing->buildRevalidateUrl(['path' => '/foo'])->toString());
   }
 
 }

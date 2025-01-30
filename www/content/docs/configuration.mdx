@@ -5,12 +5,30 @@ excerpt: Initialization and options for NextDrupal client.
 
 ## Initialization
 
+### App Router
+
 To create a new `NextDrupal` client, use the following initialization:
 
 ```ts
 import { NextDrupal } from "next-drupal"
 
 const drupal = new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL)
+```
+
+Where `NEXT_PUBLIC_DRUPAL_BASE_URL` is the URL to your Drupal site defined as an [environment variable](/docs/environment-variables).
+
+```txt title=.env.local
+NEXT_PUBLIC_DRUPAL_BASE_URL=http://example.com
+```
+
+### Pages Router
+
+To create a new `NextDrupal` client, use the following initialization:
+
+```ts
+import { NextDrupaPages } from "next-drupal"
+
+const drupal = new NextDrupalPages(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL)
 ```
 
 Where `NEXT_PUBLIC_DRUPAL_BASE_URL` is the URL to your Drupal site defined as an [environment variable](/docs/environment-variables).
@@ -88,6 +106,24 @@ new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
 ```
 
 You can find more info about using a custom deserializer [here](/docs/deserializer).
+
+#### Pages Router
+
+This option is called `serializer` in the `NextDrupalPages` client. Aside from that, the usage is the same.
+
+```ts
+import { Deserializer } from "jsonapi-serializer"
+
+const jsonDeserializer = new Deserializer({
+  keyForAttribute: "camelCase",
+})
+
+const customDeserializer = jsonSerializer.deserialize.bind(jsonSerializer)
+
+new NextDrupalPages(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  serializer: customDeserializer,
+})
+```
 
 ---
 
@@ -224,5 +260,3 @@ JSON:API errors are thrown in non-production environments by default. The errors
 - **Required**: No
 
 By default, the resource endpoint will be based on the resource name. If you turn this off, a JSON:API request will retrieve the resource's endpoint url.
-
----

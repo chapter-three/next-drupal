@@ -61,7 +61,7 @@ export type NextDrupalBaseOptions = {
   /**
    * Set custom headers for the fetcher.
    *
-   * * **Default value**: { "Content-Type": "application/vnd.api+json", Accept: "application/vnd.api+json" }
+   * * **Default value**: `{ "Content-Type": "application/vnd.api+json", Accept: "application/vnd.api+json" }`
    * * **Required**: *No*
    *
    * [Documentation](https://next-drupal.org/docs/client/configuration#headers)

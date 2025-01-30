@@ -5,12 +5,12 @@ weight: 0
 ---
 
 ```ts
-// Create a DrupalClient.
-const drupal = new DrupalClient("http://drupal.org", {
+// Create a NextDrupal Client.
+const drupal = new NextDrupal("http://drupal.org", {
 	auth: {} // Authentication
 	fetcher: {} // Custom fetcher
 	cache: {} // Cache support
-	serializer: {} // Custom serializer
+	deserializer: {} // Custom deserializer
 })
 ```
 

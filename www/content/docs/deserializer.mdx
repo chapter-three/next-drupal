@@ -29,3 +29,27 @@ export const drupal = new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
   deserializer: customDeserializer,
 })
 ```
+
+### Pages Router
+
+This option is called `serializer` in the `NextDrupalPages` client. Aside from that, the usage is the same.
+
+```ts title=lib/drupal.ts
+import { NextDrupal } from "next-drupal"
+import { Deserializer } from "jsonapi-serializer"
+
+// Create a custom deserializer.
+const jsonDeserializer = new Deserializer({
+  keyForAttribute: "camelCase",
+})
+
+const customDeserializer = jsonDeserializer.deserialize.bind(jsonDeserializer)
+
+// Pass the custom deserializer to the client.
+export const drupal = new NextDrupalPages(
+  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+  {
+    serializer: customDeserializer,
+  }
+)
+```

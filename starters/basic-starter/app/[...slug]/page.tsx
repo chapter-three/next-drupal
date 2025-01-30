@@ -12,7 +12,7 @@ async function getNode(slug: string[]) {
 
   const params: JsonApiParams = {}
 
-  const draftData = getDraftData()
+  const draftData = await getDraftData()
 
   if (draftData.path === path) {
     params.resourceVersion = draftData.resourceVersion
@@ -60,13 +60,17 @@ type NodePageParams = {
 }
 type NodePageProps = {
   params: NodePageParams
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
 export async function generateMetadata(
-  { params: { slug } }: NodePageProps,
+  props: NodePageProps,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  const params = await props.params
+
+  const { slug } = params
+
   let node
   try {
     node = await getNode(slug)
@@ -108,11 +112,13 @@ export async function generateStaticParams(): Promise<NodePageParams[]> {
   })
 }
 
-export default async function NodePage({
-  params: { slug },
-  searchParams,
-}: NodePageProps) {
-  const isDraftMode = draftMode().isEnabled
+export default async function NodePage(props: NodePageProps) {
+  const params = await props.params
+
+  const { slug } = params
+
+  const draft = await draftMode()
+  const isDraftMode = draft.isEnabled
 
   let node
   try {

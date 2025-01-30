@@ -26,11 +26,31 @@ It also comes with full support for JSON:API write operations which means you ca
 
 ## Usage
 
+### App Router
+
 ```ts
 import { NextDrupal } from "next-drupal"
 
 // Create a new NextDrupal client.
 const drupal = new NextDrupal("https://example.com")
+
+// Fetch articles.
+const articles = await drupal.getResourceCollection("node--article")
+
+// Fetch one article by id.
+const article = await drupal.getResource(
+  "node--article",
+  "f4c61473-8297-4bf3-bab7-21c9633a7ca7"
+)
+```
+
+### Pages Router
+
+```ts
+import { NextDrupalPages } from "next-drupal"
+
+// Create a new DrupalClient.
+const drupal = new NextDrupalPages("https://example.com")
 
 // Fetch articles.
 const articles = await drupal.getResourceCollection("node--article")

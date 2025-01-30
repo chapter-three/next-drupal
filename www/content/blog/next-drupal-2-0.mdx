@@ -1,0 +1,110 @@
+---
+title: Next-Drupal 2.0
+author: brianperry
+date: January 10, 2025
+created: "2025-01-25"
+excerpt: Next.js 15, Drupal 11 and App Router Support.
+published: true
+---
+
+After multiple alpha and beta releases, we're excited to announce the stable release of Next-Drupal 2.0. This release brings long-awaited **App Router support**, along with support for **Next.js 15** and **Drupal 11**.
+
+As part of our App Router support we've also added **tag-based invalidation** which allows you to invalidate content on your Next.js site using Drupal's powerful cache tag system.
+
+---
+
+## App Router
+
+Next-Drupal 2.0 uses the App Router by default to match Next.js, but we will continue to provide support for the Pages Router.
+
+### Starters
+
+The Next-Drupal basic starter is now configured to use the App Router by default.
+
+Run the following command to create a new Next.js project using the App Router:
+
+```sh
+npx create-next-app -e https://github.com/chapter-three/next-drupal-basic-starter
+```
+
+The Pages router version of the basic starter is also available, now named `next-drupal-pages-starter`.
+
+Run the following command to create a new Next.js project using the Pages Router:
+
+```sh
+npx create-next-app -e https://github.com/chapter-three/next-drupal-pages-starter
+```
+
+### NextDrupal Client
+
+Similarly, the Next-Drupal Client has been divided into a version compatible with the App Router and a version compatible with the Pages Router.
+
+Create an instance of `NextDrupal` to use the client with the App Router:
+
+```js
+import { NextDrupal } from "next-drupal"
+
+// Create a new NextDrupal client.
+const drupal = new NextDrupal("https://example.com")
+```
+
+Create an instance of `NextDrupalPages` to use the client with the Pages Router:
+
+```js
+import { NextDrupalPages } from "next-drupal"
+
+// Create a new NextDrupal client.
+const drupal = new NextDrupalPages("https://example.com")
+```
+
+Backwards compatibility is also provided for instances of `DrupalClient` which will continue to work with the Pages Router.
+
+### Documentation
+
+Our documentation has been updated to reflect these changes and new features. All examples in our documentation now assume the App Router by default, but call out any Page Router specific differences where applicable.
+
+---
+
+## Tag-based Invalidation
+
+For Next.js entity types configured in Drupal, a new 'tags' plugin can be selected under the on-demand revalidation options. When an entity of that type is updated, Drupal will now make a request to the Next.js revalidation endpoint and provide all associated cache tags. The API endpoint will then use Next's `invalidateTags` method to invalidate data related to the associated tags.
+
+For this to be useful, it is also necessary to set tags within your Next.js site. `NextDrupal` Client methods like `getResource` now accept a `tags` option which expects an array of cache tag values:
+
+```tsx title=app/[...slug]/page.tsx
+// app/[...slug]/page.tsx
+export default function Page({ params }) {
+  const {slug} = params;
+  const path = drupal.translatePath(slug)
+
+  // Create a tag in the format of `entity_type:entity_id`.
+  const tag = `${path.entity.type}:${path.entity.id}`
+
+  const node = await drupal.getResource(path, path.entity.uuid {
+    // Provide the cache tag when requesting the resource.
+    tags: [tag]
+  })
+
+  return <PageComponent node={node}/>
+}
+```
+
+This will associate the page data with the provided cache tag.
+
+This configuration can provide much more targeted cache invalidation than path based invalidation alone.
+
+---
+
+## Compatibility
+
+We have updated all of the next-drupal starters (JSON:API and GraphQL) to Next.js 15.
+
+The next module has been updated to Drupal 11. We've removed all deprecated code and APIs.
+
+Following end-of-life for the projects themselves, we no longer officially support Next.js 13 or Drupal 9.
+
+---
+
+## Upgrading
+
+You can upgrade to `2.0` by following our upgrade guide [here](/docs/upgrade-guide).

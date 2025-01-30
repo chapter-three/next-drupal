@@ -12,6 +12,9 @@
 /cypress/screenshots
 /cypress/videos
 
+# Files generated automatically by typedoc
+/content/docs/api
+
 # next.js
 /.next/
 /out/

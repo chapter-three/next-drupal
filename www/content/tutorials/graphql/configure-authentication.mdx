@@ -60,10 +60,12 @@ openssl rsa -in private.key -pubout > public.key
 2. Fill in the following values:
 
 - **Label**: `Next.js site`
+- **Client ID**: `nextjs_site`
 - **User**: `Select the user we created`
 - **Secret**: `Your secret`
+- **Grant Types**: `Select 'Client Credentials'`
 - **Scopes**: `Select the role we created`
 
 3. Click **Save**
 
-_Important: note the client id (uuid) and the secret. These are going to be used as environment variables for the Next.js site._
+_Important: note the client id and the secret. These are going to be used as environment variables for the Next.js site._

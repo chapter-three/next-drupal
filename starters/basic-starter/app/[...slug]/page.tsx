@@ -59,7 +59,7 @@ type NodePageParams = {
   slug: string[]
 }
 type NodePageProps = {
-  params: NodePageParams
+  params: Promise<NodePageParams>
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 

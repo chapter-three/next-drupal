@@ -10,6 +10,7 @@ export const drupal = new NextDrupalPages(baseUrl, {
   //   clientId,
   //   clientSecret,
   // },
+  // withAuth: true,
   useDefaultEndpoints: true,
   // debug: true,
 })

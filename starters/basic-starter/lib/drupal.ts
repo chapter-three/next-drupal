@@ -10,5 +10,6 @@ export const drupal = new NextDrupal(baseUrl, {
   //   clientId,
   //   clientSecret,
   // },
+  // withAuth: true,
   // debug: true,
 })

@@ -32,6 +32,7 @@ Next, assign the following permissions to the newly created role.
 - Bypass content access control
 - Issue subrequests
 - View user information
+- View all revisions
 
 <Callout>
 
@@ -57,7 +58,7 @@ const article = await drupal.getResource(
 
 ## 3. Create User
 
-Add a new user at `/admin/people/create` and **assign them all the roles that are going to be used for scopes, including the administrator role and the role we created above**.
+Add a new user at `/admin/people/create` and **assign them all the roles that are going to be used for scopes, including the role we created above**.
 
 ---
 
@@ -143,5 +144,6 @@ export const drupal = new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
     clientId,
     clientSecret,
   },
+  withAuth: true,
 })
 ```

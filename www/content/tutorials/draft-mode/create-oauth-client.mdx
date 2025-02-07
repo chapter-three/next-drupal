@@ -81,7 +81,7 @@ openssl rsa -in private.key -pubout > public.key
 
 ---
 
-## 5. Create Scopes
+## 5. Create Scope
 
 1. Visit _/admin/config/people/simple_oauth/oauth2_scope/dynamic/add_
 2. Fill in the following values:
@@ -102,7 +102,7 @@ openssl rsa -in private.key -pubout > public.key
 2. Fill in the following values:
 
 - **Label**: `Next.js site`
-- **Client ID**: `nextjs_site` (or generate a UUID is preferred)
+- **Client ID**: `nextjs_site` (or generate a UUID if preferred)
 - **Secret**: `Your secret`
 - **Grant Types**: `Client Credentials`
 - **Scopes**: `nextjs_site`
@@ -114,7 +114,7 @@ _Important: note the client id (uuid) and the secret. These are going to be used
 
 ---
 
-## 6. Connect Drupal
+## 7. Connect Drupal
 
 To connect the Next.js project to Drupal, we use [environment variables](https://nextjs.org/docs/basic-features/environment-variables).
 
@@ -128,7 +128,7 @@ DRUPAL_CLIENT_SECRET=
 
 ---
 
-## 7. Update NextDrupal client.
+## 8. Update NextDrupal client.
 
 Update the `NextDrupal` client to use the **Bearer** authentication header.
 

@@ -64,11 +64,29 @@ export class NextDrupalPages extends NextDrupal {
   }
 
   /**
-   * Gets the entry point for a given resource type.
+   * Get the JSON:API entry for a resource type.
    *
-   * @param {string} resourceType The resource type.
-   * @param {Locale} locale The locale.
+   * @param {string} resourceType The resource type. Example: `node--article`.
+   * @param {Locale} locale Optional. The locale to fetch the index. Example: `es` or `fr`.
    * @returns {Promise<string>} The entry point URL.
+   * @remarks
+   * By default, when retrieving resources in `getResource` or `getResourceCollection`,
+   * the `DrupalClient` make a request to Drupal to fetch the JSON:API resource entry.
+   *
+   * Example: if you provide `node--article`, `DrupalClient` will make a request to
+   * `http://example.com/jsonapi/node/article`.
+   *
+   * If you would like to infer the entry from the resource type, use the useDefaultResourceTypeEntry option:
+   * ```ts
+   * const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+   *   useDefaultResourceTypeEntry: true,
+   * })
+   * ```
+   * @example
+   * ```ts
+   * // https://example.com/jsonapi/node/article
+   * const url = await drupal.getEntryForResourceType(`node--article`)
+   * ```
    */
   async getEntryForResourceType(
     resourceType: string,
@@ -88,10 +106,89 @@ export class NextDrupalPages extends NextDrupal {
   /**
    * Gets a resource from the context.
    *
-   * @param {string | DrupalTranslatedPath} input The input path or translated path.
-   * @param {GetStaticPropsContext} context The static props context.
+   * @param {string | DrupalTranslatedPath} input Either a resource type (e.g. "node--article") or a translated path from translatePath().
+   * @param {GetStaticPropsContext} context The Next.js context from getStaticProps.
    * @param {Object} options Options for the request.
+   * @param {PathPrefix} [options.pathPrefix] The path prefix to use for the request (defaults to "/").
+   * @param {boolean} [options.isVersionable] Whether the resource is versionable (defaults to false for all entity types except nodes).
    * @returns {Promise<T>} The fetched resource.
+   * @remarks
+   * The localized resource will be fetched based on the `locale` and `defaultLocale` values from `context`.
+   *
+   * If you pass in a `DrupalTranslatedPath` for input, `getResourceFromContext` will take the `type` and `id` from the path and make a `getResource` call to Drupal:
+   * ```ts
+   * export async function getStaticProps(context) {
+   *   const path = await drupal.translatePathFromContext(context)
+   *
+   *   const node = await drupal.getResourceFromContext(path, context)
+   *
+   *   return {
+   *     props: {
+   *       node,
+   *     },
+   *   }
+   * }
+   * ```
+   *
+   * If you pass in a `string` input, such as `node--article`, `getResourceFromContext` will make a subrequest call to Drupal to translate the path and then fetch the resource.
+   * You will need both the [Subrequests](https://drupal.org/project/subrequests) and [Decoupled Router](https://drupal.org/project/decoupled_router) modules:
+   * ```ts
+   * export async function getStaticProps(context) {
+   *   const node = await drupal.getResourceFromContext("node--article", context)
+   *
+   *   return {
+   *     props: {
+   *       node,
+   *     },
+   *   }
+   * }
+   * ```
+   * @examples
+   * Fetch a resource from context.
+   * ```ts title=pages/[[...slug]].tsx
+   * export async function getStaticProps(context) {
+   *   const node = await drupal.getResourceFromContext("node--page", context)
+   *
+   *   return {
+   *     props: {
+   *       node,
+   *     },
+   *   }
+   * }
+   * ```
+   * Fetch a resource from context in a sub directory.
+   * ```ts title=pages/articles/[[...slug]].tsx
+   * export async function getStaticProps(context) {
+   *   const node = await drupal.getResourceFromContext("node--page", context, {
+   *     pathPrefix: "/articles",
+   *   })
+   *
+   *   return {
+   *     props: {
+   *       node,
+   *     },
+   *   }
+   * }
+   * ```
+   * Using DrupalNode type:
+   * ```ts
+   * import { DrupalNode } from "next-drupal"
+   *
+   * const node = await drupal.getResourceFromContext<DrupalNode>(
+   *   "node--page",
+   *   context
+   * )
+   * ```
+   * Using DrupalTaxonomyTerm type:
+   * ```ts
+   * import { DrupalTaxonomyTerm } from "next-drupal"
+   *
+   * const term = await drupal.getResourceFromContext<DrupalTaxonomyTerm>(
+   *   "taxonomy_term--tags",
+   *   context
+   * )
+   * ```
+   * @see {@link https://next-drupal.org/docs/typescript} for more built-in types.
    */
   async getResourceFromContext<T extends JsonApiResource>(
     input: string | DrupalTranslatedPath,
@@ -179,10 +276,37 @@ export class NextDrupalPages extends NextDrupal {
   /**
    * Gets a collection of resources from the context.
    *
-   * @param {string} type The type of the resources.
-   * @param {GetStaticPropsContext} context The static props context.
+   * @param {string} type The type of the resources. Example: `node--article` or `user--user`.
+   * @param {GetStaticPropsContext} context The static props context from getStaticProps or getServerSideProps.
    * @param {Object} options Options for the request.
+   *   - deserialize: Set to false to return the raw JSON:API response
    * @returns {Promise<T>} The fetched collection of resources.
+   * @remarks
+   * The localized resources will be fetched based on the `locale` and `defaultLocale` values from `context`.
+   * @example
+   * Get all articles from context
+   * ```
+   * export async function getStaticProps(context) {
+   *   const articles = await drupal.getResourceCollectionFromContext(
+   *     "node--article",
+   *     context
+   *   )
+   *
+   *   return {
+   *     props: {
+   *       articles,
+   *     },
+   *   }
+   * }
+   * ```
+   * Using TypeScript with DrupalNode for a node entity type
+   * ```
+   * import { DrupalNode } from "next-drupal"
+   * const nodes = await drupal.getResourceCollectionFromContext<DrupalNode[]>(
+   *   "node--article",
+   *   context
+   * )
+   * ```
    */
   async getResourceCollectionFromContext<T = JsonApiResource[]>(
     type: string,
@@ -227,9 +351,17 @@ export class NextDrupalPages extends NextDrupal {
   /**
    * Translates a path from the context.
    *
-   * @param {GetStaticPropsContext} context The static props context.
+   * @param {GetStaticPropsContext} context The context from `getStaticProps` or `getServerSideProps`.
    * @param {Object} options Options for the request.
    * @returns {Promise<DrupalTranslatedPath | null>} The translated path.
+   * @requires Decoupled Router module
+   * @example
+   * Get info about a path from `getStaticProps` context
+   * ```ts
+   * export async function getStaticProps(context) {
+   *   const path = await drupal.translatePathFromContext(context)
+   * }
+   * ```
    */
   async translatePathFromContext(
     context: GetStaticPropsContext,
@@ -251,11 +383,18 @@ export class NextDrupalPages extends NextDrupal {
   }
 
   /**
-   * Gets the path from the context.
+   * Return the path (slug) from getStaticProps or getServerSideProps context.
    *
-   * @param {GetStaticPropsContext} context The static props context.
+   * @param {GetStaticPropsContext} context The context from `getStaticProps` or `getServerSideProps`.
    * @param {Object} options Options for the request.
    * @returns {string} The constructed path.
+   * @example
+   * Get the path (slug) from `getStaticProps` context
+   * ```ts
+   * export async function getStaticProps(context) {
+   *   const slug = await drupal.getPathFromContext(context)
+   * }
+   * ```
    */
   getPathFromContext(
     context: GetStaticPropsContext,
@@ -275,10 +414,33 @@ export class NextDrupalPages extends NextDrupal {
   /**
    * Gets static paths from the context.
    *
-   * @param {string | string[]} types The types of the resources.
-   * @param {GetStaticPathsContext} context The static paths context.
-   * @param {Object} options Options for the request.
-   * @returns {Promise<GetStaticPathsResult<{ slug: string[] }>["paths"]>} The fetched static paths.
+   * @param {string | string[]} types The resource types. Example: `node--article` or `["taxonomy_term--tags", "user--user"]`.
+   * @param {GetStaticPathsContext} context The context from `getStaticPaths`.
+   * @param {object} options Options for the request.
+   * @returns {Promise<GetStaticPathsResult<{ slug: string[] }>["paths"]>} The static paths.
+   * @example
+   * Return static paths for `node--page` resources
+   * ```ts
+   * export async function getStaticPaths(context) {
+   *   return {
+   *     paths: await drupal.getStaticPathsFromContext("node--page", context),
+   *     fallback: "blocking",
+   *   }
+   * }
+   * ```
+   *
+   * Return static paths for `node--page` and `node--article` resources
+   * ```ts
+   * export async function getStaticPaths(context) {
+   *   return {
+   *     paths: await drupal.getStaticPathsFromContext(
+   *       ["node--page", "node--article"],
+   *       context
+   *     ),
+   *     fallback: "blocking",
+   *   }
+   * }
+   * ```
    */
   async getStaticPathsFromContext(
     types: string | string[],
@@ -414,11 +576,33 @@ export class NextDrupalPages extends NextDrupal {
   }
 
   /**
-   * Handles preview mode.
+   * Handle preview mode for resources.
    *
-   * @param {NextApiRequest} request The API request.
-   * @param {NextApiResponse} response The API response.
+   * @param {NextApiRequest} request The `request` from an API route.
+   * @param {NextApiResponse} response The `response` from an API route.
    * @param {Object} options Options for the request.
+   * @returns {Promise<void>}
+   * @remarks
+   * The `preview` method should be called in an API route.
+   * Remember to set a `previewSecret` on the client.
+   * ```ts
+   * // lib/drupal.ts
+   * export const drupal = new DrupalClient(
+   *   process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+   *   {
+   *     previewSecret: process.env.DRUPAL_PREVIEW_SECRET,
+   *   }
+   * )
+   * ```
+   * @example
+   * ```ts
+   * // pages/api/preview.ts
+   * import { drupal } from "lib/drupal"
+   *
+   * export default async function handler(req, res) {
+   *   return await drupal.preview(req, res)
+   * }
+   * ```
    */
   async preview(
     request: NextApiRequest,

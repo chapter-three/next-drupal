@@ -9,7 +9,8 @@
     "dev": "typedoc --tsconfig tsconfig.docs.json && next dev -p 4444",
     "build": "typedoc --tsconfig tsconfig.docs.json && next build",
     "preview": "typedoc --tsconfig tsconfig.docs.json && next build && next start -p 4444",
-    "generate:api-docs": "typedoc --tsconfig tsconfig.docs.json"
+    "generate:api-docs": "typedoc --tsconfig tsconfig.docs.json",
+    "watch:api-docs": "typedoc --tsconfig tsconfig.docs.json --watch"
   },
   "dependencies": {
     "@docsearch/react": "^3.6.0",

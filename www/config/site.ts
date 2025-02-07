@@ -27,6 +27,10 @@ export const site: SiteConfig = {
       activePathNames: ["/guides/[...slug]"],
     },
     {
+      title: "API",
+      href: "/api/modules.html",
+    },
+    {
       title: "Blog",
       href: "/blog",
       activePathNames: ["/blog/[...slug]"],

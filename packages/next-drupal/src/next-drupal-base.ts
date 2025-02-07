@@ -179,9 +179,21 @@ export class NextDrupalBase {
   /**
    * Fetches a resource from the given input URL or path.
    *
-   * @param {RequestInfo} input The input URL or path.
-   * @param {FetchOptions} init The fetch options.
+   * @param {RequestInfo} input The url to fetch from.
+   * @param {FetchOptions} init The fetch options with `withAuth`.
+   *   If `withAuth` is set, `fetch` will fetch an `Authorization` header before making the request.
    * @returns {Promise<Response>} The fetch response.
+   * @remarks
+   * To provide your own custom fetcher, see the fetcher docs.
+   * @example
+   * ```ts
+   * const url = drupal.buildUrl("/jsonapi/node/article", {
+   *   sort: "-created",
+   *   "fields[node--article]": "title,path",
+   * })
+   *
+   * const response = await drupal.fetch(url.toString())
+   * ```
    */
   async fetch(
     input: RequestInfo,
@@ -269,9 +281,35 @@ export class NextDrupalBase {
   /**
    * Builds a URL with the given path and search parameters.
    *
-   * @param {string} path The URL path.
-   * @param {EndpointSearchParams} searchParams The search parameters.
+   * @param {string} path The path for the url. Example: "/example"
+   * @param {string | Record<string, string> | URLSearchParams | JsonApiParams} searchParams Optional query parameters.
    * @returns {URL} The constructed URL.
+   * @example
+   * ```ts
+   * const drupal = new DrupalClient("https://example.com")
+   *
+   * // https://drupal.org
+   * drupal.buildUrl("https://drupal.org").toString()
+   *
+   * // https://example.com/foo
+   * drupal.buildUrl("/foo").toString()
+   *
+   * // https://example.com/foo?bar=baz
+   * client.buildUrl("/foo", { bar: "baz" }).toString()
+   * ```
+   *
+   * Build a URL from `DrupalJsonApiParams`
+   * ```ts
+   * const params = {
+   *   getQueryObject: () => ({
+   *     sort: "-created",
+   *     "fields[node--article]": "title,path",
+   *   }),
+   * }
+   *
+   * // https://example.com/jsonapi/node/article?sort=-created&fields%5Bnode--article%5D=title%2Cpath
+   * drupal.buildUrl("/jsonapi/node/article", params).toString()
+   * ```
    */
   buildUrl(path: string, searchParams?: EndpointSearchParams): URL {
     const url = new URL(path, this.baseUrl)
@@ -407,10 +445,19 @@ export class NextDrupalBase {
   }
 
   /**
-   * Gets an access token using the provided client ID and secret.
+   * Retrieve an access token.
    *
    * @param {NextDrupalAuthClientIdSecret} clientIdSecret The client ID and secret.
    * @returns {Promise<AccessToken>} The access token.
+   * @remarks
+   * If options is not provided, `DrupalClient` will use the `clientId` and `clientSecret` configured in `auth`.
+   * @example
+   * ```ts
+   * const accessToken = await drupal.getAccessToken({
+   *   clientId: "7034f4db-7151-466f-a711-8384bddb9e60",
+   *   clientSecret: "d92Fm^ds",
+   * })
+   * ```
    */
   async getAccessToken(
     clientIdSecret?: NextDrupalAuthClientIdSecret

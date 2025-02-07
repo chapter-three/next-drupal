@@ -11,6 +11,8 @@ Before we can create an OAuth consumer, we need to create a new role and a user 
 
 As from `next-drupal 1.5`, user roles are used for OAuth scopes. The scopes are automatically handled for the preview based on the currently logged in user.
 
+The OAuth related instructions below are based on the 6.x version of the Simple OAuth module.
+
 </Callout>
 
 ---
@@ -30,6 +32,7 @@ Next, assign the following permissions to the newly created role.
 - Bypass content access control
 - Issue subrequests
 - View user information
+- View all revisions
 
 <Callout>
 
@@ -55,7 +58,7 @@ const article = await drupal.getResource(
 
 ## 3. Create User
 
-Add a new user at `/admin/people/create` and **assign them all the roles that are going to be used for scopes, including the administrator role and the role we created above**.
+Add a new user at `/admin/people/create` and **assign them all the roles that are going to be used for scopes, including the role we created above**.
 
 ---
 
@@ -78,15 +81,32 @@ openssl rsa -in private.key -pubout > public.key
 
 ---
 
-## 5. Create Consumer
+## 5. Create Scopes
+
+1. Visit _/admin/config/people/simple_oauth/oauth2_scope/dynamic/add_
+2. Fill in the following values:
+
+- **Machine-readable Name**: `nextjs_site`
+- **Description**: `Next.js Site`
+- **Grant Types**: `Client Credentials`
+- **Granularity**: `Role`
+- **Role**: `Next.js Site`
+
+3. Click **Save**
+
+---
+
+## 6. Create Consumer
 
 1. Visit _/admin/config/services/consumer/add_
 2. Fill in the following values:
 
 - **Label**: `Next.js site`
-- **User**: `Select the user we created`
+- **Client ID**: `nextjs_site` (or generate a UUID is preferred)
 - **Secret**: `Your secret`
-- **Scopes**: `Select the role we created`
+- **Grant Types**: `Client Credentials`
+- **Scopes**: `nextjs_site`
+- **User**: `Select the user we created`
 
 3. Click **Save**
 
@@ -110,15 +130,20 @@ DRUPAL_CLIENT_SECRET=
 
 ## 7. Update NextDrupal client.
 
-Update the `NextDrupal` to use the **Bearer** authentication header.
+Update the `NextDrupal` client to use the **Bearer** authentication header.
 
 ```ts title=lib/drupal.ts
 import { NextDrupal } from "next-drupal"
 
+const baseUrl = process.env.NEXT_PUBLIC_DRUPAL_BASE_URL as string
+const clientId = process.env.DRUPAL_CLIENT_ID as string
+const clientSecret = process.env.DRUPAL_CLIENT_SECRET as string
+
 export const drupal = new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
   auth: {
-    clientId: process.env.DRUPAL_CLIENT_ID,
-    clientSecret: process.env.DRUPAL_CLIENT_SECRET,
+    clientId,
+    clientSecret,
   },
+  withAuth: true,
 })
 ```

@@ -15,11 +15,22 @@ A _revalidator_ tells Drupal how to revalidate an entity when it is created, upd
 
 </Callout>
 
+### Configure Tag-based Revalidation
+
 1. Visit `/admin/config/services/next/entity-types`
 2. Click **Configure entity type** or **Edit** an existing one
 3. Click **On-demand Revalidation**
-4. Select **Path** as the revalidator **Plugin**
-5. Check **Revalidate page**
+4. Select **Cache Tag** as the revalidator **Plugin**
+5. If using the **Path** plugin, check the **Revalidate page** checkbox
 6. Click **Save**
+
+### Configure Path-based Revalidation
+
+7. Visit `/admin/config/services/next/entity-types`
+8. Click **Configure entity type** or **Edit** an existing one
+9. Click **On-demand Revalidation**
+10. Select **Path** as the revalidator **Plugin**
+11. Check the **Revalidate page** checkbox
+12. Click **Save**
 
 If you want to revalidate multiple pages, you can configure **Additional paths**. Example: you might want to revalidate the `/blog` landing page when an Article is created.

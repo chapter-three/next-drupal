@@ -7,21 +7,35 @@ group: On-demand Revalidation
 
 Implement on-demand revalidation using an API route at `/revalidate`.
 
+## Update Environment Variables
+
+First, update `.env.local` to include the revalidate secret you specified.
+
+```txt title=.env.local
+# Required for On-demand Revalidation
+DRUPAL_REVALIDATE_SECRET=secret
+```
+
+## Create the Revalidate Route
+
+Next, create the API route that will be used for on-demand revalidation.
+
 <Callout>
 
-If you're using the Basic Starter, revalidate route are already created for you. You can skip this step.
+If you're using the Basic Starter, the revalidate route is already created for you. You can skip this step.
 
 </Callout>
 
 ## /app/api/revalidate/route.ts
 
 ```ts title=app/api/revalidate/route.ts
-import { revalidatePath } from "next/cache"
+import { revalidatePath, revalidateTag } from "next/cache"
 import type { NextRequest } from "next/server"
 
 async function handler(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const path = searchParams.get("path")
+  const tags = searchParams.get("tags")
   const secret = searchParams.get("secret")
 
   // Validate secret.
@@ -29,13 +43,14 @@ async function handler(request: NextRequest) {
     return new Response("Invalid secret.", { status: 401 })
   }
 
-  // Validate path.
-  if (!path) {
-    return new Response("Invalid path.", { status: 400 })
+  // Either tags or path must be provided.
+  if (!path && !tags) {
+    return new Response("Missing path or tags.", { status: 400 })
   }
 
   try {
-    revalidatePath(path)
+    path && revalidatePath(path)
+    tags?.split(",").forEach((tag) => revalidateTag(tag))
 
     return new Response("Revalidated.")
   } catch (error) {

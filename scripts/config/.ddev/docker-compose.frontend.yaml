@@ -1,0 +1,19 @@
+services:
+  frontend:
+    container_name: ${DDEV_SITENAME}-frontend
+    image: node:20
+    volumes:
+      - ./../starters/basic-starter:/var/www/html/starters/basic-starter
+    working_dir: /var/www/html/starters/basic-starter
+    command:
+      - sh
+      - -c
+      - yarn install && yarn build && yarn start
+    ports:
+      - 3000
+    environment:
+      - NODE_ENV=development
+    labels:
+      # These labels ensure this service is discoverable by ddev
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: $DDEV_APPROOT

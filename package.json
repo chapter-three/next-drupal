@@ -31,6 +31,7 @@
     "test:e2e": "turbo run test:e2e --parallel",
     "test:e2e:ci": "turbo run test:e2e:ci --parallel",
     "ddev:init": "./scripts/init-drupal.sh",
+    "ddev:init:basic": "./scripts/init-drupal.sh --starter basic-starter",
     "ddev:destroy": "./scripts/destroy-drupal.sh"
   },
   "devDependencies": {

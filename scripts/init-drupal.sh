@@ -3,14 +3,63 @@
 # Exit immediately on errors.
 set -e
 
-# Pre-seed local env files
-cp scripts/config/.env.local starters/basic-starter
-cp scripts/config/.env.local starters/pages-starter
+# Parse command-line arguments
+STARTER_NAME="basic-starter"
+VALID_STARTERS=("basic-starter" "pages-starter" "graphql-starter")
+
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        --starter)
+            shift
+            STARTER_NAME="$1"
+            ;;
+        *)
+            echo "Unknown parameter passed: $1"
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+# Validate starter name
+is_valid_starter=false
+for starter in "${VALID_STARTERS[@]}"; do
+    if [[ "$STARTER_NAME" == "$starter" ]]; then
+        is_valid_starter=true
+        break
+    fi
+done
+
+if [[ "$is_valid_starter" == false ]]; then
+    echo "Error: Invalid starter name. Valid starters are: ${VALID_STARTERS[*]}"
+    exit 1
+fi
+
+echo ""
+echo "****************************************************************************************"
+echo "*                                                                                      *"
+echo "*  Starting Drupal for $STARTER_NAME...                                               *"
+echo "*                                                                                      *"
+echo "****************************************************************************************"
+echo ""
+
+# Copy env file to the specified starter
+cp scripts/config/.env.local "starters/$STARTER_NAME"
 
 # Create DDEV project
 mkdir local-next-drupal
 cd local-next-drupal
-ddev config --project-name=local-next-drupal --project-type=drupal --php-version=8.3 --docroot=web
+
+# Copy the starters folder.
+cp -r ../starters .
+
+# Set environment variable for DDEV
+export STARTER_NAME=$STARTER_NAME
+
+# Add the ddev config.
+mkdir .ddev
+cp ../scripts/config/.ddev/config.yaml .ddev/config.yaml
+cp ../scripts/config/.ddev/docker-compose.frontend.yaml .ddev/docker-compose.frontend.yaml
 ddev start
 ddev composer create drupal/recommended-project
 
@@ -57,3 +106,5 @@ ddev drush cr
 
 # use the one-time link (CTRL/CMD + Click) from the command below to edit your admin account details.
 ddev drush uli | xargs open
+
+## Setup the frontend on the frontend container (which has node)

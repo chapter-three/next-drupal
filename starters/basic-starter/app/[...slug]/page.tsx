@@ -12,7 +12,7 @@ async function getNode(slug: string[]) {
 
   const params: JsonApiParams = {}
 
-  const draftData = getDraftData()
+  const draftData = await getDraftData()
 
   if (draftData.path === path) {
     params.resourceVersion = draftData.resourceVersion
@@ -27,6 +27,7 @@ async function getNode(slug: string[]) {
 
   const type = translatedPath.jsonapi?.resourceName!
   const uuid = translatedPath.entity.uuid
+  const tag = `${translatedPath.entity.type}:${translatedPath.entity.id}`
 
   if (type === "node--article") {
     params.include = "field_image,uid"
@@ -34,6 +35,12 @@ async function getNode(slug: string[]) {
 
   const resource = await drupal.getResource<DrupalNode>(type, uuid, {
     params,
+    cache: "force-cache",
+    next: {
+      revalidate: 3600,
+      // Replace `revalidate` with `tags` if using tag based revalidation.
+      // tags: [tag],
+    },
   })
 
   if (!resource) {
@@ -52,14 +59,18 @@ type NodePageParams = {
   slug: string[]
 }
 type NodePageProps = {
-  params: NodePageParams
-  searchParams: { [key: string]: string | string[] | undefined }
+  params: Promise<NodePageParams>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
 export async function generateMetadata(
-  { params: { slug } }: NodePageProps,
+  props: NodePageProps,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  const params = await props.params
+
+  const { slug } = params
+
   let node
   try {
     node = await getNode(slug)
@@ -101,11 +112,13 @@ export async function generateStaticParams(): Promise<NodePageParams[]> {
   })
 }
 
-export default async function NodePage({
-  params: { slug },
-  searchParams,
-}: NodePageProps) {
-  const isDraftMode = draftMode().isEnabled
+export default async function NodePage(props: NodePageProps) {
+  const params = await props.params
+
+  const { slug } = params
+
+  const draft = await draftMode()
+  const isDraftMode = draft.isEnabled
 
   let node
   try {

@@ -42,9 +42,6 @@ yarn-error.log*
 /drupal/web/phpunit.xml
 /drupal/web/sites/default/settings.local.php
 /drupal-*
-
-# Local Drupal instance
-local-next-drupal/
-
+/local-next-drupal
 # temporary starters folder
 temp-starters/

@@ -16,11 +16,8 @@ composer create-project drupal/recommended-project umami
 ```json
 "extra": {
     "patches": {
-        "drupal/subrequests": {
-            "Get same results on different request": "https://www.drupal.org/files/issues/2019-07-18/change_request_type-63049395-09.patch"
-        },
         "drupal/decoupled_router": {
-            "Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2021-05-05/3111456-34.patch"
+            "Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2024-10-22/decoupled_router-3111456-resolve-langcode-issue-78--external-redirects.patch"
         }
     },
 }
@@ -29,7 +26,7 @@ composer create-project drupal/recommended-project umami
 3. Add dependencies
 
 ```bash
-composer require drupal/next drupal/jsonapi_menu_items drupal/jsonapi_views 'drupal/jsonapi_resources:^1.0@beta'
+composer require drupal/next drupal/jsonapi_menu_items drupal/jsonapi_views drupal/jsonapi_resources
 ```
 
 4. Install Drupal. Make sure you select **Demo: Umami Food Magazine (Experimental)** as the installation profile.

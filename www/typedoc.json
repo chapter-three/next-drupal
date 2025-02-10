@@ -1,0 +1,7 @@
+{
+  "entryPoints": ["../packages/next-drupal/src/index.ts"],
+  "out": "public/api",
+  "navigationLinks": {
+    "Back to Docs": "/docs"
+  }
+}

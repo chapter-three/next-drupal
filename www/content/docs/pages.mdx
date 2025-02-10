@@ -3,13 +3,220 @@ title: Building Pages
 excerpt: How to build pages using JSON:API resources from Drupal.
 ---
 
-In Next.js, you fetch server-side data in either `getStaticProps` or `getServerSideProps`. Data is then fed to your pages for pre-rendering.
+In the Next.js App Router, data fetching has evolved significantly from previous versions. The native `fetch` function enhanced by Next.js can be used to handle server-side data fetching. This also allows you to configure caching and revalidation directly within your fetch requests. These can be used in Server Components, Route Handlers, and Server Actions. You can read more about it [here](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating).
 
-The `DrupalClient` provides several functions to help you query JSON:API resources from Drupal.
+The `NextDrupal` client provides several functions to help you query JSON:API resources from Drupal and manage these revalidation options on the `fetch` request level.
 
 ---
 
 ## Basic Example
+
+Here's an example which uses `getResource` to fetch a `page` node by ID:
+
+```tsx
+const node = await drupal.getResource(
+  "node--page",
+  "07464e9f-9221-4a4f-b7f2-01389408e6c8"
+)
+```
+
+A full page would look like this:
+
+```tsx title=app/about/page.tsx
+// page will be generated at build time
+export default function AboutPage() {
+  // Fetch the node from Drupal.
+  const node = await drupal.getResource(
+    "node--page",
+    "07464e9f-9221-4a4f-b7f2-01389408e6c8"
+  )
+
+  return (
+    <article>
+      <h1>{node.title}</h1>
+      // ...
+    </article>
+  )
+}
+```
+
+### Time-based Revalidation
+
+To use time-based revalidation, you can pass a `revalidate` option to the `getResource` function. This will set the cache lifetime of a resource (in seconds).
+
+```tsx
+const node = await drupal.getResource(
+  "node--page",
+  "07464e9f-9221-4a4f-b7f2-01389408e6c8",
+  { next: { revalidate: 3600 } }
+)
+```
+
+---
+
+## Dynamic pages
+
+You can use Next.js [dynamic routes](https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes) to build static pages for Drupal entity types.
+
+Start by creating a page at `/app/[...slug]/page.tsx`, where `[...slug]` maps to the **path alias** for an entity type (or content type) in Drupal.
+
+This means `/app/[...slug]/page.tsx` will handle all pages with the following aliases: `/about`, `/team`, `/another/path` ...etc.
+
+To build static pages, there is a built-in function we need to use:
+
+`generateStaticParams`: to tell Next.js all the routes that we want to have pre-rendered at build time.
+
+```tsx title=app/[...slug]/page.tsx
+
+export async function generateStaticParams() {
+  // Build paths for all `node--page`.
+  const resources = await drupal.getResourceCollectionPathSegments(
+    "node--page"
+  );
+  return resources.map((resource) => slug: resource.segments);
+}
+export default function Page({ params }) {
+  const {slug} = params;
+
+  // Construct drupal path based on params
+  const drupalPath = drupal.constructPathFromSegment(slug)
+
+  // Fetch the node based on drupal path.
+  const node = drupal.getResourceByPath(drupalPath)
+
+  return (
+    <article>
+      <h1>{node.title}</h1>
+      // ...
+    </article>
+  )
+}
+```
+
+---
+
+## Advanced Example
+
+In the example above, we used `app/[...slug]/page.tsx` to build static pages for `node--page`.
+
+We can go a step further and handle all node types (or any entity types) in one page.
+
+To do that, we're going to use `translatePath` which returns info about the resource type based on `slug` value in `params`.
+
+Let's update `app/[...slug]/page.tsx` to handle both `node--page` and `node--article`.
+
+```tsx title=app/[...slug]/page.tsx
+import { DrupalJsonApiParams } from "drupal-jsonapi-params"
+
+export async function generateStaticParams() {
+  // Build paths for all `node--page` and `node--article`.
+
+  const resources = await drupal.getResourceCollectionPathSegments(
+    ["node--page", "node--article"]
+  );
+  return resources.map((resource) => slug: resource.segments);
+}
+
+
+export default function Page({ params }) {
+  const {slug} = params;
+
+  const path = drupal.translatePath(slug)
+
+  // Get the resource type.
+  const type = path.jsonapi.resourceName
+
+  const params = new DrupalJsonApiParams()
+
+  // Fetch the title, path and body field for pages.
+  if (type === "node--page") {
+    params.addFields("node--page", ["title", "path", "body"])
+  }
+
+  // Fetch additional fields for articles.
+  if (type === "node--article") {
+    params.addFields("node--article", ["title", "path", "body", "uid"])
+  }
+
+  const node = await drupal.getResource(path, path.entity.uuid {
+    params: params.getQueryObject(),
+  })
+
+  // Render different Components based on Node type.
+  if (node.type === "node--page") {
+    return <PageComponent node={node}/>
+  }
+
+  if (node.type === "node--article") {
+    return <ArticleComponent node={node}/>
+  }
+
+  return null
+}
+```
+
+### Tag-based Revalidation
+
+In addition to revalidating based on time, it is also possible to revalidate
+based on cache tag values. This is useful when you want to revalidate a resource
+based on changes to other resources.
+
+Below we've adapted the Page function from the example above to include
+tag-based revalidation.
+
+```tsx title=app/[...slug]/page.tsx
+import { DrupalJsonApiParams } from "drupal-jsonapi-params"
+
+...
+
+export default function Page({ params }) {
+  const {slug} = params;
+
+  const path = drupal.translatePath(slug)
+
+  // Get the resource type.
+  const type = path.jsonapi.resourceName
+  const tag = `${path.entity.type}:${path.entity.id}`
+
+  const params = new DrupalJsonApiParams()
+
+  // Fetch the title, path and body field for pages.
+  if (type === "node--page") {
+    params.addFields("node--page", ["title", "path", "body"])
+  }
+
+  // Fetch additional fields for articles.
+  if (type === "node--article") {
+    params.addFields("node--article", ["title", "path", "body", "uid"])
+  }
+
+  const node = await drupal.getResource(path, path.entity.uuid {
+    params: params.getQueryObject(),
+    tags: [tag]
+  })
+
+  // Render different Components based on Node type.
+  if (node.type === "node--page") {
+    return <PageComponent node={node}/>
+  }
+
+  if (node.type === "node--article") {
+    return <ArticleComponent node={node}/>
+  }
+
+  return null
+}
+```
+
+## Reference
+
+See the [fetching JSON:API resources](/docs/fetching-resources) section for more examples of fetching resources and collection of resources.
+
+## Pages Router
+
+When using the Pages Router, you will use the `getStaticProps` and `getServerSideProps` methods to fetch data for your pages.
+
+### Basic Example
 
 Here's an example which uses `getResource` to fetch a `page` node by ID:
 
@@ -51,7 +258,7 @@ export async function getStaticProps() {
 
 ---
 
-## Dynamic pages
+### Dynamic pages
 
 You can use Next.js [dynamic route](https://nextjs.org/docs/basic-features/pages#pages-with-dynamic-routes) to build static pages for Drupal entity types.
 
@@ -96,90 +303,3 @@ export async function getStaticProps(context) {
 ```
 
 ---
-
-## Advanced Example
-
-In the example above, we used `pages/[...slug].tsx` to build static pages for `node--page`.
-
-We can go a step further and handle all node types (or any entity types) in one page.
-
-To do that, we're going to use `translatePathFromContext` which returns info about the resource type based on `slug` value in `context`.
-
-```tsx
-export async function getStaticProps(context) {
-  const path = await drupal.translatePathFromContext(context)
-
-  // Get the resource type.
-  const type = path.jsonapi.resourceName
-
-  if (type === "node--article") {
-    // Build custom JSON:API query for article.
-  }
-
-  if (type === "node--page") {
-    // Build custom JSON:API query for page.
-  }
-}
-```
-
-Let's update `pages/[...slug].tsx` to handle both `node--page` and `node--article`.
-
-```tsx title=pages/[...slug].tsx
-import { DrupalJsonApiParams } from "drupal-jsonapi-params"
-
-export default function Page({ node }) {
-  if (node.type === "node--page") {
-    return <PageComponent />
-  }
-
-  if (node.type === "node--article") {
-    return <ArticleComponent />
-  }
-
-  return null
-}
-
-export async function getStaticPaths(context) {
-  // Build paths for all `node--page` and `node--article`.
-  return {
-    paths: await drupal.getStaticPathsFromContext(
-      ["node--page", "node--article"],
-      context
-    ),
-    fallback: false,
-  }
-}
-
-export async function getStaticProps(context) {
-  const path = await drupal.translatePathFromContext(context)
-
-  // Get the resource type.
-  const type = path.jsonapi.resourceName
-
-  const params = new DrupalJsonApiParams()
-
-  // Fetch the title, path and body field for pages.
-  if (type === "node--page") {
-    params.addFields("node--page", ["title", "path", "body"])
-  }
-
-  // Fetch additional fields for articles.
-  if (type === "node--article") {
-    params.addFields("node--article", ["title", "path", "body", "uid"])
-  }
-
-  const node = await drupal.getResourceFromContext(type, context, {
-    params: params.getQueryObject(),
-  })
-
-  return {
-    props: {
-      node,
-    },
-  }
-}
-```
-
-## Reference
-
-See the [fetching JSON:API resources](/docs/fetching-resources) section for more examples of fetching resources and collection of resources.

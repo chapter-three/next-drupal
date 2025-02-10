@@ -131,12 +131,12 @@ interface NextSiteInterface extends ConfigEntityInterface {
   /**
    * Returns the revalidate url for given path.
    *
-   * @param string $path
-   *   The path.
+   * @param array $query
+   *   The revalidate URL query parameters.
    *
    * @return \Drupal\Core\Url|null
    *   The revalidate url.
    */
-  public function getRevalidateUrlForPath(string $path): ?Url;
+  public function buildRevalidateUrl(array $query = []): ?Url;
 
 }

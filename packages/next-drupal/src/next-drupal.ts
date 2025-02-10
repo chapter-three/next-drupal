@@ -19,6 +19,7 @@ import type {
   JsonApiUpdateResourceBody,
   JsonApiWithAuthOption,
   JsonApiWithCacheOptions,
+  JsonApiWithNextFetchOptions,
   JsonDeserializer,
   Locale,
   NextDrupalOptions,
@@ -43,6 +44,10 @@ export function useJsonaDeserialize() {
   }
 }
 
+/**
+ * The NextDrupal class extends the NextDrupalBase class and provides methods
+ * for interacting with a Drupal backend.
+ */
 export class NextDrupal extends NextDrupalBase {
   cache?: NextDrupalOptions["cache"]
 
@@ -85,10 +90,92 @@ export class NextDrupal extends NextDrupalBase {
     }
   }
 
+  /**
+   * Creates a new resource of the specified type.
+   *
+   * @param {string} type The type of the resource. Example: `node--article`, `taxonomy_term--tags`, or `block_content--basic`.
+   * @param {JsonApiCreateResourceBody} body The body payload with data.
+   * @param {JsonApiOptions & JsonApiWithNextFetchOptions} options Options for the request.
+   * @returns {Promise<T>} The created resource.
+   * @example
+   * Create a node--page resource
+   * ```
+   * const page = await drupal.createResource("node--page", {
+   *   data: {
+   *     attributes: {
+   *       title: "Page Title",
+   *       body: {
+   *         value: "<p>Content of body field</p>",
+   *         format: "full_html",
+   *       },
+   *     },
+   *   },
+   * })
+   * ```
+   * Create a node--article with a taxonomy term
+   * ```
+   * const article = await drupal.createResource("node--article", {
+   *   data: {
+   *     attributes: {
+   *       title: "Title of Article",
+   *       body: {
+   *         value: "<p>Content of body field</p>",
+   *         format: "full_html",
+   *       },
+   *     },
+   *     relationships: {
+   *       field_category: {
+   *         data: {
+   *           type: "taxonomy_term--category",
+   *           id: "28ab9f26-927d-4e33-9510-b59a7ccdafe6",
+   *         },
+   *       },
+   *     },
+   *   },
+   * })
+   * ```
+   * Using filters
+   * ```
+   * const page = await drupal.createResource(
+   *   "node--page",
+   *   {
+   *     data: {
+   *       attributes: {
+   *         title: "Page Title",
+   *         body: {
+   *           value: "<p>Content of body field</p>",
+   *           format: "full_html",
+   *         },
+   *       },
+   *     },
+   *   },
+   *   {
+   *     params: {
+   *       "fields[node--page]": "title,path",
+   *     },
+   *   }
+   * )
+   * ```
+   * Using TypeScript with DrupalNode
+   * ```
+   * import { DrupalNode } from "next-drupal"
+   * const page = await drupal.createResource<DrupalNode>("node--page", {
+   *   data: {
+   *     attributes: {
+   *       title: "Page Title",
+   *       body: {
+   *         value: "<p>Content of body field</p>",
+   *         format: "full_html",
+   *       },
+   *     },
+   *   },
+   * })
+   * ```
+   */
   async createResource<T extends JsonApiResource>(
     type: string,
     body: JsonApiCreateResourceBody,
-    options?: JsonApiOptions
+    options?: JsonApiOptions & JsonApiWithNextFetchOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -114,6 +201,7 @@ export class NextDrupal extends NextDrupalBase {
       method: "POST",
       body: JSON.stringify(body),
       withAuth: options.withAuth,
+      cache: options.cache,
     })
 
     await this.throwIfJsonErrors(response, "Error while creating resource: ")
@@ -125,10 +213,55 @@ export class NextDrupal extends NextDrupalBase {
       : /* c8 ignore next */ json
   }
 
+  /**
+   * Creates a new file resource for the specified media type.
+   *
+   * @param {string} type The type of the resource. In most cases this is `file--file`.
+   * @param {JsonApiCreateFileResourceBody} body The body payload with data.
+   *   - type: The resource type of the host entity. Example: `media--image`
+   *   - field: The name of the file field on the host entity. Example: `field_media_image`
+   *   - filename: The name of the file with extension. Example: `avatar.jpg`
+   *   - file: The file as a Buffer
+   * @param {JsonApiOptions} options Options for the request.
+   * @returns {Promise<T>} The created file resource.
+   * @example
+   * Create a file resource for a media--image entity
+   * ```ts
+   * const file = await drupal.createFileResource("file--file", {
+   *   data: {
+   *     attributes: {
+   *       type: "media--image", // The type of the parent resource
+   *       field: "field_media_image", // The name of the field on the parent resource
+   *       filename: "filename.jpg",
+   *       file: await fs.readFile("/path/to/file.jpg"),
+   *     },
+   *   },
+   * })
+   * ```
+   *
+   * You can then use this to create a new media--image with a relationship to the file:
+   * ```ts
+   * const media = await drupal.createResource<DrupalMedia>("media--image", {
+   *   data: {
+   *     attributes: {
+   *       name: "Name for the media",
+   *     },
+   *     relationships: {
+   *       field_media_image: {
+   *         data: {
+   *           type: "file--file",
+   *           id: file.id,
+   *         },
+   *       },
+   *     },
+   *   },
+   * })
+   * ```
+   */
   async createFileResource<T = DrupalFile>(
     type: string,
     body: JsonApiCreateFileResourceBody,
-    options?: JsonApiOptions
+    options?: JsonApiOptions & JsonApiWithNextFetchOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -157,6 +290,7 @@ export class NextDrupal extends NextDrupalBase {
       },
       body: body.data.attributes.file,
       withAuth: options.withAuth,
+      cache: options.cache,
     })
 
     await this.throwIfJsonErrors(
@@ -169,11 +303,52 @@ export class NextDrupal extends NextDrupalBase {
     return options.deserialize ? this.deserialize(json) : json
   }
 
+  /**
+   * Updates an existing resource of the specified type.
+   *
+   * @param {string} type The type of the resource. Example: `node--article`, `taxonomy_term--tags`, or `block_content--basic`.
+   * @param {string} uuid The resource id. Example: `a50ffee7-ba94-46c9-9705-f9f8f440db94`.
+   * @param {JsonApiUpdateResourceBody} body The body payload with data.
+   * @param {JsonApiOptions & JsonApiWithNextFetchOptions} options Options for the request.
+   * @returns {Promise<T>} The updated resource.
+   * @example
+   * Update a node--page resource
+   * ```ts
+   * const page = await drupal.updateResource(
+   *   "node--page",
+   *   "a50ffee7-ba94-46c9-9705-f9f8f440db94",
+   *   {
+   *     data: {
+   *       attributes: {
+   *         title: "Updated Title",
+   *       },
+   *     },
+   *   }
+   * )
+   * ```
+   *
+   * Using TypeScript with DrupalNode for a node entity type
+   * ```ts
+   * import { DrupalNode } from "next-drupal"
+   *
+   * const page = await drupal.updateResource<DrupalNode>(
+   *   "node--page",
+   *   "a50ffee7-ba94-46c9-9705-f9f8f440db94",
+   *   {
+   *     data: {
+   *       attributes: {
+   *         title: "Updated Title",
+   *       },
+   *     },
+   *   }
+   * )
+   * ```
+   */
   async updateResource<T extends JsonApiResource>(
     type: string,
     uuid: string,
     body: JsonApiUpdateResourceBody,
-    options?: JsonApiOptions
+    options?: JsonApiOptions & JsonApiWithNextFetchOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -201,6 +376,7 @@ export class NextDrupal extends NextDrupalBase {
       method: "PATCH",
       body: JSON.stringify(body),
       withAuth: options.withAuth,
+      cache: options.cache,
     })
 
     await this.throwIfJsonErrors(response, "Error while updating resource: ")
@@ -212,10 +388,26 @@ export class NextDrupal extends NextDrupalBase {
       : /* c8 ignore next */ json
   }
 
+  /**
+   * Deletes an existing resource of the specified type.
+   *
+   * @param {string} type The type of the resource. Example: `node--article`, `taxonomy_term--tags`, or `block_content--basic`.
+   * @param {string} uuid The resource id. Example: `a50ffee7-ba94-46c9-9705-f9f8f440db94`.
+   * @param {JsonApiOptions & JsonApiWithNextFetchOptions} options Options for the request.
+   * @returns {Promise<boolean>} True if the resource was deleted, false otherwise.
+   * @example
+   * Delete a node--page resource
+   * ```ts
+   * const isDeleted = await drupal.deleteResource(
+   *   "node--page",
+   *   "a50ffee7-ba94-46c9-9705-f9f8f440db94"
+   * )
+   * ```
+   */
   async deleteResource(
     type: string,
     uuid: string,
-    options?: JsonApiOptions
+    options?: JsonApiOptions & JsonApiWithNextFetchOptions
   ): Promise<boolean> {
     options = {
       withAuth: true,
@@ -238,6 +430,7 @@ export class NextDrupal extends NextDrupalBase {
     const response = await this.fetch(endpoint, {
       method: "DELETE",
       withAuth: options.withAuth,
+      cache: options.cache,
     })
 
     await this.throwIfJsonErrors(response, "Error while deleting resource: ")
@@ -245,10 +438,97 @@ export class NextDrupal extends NextDrupalBase {
     return response.status === 204
   }
 
+  /**
+   * Fetches a resource of the specified type by its UUID.
+   *
+   * @param {string} type The resource type. Example: `node--article`, `taxonomy_term--tags`, or `block_content--basic`.
+   * @param {string} uuid The id of the resource. Example: `15486935-24bf-4be7-b858-a5b2de78d09d`.
+   * @param {JsonApiOptions & JsonApiWithCacheOptions & JsonApiWithNextFetchOptions} options Options for the request.
+   * @returns {Promise<T>} The fetched resource.
+   * @examples
+   * Get a page by uuid.
+   * ```ts
+   * const node = await drupal.getResource(
+   *  "node--page",
+   *  "07464e9f-9221-4a4f-b7f2-01389408e6c8"
+   * )
+   * ```
+   * Get the es translation for a page by uuid.
+   * ```ts
+   * const node = await drupal.getResource(
+   *   "node--page",
+   *   "07464e9f-9221-4a4f-b7f2-01389408e6c8",
+   *   {
+   *     locale: "es",
+   *     defaultLocale: "en",
+   *   }
+   * )
+   * ```
+   * Get the raw JSON:API response.
+   * ```ts
+   * const { data, meta, links } = await drupal.getResource(
+   *   "node--page",
+   *   "07464e9f-9221-4a4f-b7f2-01389408e6c8",
+   *   {
+   *     deserialize: false,
+   *   }
+   * )
+   * ```
+   * Get a node--article resource using cache.
+   * ```ts
+   * const id = "07464e9f-9221-4a4f-b7f2-01389408e6c8"
+   *
+   * const article = await drupal.getResource("node--article", id, {
+   *   withCache: true,
+   *   cacheKey: `node--article:${id}`,
+   * })
+   * ```
+   * Get a page resource with time-based revalidation.
+   * ```ts
+   * const node = await drupal.getResource(
+   *   "node--page",
+   *   "07464e9f-9221-4a4f-b7f2-01389408e6c8",
+   *   { next: { revalidate: 3600 } }
+   * )
+   * ```
+   * Get a page resource with tag-based revalidation.
+   * ```ts
+   * const {slug} = params;
+   * const path = drupal.translatePath(slug)
+   *
+   * const type = path.jsonapi.resourceName
+   * const tag = `${path.entity.type}:${path.entity.id}`
+   *
+   * const node = await drupal.getResource(path, path.entity.uuid, {
+   *   params: params.getQueryObject(),
+   *   tags: [tag]
+   * })
+   * ```
+   * Using DrupalNode for a node entity type.
+   * ```ts
+   * import { DrupalNode } from "next-drupal"
+   *
+   * const node = await drupal.getResource<DrupalNode>(
+   *   "node--page",
+   *   "07464e9f-9221-4a4f-b7f2-01389408e6c8"
+   * )
+   * ```
+   * Using DrupalTaxonomyTerm for a taxonomy term entity type.
+   * ```ts
+   * import { DrupalTaxonomyTerm } from "next-drupal"
+   *
+   * const term = await drupal.getResource<DrupalTaxonomyTerm>(
+   *   "taxonomy_term--tags",
+   *   "7b47d7cc-9b1b-4867-a909-75dc1d61dfd3"
+   * )
+   * ```
+   */
   async getResource<T extends JsonApiResource>(
     type: string,
     uuid: string,
-    options?: JsonApiOptions & JsonApiWithCacheOptions
+    options?: JsonApiOptions &
+      JsonApiWithCacheOptions &
+      JsonApiWithNextFetchOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -283,6 +563,8 @@ export class NextDrupal extends NextDrupalBase {
 
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
+      next: options.next,
+      cache: options.cache,
     })
 
     await this.throwIfJsonErrors(response, "Error while fetching resource: ")
@@ -297,11 +579,42 @@ export class NextDrupal extends NextDrupalBase {
     return options.deserialize ? this.deserialize(json) : json
   }
 
+  /**
+   * Fetches a resource of the specified type by its path.
+   *
+   * @param {string} path The path of the resource. Example: `/blog/slug-for-article`.
+   * @param { { isVersionable?: boolean } & JsonApiOptions & JsonApiWithNextFetchOptions} options Options for the request.
+   *   - isVersionable: Set to true if you're fetching the revision for a resource. Automatically set to true for node entity types
+   * @returns {Promise<T>} The fetched resource.
+   * @requires Decoupled Router module
+   * @example
+   * Get a page by path
+   * ```
+   * const node = await drupal.getResourceByPath("/blog/slug-for-article")
+   * ```
+   * Get the raw JSON:API response
+   * ```
+   * const { data, meta, links } = await drupal.getResourceByPath(
+   *   "/blog/slug-for-article",
+   *   {
+   *     deserialize: false,
+   *   }
+   * )
+   *```
+   * Using DrupalNode for a node entity type
+   * ```
+   * import { DrupalNode } from "next-drupal"
+   * const node = await drupal.getResourceByPath<DrupalNode>(
+   *   "/blog/slug-for-article"
+   * )
+   * ```
+   */
   async getResourceByPath<T extends JsonApiResource>(
     path: string,
     options?: {
       isVersionable?: boolean
-    } & JsonApiOptions
+    } & JsonApiOptions &
+      JsonApiWithNextFetchOptions
   ): Promise<T> {
     options = {
       deserialize: true,
@@ -370,6 +683,8 @@ export class NextDrupal extends NextDrupalBase {
       redirect: "follow",
       body: JSON.stringify(payload),
       withAuth: options.withAuth,
+      next: options.next,
+      cache: options.cache,
     })
 
     const errorMessagePrefix = "Error while fetching resource by path:"
@@ -404,11 +719,44 @@ export class NextDrupal extends NextDrupalBase {
     return options.deserialize ? this.deserialize(data) : data
   }
 
+  /**
+   * Fetches a collection of resources of the specified type.
+   *
+   * @param {string} type The type of the resources. Example: `node--article` or `user--user`.
+   * @param {JsonApiOptions & JsonApiWithNextFetchOptions} options Options for the request.
+   *   - deserialize: Set to false to return the raw JSON:API response
+   * @returns {Promise<T>} The fetched collection of resources.
+   * @example
+   * Get all articles
+   * ```
+   * const articles = await drupal.getResourceCollection("node--article")
+   * ```
+   * Using filters
+   * ```
+   * const publishedArticles = await drupal.getResourceCollection("node--article", {
+   *   params: {
+   *     "filter[status]": "1",
+   *   },
+   * })
+   * ```
+   * Get the raw JSON:API response
+   * ```
+   * const { data, meta, links } = await drupal.getResourceCollection("node--page", {
+   *   deserialize: false,
+   * })
+   * ```
+   * Using TypeScript with DrupalNode for a node entity type
+   * ```
+   * import { DrupalNode } from "next-drupal"
+   * const nodes = await drupal.getResourceCollection<DrupalNode[]>("node--article")
+   * ```
+   */
   async getResourceCollection<T = JsonApiResource[]>(
     type: string,
     options?: {
       deserialize?: boolean
-    } & JsonApiOptions
+    } & JsonApiOptions &
+      JsonApiWithNextFetchOptions
   ): Promise<T> {
     options = {
       withAuth: this.withAuth,
@@ -427,6 +775,8 @@ export class NextDrupal extends NextDrupalBase {
 
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
+      next: options.next,
+      cache: options.cache,
     })
 
     await this.throwIfJsonErrors(
@@ -439,12 +789,20 @@ export class NextDrupal extends NextDrupalBase {
     return options.deserialize ? this.deserialize(json) : json
   }
 
+  /**
+   * Fetches path segments for a collection of resources of the specified types.
+   *
+   * @param {string | string[]} types The types of the resources.
+   * @param {JsonApiOptions & JsonApiWithAuthOption & JsonApiWithNextFetchOptions} options Options for the request.
+   * @returns {Promise<{ path: string, type: string, locale: Locale, segments: string[] }[]>} The fetched path segments.
+   */
   async getResourceCollectionPathSegments(
     types: string | string[],
     options?: {
       pathPrefix?: PathPrefix
       params?: JsonApiParams
     } & JsonApiWithAuthOption &
+      JsonApiWithNextFetchOptions &
       (
         | {
             locales: Locale[]
@@ -490,6 +848,8 @@ export class NextDrupal extends NextDrupalBase {
             let opts: Parameters<NextDrupal["getResourceCollection"]>[1] = {
               params,
               withAuth: options.withAuth,
+              next: options.next,
+              cache: options.cache,
             }
             if (locale) {
               opts = {
@@ -545,9 +905,22 @@ export class NextDrupal extends NextDrupalBase {
     return paths.flat(2)
   }
 
+  /**
+   * Translates a path to a DrupalTranslatedPath object.
+   *
+   * @param {string} path The resource path. Example: `/blog/slug-for-article`.
+   * @param {JsonApiWithAuthOption & JsonApiWithNextFetchOptions} options Options for the request.
+   * @returns {Promise<DrupalTranslatedPath | null>} The translated path.
+   * @requires Decoupled Router module
+   * @example
+   * Get info about a `/blog/slug-for-article` path
+   * ```ts
+   * const path = await drupal.translatePath("/blog/slug-for-article")
+   * ```
+   */
   async translatePath(
     path: string,
-    options?: JsonApiWithAuthOption
+    options?: JsonApiWithAuthOption & JsonApiWithNextFetchOptions
   ): Promise<DrupalTranslatedPath | null> {
     options = {
       withAuth: this.withAuth,
@@ -562,6 +935,8 @@ export class NextDrupal extends NextDrupalBase {
 
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
+      next: options.next,
+      cache: options.cache,
     })
 
     if (response.status === 404) {
@@ -575,7 +950,17 @@ export class NextDrupal extends NextDrupalBase {
     return await response.json()
   }
 
-  async getIndex(locale?: Locale): Promise<JsonApiResponse> {
+  /**
+   * Fetches the JSON:API index.
+   *
+   * @param {Locale} locale The locale for the request.
+   * @param {JsonApiWithNextFetchOptions} options Options for the request.
+   * @returns {Promise<JsonApiResponse>} The JSON:API index.
+   */
+  async getIndex(
+    locale?: Locale,
+    options?: JsonApiWithNextFetchOptions
+  ): Promise<JsonApiResponse> {
     const endpoint = await this.buildEndpoint({
       locale,
     })
@@ -585,6 +970,8 @@ export class NextDrupal extends NextDrupalBase {
     const response = await this.fetch(endpoint, {
       // As per https://www.drupal.org/node/2984034 /jsonapi is public.
       withAuth: false,
+      next: options?.next,
+      cache: options?.cache,
     })
 
     await this.throwIfJsonErrors(
@@ -595,6 +982,12 @@ export class NextDrupal extends NextDrupalBase {
     return await response.json()
   }
 
+  /**
+   * Builds an endpoint URL for the specified parameters.
+   *
+   * @param {Parameters<NextDrupalBase["buildEndpoint"]>[0] & { resourceType?: string }} params The parameters for the endpoint.
+   * @returns {Promise<string>} The built endpoint URL.
+   */
   async buildEndpoint({
     locale = "",
     resourceType = "",
@@ -632,6 +1025,13 @@ export class NextDrupal extends NextDrupalBase {
     ).toString()
   }
 
+  /**
+   * Fetches the endpoint URL for the specified resource type.
+   *
+   * @param {string} type The type of the resource.
+   * @param {Locale} locale The locale for the request.
+   * @returns {Promise<URL>} The fetched endpoint URL.
+   */
   async fetchResourceEndpoint(type: string, locale?: Locale): Promise<URL> {
     const index = await this.getIndex(locale)
 
@@ -655,9 +1055,34 @@ export class NextDrupal extends NextDrupalBase {
     return url
   }
 
+  /**
+   * Fetches a menu by its name.
+   *
+   * @param {string} menuName The name of the menu. Example: `main` or `footer`.
+   * @param {JsonApiOptions & JsonApiWithCacheOptions & JsonApiWithNextFetchOptions} options Options for the request.
+   * @returns {Promise<{ items: T[], tree: T[] }>} The fetched menu.
+   *   - items: An array of `DrupalMenuLinkContent`
+   *   - tree: An array of `DrupalMenuLinkContent` with children nested to match the hierarchy from Drupal
+   * @requires JSON:API Menu Items module
+   * @example
+   * Get the `main` menu
+   * ```ts
+   * const { menu, items } = await drupal.getMenu("main")
+   * ```
+   *
+   * Get the `main` menu using cache
+   * ```ts
+   * const menu = await drupal.getMenu("main", {
+   *   withCache: true,
+   *   cacheKey: "menu--main",
+   * })
+   * ```
+   */
   async getMenu<T = DrupalMenuItem>(
     menuName: string,
-    options?: JsonApiOptions & JsonApiWithCacheOptions
+    options?: JsonApiOptions &
+      JsonApiWithCacheOptions &
+      JsonApiWithNextFetchOptions
   ): Promise<{
     items: T[]
     tree: T[]
@@ -692,6 +1117,8 @@ export class NextDrupal extends NextDrupalBase {
 
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
+      next: options.next,
+      cache: options.cache,
     })
 
     await this.throwIfJsonErrors(response, "Error while fetching menu items: ")
@@ -717,9 +1144,40 @@ export class NextDrupal extends NextDrupalBase {
     return menu
   }
 
+  /**
+   * Fetches a view by its name.
+   *
+   * @param {string} name The name of the view and the display id. Example: `articles--promoted`.
+   * @param {JsonApiOptions & JsonApiWithNextFetchOptions} options Options for the request.
+   * @returns {Promise<DrupalView<T>>} The fetched view.
+   * @requires JSON:API Views module
+   * @example
+   * Get a view named `articles` and display id `promoted`
+   * ```ts
+   * const view = await drupal.getView("articles--promoted")
+   * ```
+   *
+   * Using sparse fieldsets to only fetch the title and body fields
+   * ```ts
+   * const view = await drupal.getView("articles--promoted", {
+   *   params: {
+   *     fields: {
+   *       "node--article": "title,body",
+   *     },
+   *   },
+   * })
+   * ```
+   *
+   * Using TypeScript with DrupalNode for a node entity type
+   * ```ts
+   * import { DrupalNode } from "next-drupal"
+   *
+   * const view = await drupal.getView<DrupalNode>("articles--promoted")
+   * ```
+   */
   async getView<T = JsonApiResource>(
     name: string,
-    options?: JsonApiOptions
+    options?: JsonApiOptions & JsonApiWithNextFetchOptions
   ): Promise<DrupalView<T>> {
     options = {
       withAuth: this.withAuth,
@@ -741,6 +1199,8 @@ export class NextDrupal extends NextDrupalBase {
 
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
+      next: options.next,
+      cache: options.cache,
     })
 
     await this.throwIfJsonErrors(response, "Error while fetching view: ")
@@ -757,9 +1217,29 @@ export class NextDrupal extends NextDrupalBase {
     }
   }
 
+  /**
+   * Fetches a search index by its name.
+   *
+   * @param {string} name The name of the search index.
+   * @param {JsonApiOptions & JsonApiWithNextFetchOptions} options Options for the request.
+   * @returns {Promise<T>} The fetched search index.
+   * @requires JSON:API Search API module
+   * @example
+   * Get search results from an index named `articles`
+   * ```ts
+   * const results = await drupal.getSearchIndex("articles")
+   * ```
+   *
+   * Using TypeScript with DrupalNode for a node entity type
+   * ```ts
+   * import { DrupalNode } from "next-drupal"
+   *
+   * const results = await drupal.getSearchIndex<DrupalNode>("articles")
+   * ```
+   */
   async getSearchIndex<T = JsonApiResource[]>(
     name: string,
-    options?: JsonApiOptions
+    options?: JsonApiOptions & JsonApiWithNextFetchOptions
   ): Promise<T> {
     options = {
       withAuth: this.withAuth,
@@ -778,6 +1258,8 @@ export class NextDrupal extends NextDrupalBase {
 
     const response = await this.fetch(endpoint, {
       withAuth: options.withAuth,
+      next: options.next,
+      cache: options.cache,
     })
 
     await this.throwIfJsonErrors(
@@ -790,16 +1272,38 @@ export class NextDrupal extends NextDrupalBase {
     return options.deserialize ? this.deserialize(json) : json
   }
 
+  /**
+   * Deserializes the response body.
+   *
+   * @param {any} body The response body.
+   * @param {any} options Options for deserialization.
+   * @returns {any} The deserialized response body.
+   * @remarks
+   * To provide your own custom deserializer, see the serializer docs.
+   * @example
+   * ```ts
+   * const url = drupal.buildUrl("/jsonapi/node/article", {
+   *   sort: "-created",
+   *   "fields[node--article]": "title,path",
+   * })
+   *
+   * const response = await drupal.fetch(url.toString())
+   * const json = await response.json()
+   *
+   * const resource = drupal.deserialize(json)
+   * ```
+   */
   deserialize(body, options?) {
     if (!body) return null
 
     return this.deserializer(body, options)
   }
 
-  // Error handling.
-  // If throwJsonApiErrors is enabled, we show errors in the Next.js overlay.
-  // Otherwise, we log the errors even if debugging is turned off.
-  // In production, errors are always logged never thrown.
+  /**
+   * Logs or throws an error based on the throwJsonApiErrors flag.
+   *
+   * @param {Error} error The error to log or throw.
+   */
   logOrThrowError(error: Error) {
     if (!this.throwJsonApiErrors) {
       this.logger.error(error)

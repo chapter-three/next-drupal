@@ -1,0 +1,144 @@
+---
+title: Next-Drupal 2.0
+author: brianperry
+date: February 11, 2025
+created: "2025-02-11"
+excerpt: Next.js 15, Drupal 11 and App Router Support.
+published: true
+---
+
+After multiple alpha and beta releases, we're excited to announce the stable release of Next-Drupal 2.0. This release brings long-awaited **App Router support**, along with support for **Next.js 15** and **Drupal 11**.
+
+As part of our App Router support we've also added **tag-based invalidation** which allows you to invalidate content on your Next.js site using Drupal's powerful cache tag system.
+
+---
+
+## App Router
+
+Next-Drupal 2.0 uses the App Router by default to match Next.js defaults, but we will continue to provide support for the Pages Router.
+
+### Starters
+
+The Next-Drupal basic starter is now configured to use the App Router by default.
+
+Run the following command to create a new Next.js project using the App Router:
+
+```sh
+npx create-next-app -e https://github.com/chapter-three/next-drupal-basic-starter
+```
+
+The Pages router version of the basic starter is also available, now named `next-drupal-pages-starter`.
+
+Run the following command to create a new Next.js project using the Pages Router:
+
+```sh
+npx create-next-app -e https://github.com/chapter-three/next-drupal-pages-starter
+```
+
+### NextDrupal Client
+
+Similarly, the Next-Drupal Client has been divided into a version compatible with the App Router and a version compatible with the Pages Router.
+
+Create an instance of `NextDrupal` to use the client with the App Router:
+
+```js
+import { NextDrupal } from "next-drupal"
+
+// Create a new NextDrupal client.
+const drupal = new NextDrupal("https://example.com")
+```
+
+Create an instance of `NextDrupalPages` to use the client with the Pages Router:
+
+```js
+import { NextDrupalPages } from "next-drupal"
+
+// Create a new NextDrupal client.
+const drupal = new NextDrupalPages("https://example.com")
+```
+
+Backwards compatibility is also provided for instances of `DrupalClient`, which will continue to work with the Pages Router.
+
+### Documentation
+
+Our documentation has been updated to reflect these changes and new features. All examples in our documentation now assume the App Router by default, but call out any Page Router specific differences where applicable.
+
+We have also begun publishing the `canary` version of our documentation at [https://next.next-drupal.org/](https://next.next-drupal.org/). This will allways represent the pre-release version of our documentation and can be used by anyone testing upcoming features.
+
+---
+
+## Tag-based Invalidation
+
+For Next.js entity types configured in Drupal, a new 'tags' plugin can be selected under the on-demand revalidation options. When an entity of that type is updated, Drupal will now make a request to the Next.js revalidation endpoint and provide all associated cache tags. The API endpoint will then use Next's `invalidateTags` method to invalidate data related to the associated tags.
+
+For this to be useful, it is also necessary to set tags within your Next.js site. `NextDrupal` Client methods like `getResource` now accept a `tags` option which expects an array of cache tag values:
+
+```tsx title=app/[...slug]/page.tsx
+// app/[...slug]/page.tsx
+export default function Page({ params }) {
+  const {slug} = params;
+  const path = drupal.translatePath(slug)
+
+  // Create a tag in the format of `entity_type:entity_id`.
+  const tag = `${path.entity.type}:${path.entity.id}`
+
+  const node = await drupal.getResource(path, path.entity.uuid {
+    // Provide the cache tag when requesting the resource.
+    tags: [tag]
+  })
+
+  return <PageComponent node={node}/>
+}
+```
+
+This will associate the page data with the provided cache tag.
+
+This configuration can provide much more targeted cache invalidation than path based invalidation alone.
+
+---
+
+## Compatibility
+
+We have updated all of the next-drupal starters (JSON:API and GraphQL) to Next.js 15.
+
+The Next Drupal module has been updated to support Drupal 11. We've removed all deprecated code and APIs.
+
+Following end-of-life for the projects themselves, we no longer officially support Next.js 13 or Drupal 9.
+
+---
+
+## Upgrading
+
+You can upgrade to `2.0` by following our upgrade guide [here](/docs/upgrade-guide).
+
+---
+
+## Thanks to Our Contributors
+
+A special shout out goes to [John Albin](https://www.drupal.org/u/johnalbin) who lead the initial efforts for our 2.x release and App Router support.
+
+We'd also like to welcome [Mario Vercellotti](https://www.drupal.org/u/vermario) ([Wunder](https://wunder.io/)) and [Ankit Pathak](https://www.drupal.org/u/ankitv18) ([Acquia](https://www.acquia.com/)) who have joined as additional Next.js for Drupal maintainers.
+
+Finally, a huge thanks to all who have contributed to this release (yes, even you dependabot)!
+
+<!--
+This was generated using:
+https://github.com/mgechev/github-contributors-list
+node githubcontrib --owner chapter-three --repository next-drupal --sha main --fromDate 2023-09-01 --cols 6 --sortOrder desc --format md --showlogin true
+-->
+
+| [<img alt="shadcn" src="https://avatars.githubusercontent.com/u/124599?v=4&s=117" width="117" />](https://github.com/shadcn) | [<img alt="JohnAlbin" src="https://avatars.githubusercontent.com/u/33429?v=4&s=117" width="117" />](https://github.com/JohnAlbin) | [<img alt="dependabot[bot]" src="https://avatars.githubusercontent.com/in/29110?v=4&s=117" width="117" />](https://github.com/apps/dependabot) | [<img alt="robdecker" src="https://avatars.githubusercontent.com/u/852280?v=4&s=117" width="117" />](https://github.com/robdecker) | [<img alt="backlineint" src="https://avatars.githubusercontent.com/u/889478?v=4&s=117" width="117" />](https://github.com/backlineint) | [<img alt="theRuslan" src="https://avatars.githubusercontent.com/u/141221?v=4&s=117" width="117" />](https://github.com/theRuslan) |
+| :--------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------: |
+|                                             [shadcn](https://github.com/shadcn)                                              |                                             [JohnAlbin](https://github.com/JohnAlbin)                                             |                                             [dependabot[bot]](https://github.com/apps/dependabot)                                              |                                             [robdecker](https://github.com/robdecker)                                              |                                             [backlineint](https://github.com/backlineint)                                              |                                             [theRuslan](https://github.com/theRuslan)                                              |
+
+| [<img alt="mglaman" src="https://avatars.githubusercontent.com/u/3698644?v=4&s=117" width="117" />](https://github.com/mglaman) | [<img alt="apathak18" src="https://avatars.githubusercontent.com/u/106175376?v=4&s=117" width="117" />](https://github.com/apathak18) | [<img alt="cruno91" src="https://avatars.githubusercontent.com/u/1760366?v=4&s=117" width="117" />](https://github.com/cruno91) | [<img alt="eiriksm" src="https://avatars.githubusercontent.com/u/865153?v=4&s=117" width="117" />](https://github.com/eiriksm) | [<img alt="MontiMarco92" src="https://avatars.githubusercontent.com/u/88577526?v=4&s=117" width="117" />](https://github.com/MontiMarco92) | [<img alt="blyme" src="https://avatars.githubusercontent.com/u/68547893?v=4&s=117" width="117" />](https://github.com/blyme) |
+| :-----------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------: |
+|                                              [mglaman](https://github.com/mglaman)                                              |                                               [apathak18](https://github.com/apathak18)                                               |                                              [cruno91](https://github.com/cruno91)                                              |                                             [eiriksm](https://github.com/eiriksm)                                              |                                              [MontiMarco92](https://github.com/MontiMarco92)                                               |                                              [blyme](https://github.com/blyme)                                               |
+
+| [<img alt="fiasco" src="https://avatars.githubusercontent.com/u/108160?v=4&s=117" width="117" />](https://github.com/fiasco) | [<img alt="rajeshreeputra" src="https://avatars.githubusercontent.com/u/19570710?v=4&s=117" width="117" />](https://github.com/rajeshreeputra) | [<img alt="yobottehg" src="https://avatars.githubusercontent.com/u/12897717?v=4&s=117" width="117" />](https://github.com/yobottehg) | [<img alt="PierreRe" src="https://avatars.githubusercontent.com/u/11901394?v=4&s=117" width="117" />](https://github.com/PierreRe) | [<img alt="minnur" src="https://avatars.githubusercontent.com/u/4031934?v=4&s=117" width="117" />](https://github.com/minnur) | [<img alt="bojanbogdanovic" src="https://avatars.githubusercontent.com/u/29277648?v=4&s=117" width="117" />](https://github.com/bojanbogdanovic) |
+| :--------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                             [fiasco](https://github.com/fiasco)                                              |                                              [rajeshreeputra](https://github.com/rajeshreeputra)                                               |                                              [yobottehg](https://github.com/yobottehg)                                               |                                              [PierreRe](https://github.com/PierreRe)                                               |                                              [minnur](https://github.com/minnur)                                              |                                              [bojanbogdanovic](https://github.com/bojanbogdanovic)                                               |
+
+| [<img alt="apmsooner" src="https://avatars.githubusercontent.com/u/4030604?v=4&s=117" width="117" />](https://github.com/apmsooner) |
+| :---------------------------------------------------------------------------------------------------------------------------------: |
+|                                              [apmsooner](https://github.com/apmsooner)                                              |

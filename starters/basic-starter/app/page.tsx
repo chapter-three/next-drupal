@@ -17,6 +17,9 @@ export default async function Home() {
         include: "field_image,uid",
         sort: "-created",
       },
+      next: {
+        revalidate: 3600,
+      },
     }
   )
 

@@ -7,7 +7,11 @@ import {
   spyOnDrupalFetch,
   spyOnFetch,
 } from "../utils"
-import type { DrupalNode, DrupalSearchApiJsonApiResponse } from "../../src"
+import type {
+  DrupalNode,
+  DrupalSearchApiJsonApiResponse,
+  FetchOptions,
+} from "../../src"
 
 jest.setTimeout(10000)
 
@@ -158,6 +162,24 @@ describe("getIndex()", () => {
       "Failed to fetch JSON:API index at https://example.com/jsonapi"
     )
   })
+
+  test("makes request with Next revalidate option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      next: { revalidate: 60 },
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.getIndex(undefined, mockInit)
+
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
 })
 
 describe("getMenu()", () => {
@@ -222,6 +244,61 @@ describe("getMenu()", () => {
     expect(
       (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
     ).toBe("Bearer sample-token")
+  })
+
+  test("makes request with Next revalidate option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      next: { revalidate: 60 },
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.getMenu("main", mockInit)
+
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
+
+  test("makes request with Next tags option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      next: { tags: ["tagged-resource"] },
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.getMenu("main", mockInit)
+
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
+
+  test("makes request with cache option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      cache: "no-store",
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.getMenu("main", mockInit)
+
+    expect(fetchSpy).toBeCalledTimes(1)
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
   })
 })
 
@@ -407,6 +484,75 @@ describe("getResource()", () => {
     expect(
       (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
     ).toBe("Bearer sample-token")
+  })
+
+  test("makes request with Next revalidate option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      next: { revalidate: 60 },
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.getResource(
+      "node--recipe",
+      "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      mockInit
+    )
+
+    expect(fetchSpy).toBeCalledTimes(1)
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
+
+  test("makes request with Next tags option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      next: { tags: ["tagged-resource"] },
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.getResource(
+      "node--recipe",
+      "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      mockInit
+    )
+
+    expect(fetchSpy).toBeCalledTimes(1)
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
+
+  test("makes request with cache option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      cache: "no-store",
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.getResource(
+      "node--recipe",
+      "71e04ead-4cc7-416c-b9ca-60b635fdc50f",
+      mockInit
+    )
+
+    expect(fetchSpy).toBeCalledTimes(1)
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
   })
 })
 
@@ -676,6 +822,82 @@ describe("getResourceByPath()", () => {
     const resource = await drupal.getResourceByPath("")
     expect(resource).toBe(null)
   })
+
+  test("makes request with Next revalidate option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      next: { revalidate: 60 },
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch({
+      status: 207,
+      statusText: "Multi-Status",
+      responseBody: mocks.resources.subRequests.ok,
+    })
+
+    await drupal.getResourceByPath<DrupalNode>(
+      "/recipes/deep-mediterranean-quiche",
+      mockInit
+    )
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
+
+  test("makes request with Next tags option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      next: { tags: ["tagged-resource"] },
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch({
+      status: 207,
+      statusText: "Multi-Status",
+      responseBody: mocks.resources.subRequests.ok,
+    })
+
+    await drupal.getResourceByPath<DrupalNode>(
+      "/recipes/deep-mediterranean-quiche",
+      mockInit
+    )
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
+
+  test("makes request with cache option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      cache: "no-store",
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch({
+      status: 207,
+      statusText: "Multi-Status",
+      responseBody: mocks.resources.subRequests.ok,
+    })
+
+    await drupal.getResourceByPath<DrupalNode>(
+      "/recipes/deep-mediterranean-quiche",
+      mockInit
+    )
+
+    expect(fetchSpy).toBeCalledTimes(1)
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
 })
 
 describe("getResourceCollection()", () => {
@@ -766,6 +988,61 @@ describe("getResourceCollection()", () => {
     expect(
       (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
     ).toBe("Bearer sample-token")
+  })
+
+  test("makes request with Next revalidate option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      next: { revalidate: 60 },
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.getResourceCollection("node--recipe", mockInit)
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
+
+  test("makes request with Next tags option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      next: { tags: ["tagged-resource"] },
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.getResourceCollection("node--recipe", mockInit)
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
+
+  test("makes request with cache option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      cache: "no-store",
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.getResourceCollection("node--recipe", mockInit)
+
+    expect(fetchSpy).toBeCalledTimes(1)
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
   })
 })
 
@@ -886,6 +1163,67 @@ describe("getResourceCollectionPathSegments()", () => {
       (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
     ).toBe(mockAuth)
   })
+
+  test("makes request with Next revalidate option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      next: { revalidate: 60 },
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch({
+      responseBody: { data: [] },
+    })
+
+    await drupal.getResourceCollectionPathSegments("node--article", mockInit)
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
+
+  test("makes request with Next tags option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      next: { tags: ["tagged-resource"] },
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch({
+      responseBody: { data: [] },
+    })
+
+    await drupal.getResourceCollectionPathSegments("node--article", mockInit)
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
+
+  test("makes request with cache option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      cache: "no-store",
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch({
+      responseBody: { data: [] },
+    })
+
+    await drupal.getResourceCollectionPathSegments("node--article", mockInit)
+
+    expect(fetchSpy).toBeCalledTimes(1)
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
 })
 
 describe("getSearchIndex()", () => {
@@ -980,6 +1318,61 @@ describe("getSearchIndex()", () => {
       (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
     ).toBe("Bearer sample-token")
   })
+
+  test("makes request with Next revalidate option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      next: { revalidate: 60 },
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.getSearchIndex("recipes", mockInit)
+
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
+
+  test("makes request with Next tags option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      next: { tags: ["tagged-resource"] },
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.getSearchIndex("recipes", mockInit)
+
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
+
+  test("makes request with cache option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      cache: "no-store",
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.getSearchIndex("recipes", mockInit)
+
+    expect(fetchSpy).toBeCalledTimes(1)
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
 })
 
 describe("getView()", () => {
@@ -1067,6 +1460,61 @@ describe("getView()", () => {
 
     expect(view.links).toHaveProperty("next")
   })
+
+  test("makes request with Next revalidate option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      next: { revalidate: 60 },
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.getView("featured_articles--page_1", mockInit)
+
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
+
+  test("makes request with Next tags option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      next: { tags: ["tagged-resource"] },
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.getView("featured_articles--page_1", mockInit)
+
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
+
+  test("makes request with cache option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      cache: "no-store",
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.getView("featured_articles--page_1", mockInit)
+
+    expect(fetchSpy).toBeCalledTimes(1)
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
 })
 
 describe("translatePath()", () => {
@@ -1139,5 +1587,60 @@ describe("translatePath()", () => {
     expect(
       (fetchSpy.mock.lastCall[1].headers as Headers).get("Authorization")
     ).toBe("Bearer sample-token")
+  })
+
+  test("makes request with Next revalidate option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      next: { revalidate: 60 },
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.translatePath("recipes/deep-mediterranean-quiche", mockInit)
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
+
+  test("makes request with Next tags option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      next: { tags: ["tagged-resource"] },
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.translatePath("recipes/deep-mediterranean-quiche", mockInit)
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
+  })
+
+  test("makes request with cache option", async () => {
+    const drupal = new NextDrupal(BASE_URL)
+    const mockInit = {
+      cache: "no-store",
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.translatePath("recipes/deep-mediterranean-quiche", mockInit)
+
+    expect(fetchSpy).toBeCalledTimes(1)
+    expect(fetchSpy).toBeCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        ...mockInit,
+      })
+    )
   })
 })

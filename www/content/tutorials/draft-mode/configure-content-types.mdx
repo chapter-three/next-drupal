@@ -1,0 +1,37 @@
+---
+title: Configure Content Types
+excerpt: Configure preview for content types
+weight: 150
+group: Draft Mode
+---
+
+Next, we need to configure draft mode for the content types. This will display an inline draft in an iframe when you visit the content pages.
+
+---
+
+## Configure Draft
+
+To enable content draft inside Drupal, we need to configure a site resolver for the **Article** content type.
+
+<Callout>
+
+A _site resolver_ tells Drupal how to resolve the draft URL for an entity.
+
+</Callout>
+
+1. Visit `/admin/config/services/next/entity-types`
+2. Click **Configure entity type**
+3. Select **Article** from the the entity type list
+4. Click **Save**
+5. Edit the newly created entity type.
+6. On the Draft Mode tab, select **Site selector** as the **plugin**
+7. Select **your site** under **Next.js sites**
+8. Click **Save**
+
+<Img
+  src="/images/next-drupal-configure-entity-type.jpg"
+  width="600"
+  height="350"
+  layout="responsive"
+  mb="8"
+/>

@@ -15,12 +15,6 @@ You can provide your own cache implementation using the [`cache`](/docs/configur
 
 Here's an example on how you can use Redis to cache resources.
 
-<Callout>
-
-Note: as of `next-drupal 1.3.0`, only `getResource` and `getMenu` support caching.
-
-</Callout>
-
 ```ts title=lib/drupal.ts
 import { NextDrupal, DataCache } from "next-drupal"
 import Redis from "ioredis"

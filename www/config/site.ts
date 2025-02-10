@@ -28,7 +28,7 @@ export const site: SiteConfig = {
     },
     {
       title: "API",
-      href: "/api/modules.html",
+      href: "/api/modules",
     },
     {
       title: "Blog",

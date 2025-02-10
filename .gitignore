@@ -45,3 +45,6 @@ yarn-error.log*
 
 # Local Drupal instance
 local-next-drupal/
+
+# temporary starters folder
+temp-starters/

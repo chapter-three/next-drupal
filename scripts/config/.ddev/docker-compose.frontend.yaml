@@ -1,0 +1,28 @@
+services:
+  frontend:
+    container_name: frontend
+    image: node:22
+    volumes:
+      - ./../starters/basic-starter:/var/www/html/starters/basic-starter
+    working_dir: /var/www/html/starters/basic-starter
+    command:
+      - sh
+      - -c
+      - |
+        yarn install
+        yarn dev
+    ports:
+      - "3000:3000"
+    environment:
+      - VIRTUAL_HOST=frontend.${DDEV_HOSTNAME}
+      - HTTP_EXPOSE=${DDEV_ROUTER_HTTP_PORT}:3000
+    external_links:
+      - "ddev-router:${DDEV_HOSTNAME}"
+      - "ddev-router:frontend.${DDEV_HOSTNAME}" # Allow access VIRTUAL_HOST url inside frontend container.
+    labels:
+      # These labels ensure this service is discoverable by ddev
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: $DDEV_APPROOT
+  web:
+    links:
+      - frontend:$DDEV_HOSTNAME

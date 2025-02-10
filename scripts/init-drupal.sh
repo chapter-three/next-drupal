@@ -54,19 +54,24 @@ cd local-next-drupal
 export STARTER_NAME=$STARTER_NAME
 
 # Copy the starters folder.
-# cp -r ../starters .
+cp -r ../starters .
 
 # Add the ddev config.
 mkdir .ddev
 cp ../scripts/config/.ddev/config.yaml .ddev/config.yaml
-# cp ../scripts/config/.ddev/docker-compose.frontend.yaml .ddev/docker-compose.frontend.yaml
+cp ../scripts/config/.ddev/docker-compose.frontend.yaml .ddev/docker-compose.frontend.yaml
 ddev start
 
-if [ ! -f "composer.json" ]; then
-    ddev composer create drupal/recommended-project
-else
-    echo "Drupal project already exists in this directory."
-fi
+# Move starts to a temp folder outside working dir
+rm -rf ../temp-starts
+mkdir ../temp-starts
+mv starters ../temp-starts
+
+ddev composer create drupal/recommended-project
+
+# Move starters back.
+rm -rf starters
+mv ../temp-starts/starters .
 
 # Prevent composer scaffolding from overwriting development.services.yml
 ddev composer config --json extra.drupal-scaffold.file-mapping '{"[web-root]/sites/development.services.yml": false}'
@@ -114,4 +119,3 @@ ddev drush uli | xargs open
 
 # Exit drupal folder
 cd ..
-

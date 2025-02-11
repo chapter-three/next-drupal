@@ -59,19 +59,12 @@ cp -r ../starters .
 # Add the ddev config.
 mkdir .ddev
 cp ../scripts/config/.ddev/config.yaml .ddev/config.yaml
-cp ../scripts/config/.ddev/docker-compose.frontend.yaml .ddev/docker-compose.frontend.yaml
+cp -R ../scripts/config/.ddev/web-build .ddev
+# cp ../scripts/config/.ddev/docker-compose.frontend.yaml .ddev/docker-compose.frontend.yaml
+# Replace @STARTER_NAME with actual starter name
+sed -i '' -e "s/@STARTER_NAME/$STARTER_NAME/g" .ddev/config.yaml
+
 ddev start
-
-# Move starts to a temp folder outside working dir
-rm -rf ../temp-starts
-mkdir ../temp-starts
-mv starters ../temp-starts
-
-ddev composer create drupal/recommended-project
-
-# Move starters back.
-rm -rf starters
-mv ../temp-starts/starters .
 
 # Prevent composer scaffolding from overwriting development.services.yml
 ddev composer config --json extra.drupal-scaffold.file-mapping '{"[web-root]/sites/development.services.yml": false}'

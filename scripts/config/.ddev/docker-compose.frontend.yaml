@@ -3,14 +3,14 @@ services:
     container_name: frontend
     image: node:22
     volumes:
-      - ./../starters/basic-starter:/var/www/html/starters/basic-starter
-    working_dir: /var/www/html/starters/basic-starter
+      - ./../starters/${STARTER_NAME}:/var/www/html/starters/${STARTER_NAME}
+    working_dir: /var/www/html/starters/${STARTER_NAME}
     command:
       - sh
       - -c
       - |
-        yarn install
-        yarn dev
+        npm install
+        npm run dev
     ports:
       - "3000:3000"
     environment:

@@ -53,7 +53,7 @@ export const site: SiteConfig = {
     },
     {
       version: "v1.6.0",
-      url: "https://v1.next-drupal.org",
+      url: "https://v1-6.next-drupal.org",
     },
     {
       version: "canary",

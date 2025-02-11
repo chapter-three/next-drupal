@@ -17,7 +17,7 @@ composer create-project drupal/recommended-project umami
 "extra": {
     "patches": {
         "drupal/decoupled_router": {
-            "Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2024-10-22/decoupled_router-3111456-resolve-langcode-issue-78--external-redirects.patch"
+            "Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2024-08-05/decouple_router-3111456-resolve-language-issue-63--get-translation-re-rolled-and-good-redirect.patch"
         }
     },
 }
@@ -26,7 +26,7 @@ composer create-project drupal/recommended-project umami
 3. Add dependencies
 
 ```bash
-composer require drupal/next drupal/jsonapi_menu_items drupal/jsonapi_views drupal/jsonapi_resources
+composer require drupal/next drupal/jsonapi_menu_items drupal/jsonapi_views drupal/jsonapi_resources cweagans/composer-patches
 ```
 
 4. Install Drupal. Make sure you select **Demo: Umami Food Magazine (Experimental)** as the installation profile.
@@ -75,6 +75,8 @@ yarn dev
 
 5. Visit `http://localhost:3000` to see the Next.js site.
 
+<!--
+
 ---
 
 ## How to enable authentication
@@ -112,3 +114,5 @@ NEXT_IMAGE_DOMAIN=localhost
 3. **Save configuration**
 
 You can now visit `http://localhost:3000/articles/new` to create a new article.
+
+-->

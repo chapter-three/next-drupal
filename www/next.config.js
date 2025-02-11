@@ -107,6 +107,19 @@ module.exports = {
         destination: "/docs/api/:path*",
         permanent: true,
       },
+      {
+        source: "/api/:path*.html",
+        destination: "/api/:path*",
+        permanent: true,
+      },
+    ]
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/api/:slug*",
+        destination: "/api/:slug*.html", // Matched parameters can be used in the destination
+      },
     ]
   },
 }

@@ -54,18 +54,33 @@ openssl rsa -in private.key -pubout > public.key
 
 ---
 
-## 5. Create Consumer
+## 5. Create Scope
+
+1. Visit _/admin/config/people/simple_oauth/oauth2_scope/dynamic/add_
+2. Fill in the following values:
+
+- **Machine-readable Name**: `nextjs_site`
+- **Description**: `Next.js Site`
+- **Grant Types**: `Client Credentials`
+- **Granularity**: `Role`
+- **Role**: `Next.js Site`
+
+3. Click **Save**
+
+---
+
+## 6. Create Consumer
 
 1. Visit _/admin/config/services/consumer/add_
 2. Fill in the following values:
 
 - **Label**: `Next.js site`
-- **Client ID**: `nextjs_site`
-- **User**: `Select the user we created`
+- **Client ID**: `nextjs_site` (or generate a UUID if preferred)
 - **Secret**: `Your secret`
-- **Grant Types**: `Select 'Client Credentials'`
-- **Scopes**: `Select the role we created`
+- **Grant Types**: `Client Credentials`
+- **Scopes**: `nextjs_site`
+- **User**: `Select the user we created`
 
 3. Click **Save**
 
-_Important: note the client id and the secret. These are going to be used as environment variables for the Next.js site._
+_Important: note the client id (uuid) and the secret. These are going to be used as environment variables for the Next.js site._

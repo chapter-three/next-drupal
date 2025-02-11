@@ -3,12 +3,6 @@ title: Creating Resources (POST)
 excerpt: How to create JSON:API resources using NextDrupal client.
 ---
 
-<Callout icon="⚠️">
-
-The `createResource` and `createFileResource` helpers are available in `next-drupal ^1.4.0`.
-
-</Callout>
-
 <Callout>
 
 If you're working with JSON:API, be mindful to select the option:
@@ -71,7 +65,7 @@ const article = await drupal.createResource("node--article", {
 })
 ```
 
-See the API reference for [createResource](/docs/reference/createresource).
+See the API reference for [createResource](/api/classes/NextDrupal#createresource).
 
 ---
 
@@ -116,7 +110,7 @@ const media = await drupal.createResource<DrupalMedia>("media--image", {
 })
 ```
 
-See the API reference for [createFileResource](/docs/reference/createfileresource).
+See the API reference for [createFileResource](/api/classes/NextDrupal#createfileresource).
 
 ---
 

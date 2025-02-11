@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@2.0.0-rc.0...next-drupal@2.0.0) (2025-02-11)
+
+**Note:** Version bump only for package next-drupal
+
+
+
+
+
 # [2.0.0-rc.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@2.0.0-beta.1...next-drupal@2.0.0-rc.0) (2025-01-27)
 
 

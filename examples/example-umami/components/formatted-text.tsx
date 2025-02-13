@@ -1,5 +1,5 @@
 import { HTMLReactParserOptions, domToReact } from "html-react-parser"
-import { Element } from "domhandler/lib/node"
+import { Element } from "domhandler"
 import parse from "html-react-parser"
 import Image from "next/image"
 import Link from "next/link"
@@ -39,8 +39,8 @@ const options: HTMLReactParserOptions = {
 
         if (href && isRelative(href)) {
           return (
-            <Link href={href} passHref>
-              <a className={className}>{domToReact(domNode.children)}</a>
+            <Link href={href} passHref className={className}>
+              {domToReact(domNode.children)}
             </Link>
           )
         }

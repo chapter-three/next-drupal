@@ -27,6 +27,13 @@ class HtmlRendererTest extends KernelTestBase {
   protected static $modules = ['filter', 'next', 'node', 'system', 'user'];
 
   /**
+   * The next entity type config.
+   *
+   * @var \Drupal\next\Entity\NextEntityTypeConfigInterface
+   */
+  protected $entityTypeConfig;
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
@@ -62,8 +69,9 @@ class HtmlRendererTest extends KernelTestBase {
     $blog->save();
 
     // Create entity type config.
-    $entity_type_config = NextEntityTypeConfig::create([
+    $this->entityTypeConfig = NextEntityTypeConfig::create([
       'id' => 'node.page',
+      'preview_enabled' => TRUE,
       'site_resolver' => 'site_selector',
       'configuration' => [
         'sites' => [
@@ -71,7 +79,7 @@ class HtmlRendererTest extends KernelTestBase {
         ],
       ],
     ]);
-    $entity_type_config->save();
+    $this->entityTypeConfig->save();
 
     $this->setUpCurrentUser();
   }
@@ -98,6 +106,16 @@ class HtmlRendererTest extends KernelTestBase {
 
     $preview_url = 'https://blog.com/node/2';
     $fields = $this->xpath("//iframe[contains(@src, '$preview_url')]");
+    $this->assertEmpty($fields);
+
+    // Disable preview.
+    $this->entityTypeConfig->set('preview_enabled', FALSE);
+    $this->entityTypeConfig->save();
+    $request = Request::create($page->toUrl()->toString(), 'GET');
+    $response = $this->container->get('http_kernel')->handle($request);
+    $this->setRawContent($response->getContent());
+
+    $fields = $this->xpath("//iframe");
     $this->assertEmpty($fields);
   }
 

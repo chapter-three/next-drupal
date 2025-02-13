@@ -26,3 +26,18 @@ next.validate_preview_url:
   requirements:
     _access: 'TRUE'
     _format: 'json'
+
+entity.node.headless_preview:
+  path: '/node/{node}/site-preview'
+  defaults:
+    _title_callback: '\Drupal\next\Controller\SitePreviewController::nodePreviewTitle'
+    _controller: '\Drupal\next\Controller\SitePreviewController::nodePreview'
+  requirements:
+    _entity_access: node.view
+    _module_dependencies: content_moderation
+  options:
+    _node_operation_route: TRUE
+    _admin_route: TRUE
+    parameters:
+      node:
+        type: entity:node

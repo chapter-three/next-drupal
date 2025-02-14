@@ -111,4 +111,7 @@ ddev drush cr
 ddev drush uli | xargs open
 
 # Exit drupal folder
+ddev describe
+
 cd ..
+

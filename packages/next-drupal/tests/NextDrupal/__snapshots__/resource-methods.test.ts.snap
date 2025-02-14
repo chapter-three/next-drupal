@@ -493,7 +493,7 @@ exports[`getMenu() fetches menu items for a menu 1`] = `
       "enabled": true,
       "expanded": false,
       "id": "standard.front_page",
-      "items": undefined,
+      "items": null,
       "menu_name": "main",
       "meta": [],
       "options": [],
@@ -513,7 +513,7 @@ exports[`getMenu() fetches menu items for a menu 1`] = `
       "enabled": true,
       "expanded": false,
       "id": "views_view:views.featured_articles.page_1",
-      "items": undefined,
+      "items": null,
       "menu_name": "main",
       "meta": {
         "display_id": "page_1",
@@ -536,7 +536,7 @@ exports[`getMenu() fetches menu items for a menu 1`] = `
       "enabled": true,
       "expanded": false,
       "id": "views_view:views.recipes.page_1",
-      "items": undefined,
+      "items": null,
       "menu_name": "main",
       "meta": {
         "display_id": "page_1",
@@ -631,7 +631,7 @@ exports[`getMenu() fetches menu items for a menu with locale 1`] = `
       "enabled": true,
       "expanded": false,
       "id": "standard.front_page",
-      "items": undefined,
+      "items": null,
       "menu_name": "main",
       "meta": [],
       "options": [],
@@ -651,7 +651,7 @@ exports[`getMenu() fetches menu items for a menu with locale 1`] = `
       "enabled": true,
       "expanded": false,
       "id": "views_view:views.featured_articles.page_1",
-      "items": undefined,
+      "items": null,
       "menu_name": "main",
       "meta": {
         "display_id": "page_1",
@@ -674,7 +674,7 @@ exports[`getMenu() fetches menu items for a menu with locale 1`] = `
       "enabled": true,
       "expanded": false,
       "id": "views_view:views.recipes.page_1",
-      "items": undefined,
+      "items": null,
       "menu_name": "main",
       "meta": {
         "display_id": "page_1",

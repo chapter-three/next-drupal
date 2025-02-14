@@ -41,7 +41,7 @@ export class DrupalMenuTree<
 
       this.push({
         ...menuItem,
-        items: subtree.length ? subtree : undefined,
+        items: subtree.length ? subtree : null,
       })
     }
   }

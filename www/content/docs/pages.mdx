@@ -138,7 +138,7 @@ export default function Page({ params }) {
     params.addFields("node--article", ["title", "path", "body", "uid"])
   }
 
-  const node = await drupal.getResource(path, path.entity.uuid {
+  const node = await drupal.getResource(type, path.entity.uuid {
     params: params.getQueryObject(),
   })
 
@@ -190,7 +190,7 @@ export default function Page({ params }) {
     params.addFields("node--article", ["title", "path", "body", "uid"])
   }
 
-  const node = await drupal.getResource(path, path.entity.uuid {
+  const node = await drupal.getResource(type, path.entity.uuid {
     params: params.getQueryObject(),
     tags: [tag]
   })

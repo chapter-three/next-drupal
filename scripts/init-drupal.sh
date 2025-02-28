@@ -75,11 +75,13 @@ ddev composer config allow-plugins.tbachert/spi true -n
 # Add repositories
 ddev composer config repositories.unpack vcs https://gitlab.ewdev.ca/yonas.legesse/drupal-recipe-unpack.git
 ddev composer config repositories.recipe path web/recipes/next_drupal_base
+ddev composer config repositories.recipe path web/recipes/next_drupal_graphql
 ddev composer config repositories.next path modules/next
 
 # Add configuration scripts to run after install
 mkdir drupal/scripts
 cp ../scripts/config/consumers.php drupal/scripts/consumers.php
+cp ../scripts/config/graphQLConsumer.php drupal/scripts/graphQLConsumer.php
 
 # Use the local repo version of the next module
 # ideally this would be a symlink.
@@ -89,17 +91,34 @@ cp -a ../modules/. drupal/modules
 cp -a ../recipes/. drupal/web/recipes
 
 # Add useful composer dependencies
-ddev composer require drush/drush drupal/next_drupal_base drupal/devel drupal/core-dev ewcomposer/unpack:dev-master
+# if staters is basic or pages
+if [[ "$STARTER_NAME" == "basic-starter" || "$STARTER_NAME" == "pages-starter" ]]; then
+    ddev composer require drush/drush drupal/next_drupal_base drupal/devel drupal/core-dev ewcomposer/unpack:dev-master
+else
+    ddev composer require drush/drush drupal/next_drupal_graphql drupal/devel drupal/core-dev ewcomposer/unpack:dev-master
+fi
 
 # Install Drupal
 ddev drush site:install --account-name=admin --account-pass=admin -y
 
-# Apply recipe
-ddev exec -d /var/www/html/drupal/web php core/scripts/drupal recipe recipes/next_drupal_base
-ddev composer unpack drupal/next_drupal_base
+# if staters is basic or pages
+if [[ "$STARTER_NAME" == "basic-starter" || "$STARTER_NAME" == "pages-starter" ]]; then
+    # Apply recipe
+    ddev exec -d /var/www/html/drupal/web php core/scripts/drupal recipe recipes/next_drupal_base
+    ddev composer unpack drupal/next_drupal_base
+else
+    # Apply recipe
+    ddev exec -d /var/www/html/drupal/web php core/scripts/drupal recipe recipes/next_drupal_graphql
+    ddev composer unpack drupal/next_drupal_graphql
+fi
 
 # Create example consumer
-ddev drush php:script drupal/scripts/consumers
+if [[ "$STARTER_NAME" == "basic-starter" || "$STARTER_NAME" == "pages-starter" ]]; then
+    ddev drush php:script drupal/scripts/consumers
+else
+    ddev drush php:script drupal/scripts/graphQLConsumer
+fi
+
 
 # Generate content
 ddev drush pm:enable devel_generate -y

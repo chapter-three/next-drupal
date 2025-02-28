@@ -33,6 +33,7 @@
     "ddev:init": "./scripts/init-drupal.sh",
     "ddev:init:basic": "./scripts/init-drupal.sh --starter basic-starter",
     "ddev:init:pages": "./scripts/init-drupal.sh --starter pages-starter",
+    "ddev:init:graphql": "./scripts/init-drupal.sh --starter graphql-starter",
     "ddev:destroy": "./scripts/destroy-drupal.sh"
   },
   "devDependencies": {

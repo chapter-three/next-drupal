@@ -1,0 +1,11 @@
+name: "Next Drupal GraphQL"
+description: "Common dependencies and configuration for Next Drupal GraphQL projects"
+type: "Site"
+
+install:
+  - next
+  - next_graphql
+  - graphql
+  - graphql_compose_edges
+  - graphql_compose_routes
+  - graphql_compose_users

@@ -108,7 +108,7 @@ class HtmlRendererTest extends KernelTestBase {
     $fields = $this->xpath("//iframe[contains(@src, '$preview_url')]");
     $this->assertEmpty($fields);
 
-    // Disable preview.
+    // Disable draft.
     $this->entityTypeConfig->set('draft_enabled', FALSE);
     $this->entityTypeConfig->save();
     $request = Request::create($page->toUrl()->toString(), 'GET');

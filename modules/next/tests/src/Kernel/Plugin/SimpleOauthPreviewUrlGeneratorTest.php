@@ -67,7 +67,7 @@ class SimpleOauthPreviewUrlGeneratorTest extends KernelTestBase {
     // Create entity type config.
     $entity_type_config = NextEntityTypeConfig::create([
       'id' => 'node.page',
-      'preview_enabled' => TRUE,
+      'draft_enabled' => TRUE,
       'site_resolver' => 'site_selector',
       'configuration' => [
         'sites' => [

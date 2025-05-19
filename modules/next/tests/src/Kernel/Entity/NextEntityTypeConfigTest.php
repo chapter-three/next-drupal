@@ -59,7 +59,7 @@ class NextEntityTypeConfigTest extends KernelTestBase {
     /** @var \Drupal\next\Entity\NextEntityTypeConfigInterface $entity_type_config */
     $entity_type_config = NextEntityTypeConfig::create([
       'id' => 'node.page',
-      'preview_enabled' => FALSE,
+      'draft_enabled' => FALSE,
       'site_resolver' => 'site_selector',
       'configuration' => [
         'sites' => [
@@ -124,7 +124,7 @@ class NextEntityTypeConfigTest extends KernelTestBase {
     /** @var \Drupal\next\Entity\NextEntityTypeConfigInterface $entity_type_config */
     $entity_type_config = NextEntityTypeConfig::create([
       'id' => 'node.page',
-      'preview_enabled' => FALSE,
+      'draft_enabled' => FALSE,
       'site_resolver' => 'site_selector',
       'configuration' => [
         'sites' => [
@@ -142,11 +142,11 @@ class NextEntityTypeConfigTest extends KernelTestBase {
   }
 
   /**
-   * Tests the preview enabled property.
+   * Tests the draft enabled property.
    *
-   * @covers ::isPreviewEnabled
+   * @covers ::isDraftEnabled
    */
-  public function testPreviewEnabled() {
+  public function testDraftEnabled() {
     $blog_site = NextSite::create(['id' => 'blog']);
     $blog_site->save();
 
@@ -154,7 +154,7 @@ class NextEntityTypeConfigTest extends KernelTestBase {
     /** @var \Drupal\next\Entity\NextEntityTypeConfigInterface $entity_type_config */
     $entity_type_config = NextEntityTypeConfig::create([
       'id' => 'node.page',
-      'preview_enabled' => TRUE,
+      'draft_enabled' => TRUE,
       'site_resolver' => 'site_selector',
       'configuration' => [
         'sites' => [
@@ -163,10 +163,10 @@ class NextEntityTypeConfigTest extends KernelTestBase {
       ],
     ]);
     $entity_type_config->save();
-    $this->assertTrue($entity_type_config->isPreviewEnabled());
+    $this->assertTrue($entity_type_config->isDraftEnabled());
 
-    $entity_type_config->set('preview_enabled', FALSE)->save();
-    $this->assertFalse($entity_type_config->isPreviewEnabled());
+    $entity_type_config->set('draft_enabled', FALSE)->save();
+    $this->assertFalse($entity_type_config->isDraftEnabled());
   }
 
 }

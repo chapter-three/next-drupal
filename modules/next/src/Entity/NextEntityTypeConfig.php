@@ -44,7 +44,7 @@ use Drupal\next\SiteResolverPluginCollection;
  *     "id",
  *     "site_resolver",
  *     "configuration",
- *     "preview_enabled",
+ *     "draft_enabled",
  *     "revalidator",
  *     "revalidator_configuration"
  *   },
@@ -80,11 +80,11 @@ class NextEntityTypeConfig extends ConfigEntityBase implements NextEntityTypeCon
   protected $configuration = [];
 
   /**
-   * Whether the preview mode is enabled.
+   * Whether the draft mode is enabled.
    *
    * @var bool
    */
-  protected $preview_enabled = FALSE;
+  protected $draft_enabled = FALSE;
 
   /**
    * The revalidator.
@@ -140,8 +140,8 @@ class NextEntityTypeConfig extends ConfigEntityBase implements NextEntityTypeCon
   /**
    * {@inheritdoc}
    */
-  public function isPreviewEnabled(): bool {
-    return $this->preview_enabled;
+  public function isDraftEnabled(): bool {
+    return $this->draft_enabled;
   }
 
   /**

@@ -71,7 +71,7 @@ class HtmlRendererTest extends KernelTestBase {
     // Create entity type config.
     $this->entityTypeConfig = NextEntityTypeConfig::create([
       'id' => 'node.page',
-      'preview_enabled' => TRUE,
+      'draft_enabled' => TRUE,
       'site_resolver' => 'site_selector',
       'configuration' => [
         'sites' => [
@@ -109,7 +109,7 @@ class HtmlRendererTest extends KernelTestBase {
     $this->assertEmpty($fields);
 
     // Disable preview.
-    $this->entityTypeConfig->set('preview_enabled', FALSE);
+    $this->entityTypeConfig->set('draft_enabled', FALSE);
     $this->entityTypeConfig->save();
     $request = Request::create($page->toUrl()->toString(), 'GET');
     $response = $this->container->get('http_kernel')->handle($request);

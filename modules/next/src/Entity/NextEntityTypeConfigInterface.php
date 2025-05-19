@@ -32,12 +32,12 @@ interface NextEntityTypeConfigInterface extends ConfigEntityInterface, EntityWit
   public function setSiteResolver(string $plugin_id): self;
 
   /**
-   * Checks if the preview mode is enabled.
+   * Checks if the draft mode is enabled.
    *
    * @return bool
-   *   Return true/false if preview mode is enabled.
+   *   Return true/false if draft mode is enabled.
    */
-  public function isPreviewEnabled(): bool;
+  public function isDraftEnabled(): bool;
 
   /**
    * Returns the revalidator plugin.

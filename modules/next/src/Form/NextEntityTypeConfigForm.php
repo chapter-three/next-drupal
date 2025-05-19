@@ -156,13 +156,13 @@ class NextEntityTypeConfigForm extends EntityForm {
         '#group' => 'settings',
       ];
 
-      $form['draft_mode']['preview_enabled'] = [
+      $form['draft_mode']['draft_enabled'] = [
         '#title' => $this->t('Enabled'),
         '#description' => $this->t('Enable draft mode.'),
         '#type' => 'checkbox',
-        '#default_value' => $entity->isPreviewEnabled(),
-        '#limit_validation_errors' => [['preview_enabled']],
-        '#submit' => ['::submitPreviewEnabled'],
+        '#default_value' => $entity->isDraftEnabled(),
+        '#limit_validation_errors' => [['draft_enabled']],
+        '#submit' => ['::submitDraftEnabled'],
         '#executes_submit_callback' => TRUE,
         '#ajax' => [
           'callback' => '::ajaxReplaceSettingsForm',
@@ -221,9 +221,9 @@ class NextEntityTypeConfigForm extends EntityForm {
   }
 
   /**
-   * Handles submit call when preview mode is selected.
+   * Handles submit call when draft mode is selected.
    */
-  public function submitPreviewEnabled(array $form, FormStateInterface $form_state) {
+  public function submitDraftEnabled(array $form, FormStateInterface $form_state) {
     $this->entity = $this->buildEntity($form, $form_state);
     $form_state->setRebuild();
   }

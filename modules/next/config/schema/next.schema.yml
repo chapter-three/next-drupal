@@ -36,9 +36,9 @@ next.next_entity_type_config.*:
       label: 'Site resolver'
     configuration:
       type: next.site_resolver.configuration.[%parent.site_resolver]
-    preview_enabled:
+    draft_enabled:
       type: boolean
-      label: 'Preview mode enabled'
+      label: 'Draft mode enabled'
     revalidator:
       type: string
       label: 'Revalidator'

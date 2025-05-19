@@ -247,7 +247,7 @@ class NextEntityTypeConfigForm extends EntityForm {
    * Handles switching the site resolver selector.
    */
   public function ajaxReplaceSiteResolverSettingsForm($form, FormStateInterface $form_state) {
-    return $form['draft_mode']['site_resolver_settings_container'];
+    return $form['site_resolver_settings_container'];
   }
 
   /**

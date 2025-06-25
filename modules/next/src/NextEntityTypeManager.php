@@ -66,14 +66,22 @@ class NextEntityTypeManager implements NextEntityTypeManagerInterface {
     $entity_types_ids = $this->getConfigEntityTypeIds();
 
     // @todo Handle all revisionable entity types.
-    $revision_routes = ['entity.node.revision', 'entity.node.latest_version'];
+    $revision_routes = [
+      'entity.node.canonical',
+      'entity.node.revision',
+      'entity.node.latest_version',
+    ];
+
     if (in_array($route_match->getRouteName(), $revision_routes) && in_array('node', $entity_types_ids)) {
       $node_revision = $route_match->getParameter('node_revision');
       if ($node_revision instanceof NodeInterface) {
         return $node_revision;
       }
 
-      if ($route_match->getRouteName() === 'entity.node.latest_version') {
+      if (
+        $route_match->getRouteName() === 'entity.node.latest_version' ||
+        $route_match->getRouteName() === 'entity.node.canonical'
+      ) {
         $node_revision = $route_match->getParameter('node')->getRevisionId();
       }
 

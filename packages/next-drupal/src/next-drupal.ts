@@ -1108,8 +1108,7 @@ export class NextDrupal extends NextDrupalBase {
     const endpoint = await this.buildEndpoint({
       locale:
         options?.locale !== options?.defaultLocale ? options.locale : undefined,
-      resourceType: "menu_items",
-      path: menuName,
+      path: `/menu_items/${menuName}`,
       searchParams: options.params,
     })
 

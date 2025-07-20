@@ -49,6 +49,8 @@ use Drupal\Core\Url;
  *     "preview_secret",
  *     "revalidate_url",
  *     "revalidate_secret",
+ *     "site_previewer",
+ *     "site_previewer_configuration",
  *   },
  *   links = {
  *     "add-form" = "/admin/config/services/next/sites/add",
@@ -96,6 +98,20 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
    * @var string
    */
   protected $revalidate_secret;
+
+  /**
+   * The site previewer plugin ID.
+   *
+   * @var string
+   */
+  protected $site_previewer;
+
+  /**
+   * The site previewer configuration.
+   *
+   * @var array
+   */
+  protected $site_previewer_configuration;
 
   /**
    * {@inheritdoc}
@@ -169,6 +185,36 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
    */
   public function setRevalidateSecret(string $revalidate_secret): NextSiteInterface {
     $this->set('revalidate_secret', $revalidate_secret);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSitePreviewer(): ?string {
+    return $this->site_previewer;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setSitePreviewer(string $site_previewer): NextSiteInterface {
+    $this->set('site_previewer', $site_previewer);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSitePreviewerConfiguration(): array {
+    return $this->site_previewer_configuration ?: [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setSitePreviewerConfiguration(array $site_previewer_configuration): NextSiteInterface {
+    $this->set('site_previewer_configuration', $site_previewer_configuration);
     return $this;
   }
 

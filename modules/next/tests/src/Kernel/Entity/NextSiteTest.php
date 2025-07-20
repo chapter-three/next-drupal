@@ -81,6 +81,8 @@ class NextSiteTest extends KernelTestBase {
    * @covers ::getPreviewSecret
    * @covers ::getRevalidateUrl
    * @covers ::getRevalidateSecret
+   * @covers ::getSitePreviewer
+   * @covers ::getSitePreviewerConfiguration
    */
   public function test() {
     $marketing = NextSite::create([
@@ -91,6 +93,10 @@ class NextSiteTest extends KernelTestBase {
       'preview_secret' => 'two',
       'revalidate_url' => 'https://marketing.com/api/revalidate',
       'revalidate_secret' => 'three',
+      'site_previewer' => 'redirect',
+      'site_previewer_configuration' => [
+        'custom_setting' => 'value',
+      ],
     ]);
     $marketing->save();
 
@@ -99,6 +105,8 @@ class NextSiteTest extends KernelTestBase {
     $this->assertSame('two', $marketing->getPreviewSecret());
     $this->assertSame('https://marketing.com/api/revalidate', $marketing->getRevalidateUrl());
     $this->assertSame('three', $marketing->getRevalidateSecret());
+    $this->assertSame('redirect', $marketing->getSitePreviewer());
+    $this->assertSame(['custom_setting' => 'value'], $marketing->getSitePreviewerConfiguration());
 
     $marketing->setBaseUrl('http://blog.com');
     $this->assertSame('http://blog.com', $marketing->getBaseUrl());
@@ -114,6 +122,29 @@ class NextSiteTest extends KernelTestBase {
 
     $marketing->setRevalidateSecret('xxxxxx');
     $this->assertSame('xxxxxx', $marketing->getRevalidateSecret());
+
+    $marketing->setSitePreviewer('iframe');
+    $this->assertSame('iframe', $marketing->getSitePreviewer());
+
+    $marketing->setSitePreviewerConfiguration(['width' => '100%']);
+    $this->assertSame(['width' => '100%'], $marketing->getSitePreviewerConfiguration());
+  }
+
+  /**
+   * @covers ::getSitePreviewer
+   * @covers ::getSitePreviewerConfiguration
+   */
+  public function testSitePreviewerDefaults() {
+    $site = NextSite::create([
+      'label' => 'Test',
+      'id' => 'test',
+      'base_url' => 'https://test.com',
+    ]);
+    $site->save();
+
+    // Should return null/empty for unset values.
+    $this->assertNull($site->getSitePreviewer());
+    $this->assertSame([], $site->getSitePreviewerConfiguration());
   }
 
   /**

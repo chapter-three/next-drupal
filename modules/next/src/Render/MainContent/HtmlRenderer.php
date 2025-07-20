@@ -122,10 +122,18 @@ class HtmlRenderer extends CoreHtmlRenderer {
       return $build;
     }
 
+    // For simplicity, use the first site to determine the site previewer.
+    // In practice, you might want to handle multiple sites differently.
+    $site = reset($sites);
+    
     $config = $this->configFactory->get('next.settings');
-    $site_previewer_id = $config->get('site_previewer');
+    
+    // Use site-level configuration if available, otherwise fall back to global.
+    $site_previewer_id = $site->getSitePreviewer() ?: $config->get('site_previewer');
+    $site_previewer_configuration = $site->getSitePreviewerConfiguration() ?: ($config->get('site_previewer_configuration') ?? []);
+    
     /** @var \Drupal\next\Plugin\SitePreviewerInterface $site_previewer */
-    $site_previewer = $this->sitePreviewerManager->createInstance($site_previewer_id, $config->get('site_previewer_configuration') ?? []);
+    $site_previewer = $this->sitePreviewerManager->createInstance($site_previewer_id, $site_previewer_configuration);
     if (!$site_previewer) {
       throw new PluginNotFoundException('Invalid site previewer.');
     }

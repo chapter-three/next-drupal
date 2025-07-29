@@ -132,7 +132,7 @@ class Jwt extends ConfigurablePreviewUrlGeneratorBase {
   /**
    * {@inheritdoc}
    */
-  public function generate(NextSiteInterface $next_site, EntityInterface $entity, string $resource_version = NULL): ?Url {
+  public function generate(NextSiteInterface $next_site, EntityInterface $entity, ?string $resource_version = NULL): ?Url {
     $query = [];
     $query['path'] = $path = $entity->toUrl()->toString();
     $query['uuid'] = $this->user->uuid();

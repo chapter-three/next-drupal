@@ -107,6 +107,12 @@ class HtmlRenderer extends CoreHtmlRenderer {
       return $build;
     }
 
+    // Do not override entity forms.
+    $defaults = $route_match->getRouteObject()->getDefaults();
+    if (isset($defaults['_entity_form'])) {
+      return $build;
+    }
+
     $next_entity_type_config = $this->nextEntityTypeManager->getConfigForEntityType($entity->getEntityTypeId(), $entity->bundle());
     if (!$next_entity_type_config) {
       return $build;

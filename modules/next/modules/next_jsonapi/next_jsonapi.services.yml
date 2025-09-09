@@ -16,4 +16,5 @@ services:
       - '@jsonapi.serializer'
       - '@datetime.time'
       - '@current_user'
+      - '@event_dispatcher'
       - '%next_jsonapi.size_max%'

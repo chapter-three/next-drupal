@@ -1,7 +1,6 @@
 name: Next.js tests
 description: Configures testing for Next.js
 type: module
-package: testing
-core_version_requirement: ^8.8 || ^9
+package: Testing
 dependencies:
   - next:next

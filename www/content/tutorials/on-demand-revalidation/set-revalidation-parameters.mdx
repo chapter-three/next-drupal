@@ -1,0 +1,89 @@
+---
+title: Set Revalidation Parameters
+excerpt: Set Revalidation Parameters When Fetching Data in Next.js
+weight: 370
+group: On-demand Revalidation
+---
+
+When fetching data using the Next Drupal Client, you will also need to set the necessary revalidation parameters. This tells Next.js that the content should be cached, and what metadata can be used to invalidate that cache.
+
+<Callout>
+
+If you're using the Basic Starter, most of this configuration is already created for you. You will only need to replace `revalidate` with `tags` in the options object when using Next Drupal Client methods like `getResource` if you'd prefer to use tag-based revalidation.
+
+</Callout>
+
+Consider the `getNode` function in the `[...slug]` dynamic route in the basic starter:
+
+```ts title=app/[..slug]/page.tsx
+async function getNode(slug: string[]) {
+  const path = `/${slug.join("/")}`
+
+  const params: JsonApiParams = {}
+
+  // Translating the path also allows us to discover the entity type.
+  const translatedPath = await drupal.translatePath(path)
+
+  if (!translatedPath) {
+    throw new Error("Resource not found", { cause: "NotFound" })
+  }
+
+  const type = translatedPath.jsonapi?.resourceName!
+  const uuid = translatedPath.entity.uuid
+  const tag = `${translatedPath.entity.type}:${translatedPath.entity.id}`
+
+  if (type === "node--article") {
+    params.include = "field_image,uid"
+  }
+
+  const resource = await drupal.getResource<DrupalNode>(type, uuid, {
+    params,
+    cache: "force-cache",
+    next: {
+      revalidate: 3600,
+      // Replace `revalidate` with `tags` if using tag based revalidation.
+      // tags: [tag],
+    },
+  })
+
+  return resource
+}
+```
+
+## Path-based Revalidation
+
+The call to `getResource` in the above example is already configured to use path-based invalidation. The data will be cached for 3600 seconds unless revalidated on-demand.
+
+```tsx
+const resource = await drupal.getResource<DrupalNode>(type, uuid, {
+  params,
+  cache: "force-cache",
+  next: {
+    revalidate: 3600,
+  },
+})
+```
+
+## Tag-based Revalidation
+
+To instead use tag-based invalidation, we can replace the `revalidate` option with the `tags` option:
+
+```tsx
+const resource = await drupal.getResource<DrupalNode>(type, uuid, {
+  params,
+  cache: "force-cache",
+  next: {
+    tags: [tag],
+  },
+})
+```
+
+In this example, the tag is set earlier in the function using data from the translated path:
+
+```tsx
+const type = translatedPath.jsonapi?.resourceName!
+const uuid = translatedPath.entity.uuid
+const tag = `${translatedPath.entity.type}:${translatedPath.entity.id}`
+```
+
+This option accepts an array of tags, and values should match the cache tag values set by Drupal. With this configuration, the data will be cached until Drupal makes a call to the revalidate route using any of the matching cache tags.

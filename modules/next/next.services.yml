@@ -21,6 +21,7 @@ services:
         '@config.factory',
         '@plugin.manager.next.site_previewer',
         '@plugin.manager.next.preview_url_generator',
+        '@logger.channel.next',
       ]
   next.preview_secret_generator:
     class: Drupal\next\PreviewSecretGenerator

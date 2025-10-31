@@ -84,9 +84,10 @@ class Path extends ConfigurableRevalidatorBase implements RevalidatorInterface {
     }
 
     foreach ($paths as $path) {
+      /** @var \Drupal\next\Entity\NextSite $site */
       foreach ($sites as $site) {
         try {
-          $revalidate_url = $site->getRevalidateUrlForPath($path);
+          $revalidate_url = $site->buildRevalidateUrl(['path' => $path]);
 
           if (!$revalidate_url) {
             throw new \Exception('No revalidate url set.');
@@ -116,7 +117,7 @@ class Path extends ConfigurableRevalidatorBase implements RevalidatorInterface {
           }
         }
         catch (\Exception $exception) {
-          watchdog_exception('next', $exception);
+          $this->logger->error($exception->getMessage());
           $revalidated = FALSE;
         }
       }

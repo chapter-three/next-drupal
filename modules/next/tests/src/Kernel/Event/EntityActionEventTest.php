@@ -2,8 +2,6 @@
 
 namespace Drupal\Tests\next\Kernel\Event;
 
-use Drupal\Core\Database\Database;
-use Drupal\dblog\Controller\DbLogController;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\node\Entity\NodeType;
@@ -45,7 +43,6 @@ class EntityActionEventTest extends KernelTestBase {
     $this->installEntitySchema('user');
     $this->installConfig(['filter', 'next', 'system', 'user', 'language']);
     $this->installSchema('dblog', ['watchdog']);
-    $this->installSchema('system', ['sequences']);
     $this->installSchema('node', ['node_access']);
     $this->installSchema('user', ['users_data']);
 
@@ -70,7 +67,7 @@ class EntityActionEventTest extends KernelTestBase {
     // Insert.
     $page->save();
     $this->container->get('kernel')->terminate(Request::create('/'), new Response());
-    $this->assertLogsContains("Event next.entity.action dispatched for entity A page and action insert.");
+    $this->assertLogMessage("insert");
 
     // Update.
     $page->set('title', 'A page updated')->save();
@@ -87,28 +84,31 @@ class EntityActionEventTest extends KernelTestBase {
     $page->delete();
     $this->container->get('kernel')->terminate(Request::create('/'), new Response());
     $this->assertLogsContains("Event next.entity.action dispatched for entity A page updated and action delete.");
+    $this->assertLogMessage("update");
   }
 
   /**
-   * Helper to assert logs.
+   * Helper to assert log.
    *
-   * @param string $message
-   *   The message to assert in the logs.
+   * @param string $action
+   *   The action to perform.
    */
-  protected function assertLogsContains(string $message) {
-    $logs = Database::getConnection()
-      ->select('watchdog', 'wd')
-      ->fields('wd', ['message', 'variables'])
+  protected function assertLogMessage(string $action) {
+    $message = "Event @event dispatched for entity @label and action @action.";
+    $variables = [
+      '@event' => 'next.entity.action',
+      '@label' => 'A page',
+      '@action' => $action,
+    ];
+
+    $this->assertNotEmpty($this->container->get('database')->select('watchdog', 'w')
       ->condition('type', 'system')
+      ->condition('message', $message)
+      ->condition('variables', serialize($variables))
+      ->countQuery()
       ->execute()
-      ->fetchAll();
-
-    $controller = DbLogController::create($this->container);
-    $messages = array_map(function ($log) use ($controller) {
-      return (string) $controller->formatMessage($log);
-    }, $logs);
-
-    $this->assertContains($message, $messages);
+      ->fetchField()
+    );
   }
 
 }

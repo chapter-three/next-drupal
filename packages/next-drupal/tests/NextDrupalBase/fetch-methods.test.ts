@@ -179,6 +179,48 @@ describe("fetch()", () => {
       authHeader
     )
   })
+
+  test("optionally adds Next revalidate options", async () => {
+    const drupal = new NextDrupalBase(BASE_URL)
+    const mockUrl = "/mock-url"
+    const mockInit = {
+      next: { revalidate: 60 },
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.fetch(mockUrl, mockInit)
+
+    expect(fetchSpy).toBeCalledTimes(1)
+    expect(fetchSpy).toBeCalledWith(
+      `${BASE_URL}${mockUrl}`,
+      expect.objectContaining({
+        ...defaultInit,
+        ...mockInit,
+      })
+    )
+  })
+
+  test("optionally adds cache option", async () => {
+    const drupal = new NextDrupalBase(BASE_URL)
+    const mockUrl = "/mock-url"
+    const mockInit = {
+      cache: "no-store",
+    } as FetchOptions
+
+    const fetchSpy = spyOnFetch()
+
+    await drupal.fetch(mockUrl, mockInit)
+
+    expect(fetchSpy).toBeCalledTimes(1)
+    expect(fetchSpy).toBeCalledWith(
+      `${BASE_URL}${mockUrl}`,
+      expect.objectContaining({
+        ...defaultInit,
+        ...mockInit,
+      })
+    )
+  })
 })
 
 describe("getAccessToken()", () => {

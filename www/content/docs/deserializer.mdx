@@ -1,0 +1,55 @@
+---
+title: Deserializer
+excerpt: Using a custom deserializer with NextDrupal.
+---
+
+The `NextDrupal` uses [jsona](https://github.com/olosegres/jsona) as the default deserializer for serializing and deserializing JSON:API data.
+
+You can provide your own using the [`deserializer`](/docs/client/configuration#deserializer) option.
+
+---
+
+## Example
+
+Here's how you can replace the default deserializer with [jsonapi-serializer](https://github.com/SeyZ/jsonapi-serializer).
+
+```ts title=lib/drupal.ts
+import { NextDrupal } from "next-drupal"
+import { Deserializer } from "jsonapi-serializer"
+
+// Create a custom deserializer.
+const jsonDeserializer = new Deserializer({
+  keyForAttribute: "camelCase",
+})
+
+const customDeserializer = jsonDeserializer.deserialize.bind(jsonDeserializer)
+
+// Pass the custom deserializer to the client.
+export const drupal = new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  deserializer: customDeserializer,
+})
+```
+
+### Pages Router
+
+This option is called `serializer` in the `NextDrupalPages` client. Aside from that, the usage is the same.
+
+```ts title=lib/drupal.ts
+import { NextDrupal } from "next-drupal"
+import { Deserializer } from "jsonapi-serializer"
+
+// Create a custom deserializer.
+const jsonDeserializer = new Deserializer({
+  keyForAttribute: "camelCase",
+})
+
+const customDeserializer = jsonDeserializer.deserialize.bind(jsonDeserializer)
+
+// Pass the custom deserializer to the client.
+export const drupal = new NextDrupalPages(
+  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL,
+  {
+    serializer: customDeserializer,
+  }
+)
+```

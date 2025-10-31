@@ -28,7 +28,7 @@ DRUPAL_FRONT_PAGE=
 
 ## Required
 
-These environment variables are required for initializing a new `DrupalClient`.
+These environment variables are required for initializing a new `NextDrupal` client.
 
 | Name                          | Description                                                                                                                |
 | ----------------------------- | :------------------------------------------------------------------------------------------------------------------------- |
@@ -36,7 +36,7 @@ These environment variables are required for initializing a new `DrupalClient`.
 | `NEXT_IMAGE_DOMAIN`           | The domain name for [next/image](https://nextjs.org/docs/basic-features/image-optimization#domains). Example: `drupal.org` |
 
 ```ts
-const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL)
+const drupal = new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL)
 ```
 
 ---
@@ -49,15 +49,18 @@ Environment variables required for on-demand revalidation.
 | -------------------------- | :------------------------------------------------------------------------------------------------ |
 | `DRUPAL_REVALIDATE_SECRET` | The secret for [on-demand revalidation](/docs/on-demand-revalidation). Example: `U2Y5bbkKJ08Ua8F` |
 
-```ts title=pages/api/revalidate.ts
-export default async function handler(request, response) {
-  const secret = request.query.secret as string
+```ts title=app/api/revalidate/route.ts
+async function handler(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams
+  const secret = searchParams.get("secret")
 
   // Validate secret.
   if (secret !== process.env.DRUPAL_REVALIDATE_SECRET) {
-    return response.status(401).json({ message: "Invalid secret." })
+    return new Response("Invalid secret.", { status: 401 })
   }
 }
+
+export { handler as GET, handler as POST }
 ```
 
 ---
@@ -70,7 +73,7 @@ export default async function handler(request, response) {
 | `DRUPAL_CLIENT_SECRET` | The OAuth client secret. Example: `3#9h$2DU#8qKb6&`                  |
 
 ```ts
-const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+const drupal = new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
   auth: {
     clientId: process.env.DRUPAL_CLIENT_ID,
     clientSecret: process.env.DRUPAL_CLIENT_SECRET,
@@ -88,7 +91,7 @@ const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
 | `DRUPAL_PASSWORD` | The Drupal password. Example: `password` |
 
 ```ts
-const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+const drupal = new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
   auth: {
     username: process.env.DRUPAL_USERNAME,
     password: process.env.DRUPAL_PASSWORD,
@@ -121,7 +124,7 @@ const nodes = await drupal.getResourceCollection<DrupalNode[]>(
 ```
 
 ```ts title=DRUPAL_FRONT_PAGE
-const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+const drupal = new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
   frontPage: process.env.DRUPAL_FRONT_PAGE,
 })
 ```

@@ -5,44 +5,58 @@ weight: 360
 group: On-demand Revalidation
 ---
 
-Implement on-demand revalidation using an API routes at `/revalidate`.
+Implement on-demand revalidation using an API route at `/revalidate`.
+
+## Update Environment Variables
+
+First, update `.env.local` to include the revalidate secret you specified.
+
+```txt title=.env.local
+# Required for On-demand Revalidation
+DRUPAL_REVALIDATE_SECRET=secret
+```
+
+## Create the Revalidate Route
+
+Next, create the API route that will be used for on-demand revalidation.
 
 <Callout>
 
-If you're using the Basic Starter, revalidate route are already created for you. You can skip this step.
+If you're using the Basic Starter, the revalidate route is already created for you. You can skip this step.
 
 </Callout>
 
-## /pages/api/revalidate.ts
+## /app/api/revalidate/route.ts
 
-```ts title=pages/api/revalidate.ts
-import { NextApiRequest, NextApiResponse } from "next"
+```ts title=app/api/revalidate/route.ts
+import { revalidatePath, revalidateTag } from "next/cache"
+import type { NextRequest } from "next/server"
 
-export default async function handler(
-  request: NextApiRequest,
-  response: NextApiResponse
-) {
-  let slug = request.query.slug as string
-  const secret = request.query.secret as string
+async function handler(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams
+  const path = searchParams.get("path")
+  const tags = searchParams.get("tags")
+  const secret = searchParams.get("secret")
 
   // Validate secret.
   if (secret !== process.env.DRUPAL_REVALIDATE_SECRET) {
-    return response.status(401).json({ message: "Invalid secret." })
+    return new Response("Invalid secret.", { status: 401 })
   }
 
-  // Validate slug.
-  if (!slug) {
-    return response.status(400).json({ message: "Invalid slug." })
+  // Either tags or path must be provided.
+  if (!path && !tags) {
+    return new Response("Missing path or tags.", { status: 400 })
   }
 
   try {
-    await response.revalidate(slug)
+    path && revalidatePath(path)
+    tags?.split(",").forEach((tag) => revalidateTag(tag))
 
-    return response.json({})
+    return new Response("Revalidated.")
   } catch (error) {
-    return response.status(404).json({
-      message: error.message,
-    })
+    return new Response((error as Error).message, { status: 500 })
   }
 }
+
+export { handler as GET, handler as POST }
 ```

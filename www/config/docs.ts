@@ -34,7 +34,7 @@ export const docsConfig: DocsConfig = {
       ],
     },
     {
-      title: "Drupal Client",
+      title: "NextDrupal Client",
       items: [
         {
           title: "Introduction",
@@ -49,8 +49,8 @@ export const docsConfig: DocsConfig = {
           href: "/docs/environment-variables",
         },
         {
-          title: "Preview Mode",
-          href: "/docs/preview-mode",
+          title: "Draft Mode",
+          href: "/docs/draft-mode",
         },
         {
           title: "TypeScript",
@@ -94,6 +94,10 @@ export const docsConfig: DocsConfig = {
           title: "Advanced Example",
           href: "/docs/pages#advanced-example",
         },
+        {
+          title: "Pages Router",
+          href: "/docs/pages#pages-router",
+        },
       ],
     },
     {
@@ -108,105 +112,12 @@ export const docsConfig: DocsConfig = {
           href: "/docs/fetcher",
         },
         {
-          title: "Serializer",
-          href: "/docs/serializer",
+          title: "Deserializer",
+          href: "/docs/deserializer",
         },
         {
           title: "Caching",
           href: "/docs/cache",
-        },
-      ],
-    },
-    {
-      title: "Reference",
-      items: [
-        {
-          title: "getResource",
-          href: "/docs/reference/getresource",
-        },
-        {
-          title: "getResourceFromContext",
-          href: "/docs/reference/getresourcefromcontext",
-        },
-        {
-          title: "getResourceByPath",
-          href: "/docs/reference/getresourcebypath",
-        },
-        {
-          title: "getResourceCollection",
-          href: "/docs/reference/getresourcecollection",
-        },
-        {
-          title: "getResourceCollectionFromContext",
-          href: "/docs/reference/getresourcecollectionfromcontext",
-        },
-        {
-          title: "createResource",
-          href: "/docs/reference/createresource",
-        },
-        {
-          title: "createFileResource",
-          href: "/docs/reference/createfileresource",
-        },
-        {
-          title: "updateResource",
-          href: "/docs/reference/updateresource",
-        },
-        {
-          title: "deleteResource",
-          href: "/docs/reference/deleteresource",
-        },
-        {
-          title: "getStaticPathsFromContext",
-          href: "/docs/reference/getstaticpathsfromcontext",
-        },
-        {
-          title: "translatePath",
-          href: "/docs/reference/translatepath",
-        },
-        {
-          title: "translatePathFromContext",
-          href: "/docs/reference/translatepathfromcontext",
-        },
-        {
-          title: "getPathFromContext",
-          href: "/docs/reference/getpathfromcontext",
-        },
-        {
-          title: "getEntryForResourceType",
-          href: "/docs/reference/getentryforresourcetype",
-        },
-        {
-          title: "preview",
-          href: "/docs/reference/preview",
-        },
-        {
-          title: "getAccessToken",
-          href: "/docs/reference/getaccesstoken",
-        },
-        {
-          title: "getMenu",
-          href: "/docs/reference/getmenu",
-        },
-        {
-          title: "getView",
-          href: "/docs/reference/getview",
-        },
-        {
-          title: "getSearchIndex",
-          href: "/docs/reference/getsearch",
-        },
-        {
-          title: "buildUrl",
-          href: "/docs/reference/buildurl",
-        },
-        {
-          title: "fetch",
-          href: "/docs/reference/fetch",
-        },
-        {
-          title: "deserialize",
-          href: "/docs/reference/deserialize",
         },
       ],
     },

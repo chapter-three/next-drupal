@@ -1,19 +1,37 @@
 ---
 title: Configuration
-excerpt: Initialization and options for DrupalClient.
+excerpt: Initialization and options for NextDrupal client.
 ---
 
 ## Initialization
 
-To create a new `DrupalClient`, use the following initialization:
+### App Router
+
+To create a new `NextDrupal` client, use the following initialization:
 
 ```ts
-import { DrupalClient } from "next-drupal"
+import { NextDrupal } from "next-drupal"
 
-const drupal = new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL)
+const drupal = new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL)
 ```
 
-Where `NEXT_PUBLIC_DRUPAL_BASE_URL` is the URL to your Drupal site defined as an [enviroment variable](/docs/enviroment-variables).
+Where `NEXT_PUBLIC_DRUPAL_BASE_URL` is the URL to your Drupal site defined as an [environment variable](/docs/environment-variables).
+
+```txt title=.env.local
+NEXT_PUBLIC_DRUPAL_BASE_URL=http://example.com
+```
+
+### Pages Router
+
+To create a new `NextDrupal` client, use the following initialization:
+
+```ts
+import { NextDrupaPages } from "next-drupal"
+
+const drupal = new NextDrupalPages(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL)
+```
+
+Where `NEXT_PUBLIC_DRUPAL_BASE_URL` is the URL to your Drupal site defined as an [environment variable](/docs/environment-variables).
 
 ```txt title=.env.local
 NEXT_PUBLIC_DRUPAL_BASE_URL=http://example.com
@@ -33,7 +51,7 @@ Additional options can be passed during initialization to customize the behavior
 The JSON:API prefix to use. If you are using the [JSON:API Extras](https://www.drupal.org/project/jsonapi_extras) module, you can customize the JSON:API prefix and set the custom value here.
 
 ```ts
-new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
   apiPrefix: "/api",
 })
 ```
@@ -48,7 +66,7 @@ new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
 Use this to set the path for your front page. This path will resolve to `/` on your Next.js site.
 
 ```ts
-new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
   frontPage: "/front",
 })
 ```
@@ -66,26 +84,46 @@ You can find more info about using a custom auth [here](/docs/authentication).
 
 ---
 
-### serializer
+### deserializer
 
 - **Default value**: Built-in
 - **Required**: No
 
-Override the default data serializer. You can use this to add your own JSON:API data deserializer.
+Override the default data deserializer. You can use this to add your own JSON:API data deserializer.
 
 ```ts
 import { Deserializer } from "jsonapi-serializer"
 
-const customSerializer = new Deserializer({
+const jsonDeserializer = new Deserializer({
   keyForAttribute: "camelCase",
 })
 
-new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
-  serializer: customSerializer,
+const customDeserializer = jsonSerializer.deserialize.bind(jsonSerializer)
+
+new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  deserializer: customDeserializer,
 })
 ```
 
-You can find more info about using a custom serializer [here](/docs/serializer).
+You can find more info about using a custom deserializer [here](/docs/deserializer).
+
+#### Pages Router
+
+This option is called `serializer` in the `NextDrupalPages` client. Aside from that, the usage is the same.
+
+```ts
+import { Deserializer } from "jsonapi-serializer"
+
+const jsonDeserializer = new Deserializer({
+  keyForAttribute: "camelCase",
+})
+
+const customDeserializer = jsonSerializer.deserialize.bind(jsonSerializer)
+
+new NextDrupalPages(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+  serializer: customDeserializer,
+})
+```
 
 ---
 
@@ -112,7 +150,7 @@ const customFetcher = (url, options) => {
   })
 }
 
-new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
   fetcher: customFetcher,
 })
 ```
@@ -144,7 +182,7 @@ export const redisCache: DataCache = {
   },
 }
 
-new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
   cache: redisCache,
 })
 ```
@@ -171,17 +209,6 @@ Set whether the client should use authenticated requests by default. If set to `
 
 ---
 
-### useDefaultResourceTypeEntry
-
-- **Default value**: `false`
-- **Required**: No
-
-By default, the client will make a request to JSON:API to retrieve the index.
-
-If your resources follow the `entity_type--bundle` naming convention, you can safely turn this off and use the default entry point from the resource name.
-
----
-
 ### headers
 
 - **Default value**: `{ "Content-Type": "application/vnd.api+json", Accept: "application/vnd.api+json" }`
@@ -190,7 +217,7 @@ If your resources follow the `entity_type--bundle` naming convention, you can sa
 Set custom headers for the fetcher.
 
 ```ts
-new DrupalClient(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
+new NextDrupal(process.env.NEXT_PUBLIC_DRUPAL_BASE_URL, {
   headers: {
     "Content-Type": "application/json",
   },
@@ -217,3 +244,19 @@ Use this to turn on the built-in logger. If you would like to replace with your 
 .
 
 ---
+
+### throwJsonApiErrors
+
+- **Default value**: `true`
+- **Required**: No
+
+JSON:API errors are thrown in non-production environments by default. The errors are shown in the Next.js overlay. Use this to turn it off.
+
+---
+
+### useDefaultEndpoint
+
+- **Default value**: `true`
+- **Required**: No
+
+By default, the resource endpoint will be based on the resource name. If you turn this off, a JSON:API request will retrieve the resource's endpoint url.

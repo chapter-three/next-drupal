@@ -2,6 +2,7 @@ import * as React from "react"
 import { GetStaticPropsResult } from "next"
 import { getAllMdxNodes } from "next-mdx"
 import Link from "next/link"
+import { MdxRemote } from "next-mdx-remote/types"
 
 import { site } from "config/site"
 import { Feature } from "types"
@@ -16,7 +17,7 @@ interface FeatureCodeProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function FeatureCode({ feature, ...props }: FeatureCodeProps) {
   const content = useHydrate(feature, {
-    components: mdxComponents,
+    components: mdxComponents as unknown as MdxRemote.Components,
   })
 
   return <div {...props}>{content}</div>
@@ -35,49 +36,37 @@ export default function IndexPage({ features }: IndexPageProps) {
     <Layout title={site.name} description={site.description}>
       <section className="relative px-6 pt-12 pb-8 md:py-12 md:pb-8">
         <div className="container max-w-4xl mx-auto text-center">
-          <Link href="/blog/next-drupal-1-6" passHref>
-            <a className="inline-flex space-x-1 mx-auto mb-4 bg-[#111] text-white hover:underline text-sm items-center rounded-full px-4 py-1 font-medium">
-              <span>
-                Next.js 13, Drupal 10 and Stable On-demand Revalidation
-              </span>
-            </a>
+          <Link
+            href="/blog/next-drupal-2-0"
+            passHref
+            className="inline-flex space-x-1 mx-auto mb-4 bg-[#111] text-white hover:underline text-sm items-center rounded-full px-4 py-1 font-medium"
+          >
+            <span>Next.js 15, Drupal 11 and App Router Support</span>
           </Link>
           <h1 className="text-4xl font-black tracking-tight text-center md:text-6xl lg:tracking-tighter lg:text-8xl">
-            The future of Drupal is headless
+            Next.js for Drupal
           </h1>
-          <p className="mx-auto mt-4 text-lg text-center text-gray-700 leading-1 md:px-20 lg:leading-normal lg:text-2xl">
-            Next.js for Drupal has everything you need to build a
-            next-generation front-end for your Drupal site.
-          </p>
           <div className="flex flex-col items-center justify-center py-4 sm:flex-row md:py-8 lg:py-10">
-            <Link href="/learn/quick-start" passHref>
-              <a className="w-2/3 px-8 py-2 font-semibold text-center text-white transition-all border-2 rounded-md bg-primary border-primary sm:w-auto hover:bg-primary hover:border-primary">
-                Get Started
-              </a>
+            <Link
+              href="/learn/quick-start"
+              passHref
+              className="w-2/3 px-8 py-2 font-semibold text-center text-white transition-all border-2 rounded-md bg-primary border-primary sm:w-auto hover:bg-primary hover:border-primary"
+            >
+              Get Started
             </Link>
-            <Link href="https://demo.next-drupal.org" passHref>
-              <a
-                className="w-2/3 px-8 py-2 mt-4 font-semibold text-center text-black transition-all bg-white border-2 border-black rounded-md sm:w-auto sm:mt-0 sm:ml-4 hover:bg-gray-100 hover:text-black"
-                target="_blank"
-                rel="nofollow noreferrer"
-              >
-                See a demo
-              </a>
+            <Link
+              href="https://demo.next-drupal.org"
+              passHref
+              className="w-2/3 px-8 py-2 mt-4 font-semibold text-center text-black transition-all bg-white border-2 border-black rounded-md sm:w-auto sm:mt-0 sm:ml-4 hover:bg-gray-100 hover:text-black"
+              target="_blank"
+              rel="nofollow noreferrer"
+            >
+              See a demo
             </Link>
-          </div>
-          <div className="overflow-hidden border-2 border-black rounded-md shadow-2xl aspect-w-16 aspect-h-9">
-            <iframe
-              src="https://www.youtube-nocookie.com/embed/dn2PSAcG71Y?controls=0"
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="w-full"
-            />
           </div>
         </div>
       </section>
-      <section className="px-6 py-6 md:py-12 lg:py-20">
+      <section className="px-6">
         <div className="container max-w-5xl mx-auto">
           <h2 className="text-3xl font-black tracking-tight text-center md:text-5xl lg:tracking-tighter lg:text-6xl">
             Everything you expect from Drupal.
@@ -188,6 +177,27 @@ export default function IndexPage({ features }: IndexPageProps) {
             className="flex-col hidden md:flex"
             feature={selectedFeature}
           />
+        </div>
+      </section>
+      <section id="video">
+        <div className="container max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-black tracking-tight text-center md:text-5xl lg:tracking-tighter lg:text-6xl">
+            The future of Drupal is headless
+          </h2>
+          <p className="mx-auto mt-4 text-lg text-center text-gray-700 leading-1 md:px-16 lg:leading-normal lg:text-2xl">
+            Next.js for Drupal has everything you need to build a
+            next-generation front-end for your Drupal site.
+          </p>
+          <div className="overflow-hidden border-2 border-black rounded-md shadow-2xl aspect-w-16 aspect-h-9 my-6 lg:my-10">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/dn2PSAcG71Y?controls=0"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full"
+            />
+          </div>
         </div>
       </section>
     </Layout>

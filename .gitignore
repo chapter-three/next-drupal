@@ -42,3 +42,4 @@ yarn-error.log*
 /drupal/web/phpunit.xml
 /drupal/web/sites/default/settings.local.php
 /drupal-*
+/local-next-drupal

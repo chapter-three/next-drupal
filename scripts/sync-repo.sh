@@ -25,7 +25,7 @@ for folder in $GLOB; do
   CLONE_DIR="__${NAME}__clone__"
 
   # Note: redirect output to dev/null to avoid any possibility of leaking token
-  git clone --quiet --depth 1 --branch ${BRANCH} ${REPO}${NAME}.git $CLONE_DIR > /dev/null
+  git clone --quiet --branch ${BRANCH} ${REPO}${NAME}.git $CLONE_DIR > /dev/null
   cd $CLONE_DIR
 
   # Delete all files (to handle deletions in monorepo)

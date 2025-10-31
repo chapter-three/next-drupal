@@ -41,7 +41,6 @@ class NextEntityTypeConfigTest extends KernelTestBase {
     $this->installEntitySchema('user');
     $this->installEntitySchema('path_alias');
     $this->installConfig(['filter']);
-    $this->installSchema('system', ['sequences']);
     $this->installSchema('node', ['node_access']);
   }
 

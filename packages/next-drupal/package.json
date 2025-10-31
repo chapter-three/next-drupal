@@ -1,7 +1,7 @@
 {
   "name": "next-drupal",
   "description": "Helpers for Next.js + Drupal.",
-  "version": "2.0.0-beta.0",
+  "version": "2.0.0",
   "sideEffects": false,
   "source": [
     "src/index.ts",
@@ -73,13 +73,13 @@
   },
   "dependencies": {
     "jsona": "^1.12.1",
-    "next": "^13.4 || ^14",
+    "next": "^14.2.21 || ^15.1.2",
     "node-cache": "^5.1.2",
-    "qs": "^6.12.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "qs": "^6.13.1",
+    "react": "^18.2 || ^19.0",
+    "react-dom": "^18.2 || ^19.0"
   },
   "devDependencies": {
-    "typescript": "^5.4.5"
+    "typescript": "^5.7.2"
   }
 }

@@ -21,9 +21,9 @@ https://next-drupal.org
 A page with all "Article" nodes.
 
 ```jsx
-import { DrupalClient } from "next-drupal"
+import { NextDrupal } from "next-drupal"
 
-const drupal = new DrupalClient("https://cms.next-drupal.org")
+const drupal = new NextDrupal("https://cms.next-drupal.org")
 
 export default function BlogPage({ articles }) {
   return (

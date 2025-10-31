@@ -48,8 +48,8 @@ module.exports = {
         permanent: true,
       },
       {
-        source: "/docs/client/serializer",
-        destination: "/docs/serializer",
+        source: "/docs/client/deserializer",
+        destination: "/docs/deserializer",
         permanent: true,
       },
       {
@@ -74,7 +74,7 @@ module.exports = {
       },
       {
         source: "/docs/client/preview-mode",
-        destination: "/docs/preview-mode",
+        destination: "/docs/draft-mode",
         permanent: true,
       },
       {
@@ -101,6 +101,24 @@ module.exports = {
         source: "/docs/on-demand-revalidation",
         destination: "/learn/on-demand-revalidation",
         permanent: true,
+      },
+      {
+        source: "/docs/api/:path*.mdx",
+        destination: "/docs/api/:path*",
+        permanent: true,
+      },
+      {
+        source: "/api/:path*.html",
+        destination: "/api/:path*",
+        permanent: true,
+      },
+    ]
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/api/:slug*",
+        destination: "/api/:slug*.html", // Matched parameters can be used in the destination
       },
     ]
   },

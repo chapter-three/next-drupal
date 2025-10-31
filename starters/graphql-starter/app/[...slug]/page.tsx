@@ -1,6 +1,5 @@
 import { draftMode } from "next/headers"
 import { notFound } from "next/navigation"
-import { getDraftData } from "next-drupal/draft"
 import { Article } from "@/components/drupal/Article"
 import { BasicPage } from "@/components/drupal/BasicPage"
 import { drupal } from "@/lib/drupal"
@@ -77,7 +76,7 @@ type NodePageProps = {
 
 export async function generateMetadata(
   { params: { slug } }: NodePageProps,
-  parent: ResolvingMetadata
+  _: ResolvingMetadata
 ): Promise<Metadata> {
   let node
   try {
@@ -119,11 +118,9 @@ export async function generateStaticParams(): Promise<NodePageParams[]> {
   ].map(({ path }) => ({ slug: path.split("/").filter(Boolean) }))
 }
 
-export default async function Page({
-  params: { slug },
-  searchParams,
-}: NodePageProps) {
-  const isDraftMode = draftMode().isEnabled
+export default async function Page({ params: { slug } }: NodePageProps) {
+  const draft = await draftMode()
+  const isDraftMode = draft.isEnabled
 
   let node
   try {

@@ -1,0 +1,18 @@
+uuid: 3954a200-86f3-499b-914e-99a6dac58861
+langcode: en
+status: true
+dependencies: {  }
+name: graphql_schema
+label: 'Graphql Schema'
+endpoint: /graphql
+debug_flag: 0
+schema: graphql_compose
+caching: true
+batching: true
+disable_introspection: false
+query_depth: null
+query_complexity: null
+schema_configuration:
+  graphql_compose:
+    enabled: true
+persisted_queries_settings: {  }

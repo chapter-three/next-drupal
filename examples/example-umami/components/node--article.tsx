@@ -52,10 +52,13 @@ export function NodeArticle({ node, additionalContent }: NodeArticleProps) {
             <div className="flex mb-6 space-x-2">
               <span className="font-semibold">{t("tags")}: </span>
               {node.field_tags.map((tag) => (
-                <Link key={tag.id} href={tag.path.alias} passHref>
-                  <a className="underline transition-colors text-link hover:text-primary hover:bg-border">
-                    {tag.name}
-                  </a>
+                <Link
+                  key={tag.id}
+                  href={tag.path.alias}
+                  passHref
+                  className="underline transition-colors text-link hover:text-primary hover:bg-border"
+                >
+                  {tag.name}
                 </Link>
               ))}
             </div>

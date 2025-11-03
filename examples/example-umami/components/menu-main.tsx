@@ -22,17 +22,17 @@ export function MenuMain({ items, ...props }: MenuMainProps) {
 
           return (
             <li key={item.id}>
-              <Link href={item.url} passHref>
-                <a
-                  className={classNames(
-                    "text-xl border-b-[3px] flex border-b-transparent font-serif transition-colors hover:text-primary",
-                    {
-                      "border-b-primary": isActive,
-                    }
-                  )}
-                >
-                  {item.title}
-                </a>
+              <Link
+                href={item.url}
+                passHref
+                className={classNames(
+                  "text-xl border-b-[3px] flex border-b-transparent font-serif transition-colors hover:text-primary",
+                  {
+                    "border-b-primary": isActive,
+                  }
+                )}
+              >
+                {item.title}
               </Link>
             </li>
           )

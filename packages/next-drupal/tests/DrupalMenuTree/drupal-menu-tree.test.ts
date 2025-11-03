@@ -67,7 +67,7 @@ DrupalMenuTree [
         "items": DrupalMenuTree [
           {
             "id": "7",
-            "items": undefined,
+            "items": null,
             "parent": "4",
           },
         ],
@@ -75,12 +75,12 @@ DrupalMenuTree [
       },
       {
         "id": "5",
-        "items": undefined,
+        "items": null,
         "parent": "1",
       },
       {
         "id": "6",
-        "items": undefined,
+        "items": null,
         "parent": "1",
       },
     ],
@@ -88,12 +88,12 @@ DrupalMenuTree [
   },
   {
     "id": "2",
-    "items": undefined,
+    "items": null,
     "parent": "",
   },
   {
     "id": "3",
-    "items": undefined,
+    "items": null,
     "parent": "",
   },
 ]

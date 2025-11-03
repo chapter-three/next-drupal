@@ -44,6 +44,7 @@ class CacheTag extends ConfigurableRevalidatorBase implements RevalidatorInterfa
 
   /**
    * {@inheritdoc}
+   *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \GuzzleHttp\Exception\GuzzleException
    */

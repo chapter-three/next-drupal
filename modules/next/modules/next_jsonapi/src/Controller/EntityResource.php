@@ -2,21 +2,10 @@
 
 namespace Drupal\next_jsonapi\Controller;
 
-use Drupal\Component\Datetime\TimeInterface;
-use Drupal\Core\Entity\EntityFieldManagerInterface;
-use Drupal\Core\Entity\EntityRepositoryInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Render\RendererInterface;
-use Drupal\Core\Session\AccountInterface;
-use Drupal\jsonapi\Access\EntityAccessChecker;
-use Drupal\jsonapi\Context\FieldResolver;
 use Drupal\jsonapi\Controller\EntityResource as JsonApiEntityResource;
-use Drupal\jsonapi\IncludeResolver;
 use Drupal\jsonapi\Query\OffsetPage;
 use Drupal\jsonapi\ResourceType\ResourceType;
-use Drupal\jsonapi\ResourceType\ResourceTypeRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Process all entity requests.

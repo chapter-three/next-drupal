@@ -28,39 +28,23 @@ class EntityResource extends JsonApiEntityResource {
    *
    * @var int
    */
-  protected $maxSize;
+  protected int $maxSize;
 
   /**
    * EntityResource constructor.
    *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager.
-   * @param \Drupal\Core\Entity\EntityFieldManagerInterface $field_manager
-   *   The entity type field manager.
-   * @param \Drupal\jsonapi\ResourceType\ResourceTypeRepositoryInterface $resource_type_repository
-   *   The JSON:API resource type repository.
-   * @param \Drupal\Core\Render\RendererInterface $renderer
-   *   The renderer.
-   * @param \Drupal\Core\Entity\EntityRepositoryInterface $entity_repository
-   *   The entity repository.
-   * @param \Drupal\jsonapi\IncludeResolver $include_resolver
-   *   The include resolver.
-   * @param \Drupal\jsonapi\Access\EntityAccessChecker $entity_access_checker
-   *   The JSON:API entity access checker.
-   * @param \Drupal\jsonapi\Context\FieldResolver $field_resolver
-   *   The JSON:API field resolver.
-   * @param \Symfony\Component\Serializer\SerializerInterface|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface $serializer
-   *   The JSON:API serializer.
-   * @param \Drupal\Component\Datetime\TimeInterface $time
-   *   The time service.
-   * @param \Drupal\Core\Session\AccountInterface $user
-   *   The current user account.
-   * @param int $max_size
-   *   The offset max size.
+   * @param mixed ...$args
+   *   All constructor arguments.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $field_manager, ResourceTypeRepositoryInterface $resource_type_repository, RendererInterface $renderer, EntityRepositoryInterface $entity_repository, IncludeResolver $include_resolver, EntityAccessChecker $entity_access_checker, FieldResolver $field_resolver, SerializerInterface $serializer, TimeInterface $time, AccountInterface $user, int $max_size) {
-    parent::__construct($entity_type_manager, $field_manager, $resource_type_repository, $renderer, $entity_repository, $include_resolver, $entity_access_checker, $field_resolver, $serializer, $time, $user);
-    $this->maxSize = $max_size;
+  public function __construct(...$args) {
+    // Pop the last argument as $maxSize.
+    $this->maxSize = array_pop($args);
+
+    // Forward the remaining arguments to the parent constructor.
+    // We handle it this way because the parent constructor arguments
+    // differ between Drupal 10 and Drupal 11, so using ...$args
+    // ensures compatibility across versions.
+    parent::__construct(...$args);
   }
 
   /**

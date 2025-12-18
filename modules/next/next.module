@@ -87,3 +87,11 @@ function next_entity_predelete(EntityInterface $entity) {
   $event = EntityActionEvent::createFromEntity($entity, EntityActionEventInterface::DELETE_ACTION);
   \Drupal::service('next.entity_action_event_dispatcher')->addEvent($event);
 }
+
+/**
+ * Implements hook_entity_translation_delete().
+ */
+function next_entity_translation_delete(EntityInterface $translation) {
+  $event = EntityActionEvent::createFromEntity($translation, EntityActionEventInterface::DELETE_ACTION);
+  \Drupal::service('next.entity_action_event_dispatcher')->addEvent($event);
+}

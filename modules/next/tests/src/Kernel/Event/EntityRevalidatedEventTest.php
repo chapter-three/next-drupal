@@ -4,6 +4,7 @@ namespace Drupal\Tests\next\Kernel\Event;
 
 use Drupal\dblog\Controller\DbLogController;
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\next\Entity\NextEntityTypeConfig;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +30,8 @@ class EntityRevalidatedEventTest extends KernelTestBase {
     'system',
     'user',
     'dblog',
+    'content_translation',
+    'language',
   ];
 
   /**
@@ -44,6 +47,9 @@ class EntityRevalidatedEventTest extends KernelTestBase {
     $this->installSchema('dblog', ['watchdog']);
     $this->installSchema('node', ['node_access']);
     $this->installSchema('user', ['users_data']);
+
+    // Set up multilingual.
+    ConfigurableLanguage::createFromLangcode('nl')->save();
 
     // Create entity type config.
     $entity_type_config = NextEntityTypeConfig::create([
@@ -67,6 +73,7 @@ class EntityRevalidatedEventTest extends KernelTestBase {
    */
   public function testEntityRevalidatedEvents() {
     $page = $this->createNode(['type' => 'page', 'title' => 'A page']);
+    $page->addTranslation('nl', ['title' => 'Translation']);
 
     // Insert.
     $page->save();
@@ -77,6 +84,12 @@ class EntityRevalidatedEventTest extends KernelTestBase {
     $page->set('title', 'A page updated')->save();
     $this->container->get('kernel')->terminate(Request::create('/'), new Response());
     $this->assertLogsContains("Entity A page updated, action update, revalidated 0.");
+
+    // Delete translation.
+    $page->removeTranslation('nl');
+    $page->save();
+    $this->container->get('kernel')->terminate(Request::create('/'), new Response());
+    $this->assertLogsContains("Entity Translation, action delete, revalidated 0.");
 
     // Delete.
     $page->delete();

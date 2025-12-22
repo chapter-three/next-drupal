@@ -23,6 +23,11 @@ next.next_site.*:
     revalidate_secret:
       type: string
       label: 'Revalidate secret'
+    site_previewer:
+      type: string
+      label: 'Site previewer'
+    site_previewer_configuration:
+      type: next.site_previewer.configuration.[%parent.site_previewer]
 
 next.next_entity_type_config.*:
   type: config_entity
@@ -77,11 +82,6 @@ next.settings:
   type: config_object
   label: 'Next settings'
   mapping:
-    site_previewer:
-      type: string
-      label: 'Site previewer'
-    site_previewer_configuration:
-      type: next.site_previewer.configuration.[%parent.site_previewer]
     preview_url_generator:
       type: string
       label: 'Preview URL generator'
@@ -102,6 +102,10 @@ next.site_previewer.configuration.iframe:
     sync_route_skip_routes:
       type: string
       label: 'Sync route skip pages'
+
+next.site_previewer.configuration.redirect:
+  type: mapping
+  mapping: {}
 
 next.preview_url_generator.configuration.simple_oauth:
   type: mapping

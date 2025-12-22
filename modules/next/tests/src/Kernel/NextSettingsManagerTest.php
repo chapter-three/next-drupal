@@ -50,7 +50,7 @@ class NextSettingsManagerTest extends KernelTestBase {
    */
   public function test() {
     $settings = $this->nextSettingsManager->all();
-    $this->assertSame('iframe', $settings['site_previewer']);
+    // Note: site_previewer is no longer in global settings
     $this->assertSame('simple_oauth', $settings['preview_url_generator']);
     $this->assertFalse($settings['debug']);
     $this->assertFalse($this->nextSettingsManager->isDebug());
@@ -63,6 +63,7 @@ class NextSettingsManagerTest extends KernelTestBase {
     $this->assertTrue($settings['debug']);
     $this->assertTrue($this->nextSettingsManager->isDebug());
 
+    // Test that getSitePreviewer() now falls back to iframe when no global setting exists
     $this->assertInstanceOf(Iframe::class, $this->nextSettingsManager->getSitePreviewer());
     $this->assertInstanceOf(SimpleOauth::class, $this->nextSettingsManager->getPreviewUrlGenerator());
   }

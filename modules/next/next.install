@@ -104,3 +104,39 @@ function next_update_9106() {
   $config->set('debug', FALSE)
     ->save();
 }
+
+/**
+ * Migrate global site previewer settings to site-level settings.
+ */
+function next_update_9107() {
+  // First, install the new fields for site previewer configuration.
+  $entity_definition_update = \Drupal::entityDefinitionUpdateManager();
+
+  $storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('Site previewer'));
+  $entity_definition_update->installFieldStorageDefinition('site_previewer', 'next_site', 'next_site', $storage_definition);
+
+  $storage_definition = BaseFieldDefinition::create('map')
+    ->setLabel(t('Site previewer configuration'));
+  $entity_definition_update->installFieldStorageDefinition('site_previewer_configuration', 'next_site', 'next_site', $storage_definition);
+
+  // Now migrate the global settings to site-level settings.
+  $config = \Drupal::configFactory()->get('next.settings');
+  $global_site_previewer = $config->get('site_previewer');
+  $global_site_previewer_configuration = $config->get('site_previewer_configuration') ?: [];
+
+  // Only migrate if there are global settings configured.
+  if ($global_site_previewer) {
+    /** @var \Drupal\next\Entity\NextSiteInterface[] $sites */
+    $sites = \Drupal::entityTypeManager()->getStorage('next_site')->loadMultiple();
+    
+    foreach ($sites as $site) {
+      // Only set if the site doesn't already have a previewer configured.
+      if (!$site->getSitePreviewer()) {
+        $site->setSitePreviewer($global_site_previewer);
+        $site->setSitePreviewerConfiguration($global_site_previewer_configuration);
+        $site->save();
+      }
+    }
+  }
+}

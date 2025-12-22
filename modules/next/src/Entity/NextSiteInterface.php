@@ -129,6 +129,44 @@ interface NextSiteInterface extends ConfigEntityInterface {
   public function setRevalidateSecret(string $revalidate_secret): self;
 
   /**
+   * Returns the site_previewer for the next_site.
+   *
+   * @return string|null
+   *   The site_previewer for the next_site.
+   */
+  public function getSitePreviewer(): ?string;
+
+  /**
+   * Sets the site_previewer for the next_site.
+   *
+   * @param string $site_previewer
+   *   The site_previewer.
+   *
+   * @return \Drupal\next\Entity\NextSiteInterface
+   *   The next_site entity.
+   */
+  public function setSitePreviewer(string $site_previewer): self;
+
+  /**
+   * Returns the site_previewer_configuration for the next_site.
+   *
+   * @return array
+   *   The site_previewer_configuration for the next_site.
+   */
+  public function getSitePreviewerConfiguration(): array;
+
+  /**
+   * Sets the site_previewer_configuration for the next_site.
+   *
+   * @param array $site_previewer_configuration
+   *   The site_previewer_configuration.
+   *
+   * @return \Drupal\next\Entity\NextSiteInterface
+   *   The next_site entity.
+   */
+  public function setSitePreviewerConfiguration(array $site_previewer_configuration): self;
+
+  /**
    * Returns the revalidate url for given path.
    *
    * @param array $query

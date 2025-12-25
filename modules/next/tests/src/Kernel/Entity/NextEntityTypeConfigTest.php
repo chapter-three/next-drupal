@@ -171,7 +171,7 @@ class NextEntityTypeConfigTest extends KernelTestBase {
     $entity_type_config->set('draft_enabled', FALSE)->save();
     $this->assertFalse($entity_type_config->isDraftEnabled());
   }
-  
+
   /**
    * Tests config dependency calculation.
    */

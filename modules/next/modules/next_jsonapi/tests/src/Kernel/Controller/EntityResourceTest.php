@@ -47,10 +47,7 @@ class EntityResourceTest extends KernelTestBase {
     $this->installConfig(['filter', 'next']);
     $this->installSchema('node', ['node_access']);
 
-    $type = NodeType::create([
-      'type' => 'article',
-    ]);
-    $type->save();
+    NodeType::create(['type' => 'article', 'name' => 'Article'])->save();
 
     foreach (range(1, 100) as $number) {
       $article = $this->createNode([

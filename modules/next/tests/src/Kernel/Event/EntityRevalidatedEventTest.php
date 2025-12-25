@@ -46,7 +46,7 @@ class EntityRevalidatedEventTest extends KernelTestBase {
     $this->installSchema('node', ['node_access']);
     $this->installSchema('user', ['users_data']);
 
-    NodeType::create(['type' => 'page'])->save();
+    NodeType::create(['type' => 'page', 'name' => 'Page'])->save();
 
     // Create entity type config.
     $entity_type_config = NextEntityTypeConfig::create([

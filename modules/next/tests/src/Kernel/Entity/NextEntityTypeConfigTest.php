@@ -44,7 +44,7 @@ class NextEntityTypeConfigTest extends KernelTestBase {
     $this->installConfig(['filter']);
     $this->installSchema('node', ['node_access']);
 
-    NodeType::create(['type' => 'page'])->save();
+    NodeType::create(['type' => 'page', 'name' => 'Page'])->save();
   }
 
   /**

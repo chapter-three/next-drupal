@@ -4,6 +4,7 @@ namespace Drupal\Tests\next\Kernel\Entity;
 
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\next\Entity\NextSite;
+use Drupal\node\Entity\NodeType;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 use Drupal\user\Entity\User;
@@ -41,6 +42,8 @@ class NextSiteTest extends KernelTestBase {
     $this->installEntitySchema('user');
     $this->installConfig(['filter', 'next']);
     $this->installSchema('node', ['node_access']);
+
+    NodeType::create(['type' => 'page', 'name' => 'Page'])->save();
 
     $this->nextSite = NextSite::create([
       'label' => 'Blog',

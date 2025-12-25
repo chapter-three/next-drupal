@@ -256,6 +256,20 @@ class NextEntityTypeConfig extends ConfigEntityBase implements NextEntityTypeCon
   }
 
   /**
+   * {@inheritdoc}
+   *
+   * @todo add sites with onDependencyRemoval support.
+   */
+  public function calculateDependencies() {
+    parent::calculateDependencies();
+    [$entity_type_id, $bundle] = explode('.', $this->id());
+    $target_entity_type = $this->entityTypeManager()->getDefinition($entity_type_id);
+    $bundle_config_dependency = $target_entity_type->getBundleConfigDependency($bundle);
+    $this->addDependency($bundle_config_dependency['type'], $bundle_config_dependency['name']);
+    return $this;
+  }
+
+  /**
    * Wraps the site_resolver plugin manager.
    *
    * @return \Drupal\next\Plugin\SiteResolverManagerInterface

@@ -5,6 +5,7 @@ namespace Drupal\Tests\next\Kernel\Event;
 use Drupal\dblog\Controller\DbLogController;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\next\Entity\NextEntityTypeConfig;
+use Drupal\node\Entity\NodeType;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,6 +45,8 @@ class EntityRevalidatedEventTest extends KernelTestBase {
     $this->installSchema('dblog', ['watchdog']);
     $this->installSchema('node', ['node_access']);
     $this->installSchema('user', ['users_data']);
+
+    NodeType::create(['type' => 'page'])->save();
 
     // Create entity type config.
     $entity_type_config = NextEntityTypeConfig::create([

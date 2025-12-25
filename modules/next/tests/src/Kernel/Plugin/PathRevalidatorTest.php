@@ -5,6 +5,7 @@ namespace Drupal\Tests\next\Kernel\Plugin;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\next\Entity\NextEntityTypeConfig;
 use Drupal\next\Entity\NextSite;
+use Drupal\node\Entity\NodeType;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response as GuzzleResponse;
@@ -48,6 +49,8 @@ class PathRevalidatorTest extends KernelTestBase {
     $this->installEntitySchema('path_alias');
     $this->installConfig(['filter']);
     $this->installSchema('node', ['node_access']);
+
+    NodeType::create(['type' => 'page'])->save();
   }
 
   /**

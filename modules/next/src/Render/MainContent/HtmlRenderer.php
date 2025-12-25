@@ -108,7 +108,7 @@ class HtmlRenderer extends CoreHtmlRenderer {
     }
 
     $next_entity_type_config = $this->nextEntityTypeManager->getConfigForEntityType($entity->getEntityTypeId(), $entity->bundle());
-    if (!$next_entity_type_config) {
+    if (!$next_entity_type_config || !$next_entity_type_config->isDraftEnabled()) {
       return $build;
     }
 

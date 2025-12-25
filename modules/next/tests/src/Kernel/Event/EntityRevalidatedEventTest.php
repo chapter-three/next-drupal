@@ -48,6 +48,7 @@ class EntityRevalidatedEventTest extends KernelTestBase {
     // Create entity type config.
     $entity_type_config = NextEntityTypeConfig::create([
       'id' => 'node.page',
+      'draft_enabled' => TRUE,
       'site_resolver' => 'site_selector',
       'configuration' => [
         'sites' => [

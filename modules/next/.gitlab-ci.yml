@@ -53,6 +53,7 @@ include:
 # Docs at https://git.drupalcode.org/project/gitlab_templates/-/blob/1.0.x/includes/include.drupalci.variables.yml
 ################
 variables:
+  _CSPELL_WORDS: 'allowtransparency, banimation, btransform, cellipse, cstyle, csvg, dellipse, revalidator'
   # SKIP_ESLINT: '1'
   OPT_IN_TEST_PREVIOUS_MINOR: 1
   OPT_IN_TEST_NEXT_MINOR: 1

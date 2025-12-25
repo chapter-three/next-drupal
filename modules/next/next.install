@@ -104,3 +104,26 @@ function next_update_9106() {
   $config->set('debug', FALSE)
     ->save();
 }
+
+/**
+ * Add the draft_enabled property to the next_entity_type_config.
+ */
+function next_update_9107() {
+  $entity_definition_update = \Drupal::entityDefinitionUpdateManager();
+
+  $storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('Draft mode enabled'));
+  $entity_definition_update->installFieldStorageDefinition('draft_enabled', 'next_entity_type_config', 'next_entity_type_config', $storage_definition);
+}
+
+/**
+ * Enable draft mode on all Next.js entity types.
+ */
+function next_update_9108() {
+  /** @var \Drupal\next\Entity\NextEntityTypeConfigInterface[] $next_entity_type_configs */
+  $next_entity_type_configs = \Drupal::entityTypeManager()->getStorage('next_entity_type_config')->loadMultiple();
+  foreach ($next_entity_type_configs as $next_entity_type_config) {
+    $next_entity_type_config->set('draft_enabled', TRUE);
+    $next_entity_type_config->save();
+  }
+}

@@ -58,7 +58,6 @@ function next_update_9103() {
   }
 }
 
-
 /**
  * Add the revalidator, revalidate_page and revalidate_paths to next_entity_type_config.
  */

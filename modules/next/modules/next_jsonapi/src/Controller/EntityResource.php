@@ -20,20 +20,16 @@ class EntityResource extends JsonApiEntityResource {
   protected int $maxSize;
 
   /**
-   * EntityResource constructor.
+   * Sets the offset max size.
    *
-   * @param mixed ...$args
-   *   All constructor arguments.
+   * @param int $maxSize
+   *   The offset max size.
+   *
+   * @return $this
    */
-  public function __construct(...$args) {
-    // Pop the last argument as $maxSize.
-    $this->maxSize = array_pop($args);
-
-    // Forward the remaining arguments to the parent constructor.
-    // We handle it this way because the parent constructor arguments
-    // differ between Drupal 10 and Drupal 11, so using ...$args
-    // ensures compatibility across versions.
-    parent::__construct(...$args);
+  public function setMaxSize(int $maxSize): static {
+    $this->maxSize = $maxSize;
+    return $this;
   }
 
   /**

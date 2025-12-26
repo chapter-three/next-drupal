@@ -69,8 +69,7 @@ class EntityResourceTest extends KernelTestBase {
     if ($container->hasDefinition('jsonapi.entity_resource')) {
       $definition = $container->getDefinition('jsonapi.entity_resource');
       $definition->setClass('Drupal\next_jsonapi\Controller\EntityResource')
-        ->setAutowired(TRUE)
-        ->addArgument('%next_jsonapi.size_max%');
+        ->addMethodCall('setMaxSize', ['%next_jsonapi.size_max%']);
     }
   }
 

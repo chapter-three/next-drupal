@@ -1,9 +1,2 @@
 parameters:
   next_jsonapi.size_max: 1000
-
-services:
-  jsonapi.entity_resource:
-    class: Drupal\next_jsonapi\Controller\EntityResource
-    autowire: true
-    arguments:
-      - '%next_jsonapi.size_max%'

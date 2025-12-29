@@ -5,6 +5,7 @@ namespace Drupal\Tests\next\Kernel\Plugin;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\next\Entity\NextEntityTypeConfig;
 use Drupal\next\Entity\NextSite;
+use Drupal\node\Entity\NodeType;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 
 /**
@@ -42,6 +43,8 @@ class NextEntityTypeConfigTest extends KernelTestBase {
     $this->installEntitySchema('path_alias');
     $this->installConfig(['filter']);
     $this->installSchema('node', ['node_access']);
+
+    NodeType::create(['type' => 'page', 'name' => 'Page'])->save();
   }
 
   /**
@@ -59,6 +62,7 @@ class NextEntityTypeConfigTest extends KernelTestBase {
     /** @var \Drupal\next\Entity\NextEntityTypeConfigInterface $entity_type_config */
     $entity_type_config = NextEntityTypeConfig::create([
       'id' => 'node.page',
+      'draft_enabled' => FALSE,
       'site_resolver' => 'site_selector',
       'configuration' => [
         'sites' => [
@@ -123,6 +127,7 @@ class NextEntityTypeConfigTest extends KernelTestBase {
     /** @var \Drupal\next\Entity\NextEntityTypeConfigInterface $entity_type_config */
     $entity_type_config = NextEntityTypeConfig::create([
       'id' => 'node.page',
+      'draft_enabled' => FALSE,
       'site_resolver' => 'site_selector',
       'configuration' => [
         'sites' => [
@@ -137,6 +142,63 @@ class NextEntityTypeConfigTest extends KernelTestBase {
 
     $revalidator = $entity_type_config->getRevalidator();
     $this->assertSame('path', $revalidator->getId());
+  }
+
+  /**
+   * Tests the draft enabled property.
+   *
+   * @covers ::isDraftEnabled
+   */
+  public function testDraftEnabled() {
+    $blog_site = NextSite::create(['id' => 'blog']);
+    $blog_site->save();
+
+    // Create entity type config.
+    /** @var \Drupal\next\Entity\NextEntityTypeConfigInterface $entity_type_config */
+    $entity_type_config = NextEntityTypeConfig::create([
+      'id' => 'node.page',
+      'draft_enabled' => TRUE,
+      'site_resolver' => 'site_selector',
+      'configuration' => [
+        'sites' => [
+          'blog' => 'blog',
+        ],
+      ],
+    ]);
+    $entity_type_config->save();
+    $this->assertTrue($entity_type_config->isDraftEnabled());
+
+    $entity_type_config->set('draft_enabled', FALSE)->save();
+    $this->assertFalse($entity_type_config->isDraftEnabled());
+  }
+
+  /**
+   * Tests config dependency calculation.
+   */
+  public function testConfigDependencies(): void {
+    $blog_site = NextSite::create([
+      'id' => 'blog',
+    ]);
+    $blog_site->save();
+
+    // Create entity type config.
+    /** @var \Drupal\next\Entity\NextEntityTypeConfigInterface $entity_type_config */
+    $entity_type_config = NextEntityTypeConfig::create([
+      'id' => 'node.page',
+      'site_resolver' => 'site_selector',
+      'configuration' => [
+        'sites' => [
+          'blog' => 'blog',
+        ],
+      ],
+    ]);
+    // Saving causes dependency calculation.
+    $entity_type_config->save();
+    self::assertEquals([
+      'config' => [
+        'node.type.page',
+      ],
+    ], $entity_type_config->getDependencies());
   }
 
 }

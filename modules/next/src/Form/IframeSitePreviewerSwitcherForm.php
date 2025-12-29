@@ -47,7 +47,7 @@ class IframeSitePreviewerSwitcherForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, EntityInterface $entity = NULL, array $sites = [], string $site_id = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, ?EntityInterface $entity = NULL, array $sites = [], ?string $site_id = NULL) {
     /** @var \Drupal\next\Entity\NextSiteInterface[] $sites */
     $site_options = [];
     foreach ($sites as $site) {

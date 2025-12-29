@@ -17,7 +17,8 @@ class NextJsonapiServiceProvider extends ServiceProviderBase {
     /** @var \Symfony\Component\DependencyInjection\Definition $definition */
     if ($container->hasDefinition('jsonapi.entity_resource')) {
       $definition = $container->getDefinition('jsonapi.entity_resource');
-      $definition->setClass('Drupal\next_jsonapi\Controller\EntityResource');
+      $definition->setClass('Drupal\next_jsonapi\Controller\EntityResource')
+        ->addMethodCall('setMaxSize', ['%next_jsonapi.size_max%']);
     }
   }
 

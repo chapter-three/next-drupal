@@ -47,10 +47,7 @@ class EntityResourceTest extends KernelTestBase {
     $this->installConfig(['filter', 'next']);
     $this->installSchema('node', ['node_access']);
 
-    $type = NodeType::create([
-      'type' => 'article',
-    ]);
-    $type->save();
+    NodeType::create(['type' => 'article', 'name' => 'Article'])->save();
 
     foreach (range(1, 100) as $number) {
       $article = $this->createNode([
@@ -72,7 +69,7 @@ class EntityResourceTest extends KernelTestBase {
     if ($container->hasDefinition('jsonapi.entity_resource')) {
       $definition = $container->getDefinition('jsonapi.entity_resource');
       $definition->setClass('Drupal\next_jsonapi\Controller\EntityResource')
-        ->addArgument('%next_jsonapi.size_max%');
+        ->addMethodCall('setMaxSize', ['%next_jsonapi.size_max%']);
     }
   }
 

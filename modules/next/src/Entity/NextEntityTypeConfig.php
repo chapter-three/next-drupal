@@ -44,6 +44,7 @@ use Drupal\next\SiteResolverPluginCollection;
  *     "id",
  *     "site_resolver",
  *     "configuration",
+ *     "draft_enabled",
  *     "revalidator",
  *     "revalidator_configuration"
  *   },
@@ -77,6 +78,13 @@ class NextEntityTypeConfig extends ConfigEntityBase implements NextEntityTypeCon
    * @var array
    */
   protected $configuration = [];
+
+  /**
+   * Whether the draft mode is enabled.
+   *
+   * @var bool
+   */
+  protected $draft_enabled = FALSE;
 
   /**
    * The revalidator.
@@ -127,6 +135,13 @@ class NextEntityTypeConfig extends ConfigEntityBase implements NextEntityTypeCon
     $this->site_resolver = $plugin_id;
     $this->getPluginCollection()->addInstanceID($plugin_id);
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isDraftEnabled(): bool {
+    return $this->draft_enabled;
   }
 
   /**
@@ -238,6 +253,20 @@ class NextEntityTypeConfig extends ConfigEntityBase implements NextEntityTypeCon
     }
 
     return $collections;
+  }
+
+  /**
+   * {@inheritdoc}
+   *
+   * @todo add sites with onDependencyRemoval support.
+   */
+  public function calculateDependencies() {
+    parent::calculateDependencies();
+    [$entity_type_id, $bundle] = explode('.', $this->id());
+    $target_entity_type = $this->entityTypeManager()->getDefinition($entity_type_id);
+    $bundle_config_dependency = $target_entity_type->getBundleConfigDependency($bundle);
+    $this->addDependency($bundle_config_dependency['type'], $bundle_config_dependency['name']);
+    return $this;
   }
 
   /**

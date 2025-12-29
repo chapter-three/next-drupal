@@ -6,6 +6,7 @@ use Drupal\Component\Serialization\Json;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\next\Entity\NextEntityTypeConfig;
 use Drupal\next\Entity\NextSite;
+use Drupal\node\Entity\NodeType;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 use Drupal\user\Entity\User;
@@ -52,6 +53,8 @@ class SimpleOauthPreviewUrlGeneratorTest extends KernelTestBase {
     $this->installConfig(['filter', 'next']);
     $this->installSchema('node', ['node_access']);
 
+    NodeType::create(['type' => 'page', 'name' => 'Page'])->save();
+
     $this->nextSettingsManager = $this->container->get('next.settings.manager');
 
     // Create NextSite entities.
@@ -67,6 +70,7 @@ class SimpleOauthPreviewUrlGeneratorTest extends KernelTestBase {
     // Create entity type config.
     $entity_type_config = NextEntityTypeConfig::create([
       'id' => 'node.page',
+      'draft_enabled' => TRUE,
       'site_resolver' => 'site_selector',
       'configuration' => [
         'sites' => [

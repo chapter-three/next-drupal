@@ -35,18 +35,9 @@ class SiteResolverTest extends KernelTestBase {
     $this->installConfig(['filter']);
     $this->installSchema('node', ['node_access']);
 
-    // Create page type.
-    $page_type = NodeType::create([
-      'type' => 'page',
-      'label' => 'Page',
-    ]);
-    $page_type->save();
-
-    $article_type = NodeType::create([
-      'type' => 'article',
-      'label' => 'Article',
-    ]);
-    $article_type->save();
+    // Create content types.
+    NodeType::create(['type' => 'page', 'name' => 'Page'])->save();
+    NodeType::create(['type' => 'article', 'name' => 'Article'])->save();
 
     // Create NextSite entities.
     $blog = NextSite::create([
@@ -70,6 +61,7 @@ class SiteResolverTest extends KernelTestBase {
     // Create entity type config.
     $entity_type_config = NextEntityTypeConfig::create([
       'id' => 'node.page',
+      'draft_enabled' => TRUE,
       'site_resolver' => 'site_selector',
       'configuration' => [
         'sites' => [

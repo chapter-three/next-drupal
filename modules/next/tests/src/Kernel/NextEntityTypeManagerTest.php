@@ -5,6 +5,7 @@ namespace Drupal\Tests\next\Kernel\Plugin;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\next\Entity\NextEntityTypeConfig;
 use Drupal\next\Entity\NextSite;
+use Drupal\node\Entity\NodeType;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 
 /**
@@ -33,6 +34,8 @@ class NextEntityTypeManagerTest extends KernelTestBase {
     $this->installEntitySchema('user');
     $this->installConfig(['filter', 'next']);
     $this->installSchema('node', ['node_access']);
+
+    NodeType::create(['type' => 'page', 'name' => 'Page'])->save();
   }
 
   /**
@@ -52,6 +55,7 @@ class NextEntityTypeManagerTest extends KernelTestBase {
 
     $entity_type_config = NextEntityTypeConfig::create([
       'id' => 'node.page',
+      'draft_enabled' => TRUE,
       'site_resolver' => 'site_selector',
       'configuration' => [
         'sites' => [
@@ -97,6 +101,7 @@ class NextEntityTypeManagerTest extends KernelTestBase {
 
     $entity_type_config = NextEntityTypeConfig::create([
       'id' => 'node.page',
+      'draft_enabled' => TRUE,
       'site_resolver' => 'site_selector',
       'configuration' => [
         'sites' => [
@@ -120,6 +125,7 @@ class NextEntityTypeManagerTest extends KernelTestBase {
 
     $entity_type_config = NextEntityTypeConfig::create([
       'id' => 'node.page',
+      'draft_enabled' => TRUE,
       'site_resolver' => 'site_selector',
       'configuration' => [
         'sites' => [

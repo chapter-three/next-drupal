@@ -6,6 +6,7 @@ use Drupal\dblog\Controller\DbLogController;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\next\Entity\NextEntityTypeConfig;
+use Drupal\node\Entity\NodeType;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,9 +52,12 @@ class EntityRevalidatedEventTest extends KernelTestBase {
     // Set up multilingual.
     ConfigurableLanguage::createFromLangcode('nl')->save();
 
+    NodeType::create(['type' => 'page', 'name' => 'Page'])->save();
+
     // Create entity type config.
     $entity_type_config = NextEntityTypeConfig::create([
       'id' => 'node.page',
+      'draft_enabled' => TRUE,
       'site_resolver' => 'site_selector',
       'configuration' => [
         'sites' => [

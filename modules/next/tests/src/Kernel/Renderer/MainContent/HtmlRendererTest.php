@@ -27,6 +27,13 @@ class HtmlRendererTest extends KernelTestBase {
   protected static $modules = ['filter', 'next', 'node', 'system', 'user'];
 
   /**
+   * The next entity type config.
+   *
+   * @var \Drupal\next\Entity\NextEntityTypeConfigInterface
+   */
+  protected $entityTypeConfig;
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
@@ -38,18 +45,9 @@ class HtmlRendererTest extends KernelTestBase {
     $this->installSchema('node', ['node_access']);
     $this->installSchema('user', ['users_data']);
 
-    // Create page type.
-    $page_type = NodeType::create([
-      'type' => 'page',
-      'label' => 'Page',
-    ]);
-    $page_type->save();
-
-    $article_type = NodeType::create([
-      'type' => 'article',
-      'label' => 'Article',
-    ]);
-    $article_type->save();
+    // Create content types.
+    NodeType::create(['type' => 'page', 'name' => 'Page'])->save();
+    NodeType::create(['type' => 'article', 'name' => 'Article'])->save();
 
     // Create NextSite entities.
     $blog = NextSite::create([
@@ -62,8 +60,9 @@ class HtmlRendererTest extends KernelTestBase {
     $blog->save();
 
     // Create entity type config.
-    $entity_type_config = NextEntityTypeConfig::create([
+    $this->entityTypeConfig = NextEntityTypeConfig::create([
       'id' => 'node.page',
+      'draft_enabled' => TRUE,
       'site_resolver' => 'site_selector',
       'configuration' => [
         'sites' => [
@@ -71,7 +70,7 @@ class HtmlRendererTest extends KernelTestBase {
         ],
       ],
     ]);
-    $entity_type_config->save();
+    $this->entityTypeConfig->save();
 
     $this->setUpCurrentUser();
   }
@@ -98,6 +97,16 @@ class HtmlRendererTest extends KernelTestBase {
 
     $preview_url = 'https://blog.com/node/2';
     $fields = $this->xpath("//iframe[contains(@src, '$preview_url')]");
+    $this->assertEmpty($fields);
+
+    // Disable draft.
+    $this->entityTypeConfig->set('draft_enabled', FALSE);
+    $this->entityTypeConfig->save();
+    $request = Request::create($page->toUrl()->toString(), 'GET');
+    $response = $this->container->get('http_kernel')->handle($request);
+    $this->setRawContent($response->getContent());
+
+    $fields = $this->xpath("//iframe");
     $this->assertEmpty($fields);
   }
 

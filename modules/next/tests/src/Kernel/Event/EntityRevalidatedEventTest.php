@@ -82,26 +82,26 @@ class EntityRevalidatedEventTest extends KernelTestBase {
     // Insert.
     $page->save();
     $this->container->get('kernel')->terminate(Request::create('/'), new Response());
-    $this->assertLogsContains("Entity A page, action insert, revalidated 0.");
+    $this->assertLogsContains('Entity A page, action insert, revalidated 0.');
 
     // Update.
     $page->set('title', 'A page updated')->save();
     $this->container->get('kernel')->terminate(Request::create('/'), new Response());
-    $this->assertLogsContains("Entity A page updated, action update, revalidated 0.");
+    $this->assertLogsContains('Entity A page updated, action update, revalidated 0.');
 
     // Delete translation.
     $page->removeTranslation('nl');
     $page->save();
     $this->container->get('kernel')->terminate(Request::create('/'), new Response());
-    $this->assertLogsContains("Entity Translation, action delete, revalidated 0.");
+    $this->assertLogsContains('Entity Translation, action delete, revalidated 0.');
 
     // Delete.
     $page->delete();
     $this->container->get('kernel')->terminate(Request::create('/'), new Response());
-    $this->assertLogsContains("Entity A page updated, action delete, revalidated 0.");
+    $this->assertLogsContains('Entity A page updated, action delete, revalidated 0.');
     // As hook_entity_predelete is used to perform revalidate
     // before delete action then it's ideal to check log after revalidate.
-    $this->assertLogsContains("Event next.entity.action dispatched for entity A page updated and action delete.");
+    $this->assertLogsContains('Event next.entity.action dispatched for entity A page updated and action delete.');
   }
 
   /**
@@ -110,7 +110,7 @@ class EntityRevalidatedEventTest extends KernelTestBase {
    * @param string $message
    *   The message to assert in the logs.
    */
-  protected function assertLogsContains(string $message) {
+  protected function assertLogsContains(string $message): void {
     $logs = $this->container->get('database')
       ->select('watchdog', 'wd')
       ->fields('wd', ['message', 'variables'])

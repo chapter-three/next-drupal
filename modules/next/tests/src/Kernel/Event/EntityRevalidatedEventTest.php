@@ -4,6 +4,7 @@ namespace Drupal\Tests\next\Kernel\Event;
 
 use Drupal\dblog\Controller\DbLogController;
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\next\Entity\NextEntityTypeConfig;
 use Drupal\node\Entity\NodeType;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
@@ -30,6 +31,8 @@ class EntityRevalidatedEventTest extends KernelTestBase {
     'system',
     'user',
     'dblog',
+    'content_translation',
+    'language',
   ];
 
   /**
@@ -45,6 +48,9 @@ class EntityRevalidatedEventTest extends KernelTestBase {
     $this->installSchema('dblog', ['watchdog']);
     $this->installSchema('node', ['node_access']);
     $this->installSchema('user', ['users_data']);
+
+    // Set up multilingual.
+    ConfigurableLanguage::createFromLangcode('nl')->save();
 
     NodeType::create(['type' => 'page', 'name' => 'Page'])->save();
 
@@ -71,24 +77,31 @@ class EntityRevalidatedEventTest extends KernelTestBase {
    */
   public function testEntityRevalidatedEvents() {
     $page = $this->createNode(['type' => 'page', 'title' => 'A page']);
+    $page->addTranslation('nl', ['title' => 'Translation']);
 
     // Insert.
     $page->save();
     $this->container->get('kernel')->terminate(Request::create('/'), new Response());
-    $this->assertLogsContains("Entity A page, action insert, revalidated 0.");
+    $this->assertLogsContains('Entity A page, action insert, revalidated 0.');
 
     // Update.
     $page->set('title', 'A page updated')->save();
     $this->container->get('kernel')->terminate(Request::create('/'), new Response());
-    $this->assertLogsContains("Entity A page updated, action update, revalidated 0.");
+    $this->assertLogsContains('Entity A page updated, action update, revalidated 0.');
+
+    // Delete translation.
+    $page->removeTranslation('nl');
+    $page->save();
+    $this->container->get('kernel')->terminate(Request::create('/'), new Response());
+    $this->assertLogsContains('Entity Translation, action delete, revalidated 0.');
 
     // Delete.
     $page->delete();
     $this->container->get('kernel')->terminate(Request::create('/'), new Response());
-    $this->assertLogsContains("Entity A page updated, action delete, revalidated 0.");
+    $this->assertLogsContains('Entity A page updated, action delete, revalidated 0.');
     // As hook_entity_predelete is used to perform revalidate
     // before delete action then it's ideal to check log after revalidate.
-    $this->assertLogsContains("Event next.entity.action dispatched for entity A page updated and action delete.");
+    $this->assertLogsContains('Event next.entity.action dispatched for entity A page updated and action delete.');
   }
 
   /**
@@ -97,7 +110,7 @@ class EntityRevalidatedEventTest extends KernelTestBase {
    * @param string $message
    *   The message to assert in the logs.
    */
-  protected function assertLogsContains(string $message) {
+  protected function assertLogsContains(string $message): void {
     $logs = $this->container->get('database')
       ->select('watchdog', 'wd')
       ->fields('wd', ['message', 'variables'])

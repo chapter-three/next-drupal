@@ -939,7 +939,7 @@ export class NextDrupal extends NextDrupalBase {
       cache: options.cache,
     })
 
-    if (response.status === 404) {
+    if (response.status === 404 || response.status === 403) {
       // Do not throw errors here, otherwise Next.js will catch the error and
       // throw a 500. We want a 404.
       return null

@@ -11,10 +11,12 @@ export function MenuFooter({ items, ...props }: MenuFooterProps) {
       <ul className="flex flex-col space-y-2">
         {items.map((item) => (
           <li key={item.id}>
-            <Link href={item.url} passHref>
-              <a className="text-sm font-semibold transition-colors hover:bg-black hover:underline">
-                {item.title}
-              </a>
+            <Link
+              href={item.url}
+              passHref
+              className="text-sm font-semibold transition-colors hover:bg-black hover:underline"
+            >
+              {item.title}
             </Link>
           </li>
         ))}

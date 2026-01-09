@@ -38,10 +38,12 @@ export default function AccountsPage({
           },
         ]}
       >
-        <Link href="/articles/new" passHref>
-          <a className="px-3 py-1 font-serif text-lg text-white transition-colors border-2 rounded-md lg:text-xl lg:px-4 lg:py-2 bg-secondary hover:bg-white hover:text-black border-secondary">
-            New Article
-          </a>
+        <Link
+          href="/articles/new"
+          passHref
+          className="px-3 py-1 font-serif text-lg text-white transition-colors border-2 rounded-md lg:text-xl lg:px-4 lg:py-2 bg-secondary hover:bg-white hover:text-black border-secondary"
+        >
+          New Article
         </Link>
       </PageHeader>
       <div className="container">

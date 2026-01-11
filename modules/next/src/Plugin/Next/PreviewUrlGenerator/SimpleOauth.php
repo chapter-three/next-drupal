@@ -127,6 +127,9 @@ class SimpleOauth extends ConfigurablePreviewUrlGeneratorBase {
   public function generate(NextSiteInterface $next_site, EntityInterface $entity, string $resource_version = NULL): ?Url {
     $query = [];
     $query['path'] = $path = $entity->toUrl()->toString();
+    if($resource_version) {
+      $query['path'] = $query['path'].'?resourceVersion='.$resource_version;
+    }
 
     // Create a secret based on the timestamp, path, scope and resource version.
     $query['timestamp'] = $timestamp = $this->time->getRequestTime();

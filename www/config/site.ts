@@ -4,7 +4,7 @@ export const site: SiteConfig = {
   name: "Next.js for Drupal",
   description:
     "Everything you expect from Drupal. On a modern stack. Go headless without compromising features.",
-  copyright: `Copyright © ${new Date().getFullYear()} Chapter Three. All rights reserved.`,
+  copyright: `Copyright © ${new Date().getFullYear()} Kanopi Studios. All rights reserved.`,
   links: [
     {
       title: "Get Started",
@@ -33,14 +33,14 @@ export const site: SiteConfig = {
     },
     {
       title: "Contact",
-      href: "https://www.chapterthree.com/contact?utm_source=next-drupal&utm_medium=banner",
+      href: "https://kanopi.com/contact",
       external: true,
     },
   ],
   social: {
     github: "chapter-three/next-drupal",
-    contact: "https://www.chapterthree.com/contact",
-    twitter: "shadcn",
+    contact: "https://kanopi.com/contact",
+    twitter: "chapter_three",
   },
   versions: [
     {

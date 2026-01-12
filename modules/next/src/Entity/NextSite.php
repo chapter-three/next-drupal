@@ -245,6 +245,15 @@ class NextSite extends ConfigEntityBase implements NextSiteInterface {
       $query['resourceVersion'] = $resource_version;
     }
 
+    // Add workspace information if available
+    if (\Drupal::moduleHandler()->moduleExists('workspaces')) {
+      $workspace_manager = \Drupal::service('workspaces.manager');
+      $active_workspace = $workspace_manager->getActiveWorkspace();
+      if ($active_workspace) {
+        $query['workspace'] = $active_workspace->id();
+      }
+    }
+
     $preview_url->setOption('query', $query);
 
     return $preview_url;

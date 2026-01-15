@@ -1,0 +1,17 @@
+{
+  "name": "drupal/next_drupal_graphql",
+  "description": "Common dependencies and configuration for Next Drupal GraphQL projects.",
+  "type": "drupal-recipe",
+  "license": "GPL-2.0-or-later",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    }
+  ],
+  "require": {
+    "drupal/next": "*",
+    "drupal/graphql": "^4.6",
+    "drupal/graphql_compose": "^2.0"
+  }
+}

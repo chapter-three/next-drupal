@@ -3,6 +3,7 @@ import { stringify } from "qs"
 import { JsonApiErrors } from "./jsonapi-errors"
 import { DrupalMenuTree } from "./menu-tree"
 import { NextDrupalBase } from "./next-drupal-base"
+import { headers } from 'next/headers'
 import type {
   BaseUrl,
   DrupalFile,
@@ -927,8 +928,12 @@ export class NextDrupal extends NextDrupalBase {
       ...options,
     }
 
+    const headersList = await headers();
+    const host = headersList.get('host')?.replace(/:\d+$/, '') || '';
+
     const endpoint = this.buildUrl("/router/translate-path", {
       path,
+      host,
     }).toString()
 
     this.debug(`Fetching translated path, ${path}.`)

@@ -103,7 +103,7 @@ class NextEntityTypeConfigForm extends EntityForm {
       '#ajax' => [
         'callback' => '::ajaxReplaceSettingsForm',
         'wrapper' => 'settings-container',
-        'method' => 'replace',
+        'method' => 'replaceWith',
       ],
     ];
 
@@ -120,7 +120,7 @@ class NextEntityTypeConfigForm extends EntityForm {
       '#ajax' => [
         'callback' => '::ajaxReplaceSiteResolverSettingsForm',
         'wrapper' => 'site-resolver-settings',
-        'method' => 'replace',
+        'method' => 'replaceWith',
       ],
     ];
 
@@ -167,7 +167,7 @@ class NextEntityTypeConfigForm extends EntityForm {
         '#ajax' => [
           'callback' => '::ajaxReplaceSettingsForm',
           'wrapper' => 'settings-container',
-          'method' => 'replace',
+          'method' => 'replaceWith',
         ],
       ];
 
@@ -191,7 +191,7 @@ class NextEntityTypeConfigForm extends EntityForm {
         '#ajax' => [
           'callback' => '::ajaxReplaceRevalidatorSettingsForm',
           'wrapper' => 'revalidator-settings',
-          'method' => 'replace',
+          'method' => 'replaceWith',
         ],
       ];
 

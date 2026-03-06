@@ -27,6 +27,8 @@ jobs:
             php: "8.4"
           - drupal: "10.6.x"
             php: "8.4"
+          - drupal: "11.2.x"
+            php: "8.2"
     name: Drupal ${{ matrix.drupal }} - PHP ${{ matrix.php }}
     services:
       mysql:

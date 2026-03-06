@@ -14,25 +14,16 @@ jobs:
       matrix:
         # Supported PHP versions: https://www.drupal.org/docs/getting-started/system-requirements/php-requirements
         php:
-          - "8.1"
           - "8.2"
           - "8.3"
+          - "8.4"
         # Supported Drupal versions: https://www.drupal.org/project/drupal
         drupal:
-          - "10.0.x"
-          - "10.1.x"
-          - "10.2.x"
-          - "10.3.x"
-          - "11.0.x"
+          - "10.4.x"
+          - "11.2.x"
         exclude:
-          - drupal: "10.0.x"
-            php: "8.3"
-          - drupal: "10.1.x"
-            php: "8.3"
-          - drupal: "11.0.x"
-            php: "8.1"
-          - drupal: "11.0.x"
-            php: "8.2"
+          - drupal: "10.4.x"
+            php: "8.4"
     name: Drupal ${{ matrix.drupal }} - PHP ${{ matrix.php }}
     services:
       mysql:
@@ -75,7 +66,7 @@ jobs:
           composer config repositories.0 path $GITHUB_WORKSPACE
           composer config repositories.1 composer https://packages.drupal.org/8
           composer config allow-plugins true -n
-          COMPOSER_MEMORY_LIMIT=-1 composer require phpunit/phpunit drupal/coder -W
+          COMPOSER_MEMORY_LIMIT=-1 composer require drupal/core-dev:${{ matrix.drupal }} drupal/coder -W
       - name: Run phpcs
         run: |
           ~/drupal/vendor/bin/phpcs -p -s --colors --standard=modules/next/phpcs.xml modules/next

@@ -75,7 +75,7 @@ jobs:
           composer config repositories.0 path $GITHUB_WORKSPACE
           composer config repositories.1 composer https://packages.drupal.org/8
           composer config allow-plugins true -n
-          COMPOSER_MEMORY_LIMIT=-1 composer require drupal/core-dev drupal/coder --no-install
+          COMPOSER_MEMORY_LIMIT=-1 composer require drupal/core-dev:${{ matrix.drupal }} drupal/coder --no-install
           composer install
       - name: Run phpcs
         run: |

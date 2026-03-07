@@ -16,17 +16,12 @@ jobs:
         php:
           - "8.2"
           - "8.3"
-          - "8.4"
         # Supported Drupal versions: https://www.drupal.org/about/core/policies/core-release-cycles/schedule
         drupal:
           - "10.5.x"
           - "10.6.x"
           - "11.2.x"
         exclude:
-          - drupal: "10.5.x"
-            php: "8.4"
-          - drupal: "10.6.x"
-            php: "8.4"
           - drupal: "11.2.x"
             php: "8.2"
     name: Drupal ${{ matrix.drupal }} - PHP ${{ matrix.php }}

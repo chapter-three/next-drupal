@@ -113,27 +113,33 @@ class CacheTag extends ConfigurableRevalidatorBase implements RevalidatorInterfa
    */
   public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
     $additional_tags = $form_state->getValue('additional_tags');
-    
+
     if (!empty($additional_tags)) {
       $tags = array_map('trim', explode("\n", $additional_tags));
       $tags = array_filter($tags);
-      
+
       foreach ($tags as $tag) {
-        // Validate that each tag is a string and doesn't contain invalid characters.
+        // Validate that each tag is a string and doesn't contain invalid
+        // characters.
         if (!is_string($tag) || empty($tag)) {
           $form_state->setErrorByName('additional_tags', $this->t('Each cache tag must be a non-empty string.'));
           break;
         }
-        
-        // Check for invalid characters (spaces, special characters that could break cache tags).
+
+        // Check for invalid characters (spaces, special characters that could
+        // break cache tags).
         if (preg_match('/[^\w\-:._]/', $tag)) {
-          $form_state->setErrorByName('additional_tags', $this->t('Cache tags can only contain letters, numbers, hyphens, colons, periods, and underscores. Invalid tag: @tag', ['@tag' => $tag]));
+          $form_state->setErrorByName('additional_tags', $this->t('Cache tags can only contain letters, numbers, hyphens, colons, periods, and underscores. Invalid tag: @tag', [
+            '@tag' => $tag,
+          ]));
           break;
         }
-        
+
         // Check for reasonable length limit.
         if (strlen($tag) > 255) {
-          $form_state->setErrorByName('additional_tags', $this->t('Cache tags must be 255 characters or less. Invalid tag: @tag', ['@tag' => $tag]));
+          $form_state->setErrorByName('additional_tags', $this->t('Cache tags must be 255 characters or less. Invalid tag: @tag', [
+            '@tag' => $tag,
+          ]));
           break;
         }
       }

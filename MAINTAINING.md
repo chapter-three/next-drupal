@@ -26,7 +26,7 @@ While maintaining releases for packages, starters and examples is done with Lern
       "sync:modules": "./scripts/sync-repo.sh 3.x git@git.drupal.org:project/ \"modules/*\"",
       ```
 
-2. Run `yarn sync:modules` to sync the latest commit on `main` with the git repo on drupal.org. All recent changes will be squashed into a commit using the latest commit message.
+2. Run `yarn sync:modules` to sync the latest commit on `main` with the git repo on drupal.org. All recent changes will be squashed into a commit using the most recent commit message that touched the synced path.
 
 3. On Drupal.org’s GitLab, [tag a release](https://git.drupalcode.org/project/next/-/tags/new) following the [“Release tags naming conventions” docs](https://www.drupal.org/docs/develop/git/git-for-drupal-project-maintainers/release-naming-conventions#release-tags).
 
@@ -131,7 +131,7 @@ The code in the examples repos do not strictly require a versioned release since
    yarn sync:examples
    ```
 
-   All recent changes on `main` will be squashed into a commit on the target git repo using the latest commit message.
+   All recent changes on `main` will be squashed into a commit on the target git repo using the most recent commit message that touched the synced path.
 
 ### Starters
 
@@ -158,7 +158,7 @@ The code in the examples repos do not strictly require a versioned release since
    yarn sync:starters:release
    ```
 
-   All recent changes on `main` will be squashed into a commit on the target git repo using the latest commit message.
+   All recent changes on `main` will be squashed into a commit on the target git repo using the most recent commit message that touched the synced path.
 
 4. **Create a GitHub release and tag**
 

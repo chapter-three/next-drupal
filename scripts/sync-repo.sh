@@ -15,7 +15,10 @@ BRANCH=$(echo $BRANCHES | cut -d "," -f 1)
 TRACKING_BRANCH=$(echo $BRANCHES | cut -d "," -f 2)
 
 BASE=$(pwd)
-COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+COMMIT_MESSAGE=$(git log -1 --pretty=%B -- $GLOB)
+if [ -z "$COMMIT_MESSAGE" ]; then
+  COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+fi
 
 for folder in $GLOB; do
   [ -d "$folder" ] || continue

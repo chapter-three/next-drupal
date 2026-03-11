@@ -16,7 +16,7 @@
     "next": "^15.1.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "next-drupal": "^2.0.0-beta.2"
+    "next-drupal": "^2.0.0"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.12",

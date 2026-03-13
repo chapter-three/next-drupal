@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1](https://github.com/chapter-three/next-drupal/compare/next-drupal@2.0.0...next-drupal@2.0.1) (2026-03-13)
+
+
+### Bug Fixes
+
+* **next-drupal:** update the endpoint for getMenu ([#866](https://github.com/chapter-three/next-drupal/issues/866)) ([b48f0a9](https://github.com/chapter-three/next-drupal/commit/b48f0a9494283df163c295b3d2f232ffd7eb49df))
+
+
+
+
+
 # [2.0.0](https://github.com/chapter-three/next-drupal/compare/next-drupal@2.0.0-rc.0...next-drupal@2.0.0) (2025-02-11)
 
 **Note:** Version bump only for package next-drupal

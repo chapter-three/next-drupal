@@ -18,3 +18,9 @@ next.settings:
   route_name: next.settings
   base_route: next.settings
   weight: 20
+
+entity.node.headless_preview:
+  title: Preview
+  route_name: entity.node.headless_preview
+  base_route: entity.node.canonical
+  weight: 5

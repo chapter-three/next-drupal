@@ -135,4 +135,5 @@ export function getParams(
   if (name === "taxonomy_term--recipe_category") {
     return params.addFields("taxonomy_term--recipe_category", ["name", "path"])
   }
+  return params;
 }

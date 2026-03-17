@@ -72,9 +72,14 @@ export interface DraftData {
 
 export async function getDraftData() {
   let data: DraftData = {}
-  const cookieStore = await cookies()
+
   const draft = await draftMode()
-  if (draft.isEnabled && cookieStore.has(DRAFT_DATA_COOKIE_NAME)) {
+  if (!draft.isEnabled) {
+    return data
+  }
+
+  const cookieStore = await cookies()
+  if (cookieStore.has(DRAFT_DATA_COOKIE_NAME)) {
     data = JSON.parse(cookieStore.get(DRAFT_DATA_COOKIE_NAME)?.value || "{}")
   }
 

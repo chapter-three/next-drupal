@@ -1,0 +1,5 @@
+scope_provider: dynamic
+token_cron_batch_size: 0
+public_key: ../keys/public.key
+private_key: ../keys/private.key
+disable_openid_connect: false

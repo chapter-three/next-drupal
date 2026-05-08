@@ -32,7 +32,14 @@ jobs:
         if: github.event_name == 'pull_request'
         run: yarn workspace next-drupal test --testPathIgnorePatterns=crud-methods --coverageThreshold='{}'
         env:
+          # Placeholders only — unit tests mock fetch. The test utils
+          # construct a Drupal client at module load and require these
+          # to be present (not valid).
           DRUPAL_BASE_URL: http://localhost
+          DRUPAL_USERNAME: test
+          DRUPAL_PASSWORD: test
+          DRUPAL_CLIENT_ID: test
+          DRUPAL_CLIENT_SECRET: test
       - name: Run all tests (main)
         if: github.event_name == 'push'
         run: yarn workspace next-drupal test

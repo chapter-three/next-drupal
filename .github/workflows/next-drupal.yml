@@ -30,7 +30,12 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Run unit tests (PR)
         if: github.event_name == 'pull_request'
-        run: yarn workspace next-drupal test --testPathIgnorePatterns=crud-methods --coverageThreshold='{}'
+        # Skip integration test files that exercise a live Drupal instance.
+        # Tracking removal of the live dependency in .claude/plans/.
+        run: |
+          yarn workspace next-drupal test \
+            --testPathIgnorePatterns="NextDrupal/(crud-methods|resource-methods|basic-methods)|NextDrupalPages/(resource-methods|pages-router-methods)" \
+            --coverageThreshold='{}'
         env:
           # Placeholders only — unit tests mock fetch. The test utils
           # construct a Drupal client at module load and require these

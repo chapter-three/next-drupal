@@ -2,6 +2,25 @@
 
 This document is for maintainers to explain the various procedures for all the projects in this monorepo.
 
+## Branch model
+
+This monorepo uses three active branches that serve different roles in the release lifecycle. Each is also wired to a separate Vercel docs deployment.
+
+| Branch | Role | Vercel deployment |
+| ------ | ---- | ----------------- |
+| `main` | Active development for the next major release. New features land here first. | https://next.next-drupal.org/ |
+| `v2.0` | Pre-release staging. Features merge here from `main` once they are release-candidate quality, then are published to npm. | https://next-drupal.org/ |
+| `v1.6` | Older supported version (security and critical fixes only). | https://v1-6.next-drupal.org/ |
+
+Older release branches (`v1`, `v0`) exist for historical reference but are no longer Vercel-deployed and do not receive patches. See `SECURITY.md` for the supported-versions matrix.
+
+### Where to target a PR
+
+- **New feature for the next major release** — open against `main`.
+- **Backport / patch for the current stable line** — open against `v2.0`.
+- **Security or critical fix for the older supported line** — open against `v1.6`.
+- **Docs-only change for a specific version's docs site** — open against the branch whose Vercel deployment you want to update. For general-purpose docs, target `main` and let the release flow propagate.
+
 ## Making releases
 
 ### `next` (Drupal Module)
@@ -181,13 +200,13 @@ The code in the examples repos do not strictly require a versioned release since
 
 ### Docs
 
-@TODO: Expand details the next time docs are deployed.
-
 Documentation is deployed to Vercel and controlled via the following Git branches:
 
-- `v1.6`
-- `v1`
-- `v0`
+- `main` → https://next.next-drupal.org/
+- `v2.0` → https://next-drupal.org/
+- `v1.6` → https://v1-6.next-drupal.org/
+
+Each branch's Vercel project auto-deploys on push.
 
 ## Tests
 

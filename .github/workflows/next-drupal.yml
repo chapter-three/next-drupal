@@ -2,28 +2,52 @@ name: next-drupal
 on:
   push:
     branches:
-      - main
-  pull_request_target:
-    types: [opened, reopened, synchronize]
+      - v2.0
+  pull_request:
+    branches:
+      - v2.0
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{github.event.pull_request.head.ref}}
-          repository: ${{github.event.pull_request.head.repo.full_name}}
-      # TODO: Work-around for failing code coverage.
-      # https://github.com/chapter-three/next-drupal/issues/740
+          persist-credentials: false
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18.19.x'
       - name: Install packages
-        run: yarn
-      - name: Run tests
-        run: yarn test
+        run: yarn install --frozen-lockfile
+      - name: Run unit tests (PR)
+        if: github.event_name == 'pull_request'
+        # Skip integration test files that exercise a live Drupal instance.
+        # Tracking removal of the live dependency in .claude/plans/.
+        run: |
+          yarn workspace next-drupal test \
+            --testPathIgnorePatterns="NextDrupal/(crud-methods|resource-methods|basic-methods)|NextDrupalPages/(resource-methods|pages-router-methods)" \
+            --coverageThreshold='{}'
+        env:
+          # Placeholders only — unit tests mock fetch. The test utils
+          # construct a Drupal client at module load and require these
+          # to be present (not valid).
+          DRUPAL_BASE_URL: http://localhost
+          DRUPAL_USERNAME: test
+          DRUPAL_PASSWORD: test
+          DRUPAL_CLIENT_ID: test
+          DRUPAL_CLIENT_SECRET: test
+      - name: Run all tests (push)
+        if: github.event_name == 'push'
+        run: yarn workspace next-drupal test
         env:
           DRUPAL_BASE_URL: ${{ secrets.DRUPAL_BASE_URL }}
           DRUPAL_USERNAME: ${{ secrets.DRUPAL_USERNAME }}

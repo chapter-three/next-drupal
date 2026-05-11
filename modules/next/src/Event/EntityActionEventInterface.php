@@ -3,6 +3,7 @@
 namespace Drupal\next\Event;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Url;
 
 /**
  * Defines an interface for entity action events.
@@ -86,20 +87,20 @@ interface EntityActionEventInterface {
   /**
    * Gets the url for the entity.
    *
-   * @return string|null
+   * @return \Drupal\Core\Url|null
    *   The entity url.
    */
-  public function getEntityUrl(): ?string;
+  public function getEntityUrl(): ?Url;
 
   /**
    * Sets the url for the entity.
    *
-   * @param string $url
+   * @param \Drupal\Core\Url $url
    *   The entity url.
    *
    * @return \Drupal\next\Event\EntityActionEventInterface
    *   The event entity.
    */
-  public function setEntityUrl(string $url): self;
+  public function setEntityUrl(Url $url): self;
 
 }

@@ -3,7 +3,7 @@ import { DrupalJsonApiParams } from "drupal-jsonapi-params"
 // A helper function to build params for a resource type.
 export function getParams(
   name: string,
-  mode: string = null
+  mode: string | null = null
 ): DrupalJsonApiParams {
   const params = new DrupalJsonApiParams()
 

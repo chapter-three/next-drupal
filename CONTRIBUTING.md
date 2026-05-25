@@ -192,3 +192,28 @@ BREAKING CHANGE:
 Dropped support for Next.js 11 and React 16. Users
 requiring these older versions should stick to v1.6.
 ```
+
+## Local Drupal Environment (Experimental)
+
+Requires [DDEV](https://ddev.readthedocs.io/en/latest/users/install/ddev-installation/)
+
+Create a local instance by running:
+
+```
+yarn ddev:init
+```
+
+This will create a local Drupal instance in local-next-drupal which will be ignored by git.
+
+Destroy the local instance by running:
+
+```
+yarn ddev:destroy
+```
+
+Things that should work out of the box after running this script:
+
+- basic starter
+- pages starter
+- module tests (run from local-next-drupal directory)
+  - `SIMPLETEST_DB=sqlite://localhost/:memory: ./vendor/bin/phpunit -c ./web/core modules/next`

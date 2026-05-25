@@ -1,0 +1,50 @@
+entity_config:
+  node:
+    article:
+      enabled: true
+      query_load_enabled: true
+      edges_enabled: true
+      routes_enabled: true
+    page:
+      enabled: true
+      query_load_enabled: true
+      edges_enabled: true
+      routes_enabled: true
+  taxonomy_term:
+    tags:
+      enabled: false
+  user:
+    user:
+      enabled: true
+      query_load_enabled: true
+      edges_enabled: true
+      routes_enabled: true
+field_config:
+  node:
+    article:
+      body:
+        enabled: true
+      field_image:
+        enabled: true
+      field_tags:
+        enabled: true
+    page:
+      body:
+        enabled: true
+  user:
+    user:
+      user_picture:
+        enabled: true
+settings:
+  exclude_unpublished: true
+  expose_entity_ids: false
+  field_required_override: false
+  schema_description: "GraphQL Compose"
+  schema_version: "1"
+  simple_queries: true
+  simple_unions: true
+  site_name: false
+  site_slogan: false
+  site_front: true
+  inflector_langcode: en
+  inflector_singularize: true

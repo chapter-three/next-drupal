@@ -73,13 +73,18 @@
   },
   "dependencies": {
     "jsona": "^1.12.1",
-    "next": "^14.2.21 || ^15.1.2",
     "node-cache": "^5.1.2",
-    "qs": "^6.13.1",
+    "qs": "^6.13.1"
+  },
+  "peerDependencies": {
+    "next": "^14.2.21 || ^15.1.2 || ^16.0.0",
     "react": "^18.2 || ^19.0",
     "react-dom": "^18.2 || ^19.0"
   },
   "devDependencies": {
+    "next": "^15.1.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "typescript": "^5.7.2"
   }
 }

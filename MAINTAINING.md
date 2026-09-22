@@ -34,85 +34,87 @@ While maintaining releases for packages, starters and examples is done with Lern
 
 ### `next-drupal` (NPM package)
 
-Since we are using semantic commits, Lerna is able to read the git commits since the last release to auto-generate a CHANGELOG and to determine if the next release should be a:
+Releases are automated. You do not run `npm publish` or `lerna publish`, and you
+do not need an npm token on your machine.
 
-- major version bump (e.g. 1.0.0 to 2.0.0). This will happen when Lerna finds a `BREAKING CHANGE` commit message.
-- minor version bump (e.g. 1.0.0 to 1.1.0). This will happen when Lerna finds a `feat` commit message.
-- patch version bump (e.g. 1.0.0 to 1.0.1). This is the default version bump for bug fixes, etc.
-- prerelease version bump (e.g. 1.0.0-alpha.0 to 1.0.0-alpha.1)
+#### How it works
 
-We’ll be using Lerna’s `--no-push` flag so that Lerna does not push git tags and commits automatically. This allows us to delete any commits and tags locally if we make a mistake.
+[release-please](https://github.com/googleapis/release-please) reads the
+conventional commits merged to `main` and keeps a pull request open titled
+something like `chore(main): release next-drupal 2.1.0`. That pull request holds
+the version bump and the generated `CHANGELOG.md`. It updates itself as more
+commits land.
 
-1. **Tag a new release**
+The commit type decides the version:
 
-   - **to make the next logical semantic version**, run:
+- `feat` gives a minor bump (2.0.1 to 2.1.0).
+- `fix`, `perf` and similar give a patch bump (2.0.1 to 2.0.2).
+- A `BREAKING CHANGE:` footer gives a major bump (2.0.1 to 3.0.0). Add this only
+  when you mean it.
+- Other types (`chore`, `docs`, `ci`, `test`) do not trigger a release on their
+  own.
 
-     ```
-     npx lerna version --no-push
-     ```
+Merging the release pull request tags the release and publishes to npm.
 
-   - **to make a new alpha prerelease version:**
+#### Making a release
 
-     If the current version is not a prerelease version, you’ll need to explicitly tell Lerna that the next version should be an alpha release with:
+1. **Check the release pull request.** Confirm the version is what you expect
+   and the changelog reads well. Edit the changelog in the pull request if a
+   commit message produced an unhelpful entry.
 
-     ```
-     npx lerna version --conventional-prerelease --no-push
-     ```
+2. **Merge it.** Squash and merge, like any other pull request. `main` requires
+   a review, and the release pull request is authored by a bot, so you can
+   approve it yourself.
 
-     When creating a new prerelease version of `next-drupal`, Lerna will automatically determine if it needs to be a `premajor` (2.0.0-alpha.0), `preminor` (1.1.0-alpha.0), or `prepatch` (1.0.1-alpha.0) version.
+3. **Watch the `release` workflow.** Merging tags the release and runs the
+   publish job.
 
-   - **to make a new beta prerelease version:**
+4. **Confirm.** Check the "Current Tags" section of
+   [next-drupal's npm page](https://www.npmjs.com/package/next-drupal?activeTab=versions)
+   and confirm `latest` points at the new version.
 
-     If the current version is not a beta version, you’ll need to explicitly tell Lerna that the next version should be a beta release with:
+That is the whole process. There is no local step.
 
-     ```
-     npx lerna version --conventional-prerelease --preid beta --no-push
-     ```
+#### Publishing credentials
 
-   - **to make a new regular version from a prerelease version:**
+Publishing uses [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/).
+The runner mints a short-lived OIDC credential that npm accepts only from
+`.github/workflows/release.yml` in this repository. There is no npm token stored
+anywhere, so there is nothing to rotate and nothing to leak.
 
-     If the current version is a prerelease version, you’ll need to explicitly tell Lerna that the next version should no longer be a prerelease version with:
+Two consequences worth knowing:
 
-     ```
-     npx lerna version --conventional-graduate --no-push
-     ```
+- **Renaming `release.yml` breaks publishing.** npm matches on the workflow
+  filename. If you rename or move it, update the trusted publisher entry in the
+  package settings on npmjs.com first.
+- **Publishing from a laptop will fail**, by design. The package has
+  "Require two-factor authentication and disallow tokens" enabled, so token
+  authentication is rejected. Release through the pull request.
 
-   **Confirm changes**
+Because both the repository and the package are public, npm records
+[provenance](https://docs.npmjs.com/generating-provenance-statements)
+automatically. No flag is needed.
 
-   When Lerna asks “Are you sure you want to create these versions?”, carefully check if the versions listed are the ones you expect.
+#### Experimental releases from a pull request
 
-2. **Push git changes** with:
+To publish a throwaway version from an open pull request, for example so another
+project can test a fix before it is released, add the label
+`release-pr: next-drupal` to the pull request. The `release-pr` workflow
+publishes under the `experimental` dist-tag and comments the install command on
+the pull request.
 
-   ```
-   git push
-   git push --tags
-   ```
+This only works for branches in this repository, not forks.
 
-3. **Publish the release**
+#### If the release does not happen
 
-   Ensure you have authenticated with npmjs.com using `npm login`.
-
-   Then, while your local git working area is clean of changes and `HEAD` is pointing to the commit created in step 1, have Lerna build, prepare, package and publish your release.
-
-   For a new prerelease version, specify the `canary` dist-tag with:
-
-   ```
-   npx lerna publish --dist-tag canary from-git
-   ```
-
-   Otherwise, use:
-
-   ```
-   npx lerna publish from-git
-   ```
-
-   Maintainers will need permission to publish to `next-drupal` on npmjs.com. http://npmjs.com/package/next-drupal
-
-4. **Confirm the release**
-
-   Look at the “Current Tags” section of [next-drupal’s npmjs page](https://www.npmjs.com/package/next-drupal?activeTab=versions) and confirm that the newest release is listed and that the `latest` tag and the `canary` tag point at the expected versions.
-
-For more information, see Lerna’s [version docs](https://github.com/lerna/lerna/tree/main/libs/commands/version) and [publish docs](https://github.com/lerna/lerna/tree/main/libs/commands/publish).
+- **No release pull request appeared.** Nothing since the last release changed a
+  releasable file, or every commit was a type that does not trigger a release.
+  Check that the commit touched `packages/next-drupal`.
+- **The publish job failed.** Read the job log rather than guessing. If npm
+  rejects the credential, the likely cause is that `release.yml` was renamed, or
+  the trusted publisher entry on npmjs.com was deleted or recreated.
+- **The version is wrong.** The version comes from commit types. To force a
+  specific version, add a `Release-As: 2.2.0` footer to a commit on `main`.
 
 ### Examples
 

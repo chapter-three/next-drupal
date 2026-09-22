@@ -1,0 +1,76 @@
+name: release
+
+on:
+  push:
+    branches:
+      - main
+
+# Default to read-only. Each job widens only what it needs.
+permissions:
+  contents: read
+
+# Never let two releases run at once, and never cancel one partway.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  # Keeps a release pull request open with the version bump and changelog,
+  # built from the conventional commits since the last release. Merging that
+  # pull request is what triggers an actual release: this job then tags it and
+  # sets releases_created, which gates the publish job below.
+  release-please:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.repository == 'chapter-three/next-drupal'
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      releases_created: ${{ steps.release.outputs.releases_created }}
+    steps:
+      - name: Run release-please
+        id: release
+        uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  # Publishes to npm with trusted publishing. There is no npm token: the
+  # id-token permission lets the runner mint a short-lived OIDC credential
+  # that npm accepts only from this workflow in this repository. Because the
+  # repository and the package are both public, npm also records provenance
+  # automatically, so no --provenance flag is needed.
+  publish:
+    needs: release-please
+    if: needs.release-please.outputs.releases_created == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Init
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      # Trusted publishing needs npm 11.5.1 or later. Node 24 ships a new
+      # enough npm today, but pinning the floor here means a future runner
+      # image change cannot silently drop below it.
+      - name: Ensure npm supports trusted publishing
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      # `prepare` (tsup) runs as part of publish, so the tarball is built from
+      # this checkout rather than from whatever happens to be in dist/.
+      - name: Publish to npm
+        run: npm publish
+        working-directory: packages/next-drupal

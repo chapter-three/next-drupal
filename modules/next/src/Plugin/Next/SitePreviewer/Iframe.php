@@ -221,7 +221,6 @@ class Iframe extends ConfigurableSitePreviewerBase implements ContainerFactoryPl
         ]),
         'attributes' => [],
       ];
-      unset($build['toolbar']['links']['#links']['live_link']);
     }
 
     $build['iframe'] = [

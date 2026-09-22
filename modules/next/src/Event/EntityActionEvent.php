@@ -4,6 +4,7 @@ namespace Drupal\next\Event;
 
 use Drupal\Component\EventDispatcher\Event;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Url;
 
 /**
  * Defines an entity action event.
@@ -36,9 +37,9 @@ class EntityActionEvent extends Event implements EntityActionEventInterface {
   /**
    * The entity Url.
    *
-   * @var string|null
+   * @var \Drupal\Core\Url|null
    */
-  protected ?string $entityUrl;
+  protected ?Url $entityUrl;
 
   /**
    * EntityActionEvent constructor.
@@ -49,10 +50,10 @@ class EntityActionEvent extends Event implements EntityActionEventInterface {
    *   The action.
    * @param array $sites
    *   The sites for the entity.
-   * @param string|null $entity_url
+   * @param \Drupal\Core\Url|null $entity_url
    *   The entity url.
    */
-  public function __construct(EntityInterface $entity, string $action, array $sites, ?string $entity_url) {
+  public function __construct(EntityInterface $entity, string $action, array $sites, ?Url $entity_url) {
     $this->entity = $entity;
     $this->action = $action;
     $this->sites = $sites;
@@ -75,12 +76,7 @@ class EntityActionEvent extends Event implements EntityActionEventInterface {
     $next_entity_type_manager = \Drupal::service('next.entity_type.manager');
 
     $sites = $next_entity_type_manager->getSitesForEntity($entity);
-    try {
-      $url = $entity->hasLinkTemplate('canonical') ? $entity->toUrl()->toString(TRUE)->getGeneratedUrl() : NULL;
-    }
-    catch (\Exception $e) {
-      $url = NULL;
-    }
+    $url = $entity->hasLinkTemplate('canonical') ? $entity->toUrl() : NULL;
     return new static($entity, $action, $sites, $url);
   }
 
@@ -132,14 +128,14 @@ class EntityActionEvent extends Event implements EntityActionEventInterface {
   /**
    * {@inheritdoc}
    */
-  public function getEntityUrl(): ?string {
+  public function getEntityUrl(): ?Url {
     return $this->entityUrl;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setEntityUrl(string $url): EntityActionEventInterface {
+  public function setEntityUrl(Url $url): EntityActionEventInterface {
     $this->entityUrl = $url;
     return $this;
   }

@@ -73,7 +73,7 @@ class Path extends ConfigurableRevalidatorBase implements RevalidatorInterface {
 
     $paths = [];
     if (!empty($this->configuration['revalidate_page'])) {
-      $paths[] = $event->getEntityUrl();
+      $paths[] = $event->getEntityUrl()->toString(TRUE)->getGeneratedUrl();
     }
     if (!empty($this->configuration['additional_paths'])) {
       $paths = array_merge($paths, array_map('trim', explode("\n", $this->configuration['additional_paths'])));

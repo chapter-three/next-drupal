@@ -29,10 +29,24 @@ jobs:
     outputs:
       releases_created: ${{ steps.release.outputs.releases_created }}
     steps:
+      # The default GITHUB_TOKEN cannot open a pull request unless the
+      # repository allows Actions to create and approve them, and that setting
+      # is a single switch covering both. Granting approval to every workflow
+      # would undercut the review requirement on `main`, so this uses an app
+      # installation token scoped to this repository instead. It also means the
+      # release pull request triggers CI, which a GITHUB_TOKEN one would not.
+      - name: Mint app token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          app-id: ${{ secrets.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+
       - name: Run release-please
         id: release
         uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
         with:
+          token: ${{ steps.app-token.outputs.token }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
 
@@ -60,11 +74,17 @@ jobs:
         with:
           node-version: 24
 
-      # Trusted publishing needs npm 11.5.1 or later. Node 24 ships a new
-      # enough npm today, but pinning the floor here means a future runner
-      # image change cannot silently drop below it.
-      - name: Ensure npm supports trusted publishing
-        run: npm install -g npm@latest
+      # Trusted publishing needs npm 11.5.1 or later, which every current Node
+      # 24 release ships. This asserts it rather than installing a newer npm,
+      # so nothing unpinned is fetched into a job that can publish.
+      - name: Verify npm supports trusted publishing
+        run: |
+          version="$(npm --version)"
+          echo "npm $version"
+          if [ "$(printf '11.5.1\n%s\n' "$version" | sort -V | head -1)" != "11.5.1" ]; then
+            echo "::error::npm $version is older than the 11.5.1 that trusted publishing requires"
+            exit 1
+          fi
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile

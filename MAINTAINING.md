@@ -75,6 +75,20 @@ Merging the release pull request tags the release and publishes to npm.
 
 That is the whole process. There is no local step.
 
+#### Prereleases
+
+To cut a prerelease, add a `Release-As:` footer naming the exact version to a
+commit on `main`:
+
+```
+Release-As: 2.2.0-alpha.0
+```
+
+release-please then proposes that version instead of the one it calculated. The
+starters and the Docs sections below still refer to prereleases and to a
+`canary` branch; those steps are about their own git repositories and release
+notes, not about publishing this package.
+
 #### Publishing credentials
 
 Publishing uses [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/).
@@ -114,7 +128,7 @@ This only works for branches in this repository, not forks.
   rejects the credential, the likely cause is that `release.yml` was renamed, or
   the trusted publisher entry on npmjs.com was deleted or recreated.
 - **The version is wrong.** The version comes from commit types. To force a
-  specific version, add a `Release-As: 2.2.0` footer to a commit on `main`.
+  specific version, use the `Release-As:` footer described under "Prereleases".
 
 ### Examples
 

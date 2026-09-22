@@ -33,9 +33,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
-      # Trusted publishing needs npm 11.5.1 or later.
-      - name: Ensure npm supports trusted publishing
-        run: npm install -g npm@latest
+      # Trusted publishing needs npm 11.5.1 or later, which every current Node
+      # 24 release ships. This asserts it rather than installing a newer npm,
+      # so nothing unpinned is fetched into a job that can publish.
+      - name: Verify npm supports trusted publishing
+        run: |
+          version="$(npm --version)"
+          echo "npm $version"
+          if [ "$(printf '11.5.1\n%s\n' "$version" | sort -V | head -1)" != "11.5.1" ]; then
+            echo "::error::npm $version is older than the 11.5.1 that trusted publishing requires"
+            exit 1
+          fi
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Determine version

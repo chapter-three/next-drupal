@@ -27,7 +27,15 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    if: github.repository == 'chapter-three/next-drupal'
+    # The ref check is a security control, not a tidy-up. A manual run lets
+    # whoever starts it pick the branch, and both this file and the checked-out
+    # code would then come from that branch, while npm's trusted publisher
+    # matches on repository and workflow filename rather than on ref. Without
+    # this, anyone with write access could publish from a branch nobody
+    # reviewed. Releases come from `main` or they do not happen.
+    if: >-
+      github.repository == 'chapter-three/next-drupal' &&
+      github.ref == 'refs/heads/main'
     # No permissions block: both steps authenticate with the app token, so the
     # job's own GITHUB_TOKEN stays at the workflow default of contents: read.
     # The app's permissions are set on the app itself, not here.
@@ -63,7 +71,13 @@ jobs:
   # automatically, so no --provenance flag is needed.
   publish:
     needs: release-please
-    if: needs.release-please.outputs.releases_created == 'true'
+    # Skipping release-please already skips this job, since its output would be
+    # empty. The ref check is repeated anyway: this is the job that holds
+    # id-token and can publish, so it should not depend on another job's
+    # condition to stay on `main`.
+    if: >-
+      needs.release-please.outputs.releases_created == 'true' &&
+      github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:

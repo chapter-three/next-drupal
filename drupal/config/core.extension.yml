@@ -49,6 +49,7 @@ module:
   jsonapi: 0
   jsonapi_extras: 0
   jsonapi_menu_items: 0
+  jsonapi_hypermedia: 0
   jsonapi_resources: 0
   jsonapi_search_api: 0
   jsonapi_search_api_facets: 0

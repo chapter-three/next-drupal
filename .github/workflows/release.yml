@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+  # Manual trigger. A run that fails at startup (a workflow file the runner
+  # rejects, an action the repository does not allow) cannot be re-run, and
+  # `main` takes no direct pushes, so without this the only way to retry is
+  # to merge another pull request.
+  workflow_dispatch:
 
 # Default to read-only. Each job widens only what it needs.
 permissions:

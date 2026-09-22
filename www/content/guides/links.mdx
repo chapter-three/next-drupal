@@ -22,8 +22,7 @@ yarn add html-react-parser
 Update the component from [images](/docs/guides/inline-images) to handle inline links.
 
 ```tsx title=components/body.tsx
-import { HTMLReactParserOptions, domToReact } from "html-react-parser" // highlight-line
-import { Element } from "domhandler/lib/node"
+import { HTMLReactParserOptions, domToReact, Element } from "html-react-parser" // highlight-line
 import parse from "html-react-parser"
 import Image from "next/image"
 import Link from "next/link" // highlight-line

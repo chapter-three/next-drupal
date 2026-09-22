@@ -6,7 +6,7 @@ This document is for maintainers to explain the various procedures for all the p
 
 ### `next` (Drupal Module)
 
-While maintaining releases for packages, starters and examples is done with Lerna, releases for Drupal modules are controlled by drupal.org’s infrastructure, so these steps don’t involve Lerna.
+The `next-drupal` package is released automatically, and starters and examples are tagged by hand. Releases for Drupal modules are different again: they are controlled by drupal.org’s infrastructure, so none of that applies here.
 
 1. Optionally, create a new branch on drupal.org.
 
@@ -93,21 +93,54 @@ notes, not about publishing this package.
 
 Publishing uses [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/).
 The runner mints a short-lived OIDC credential that npm accepts only from
-`.github/workflows/release.yml` in this repository. There is no npm token stored
-anywhere, so there is nothing to rotate and nothing to leak.
+`.github/workflows/release.yml` in this repository. No npm token is stored, so
+there is nothing to rotate and nothing to leak.
 
 Two consequences worth knowing:
 
 - **Renaming `release.yml` breaks publishing.** npm matches on the workflow
   filename. If you rename or move it, update the trusted publisher entry in the
   package settings on npmjs.com first.
-- **Publishing from a laptop will fail**, by design. The package has
-  "Require two-factor authentication and disallow tokens" enabled, so token
-  authentication is rejected. Release through the pull request.
+- **Publishing from a laptop is not supported.** The package rejects token
+  authentication, so release through the pull request.
 
 Because both the repository and the package are public, npm records
 [provenance](https://docs.npmjs.com/generating-provenance-statements)
 automatically. No flag is needed.
+
+#### First-time setup
+
+Only needed when wiring this up from scratch, or when rebuilding it after the
+app or the npm settings are lost. Everything here is configured outside the
+repository, which is why none of it is visible in the codebase.
+
+On npmjs.com, under the package's Settings, add two trusted publisher entries
+for the `chapter-three/next-drupal` repository:
+
+| Workflow filename | Environment |
+| ----------------- | ----------- |
+| `release.yml`     | none        |
+| `release-pr.yml`  | `Preview`   |
+
+The environment field must match the workflow exactly, so `release.yml` is left
+blank and `release-pr.yml` is set to `Preview`. Also enable "Require two-factor
+authentication and disallow tokens" under Publishing access, which is what makes
+the workflows the only way to publish.
+
+On GitHub, create an app owned by the `chapter-three` organization and install
+it on this repository alone. It needs three repository permissions: **Contents**
+read and write, **Issues** read and write, and **Pull requests** read and write.
+Issues is not optional: release-please applies its `autorelease` labels through
+the issues API, so without it a release tags and then fails.
+
+Add the app's ID and private key as the repository secrets `RELEASE_APP_ID` and
+`RELEASE_APP_PRIVATE_KEY`. Add app managers so more than one person can
+administer it.
+
+Leave "Allow GitHub Actions to create and approve pull requests" disabled. The
+app exists so that this setting can stay off: it is a single switch that also
+grants approval, which would let automation satisfy the review requirement on
+`main`.
 
 #### Experimental releases from a pull request
 

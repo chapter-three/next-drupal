@@ -23,9 +23,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     if: github.repository == 'chapter-three/next-drupal'
-    permissions:
-      contents: write
-      pull-requests: write
+    # No permissions block: both steps authenticate with the app token, so the
+    # job's own GITHUB_TOKEN stays at the workflow default of contents: read.
+    # The app's permissions are set on the app itself, not here.
     outputs:
       releases_created: ${{ steps.release.outputs.releases_created }}
     steps:

@@ -33,8 +33,9 @@ jobs:
       # repository allows Actions to create and approve them, and that setting
       # is a single switch covering both. Granting approval to every workflow
       # would undercut the review requirement on `main`, so this uses an app
-      # installation token scoped to this repository instead. It also means the
-      # release pull request triggers CI, which a GITHUB_TOKEN one would not.
+      # installation token scoped to this repository instead. It also means CI
+      # runs on the release pull request without someone first releasing the
+      # held runs a GITHUB_TOKEN-authored pull request produces.
       - name: Mint app token
         id: app-token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0

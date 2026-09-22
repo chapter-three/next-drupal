@@ -1,0 +1,11 @@
+uuid: 9082be18-8b66-4bfa-8d54-e703ef2c7e2d
+langcode: en
+status: true
+dependencies: {}
+id: next_js_site
+label: "Next.js Site"
+weight: 4
+is_admin: false
+permissions:
+  - "execute graphql_schema arbitrary graphql requests"
+  - "execute graphql_schema persisted graphql requests"

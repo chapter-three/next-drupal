@@ -1,0 +1,31 @@
+name: local-next-drupal
+type: drupal
+docroot: drupal/web
+php_version: "8.3"
+webserver_type: nginx-fpm
+xdebug_enabled: false
+additional_hostnames:
+  - frontend
+additional_fqdns: []
+database:
+  type: mariadb
+  version: "10.11"
+use_dns_when_possible: true
+hooks:
+  post-start:
+    - exec: |
+        composer create drupal/recommended-project tmp
+        mv -n tmp/* drupal
+        rm -rf tmp
+        cd starters/${STARTER_NAME} && npm install && pm2 start "npm run dev --experimental-https"
+composer_version: "2"
+composer_root: drupal
+web_environment:
+  - STARTER_NAME=@STARTER_NAME
+corepack_enable: true
+web_extra_exposed_ports:
+  - name: frontend
+    container_port: 3000
+    http_port: 3080
+    https_port: 3433
+nodejs_version: "22"

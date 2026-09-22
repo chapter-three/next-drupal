@@ -19,6 +19,10 @@ jobs:
       contains(github.event.pull_request.labels.*.name, format('release-pr{0} next-drupal', ':')) &&
       github.event.pull_request.head.repo.full_name == github.event.pull_request.base.repo.full_name
     environment: Preview
+    permissions:
+      contents: read
+      pull-requests: write
+      id-token: write # Required for trusted publishing
     steps:
       - name: Init
         uses: actions/checkout@v4
@@ -28,8 +32,18 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
+          node-version: 24
+      # Trusted publishing needs npm 11.5.1 or later, which every current Node
+      # 24 release ships. This asserts it rather than installing a newer npm,
+      # so nothing unpinned is fetched into a job that can publish.
+      - name: Verify npm supports trusted publishing
+        run: |
+          version="$(npm --version)"
+          echo "npm $version"
+          if [ "$(printf '11.5.1\n%s\n' "$version" | sort -V | head -1)" != "11.5.1" ]; then
+            echo "::error::npm $version is older than the 11.5.1 that trusted publishing requires"
+            exit 1
+          fi
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Determine version
@@ -37,12 +51,12 @@ jobs:
         id: determine-version
         env:
           PR_NUMBER: ${{ github.event.number }}
+      # Publishes with an OIDC credential minted for this workflow. npm is
+      # configured to trust this filename, so renaming this file breaks
+      # publishing until the trusted publisher entry is updated to match.
       - name: Publish to npm
-        run: |
-          cd packages/next-drupal
-          yarn publish --no-git-checks --access public --tag experimental
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --tag experimental
+        working-directory: packages/next-drupal
       - name: Comment version on PR
         env:
           VERSION: ${{ steps.determine-version.outputs.version }}

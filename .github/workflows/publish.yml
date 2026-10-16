@@ -1,0 +1,54 @@
+name: publish
+
+# Publishes next-drupal to npm when a GitHub release is published.
+# The release's tag decides which commit is built; package.json at that
+# commit decides the version. A version with a prerelease part, such as
+# 2.2.0-canary.0, goes to the `canary` dist-tag, anything else to `latest`.
+#
+# The `release` environment holds each run until a reviewer approves it.
+# npm trusts this workflow by its filename and that environment, so renaming
+# either one stops publishing until the npm entry is updated.
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write # npm trusted publishing (no npm token needed)
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: release
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          # Trusted publishing needs npm 11.5.1 or later, which this Node ships.
+          node-version: 24.20.0
+      - name: Check the tag and pick the npm dist-tag
+        id: dist-tag
+        working-directory: packages/next-drupal
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          version="$(node -p 'require("./package.json").version')"
+          if [ "$TAG" != "next-drupal@$version" ]; then
+            echo "::error::Tag $TAG does not match package.json version $version"
+            exit 1
+          fi
+          case "$version" in
+            *-*) echo "tag=canary" >> "$GITHUB_OUTPUT" ;;
+            *) echo "tag=latest" >> "$GITHUB_OUTPUT" ;;
+          esac
+      # This job can request the npm publishing token, and the install covers
+      # every workspace's dependencies, so their install scripts are skipped.
+      # The package's build does not need them. This does not cover the build
+      # tools that `prepare` runs during publish.
+      - run: yarn install --frozen-lockfile --ignore-scripts
+      # `prepare` runs tsup, so the package is built from this checkout.
+      - run: npm publish --tag "${{ steps.dist-tag.outputs.tag }}"
+        working-directory: packages/next-drupal

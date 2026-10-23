@@ -6,7 +6,7 @@ This document is for maintainers to explain the various procedures for all the p
 
 ### `next` (Drupal Module)
 
-The `next-drupal` package is released automatically, and starters and examples are tagged by hand. Releases for Drupal modules are different again: they are controlled by drupal.org’s infrastructure, so none of that applies here.
+The `next-drupal` package is published from a GitHub release, and starters and examples are tagged by hand. Releases for Drupal modules are different again: they are controlled by drupal.org’s infrastructure, so none of that applies here.
 
 1. Optionally, create a new branch on drupal.org.
 
@@ -34,134 +34,65 @@ The `next-drupal` package is released automatically, and starters and examples a
 
 ### `next-drupal` (NPM package)
 
-Releases are automated. You do not run `npm publish` or `lerna publish`, and you
-do not need an npm token on your machine.
+Publishing a GitHub release publishes the package to npm. The
+[`publish` workflow](.github/workflows/publish.yml) builds the commit the release
+tag points at, and npm records
+[provenance](https://docs.npmjs.com/generating-provenance-statements) for it.
+Do not run `npm publish` from your machine; a laptop publish has no provenance.
 
-#### How it works
+1. **Bump the version.** In a normal pull request, change `version` in
+   `packages/next-drupal/package.json` and add an entry at the top of
+   `packages/next-drupal/CHANGELOG.md`. Merge it.
+2. **Create the release.** On GitHub, go to Releases → "Draft a new release".
+   Set the target to `main` and create a tag named `next-drupal@<version>`, for
+   example `next-drupal@2.1.0`. Click "Publish release".
+3. **Get it approved.** The `publish` workflow starts and waits for approval on
+   the `release` environment. Ask someone else in the `developers` team to
+   approve it. Before approving, the reviewer opens the run and checks its
+   commit:
+   - If the commit is on `main`, approve.
+   - If it is not, compare the branch with `main` and read the whole diff,
+     especially anything under `.github/` and the `scripts` in any
+     `package.json`. The run uses the workflow file from that commit, so a
+     branch can change what gets published and to which dist-tag, whatever
+     its version says. Approve only if you would approve that diff as a pull
+     request, and do not approve a branch whose changes you wrote.
+4. **Check npm.** Confirm the version on
+   [next-drupal's npm page](https://www.npmjs.com/package/next-drupal?activeTab=versions).
 
-[release-please](https://github.com/googleapis/release-please) reads the
-conventional commits merged to `main` and keeps a pull request open titled
-something like `chore(main): release next-drupal 2.1.0`. That pull request holds
-the version bump and the generated `CHANGELOG.md`. It updates itself as more
-commits land.
+The version decides the dist-tag. A version with a prerelease part, such as
+`2.2.0-canary.0`, goes to `canary`; anything else goes to `latest`. The workflow
+fails if the tag name does not match the version in `package.json`.
 
-The commit type decides the version:
+To test a branch, publish a canary from it: set a canary version on the branch,
+and in step 2 set the target to that branch and tick "Set as a pre-release", so
+GitHub does not show the canary as the latest release. The reviewer then reads
+the branch's diff, as in step 3. npm never reuses a version number, so each
+canary needs a new one (`2.2.0-canary.1`, and so on).
 
-- `feat` gives a minor bump (2.0.1 to 2.1.0).
-- `fix`, `perf` and similar give a patch bump (2.0.1 to 2.0.2).
-- A `BREAKING CHANGE:` footer gives a major bump (2.0.1 to 3.0.0). Add this only
-  when you mean it.
-- Other types (`chore`, `docs`, `ci`, `test`) do not trigger a release on their
-  own.
+If the workflow fails, read its log. For a temporary problem such as an npm
+outage, use "Re-run jobs". If the release itself was wrong, first reject its
+run if it is still waiting for approval, since deleting the release does not
+cancel it. Then fix the problem, delete the GitHub release and its tag, and
+create them again. If npm says the version already exists, that version is
+already on npm and cannot be published again. Bump to a new version and release
+again.
 
-Merging the release pull request tags the release and publishes to npm.
+#### Settings outside this repository
 
-#### Making a release
+Publishing uses [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/),
+so there is no npm token to store or rotate. Two settings outside this
+repository make it work:
 
-1. **Check the release pull request.** Confirm the version is what you expect
-   and the changelog reads well. Edit the changelog in the pull request if a
-   commit message produced an unhelpful entry.
+- **npm**: the package's Settings has one trusted publisher entry: repository
+  `chapter-three/next-drupal`, workflow `publish.yml`, environment `release`,
+  with "npm publish" among its allowed actions.
+- **GitHub**: the repository has an environment named `release`. Its deployment
+  rule allows tags matching `next-drupal@*`, and it requires a reviewer from the
+  `developers` team, with "Prevent self-review" on.
 
-2. **Merge it.** Squash and merge, like any other pull request. `main` requires
-   a review, and the release pull request is authored by a bot, so you can
-   approve it yourself.
-
-3. **Watch the `release` workflow.** Merging tags the release and runs the
-   publish job.
-
-4. **Confirm.** Check the "Current Tags" section of
-   [next-drupal's npm page](https://www.npmjs.com/package/next-drupal?activeTab=versions)
-   and confirm `latest` points at the new version.
-
-That is the whole process. There is no local step.
-
-#### Prereleases
-
-To cut a prerelease, add a `Release-As:` footer naming the exact version to a
-commit on `main`:
-
-```
-Release-As: 2.2.0-alpha.0
-```
-
-release-please then proposes that version instead of the one it calculated. The
-starters and the Docs sections below still refer to prereleases and to a
-`canary` branch; those steps are about their own git repositories and release
-notes, not about publishing this package.
-
-#### Publishing credentials
-
-Publishing uses [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/).
-The runner mints a short-lived OIDC credential that npm accepts only from
-`.github/workflows/release.yml` in this repository. No npm token is stored, so
-there is nothing to rotate and nothing to leak.
-
-Two consequences worth knowing:
-
-- **Renaming `release.yml` breaks publishing.** npm matches on the workflow
-  filename. If you rename or move it, update the trusted publisher entry in the
-  package settings on npmjs.com first.
-- **Publishing from a laptop is not supported.** The package rejects token
-  authentication, so release through the pull request.
-
-Because both the repository and the package are public, npm records
-[provenance](https://docs.npmjs.com/generating-provenance-statements)
-automatically. No flag is needed.
-
-#### First-time setup
-
-Only needed when wiring this up from scratch, or when rebuilding it after the
-app or the npm settings are lost. Everything here is configured outside the
-repository, which is why none of it is visible in the codebase.
-
-On npmjs.com, under the package's Settings, add two trusted publisher entries
-for the `chapter-three/next-drupal` repository:
-
-| Workflow filename | Environment |
-| ----------------- | ----------- |
-| `release.yml`     | none        |
-| `release-pr.yml`  | `Preview`   |
-
-The environment field must match the workflow exactly, so `release.yml` is left
-blank and `release-pr.yml` is set to `Preview`. Also enable "Require two-factor
-authentication and disallow tokens" under Publishing access, which is what makes
-the workflows the only way to publish.
-
-On GitHub, create an app owned by the `chapter-three` organization and install
-it on this repository alone. It needs three repository permissions: **Contents**
-read and write, **Issues** read and write, and **Pull requests** read and write.
-Issues is not optional: release-please applies its `autorelease` labels through
-the issues API, so without it a release tags and then fails.
-
-Add the app's ID and private key as the repository secrets `RELEASE_APP_ID` and
-`RELEASE_APP_PRIVATE_KEY`. Add app managers so more than one person can
-administer it.
-
-Leave "Allow GitHub Actions to create and approve pull requests" disabled. The
-app exists so that this setting can stay off: it is a single switch that also
-grants approval, which would let automation satisfy the review requirement on
-`main`.
-
-#### Experimental releases from a pull request
-
-To publish a throwaway version from an open pull request, for example so another
-project can test a fix before it is released, add the label
-`release-pr: next-drupal` to the pull request. The `release-pr` workflow
-publishes under the `experimental` dist-tag and comments the install command on
-the pull request.
-
-This only works for branches in this repository, not forks.
-
-#### If the release does not happen
-
-- **No release pull request appeared.** Nothing since the last release changed a
-  releasable file, or every commit was a type that does not trigger a release.
-  Check that the commit touched `packages/next-drupal`.
-- **The publish job failed.** Read the job log rather than guessing. If npm
-  rejects the credential, the likely cause is that `release.yml` was renamed, or
-  the trusted publisher entry on npmjs.com was deleted or recreated.
-- **The version is wrong.** The version comes from commit types. To force a
-  specific version, use the `Release-As:` footer described under "Prereleases".
+npm matches on the workflow filename and the environment name. If you rename
+either one, update the npm entry to match.
 
 ### Examples
 
